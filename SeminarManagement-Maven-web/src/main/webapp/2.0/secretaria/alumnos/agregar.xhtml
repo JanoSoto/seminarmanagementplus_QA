@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template2.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    
+    <ui:define name="metadata">
+        #{accordionPanelMB.setIndex("1")}
+    </ui:define>
+    
+    <ui:define name="title"><title>Agregar Alumno | Seminar Management</title></ui:define>
+
+    <ui:define name="content">
+        
+        <p:layoutUnit position="west" size="180" style="border: none;">
+            <p:panel style="border:none;">
+                <h:panelGrid columns="1" cellpadding="4">
+                    <form method="GET" action="/SeminarManagement-Maven-web/2.0/secretaria/alumnos/buscar.xhtml">
+                        <input type="text" placeholder="Búsqueda" value="#{buscarMB.query}" name="q"/>
+                        <button type="submit" value="search">Buscar Alumno</button>
+                    </form>
+                </h:panelGrid>
+            </p:panel>
+        </p:layoutUnit>
+        
+        <p:layoutUnit position="center" style="border:none;">
+            <h:form style="font-weight: bold;">
+                <p:panel style="border:none;">
+                    <h1>Agregar Alumno</h1>
+                    <p:growl id="growl" showDetail="true" sticky="true"/>
+                    <h:panelGrid columns="6" cellpadding="4">
+
+                        <p:outputLabel for="rut" value="Rut"/>
+                        <p:inputText id="rut" required="true" value="#{alumnoMB.rutAlumno}">
+                            <f:validator validatorId="rutValidator"/>
+                        </p:inputText>
+                        <p:watermark for="rut" value="Ingresar Rut"/>
+
+                        <p:outputLabel for="nombre" value="Nombre/s"/>
+                        <p:inputText id="nombre" required="true" value="#{alumnoMB.nombreAlumno}"/>
+                        <p:watermark for="nombre" value="Ingresar Nombre"/>
+
+                        <p:outputLabel for="apellido" value="Apellido/s"/>
+                        <p:inputText id="apellido" required="true" value="#{alumnoMB.apellidoAlumno}"/>
+                        <p:watermark for="apellido" value="Ingresar Apellido"/>
+
+                        <p:outputLabel for="mail" value="E-Mail"/>
+                        <p:inputText id="mail" value="#{alumnoMB.mailAlumno}">
+                            <f:validator validatorId="emailValidator"/>
+                        </p:inputText>
+                        <p:watermark for="mail" value="Ingresar E-Mail"/>
+
+                        <p:outputLabel for="celular" value="Celular"/>
+                        <p:inputText id="celular" value="#{alumnoMB.celularAlumno}">
+                            <f:validator validatorId="celularValidator" />
+                        </p:inputText>
+                        <p:watermark for="celular" value="Ingresar Celular"/>
+
+                        <p:outputLabel for="direccion" value="Dirección"/>
+                        <p:inputText id="direccion" value="#{alumnoMB.direccionAlumno}"/>
+                        <p:watermark for="direccion" value="Ingresar Dirección"/>
+
+                        <p:outputLabel for="carrera" value="Carrera"/>
+                        <p:selectOneMenu id="carrera" required="true" value="#{alumnoMB.carreraAlumno}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue="" />
+                            <f:selectItem itemLabel="Civil Informática" itemValue="0"/>
+                            <f:selectItem itemLabel="Ejecución Informática" itemValue="1"/>
+                        </p:selectOneMenu>
+                        <br/>
+
+                        <p:outputLabel for="pet" value="PET"/>
+                        <p:selectOneMenu id="pet" required="true" value="#{alumnoMB.pet}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue=""/>
+                            <f:selectItem itemLabel="No es PET" itemValue="0"/>
+                            <f:selectItem itemLabel="Es PET" itemValue="1"/>
+                        </p:selectOneMenu>
+                        <br/>
+
+                        <p:outputLabel for="magister" value="¿Magíster?"/>
+                        <p:selectOneMenu id="magister" disabled="true">
+                            <f:selectItem itemLabel="Seleccionar" itemValue=""/>
+                            <f:selectItem itemLabel="Sí" itemValue="0"/>
+                            <f:selectItem itemLabel="No" itemValue="1"/>
+                        </p:selectOneMenu>
+                        <br/>
+
+                        <p:outputLabel for="jornada" value="Jornada" />
+                        <p:selectOneMenu id="jornada" required="true" value="#{alumnoMB.jornadaAlumno}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue="" />
+                            <f:selectItem itemLabel="Diurno" itemValue="0" />
+                            <f:selectItem itemLabel="Vespertino" itemValue="1" />
+                        </p:selectOneMenu>
+                        <br/>
+
+                    </h:panelGrid>
+
+                    <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="./index.xhtml" value="Volver a Alumnos"/>
+                    <p:commandButton id="bt1" value="Ingresar" actionListener="#{alumnoMB.addStudent()}" update="growl @form"/>
+                    <p:defaultCommand target="bt1" />
+                </p:panel>
+            </h:form>
+        </p:layoutUnit>
+        
+    </ui:define>
+
+</ui:composition>

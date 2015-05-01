@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templatedescripciones.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    
+    <ui:define name="metadata">
+        #{accordionPanelMB.setIndex("1")}
+        #{accordionPanelMB.setRevisora("seleccion")}
+    </ui:define>
+    
+    <ui:define name="title"><title>Agregar Comisión Revisora | Seminar Management</title></ui:define>
+    
+    <ui:define name="up">
+        <h1>Agregar Comisión Revisora por Seminario de Titulación</h1>
+    </ui:define>
+    
+    <ui:define name="left">
+        <h:form style="font-weight: bold;">
+            <p:panel style="border:none;">
+                <p:growl id="growl" showDetail="true" sticky="true" />
+                #{comisionRevisoraMB.setTipoRevisionSeminario()}
+                <h:panelGrid columns="3" cellpadding="4">
+                    
+                    <p:outputLabel for="alumnoR" value="Alumno" />
+                    <p:selectOneMenu id="alumnoR" value="#{comisionRevisoraMB.rutAlumno}" filter="true" filterMatchMode="contains">
+                        <f:selectItem itemLabel="Seleccionar Alumno" itemValue="" />
+                        <f:selectItems value="#{comisionRevisoraMB.alumnos}" var="alumno" itemLabel="#{alumno.rutAlumno} - #{alumno.nombreAlumno} #{alumno.apellidoAlumno}" itemValue="#{alumno.rutAlumno}"/>  
+                    </p:selectOneMenu>
+                    <p:commandButton id="btn2" value="Seleccionar Alumno" action="#{comisionRevisoraMB.updateByAlumno()}" update="@form"/>
+                    
+                    <p:outputLabel for="comRev" value="Nombre Propuesta *" />
+                    <p:selectOneMenu id="comRev" value="#{comisionRevisoraMB.idProp}">
+                        <f:selectItem itemLabel="Seleccionar Propuesta" itemValue="-1"/>
+                        <f:selectItems value="#{comisionRevisoraMB.propuestas}" var="props" itemLabel="#{props.nombrePropuesta}" itemValue="#{props.idPropuesta}"/>
+                    </p:selectOneMenu>
+                    <p:commandButton id="btn3" value="Seleccionar Propuesta" action="#{comisionRevisoraMB.updateByPropuesta()}" update="@form"/>
+                    
+                    <p:outputLabel for="profeGP" value="Profesor Guía" />
+                    <h:outputText style="color: #0052cc;" id="profeGP" value="#{comisionRevisoraMB.profGuia.nombreProfesor} #{comisionRevisoraMB.profGuia.apellidoProfesor}"/>
+                    <br/>
+                    
+                    <p:outputLabel for="fechaRev" value="Fecha Propuesta" />
+                    <h:outputText style="color: #0052cc;" id="fechaRev" value="#{comisionRevisoraMB.fechaProp}"/>
+                    <br/>
+                    
+                    <p:outputLabel for="semRev" value="Semestre Propuesta" />
+                    <h:outputText style="color: #0052cc;" id="semRev" value="#{comisionRevisoraMB.semestreProp}"/>
+                    <br/>
+                    
+                    <p:outputLabel for="profeR1P" value="Profesor Revisor 1 *"/>
+                    <p:selectOneMenu id="profeR1P" value="#{comisionRevisoraMB.rutProfeRev1}" filter="true" filterMatchMode="contains">
+                        <f:selectItem itemLabel="Seleccionar Profesor" itemValue="-"/>
+                        <f:selectItems value="#{comisionRevisoraMB.profesores}" var="profesor" itemLabel="#{profesor.rutProfesor} - #{profesor.nombreProfesor} #{profesor.apellidoProfesor} (#{profesor.revSem})" itemValue="#{profesor.rutProfesor}"/>  
+                    </p:selectOneMenu>
+                    <br/>
+                    
+                    <p:outputLabel for="profeR2P" value="Profesor Revisor 2 *" />
+                    <p:selectOneMenu id="profeR2P" value="#{comisionRevisoraMB.rutProfeRev2}" filter="true" filterMatchMode="contains">
+                        <f:selectItem itemLabel="Seleccionar Profesor" itemValue="-"/>
+                        <f:selectItems value="#{comisionRevisoraMB.profesores}" var="profesor" itemLabel="#{profesor.rutProfesor} - #{profesor.nombreProfesor} #{profesor.apellidoProfesor} (#{profesor.revSem})" itemValue="#{profesor.rutProfesor}"/>
+                    </p:selectOneMenu>
+                    <br/>
+                    
+                    <p:outputLabel for="calendP" value="Fecha Revisión *" />
+                    <p:calendar id="calendP" value="#{comisionRevisoraMB.date}" mode="popup"/>
+                    <p:watermark for="calendP" value="Seleccionar Fecha"/>
+                    
+                    <p:outputLabel for="semestreP" value="Semestre Revisión *"  />
+                    <p:inputMask id="semestreP" value="#{comisionRevisoraMB.semestreRev}" mask="9/9999"/>
+                    <p:watermark for="semestreP" value="Ingresar Semestre"/>
+                    
+                    
+                    <h:inputHidden value="#{comisionRevisoraMB.tipoRevision}" />
+                    
+                </h:panelGrid>
+                
+                <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Atrás"/>
+                <p:commandButton id="bt1" value="Ingresar" actionListener="#{comisionRevisoraMB.addComisionRevisora()}" update="growl"/>
+                <p:defaultCommand target="bt1" />
+            </p:panel>
+        </h:form>
+    </ui:define>
+    
+    <ui:define name="right">
+        <button class="navDefault" disabled="true">Seleccionar tipo de<br/>Comisión Revisora</button>
+        <p:button style="background: #FFFFFF;border: none;" disabled="true" icon="ui-icon-seek-next"/>
+        <button class="navActive" disabled="true">Ingresar<br/>Comision Revisora</button>
+        
+        <p class="descripcion">
+            Los campos con asterisco (*) son obligatorios.
+            <br/><br/>
+            Al seleccionar Profesor Revisor, junto a su nombre, aparece un número entre parentesis. El significado
+            de este número se explica a continuación.
+            <br/><br/>
+            Aparece sólo un número con el siguiente formato: <b>(X)</b>.<br/>Donde:
+            <br/>
+            <b>X</b> es la cantidad de Comisiones Revisoras por <u>Seminario de Titulación</u>
+            en las que el Profesor ha sido <u>revisor en el semestre actual</u>.
+        </p>
+    </ui:define>
+
+</ui:composition>

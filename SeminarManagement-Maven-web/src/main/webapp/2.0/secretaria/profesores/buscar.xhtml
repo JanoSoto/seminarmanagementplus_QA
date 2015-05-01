@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template2.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    
+    <ui:define name="metadata">
+        #{accordionPanelMB.setIndex("0")}
+        <f:metadata>
+            <f:viewParam name="q" value="#{buscarMB.query}"/>
+        </f:metadata>
+    </ui:define>
+    
+    <ui:define name="title"><title>Buscar Profesor | Seminar Management</title></ui:define>
+
+    <ui:define name="content">
+        
+        <p:layoutUnit position="west" size="180" style="border: none;">
+            <p:panel style="border:none;">
+                <h:panelGrid columns="1" cellpadding="4">
+                    <form method="GET" action="/SeminarManagement-Maven-web/2.0/secretaria/profesores/buscar.xhtml">
+                        <input type="text" placeholder="Búsqueda" value="#{buscarMB.query}" name="q"/>
+                        <button type="submit" value="search">Buscar Profesor</button>
+                    </form>
+                    <p:button href="/2.0/secretaria/profesores/agregar.xhtml" value="Agregar Profesor"/>
+                </h:panelGrid>
+            </p:panel>
+        </p:layoutUnit>
+        
+        <p:layoutUnit position="center" style="border:none;">
+            <c:if test="#{not empty param.q}">
+                #{buscarMB.buscarProfesor()}
+            </c:if>
+            
+            <p:dataTable id="profTable" var="prof" value="#{buscarMB.profesores}" emptyMessage="No se encontraron Profesores que coincidan con &quot;#{buscarMB.query}&quot;" style="width: 1px;">
+                <p:column headerText="Nombre">
+                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/profesores/profesor.xhtml?prof=#{prof.rutProfesor}">
+                        <h:outputText value="#{prof.nombreProfesor} #{prof.apellidoProfesor}" />
+                    </a>
+                </p:column>
+                <p:column headerText="Rut">
+                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/profesores/profesor.xhtml?prof=#{prof.rutProfesor}">
+                        <h:outputText value="#{prof.rutProfesor}" />
+                    </a>
+                </p:column>
+            </p:dataTable>
+        </p:layoutUnit>
+    </ui:define>
+
+</ui:composition>

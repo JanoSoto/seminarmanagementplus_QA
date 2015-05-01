@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template2.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    
+    <ui:define name="metadata">
+        #{accordionPanelMB.setIndex("1")}
+        <f:metadata>
+            <f:viewParam name="q" value="#{buscarMB.query}"/>
+        </f:metadata>
+    </ui:define>
+    
+    <ui:define name="title"><title>Buscar Alumno | Seminar Management</title></ui:define>
+
+    <ui:define name="content">
+        
+        <p:layoutUnit position="west" size="180" style="border: none;">
+            <p:panel style="border:none;">
+                <h:panelGrid columns="1" cellpadding="4">
+                    <form method="GET" action="/SeminarManagement-Maven-web/2.0/secretaria/alumnos/buscar.xhtml">
+                        <input type="text" placeholder="Búsqueda" value="#{buscarMB.query}" name="q"/>
+                        <button type="submit" value="search">Buscar Alumno</button>
+                    </form>
+                    <p:button href="/2.0/secretaria/alumnos/agregar.xhtml" value="Agregar Alumno"/>
+                </h:panelGrid>
+            </p:panel>
+        </p:layoutUnit>
+        
+        <p:layoutUnit position="center" style="border:none;">
+            <c:if test="#{not empty param.q}">
+                #{buscarMB.buscarAlumno()}
+            </c:if>
+
+            <p:dataTable id="alumTable" var="alum" value="#{buscarMB.alumnos}" emptyMessage="No se encontraron Alumnos que coincidan con &quot;#{buscarMB.query}&quot;" style="width: 1px;">
+                <p:column headerText="Nombre" width="220">
+                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/alumnos/alumno.xhtml?alum=#{alum.rutAlumno}">
+                        <h:outputText value="#{alum.nombreAlumno} #{alum.apellidoAlumno}" />
+                    </a>
+                </p:column>
+                <p:column headerText="Rut">
+                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/secretaria/alumnos/alumno.xhtml?alum=#{alum.rutAlumno}">
+                        <h:outputText value="#{alum.rutAlumno}" />
+                    </a>
+                </p:column>
+                <p:column headerText="Jornada">
+                    <h:outputText rendered="#{alum.jornada eq 0}" value="Diurno"/>
+                    <h:outputText rendered="#{alum.jornada eq 1}" value="Vespertino"/>
+                </p:column>
+            </p:dataTable>
+        </p:layoutUnit>
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,45 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templatedescripciones.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    
+    <ui:define name="metadata">
+        #{accordionPanelMB.setIndex("4")}
+        #{accordionPanelMB.setReglamento("seleccion")}
+    </ui:define>
+    
+    <ui:define name="title"><title>Reglamentos | Seminar Management</title></ui:define>
+    
+    <ui:define name="up">
+        <h1>Reglamentos</h1>
+    </ui:define>
+    
+    <ui:define name="left">
+        <h:form style="font-weight: bold;">
+            <p:panel style="border:none;">
+                <h:panelGrid columns="1" cellpadding="4">
+                    <p:button icon="ui-icon-document" href="http://www.informatica.usach.cl/files/Reglamento%20Titulacion%20v.%201.3.doc" value="Reglamento de Titulación para las carreras de Pregrado"/>
+                    <p:button icon="ui-icon-document" href="http://www.informatica.usach.cl/multimedia/Reglamento-de-Graduaci%c3%b3n.doc" value="Reglamento de graduación Magíster en Ingeniería Informática"/>
+                    <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="/index.xhtml" value="Atrás"/>
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+    </ui:define>
+    
+    <ui:define name="right">
+        <button class="navActive" disabled="true">Reglamentos</button>
+        
+        <p class="descripcion">
+            Reglamentos del Departamento de Ingenieria Informática.
+            <br/><br/>
+            Tienen como objetivo establecer los requisitos, obligaciones y procedimientos a los que
+            deben ceñirse tanto los alumnos como el personal académico que participe en el proceso de
+            titulación de los estudiantes de las carreras impartidas por el Departamento.
+        </p>
+    </ui:define>
+
+</ui:composition>

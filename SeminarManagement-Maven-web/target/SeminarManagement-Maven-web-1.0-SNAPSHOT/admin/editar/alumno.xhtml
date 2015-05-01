@@ -1,0 +1,80 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    
+    <ui:define name="metadata">
+        #{accordionPanelMB.setIndex("3")}
+        #{accordionPanelMB.setListAlum("seleccion")}
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{alumnoViewMB.handleErrorView()}" />
+        </f:metadata>
+    </ui:define>
+    
+    <ui:define name="title"><title> Editar Datos Alumno | Seminar Management</title></ui:define>
+
+    <ui:define name="content">
+        <h1>Editar Datos Alumno</h1>
+        <h:form style="font-weight: bold;">
+             <p:panel style="border:none;">
+                <p:growl id="growl" showDetail="true" sticky="true"/>
+                <h:panelGrid columns="3" cellpadding="4">
+                    <h:outputLabel value="Rut: "/>
+                    <h:outputText value="#{alumnoViewMB.alumnoSelected.rutAlumno}" id="alumSelectedRut"/>
+                    <br/>
+
+                    <p:outputLabel for="nombre" value="Nombre/s"/>
+                    <p:inputText id="nombre" required="true" value="#{alumnoViewMB.alumnoEdit.nombreAlumno}"/>
+                    <p:watermark for="nombre" value="Editar Nombre"/>
+                    
+                    <p:outputLabel for="apellido" value="Apellido/s"/>
+                    <p:inputText id="apellido" required="true" value="#{alumnoViewMB.alumnoEdit.apellidoAlumno}"/>
+                    <p:watermark for="apellido" value="Editar Apellido"/>
+                    
+                    <p:outputLabel for="mail" value="E-Mail"/>
+                    <p:inputText id="mail" value="#{alumnoViewMB.alumnoEdit.mailAlumno}">
+                        <f:validator validatorId="emailValidator"/>
+                    </p:inputText>
+                    <p:watermark for="mail" value="Editar E-Mail"/>
+  
+                    <p:outputLabel for="celular" value="Teléfono"/>
+                    <p:inputText id="celular" value="#{alumnoViewMB.alumnoEdit.telefonoAlumno}">
+                        <f:validator validatorId="celularValidator" />
+                    </p:inputText>
+                    <p:watermark for="celular" value="Editar Celular"/>
+                    
+                    <p:outputLabel for="carrera" value="Carrera"/>
+                    <p:selectOneMenu id="carrera" required="true" value="#{alumnoViewMB.alumnoEdit.carreraAlumno}">
+                        <f:selectItem itemLabel="Seleccionar" itemValue="" />
+                        <f:selectItem itemLabel="Civil Informática" itemValue="0"/>
+                        <f:selectItem itemLabel="Ejecución Informática" itemValue="1"/>
+                    </p:selectOneMenu>
+                    <br/>
+   
+                    <p:outputLabel for="pet" value="PET"/>
+                    <p:selectOneMenu id="pet" required="true" value="#{alumnoViewMB.alumnoEdit.petAlumno}">
+                        <f:selectItem itemLabel="Seleccionar" itemValue=""/>
+                        <f:selectItem itemLabel="No es PET" itemValue="0"/>
+                        <f:selectItem itemLabel="Es PET" itemValue="1"/>
+                    </p:selectOneMenu>
+                    <br/>
+   
+                    <p:outputLabel for="jornada" value="Jornada" />
+                    <p:selectOneMenu id="jornada" required="true" value="#{alumnoViewMB.alumnoEdit.jornadaAlumno}">
+                        <f:selectItem itemLabel="Seleccionar" itemValue="" />
+                        <f:selectItem itemLabel="Diurno" itemValue="0" />
+                        <f:selectItem itemLabel="Vespertino" itemValue="1" />
+                    </p:selectOneMenu>
+                    <br/><br/>
+                    
+                    <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="../listar/alumnos.xhtml" value="Atrás"/>
+                    <p:commandButton value="Editar" actionListener="#{alumnoViewMB.editAlumno()}" update="growl"/>
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>

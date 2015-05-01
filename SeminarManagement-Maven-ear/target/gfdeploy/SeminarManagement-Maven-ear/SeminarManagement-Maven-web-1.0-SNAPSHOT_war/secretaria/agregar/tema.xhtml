@@ -1,0 +1,101 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templatedescripciones.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    
+    <ui:define name="metadata">
+        #{accordionPanelMB.setIndex("1")}
+        #{accordionPanelMB.setTema("seleccion")}
+    </ui:define>
+    
+    <ui:define name="title"><title>Agregar Tema | Seminar Management</title></ui:define>
+    
+    <ui:define name="up">
+        <h1>Agregar Tema de Comisión Revisora</h1>
+    </ui:define>
+    
+    <ui:define name="left">
+         <h:form style="font-weight: bold;">
+            <p:panel style="border:none;">
+                <p:growl id="growl" showDetail="true" sticky="true" />
+                <h:panelGrid columns="3" cellpadding="4">
+                    
+                    <p:outputLabel for="alumnoR" value="Alumno" />
+                    <p:selectOneMenu id="alumnoR" value="#{temaOficialMB.rutAlumno}" filter="true" filterMatchMode="contains">
+                        <f:selectItem itemLabel="Seleccionar Alumno" itemValue="" />
+                        <f:selectItems value="#{temaOficialMB.alumnos}" var="alumno" itemLabel="#{alumno.rutAlumno} - #{alumno.nombreAlumno}  #{alumno.apellidoAlumno}" itemValue="#{alumno.rutAlumno}"/>  
+                    </p:selectOneMenu>
+                    <p:commandButton id="btn2" value="Seleccionar Alumno" action="#{temaOficialMB.updateByAlumno()}" update="@form"/>
+                    
+                    <p:outputLabel for="comRev" value="Nombre Propuesta *" />
+                    <p:selectOneMenu id="comRev" value="#{temaOficialMB.idRev}">
+                        <f:selectItem itemLabel="Seleccionar Propuesta" itemValue="-1"/>
+                        <f:selectItems value="#{temaOficialMB.comisionesRev}" var="comisiones" itemLabel="#{comisiones.idPropuesta.nombrePropuesta}" itemValue="#{comisiones.idRevisora}"/>
+                    </p:selectOneMenu>
+                    <p:commandButton id="btn3" value="Seleccionar Propuesta" action="#{temaOficialMB.updateByPropuesta()}" update="@form"/>
+                    
+                    <p:outputLabel for="profeGP" value="Profesor Guía" />
+                    <h:outputText style="color: #0052cc;" id="profeGP" rendered="#{!empty temaOficialMB.profGuiaTem}" value="#{temaOficialMB.profGuia.nombreProfesor} #{temaOficialMB.profGuia.apellidoProfesor} (#{temaOficialMB.profGuiaTem};#{temaOficialMB.profGuiaRev})"/>
+                    <h:outputText rendered="#{empty temaOficialMB.profGuiaTem}" value=""/>
+                    <br/>
+                    
+                    <p:outputLabel for="fechaRev" value="Fecha Revisión" />
+                    <h:outputText style="color: #0052cc;" id="fechaRev" value="#{temaOficialMB.fechaRev}"/>
+                    <br/>
+                    
+                    <p:outputLabel for="semRev" value="Semestre Revisión" />
+                    <h:outputText style="color: #0052cc;" id="semRev" value="#{temaOficialMB.semestreRev}"/>
+                    <br/>
+                    
+                    <p:outputLabel for="nombreP" value="Nombre Tema *"/>
+                    <p:inputTextarea id="nombreP" value="#{temaOficialMB.nombreTema}" cols="42" maxlength="200"/>
+                    <p:watermark for="nombreP" value="Ingresar Nombre"/>
+                    
+                    <p:outputLabel for="calendP" value="Fecha Tema *" />
+                    <p:calendar id="calendP" value="#{temaOficialMB.date}" mode="popup"/>
+                    <p:watermark for="calendP" value="Seleccionar Fecha"/>
+                    
+                    <p:outputLabel for="semestreP" value="Semestre Tema*"  />
+                    <p:inputMask id="semestreP" value="#{temaOficialMB.semestreTema}" mask="9/9999"/>
+                    <p:watermark for="semestreP" value="Ingresar Semestre"/>
+                    
+                </h:panelGrid>
+                
+                <h:outputText value="#{comisionRevisoraMB.nombrePropuesta}"/>
+                <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="/index.xhtml" value="Atrás"/>
+                <p:commandButton id="bt1" value="Ingresar" actionListener="#{temaOficialMB.addTema}" update="growl"/>
+                <p:defaultCommand target="bt1" />
+            </p:panel>
+        </h:form>
+    </ui:define>
+    
+    <ui:define name="right">
+        <button class="navActive" disabled="true">Ingresar<br/>Tema de Titulación</button>
+        
+        <p class="descripcion">
+            Los campos con asterisco (*) son obligatorios.
+            <br/><br/>
+            Para ingresar un Tema de Titulación se debe seleccionar una Propuesta.
+            <br/><br/>
+            <b>Seleccionar Alumno:</b>
+            Al seleccionar un alumno y presionar el botón "Seleccionar Alumno" se actualizará la lista de
+            Propuestas y sólo se mostrarán las <u>propuestas del alumno seleccionado</u>.
+            <br/><br/>
+            <b>Seleccionar Propuesta:</b>
+            Al seleccionar una propuesta y presionar el botón "Seleccionar Propuesta" se actualizarán los datos
+            Profesor Guía, Fecha Revisión y Semestre Revisión, de acuerdo a la información de la
+            propuesta seleccionada.
+            <br/><br/>
+            <b>Profesor Guía:</b>
+            Aparecen dos números con el siguiente formato: <b>(X;Y)</b>.<br/>Donde:
+            <br/>
+            <b>X</b> es la cantidad de <u>Temas vigentes</u> guiados por el profesor.
+            <br/>
+            <b>Y</b> es la cantidad de Propuestas que el Profesor ha <u>guiado en el semestre actual.</u>
+        </p>
+    </ui:define>
+</ui:composition>

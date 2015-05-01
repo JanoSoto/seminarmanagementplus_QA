@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    
+    <ui:define name="metadata">
+        #{accordionPanelMB.setIndex("3")}
+        #{accordionPanelMB.setListAlum("seleccion")}
+    </ui:define>
+    
+    <ui:define name="title"><title>Lista de Alumnos | Seminar Management</title></ui:define>
+
+    <ui:define name="content">
+        
+        <h1>Alumnos</h1>
+        <br/>
+        <f:event type="preRenderView" listener="#{listarAlumnosMB.updateAlumnos()}" />
+        <h:form>
+            <!-- Le saqué el filteredValue="#{listarAlumnosMB.alumnosFiltrados}" pk no se actualiza la lista al volver :(-->
+            <p:dataTable id="alumTable" var="alum" value="#{listarAlumnosMB.alumnos}" filteredValue="#{listarAlumnosMB.alumnosFiltrados}" filterDelay="100" paginator="true"
+                         rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+                         {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,30,40,50"
+                         emptyMessage="No se encontraron alumnos con el filtro seleccionado">
+                <p:column headerText="Nombre" filterMatchMode="contains" filterBy="#{alum.nombreAlumno}" sortBy="#{alum.nombreAlumno}"> 
+                    <h:outputText value="#{alum.nombreAlumno}" />
+                </p:column>
+                
+                <p:column headerText="Rut" filterMatchMode="contains" filterBy="#{alum.rutAlumno}" sortBy="#{alum.rutAlumno}">
+                    <h:outputText value="#{alum.rutAlumno}" />
+                </p:column>
+                
+                <p:column headerText="Tema" filterMatchMode="contains" filterBy="#{alum.nombreTema}" sortBy="#{alum.nombreTema}">
+                    <h:outputText value="#{alum.nombreTema}" />
+                </p:column>
+                
+                <p:column headerText="Profesor Guía" filterMatchMode="contains" filterBy="#{alum.profesorGuia}" sortBy="#{alum.profesorGuia}">
+                    <h:outputText value="#{alum.profesorGuia}" />
+                </p:column>
+                
+                <p:column style="width:4%;text-align: center">                  
+                    <p:button icon="ui-icon-search" title="Ver Datos Alumno" iconPos="right" href="../ver/alumno.xhtml?alum=#{alum.rutAlumno}"/>
+                </p:column>        
+            </p:dataTable>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

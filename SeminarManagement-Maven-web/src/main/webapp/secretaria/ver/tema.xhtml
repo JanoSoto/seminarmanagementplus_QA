@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    
+    <ui:define name="metadata">
+        #{accordionPanelMB.setIndex("3")}
+        #{accordionPanelMB.setListTem("seleccion")}
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{temaViewMB.viewSelectTema()}" />
+        </f:metadata>
+    </ui:define>
+    
+    
+    <ui:define name="title"><title> Datos Tema | Seminar Management</title></ui:define>
+
+    <ui:define name="content">
+        <h1>Datos Tema</h1>
+        <h:form style="font-weight: bold;">
+             <p:panel style="border:none;">
+                <h:panelGrid columns="3" cellpadding="4">
+                    <h:outputLabel value="Nombre: "/>
+                    <h:outputText value="#{temaViewMB.temaSelected.nombreTema}" id="temaNombre"/>
+                    <br/>
+
+                    <h:outputLabel value="Estado: "/>
+                    <h:outputText value="#{temaViewMB.temaSelected.estadoTema}" id="temaEstado"/> 
+                    <br/>
+                    
+                    <h:outputLabel value="Alumno: "/>
+                    <h:outputText value="#{temaViewMB.temaSelected.nombreAlumno}" id="temaAlumno"/>
+                    <br/>
+                    
+                    <h:outputLabel value="Profesor Guía: "/>
+                    <h:outputText value="#{temaViewMB.temaSelected.nombreProfesor}" id="temaProfG"/>
+                    <br/>
+                    
+                    <h:outputLabel value="Origen Tema: "/>
+                    <h:outputText value="#{temaViewMB.temaSelected.ingresoTema}" id="temaOrigen"/>
+                    <br/>
+                    
+                    <h:outputLabel value="Fecha: "/>
+                    <h:outputText value="#{temaViewMB.temaSelected.fechaTema}" id="temaFecha"/>
+                    <br/>
+                    
+                    <h:outputLabel value="Semestre: "/>
+                    <h:outputText value="#{temaViewMB.temaSelected.semestreTema}" id="temaSem"/>
+                    <br/>
+                </h:panelGrid>
+                <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="../listar/temas.xhtml" value="Atrás"/>
+                <p:commandButton value="Editar" actionListener="#{profesorViewMB.loadEditPage()}" disabled="true" />
+                <p:button value="Hitos" href="hitos/tema.xhtml"/> 
+            </p:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>

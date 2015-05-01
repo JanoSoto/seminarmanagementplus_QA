@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templatedescripciones.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    
+    <ui:define name="metadata">
+        #{accordionPanelMB.setIndex("1")}
+        #{accordionPanelMB.setPropuesta("seleccion")}
+    </ui:define>
+    
+    <ui:define name="title"><title>Agregar Propuesta | Seminar Management</title></ui:define>
+    
+    <ui:define name="up">
+        <h1>Agregar Propuesta de Tema de Título</h1>
+    </ui:define>
+    
+    <ui:define name="left">
+        <h:form style="font-weight: bold;">
+            <p:panel style="border:none;">
+                <p:growl id="growl" showDetail="true" sticky="true" />
+                <h:panelGrid columns="3" cellpadding="4">
+                    
+                    <p:outputLabel for="nombreP" value="Nombre Propuesta"/>
+                    <p:inputTextarea id="nombreP" required="true" value="#{propuestaMB.nombrePropuesta}" cols="42" maxlength="200"/>
+                    <p:watermark for="nombreP" value="Ingresar Nombre"/>
+                    
+                    <p:outputLabel for="alumnoP" value="Alumno" />
+                    <p:selectOneMenu id="alumnoP" required="true" value="#{propuestaMB.rutAlumnoPropuesta}" filter="true" filterMatchMode="contains">
+                        <f:selectItem itemLabel="Seleccionar Alumno" itemValue="" />
+                        <f:selectItems value="#{propuestaMB.alumnos}" var="alumno" itemLabel="#{alumno.rutAlumno} - #{alumno.nombreAlumno} #{alumno.apellidoAlumno}" itemValue="#{alumno.rutAlumno}"/>  
+                    </p:selectOneMenu>
+                    <br/>
+                    
+                    <p:outputLabel for="profeGP" value="Profesor Guía" />
+                    <p:selectOneMenu id="profeGP" required="true" value="#{propuestaMB.rutProfGuia}" filter="true" filterMatchMode="contains">
+                        <f:selectItem itemLabel="Seleccionar Profesor" itemValue=""/>
+                        <f:selectItems value="#{propuestaMB.profesoresGuias}" var="profesor" itemLabel="#{profesor.rutProfesor} - #{profesor.nombreProfesor} #{profesor.apellidoProfesor} (#{profesor.guiasT};#{profesor.guiasP})" itemValue="#{profesor.rutProfesor}"/>
+                    </p:selectOneMenu>
+                    <br/>
+                    
+                    <p:outputLabel for="profecGP" value="Profesor co-Guía" />
+                    <p:selectOneMenu id="profecGP" value="#{propuestaMB.rutProfcoGuia}" filter="true" filterMatchMode="contains">
+                        <f:selectItem itemLabel="Sin co-Guia" itemValue="-"/>
+                        <f:selectItems value="#{propuestaMB.profesoresGuias}" var="profesor" itemLabel="#{profesor.rutProfesor} - #{profesor.nombreProfesor}" itemValue="#{profesor.rutProfesor}"/>
+                    </p:selectOneMenu>
+                    <br/>
+                    
+                    <p:outputLabel for="calendP" value="Fecha Propuesta" />
+                    <p:calendar id="calendP" required="true" value="#{propuestaMB.date}" mode="popup"/>
+                    <p:watermark for="calendP" value="Seleccionar Fecha"/>
+                    
+                    <p:outputLabel for="semestreP" value="Semestre Propuesta"  />
+                    <p:inputMask id="semestreP" required="true" value="#{propuestaMB.semestreProp}" mask="9/9999"/>
+                    <p:watermark for="semestreP" value="Ingresar Semestre"/>
+                    
+                </h:panelGrid>
+                
+                <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="../index.xhtml" value="Atrás"/>
+                <p:commandButton id="bt1" value="Ingresar" actionListener="#{propuestaMB.addPropuesta()}" update="growl"/>
+                <p:defaultCommand target="bt1" />
+            </p:panel>
+        </h:form>
+    </ui:define>
+    
+    <ui:define name="right">
+        <button class="navDefault" disabled="true">Ingresar<br/>Propuesta</button>
+        
+        <p class="descripcion">
+            Los campos con asterisco (*) son obligatorios.
+            <br/><br/>
+            Al seleccionar Profesor Guía, junto a su nombre, aparecen dos números entre parentesis. El significado
+            de estos números se explica a continuación:
+            <br/><br/>
+            Aparecen dos números con el siguiente formato: <b>(X;Y)</b>.<br/>Donde:
+            <br/>
+            <b>X</b> es la cantidad de <u>Temas vigentes</u> guiados por el profesor.
+            <br/>
+            <b>Y</b> es la cantidad de Propuestas que el Profesor ha <u>guiado en el semestre actual</u>
+        </p>
+    </ui:define>
+
+</ui:composition>

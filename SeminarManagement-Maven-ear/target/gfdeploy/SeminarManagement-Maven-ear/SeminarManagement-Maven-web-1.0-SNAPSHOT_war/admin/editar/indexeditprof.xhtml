@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templatedescripciones.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    
+    <ui:define name="metadata">
+        #{accordionPanelMB.setIndex("3")}
+        #{accordionPanelMB.setListProf("seleccion")}
+        <f:metadata>
+            <f:event type="preRenderView" listener="#{profesorViewMB.handleErrorView()}" />
+        </f:metadata>
+    </ui:define>
+    
+    <ui:define name="title"><title>Editar Profesor | Seminar Management</title></ui:define>
+    
+    <ui:define name="up">
+        <h1>Editar Profesor '#{profesorViewMB.profeSelected.nombreProfesor} #{profesorViewMB.profeSelected.apellidoProfesor}'</h1>
+    </ui:define>
+    
+    <ui:define name="left">
+        <h:form style="font-weight: bold;">
+            <p:panel style="border:none;">
+                <p:growl id="growl" showDetail="true" sticky="true"/>
+                <h:panelGrid columns="1" cellpadding="4">
+                    <p:commandButton icon="ui-icon-triangle-1-e" iconPos="right" action="#{profesorViewMB.loadEditPage()}" value="Editar datos del profesor"/>
+                    <p:commandButton icon="ui-icon-triangle-1-e" iconPos="right" action="#{profesorViewMB.loadEditProfMaxGuias()}" value="Editar máximo de guías del profesor" update="growl"/>
+                    <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="../ver/profesor.xhtml?prof=#{profesorViewMB.profeSelected.rutProfesor}" value="Atrás" />
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+    </ui:define>
+</ui:composition>

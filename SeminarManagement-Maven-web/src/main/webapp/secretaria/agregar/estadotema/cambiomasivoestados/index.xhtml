@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templatedescripciones.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    
+    <ui:define name="metadata">
+        #{accordionPanelMB.setIndex("2")}
+        #{accordionPanelMB.setCambiosMasivos("seleccion")}
+    </ui:define>
+    
+    <ui:define name="title"><title>Cambios Masivos de estados de Temas | Seminar Management</title></ui:define>
+    
+    <ui:define name="up">
+        <h1>Cambios Masivos de estados de Temas</h1>
+    </ui:define>
+    
+    <ui:define name="left">
+        <h:form style="font-weight: bold;">
+            <p:panel style="border:none;">
+                <h:panelGrid columns="1" cellpadding="4">
+                    <p:button icon="ui-icon-triangle-1-e" iconPos="right" href="caducartemas.xhtml" value="Caducar temas"/>
+                    <p:button icon="ui-icon-triangle-1-e" iconPos="right" href="activartemas.xhtml" value="Activar temas"/>
+                    <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="../../../index.xhtml" value="Atrás"/>
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+    </ui:define>
+    
+    <ui:define name="right">
+        <button class="navActive" disabled="true">Cambios Masivos<br/>de Estados</button>
+        <p:button style="background: #FFFFFF;border: none;" disabled="true" icon="ui-icon-seek-next"/>
+        <button class="navDefault" disabled="true">Caducar<br/>Temas</button>
+        <br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <p:button style="background: #FFFFFF;border: none;" disabled="true" icon="ui-icon-seek-next"/>
+        <button class="navDefault" disabled="true">Activar<br/>Temas</button>
+        
+        
+        <p class="descripcion">
+            Es posible cambiar el estado de numerosos temas a la vez.
+            <br/><br/>
+            Existen dos alternativas para esto.
+            <br/><br/>
+            <b>Caducar temas:</b>
+            Es posible caducar numerosos temas al mismo tiempo.
+            <br/><br/>
+            <b>Activar temas caducados:</b>
+            Es posible cambiar el estado a <u>Vigente</u> de los temas que fueron caducados por la opción <u>Caducar temas</u>
+        </p>
+    </ui:define>
+
+</ui:composition>

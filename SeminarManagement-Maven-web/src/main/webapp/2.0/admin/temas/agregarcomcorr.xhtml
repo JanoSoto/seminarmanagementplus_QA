@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template2.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    
+    <ui:define name="metadata">
+        #{accordionPanelMB.setIndex("3")}
+        <f:metadata>
+            <f:viewParam name="tema" value="#{verTemaMB.idTema}"/>
+        </f:metadata>
+    </ui:define>
+    
+    <ui:define name="title"><title>Agregar Comisión Correctora | Seminar Management</title></ui:define>
+
+    <ui:define name="content">
+        
+        #{verTemaMB.buscarTema()}
+        
+        <p:layoutUnit position="center" style="border:none;">
+            <h:form style="font-weight: bold;">
+                <p:panel style="border:none;">
+                    <h1>Agregar Comisión Correctora y Calificadora</h1>
+                    <p:growl id="growl" showDetail="true" sticky="true" />
+                    #{comisionCorrectora2MB.setIdTema(verTemaMB.idTema)}
+                    <h:panelGrid columns="3" cellpadding="4">
+
+                        <p:outputLabel style="color: #0052cc;font-weight: bold;" for="nombre" value="Nombre: "/>
+                        <h:outputText id="nombre" value="#{verTemaMB.tema.nombreTema}"/>
+                        <br/>
+
+                        <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Alumno"/>
+                        <h:outputText style="font-weight: normal;" value="#{verTemaMB.tema.idRevisora.idPropuesta.rutAlumno.nombreAlumno} #{verTemaMB.tema.idRevisora.idPropuesta.rutAlumno.apellidoAlumno}"/>
+                        <br/>
+
+                        <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Profesor Guía"/>
+                        <h:outputText style="font-weight: normal;" value="#{verTemaMB.guia.nombreProfesor} #{verTemaMB.guia.apellidoProfesor}"/>
+                        <br/>
+
+                        <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Semestre Tema"/>
+                        <h:outputText style="font-weight: normal;" value="#{verTemaMB.tema.idSemestre.idSemestre}"/>
+                        <br/>
+
+                        <p:outputLabel for="profeR1P" value="Profesor Corrector 1 *" />
+                        <p:selectOneMenu id="profeR1P" value="#{comisionCorrectora2MB.profesor1}" filter="true" filterMatchMode="contains">
+                            <f:selectItem itemLabel="Seleccionar Profesor" itemValue=""/>
+                            <f:selectItems value="#{comisionCorrectora2MB.profeDatos}" var="prof" itemLabel="#{prof.profesor.rutProfesor} - #{prof.profesor.nombreProfesor} #{prof.profesor.apellidoProfesor} (#{prof.corrSemActual})" itemValue="#{prof.profesor.rutProfesor}"/>  
+                        </p:selectOneMenu>
+                        <br/>
+
+                        <p:outputLabel for="profeR2P" value="Profesor Corrector 2 *"/>
+                        <p:selectOneMenu id="profeR2P" value="#{comisionCorrectora2MB.profesor2}" filter="true" filterMatchMode="contains">
+                            <f:selectItem itemLabel="Seleccionar Profesor" itemValue=""/>
+                            <f:selectItems value="#{comisionCorrectora2MB.profeDatos}" var="prof" itemLabel="#{prof.profesor.rutProfesor} - #{prof.profesor.nombreProfesor} #{prof.profesor.apellidoProfesor} (#{prof.corrSemActual})" itemValue="#{prof.profesor.rutProfesor}"/>  
+                        </p:selectOneMenu>
+                        <br/>
+
+                        <p:outputLabel for="calendP" value="Fecha *" />
+                        <p:calendar id="calendP" value="#{comisionCorrectora2MB.date}" mode="popup"/>
+                        <p:watermark for="calendP" value="Seleccionar Fecha"/>
+
+
+                        <p:outputLabel for="semestreP" value="Semestre *"  />
+                        <p:inputMask id="semestreP" value="#{comisionCorrectora2MB.semestreCorr}" mask="9/9999"/>
+                        <p:watermark for="semestreP" value="Ingresar Semestre"/>
+
+
+                        <p:outputLabel for="calendSIAC" value="Fecha SIAC *" />
+                        <p:calendar id="calendSIAC" value="#{comisionCorrectora2MB.dateSIAC}" mode="popup"/>
+                        <p:watermark for="calendSIAC" value="Seleccionar Fecha"/>              
+
+                        <h:inputHidden value="#{comisionCorrectora2MB.idTema}"/>
+
+                    </h:panelGrid>
+
+                    <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="/2.0/admin/temas/tema.xhtml?tema=#{verTemaMB.tema.idTema}" value="Atrás"/>
+                    <p:commandButton id="bt1" value="Ingresar" actionListener="#{comisionCorrectora2MB.addComisionCorrectora()}" update="growl"/>
+                    <p:defaultCommand target="bt1" />
+                </p:panel>
+            </h:form>
+        </p:layoutUnit>
+        
+        <p:button rendered="#{empty verTemaMB.idTema}" style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Atrás"/>
+        
+    </ui:define>
+
+</ui:composition>

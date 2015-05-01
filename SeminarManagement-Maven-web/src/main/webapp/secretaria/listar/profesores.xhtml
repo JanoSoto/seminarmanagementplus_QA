@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    
+    <ui:define name="metadata">
+        #{accordionPanelMB.setIndex("3")}
+        #{accordionPanelMB.setListProf("seleccion")}
+    </ui:define>
+    
+    <ui:define name="title"><title>Lista de Profesores | Seminar Management</title></ui:define>
+
+    <ui:define name="content">
+                
+        <h1>Profesores</h1> 
+        <br/>
+        <h:form>
+        <f:event type="preRenderView" listener="#{listarProfesMB.updateProfes()}"/>
+            <p:growl id="growl" showDetail="true" sticky="true" />
+            <p:dataTable id="profeTable" var="profe" value="#{listarProfesMB.profesores}" filterDelay="100" paginator="true"
+                         rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+                         {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,30,40,50"
+                         emptyMessage="No se encontraron profesores con el filtro seleccionado" > 
+                <p:column headerText="Nombre" filterMatchMode="contains" filterBy="#{profe.nombreProfesor}" sortBy="#{profe.nombreProfesor}">
+                    <h:outputText value="#{profe.nombreProfesor}" />
+                </p:column>
+                
+                <p:column headerText="Rut" filterMatchMode="contains" filterBy="#{profe.rutProfesor}" sortBy="#{profe.rutProfesor}">
+                    <h:outputText value="#{profe.rutProfesor}" />
+                </p:column>
+                
+                <p:column headerText="¿Puede ser guía?" sortBy="#{profe.isGuia}">
+                    <h:outputText value="#{profe.isGuia}" />
+                </p:column>
+                
+                <p:column headerText="Guias en Propuestas" sortBy="#{profe.guiasP}">
+                    <h:outputText value="#{profe.guiasP}" />
+                </p:column>
+                
+                <p:column headerText="Revisiones" sortBy="#{profe.rev}">
+                    <h:outputText value="#{profe.rev}" />
+                </p:column>
+                
+                <p:column headerText="Guías en Temas" sortBy="#{profe.guiasT}">
+                    <h:outputText value="#{profe.guiasT}" />
+                </p:column>
+                
+                <p:column headerText="Correcciones" sortBy="#{profe.corr}">
+                    <h:outputText value="#{profe.corr}" />
+                </p:column>
+                
+                <p:column style="width:4%;text-align: center">
+                    <p:button icon="ui-icon-search" title="Ver Datos Profesor" iconPos="right" href="../ver/profesor.xhtml?prof=#{profe.rutProfesor}"/>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

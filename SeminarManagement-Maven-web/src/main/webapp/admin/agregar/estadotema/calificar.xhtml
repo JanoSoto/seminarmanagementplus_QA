@@ -1,0 +1,123 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templatedescripciones.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    
+    <ui:define name="metadata">
+        #{accordionPanelMB.setIndex("2")}
+        #{accordionPanelMB.setCalificacion("seleccion")}
+    </ui:define>
+    
+    <ui:define name="title"><title>Calificar Tema | Seminar Management</title></ui:define>
+    
+    <ui:define name="up">
+        <h1>Calificar Tema</h1>
+    </ui:define>
+    
+    <ui:define name="left">
+        <h:form style="font-weight: bold;">
+            <p:panel style="border:none;">
+                <p:growl id="growl" showDetail="true" sticky="true" />
+                <h:panelGrid columns="4" cellpadding="4">
+                    
+                    <p:outputLabel for="alumnoR" value="Alumno" />
+                    <p:selectOneMenu id="alumnoR" value="#{calificacionTemaMB.rutAlumno}" filter="true" filterMatchMode="contains">
+                        <f:selectItem itemLabel="Seleccionar Alumno" itemValue="" />
+                        <f:selectItems value="#{calificacionTemaMB.alumnos}" var="alumno" itemLabel="#{alumno.rutAlumno} - #{alumno.nombreAlumno} #{alumno.apellidoAlumno}" itemValue="#{alumno.rutAlumno}"/>  
+                    </p:selectOneMenu>
+                    <p:commandButton id="btn2" value="Seleccionar Alumno" action="#{calificacionTemaMB.updateByAlumno()}" update="@form"/>
+                    <br/>
+                    
+                    <p:outputLabel for="comRev" value="Nombre Tema *" />
+                    <p:selectOneMenu id="comRev" value="#{calificacionTemaMB.idTema}">
+                        <f:selectItem itemLabel="Seleccionar Tema" itemValue="-1"/>
+                        <f:selectItems value="#{calificacionTemaMB.temas}" var="temas" itemLabel="#{temas.nombreTema}" itemValue="#{temas.idTema}"/>
+                    </p:selectOneMenu>
+                    <p:commandButton id="btn3" value="Seleccionar Tema" action="#{calificacionTemaMB.updateByTema()}" update="@form"/>
+                    <br/>
+                    
+                    <p:outputLabel for="fechaRev" value="Fecha Tema" />
+                    <h:outputText style="color: #0052cc;" id="fechaRev" value="#{calificacionTemaMB.fechaTema}"/>
+                    <p:outputLabel value=""/>
+                    <p:outputLabel value=""/>
+                    
+                    <p:outputLabel for="semRev" value="Semestre Tema" />
+                    <h:outputText style="color: #0052cc;" id="semRev" value="#{calificacionTemaMB.semestreTema}"/>
+                    <p:outputLabel value=""/>
+                    <p:outputLabel value=""/>
+                    
+                    <p:outputLabel value=""/>
+                    <p:outputLabel value=""/>
+                    <h:outputText style="color: #ff7319;" value="Informe"/>
+                    <h:outputText style="color: #ff7319;" value="Defensa"/>
+                    
+                    <p:outputLabel for="notaProfGPInf" value="Profesor Guía *" />
+                    <h:outputText style="color: #0052cc;" id="profeGP" value="#{calificacionTemaMB.profGuia.nombreProfesor} #{calificacionTemaMB.profGuia.apellidoProfesor}"/>
+                    <p:inputMask id="notaProfGPInf" value="#{calificacionTemaMB.notaProfeGuiaInf}" mask="9.9" style="width: 28px"/>
+                    <p:inputMask id="notaProfGPDef" value="#{calificacionTemaMB.notaProfeGuiaDef}" mask="9.9" style="width: 28px"/>
+                    
+                    
+                    
+                    <p:outputLabel for="notaProfC1Inf" value="Profesor Corrector 1 *" />
+                    <h:outputText style="color: #0052cc;" id="profeC1" value="#{calificacionTemaMB.profCorrector1.nombreProfesor} #{calificacionTemaMB.profCorrector1.apellidoProfesor}"/>
+                    <p:inputMask id="notaProfC1Inf" value="#{calificacionTemaMB.notaProfe1Inf}" mask="9.9" style="width: 28px"/>
+                    <p:inputMask id="notaProfC1Def" value="#{calificacionTemaMB.notaProfe1Def}" mask="9.9" style="width: 28px"/>
+                    
+                    <p:outputLabel for="notaProfC2Inf" value="Profesor Corrector 2 *" />
+                    <h:outputText style="color: #0052cc;" id="profeC2" value="#{calificacionTemaMB.profCorrector2.nombreProfesor} #{calificacionTemaMB.profCorrector2.apellidoProfesor}"/>
+                    <p:inputMask id="notaProfC2Inf" value="#{calificacionTemaMB.notaProfe2Inf}" mask="9.9" style="width: 28px"/>
+                    <p:inputMask id="notaProfC2Def" value="#{calificacionTemaMB.notaProfe2Def}" mask="9.9" style="width: 28px"/>
+                    
+                    <p:outputLabel for="calendP" value="Fecha Calificación *" />
+                    <p:calendar id="calendP" value="#{calificacionTemaMB.date}" mode="popup"/>
+                    <p:watermark for="calendP" value="Seleccionar Fecha"/>
+                    <br/>
+                    <p:outputLabel for="calendPGCorrige" value="Fecha Profesor Guía Corrigió Borrador *" />
+                    <p:calendar id="calendPGCorrige" value="#{calificacionTemaMB.dateCorrecPG}" mode="popup"/>
+                    <p:watermark for="calendPGCorrige" value="Seleccionar Fecha"/>
+                    <br/>
+                    <p:outputLabel for="calendP1Corrige" value="Fecha Profesor 1 Corrigió Borrador *" />
+                    <p:calendar id="calendP1Corrige" value="#{calificacionTemaMB.dateCorrecP1}" mode="popup"/>
+                    <p:watermark for="calendP1Corrige" value="Seleccionar Fecha"/>
+                    <br/>
+                    <p:outputLabel for="calendP2Corrige" value="Fecha Profesor 2 Corrigió Borrador *" />
+                    <p:calendar id="calendP2Corrige" value="#{calificacionTemaMB.dateCorrecP2}" mode="popup"/>
+                    <p:watermark for="calendP2Corrige" value="Seleccionar Fecha"/>
+                </h:panelGrid>
+                <p:watermark value="Nota" for="notaProfGPInf"/>
+                <p:watermark value="Nota" for="notaProfC1Inf"/>
+                <p:watermark value="Nota" for="notaProfC2Inf"/>
+                <p:watermark value="Nota" for="notaProfGPDef"/>
+                <p:watermark value="Nota" for="notaProfC1Def"/>
+                <p:watermark value="Nota" for="notaProfC2Def"/>
+                
+                
+                <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="../../index.xhtml" value="Atrás"/>
+                <p:commandButton id="bt1" value="Calificar" actionListener="#{calificacionTemaMB.calificarTema()}" update="growl"/>
+                <p:defaultCommand target="bt1" />
+            </p:panel>
+        </h:form>
+    </ui:define>
+    
+    <ui:define name="right">
+        <button class="navActive" disabled="true">Calificación<br/>de Tema</button>
+        
+        <p class="descripcion">
+            Los campos con asterisco (*) son obligatorios.
+            <br/><br/>
+            Se debe seleccionar un Tema para calificarlo.
+            <br/><br/>
+            <b>Seleccionar Alumno:</b>
+            Al seleccionar un alumno y presionar el botón "Seleccionar Alumno" se actualizará la lista de
+            temas y sólo se mostrarán los <u>temas del alumno seleccinado</u>.
+            <br/><br/>
+            <b>Seleccionar Tema:</b>
+            Al seleccionar un tema y presionar el botón "Seleccionar Tema" se actualizarán los datos
+            Profesor Guía, Fecha Tema y Semestre Tema, de acuerdo a la información del tema seleccionado.
+        </p>
+    </ui:define>
+</ui:composition>

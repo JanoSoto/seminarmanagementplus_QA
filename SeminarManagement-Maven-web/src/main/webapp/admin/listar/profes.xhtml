@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    
+    <ui:define name="metadata">
+        #{accordionPanelMB.setIndex("3")}
+        #{accordionPanelMB.setEstadProfe("seleccion")}
+    </ui:define>
+    
+    <ui:define name="title"><title>Estadísticas de Profesores | Seminar Management</title></ui:define>
+
+    <ui:define name="content">
+                
+        <h1>Estadísticas de Profesores</h1> 
+        <br/>
+        <h:form>
+            <p:dataTable id="profeTable" var="profe" value="#{estadisticasProfesMB.profes}"> 
+                <p:column headerText="Profesor">
+                    <h:outputText value="#{profe.nombre} #{profe.apellido}" />
+                </p:column>
+                
+                <p:column headerText="Propuestas">
+                    <h:outputText value="#{profe.propuestas}" />
+                </p:column>
+                
+                <p:column headerText="Propuestas Aceptadas">
+                    <h:outputText value="#{profe.propAceptadas}" />
+                </p:column>
+                
+                <p:column headerText="Temas Caducos">
+                    <h:outputText value="#{profe.temasCaducos}" />
+                </p:column>
+                
+                <p:column headerText="Temas Titulados">
+                    <h:outputText value="#{profe.temasTitulados}" />
+                </p:column>
+                
+                <p:column headerText="Semestres por Tema">
+                    <h:outputText value="#{profe.semestresEnCorregir}" />
+                </p:column>
+                
+                <p:column headerText="Nota Temas">
+                    <h:outputText value="#{profe.promedioGuias}" />
+                </p:column>
+                
+                <p:column headerText="Nota en Guías">
+                    <h:outputText value="#{profe.promedioEnGuia}" />
+                </p:column>
+                
+                <p:column headerText="Nota en Correcciones">
+                    <h:outputText value="#{profe.promedioEnCorreccion}" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

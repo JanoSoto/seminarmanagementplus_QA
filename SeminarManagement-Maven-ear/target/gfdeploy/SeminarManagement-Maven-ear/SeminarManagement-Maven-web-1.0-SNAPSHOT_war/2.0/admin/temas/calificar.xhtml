@@ -1,0 +1,92 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template2.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    
+    <ui:define name="metadata">
+        #{accordionPanelMB.setIndex("3")}
+        <f:metadata>
+            <f:viewParam name="tema" value="#{verTemaMB.idTema}"/>
+        </f:metadata>
+    </ui:define>
+    
+    <ui:define name="title"><title>Agregar Borrador Final | Seminar Management</title></ui:define>
+
+    <ui:define name="content">
+        
+        #{verTemaMB.buscarTema()}
+        
+        <p:layoutUnit position="center" style="border:none;">
+            <h:form style="font-weight: bold;">
+                <p:panel style="border:none;">
+                    <h1>Agregar Calificaciones</h1>
+                    <p:growl id="growl" showDetail="true" sticky="true" />
+                    #{calificacionTema2MB.setIdTema(verTemaMB.idTema)}
+                    
+                    <h:panelGrid columns="2" cellpadding="4">
+                        <p:outputLabel style="color: #0052cc;font-weight: bold;" for="nombre" value="Nombre"/>
+                        <h:outputText id="nombre" value="#{verTemaMB.tema.nombreTema}"/>
+                    </h:panelGrid>
+                        
+                    <h:panelGrid columns="4" cellpadding="4">
+                        <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Alumno"/>
+                        <h:outputText style="font-weight: normal;" value="#{verTemaMB.tema.idRevisora.idPropuesta.rutAlumno.nombreAlumno} #{verTemaMB.tema.idRevisora.idPropuesta.rutAlumno.apellidoAlumno}"/>
+                        <p:outputLabel value=""/>
+                        <p:outputLabel value=""/>
+
+                        <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Semestre Tema"/>
+                        <h:outputText style="font-weight: normal;" value="#{verTemaMB.tema.idSemestre.idSemestre}"/>
+                        <p:outputLabel value=""/>
+                        <p:outputLabel value=""/>
+
+                        <p:outputLabel value=""/>
+                        <p:outputLabel value=""/>
+                        <h:outputText style="color: #ff7319;" value="Informe"/>
+                        <h:outputText style="color: #ff7319;" value="Defensa"/>
+
+                        <p:outputLabel for="notaProfGPInf" value="Profesor Guía *" />
+                        <h:outputText style="color: #0052cc;" id="profeGP" value="#{verTemaMB.guia.nombreProfesor} #{verTemaMB.guia.apellidoProfesor}"/>
+                        <p:inputMask id="notaProfGPInf" value="#{calificacionTema2MB.notaProfeGuiaInf}" mask="9.9" style="width: 28px"/>
+                        <p:inputMask id="notaProfGPDef" value="#{calificacionTema2MB.notaProfeGuiaDef}" mask="9.9" style="width: 28px"/>
+
+
+
+                        <p:outputLabel for="notaProfC1Inf" value="Profesor Corrector 1 *" />
+                        <h:outputText style="color: #0052cc;" id="profeC1" value="#{verTemaMB.corrector1.nombreProfesor} #{verTemaMB.corrector1.apellidoProfesor}"/>
+                        <p:inputMask id="notaProfC1Inf" value="#{calificacionTema2MB.notaProfe1Inf}" mask="9.9" style="width: 28px"/>
+                        <p:inputMask id="notaProfC1Def" value="#{calificacionTema2MB.notaProfe1Def}" mask="9.9" style="width: 28px"/>
+
+                        <p:outputLabel for="notaProfC2Inf" value="Profesor Corrector 2 *" />
+                        <h:outputText style="color: #0052cc;" id="profeC2" value="#{verTemaMB.corrector2.nombreProfesor} #{verTemaMB.corrector2.apellidoProfesor}"/>
+                        <p:inputMask id="notaProfC2Inf" value="#{calificacionTema2MB.notaProfe2Inf}" mask="9.9" style="width: 28px"/>
+                        <p:inputMask id="notaProfC2Def" value="#{calificacionTema2MB.notaProfe2Def}" mask="9.9" style="width: 28px"/>
+
+                        <p:outputLabel for="calendP" value="Fecha Calificación *" />
+                        <p:calendar id="calendP" value="#{calificacionTema2MB.date}" mode="popup"/>
+                        <p:watermark for="calendP" value="Seleccionar Fecha"/>
+
+                        <h:inputHidden value="#{calificacionTema2MB.idTema}"/>
+
+                    </h:panelGrid>
+                    <p:watermark value="Nota" for="notaProfGPInf"/>
+                    <p:watermark value="Nota" for="notaProfC1Inf"/>
+                    <p:watermark value="Nota" for="notaProfC2Inf"/>
+                    <p:watermark value="Nota" for="notaProfGPDef"/>
+                    <p:watermark value="Nota" for="notaProfC1Def"/>
+                    <p:watermark value="Nota" for="notaProfC2Def"/>
+
+
+                    <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="/2.0/admin/temas/tema.xhtml?tema=#{verTemaMB.tema.idTema}" value="Atrás"/>
+                    <p:commandButton id="bt1" value="Calificar" actionListener="#{calificacionTema2MB.calificarTema()}" update="growl"/>
+                    <p:defaultCommand target="bt1" />
+                </p:panel>
+            </h:form>
+        </p:layoutUnit>
+    </ui:define>
+
+</ui:composition>

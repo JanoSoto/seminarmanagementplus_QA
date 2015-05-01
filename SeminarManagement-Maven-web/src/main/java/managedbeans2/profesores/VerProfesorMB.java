@@ -1,0 +1,354 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package managedbeans2.profesores;
+
+import clases.PropuestaDatos;
+import clases.TemaDatos;
+import entities.Profesor;
+import entities.Propuesta;
+import entities.Tema;
+import java.util.ArrayList;
+import java.util.List;
+import javax.ejb.EJB;
+import javax.inject.Named;
+import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import sessionbeans.ProfesorFacadeLocal;
+import sessionbeans.SemestreActualFacadeLocal;
+import sessionbeans.SemestreFacadeLocal;
+
+/**
+ *
+ * @author David
+ */
+@Named(value = "verProfesorMB")
+@RequestScoped
+public class VerProfesorMB {
+    @EJB
+    private SemestreFacadeLocal semestreFacade;
+    @EJB
+    private SemestreActualFacadeLocal semestreActualFacade;
+    @EJB
+    private ProfesorFacadeLocal profesorFacade;
+    
+    private int total,totalSemestre;
+    private float promPorSemestre;
+    private String rutProfesor, rutProfeEdit;
+    private Profesor profesor, profesorEdit = new Profesor();
+    private List<Propuesta> propuestas;
+    private List<PropuestaDatos> propuestaDatos, propuestasFiltradas;
+    private List<Tema> temas;
+    private List<TemaDatos> temaDatos, temaDatosProrrogados, temasFiltrados;
+    
+    /**
+     * Creates a new instance of VerProfesorMB
+     */
+    public VerProfesorMB() {
+    }
+    
+    public void buscarProfesor(){
+        if(rutProfesor!=null){
+            profesor = profesorFacade.findByRut(rutProfesor).get(0);
+            
+            //Instanciamos para editar al profesor
+            profesorEdit = profesor;
+            rutProfeEdit = profesor.getRutProfesor();
+            temaDatos = new ArrayList();
+            temaDatosProrrogados = new ArrayList();
+            temas = new ArrayList();
+            for(int i=0;i<profesor.getProfePropuestaList().size();i++)
+                if(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora()!=null)
+                    if(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema()!=null)
+                        if(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getEstadoTema()!=null){
+                            if(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getEstadoTema()==0){
+                                TemaDatos temaDTemp = new TemaDatos();
+                                temaDTemp.setIdTema(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getIdTema());
+                                temaDTemp.setAlumno(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getIdRevisora().getIdPropuesta().getRutAlumno());
+                                if(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getNombreTema().length()>64)
+                                    temaDTemp.setNombreCorto(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getNombreTema().substring(0,65)+"...");
+                                else
+                                    temaDTemp.setNombreCorto(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getNombreTema());
+                                temaDatos.add(temaDTemp);
+                                temas.add(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema());
+                            }
+                            if(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getEstadoTema()==2){
+                                TemaDatos temaDTemp = new TemaDatos();
+                                temaDTemp.setIdTema(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getIdTema());
+                                temaDTemp.setAlumno(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getIdRevisora().getIdPropuesta().getRutAlumno());
+                                if(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getNombreTema().length()>64)
+                                    temaDTemp.setNombreCorto(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getNombreTema().substring(0,65)+"...");
+                                else
+                                    temaDTemp.setNombreCorto(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getNombreTema());
+                                temaDatosProrrogados.add(temaDTemp);
+                                temas.add(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema());
+                            }    
+                        }
+        }
+        else{
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Error","No se ingresó Profesor"));
+        }
+    }
+    
+    public void verPropuestas(){
+        if(rutProfesor!=null){
+            profesor = profesorFacade.findByRut(rutProfesor).get(0);
+            
+            propuestas = new ArrayList();
+            propuestaDatos = new ArrayList();
+            for(int i=0;i<profesor.getProfePropuestaList().size();i++){
+                PropuestaDatos propDTemp = new PropuestaDatos();
+                if(profesor.getProfePropuestaList().get(i).getPropuesta().getNombrePropuesta().length()>44)
+                    propDTemp.setNombreCorto(profesor.getProfePropuestaList().get(i).getPropuesta().getNombrePropuesta().substring(0, 45)+"...");
+                else
+                    propDTemp.setNombreCorto(profesor.getProfePropuestaList().get(i).getPropuesta().getNombrePropuesta());
+                propDTemp.setIdPropuesta(Integer.toString(profesor.getProfePropuestaList().get(i).getPropuesta().getIdPropuesta()));
+                propDTemp.setIdSemestre(profesor.getProfePropuestaList().get(i).getPropuesta().getIdSemestre().getIdSemestre());
+                propDTemp.setAlumno(profesor.getProfePropuestaList().get(i).getPropuesta().getRutAlumno());
+                propuestaDatos.add(propDTemp);
+                propuestas.add(profesor.getProfePropuestaList().get(i).getPropuesta());
+            }
+            
+            String semestreActual="";
+            totalSemestre=0;
+            total = propuestas.size();
+            if(!semestreActualFacade.findAll().isEmpty())
+                semestreActual = semestreActualFacade.findAll().get(0).getSemestreActual();
+            for(int i=0;i<propuestas.size();i++){
+                if(propuestas.get(i).getIdSemestre().getIdSemestre().equals(semestreActual))
+                    totalSemestre++;
+            }
+            float f1Temp = total,f2Temp = semestreFacade.findAll().size();
+            promPorSemestre = f1Temp/f2Temp;
+        }
+    }
+    
+    public void verTemas(){
+        if(rutProfesor!=null){
+            profesor = profesorFacade.findByRut(rutProfesor).get(0);
+            
+            temas = new ArrayList();
+            temaDatos = new ArrayList();
+            for(int i=0;i<profesor.getProfePropuestaList().size();i++){
+                if(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora()!=null)
+                    if(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema()!=null){
+                        TemaDatos temaDTemp = new TemaDatos();
+                        if(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getNombreTema().length()>44)
+                            temaDTemp.setNombreCorto(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getNombreTema().substring(0, 45)+"...");
+                        else
+                            temaDTemp.setNombreCorto(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getNombreTema());
+                        temaDTemp.setIdTema(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getIdTema());
+                        temaDTemp.setSemestreTema(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getIdSemestre().getIdSemestre());
+                        temaDTemp.setAlumno(profesor.getProfePropuestaList().get(i).getPropuesta().getRutAlumno());
+                        if(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getEstadoTema()!=null){
+                            if(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getEstadoTema()==0)
+                                temaDTemp.setEstadoTema("VIGENTE");
+                            if(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getEstadoTema()==1)
+                                temaDTemp.setEstadoTema("TITULADO");
+                            if(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getEstadoTema()==2)
+                                temaDTemp.setEstadoTema("PRORROGADO");
+                            if(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getEstadoTema()==3)
+                                temaDTemp.setEstadoTema("CADUCO");
+                            if(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getEstadoTema()==4)
+                                temaDTemp.setEstadoTema("EN PROCESO EXAMEN");
+                            if(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getEstadoTema()==5)
+                                temaDTemp.setEstadoTema("MAGISTER");
+                            if(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getEstadoTema()==6)
+                                temaDTemp.setEstadoTema("VIGENTE");
+                        }
+                        temaDatos.add(temaDTemp);
+                        temas.add(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema());
+                    }
+            }
+            
+            String semestreActual="";
+            totalSemestre=0;
+            total = temas.size();
+            if(!semestreActualFacade.findAll().isEmpty())
+                semestreActual = semestreActualFacade.findAll().get(0).getSemestreActual();
+            for(int i=0;i<temas.size();i++){
+                if(temas.get(i).getIdSemestre().getIdSemestre().equals(semestreActual))
+                    totalSemestre++;
+            }
+            float f1Temp = total,f2Temp = semestreFacade.findAll().size();
+            promPorSemestre = f1Temp/f2Temp;
+        }
+    }
+    
+    public void editProfesor() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Profesor profTemp = profesorFacade.findByRut(rutProfeEdit).get(0);
+        profTemp.setApellidoProfesor(profesorEdit.getApellidoProfesor().toUpperCase());
+        profTemp.setNombreProfesor(profesorEdit.getNombreProfesor().toUpperCase());
+        profTemp.setContrato(profesorEdit.getContrato());
+        profTemp.setTelefonoProfesor(profesorEdit.getTelefonoProfesor());
+        Integer maxGuiasOld = profTemp.getMaximoGuias();
+        //profTemp.setTipoProfesor(profesorEdit.getTipoProfesor());
+
+        if(profesorEdit.getContrato() == 0 ){
+            if(maxGuiasOld ==  null)
+                profTemp.setMaximoGuias(7);
+        }
+        else {
+            profTemp.setTipoProfesor(0);
+            profTemp.setMaximoGuias(null);
+        }
+        
+        profesorEdit = profTemp;
+        profesorFacade.edit(profTemp);
+
+        //Añadimos al historial del alumno cuándo lo editaron
+        /*
+         Date temp = new Date();
+         String dateHist = dateToString(temp);
+         Historial histEditAlum = new Historial();
+         histEditAlum.setDescripcion("Se editó el alumno. Lo editó el usuario "+user.getFullNameUser());
+         histEditAlum.setFechaHistorial(dateHist);
+         histEditAlum.setTipoHistorial(2);
+         histEditAlum.setIdEntidad(alumnoSelected.getRutAlumno());
+         historialFacade.create(histEditAlum);
+
+
+         //Añadimos al historial del usuario que editó al alumno
+         Historial histProfAgregadoUser = new Historial();
+         histProfAgregadoUser.setDescripcion("Editó al alumno "+alumno.getNombreAlumno()+" "+alumno.getApellidoAlumno());
+         histProfAgregadoUser.setFechaHistorial(dateHist);
+         histProfAgregadoUser.setTipoHistorial(3);
+         histProfAgregadoUser.setIdEntidad(user.getUsername());
+         historialFacade.create(histProfAgregadoUser);
+         */
+        
+        context.addMessage(null, new FacesMessage("Editar Profesor", profTemp.getNombreProfesor()+" "+profTemp.getApellidoProfesor()+" editado exitosamente"));
+
+    }
+    
+    public void editProfesorMaxGuias() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Profesor profEditGuias = profesorFacade.findByRut(rutProfeEdit).get(0);
+        profEditGuias.setTipoProfesor(profesorEdit.getTipoProfesor());
+        if(profesorEdit.getTipoProfesor() == 0){
+            profEditGuias.setMaximoGuias(profesorEdit.getMaximoGuias());
+            context.addMessage(null, new FacesMessage("Editar Máximo Guías", "El máximo de guías y tipo profesor ha sido editado. El profesor puede ser guía en "+profesorEdit.getMaximoGuias()+" temas."));
+        }else{
+            profEditGuias.setMaximoGuias(null);
+            context.addMessage(null, new FacesMessage("Editar Máximo Guías", "El máximo de guías y tipo profesor ha sido editado. El profesor no puede ser guía."));
+        }
+    }
+
+    public List<PropuestaDatos> getPropuestasFiltradas() {
+        return propuestasFiltradas;
+    }
+
+    public void setPropuestasFiltradas(List<PropuestaDatos> propuestasFiltradas) {
+        this.propuestasFiltradas = propuestasFiltradas;
+    }
+
+    public List<TemaDatos> getTemasFiltrados() {
+        return temasFiltrados;
+    }
+
+    public void setTemasFiltrados(List<TemaDatos> temasFiltrados) {
+        this.temasFiltrados = temasFiltrados;
+    }
+
+    public String getRutProfeEdit() {
+        return rutProfeEdit;
+    }
+
+    public void setRutProfeEdit(String rutProfeEdit) {
+        this.rutProfeEdit = rutProfeEdit;
+    }
+
+    public Profesor getProfesorEdit() {
+        return profesorEdit;
+    }
+
+    public void setProfesorEdit(Profesor profesorEdit) {
+        this.profesorEdit = profesorEdit;
+    }
+    
+    public String getRutProfesor() {
+        return rutProfesor;
+    }
+
+    public void setRutProfesor(String rutProfesor) {
+        this.rutProfesor = rutProfesor;
+    }
+
+    public Profesor getProfesor() {
+        return profesor;
+    }
+
+    public void setProfesor(Profesor profesor) {
+        this.profesor = profesor;
+    }
+
+    public List<TemaDatos> getTemaDatos() {
+        return temaDatos;
+    }
+
+    public void setTemaDatos(List<TemaDatos> temaDatos) {
+        this.temaDatos = temaDatos;
+    }
+
+    public List<Tema> getTemas() {
+        return temas;
+    }
+
+    public void setTemas(List<Tema> temas) {
+        this.temas = temas;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
+    public void setTotal(int total) {
+        this.total = total;
+    }
+
+    public int getTotalSemestre() {
+        return totalSemestre;
+    }
+
+    public void setTotalSemestre(int totalSemestre) {
+        this.totalSemestre = totalSemestre;
+    }
+
+    public float getPromPorSemestre() {
+        return promPorSemestre;
+    }
+
+    public void setPromPorSemestre(float promPorSemestre) {
+        this.promPorSemestre = promPorSemestre;
+    }
+
+    public List<Propuesta> getPropuestas() {
+        return propuestas;
+    }
+
+    public void setPropuestas(List<Propuesta> propuestas) {
+        this.propuestas = propuestas;
+    }
+
+    public List<PropuestaDatos> getPropuestaDatos() {
+        return propuestaDatos;
+    }
+
+    public void setPropuestaDatos(List<PropuestaDatos> propuestaDatos) {
+        this.propuestaDatos = propuestaDatos;
+    }
+
+    public List<TemaDatos> getTemaDatosProrrogados() {
+        return temaDatosProrrogados;
+    }
+
+    public void setTemaDatosProrrogados(List<TemaDatos> temaDatosProrrogados) {
+        this.temaDatosProrrogados = temaDatosProrrogados;
+    }
+    
+}

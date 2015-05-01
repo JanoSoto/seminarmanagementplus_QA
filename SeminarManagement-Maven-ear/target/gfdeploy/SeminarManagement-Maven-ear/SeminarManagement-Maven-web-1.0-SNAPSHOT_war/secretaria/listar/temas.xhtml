@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    
+    <ui:define name="metadata">
+        #{accordionPanelMB.setIndex("3")}
+        #{accordionPanelMB.setListTem("seleccion")}
+    </ui:define>
+    
+    <ui:define name="title"><title>Lista de Temas | Seminar Management</title></ui:define>
+
+    <ui:define name="content">
+        <h1>Temas</h1>
+        <br/>
+        <f:event type="preRenderView" listener="#{listarTemasMB.updateTemas()}" />
+        <h:form>
+            <!--Falta usar el filteredValue="#{listarTemasMB.temasFiltrados}", pero si hago eso, no se reinician los filtros-->
+            <p:dataTable var="tema" value="#{listarTemasMB.listTemas}" filterDelay="100" paginator="true"
+                         rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+                         {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         emptyMessage="No se encuentraron temas con el filtro seleccionado"
+                         rowsPerPageTemplate="10,20,30,40,50">
+                
+                <p:column headerText="Nombre de Tema" filterMatchMode="contains" filterBy="#{tema.nombreTema}" sortBy="#{tema}">
+                    <h:outputText value="#{tema.nombreTema}"/>
+                </p:column>
+                
+                <p:column filterBy="#{tema.estadoTema}" filterMatchMode="exact" filterOptions="#{listarTemasMB.estados}">
+                    <f:facet name="header">
+                        <h:outputLabel value="Estado" />
+                    </f:facet>
+                    
+                    <h:outputText value="#{tema.estadoTema}" />
+                </p:column>
+                
+                <p:column headerText="Nombre Alumno" filterMatchMode="contains" filterBy="#{tema.nombreAlumno}" sortBy="#{tema.nombreAlumno}">
+                    <h:outputText value="#{tema.nombreAlumno}" />
+                </p:column>
+                
+                <p:column headerText="Profesor Guía" filterMatchMode="contains" filterBy="#{tema.nombreProfesor}" sortBy="#{tema.nombreProfesor}">
+                    <h:outputText value="#{tema.nombreProfesor}" />
+                </p:column>
+                <p:column headerText="Semestre Ingreso" filterMatchMode="contains" sortBy="#{tema.semestreTema}" >
+                    <h:outputText value="#{tema.semestreTema}" />
+                </p:column>
+                <p:column style="width:4%;text-align: center">                  
+                    <p:button icon="ui-icon-search" title="Ver Datos Alumno" iconPos="right" href="../ver/tema.xhtml?id=#{tema.idTema}" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    
+    </ui:define>
+
+</ui:composition>

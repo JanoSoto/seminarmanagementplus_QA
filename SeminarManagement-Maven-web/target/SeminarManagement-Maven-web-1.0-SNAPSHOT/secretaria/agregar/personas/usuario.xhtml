@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templatedescripciones.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    
+    <ui:define name="metadata">
+        #{accordionPanelMB.setIndex("0")}
+        #{accordionPanelMB.setUsuario("seleccion")}
+    </ui:define>
+    
+    <ui:define name="title"><title>Agregar Usuario | Seminar Management</title></ui:define>
+    
+    <ui:define name="up">
+        <h1>Agregar Usuario</h1>
+    </ui:define>
+    
+    <ui:define name="left">
+        <h:form style="font-weight: bold;">
+            <p:panel style="border:none;">
+                <p:growl id="growl" showDetail="true" sticky="true"/>
+                <h:panelGrid columns="3" cellpadding="4">
+                    
+                    <p:outputLabel for="rut" value="Username (Rut)"/>
+                    <p:inputText id="rut" required="true" value="#{usuarioMB.username}">
+                        <f:validator validatorId="rutValidator"/>
+                    </p:inputText>
+                    <p:watermark for="rut" value="Ingrese Rut"/>
+                    
+                    <p:outputLabel for="nombre" value="Nombre/s"/>
+                    <p:inputText id="nombre" required="true" value="#{usuarioMB.nombreUsuario}"/>
+                    <p:watermark for="nombre" value="Ingresar Nombre"/>
+                    
+                    <p:outputLabel for="apellido" value="Apellido/s"/>
+                    <p:inputText id="apellido" required="true" value="#{usuarioMB.apellidoUsuario}"/>
+                    <p:watermark for="apellido" value="Ingresar Apellido"/>
+                    
+                    <p:outputLabel for="tipo" value="Tipo"/>
+                    <p:selectOneMenu id="tipo" required="true" value="#{usuarioMB.tipoUsuario}">
+                        <f:selectItem itemLabel="Seleccionar" noSelectionOption="true" />
+                        <f:selectItem itemLabel="SECRETARIA" itemValue="SECRETARIA"/>
+                        <f:selectItem itemLabel="ADMINISTRADOR" itemValue="ADMINISTRADOR"/>
+                    </p:selectOneMenu>
+                    <br/>
+                </h:panelGrid>
+                <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="../../index.xhtml" value="Atrás"/>
+                <p:commandButton id="bt1" value="Ingresar" actionListener="#{usuarioMB.agregarNuevoUsuario()}" update="growl @form"/>
+                <p:defaultCommand target="bt1" />
+            </p:panel>
+        </h:form>
+    </ui:define>
+    
+    <ui:define name="right">
+        <button class="navActive" disabled="true">Agregar<br/>Usuario</button>
+        
+        <p class="descripcion">
+            Los campos con asterisco (*) son obligatorios.
+        </p>
+    </ui:define>
+</ui:composition>

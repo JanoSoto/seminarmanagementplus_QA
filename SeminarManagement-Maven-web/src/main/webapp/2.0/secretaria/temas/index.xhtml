@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template2.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    
+    <ui:define name="metadata">
+        #{accordionPanelMB.setIndex("3")}
+    </ui:define>
+    
+    <ui:define name="title"><title>Temas | Seminar Management</title></ui:define>
+
+    <ui:define name="content">
+        
+        <p:layoutUnit position="west" size="180" style="border: none;">
+            <p:panel style="border:none;">
+                <h:panelGrid columns="1" cellpadding="4">
+                    <form method="GET" action="/SeminarManagement-Maven-web/2.0/secretaria/temas/buscar.xhtml">
+                        <input type="text" placeholder="Búsqueda" value="#{buscarMB.query}" name="q"/>
+                        <button type="submit" value="search">Buscar Temas</button>
+                    </form>
+                </h:panelGrid>
+            </p:panel>
+        </p:layoutUnit>
+        
+        <p:layoutUnit position="center" style="border:none;">
+            <h:form>
+                <p:dataTable id="propTable" var="tema" value="#{temasIndexMB.temaDatos}" filteredValue="#{temasIndexMB.temaDatosFiltrados}" filterDelay="100" paginator="true"
+                                 rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+                                 {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,30,40,50"
+                                 emptyMessage="No se encontraron Temas">
+                    <p:column headerText="Nombre Tema" filterBy="#{tema.nombreCorto}" filterMatchMode="contains" sortBy="#{tema.nombreCorto}">
+                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/temas/tema.xhtml?tema=#{tema.idTema}">
+                            <h:outputText value="#{tema.nombreCorto}" />
+                        </a>
+                    </p:column>
+                    <p:column filterBy="#{tema.estadoTema}" filterMatchMode="exact" filterOptions="#{temasIndexMB.estados}">
+                        <f:facet name="header">
+                            <h:outputLabel value="Estado" />
+                        </f:facet>
+                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/temas/tema.xhtml?tema=#{tema.idTema}">
+                            <h:outputText value="#{tema.estadoTema}"/>
+                        </a>
+                    </p:column>
+                    <p:column headerText="Alumno" filterBy="#{tema.alumno.nombreAlumno} #{tema.alumno.apellidoAlumno}" filterMatchMode="contains" sortBy="#{tema.alumno.nombreAlumno} #{tema.alumno.apellidoAlumno}">
+                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/alumnos/alumno.xhtml?alum=#{tema.alumno.rutAlumno}">
+                            <h:outputText value="#{tema.alumno.nombreAlumno} #{tema.alumno.apellidoAlumno}" />
+                        </a>
+                    </p:column>
+                    <p:column headerText="Profesor" filterBy="#{tema.guia.nombreProfesor} #{tema.guia.apellidoProfesor}" filterMatchMode="contains" sortBy="#{tema.guia.nombreProfesor} #{tema.guia.apellidoProfesor}">
+                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/profesores/profesor.xhtml?prof=#{tema.guia.rutProfesor}">
+                            <h:outputText value="#{tema.guia.nombreProfesor} #{tema.guia.apellidoProfesor}" />
+                        </a>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </p:layoutUnit>
+        
+    </ui:define>
+
+</ui:composition>

@@ -1,0 +1,90 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templatedescripciones.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    
+    <ui:define name="metadata">
+        #{accordionPanelMB.setIndex("2")}
+        #{accordionPanelMB.setCambiosMasivos("seleccion")}
+    </ui:define>
+    
+    <ui:define name="title"><title>Activar Temas | Seminar Management</title></ui:define>
+    
+    <ui:define name="up">
+        <h1>Activar Temas</h1>
+    </ui:define>
+    
+    <ui:define name="left">
+        <h:form style="font-weight: bold;">
+            <p:panel style="border:none;">
+                <p:growl id="growl" showDetail="true" sticky="true" />
+                <h:panelGrid columns="4" cellpadding="4">
+                    <p:outputLabel for="semAct" value="Temas ingresados el semestre" />
+                    <p:inputMask id="semAct" value="#{cambiosMasivosMB.semestre}" mask="9/9999"/>
+                    <p:watermark for="semAct" value="Ingresar Semestre"/>
+                    <p:commandButton id="btn1" value="Filtrar temas" action="#{cambiosMasivosMB.filtrarTemasCaducos()}" update="@form"/>
+                </h:panelGrid>
+                <h:panelGrid columns="2" cellpadding="4">
+                    <p:pickList converter="temaDatosConverter" showSourceFilter="true" filterMatchMode="contains" 
+                                converterMessage="Ha ocurrido un error al cargar los datos" addAllLabel="Agregar todos" 
+                                addLabel="Agregar"  showTargetFilter="true" id="pickList" removeAllLabel="Quitar todos" 
+                                removeLabel="Quitar" value="#{cambiosMasivosMB.pickListTemasCaducos}" var="temasCaducos" 
+                                itemLabel="#{temasCaducos.rutAlumno} - #{temasCaducos.nombreAlumno} #{temasCaducos.apellidoAlumno}" itemValue="#{temasCaducos}">
+                        <f:facet name="sourceCaption">Lista de temas caducados</f:facet>
+                        <f:facet name="targetCaption">Lista de temas para activar</f:facet>
+                    </p:pickList>
+                </h:panelGrid>
+                <h:panelGrid columns="3" cellpadding="4">
+                    <p:outputLabel for="caducarTemas" value="Motivo de activación" />
+                    <p:selectOneMenu id="caducarTemas" value="#{cambiosMasivosMB.opcionActivar}">
+                        <f:selectItem itemLabel="Seleccione Opción" itemValue="-1" />
+                        <f:selectItem itemLabel="Presentarán Informe de Avance" itemValue="1" />
+                        <f:selectItem itemLabel="Entregarán Borrador Final" itemValue="2" />
+                        <f:selectItem itemLabel="Otro motivo" itemValue="3" />
+                    </p:selectOneMenu>
+                    <br/><br/>
+                <p:outputLabel for="calendP" value="Fecha de activación *" />
+                <p:calendar id="calendP" value="#{cambiosMasivosMB.date}" mode="popup" />
+                <p:watermark for="calendP" value="Seleccione Fecha"/>
+
+                <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Atrás"/>
+                <p:commandButton id="btn2" value="Activar" action="#{cambiosMasivosMB.activarTemas()}" update="@form"/>
+                </h:panelGrid>
+                <br/>
+            </p:panel>
+        </h:form>
+    </ui:define>
+
+    <ui:define name="right">
+        <button class="navDefault" disabled="true">Cambios Masivos<br/>de Estados</button>
+        <p:button style="background: #FFFFFF;border: none;" disabled="true" icon="ui-icon-seek-next"/>
+        <button class="navDefault" disabled="true">Caducar<br/>Temas</button>
+        <br/>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <p:button style="background: #FFFFFF;border: none;" disabled="true" icon="ui-icon-seek-next"/>
+        <button class="navActive" disabled="true">Activar<br/>Temas</button>
+        
+        <p class="descripcion">
+            Los alumnos con temas caducos poueden, eventualmente, solicitar la activación de su tema.
+            <br/><br/>
+            Es posible escoger el semestre en el cual fueron ingresados los temas que se desea activar, debido a que, a largo
+            plazo, habrá una gran cantidad de temas caducos.
+            <br/><br/>
+            Para ello, es posible escoger entre las causales que se plantean.
+            <u>No es obligatorio elegir alguna de ellas</u>. Si no se escoge ninguna, en el historial quedará registrado
+            como motivo de cambio de estado: <u>No se señaló</u>
+            <br/><br/>
+            Es posible seleccionar la siguiente opción
+            <br/><br/>
+            <b>Filtrar temas:</b>
+            Se procede a mostrar los temas en estado <u>Caduco</u> del semestre escogido y <u>del semestre anterior</u>.
+            <br/><br/>
+            Es posible escoger un motivo por el cual se activen los temas, de esta forma se guarda en el historial del tema.
+        </p>
+    </ui:define>
+</ui:composition>

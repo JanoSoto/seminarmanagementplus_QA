@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/templatedescripciones.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+    
+    <ui:define name="metadata">
+        #{accordionPanelMB.setIndex("1")}
+        #{accordionPanelMB.setEliminar("seleccion")}
+    </ui:define>
+    
+    <ui:define name="title"><title>Eliminar Hitos | Seminar Management</title></ui:define>
+
+    <ui:define name="up">
+        <h1>Eliminar Hitos</h1>
+    </ui:define>
+    
+    <ui:define name="left">
+         <h:form style="font-weight: bold;">
+            <p:panel style="border:none;">
+                <p:growl id="growl" showDetail="true" sticky="true" />
+                <h:panelGrid columns="3" cellpadding="4">
+                    
+                    <p:outputLabel for="alumnoE" value="Alumno" />
+                    <p:selectOneMenu id="alumnoE" value="#{eliminarHitos.rutAlumno}" filter="true" filterMatchMode="contains">
+                        <f:selectItem itemLabel="Seleccionar Alumno" itemValue="" />
+                        <f:selectItems value="#{eliminarHitos.alumnos}" var="alumno" itemLabel="#{alumno.rutAlumno} - #{alumno.nombreAlumno}  #{alumno.apellidoAlumno}" itemValue="#{alumno.rutAlumno}"/>  
+                    </p:selectOneMenu>
+                    <p:commandButton id="btn2" value="Seleccionar Alumno" action="#{eliminarHitos.updateByAlumno()}" update="@form"/>
+                    
+                    <p:outputLabel for="prop" value="Nombre Propuesta *" />
+                    <p:selectOneMenu id="prop" value="#{eliminarHitos.idProp}">
+                        <f:selectItem itemLabel="Seleccionar Propuesta" itemValue="-1"/>
+                        <f:selectItems value="#{eliminarHitos.propuestas}" var="props" itemLabel="#{props.nombrePropuesta}" itemValue="#{props.idPropuesta}"/>
+                    </p:selectOneMenu>
+                    <p:commandButton id="btn3" value="Seleccionar Propuesta" action="#{eliminarHitos.updateByPropuesta()}" update="@form"/>
+                    
+                    <p:outputLabel value="Profesor Guía" />
+                    <h:outputText style="color: #0052cc;" rendered="#{!empty eliminarHitos.guiaProp}" value="#{eliminarHitos.guiaProp}"/>
+                    <h:outputText rendered="#{empty eliminarHitos.guiaProp}" value=""/>
+                    <p:commandButton id="btn4" value="Eliminar Propuesta" onclick="confirmDeleteProp.show()" type="button"/>
+                    
+                    <p:outputLabel value="Comisión Revisora" />
+                    <h:outputText style="color: #0052cc;" rendered="#{!empty eliminarHitos.comRev}" value="#{eliminarHitos.profRev1} | #{eliminarHitos.profRev2}"/>
+                    <h:outputText rendered="#{empty eliminarHitos.comRev}" value=""/>
+                    <p:commandButton id="btn5" value="Eliminar Comisión Revisora" onclick="confirmDeleteComRev.show()" type="button"/>
+                    
+                    <p:outputLabel value="Tema" />
+                    <h:outputText style="color: #0052cc;" rendered="#{!empty eliminarHitos.tema}" value="#{eliminarHitos.tema.nombreTema}"/>
+                    <h:outputText rendered="#{empty eliminarHitos.tema}" value=""/>
+                    <p:commandButton id="btn6" value="Eliminar Tema" onclick="confirmDeleteTema.show()" type="button"/>
+                    
+                    <p:outputLabel value="Comisión Correctora" />
+                    <h:outputText style="color: #0052cc;" rendered="#{!empty eliminarHitos.comCorr}" value="#{eliminarHitos.profCorr1} | #{eliminarHitos.profCorr2}"/>
+                    <h:outputText rendered="#{empty eliminarHitos.comCorr}" value=""/>
+                    <p:commandButton id="btn7" value="Eliminar Comisión Correctora" onclick="confirmDeleteComCorrecc.show()" type="button" />
+                    
+                    <!--Confirmaciones de acciones-->
+                    
+                    <p:dialog header="Confirmación Eliminar Propuesta" widgetVar="confirmDeleteProp" width="350" closeOnEscape="true" closable="true" draggable="false" resizable="false" >
+                        
+                        <strong>¿Está seguro? Esta acción generará cambios irreversibles dentro del sistema.</strong><br/>
+                        <hr/>
+                        <p:commandButton value="Sí" update="@form"  oncomplete="confirmDeleteProp.hide()"
+                                    actionListener="#{eliminarHitos.removeByPropuesta()}" />
+                        <p:commandButton value="No" onclick="confirmDeleteProp.hide()" type="button" />
+                        
+                    </p:dialog>
+
+                    <p:dialog header="Confirmación Eliminar Comisión Revisora" widgetVar="confirmDeleteComRev" width="350" closeOnEscape="true" closable="true" draggable="false" resizable="false" >
+                        <strong>¿Está seguro? Esta acción generará cambios irreversibles dentro del sistema.</strong><br/>
+                        <hr/>
+                        <p:commandButton value="Sí" update="@form"  oncomplete="confirmDeleteComRev.hide()"
+                                    actionListener="#{eliminarHitos.removeByComRev()}" />
+                        <p:commandButton value="No" onclick="confirmDeleteComRev.hide()" type="button" />
+                    </p:dialog>
+
+                    <p:dialog header="Confirmación Eliminar Tema" widgetVar="confirmDeleteTema" width="350" closeOnEscape="true" closable="true" draggable="false" resizable="false" >
+                        <strong>¿Está seguro? Esta acción generará cambios irreversibles dentro del sistema.</strong><br/>
+                        <hr/>
+                        <p:commandButton value="Sí" update="@form"  oncomplete="confirmDeleteTema.hide()"
+                                    actionListener="#{eliminarHitos.removeByTema()}" />
+                        <p:commandButton value="No" onclick="confirmDeleteTema.hide()" type="button" />
+                    </p:dialog>
+
+                    <p:dialog header="Confirmación Eliminar Comisión Correctora" widgetVar="confirmDeleteComCorrecc" width="350" closeOnEscape="true" closable="true" draggable="false" resizable="false" >
+                        <strong>¿Está seguro? Esta acción generará cambios irreversibles dentro del sistema.</strong><br/>
+                        <hr/>
+                        <p:commandButton value="Sí" update="@form"  oncomplete="confirmDeleteComCorrecc.hide()"
+                                    actionListener="#{eliminarHitos.removeByComCorr()}" />
+                        <p:commandButton value="No" onclick="confirmDeleteComCorrecc.hide()" type="button" />
+                    </p:dialog>
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+    </ui:define>
+    
+    <ui:define name="right">
+        <button class="navActive" disabled="true">Agregar<br/>Alumno</button>
+        
+        <p class="descripcion">
+            Al eliminar un hito se eliminarán tambien todos los hitos que nacen de éste.
+        </p>
+    </ui:define>
+
+</ui:composition>
