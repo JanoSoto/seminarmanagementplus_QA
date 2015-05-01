@@ -51,8 +51,8 @@ public class PlantillaTema extends HttpServlet {
         
         try {
             if (temaMB.getIdTema() == null){
-                if (request.getParameter("tema") != null){
-                    temaMB.setIdTema(Integer.parseInt(request.getParameter("tema")));
+                if (request.getParameter("id") != null){
+                    temaMB.setIdTema(Integer.parseInt(request.getParameter("id")));
                     temaMB.buscarTema();
                 } else {
                     throw new NullPointerException("No se especificó un tema");
@@ -85,7 +85,7 @@ public class PlantillaTema extends HttpServlet {
             
             str = new StringBuilder("");
             for (ProfePropuesta profe : tema.getIdRevisora().getIdPropuesta().getProfePropuestaList() ) {
-                if (profe.getRolGuia() == 1){
+                if (profe.getRolGuia() == 0){
                     str.append(profe.getProfesor().getNombreProfesor()).append(" ")
                             .append(profe.getProfesor().getApellidoProfesor());
                     break;
@@ -95,7 +95,7 @@ public class PlantillaTema extends HttpServlet {
             
             str = new StringBuilder("");
             for (ProfePropuesta profe : tema.getIdRevisora().getIdPropuesta().getProfePropuestaList() ) {
-                if (profe.getRolGuia() == 0){
+                if (profe.getRolGuia() == 1){
                     str.append(profe.getProfesor().getNombreProfesor()).append(" ")
                             .append(profe.getProfesor().getApellidoProfesor());
                     break;
@@ -167,7 +167,7 @@ public class PlantillaTema extends HttpServlet {
             StringBuilder sbContentDispValue = new StringBuilder();
             sbContentDispValue.append("inline")
                 .append("; filename=")
-                .append("Propuesta_")
+                .append("Tema_")
                 .append(alumno.getRutAlumno())
                 .append(".pdf");
 

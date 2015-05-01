@@ -50,8 +50,8 @@ public class PlantillaPropuesta extends HttpServlet {
         
         try {
             if (propuestaMB.getIdPropuesta() == null){
-                if (request.getParameter("prop") != null){
-                    propuestaMB.setIdPropuesta(Integer.parseInt(request.getParameter("prop")));
+                if (request.getParameter("id") != null){
+                    propuestaMB.setIdPropuesta(Integer.parseInt(request.getParameter("id")));
                     propuestaMB.buscarPropuesta();
                 } else {
                     throw new NullPointerException("No se especificó una propuesta");
