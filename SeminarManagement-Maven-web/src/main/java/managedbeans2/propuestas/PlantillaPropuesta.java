@@ -84,7 +84,7 @@ public class PlantillaPropuesta extends HttpServlet {
             
             str = new StringBuilder("");
             for (ProfePropuesta prop_prof : prop.getProfePropuestaList() ) {
-                if (prop_prof.getRolGuia() == 1){
+                if (prop_prof.getRolGuia() == 0){
                     str.append(prop_prof.getProfesor().getNombreProfesor()).append(" ")
                             .append(prop_prof.getProfesor().getApellidoProfesor());
                     break;
@@ -94,7 +94,7 @@ public class PlantillaPropuesta extends HttpServlet {
             
             str = new StringBuilder("");
             for (ProfePropuesta prop_prof : prop.getProfePropuestaList() ) {
-                if (prop_prof.getRolGuia() == 0){
+                if (prop_prof.getRolGuia() == 1){
                     str.append(prop_prof.getProfesor().getNombreProfesor()).append(" ")
                             .append(prop_prof.getProfesor().getApellidoProfesor());
                     break;
