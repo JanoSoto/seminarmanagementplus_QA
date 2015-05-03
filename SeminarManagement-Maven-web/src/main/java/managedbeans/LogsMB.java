@@ -27,8 +27,13 @@ public class LogsMB implements Serializable {
     private LogsFacadeLocal ejbFacade;
     private List<Logs> items = null;
     private Logs selected;
+    private AuthMB usuario;
 
     public LogsMB() {
+        //String username = usuario.getNombre();
+        //for (Logs item : items) {
+          //  item.setUserId(username);
+        //}
     }
 
     public Logs getSelected() {

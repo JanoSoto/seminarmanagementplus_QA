@@ -33,6 +33,7 @@ public class EditarProfesorMB implements Serializable {
     private Profesor profesor;
     private Profesor profesorEdit = new Profesor();
     private Date dateMaxGuia;
+    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(EditarProfesorMB.class);
     /**
      * Creates a new instance of EditarProfesorMB
      */
@@ -140,6 +141,7 @@ public class EditarProfesorMB implements Serializable {
          */
         
         context.addMessage(null, new FacesMessage("Editar Profesor", profesorEdit.getNombreProfesor()+" "+profesorEdit.getApellidoProfesor()+" editado exitosamente"));
+        LOGGER.info("El profesor '"+profesorEdit.getNombreProfesor()+" "+profesorEdit.getApellidoProfesor()+"' ha sido editado exitosamente");
 
     }
     
