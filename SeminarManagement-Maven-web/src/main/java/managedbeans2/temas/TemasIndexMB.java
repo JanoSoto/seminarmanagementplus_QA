@@ -109,6 +109,7 @@ public class TemasIndexMB {
         estados[4] = new SelectItem("CADUCO");
         estados[5] = new SelectItem("EN PROCESO DE EXAMEN");
         estados[6] = new SelectItem("VIGENTE, CON BORRADOR FINAL");
+        semestres.add(0, new SelectItem("","Todos"));
     }
 
     public SelectItem[] getEstadosOptions() {
