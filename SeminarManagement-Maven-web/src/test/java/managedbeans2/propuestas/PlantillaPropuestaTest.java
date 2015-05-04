@@ -141,7 +141,7 @@ public class PlantillaPropuestaTest {
         servlet.processRequest(request, response);
 
         // verifica pdf
-        assertEquals(response.getContentType(),"application/pdf");
+        assertEquals("application/pdf", response.getContentType());
         String pdfText = extractPdfText(response.getContentAsByteArray());
         // verfica contenido
         assertTrue(pdfText.contains("Nombre de la propuesta"));

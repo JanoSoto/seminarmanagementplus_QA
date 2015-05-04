@@ -46,20 +46,19 @@ public class PlantillaPropuesta extends HttpServlet {
             throws ServletException, IOException {
         
         ByteArrayOutputStream baosPDF = null;
-        VerPropuestaMB propMB = propuestaMB;
         
         try {
-            if (propMB.getIdPropuesta() == null){
+            if (propuestaMB.getIdPropuesta() == null){
                 if (request.getParameter("id") != null){
-                    propMB.setIdPropuesta(Integer.parseInt(request.getParameter("id")));
-                    propMB.buscarPropuesta();
+                    propuestaMB.setIdPropuesta(Integer.parseInt(request.getParameter("id")));
+                    propuestaMB.buscarPropuesta();
                 } else {
                     throw new NullPointerException("No se especificó una propuesta");
                 }
             }
 
-            Propuesta prop = propMB.getPropuesta();
-            Alumno alumno = propMB.getAlumno();
+            Propuesta prop = propuestaMB.getPropuesta();
+            Alumno alumno = propuestaMB.getAlumno();
             
             InputStream resourceUrl = getServletContext().getResourceAsStream(TEMPLATE_LOCATION);
             System.out.println(resourceUrl);
@@ -82,7 +81,7 @@ public class PlantillaPropuesta extends HttpServlet {
             str.append(alumno.getNombreAlumno()).append(" ").append(alumno.getApellidoAlumno());
             stamper.getAcroFields().setField("student_name", str.toString());
             
-            Profesor guia = propMB.getGuia();
+            Profesor guia = propuestaMB.getGuia();
             str = new StringBuilder("");
             if (guia != null){
                 str.append(guia.getNombreProfesor()).append(" ")
@@ -90,7 +89,7 @@ public class PlantillaPropuesta extends HttpServlet {
             }
             stamper.getAcroFields().setField("guide_proffesor", str.toString());
             
-            Profesor coguia = propMB.getCoguia();
+            Profesor coguia = propuestaMB.getCoguia();
             str = new StringBuilder("");
             if (coguia != null){
                 str.append(coguia.getNombreProfesor()).append(" ")
@@ -98,7 +97,7 @@ public class PlantillaPropuesta extends HttpServlet {
             }
             stamper.getAcroFields().setField("co_guide_proffesor", str.toString());
 
-            Profesor profComision1 = propMB.getRevisor1();
+            Profesor profComision1 = propuestaMB.getRevisor1();
             str = new StringBuilder("");
             if (profComision1 != null){
                 str.append(profComision1.getNombreProfesor()).append(" ")
@@ -106,7 +105,7 @@ public class PlantillaPropuesta extends HttpServlet {
             }
             stamper.getAcroFields().setField("commission_proffesor_1", str.toString());
             
-            Profesor profComision2 = propMB.getRevisor2();
+            Profesor profComision2 = propuestaMB.getRevisor2();
             str = new StringBuilder();
             if (profComision2 != null){
                 str.append(profComision2.getNombreProfesor())

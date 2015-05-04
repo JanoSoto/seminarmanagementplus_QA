@@ -130,11 +130,13 @@ public class PlantillaTemaTest {
         when(this.servlet.temaMB.getAlumno()).thenReturn(alumno);
         when(this.servlet.temaMB.getCorrector1()).thenReturn(comision1);
         when(this.servlet.temaMB.getCorrector2()).thenReturn(comision2);
+        
+        request.addParameter("id", "1");
 
         servlet.processRequest(request, response);
 
         // verifica pdf
-        assertEquals(response.getContentType(),"application/pdf");
+        assertEquals("application/pdf", response.getContentType());
         String pdfText = extractPdfText(response.getContentAsByteArray());
         // verfica contenido
         assertTrue(pdfText.contains("Nombre de la propuesta"));
