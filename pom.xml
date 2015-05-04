@@ -29,7 +29,7 @@
                   <debug>true</debug>                
                   <glassfishDirectory>/usr/local/glassfish-4.1</glassfishDirectory>                
                   <user>admin</user>                
-                  <adminPassword></adminPassword>                
+                  <adminPassword>admin</adminPassword>                
                   <domain>                    
                       <name>domain1</name>                    
                       <host>localhost</host>                    
