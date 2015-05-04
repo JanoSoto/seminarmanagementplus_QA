@@ -4,8 +4,6 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 import entities.Alumno;
-import entities.ProfeCorreccion;
-import entities.ProfePropuesta;
 import entities.Profesor;
 import entities.Tema;
 import java.io.ByteArrayOutputStream;
