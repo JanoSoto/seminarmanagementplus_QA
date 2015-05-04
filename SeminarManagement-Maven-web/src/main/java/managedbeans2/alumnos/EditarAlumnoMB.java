@@ -37,7 +37,7 @@ public class EditarAlumnoMB implements Serializable {
 
     private Alumno alumno;
     private String rutAlumno;
-
+    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(EditarAlumnoMB.class);
     //Declaramos esto para poder acceder al managed bean de autenticación (para almecenar el usuario en el historial)
     @ManagedProperty(value = "#{authMB}")
     private AuthMB user;
@@ -113,6 +113,7 @@ public class EditarAlumnoMB implements Serializable {
          */
         
         context.addMessage(null, new FacesMessage("Editar Alumno", alumnoEdit.getNombreAlumno()+" "+alumnoEdit.getApellidoAlumno()+" editado exitosamente"));
+        LOGGER.info("El alumno "+alumnoEdit.getNombreAlumno()+" "+alumnoEdit.getApellidoAlumno()+" ha sido editado exitosamente");
 
     }
 

@@ -39,6 +39,7 @@ public class VerTemaMB {
     private Tema tema;
     private Date fechaEdit;
     private String semestreEdit, nombreTemaEdit;
+    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(VerTemaMB.class);
     private Alumno alumno;
     
     /**
@@ -92,6 +93,8 @@ public class VerTemaMB {
         
         //Mensaje de confirmación
         context.addMessage(null, new FacesMessage("Tema",temaTemp.getNombreTema()+", editado en el sistema"));
+        LOGGER.info("Tema "+temaTemp.getNombreTema()+ " editado en el sistema");
+        
 
         //externalContext.getFlash().setKeepMessages(true); //Para mantener los mensaje aunque se pase de página
         FacesContext.getCurrentInstance().getExternalContext().redirect("tema.xhtml?tema="+id);
@@ -115,6 +118,7 @@ public class VerTemaMB {
     
     public void editarTema() {
         FacesContext context = FacesContext.getCurrentInstance();
+        
         Tema temaTemp = temaFacade.findById(idTemaEdit).get(0);
         
         if((nombreTemaEdit==null)||(nombreTemaEdit.equals(""))){
@@ -163,7 +167,9 @@ public class VerTemaMB {
         temaFacade.edit(temaTemp);
         
         //Mensaje de confirmación
-        context.addMessage(null, new FacesMessage("Tema", "El tema ha sido editado exitósamente"));
+        context.addMessage(null, new FacesMessage("Tema", "El tema ha sido editado exitosamente"));
+        LOGGER.info("Tema "+nombreTemaEdit+ " editado exitosamente");
+        
     }
 
     public Integer getIdTemaEdit() {

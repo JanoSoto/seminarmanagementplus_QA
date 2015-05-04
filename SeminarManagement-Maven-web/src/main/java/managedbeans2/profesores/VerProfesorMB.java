@@ -43,6 +43,7 @@ public class VerProfesorMB {
     private List<PropuestaDatos> propuestaDatos, propuestasFiltradas;
     private List<Tema> temas;
     private List<TemaDatos> temaDatos, temaDatosProrrogados, temasFiltrados;
+    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(VerProfesorMB.class);
     
     /**
      * Creates a new instance of VerProfesorMB
@@ -223,6 +224,7 @@ public class VerProfesorMB {
          */
         
         context.addMessage(null, new FacesMessage("Editar Profesor", profTemp.getNombreProfesor()+" "+profTemp.getApellidoProfesor()+" editado exitosamente"));
+        LOGGER.info("El profesor '"+profTemp.getNombreProfesor()+" "+profTemp.getApellidoProfesor()+"' ha sido editado exitosamente");
 
     }
     
