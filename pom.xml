@@ -18,4 +18,31 @@
     <module>SeminarManagement-Maven-web</module>
     <module>SeminarManagement-Maven-ejb</module>
   </modules>
+  <build>    
+      <plugins>        
+          <plugin>            
+              <groupId>org.glassfish.maven.plugin</groupId>            
+              <artifactId>maven-glassfish-plugin</artifactId>            
+              <configuration>                
+                  <terse>false</terse>                
+                  <echo>true</echo>                
+                  <debug>true</debug>                
+                  <glassfishDirectory>/usr/local/glassfish-4.1</glassfishDirectory>                
+                  <user>admin</user>                
+                  <adminPassword></adminPassword>                
+                  <domain>                    
+                      <name>domain1</name>                    
+                      <host>localhost</host>                    
+                      <adminPort>4848</adminPort>                
+                  </domain>                
+                  <components>                    
+                      <component>                        
+                          <name>${project.artifactId}</name>                        
+                          <artifact>${project.build.directory}/${project.build.finalName}.war</artifact>                    
+                      </component>                
+                  </components>            
+              </configuration>        
+          </plugin>    
+      </plugins>
+  </build>
 </project>
