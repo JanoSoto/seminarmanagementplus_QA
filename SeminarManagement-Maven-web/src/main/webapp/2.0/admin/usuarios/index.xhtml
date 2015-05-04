@@ -9,7 +9,7 @@
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
     
     <ui:define name="metadata">
-        #{accordionPanelMB.setIndex("1")}
+        #{accordionPanelMB.setIndex("5")}
     </ui:define>
     
     <ui:define name="title"><title>Usuarios | Seminar Management</title></ui:define>
@@ -26,6 +26,9 @@
         <p:layoutUnit position="center" style="border:none;">
             <h:form>
                 <p:dataTable id="userTable" var="user" value="#{usuariosIndexMB.usuarios}">
+                    <f:facet name="header">  
+                        Usuarios
+                    </f:facet>
                     <p:column headerText="Nombre">
                         <a href="#">
                             <h:outputText value="#{user.nombreUsuario} #{user.apellidoUsuario}" />
