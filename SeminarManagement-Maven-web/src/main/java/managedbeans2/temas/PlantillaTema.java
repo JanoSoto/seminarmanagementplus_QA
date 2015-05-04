@@ -30,7 +30,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "PlantillaTema", urlPatterns = {"/PdfTema"})
 public class PlantillaTema extends HttpServlet {
 
-    public static final String TEMPLATE_LOCATION = "/resources/plantillas/plantilla_tema.pdf";
+    public String TEMPLATE_LOCATION = "/resources/plantillas/plantilla_tema.pdf";
     
     @Inject
     VerTemaMB temaMB;
@@ -46,7 +46,7 @@ public class PlantillaTema extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        
         ByteArrayOutputStream baosPDF = null;
         
         try {
@@ -60,7 +60,7 @@ public class PlantillaTema extends HttpServlet {
             }
 
             Tema tema = temaMB.getTema();
-            Alumno alumno = tema.getIdRevisora().getIdPropuesta().getRutAlumno();
+            Alumno alumno = temaMB.getAlumno();
             
             InputStream resourceUrl = getServletContext().getResourceAsStream(TEMPLATE_LOCATION);
 
@@ -83,35 +83,24 @@ public class PlantillaTema extends HttpServlet {
             str.append(alumno.getNombreAlumno()).append(" ").append(alumno.getApellidoAlumno());
             stamper.getAcroFields().setField("student_name", str.toString());
             
+            Profesor guia = temaMB.getGuia();
             str = new StringBuilder("");
-            for (ProfePropuesta profe : tema.getIdRevisora().getIdPropuesta().getProfePropuestaList() ) {
-                if (profe.getRolGuia() == 0){
-                    str.append(profe.getProfesor().getNombreProfesor()).append(" ")
-                            .append(profe.getProfesor().getApellidoProfesor());
-                    break;
-                }
+            if (guia != null){
+                str.append(guia.getNombreProfesor()).append(" ")
+                        .append(guia.getApellidoProfesor());
             }
             stamper.getAcroFields().setField("guide_proffesor", str.toString());
             
+            Profesor coGuia = temaMB.getCoguia();
             str = new StringBuilder("");
-            for (ProfePropuesta profe : tema.getIdRevisora().getIdPropuesta().getProfePropuestaList() ) {
-                if (profe.getRolGuia() == 1){
-                    str.append(profe.getProfesor().getNombreProfesor()).append(" ")
-                            .append(profe.getProfesor().getApellidoProfesor());
-                    break;
-                }
+            if ( coGuia != null){
+                str.append(coGuia.getNombreProfesor()).append(" ")
+                        .append(coGuia.getApellidoProfesor());
             }
             stamper.getAcroFields().setField("co_guide_proffesor", str.toString());
             
-            Profesor corrector1 = null, corrector2 = null;
-            if( tema.getIdCorrectora() != null ){
-                for( ProfeCorreccion pc : tema.getIdCorrectora().getProfeCorreccionList()){
-                    if( pc.getRolCorreccion()== 0 )
-                        corrector1 = pc.getProfesor();
-                    if( pc.getRolCorreccion()== 1 )
-                        corrector2 = pc.getProfesor();
-                }
-            }
+            Profesor corrector1 = temaMB.getCorrector1(), 
+                    corrector2 = temaMB.getCorrector2();
 
             if (corrector1 != null){
                 str = new StringBuilder(corrector1.getNombreProfesor());
@@ -229,7 +218,7 @@ public class PlantillaTema extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Retorna un archivo PDF desplegado en el navegador que contiene la información un tema de trabajo de título";
     }// </editor-fold>
 
 }

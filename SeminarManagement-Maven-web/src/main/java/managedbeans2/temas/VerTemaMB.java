@@ -39,6 +39,7 @@ public class VerTemaMB {
     private Tema tema;
     private Date fechaEdit;
     private String semestreEdit, nombreTemaEdit;
+    private Alumno alumno;
     
     /**
      * Creates a new instance of VerTemaMB
@@ -70,7 +71,7 @@ public class VerTemaMB {
                     if(tema.getIdCorrectora().getProfeCorreccionList().get(i).getRolCorreccion()==1)
                         corrector2 = tema.getIdCorrectora().getProfeCorreccionList().get(i).getProfesor();
                 }
-            
+            alumno = tema.getIdRevisora().getIdPropuesta().getRutAlumno();
         }
         else{
             FacesContext context = FacesContext.getCurrentInstance();
@@ -244,5 +245,12 @@ public class VerTemaMB {
     public void setTema(Tema tema) {
         this.tema = tema;
     }
-    
+
+    public Alumno getAlumno() {
+        return alumno;
+    }
+
+    public void setAlumno(Alumno alumno) {
+        this.alumno = alumno;
+    }
 }

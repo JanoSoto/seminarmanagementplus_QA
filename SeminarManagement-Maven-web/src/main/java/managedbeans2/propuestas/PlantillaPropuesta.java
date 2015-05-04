@@ -4,7 +4,6 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 import entities.Alumno;
-import entities.ProfePropuesta;
 import entities.Profesor;
 import entities.Propuesta;
 import java.io.ByteArrayOutputStream;
@@ -29,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "PlantillaPropuesta", urlPatterns = {"/PdfPropuesta"})
 public class PlantillaPropuesta extends HttpServlet {
 
-    public static final String TEMPLATE_LOCATION = "/resources/plantillas/plantilla_propuesta.pdf";
+    public String TEMPLATE_LOCATION = "/resources/plantillas/plantilla_propuesta.pdf";
     
     @Inject
     VerPropuestaMB propuestaMB;
@@ -45,24 +44,25 @@ public class PlantillaPropuesta extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        
         ByteArrayOutputStream baosPDF = null;
+        VerPropuestaMB propMB = propuestaMB;
         
         try {
-            if (propuestaMB.getIdPropuesta() == null){
+            if (propMB.getIdPropuesta() == null){
                 if (request.getParameter("id") != null){
-                    propuestaMB.setIdPropuesta(Integer.parseInt(request.getParameter("id")));
-                    propuestaMB.buscarPropuesta();
+                    propMB.setIdPropuesta(Integer.parseInt(request.getParameter("id")));
+                    propMB.buscarPropuesta();
                 } else {
                     throw new NullPointerException("No se especificó una propuesta");
                 }
             }
 
-            Propuesta prop = propuestaMB.getPropuesta();
-            Alumno alumno = prop.getRutAlumno();
+            Propuesta prop = propMB.getPropuesta();
+            Alumno alumno = propMB.getAlumno();
             
             InputStream resourceUrl = getServletContext().getResourceAsStream(TEMPLATE_LOCATION);
-
+            System.out.println(resourceUrl);
             baosPDF = new ByteArrayOutputStream();
             PdfReader pdfTemplate = new PdfReader(resourceUrl);
             PdfStamper stamper = new PdfStamper(pdfTemplate, baosPDF);
@@ -82,36 +82,36 @@ public class PlantillaPropuesta extends HttpServlet {
             str.append(alumno.getNombreAlumno()).append(" ").append(alumno.getApellidoAlumno());
             stamper.getAcroFields().setField("student_name", str.toString());
             
+            Profesor guia = propMB.getGuia();
             str = new StringBuilder("");
-            for (ProfePropuesta prop_prof : prop.getProfePropuestaList() ) {
-                if (prop_prof.getRolGuia() == 0){
-                    str.append(prop_prof.getProfesor().getNombreProfesor()).append(" ")
-                            .append(prop_prof.getProfesor().getApellidoProfesor());
-                    break;
-                }
+            if (guia != null){
+                str.append(guia.getNombreProfesor()).append(" ")
+                        .append(guia.getApellidoProfesor());
             }
             stamper.getAcroFields().setField("guide_proffesor", str.toString());
             
+            Profesor coguia = propMB.getCoguia();
             str = new StringBuilder("");
-            for (ProfePropuesta prop_prof : prop.getProfePropuestaList() ) {
-                if (prop_prof.getRolGuia() == 1){
-                    str.append(prop_prof.getProfesor().getNombreProfesor()).append(" ")
-                            .append(prop_prof.getProfesor().getApellidoProfesor());
-                    break;
-                }
+            if (coguia != null){
+                str.append(coguia.getNombreProfesor()).append(" ")
+                        .append(coguia.getApellidoProfesor());
             }
             stamper.getAcroFields().setField("co_guide_proffesor", str.toString());
 
-            Profesor profComision1 = prop.getComisionRevisoraList().get(0)
-                    .getProfeRevisionList().get(0).getProfesor();
-            str = new StringBuilder(profComision1.getNombreProfesor());
-            str.append(" ").append(profComision1.getApellidoProfesor());
+            Profesor profComision1 = propMB.getRevisor1();
+            str = new StringBuilder("");
+            if (profComision1 != null){
+                str.append(profComision1.getNombreProfesor()).append(" ")
+                        .append(profComision1.getApellidoProfesor());
+            }
             stamper.getAcroFields().setField("commission_proffesor_1", str.toString());
             
-            Profesor profComision2 = prop.getComisionRevisoraList().get(0).
-                    getProfeRevisionList().get(1).getProfesor();        
-            str = new StringBuilder(profComision2.getNombreProfesor());
-            str.append(" ").append(profComision2.getApellidoProfesor());
+            Profesor profComision2 = propMB.getRevisor2();
+            str = new StringBuilder();
+            if (profComision2 != null){
+                str.append(profComision2.getNombreProfesor())
+                        .append(" ").append(profComision2.getApellidoProfesor());
+            }       
             stamper.getAcroFields().setField("commission_proffesor_2", str.toString());
             
             //formatear el rut
@@ -127,9 +127,9 @@ public class PlantillaPropuesta extends HttpServlet {
             }
             
             stamper.getAcroFields().setField("student_rut", str.toString());
-            stamper.getAcroFields().setField("student_phone", prop.getRutAlumno().getTelefonoAlumno());
-            stamper.getAcroFields().setField("student_email", prop.getRutAlumno().getMailAlumno());
-            stamper.getAcroFields().setField("student_address", prop.getRutAlumno().getDireccionAlumno());
+            stamper.getAcroFields().setField("student_phone", alumno.getTelefonoAlumno());
+            stamper.getAcroFields().setField("student_email", alumno.getMailAlumno());
+            stamper.getAcroFields().setField("student_address", alumno.getDireccionAlumno());
             
             SimpleDateFormat formateador = new SimpleDateFormat("dd 'de' MMMM 'de' yyyy", new Locale("ES"));
             str = new StringBuilder("Santiago, ");
@@ -181,7 +181,6 @@ public class PlantillaPropuesta extends HttpServlet {
             }
         }
     }
-    
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
@@ -218,7 +217,7 @@ public class PlantillaPropuesta extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Retorna un archivo PDF desplegado en el navegador que contiene la información una propuesta de trabajo de título";
     }// </editor-fold>
 
 }
