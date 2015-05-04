@@ -38,6 +38,7 @@ public class VerPropuestaMB {
     private Profesor guia,coguia,revisor1,revisor2;
     private Propuesta propuesta;
     private Date fechaPropEdit;
+    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(VerPropuestaMB.class);
 
     /**
      * Creates a new instance of VerPropuestaMB
@@ -129,7 +130,9 @@ public class VerPropuestaMB {
         propuestaFacade.edit(propTemp);
         
         //Mensaje de confirmación
-        context.addMessage(null, new FacesMessage("Propuesta", "La propuesta ha sido editada exitósamente"));
+        context.addMessage(null, new FacesMessage("Propuesta", "La propuesta ha sido editada exitosamente"));
+        LOGGER.info("La propuesta ha sido editada exitosamente por '"+nombrePropEdit+"'");
+        
         
     }
     

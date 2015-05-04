@@ -22,6 +22,7 @@ import sessionbeans.UsuarioFacadeLocal;
 public class UsuariosIndexMB {
     @EJB
     private UsuarioFacadeLocal usuarioFacade;
+    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(UsuariosIndexMB.class);
 
     /**
      * Creates a new instance of UsuariosIndexMB
@@ -44,6 +45,7 @@ public class UsuariosIndexMB {
 
     public void setUsuarios(List<Usuario> usuarios) {
         this.usuarios = usuarios;
+        LOGGER.info("Se ha modificado a el usuario "+ this.usuarios.get(0));
     }
     
 }
