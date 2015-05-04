@@ -35,7 +35,7 @@
                              {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,30,40,50"
                              emptyMessage="No se encontraron profesores">
                     <f:facet name="header">  
-                        Profesores #{semestreActual.semestre}
+                        Cantidad de temas vigentes por profesor para el semestre #{semestreActual.semestre}
                     </f:facet>
                     <p:column headerText="Nombre" filterMatchMode="contains" filterBy="#{prof.profesor.nombreProfesor} #{prof.profesor.apellidoProfesor}" sortBy="#{prof.profesor.nombreProfesor}">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/profesores/profesor.xhtml?prof=#{prof.profesor.rutProfesor}">
