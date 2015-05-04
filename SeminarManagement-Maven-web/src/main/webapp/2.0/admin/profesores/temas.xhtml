@@ -55,7 +55,7 @@
             <p:layoutUnit position="center" style="border:none;">
                 <p:dataTable id="guiasTable" var="tema" value="#{verProfesorMB.temaDatos}" emptyMessage="No se encontraron Temas">
                     <f:facet name="header">
-                        Temas
+                        Temas #{semestreActual.semestre}
                     </f:facet>
                     <p:column headerText="Nombre">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/temas/tema.xhtml?tema=#{tema.idTema}">

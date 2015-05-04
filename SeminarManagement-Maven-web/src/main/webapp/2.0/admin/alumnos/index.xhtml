@@ -34,7 +34,7 @@
                          {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,30,40,50"
                          emptyMessage="No se encontraron alumnos">
                     <f:facet name="header">  
-                        Alumnos
+                        Alumnos #{semestreActual.semestre}
                     </f:facet>
                     <p:column headerText="Nombre" filterMatchMode="contains" filterBy="#{alum.nombreAlumno} #{alum.apellidoAlumno}" sortBy="#{alum.nombreAlumno}"> 
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/alumnos/alumno.xhtml?alum=#{alum.rutAlumno}">
