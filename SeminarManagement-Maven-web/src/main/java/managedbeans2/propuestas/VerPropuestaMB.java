@@ -6,6 +6,7 @@
 package managedbeans2.propuestas;
 
 import clases.PropuestaDatos;
+import entities.Alumno;
 import entities.Profesor;
 import entities.Propuesta;
 import entities.Semestre;
@@ -33,11 +34,12 @@ public class VerPropuestaMB {
     @EJB
     private PropuestaFacadeLocal propuestaFacade;
     
-    private Integer idPropuesta,idPropEdit;
+    private Integer idPropuesta, idPropEdit;
     private String nombreCorto, semestrePropEdit, nombrePropEdit;
-    private Profesor guia,coguia,revisor1,revisor2;
+    private Profesor guia, coguia, revisor1, revisor2;
     private Propuesta propuesta;
     private Date fechaPropEdit;
+    private Alumno alumno;
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(VerPropuestaMB.class);
 
     /**
@@ -75,6 +77,8 @@ public class VerPropuestaMB {
                         if(propuesta.getIdRevisora().getProfeRevisionList().get(i).getRolRevision()==1)
                             revisor2 = propuesta.getIdRevisora().getProfeRevisionList().get(i).getProfesor();
                     }
+                
+                alumno = propuesta.getRutAlumno();
                 
             }
         }
@@ -238,6 +242,14 @@ public class VerPropuestaMB {
 
     public void setRevisor2(Profesor revisor2) {
         this.revisor2 = revisor2;
+    }
+
+    public Alumno getAlumno() {
+        return alumno;
+    }
+
+    public void setAlumno(Alumno alumno) {
+        this.alumno = alumno;
     }
     
 }
