@@ -6,7 +6,6 @@
 
 package managedbeans;
 
-import entities.Historial;
 import entities.Usuario;
 import java.io.IOException;
 import java.io.Serializable;
@@ -29,6 +28,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import sessionbeans.HistorialFacadeLocal;
 import sessionbeans.UsuarioFacadeLocal;
+import org.apache.log4j.MDC;
 
 /**
  *
@@ -43,6 +43,8 @@ public class AuthMB implements Serializable {
     private UsuarioFacadeLocal usuarioFacade;
 
     private String username=null, password=null, nombre=null, apellido=null, tipo=null;
+    
+    private static final String USERKEY = "user";
     
     @PostConstruct
     public void init() {
@@ -80,6 +82,7 @@ public class AuthMB implements Serializable {
             apellido = user.getApellidoUsuario();
             tipo = user.getUsuarioTipoList().get(0).getNombreTipo().getNombreTipo();
             externalContext.getSessionMap().put("user", user);
+            MDC.put(USERKEY, nombre);
             if(tipo.equals("ADMINISTRADOR"))
                 externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/admin/index.xhtml");
             if(tipo.equals("SECRETARIA"))
@@ -124,7 +127,9 @@ public class AuthMB implements Serializable {
         apellido = null;
         password = null;
         tipo = null;
+        MDC.remove(USERKEY);
         externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/login.xhtml");
+        
     }
 
     public String getTipo() {

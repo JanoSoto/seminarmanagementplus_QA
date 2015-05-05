@@ -58,6 +58,7 @@ public class CalificacionTema2MB {
                    ,notaProfe2Inf,notaProfe2Def,notaProfeGuiaInf,notaProfeGuiaDef;
     private Tema tema;
     private Date date, dateCorrecP1, dateCorrecP2, dateCorrecPG;
+    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(CalificacionTema2MB.class);
     
     public CalificacionTema2MB() {
     }
@@ -139,12 +140,14 @@ public class CalificacionTema2MB {
         if(promedio<4){
             tema.setEstadoTema(3);
             //Mensaje de confirmación
-            context.addMessage(null, new FacesMessage("Calificación: "+promedio, "Se agregarón las notas y el estado del tema seleccionado se modificó a 'Caduco'"));
+            context.addMessage(null, new FacesMessage("Calificación: "+promedio, "Se agregaron las notas y el estado del tema seleccionado se modificó a 'Caduco'"));
+            LOGGER.info("Promedio: "+promedio+ " Se agregaron las notas y el estado del tema seleccionado se modificó a 'Caduco'");
         }
         else{
             tema.setEstadoTema(1);
             //Mensaje de confirmación
-            context.addMessage(null, new FacesMessage("Calificación: "+promedio, "Se agregarón las notas y el estado del tema seleccionado se modificó a 'Titulado'"));
+            context.addMessage(null, new FacesMessage("Calificación: "+promedio, "Se agregaron las notas y el estado del tema seleccionado se modificó a 'Titulado'"));
+            LOGGER.info("Promedio: "+promedio+ " Se agregaron las notas y el estado del tema seleccionado se modificó a Titulado'");
         }
         temaFacade.edit(tema);
         

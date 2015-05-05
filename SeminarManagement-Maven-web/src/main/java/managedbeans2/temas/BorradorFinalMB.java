@@ -56,6 +56,7 @@ public class BorradorFinalMB {
     private Tema tema;
     private Profesor profGuia;
     private Date date;
+    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(BorradorFinalMB.class);
     
     public BorradorFinalMB() {
     }
@@ -111,6 +112,7 @@ public class BorradorFinalMB {
         */
         //Mensaje de confirmación
         context.addMessage(null, new FacesMessage("Tema modificado", "El estado del tema seleccionado se modificó a 'Vigente con borrador final'")); 
+        LOGGER.info("El estado del tema seleccionado se modificó a 'Vigente con borrador final'");
     }
     
     //Declaramos esto para poder acceder al managed bean de autenticación (para almecenar el usuario en el historial)

@@ -12,7 +12,7 @@
         #{accordionPanelMB.setIndex("3")}
         <f:metadata>
             <f:viewParam name="tema" value="#{verTemaMB.idTema}"/>
-        </f:metadata>
+        </f:metadata>agr
     </ui:define>
     
     <ui:define name="title"><title>Agregar Informe de Avance | Seminar Management</title></ui:define>
@@ -54,7 +54,7 @@
                     </h:panelGrid>
 
                     <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="/2.0/admin/temas/tema.xhtml?tema=#{verTemaMB.tema.idTema}" value="Atrás"/>
-                    <p:commandButton id="bt1" value="Prolongar" actionListener="#{avanceYCaducarMB.addInformedeAvance()}" update="growl"/>
+                    <p:commandButton id="bt1" value="Prorrogar" actionListener="#{avanceYCaducarMB.addInformedeAvance()}" update="growl"/>
                     <p:defaultCommand target="bt1" />
                 </p:panel>
             </h:form>

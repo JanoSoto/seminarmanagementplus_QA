@@ -39,6 +39,8 @@ public class VerTemaMB {
     private Tema tema;
     private Date fechaEdit;
     private String semestreEdit, nombreTemaEdit;
+    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(VerTemaMB.class);
+    private Alumno alumno;
     
     /**
      * Creates a new instance of VerTemaMB
@@ -48,7 +50,7 @@ public class VerTemaMB {
     
     public void buscarTema(){
         List<Tema> result = temaFacade.findById(idTema);
-        if(result!=null){
+        if( result != null ){
             tema = result.get(0);
             //Inicializamos info para editar
             idTemaEdit = tema.getIdTema();
@@ -70,7 +72,7 @@ public class VerTemaMB {
                     if(tema.getIdCorrectora().getProfeCorreccionList().get(i).getRolCorreccion()==1)
                         corrector2 = tema.getIdCorrectora().getProfeCorreccionList().get(i).getProfesor();
                 }
-            
+            alumno = tema.getIdRevisora().getIdPropuesta().getRutAlumno();
         }
         else{
             FacesContext context = FacesContext.getCurrentInstance();
@@ -91,6 +93,8 @@ public class VerTemaMB {
         
         //Mensaje de confirmación
         context.addMessage(null, new FacesMessage("Tema",temaTemp.getNombreTema()+", editado en el sistema"));
+        LOGGER.info("Tema "+temaTemp.getNombreTema()+ " editado en el sistema");
+        
 
         //externalContext.getFlash().setKeepMessages(true); //Para mantener los mensaje aunque se pase de página
         FacesContext.getCurrentInstance().getExternalContext().redirect("tema.xhtml?tema="+id);
@@ -114,6 +118,7 @@ public class VerTemaMB {
     
     public void editarTema() {
         FacesContext context = FacesContext.getCurrentInstance();
+        
         Tema temaTemp = temaFacade.findById(idTemaEdit).get(0);
         
         if((nombreTemaEdit==null)||(nombreTemaEdit.equals(""))){
@@ -162,7 +167,9 @@ public class VerTemaMB {
         temaFacade.edit(temaTemp);
         
         //Mensaje de confirmación
-        context.addMessage(null, new FacesMessage("Tema", "El tema ha sido editado exitósamente"));
+        context.addMessage(null, new FacesMessage("Tema", "El tema ha sido editado exitosamente"));
+        LOGGER.info("Tema "+nombreTemaEdit+ " editado exitosamente");
+        
     }
 
     public Integer getIdTemaEdit() {
@@ -244,5 +251,12 @@ public class VerTemaMB {
     public void setTema(Tema tema) {
         this.tema = tema;
     }
-    
+
+    public Alumno getAlumno() {
+        return alumno;
+    }
+
+    public void setAlumno(Alumno alumno) {
+        this.alumno = alumno;
+    }
 }

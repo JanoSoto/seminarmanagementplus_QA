@@ -50,6 +50,7 @@ public class SemestreMB {
     private String semestre;
     private Date date;
     private Integer temasVSemActual=0, temasCSemActual=0, propSemActual=0;
+    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(SemestreMB.class);
     
     /**
      * Creates a new instance of semestreMB
@@ -252,7 +253,8 @@ public class SemestreMB {
         
         context.addMessage(null, new FacesMessage("Estados y semestre modificados", "Semestre actual es: "+semActual.getSemestreActual()));
         
-        context.addMessage(null, new FacesMessage("Estados y semestre modificados"));        
+        context.addMessage(null, new FacesMessage("Estados y semestre modificados"));  
+        LOGGER.info("Estados y semestre modificados, el semestre actual es: "+semActual.getSemestreActual());
     }
     
 }

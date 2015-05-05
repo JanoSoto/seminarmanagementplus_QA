@@ -66,6 +66,7 @@ public class ComisionRevisora2MB {
     private Profesor profGuia;
     private Date date;
     private List<ProfeDatos2> profeDatos;
+    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ComisionRevisora2MB.class);
     
     public ComisionRevisora2MB() {
     }
@@ -284,6 +285,7 @@ public class ComisionRevisora2MB {
         
         //Mensaje de confirmación 
         context.addMessage(null, new FacesMessage("Comisión Revisora", propuesta.getNombrePropuesta()+", ingresada al sistema"));
+        LOGGER.info("La propuesta '"+propuesta.getNombrePropuesta()+"' ha sido ingresada al sistema");
     }
     
     //Declaramos esto para poder acceder al managed bean de autenticación (para almecenar el usuario en el historial)

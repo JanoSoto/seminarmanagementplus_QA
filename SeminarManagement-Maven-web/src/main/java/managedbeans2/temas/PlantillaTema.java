@@ -4,8 +4,6 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 import entities.Alumno;
-import entities.ProfeCorreccion;
-import entities.ProfePropuesta;
 import entities.Profesor;
 import entities.Tema;
 import java.io.ByteArrayOutputStream;
@@ -30,7 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "PlantillaTema", urlPatterns = {"/PdfTema"})
 public class PlantillaTema extends HttpServlet {
 
-    public static final String TEMPLATE_LOCATION = "/resources/plantillas/plantilla_tema.pdf";
+    public String TEMPLATE_LOCATION = "/resources/plantillas/plantilla_tema.pdf";
     
     @Inject
     VerTemaMB temaMB;
@@ -46,7 +44,7 @@ public class PlantillaTema extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
+        
         ByteArrayOutputStream baosPDF = null;
         
         try {
@@ -60,7 +58,7 @@ public class PlantillaTema extends HttpServlet {
             }
 
             Tema tema = temaMB.getTema();
-            Alumno alumno = tema.getIdRevisora().getIdPropuesta().getRutAlumno();
+            Alumno alumno = temaMB.getAlumno();
             
             InputStream resourceUrl = getServletContext().getResourceAsStream(TEMPLATE_LOCATION);
 
@@ -71,11 +69,26 @@ public class PlantillaTema extends HttpServlet {
             
             StringBuilder str = new StringBuilder();
             str.append("INFORME DE REVISION DE MEMORIA PARA OPTAR AL TITULO  DE INGENIERO ");
-            str.append( alumno.getCarreraAlumno() == 0 ?
-                    "CIVIL EN INFORMATICA - " :
-                    "DE EJECUCION EN COMPUTACION E INFORMATICA - ");
-            str.append(tema.getIdSemestre().getIdSemestre().replace("/", "° "));
-            
+            if (alumno.getCarreraAlumno() != null){
+                if (alumno.getCarreraAlumno() == 0){
+                    str.append("CIVIL EN INFORMATICA - ");
+                } else if (alumno.getCarreraAlumno() == 1) {
+                    str.append("DE EJECUCION EN COMPUTACION E INFORMATICA - ");
+                } else {
+                    str.append("                                                               - ");
+                }
+            } else {
+                str.append("                                                                 - ");
+            }
+            if (tema.getIdSemestre() != null){
+                if ( tema.getIdSemestre().getIdSemestre().equals("default") ) {
+                    str.append("        ");
+                } else {
+                    str.append(tema.getIdSemestre().getIdSemestre().replace("/", "° "));
+                }
+            } else {
+                str.append("       ");
+            }
             stamper.getAcroFields().setField("doc_title", str.toString());
             stamper.getAcroFields().setField("title", tema.getNombreTema());
             
@@ -83,35 +96,24 @@ public class PlantillaTema extends HttpServlet {
             str.append(alumno.getNombreAlumno()).append(" ").append(alumno.getApellidoAlumno());
             stamper.getAcroFields().setField("student_name", str.toString());
             
+            Profesor guia = temaMB.getGuia();
             str = new StringBuilder("");
-            for (ProfePropuesta profe : tema.getIdRevisora().getIdPropuesta().getProfePropuestaList() ) {
-                if (profe.getRolGuia() == 0){
-                    str.append(profe.getProfesor().getNombreProfesor()).append(" ")
-                            .append(profe.getProfesor().getApellidoProfesor());
-                    break;
-                }
+            if (guia != null){
+                str.append(guia.getNombreProfesor()).append(" ")
+                        .append(guia.getApellidoProfesor());
             }
             stamper.getAcroFields().setField("guide_proffesor", str.toString());
             
+            Profesor coGuia = temaMB.getCoguia();
             str = new StringBuilder("");
-            for (ProfePropuesta profe : tema.getIdRevisora().getIdPropuesta().getProfePropuestaList() ) {
-                if (profe.getRolGuia() == 1){
-                    str.append(profe.getProfesor().getNombreProfesor()).append(" ")
-                            .append(profe.getProfesor().getApellidoProfesor());
-                    break;
-                }
+            if ( coGuia != null){
+                str.append(coGuia.getNombreProfesor()).append(" ")
+                        .append(coGuia.getApellidoProfesor());
             }
             stamper.getAcroFields().setField("co_guide_proffesor", str.toString());
             
-            Profesor corrector1 = null, corrector2 = null;
-            if( tema.getIdCorrectora() != null ){
-                for( ProfeCorreccion pc : tema.getIdCorrectora().getProfeCorreccionList()){
-                    if( pc.getRolCorreccion()== 0 )
-                        corrector1 = pc.getProfesor();
-                    if( pc.getRolCorreccion()== 1 )
-                        corrector2 = pc.getProfesor();
-                }
-            }
+            Profesor corrector1 = temaMB.getCorrector1(), 
+                    corrector2 = temaMB.getCorrector2();
 
             if (corrector1 != null){
                 str = new StringBuilder(corrector1.getNombreProfesor());
@@ -165,8 +167,8 @@ public class PlantillaTema extends HttpServlet {
             // In this servlet, we use "inline"
 
             StringBuilder sbContentDispValue = new StringBuilder();
-            sbContentDispValue.append("inline")
-                .append("; filename=")
+            sbContentDispValue.append("inline;")
+                .append(" filename=")
                 .append("Tema_")
                 .append(alumno.getRutAlumno())
                 .append(".pdf");
@@ -229,7 +231,7 @@ public class PlantillaTema extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Retorna un archivo PDF desplegado en el navegador que contiene la información un tema de trabajo de título";
     }// </editor-fold>
 
 }
