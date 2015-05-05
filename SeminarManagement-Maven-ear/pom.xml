@@ -38,13 +38,14 @@
 						<cargo.remote.password>admin</cargo.remote.password>
 						<cargo.glassfish.adminPort>4848</cargo.glassfish.adminPort>
 						<cargo.glassfish.domain.name>domain1</cargo.glassfish.domain.name>
+                                                <cargo.servlet.port>8090</cargo.servlet.port>
 					</properties>
 				</configuration>
 				<deployables>
 					<deployable>
 						<groupId>${project.groupId}</groupId>
 						<artifactId>${project.artifactId}</artifactId>
-						<type>ear</type>
+                                                <type>ear</type>
 					</deployable>
 				</deployables>
 			</configuration>
@@ -52,7 +53,7 @@
 				<dependency>
 					<groupId>org.glassfish.deployment</groupId>
 					<artifactId>deployment-client</artifactId>
-					<version>3.1.1</version>
+					<version>3.2-b06</version>
 				</dependency>
 			</dependencies>
 		</plugin>
