@@ -34,8 +34,12 @@
 					<type>runtime</type>
 					<properties>
 						<cargo.hostname>localhost</cargo.hostname>
+<<<<<<< HEAD
+						
+=======
 						<cargo.remote.username>admin</cargo.remote.username>
 						<cargo.remote.password>admin</cargo.remote.password>
+>>>>>>> 6269f11f52431496f3c969a6181fdf8cd32777d4
 						<cargo.glassfish.adminPort>4848</cargo.glassfish.adminPort>
 						<cargo.glassfish.domain.name>domain1</cargo.glassfish.domain.name>
 					</properties>
@@ -52,7 +56,11 @@
 				<dependency>
 					<groupId>org.glassfish.deployment</groupId>
 					<artifactId>deployment-client</artifactId>
+<<<<<<< HEAD
 					<version>3.1.1</version>
+=======
+					<version>3.2-b06</version>
+>>>>>>> 6269f11f52431496f3c969a6181fdf8cd32777d4
 				</dependency>
 			</dependencies>
 		</plugin>

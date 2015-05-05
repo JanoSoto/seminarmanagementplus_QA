@@ -19,49 +19,32 @@
     <module>SeminarManagement-Maven-ejb</module>
   </modules>
 <<<<<<< HEAD
-  <build>
-	<plugins>
-                
-<plugin>
-    <groupId>org.glassfish.maven.plugin</groupId>
-    <artifactId>maven-glassfish-plugin</artifactId>
-    <version>2.1</version>
-    <configuration>
-        <glassfishDirectory>${local.glassfish.home}</glassfishDirectory>
-        <user>${local.glassfish.user}</user>
-        <passwordFile>${local.glassfish.passfile}</passwordFile>
-        <autoCreate>true</autoCreate>
-        <debug>true</debug>
-        <echo>false</echo>
-        <terse>true</terse>
-        <domain>
-            <name>${local.glassfish.domain}</name>
-            <adminPort>4848</adminPort>
-            <httpPort>8080</httpPort>
-            <httpsPort>8181</httpsPort>
-            <iiopPort>3700</iiopPort>
-            <jmsPort>7676</jmsPort>
-            <reuse>false</reuse>
-        </domain>
-        <components>
-            <component>
-                <name>${project.artifactId}</name>
-                <artifact>
-                    ${project.build.directory}/${project.build.finalName}.ear
-                </artifact>
-            </component>
-        </components>
-    </configuration>
-                </plugin>
+  <scm>
+    <connection>scm:git:https://github.com/SmokeInBrain/seminarmanagementplus.git</connection>
+  </scm>
+<distributionManagement>
+    <repository>
+        <id>artifact-repository</id>
+        <url>SeminarManagement</url>
+    </repository>
+</distributionManagement>
 
-
-                <plugin>
-                    <groupId>org.apache.maven.plugins</groupId>
-                    <artifactId>maven-release-plugin</artifactId>
-                    <version>2.5.2</version>   
-                </plugin>
-	</plugins>
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>versions-maven-plugin</artifactId>
+            <version>2.1</version>
+        </plugin>
+        <plugin>
+            <artifactId>maven-scm-plugin</artifactId>
+            <version>1.8.1</version>
+            <configuration>
+                <tag>${project.artifactId}-${project.version}</tag>
+            </configuration>
+        </plugin>
+    </plugins>
 </build>
 =======
->>>>>>> 89ba7ad36ade90ba4354140968e264f32534b8bb
+>>>>>>> 6269f11f52431496f3c969a6181fdf8cd32777d4
 </project>
