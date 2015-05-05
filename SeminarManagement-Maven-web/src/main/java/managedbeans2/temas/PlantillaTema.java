@@ -4,8 +4,6 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 import entities.Alumno;
-import entities.ProfeCorreccion;
-import entities.ProfePropuesta;
 import entities.Profesor;
 import entities.Tema;
 import java.io.ByteArrayOutputStream;
@@ -71,11 +69,26 @@ public class PlantillaTema extends HttpServlet {
             
             StringBuilder str = new StringBuilder();
             str.append("INFORME DE REVISION DE MEMORIA PARA OPTAR AL TITULO  DE INGENIERO ");
-            str.append( alumno.getCarreraAlumno() == 0 ?
-                    "CIVIL EN INFORMATICA - " :
-                    "DE EJECUCION EN COMPUTACION E INFORMATICA - ");
-            str.append(tema.getIdSemestre().getIdSemestre().replace("/", "° "));
-            
+            if (alumno.getCarreraAlumno() != null){
+                if (alumno.getCarreraAlumno() == 0){
+                    str.append("CIVIL EN INFORMATICA - ");
+                } else if (alumno.getCarreraAlumno() == 1) {
+                    str.append("DE EJECUCION EN COMPUTACION E INFORMATICA - ");
+                } else {
+                    str.append("                                                               - ");
+                }
+            } else {
+                str.append("                                                                 - ");
+            }
+            if (tema.getIdSemestre() != null){
+                if ( tema.getIdSemestre().getIdSemestre().equals("default") ) {
+                    str.append("        ");
+                } else {
+                    str.append(tema.getIdSemestre().getIdSemestre().replace("/", "° "));
+                }
+            } else {
+                str.append("       ");
+            }
             stamper.getAcroFields().setField("doc_title", str.toString());
             stamper.getAcroFields().setField("title", tema.getNombreTema());
             
@@ -154,8 +167,8 @@ public class PlantillaTema extends HttpServlet {
             // In this servlet, we use "inline"
 
             StringBuilder sbContentDispValue = new StringBuilder();
-            sbContentDispValue.append("inline")
-                .append("; filename=")
+            sbContentDispValue.append("inline;")
+                .append(" filename=")
                 .append("Tema_")
                 .append(alumno.getRutAlumno())
                 .append(".pdf");

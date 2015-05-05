@@ -68,7 +68,12 @@
                         <p:button style="width:140px;" href="/2.0/admin/temas/editarTema.xhtml?tema=#{verTemaMB.tema.idTema}" value="Editar Tema"/>
                         <p:commandButton style="width:140px;" rendered="#{verTemaMB.tema.estadoTema eq 3}" value="Descaducar Tema" onclick="confirmationCaducar.show()" type="button"/>
                         <p:commandButton style="width:140px;" value="Eliminar Tema" onclick="confirmation.show()" type="button"/>
-                        <p:button style="width:150px" href="/PdfTema?id=#{verTemaMB.idTema}" value="Desacargar Plantilla PDF"/>
+                        <h:form id="form66" style="width: 140px" >
+                            <h:link value="" style="width: 140px" outcome="plantilla" target="_blank" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                                <span class="ui-button-text ui-c">Descargar Plantilla PDF</span>
+                                <f:param name="id" value="#{verTemaMB.idTema}" />
+                            </h:link>
+                        </h:form>
                         <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Volver a Temas"/>
                     </h:panelGrid>
                 </p:panel>

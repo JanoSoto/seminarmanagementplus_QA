@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.mycompany</groupId>
+  <artifactId>SeminarManagement-Maven</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+  <name>SeminarManagement-Maven</name>
+  <dependencies>
+    <dependency>
+        <groupId>log4j</groupId>
+        <artifactId>log4j</artifactId>
+        <version>1.2.17</version>
+    </dependency> 
+  </dependencies>
+  <modules>
+    <module>SeminarManagement-Maven-ear</module>
+    <module>SeminarManagement-Maven-web</module>
+    <module>SeminarManagement-Maven-ejb</module>
+  </modules>
+<<<<<<< HEAD
+  <build>
+	<plugins>
+                
+<plugin>
+    <groupId>org.glassfish.maven.plugin</groupId>
+    <artifactId>maven-glassfish-plugin</artifactId>
+    <version>2.1</version>
+    <configuration>
+        <glassfishDirectory>${local.glassfish.home}</glassfishDirectory>
+        <user>${local.glassfish.user}</user>
+        <passwordFile>${local.glassfish.passfile}</passwordFile>
+        <autoCreate>true</autoCreate>
+        <debug>true</debug>
+        <echo>false</echo>
+        <terse>true</terse>
+        <domain>
+            <name>${local.glassfish.domain}</name>
+            <adminPort>4848</adminPort>
+            <httpPort>8080</httpPort>
+            <httpsPort>8181</httpsPort>
+            <iiopPort>3700</iiopPort>
+            <jmsPort>7676</jmsPort>
+            <reuse>false</reuse>
+        </domain>
+        <components>
+            <component>
+                <name>${project.artifactId}</name>
+                <artifact>
+                    ${project.build.directory}/${project.build.finalName}.ear
+                </artifact>
+            </component>
+        </components>
+    </configuration>
+                </plugin>
+
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.5.2</version>   
+                </plugin>
+	</plugins>
+</build>
+=======
+>>>>>>> 89ba7ad36ade90ba4354140968e264f32534b8bb
+</project>
