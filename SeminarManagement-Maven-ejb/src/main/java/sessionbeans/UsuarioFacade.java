@@ -30,6 +30,7 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
         super(Usuario.class);
     }
     
+    
     @Override
     public List<Usuario> findByUsername(String username) {
         Query query;

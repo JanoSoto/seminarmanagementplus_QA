@@ -3,10 +3,11 @@
   <persistence-unit name="com.mycompany_SeminarManagement-Maven-ejb_ejb_1.0-SNAPSHOTPU" transaction-type="JTA">
 <<<<<<< HEAD
     <jta-data-source>jdbc/seminarJNDI</jta-data-source>
-=======
-    <jta-data-source>jdbc/pingeso</jta-data-source>
->>>>>>> 6269f11f52431496f3c969a6181fdf8cd32777d4
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
+=======
+    <jta-data-source>seminarJNDI</jta-data-source>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+>>>>>>> b4e9229e22be9fbce181aed5ddc75ba6060ff726
     <properties>
       <property name="javax.persistence.schema-generation.database.action" value="create"/>
     </properties>

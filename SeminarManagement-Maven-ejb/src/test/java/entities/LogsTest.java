@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.text.ParseException;
@@ -219,12 +214,13 @@ public class LogsTest {
      */
     @Test
     public void testHashCode() {
+     
         System.out.println("hashCode");
-        Logs instance = new Logs(5);
-        int expResult = Integer.hashCode(5);
+        Logs instance = new Logs();
+        int expResult = 0;
         int result = instance.hashCode();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
+
     }
 
     /**
@@ -257,3 +253,4 @@ public class LogsTest {
     }
     
 }
+
