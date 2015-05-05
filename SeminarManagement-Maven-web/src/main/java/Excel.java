@@ -1,9 +1,10 @@
+
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import clases.TemaDatos;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -37,33 +38,41 @@ public class Excel extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        response.setContentType("application/vnd.ms-excel");
-        String file_name = "salida.csv";
-        response.setHeader("Content-Disposition", "attachment; filename=\"" + file_name + "\"");
-
         PrintWriter out = response.getWriter();
-
-        String rut = request.getParameter("prof");
-        profesorMB.setRutProfesor(rut);
-        profesorMB.buscarProfesor();
-        profesorMB.verPropuestas();
-        profesorMB.verTemas();
-        List<TemaDatos> a = profesorMB.getTemaDatos();
-        out.println("Nombre\tAlumno\tEstado\tSemestre");
-        for (int i = 0; i < a.size(); i++) {
-            TemaDatos b = a.get(i);
-            if (b.getEstadoTema() == "VIGENTE") {
-                String salida = b.getNombreCorto();
-                salida += "\t" + b.getAlumno().getNombreAlumno() + " " + b.getAlumno().getApellidoAlumno();
-                salida += "\t" + b.getEstadoTema();
-                salida += "\t" + b.getSemestreTema();
-                out.println(salida);
-            }
-        }
-
         try {
-        } finally {
+
+            String rut = request.getParameter("prof");
+            if (rut == null) {
+                throw new NullPointerException("No se especificó un profesor");
+            }
+
+            profesorMB.setRutProfesor(rut);
+            profesorMB.buscarProfesor();
+            profesorMB.verPropuestas();
+            profesorMB.verTemas();
+            List<TemaDatos> a = profesorMB.getTemaDatos();
+            out.println("Nombre\tAlumno\tEstado\tSemestre");
+            for (TemaDatos b : a) {
+                if ("VIGENTE".equals(b.getEstadoTema())) {
+                    String salida = b.getNombreCorto();
+                    salida += "\t" + b.getAlumno().getNombreAlumno() + " " + b.getAlumno().getApellidoAlumno();
+                    salida += "\t" + b.getEstadoTema();
+                    salida += "\t" + b.getSemestreTema();
+                    out.println(salida);
+                }
+            }
+
+            response.setContentType("application/vnd.ms-excel");
+            String file_name = "salida.csv";
+            response.setHeader("Content-Disposition", "attachment; filename=\"" + file_name + "\"");
+
+        } catch(Exception ex){
+            response.setContentType("text/html");
+            PrintWriter writer = response.getWriter();
+            writer.println("No disponible<br>");
+            writer.println("<pre>");
+            writer.println("</pre>");
+        }finally {
             out.close();
         }
     }

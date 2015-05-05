@@ -57,7 +57,13 @@
                             <p:button style="width:150px;" rendered="#{not empty verPropuestaMB.propuesta.idRevisora.idTema}" href="/2.0/admin/temas/tema.xhtml?tema=#{verPropuestaMB.propuesta.idRevisora.idTema.idTema}" value="Ver Tema"/>
                             <p:button style="width:150px;" href="/2.0/admin/propuestas/editarProp.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Editar Propuesta"/>
                             <p:commandButton style="width:150px;" value="Eliminar Propuesta" onclick="confirmation.show()" type="button"/>
-                            <p:button style="width:150px" href="/PdfPropuesta?id=#{verPropuestaMB.idPropuesta}" value="Desacargar Plantilla PDF"/>
+                            <!--<p:button style="width:150px" href="/PdfPropuesta?id={verPropuestaMB.idPropuesta}" value="Descargar Plantilla PDF"/>-->
+                            <h:form id="form66" style="width: 140px" >
+                                <h:link value="" style="width: 140px" outcome="plantilla" target="_blank" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                                    <span class="ui-button-text ui-c">Descargar Plantilla PDF</span>
+                                    <f:param name="id" value="#{verPropuestaMB.idPropuesta}" />
+                                </h:link>
+                            </h:form>
                             <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Volver a Propuestas"/>
                         </h:panelGrid>
 
