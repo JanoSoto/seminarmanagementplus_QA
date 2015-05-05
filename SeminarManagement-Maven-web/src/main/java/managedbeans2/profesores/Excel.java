@@ -1,10 +1,5 @@
+package managedbeans2.profesores;
 
-
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 import clases.TemaDatos;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import managedbeans2.profesores.VerProfesorMB;
 
 /**
  *
@@ -113,7 +107,7 @@ public class Excel extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Retorna un archivo csv con la información de los temas vigentes para un profesor";
     }// </editor-fold>
 
 }
