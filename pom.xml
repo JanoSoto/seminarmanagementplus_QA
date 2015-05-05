@@ -20,45 +20,45 @@
   </modules>
   <build>
 	<plugins>
-		<plugin>
-			<groupId>org.codehaus.cargo</groupId>
-			<artifactId>cargo-core-uberjar</artifactId>
-			<version>1.4.14</version>
-			<configuration>
-				<container>
-					<containerId>glassfish4x</containerId>
-					<type>remote</type>
-				</container>
-				<configuration>
-					<type>runtime</type>
-					<properties>
-						<cargo.hostname>localhost</cargo.hostname>
-						<cargo.remote.username>admin</cargo.remote.username>
-						<cargo.remote.password>admin</cargo.remote.password>
-						<cargo.admin.port>4848</cargo.admin.port>
-                                                <cargo.servlet.port>8080</cargo.servlet.port>
-						<cargo.glassfish.domain.name>domain1</cargo.glassfish.domain.name>
-					</properties>
-				</configuration>
-				<deployables>
-					<deployable>
-						<groupId>${project.groupId}</groupId>
-						<artifactId>${project.artifactId}</artifactId>
-						<type>war</type>
-						<properties>
-							<context>/SeminarManagement</context>
-						</properties>
-					</deployable>
-				</deployables>
-			</configuration>
-			<dependencies>
-				<dependency>
-					<groupId>org.glassfish.deployment</groupId>
-					<artifactId>deployment-client</artifactId>
-					<version>3.2-b06</version>
-				</dependency>
-			</dependencies>
-		</plugin>
+                
+<plugin>
+    <groupId>org.glassfish.maven.plugin</groupId>
+    <artifactId>maven-glassfish-plugin</artifactId>
+    <version>2.1</version>
+    <configuration>
+        <glassfishDirectory>${local.glassfish.home}</glassfishDirectory>
+        <user>${local.glassfish.user}</user>
+        <passwordFile>${local.glassfish.passfile}</passwordFile>
+        <autoCreate>true</autoCreate>
+        <debug>true</debug>
+        <echo>false</echo>
+        <terse>true</terse>
+        <domain>
+            <name>${local.glassfish.domain}</name>
+            <adminPort>4848</adminPort>
+            <httpPort>8080</httpPort>
+            <httpsPort>8181</httpsPort>
+            <iiopPort>3700</iiopPort>
+            <jmsPort>7676</jmsPort>
+            <reuse>false</reuse>
+        </domain>
+        <components>
+            <component>
+                <name>${project.artifactId}</name>
+                <artifact>
+                    ${project.build.directory}/${project.build.finalName}.ear
+                </artifact>
+            </component>
+        </components>
+    </configuration>
+                </plugin>
+
+
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                    <version>2.5.2</version>   
+                </plugin>
 	</plugins>
 </build>
 </project>
