@@ -68,23 +68,23 @@ public class PlantillaPropuesta extends HttpServlet {
             stamper.setFormFlattening(true);
             
             StringBuilder str = new StringBuilder();
-            str.append("PROPUESTA DE TEMA DE ");
+            str.append("PROPUESTA DE TEMA DE INGENIERIA ");
             if (alumno.getCarreraAlumno() != null){
                 if (alumno.getCarreraAlumno() == 0){
-                    str.append("INGENIERIA CIVIL EN INFORMATICA - ");
+                    str.append("CIVIL EN INFORMATICA - ");
                 } else if (alumno.getCarreraAlumno() == 1) {
-                    str.append("INGENIERIA DE EJECUCION EN COMPUTACION E INFORMATICA - ");
+                    str.append("DE EJECUCION EN COMPUTACION E INFORMATICA - ");
                 } else {
-                    str.append("<CARRERA MAL CONFIGURADA> - ");
+                    str.append("                                             - ");
                 }
             } else {
-                str.append("<ALUMNO SIN CARRERA> - ");
+                str.append("                                                     - ");
             }
             
             if (prop.getIdSemestre() != null){
                 str.append(prop.getIdSemestre().getIdSemestre().replace("/", "° "));
             } else {
-                str.append("<PROPUESTA SIN SEMESTRE>");
+                str.append("       ");
             }
             stamper.getAcroFields().setField("doc_title", str.toString());
             stamper.getAcroFields().setField("title", prop.getNombrePropuesta());

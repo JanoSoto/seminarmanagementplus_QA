@@ -50,7 +50,7 @@ public class VerTemaMB {
     
     public void buscarTema(){
         List<Tema> result = temaFacade.findById(idTema);
-        if(result!=null){
+        if( result != null ){
             tema = result.get(0);
             //Inicializamos info para editar
             idTemaEdit = tema.getIdTema();
