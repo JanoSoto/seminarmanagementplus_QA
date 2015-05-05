@@ -17,7 +17,7 @@ import javax.persistence.PersistenceContext;
 @Stateless
 public class LogsFacade extends AbstractFacade<Logs> implements LogsFacadeLocal {
     @PersistenceContext(unitName = "com.mycompany_SeminarManagement-Maven-ejb_ejb_1.0-SNAPSHOTPU")
-    private EntityManager em;
+    EntityManager em;
 
     @Override
     protected EntityManager getEntityManager() {

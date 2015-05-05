@@ -5,7 +5,6 @@
  */
 package managedbeans2.temas;
 
-import clases.ProfeDatos2;
 import entities.Alumno;
 import entities.ComisionCorrectora;
 import entities.ComisionRevisora;
@@ -16,21 +15,12 @@ import entities.Profesor;
 import entities.Propuesta;
 import entities.Semestre;
 import entities.Tema;
-import java.util.Date;
 import java.util.List;
-import managedbeans.AuthMB;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import sessionbeans.ComisionCorrectoraFacadeLocal;
-import sessionbeans.ProfesorFacadeLocal;
-import sessionbeans.TemaFacadeLocal;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import javax.persistence.EntityManager;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
@@ -40,7 +30,6 @@ import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 import javax.persistence.Query;
-import sessionbeans.ComisionCorrectoraFacade;
 
 /**
  *
@@ -50,8 +39,6 @@ import sessionbeans.ComisionCorrectoraFacade;
 public class ComisionCorrectora2MBTest {
     @Mock
     private ComisionCorrectora2MBTest comisionCorrectora2MBTest;
-    
-    private ComisionCorrectoraFacade comision;
    
     @Mock
     private EntityManager entityManager;
@@ -64,17 +51,15 @@ public class ComisionCorrectora2MBTest {
         MockitoAnnotations.initMocks(this);
         query = mock(Query.class);
         entityManager = Mockito.mock(EntityManager.class);
-        
         comisionCorrectora2MBTest = Mockito.mock(ComisionCorrectora2MBTest.class);
-        comision = Mockito.mock(ComisionCorrectoraFacade.class);
         comisionCorrectora2MBTest.entityManager = entityManager; 
         
-        //comision.em =
     }
 
     @Test
     public void testAddComisionCorrectora() {
         //Alumno 1
+        
         Alumno a1 = new Alumno();
         a1.setApellidoAlumno("apellido");
         a1.setCarreraAlumno(1);
@@ -274,8 +259,6 @@ public class ComisionCorrectora2MBTest {
         Query querys = entityManager.createNamedQuery("SELECT c FROM ComisionCorrectora c");
         
         when(querys.getResultList()).thenReturn(ccList);
-        
-        System.out.println(ccList.get(0).getFechaCorreccion());
        
         assertEquals(ccListTest, ccList);
         
