@@ -214,7 +214,7 @@ public class AgregarTemaMB{
         
         //Mensaje de confirmación  
         context.addMessage(null, new FacesMessage("Tema", tema.getNombreTema()+", ingresado al sistema"));
-        LOGGER.info("El tema '"+tema.getNombreTema()+"' ha sido ingresado al sistema");
+        LOGGER.info("El tema "+tema.getNombreTema()+" ha sido ingresado al sistema");
     }
     
     //Declaramos esto para poder acceder al managed bean de autenticación (para almecenar el usuario en el historial)

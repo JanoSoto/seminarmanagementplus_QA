@@ -58,6 +58,7 @@ public class AgregarPropuestaMB {
     private Date date;
     private List<Profesor> profesores,profesoresGuias;
     private boolean magister;
+    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(AgregarPropuestaMB.class);
     
     public AgregarPropuestaMB() {
     }
@@ -244,6 +245,7 @@ public class AgregarPropuestaMB {
         */
         //Mensaje de confirmación 
         context.addMessage(null, new FacesMessage("Propuesta",nombrePropuesta+", ingresada al sistema"));
+        LOGGER.info("La propuesta "+nombrePropuesta+" ha sido ingresada al sistema");
     }
     
     //Declaramos esto para poder acceder al managed bean de autenticación (para almecenar el usuario en el historial)
