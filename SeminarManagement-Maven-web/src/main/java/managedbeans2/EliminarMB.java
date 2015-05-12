@@ -124,7 +124,7 @@ public class EliminarMB {
                     
                     //Mensaje de confirmación
                     context.addMessage(null, new FacesMessage("Comisión Correctora","Del tema: "+tema.getNombreTema()+", eliminada del sistema"));
-                    LOGGER.info("La comisión correctora del tema: "+tema.getNombreTema()+", ha sido eliminada del sistema");
+                    LOGGER.info("La comisión correctora del tema: "+tema.getNombreTema()+" ha sido eliminada del sistema");
                 }
                 
                 //Se elimina la relación de la Comisión Revisora con el Tema
@@ -136,7 +136,7 @@ public class EliminarMB {
                 
                 //Mensaje de confirmación
                 context.addMessage(null, new FacesMessage("Tema",tema.getNombreTema()+", eliminado del sistema"));
-                LOGGER.info("El tema '"+tema.getNombreTema()+"' ha sido eliminado del sistema");
+                LOGGER.info("El tema "+tema.getNombreTema()+" ha sido eliminado del sistema");
             }
             
             //Se eliminan las relaciones entre la Comisión Revisora y sus Profesores
@@ -160,7 +160,7 @@ public class EliminarMB {
             
             //Mensaje de confirmación
             context.addMessage(null, new FacesMessage("Comisión Revisora","De la Propuesta: "+propTemp.getNombrePropuesta()+", eliminada del sistema"));
-            LOGGER.info("La comisión revisora de la Propuesta: "+propTemp.getNombrePropuesta()+", ha sido eliminada del sistema");
+            LOGGER.info("La comisión revisora de la Propuesta: "+propTemp.getNombrePropuesta()+" ha sido eliminada del sistema");
         }
         
         //Se eliminan las relaciones entre la Propuesta y sus Profesores
@@ -234,7 +234,7 @@ public class EliminarMB {
                     
                     //Mensaje de confirmación
                     context.addMessage(null, new FacesMessage("Comisión Correctora","Del tema: "+tema.getNombreTema()+", eliminada del sistema"));
-                    LOGGER.info("La comisión correctora del tema: '"+tema.getNombreTema()+"' ha sido eliminada del sistema");
+                    LOGGER.info("La comisión correctora del tema: "+tema.getNombreTema()+" ha sido eliminada del sistema");
                 }
                 
                 //Se elimina la relación de la Comisión Revisora con el Tema
@@ -246,7 +246,7 @@ public class EliminarMB {
                 
                 //Mensaje de confirmación
                 context.addMessage(null, new FacesMessage("Tema",tema.getNombreTema()+", eliminado del sistema"));
-                LOGGER.info("El tema '"+tema.getNombreTema()+"' ha sido eliminado del sistema");
+                LOGGER.info("El tema "+tema.getNombreTema()+" ha sido eliminado del sistema");
             }
             
             //Se eliminan las relaciones entre la Comisión Revisora y sus Profesores
@@ -270,7 +270,7 @@ public class EliminarMB {
             
             //Mensaje de confirmación
             context.addMessage(null, new FacesMessage("Comisión Revisora","De la Propuesta: "+propTemp.getNombrePropuesta()+", eliminada del sistema"));
-            LOGGER.info("La comisión revisora de la Propuesta:'"+propTemp.getNombrePropuesta()+"' ha sido eliminada del sistema\"");
+            LOGGER.info("La comisión revisora de la Propuesta "+propTemp.getNombrePropuesta()+" ha sido eliminada del sistema\"");
         }
         //Actualizamos los valores mostrados en la vista
     }
@@ -324,7 +324,7 @@ public class EliminarMB {
                     
                     //Mensaje de confirmación
                     context.addMessage(null, new FacesMessage("Comisión Correctora","Del tema: "+tema.getNombreTema()+", eliminada del sistema"));
-                    LOGGER.info("La comisión correctora del tema: '"+tema.getNombreTema()+"', ha sido eliminada del sistema");
+                    LOGGER.info("La comisión correctora del tema "+tema.getNombreTema()+" ha sido eliminada del sistema");
                 }
                 
                 //Se elimina la relación de la Comisión Revisora con el Tema
@@ -336,7 +336,7 @@ public class EliminarMB {
                 
                 //Mensaje de confirmación
                 context.addMessage(null, new FacesMessage("Tema",tema.getNombreTema()+", eliminado del sistema"));
-                LOGGER.info("El tema '"+tema.getNombreTema()+"' ha sido eliminado del sistema");
+                LOGGER.info("El tema "+tema.getNombreTema()+" ha sido eliminado del sistema");
                 
                 //externalContext.getFlash().setKeepMessages(true); //Para mantener los mensaje aunque se pase de página
                 FacesContext.getCurrentInstance().getExternalContext().redirect("../alumnos/alumno.xhtml?alum="+propTemp.getRutAlumno().getRutAlumno());
@@ -393,7 +393,7 @@ public class EliminarMB {
                     
                     //Mensaje de confirmación
                     context.addMessage(null, new FacesMessage("Comisión Correctora","Del tema: "+tema.getNombreTema()+", eliminada del sistema"));
-                    LOGGER.info("La comisión correctora del tema: '"+tema.getNombreTema()+"', ha sido eliminada del sistema");
+                    LOGGER.info("La comisión correctora del tema: "+tema.getNombreTema()+" ha sido eliminada del sistema");
                 }
             }
         }

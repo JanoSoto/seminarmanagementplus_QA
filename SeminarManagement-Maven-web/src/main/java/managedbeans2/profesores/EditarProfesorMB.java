@@ -156,5 +156,6 @@ public class EditarProfesorMB implements Serializable {
         profEditGuias.setProfeRevisionList(datosAntiguos.getProfeRevisionList());
         profEditGuias.setMaximoGuias(profesor.getMaximoGuias());
         context.addMessage(null, new FacesMessage("Editar Máximo Guías", profEditGuias.getNombreProfesor()+" "+profEditGuias.getApellidoProfesor()+" pasó de "+datosAntiguos.getMaximoGuias()+" a poder guiar "+profEditGuias.getMaximoGuias()+"."));
+        LOGGER.info(profEditGuias.getNombreProfesor()+" "+profEditGuias.getApellidoProfesor()+" pasó de "+datosAntiguos.getMaximoGuias()+" a poder guiar "+profEditGuias.getMaximoGuias()+".");
     }
 }

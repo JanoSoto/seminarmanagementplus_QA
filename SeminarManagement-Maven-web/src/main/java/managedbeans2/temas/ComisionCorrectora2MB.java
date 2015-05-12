@@ -244,7 +244,7 @@ public class ComisionCorrectora2MB {
         String dateHist = dateToString(temp);
         Historial histTemaAlum = new Historial();
         histTemaAlum.setDescripcion("Se le asignó Comisión Correctora. Lo ingresó el usuario "+user.getFullNameUser());
-        LOGGER.info("Se asignó Comisión Correctora.");
+        LOGGER.info("Se asignó Comisión Correctora al tema" + tema.getNombreTema());
         histTemaAlum.setFechaHistorial(dateHist);
         histTemaAlum.setTipoHistorial(2);
         histTemaAlum.setIdEntidad(tema.getIdRevisora().getIdPropuesta().getRutAlumno().getRutAlumno());
@@ -262,8 +262,8 @@ public class ComisionCorrectora2MB {
         
         //Agregamos el historial de cambio de estado
         Historial historial = new Historial();
-        historial.setDescripcion("Comision Correctora: El estado del tema cambió de 'Vigente con borrador final' a 'En proceso de examen'");
-        LOGGER.info("Comision Correctora: El estado del tema cambió de 'Vigente con borrador final' a 'En proceso de examen'");
+        historial.setDescripcion("Comision Correctora: El estado del tema cambió de 'Vigente con borrador final' a En proceso de examen");
+        LOGGER.info("Comision Correctora: El estado del tema cambió de 'Vigente con borrador final' a En proceso de examen");
         historial.setFechaHistorial(fechaCorr);
         historial.setIdEntidad(String.valueOf(idTema));
         historial.setTipoHistorial(1);
@@ -271,7 +271,7 @@ public class ComisionCorrectora2MB {
         
         //Mensaje de confirmación
         context.addMessage(null, new FacesMessage("Comisión Correctora", "Comisión ingresada al sistema, el estado del tema seleccionado se modificó a 'En proceso de examen'"));
-        LOGGER.info("Comisión ingresada al sistema, el estado del tema seleccionado se modificó a 'En proceso de examen'");
+        LOGGER.info("Comisión ingresada al sistema, el estado del tema seleccionado se modificó a En proceso de examen");
         
     }
     

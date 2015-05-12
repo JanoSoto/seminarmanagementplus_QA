@@ -141,13 +141,13 @@ public class CalificacionTema2MB {
             tema.setEstadoTema(3);
             //Mensaje de confirmación
             context.addMessage(null, new FacesMessage("Calificación: "+promedio, "Se agregaron las notas y el estado del tema seleccionado se modificó a 'Caduco'"));
-            LOGGER.info("Promedio: "+promedio+ " Se agregaron las notas y el estado del tema seleccionado se modificó a 'Caduco'");
+            LOGGER.info("Promedio: "+promedio+ " Se agregaron las notas y el estado del tema seleccionado se modificó a Caduco");
         }
         else{
             tema.setEstadoTema(1);
             //Mensaje de confirmación
             context.addMessage(null, new FacesMessage("Calificación: "+promedio, "Se agregaron las notas y el estado del tema seleccionado se modificó a 'Titulado'"));
-            LOGGER.info("Promedio: "+promedio+ " Se agregaron las notas y el estado del tema seleccionado se modificó a Titulado'");
+            LOGGER.info("Promedio: "+promedio+ " Se agregaron las notas y el estado del tema seleccionado se modificó a Titulado");
         }
         temaFacade.edit(tema);
         

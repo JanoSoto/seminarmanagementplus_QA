@@ -91,6 +91,7 @@ public class AvanceYCaducarMB {
 
         //Mensaje de confirmación
         context.addMessage(null, new FacesMessage("Tema modificado", "El estado del tema seleccionado se modificó a 'Prorrogado'"));
+        LOGGER.info("Tema modificado, El estado del tema "+tema.getNombreTema() +" se modificó a Prorrogado");
 
         //Agregamos el historial de cambio de estado
         Historial historial = new Historial();

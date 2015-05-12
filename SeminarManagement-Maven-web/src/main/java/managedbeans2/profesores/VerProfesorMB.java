@@ -219,7 +219,7 @@ public class VerProfesorMB {
          */
         
         context.addMessage(null, new FacesMessage("Editar Profesor", profTemp.getNombreProfesor()+" "+profTemp.getApellidoProfesor()+" editado exitosamente"));
-        LOGGER.info("El profesor '"+profTemp.getNombreProfesor()+" "+profTemp.getApellidoProfesor()+"' ha sido editado exitosamente");
+        LOGGER.info("El profesor "+profTemp.getNombreProfesor()+" "+profTemp.getApellidoProfesor()+" ha sido editado exitosamente");
 
     }
     

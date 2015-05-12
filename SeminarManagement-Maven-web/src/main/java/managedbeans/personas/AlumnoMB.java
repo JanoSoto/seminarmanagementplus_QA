@@ -41,6 +41,7 @@ public class AlumnoMB {
     private Integer carreraAlumno, jornadaAlumno, pet;
     private List<Alumno> alumnos;
     
+    
     //Declaramos esto para poder acceder al managed bean de autenticación (para almecenar el usuario en el historial)
     @ManagedProperty(value="#{authMB}")
     private AuthMB user;

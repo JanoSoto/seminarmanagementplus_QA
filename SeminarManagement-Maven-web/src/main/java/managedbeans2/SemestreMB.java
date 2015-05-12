@@ -160,6 +160,7 @@ public class SemestreMB {
         
         //Mensaje de confirmación 
         context.addMessage(null, new FacesMessage("Semestre Actual Modificado", "Semestre actual es: "+semActual.getSemestreActual()));
+        LOGGER.info("Semestre Actual Modificado el Semestre actual es: "+semActual.getSemestreActual());
     }
     
     public void terminarSemestreActual(){
