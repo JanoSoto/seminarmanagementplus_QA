@@ -87,7 +87,6 @@ public class EliminarMBTest {
         // Creo comision correctora
         ComisionCorrectora cc = new ComisionCorrectora();
         cc.setFechaCorreccion("fecha");
-        cc.setFechaSiac("fecha");
         cc.setIdCorrectora(1);
         
         // creo Semestre

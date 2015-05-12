@@ -60,7 +60,7 @@ public class ComisionCorrectoraMB {
     
     private Integer idTema;
     private String rutAlumno,nombreTema, profesor1,profesor2,fechaTema,semestreTema,fechaCorr, semestreCorr;
-    private Date date, dateSIAC;
+    private Date date;
     private Tema tema;
     private Profesor profGuia;
     private List<Alumno> alumnos;
@@ -231,16 +231,7 @@ public class ComisionCorrectoraMB {
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public Date getDateSIAC() {
-        return dateSIAC;
-    }
-
-    public void setDateSIAC(Date dateSIAC) {
-        this.dateSIAC = dateSIAC;
-    }
-    
+    }    
     
     public String getNombreTema() {
         return nombreTema;
@@ -393,7 +384,7 @@ public class ComisionCorrectoraMB {
         }
         
         //fecha
-        if(date==null || dateSIAC==null){
+        if(date==null){
             context.addMessage(null, new FacesMessage("Fecha","Debe ingresar las fechas correspondientes"));
             return;
         }
@@ -429,7 +420,6 @@ public class ComisionCorrectoraMB {
         }
         
         fechaCorr = dateToString(date);
-        String fechaSIAC = dateToString(dateSIAC);
             
         //Accedemos a la tabla semestre, e ingresamos semestre actual si no ha sido ingresado
         Semestre semestre = new Semestre(semestreCorr);
@@ -441,7 +431,6 @@ public class ComisionCorrectoraMB {
         //Seteamos y creamos la comisión correctora
         ComisionCorrectora comisionC = new ComisionCorrectora();
         comisionC.setFechaCorreccion(fechaCorr);
-        comisionC.setFechaSiac(fechaSIAC);
         comisionC.setIdSemestre(semestre);
         comisionC.setIdTema(tema);
         comisionCorrectoraFacade.create(comisionC);

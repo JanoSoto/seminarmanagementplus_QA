@@ -88,7 +88,6 @@ public class VerProfesorMBTest {
        tema.setFechaTema("fecha");
        ComisionCorrectora correctora = new ComisionCorrectora();
        correctora.setFechaCorreccion("fecha");
-       correctora.setFechaSiac("fechaSiac");
        correctora.setIdCorrectora(1);
        Semestre semestre = new Semestre();
        semestre.setComisionCorrectoraList(null);

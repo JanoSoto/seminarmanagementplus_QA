@@ -35,8 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "ComisionCorrectora.findAll", query = "SELECT c FROM ComisionCorrectora c"),
     @NamedQuery(name = "ComisionCorrectora.findByFechaCorreccion", query = "SELECT c FROM ComisionCorrectora c WHERE c.fechaCorreccion = :fechaCorreccion"),
-    @NamedQuery(name = "ComisionCorrectora.findByIdCorrectora", query = "SELECT c FROM ComisionCorrectora c WHERE c.idCorrectora = :idCorrectora"),
-    @NamedQuery(name = "ComisionCorrectora.findByFechaSiac", query = "SELECT c FROM ComisionCorrectora c WHERE c.fechaSiac = :fechaSiac")})
+    @NamedQuery(name = "ComisionCorrectora.findByIdCorrectora", query = "SELECT c FROM ComisionCorrectora c WHERE c.idCorrectora = :idCorrectora")})
 public class ComisionCorrectora implements Serializable {
     private static final long serialVersionUID = 1L;
     @Size(max = 15)
@@ -47,9 +46,6 @@ public class ComisionCorrectora implements Serializable {
     @Basic(optional = false)
     @Column(name = "id_correctora")
     private Integer idCorrectora;
-    @Size(max = 15)
-    @Column(name = "fecha_siac")
-    private String fechaSiac;
     @JoinColumn(name = "id_tema", referencedColumnName = "id_tema")
     @ManyToOne(optional = false)
     private Tema idTema;
@@ -94,14 +90,6 @@ public class ComisionCorrectora implements Serializable {
 
     public void setIdCorrectora(Integer idCorrectora) {
         this.idCorrectora = idCorrectora;
-    }
-
-    public String getFechaSiac() {
-        return fechaSiac;
-    }
-
-    public void setFechaSiac(String fechaSiac) {
-        this.fechaSiac = fechaSiac;
     }
 
     public Tema getIdTema() {

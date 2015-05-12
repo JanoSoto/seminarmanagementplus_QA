@@ -61,7 +61,7 @@ public class ComisionCorrectora2MB {
     
     private Integer idTema;
     private String rutAlumno,nombreTema, profesor1,profesor2,fechaTema,semestreTema,fechaCorr, semestreCorr;
-    private Date date, dateSIAC;
+    private Date date;
     private Tema tema;
     private Profesor profGuia;
     private List<Alumno> alumnos;
@@ -142,12 +142,7 @@ public class ComisionCorrectora2MB {
             context.addMessage(null, new FacesMessage("Profesor Corrector 2","Debe seleccionar un Profesor"));
             return;
         }
-        
-        //fecha
-        if(dateSIAC==null || dateSIAC.equals("")){
-            context.addMessage(null, new FacesMessage("Fecha SIAC","Debe ingresar la fecha correspondiente"));
-            return;
-        }
+
         if(date==null || date.equals("")){
             context.addMessage(null, new FacesMessage("Fecha","Debe ingresar las fecha correspondiente"));
             return;
@@ -183,7 +178,6 @@ public class ComisionCorrectora2MB {
         }
         
         fechaCorr = dateToString(date);
-        String fechaSIAC = dateToString(dateSIAC);
             
         //Accedemos a la tabla semestre, e ingresamos semestre actual si no ha sido ingresado
         Semestre semestre = new Semestre(semestreCorr);
@@ -195,7 +189,6 @@ public class ComisionCorrectora2MB {
         //Seteamos y creamos la comisión correctora
         ComisionCorrectora comisionC = new ComisionCorrectora();
         comisionC.setFechaCorreccion(fechaCorr);
-        comisionC.setFechaSiac(fechaSIAC);
         comisionC.setIdSemestre(semestre);
         comisionC.setIdTema(tema);
         comisionCorrectoraFacade.create(comisionC);
@@ -323,16 +316,7 @@ public class ComisionCorrectora2MB {
 
     public void setDate(Date date) {
         this.date = date;
-    }
-
-    public Date getDateSIAC() {
-        return dateSIAC;
-    }
-
-    public void setDateSIAC(Date dateSIAC) {
-        this.dateSIAC = dateSIAC;
-    }
-    
+    }    
     
     public String getNombreTema() {
         return nombreTema;
