@@ -21,6 +21,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
+import util.Util;
 
 /**
  *
@@ -144,6 +145,10 @@ public class Alumno implements Serializable {
 
     public String getRutAlumno() {
         return rutAlumno;
+    }
+    
+    public String getRutAlumnoFormateado() {
+        return Util.formatearRut(rutAlumno);
     }
 
     public void setRutAlumno(String rutAlumno) {

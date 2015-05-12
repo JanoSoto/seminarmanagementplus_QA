@@ -29,7 +29,7 @@
                         <h:outputText id="nombre" style="font-weight: bold" value="#{verAlumnoMB.alumno.nombreAlumno} #{verAlumnoMB.alumno.apellidoAlumno}"/>
 
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Rut:"/>
-                        <h:outputText value="#{verAlumnoMB.alumno.rutAlumno}"/>
+                        <h:outputText value="#{verAlumnoMB.alumno.rutAlumnoFormateado}"/>
 
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Jornada:"/>
                         <h:outputText rendered="#{verAlumnoMB.alumno.jornada eq 0}" value="Diurno"/>

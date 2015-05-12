@@ -44,7 +44,7 @@
                     </p:column>
                     <p:column headerText="Rut" filterMatchMode="contains" filterBy="#{prof.rutProfConGuion}" sortBy="#{prof.rutProfConGuion}">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/profesores/profesor.xhtml?prof=#{prof.profesor.rutProfesor}">
-                            <h:outputText value="#{prof.rutProfConGuion}" />
+                            <h:outputText value="#{prof.rutFormateado}" />
                         </a>
                     </p:column>
                     <p:column headerText="Contrato" filterMatchMode="contains"  filterBy="#{prof.contrato}" sortBy="#{prof.contrato}">

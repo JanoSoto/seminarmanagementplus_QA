@@ -16,6 +16,7 @@ public class ProfeDatos2 implements Serializable {
     private Profesor profesor;
     private Integer temasVigentes, propSemActual, revSemActual, corrSemActual;
     private String rutProfConGuion, contrato;
+    private String rutFormateado;
 
     public ProfeDatos2(){
     }
@@ -75,5 +76,13 @@ public class ProfeDatos2 implements Serializable {
     public void setTemasVigentes(Integer temasVigentes) {
         this.temasVigentes = temasVigentes;
     }
+
+    public void setRutFormateado(String string) {
+        this.rutFormateado = string;
+    }
+    public String getRutFormateado() {
+        return this.rutFormateado;
+    }
+    
     
 }

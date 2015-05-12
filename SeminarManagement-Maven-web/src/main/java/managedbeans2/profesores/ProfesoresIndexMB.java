@@ -22,6 +22,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import sessionbeans.ProfesorFacadeLocal;
 import sessionbeans.SemestreActualFacadeLocal;
+import util.Util;
 
 /**
  *
@@ -104,6 +105,7 @@ public class ProfesoresIndexMB{
             profeDatosTemp.setCorrSemActual(corrTemp);
             profeDatosTemp.setProfesor(profesores.get(i));
             String rutP = profesores.get(i).getRutProfesor();
+            profeDatosTemp.setRutFormateado(Util.formatearRut(rutP));
             profeDatosTemp.setRutProfConGuion(rutP.substring(0, rutP.length()-1)+"-"+rutP.substring(rutP.length()-1));
             if(profesores.get(i).getContrato() == 0)
                 profeDatosTemp.setContrato("Por Hora");
@@ -138,6 +140,5 @@ public class ProfesoresIndexMB{
 
     public void setProfesores(List<Profesor> profesores) {
         this.profesores = profesores;
-    }
-    
+    }    
 }
