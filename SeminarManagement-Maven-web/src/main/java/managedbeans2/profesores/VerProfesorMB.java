@@ -182,6 +182,7 @@ public class VerProfesorMB {
         profTemp.setNombreProfesor(profesorEdit.getNombreProfesor().toUpperCase());
         profTemp.setContrato(profesorEdit.getContrato());
         profTemp.setTelefonoProfesor(profesorEdit.getTelefonoProfesor());
+        profTemp.setMailProfesor(profesorEdit.getMailProfesor());
         Integer maxGuiasOld = profTemp.getMaximoGuias();
         //profTemp.setTipoProfesor(profesorEdit.getTipoProfesor());
 
@@ -234,6 +235,8 @@ public class VerProfesorMB {
             profEditGuias.setMaximoGuias(null);
             context.addMessage(null, new FacesMessage("Editar Máximo Guías", "El máximo de guías y tipo profesor ha sido editado. El profesor no puede ser guía."));
         }
+        profesorEdit = profEditGuias;
+        profesorFacade.edit(profEditGuias);
     }
 
     public List<PropuestaDatos> getPropuestasFiltradas() {
