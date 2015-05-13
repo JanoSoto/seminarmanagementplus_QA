@@ -36,7 +36,7 @@
 						<cargo.hostname>ruka.diinf.usach.cl</cargo.hostname>
 						<cargo.remote.username>admin</cargo.remote.username>
 						<cargo.remote.password>admin</cargo.remote.password>
-						<cargo.glassfish.adminPort>8080</cargo.glassfish.adminPort>
+						<cargo.glassfish.adminPort>4848</cargo.glassfish.adminPort>
 						<cargo.glassfish.domain.name>domain1</cargo.glassfish.domain.name>
                                                 <cargo.servlet.port>8080</cargo.servlet.port>
 					</properties>
