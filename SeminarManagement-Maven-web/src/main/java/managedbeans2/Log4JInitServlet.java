@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.PropertyConfigurator;
 import org.apache.log4j.Logger;
+import org.docx4j.Docx4jProperties;
 
 /**
  *
@@ -37,6 +38,9 @@ public class Log4JInitServlet extends HttpServlet {
         String log4jLocation = config.getInitParameter("log4j-properties-location");
         
         ServletContext sc = config.getServletContext();
+        
+        //Docx4jProperties.getProperties().setProperty("docx4j.Log4j.Configurator.disabled", "true");
+        //Log4jConfigurator.configure();
         
         if (log4jLocation == null) {
             BasicConfigurator.configure();

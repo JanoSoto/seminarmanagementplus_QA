@@ -61,7 +61,7 @@ public class PlantillaPropuesta extends HttpServlet {
             Alumno alumno = propuestaMB.getAlumno();
             
             InputStream resourceUrl = getServletContext().getResourceAsStream(TEMPLATE_LOCATION);
-            System.out.println(resourceUrl);
+
             baosPDF = new ByteArrayOutputStream();
             PdfReader pdfTemplate = new PdfReader(resourceUrl);
             PdfStamper stamper = new PdfStamper(pdfTemplate, baosPDF);
