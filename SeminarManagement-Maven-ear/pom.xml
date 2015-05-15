@@ -56,9 +56,6 @@
 						<groupId>${project.groupId}</groupId>
 						<artifactId>${project.artifactId}</artifactId>
                                                 <type>ear</type>
-                                                <properties>
-							<context>/SeminarManagement-Maven</context>
-						</properties>
 					</deployable>
 				</deployables>
 			</configuration>
