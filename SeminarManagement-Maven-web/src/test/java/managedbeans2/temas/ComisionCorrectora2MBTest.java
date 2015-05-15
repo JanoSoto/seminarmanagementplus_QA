@@ -218,6 +218,7 @@ public class ComisionCorrectora2MBTest {
         //Comision correctora
         ComisionCorrectora cc1 = new ComisionCorrectora();
         cc1.setFechaCorreccion("fechacorreccion");
+        cc1.setFechaEntCorreccion("fechaEntregaCorrecion");
         cc1.setIdCorrectora(1);
         
         Semestre sm = new Semestre();

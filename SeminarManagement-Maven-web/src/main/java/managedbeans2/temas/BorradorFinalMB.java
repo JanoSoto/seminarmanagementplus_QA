@@ -111,8 +111,8 @@ public class BorradorFinalMB {
         historialFacade.create(historial);
         */
         //Mensaje de confirmación
-        context.addMessage(null, new FacesMessage("Tema modificado", "El estado del tema seleccionado se modificó a 'Vigente con borrador final'")); 
-        LOGGER.info("El estado del tema seleccionado se modificó a 'Vigente con borrador final'");
+        context.addMessage(null, new FacesMessage("Tema modificado", "El estado del tema seleccionado se modificó a Vigente con borrador final")); 
+        LOGGER.info("El estado del tema seleccionado se modificó a Vigente con borrador final");
     }
     
     //Declaramos esto para poder acceder al managed bean de autenticación (para almecenar el usuario en el historial)

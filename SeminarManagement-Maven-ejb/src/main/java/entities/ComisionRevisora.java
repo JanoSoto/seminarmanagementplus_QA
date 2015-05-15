@@ -35,6 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "ComisionRevisora.findAll", query = "SELECT c FROM ComisionRevisora c"),
     @NamedQuery(name = "ComisionRevisora.findByFechaRevision", query = "SELECT c FROM ComisionRevisora c WHERE c.fechaRevision = :fechaRevision"),
+    @NamedQuery(name = "ComisionRevisora.findByFechaEntregaRevision", query = "SELECT c FROM ComisionRevisora c WHERE c.fechaEntregaRevision = :fechaEntregaRevision"),
     @NamedQuery(name = "ComisionRevisora.findByTipoRevision", query = "SELECT c FROM ComisionRevisora c WHERE c.tipoRevision = :tipoRevision"),
     @NamedQuery(name = "ComisionRevisora.findByIdRevisora", query = "SELECT c FROM ComisionRevisora c WHERE c.idRevisora = :idRevisora")})
 public class ComisionRevisora implements Serializable {
@@ -42,6 +43,9 @@ public class ComisionRevisora implements Serializable {
     @Size(max = 15)
     @Column(name = "fecha_revision")
     private String fechaRevision;
+    @Size(max = 15)
+    @Column(name = "fecha_entrega_revision")
+    private String fechaEntregaRevision;
     @Column(name = "tipo_revision")
     private Integer tipoRevision;
     @Id
@@ -109,6 +113,16 @@ public class ComisionRevisora implements Serializable {
     public Integer getIdRevisora() {
         return idRevisora;
     }
+
+    public String getFechaEntregaRevision() {
+        return fechaEntregaRevision;
+    }
+
+    public void setFechaEntregaRevision(String fechaEntregaRevision) {
+        this.fechaEntregaRevision = fechaEntregaRevision;
+    }
+    
+    
 
     public void setIdRevisora(Integer idRevisora) {
         this.idRevisora = idRevisora;
