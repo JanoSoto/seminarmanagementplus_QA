@@ -159,4 +159,64 @@ public class VerProfesorMBTest {
         
     }
     
+    
+    @Test
+    public void testEditarGuias(){
+    
+               //Profesor
+        Profesor profesor = new Profesor();
+        profesor.setApellidoProfesor("apellido");
+        profesor.setContrato(1);
+        profesor.setMailProfesor("mail");
+        profesor.setMaximoGuias(10);
+        profesor.setNombreProfesor("nombre");
+        profesor.setProfeCorreccionList(null);
+        profesor.setProfePropuestaList(null);
+        profesor.setRutProfesor("rut");
+        profesor.setTelefonoProfesor("telefono");
+        profesor.setTipoProfesor(1);
+        
+               //Profesor2
+        Profesor profesor2 = new Profesor();
+        profesor2.setApellidoProfesor("apellido");
+        profesor2.setContrato(1);
+        profesor2.setMailProfesor("mail");
+        profesor2.setMaximoGuias(7);
+        profesor2.setNombreProfesor("nombre");
+        profesor2.setProfeCorreccionList(null);
+        profesor2.setProfePropuestaList(null);
+        profesor2.setRutProfesor("rut");
+        profesor2.setTelefonoProfesor("telefono");
+        profesor2.setTipoProfesor(1);
+        
+        
+        
+        List<Profesor> profeList = new ArrayList<>();
+        profeList.add(profesor);
+       
+        List<Profesor> profeListTest = new ArrayList<>();
+        profeListTest.add(profesor);
+        
+
+       
+        when(entityManager.createNamedQuery("SELECT t FROM Profesor t WHERE t.maxGuias = :maxGuias")).thenReturn(query);
+        
+        Query querys = entityManager.createNamedQuery("SELECT t FROM Profesor t WHERE t.maxGuias = :maxGuias");
+        
+        when(querys.getResultList()).thenReturn(profeList);
+
+        
+        profeList.get(0).setMaximoGuias(7);
+       
+        when(entityManager.createNamedQuery("SELECT t FROM Profesor t WHERE t.maxGuias = :maxGuias")).thenReturn(query);
+        
+        Query querys2 = entityManager.createNamedQuery("SELECT t FROM Profesor t WHERE t.maxGuias = :maxGuias");
+        
+        when(querys2.getResultList()).thenReturn(profeList);
+        //System.out.println(temaList.get(0).getEstadoTema());
+       
+        assertEquals(profeListTest, profeList);
+       
+    }
+    
 }
