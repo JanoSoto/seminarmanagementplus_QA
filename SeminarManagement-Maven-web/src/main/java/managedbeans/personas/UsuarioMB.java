@@ -129,7 +129,6 @@ public class UsuarioMB {
         //Ingresamos al usuario
         Usuario nuevoUsuario = new Usuario(username);
         nuevoUsuario.setNombreUsuario(nombreUsuario);
-        nuevoUsuario.setPassword(sha256(username.substring(0, 5)));
         nuevoUsuario.setApellidoUsuario(apellidoUsuario);
         nuevoUsuario.setActivo(true);
         usuarioFacade.create(nuevoUsuario);

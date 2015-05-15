@@ -34,7 +34,6 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuario.findByUsername", query = "SELECT u FROM Usuario u WHERE u.username = :username"),
     @NamedQuery(name = "Usuario.findByNombreUsuario", query = "SELECT u FROM Usuario u WHERE u.nombreUsuario = :nombreUsuario"),
     @NamedQuery(name = "Usuario.findByApellidoUsuario", query = "SELECT u FROM Usuario u WHERE u.apellidoUsuario = :apellidoUsuario"),
-    @NamedQuery(name = "Usuario.findByPassword", query = "SELECT u FROM Usuario u WHERE u.password = :password"),
     @NamedQuery(name = "Usuario.findByActivo", query = "SELECT u FROM Usuario u WHERE u.activo = :activo")})
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -50,9 +49,6 @@ public class Usuario implements Serializable {
     @Size(max = 50)
     @Column(name = "apellido_usuario")
     private String apellidoUsuario;
-    @Size(max = 200)
-    @Column(name = "password")
-    private String password;
     @Column(name = "activo")
     private Boolean activo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "username")
@@ -96,13 +92,6 @@ public class Usuario implements Serializable {
         this.apellidoUsuario = apellidoUsuario;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     public Boolean getActivo() {
         return activo;
