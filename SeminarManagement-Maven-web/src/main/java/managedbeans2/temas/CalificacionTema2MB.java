@@ -55,9 +55,9 @@ public class CalificacionTema2MB {
     
     private Integer idTema;
     private String rutAlumno,nombreTema,fechaTema,semestreTema,notaProfe1Inf,notaProfe1Def
-                   ,notaProfe2Inf,notaProfe2Def,notaProfeGuiaInf,notaProfeGuiaDef;
+                   ,notaProfe2Inf,notaProfe2Def,notaProfeGuiaInf,notaProfeGuiaDef,fechaSiac,fechaReal;
     private Tema tema;
-    private Date date, dateCorrecP1, dateCorrecP2, dateCorrecPG;
+    private Date date,date2, dateCorrecP1, dateCorrecP2, dateCorrecPG;
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(CalificacionTema2MB.class);
     
     public CalificacionTema2MB() {
@@ -69,6 +69,16 @@ public class CalificacionTema2MB {
         //Se valida que se haya seleccionado Tema
         if((idTema==null)||(idTema==-1)){
             context.addMessage(null, new FacesMessage("Tema","No se ingresó un tema"));
+            return;
+        }
+        
+        if(date==null || date.equals("")){
+            context.addMessage(null, new FacesMessage("Tema","No se ingresó una fecha"));
+            return;
+        }
+        
+        if(date2==null || date2.equals("")){
+            context.addMessage(null, new FacesMessage("Tema","No se ingresó una fecha"));
             return;
         }
         
@@ -149,6 +159,11 @@ public class CalificacionTema2MB {
             context.addMessage(null, new FacesMessage("Calificación: "+promedio, "Se agregaron las notas y el estado del tema seleccionado se modificó a 'Titulado'"));
             LOGGER.info("Promedio: "+promedio+ " Se agregaron las notas y el estado del tema seleccionado se modificó a Titulado");
         }
+        
+        fechaReal = dateToString(date);
+        fechaSiac = dateToString(date2);
+        tema.setFechaRealTema(fechaReal);
+        tema.setFechaSiacTema(fechaSiac);
         temaFacade.edit(tema);
         
         /*
@@ -202,6 +217,15 @@ public class CalificacionTema2MB {
     public Date getDateCorrecP1() {
         return dateCorrecP1;
     }
+
+    public Date getDate2() {
+        return date2;
+    }
+
+    public void setDate2(Date date2) {
+        this.date2 = date2;
+    }
+    
 
     public void setDateCorrecP1(Date dateCorrecP1) {
         this.dateCorrecP1 = dateCorrecP1;
