@@ -60,8 +60,8 @@ public class ComisionCorrectora2MB {
     private ComisionCorrectoraFacadeLocal comisionCorrectoraFacade;
     
     private Integer idTema;
-    private String rutAlumno,nombreTema, profesor1,profesor2,fechaTema,semestreTema,fechaCorr, semestreCorr;
-    private Date date;
+    private String rutAlumno,nombreTema, profesor1,profesor2,fechaTema,semestreTema,fechaCorr,fechaRevCorr, semestreCorr;
+    private Date date,date2;
     private Tema tema;
     private Profesor profGuia;
     private List<Alumno> alumnos;
@@ -148,6 +148,11 @@ public class ComisionCorrectora2MB {
             return;
         }
         
+         if(date2==null || date2.equals("")){
+            context.addMessage(null, new FacesMessage("Fecha","Debe ingresar las fecha correspondiente"));
+            return;
+        }
+        
         //Validaciones del Semestre
         if (semestreCorr == null || semestreCorr.equals("")) {
             context.addMessage(null, new FacesMessage("Semestre Correccion","Debe ingresar semestre"));
@@ -178,7 +183,7 @@ public class ComisionCorrectora2MB {
         }
         
         fechaCorr = dateToString(date);
-            
+        fechaRevCorr = dateToString(date2);
         //Accedemos a la tabla semestre, e ingresamos semestre actual si no ha sido ingresado
         Semestre semestre = new Semestre(semestreCorr);
         List<Semestre> semestres = semestreFacade.findAll();
@@ -189,6 +194,7 @@ public class ComisionCorrectora2MB {
         //Seteamos y creamos la comisión correctora
         ComisionCorrectora comisionC = new ComisionCorrectora();
         comisionC.setFechaCorreccion(fechaCorr);
+        comisionC.setFechaEntCorreccion(fechaRevCorr);
         comisionC.setIdSemestre(semestre);
         comisionC.setIdTema(tema);
         comisionCorrectoraFacade.create(comisionC);
@@ -256,7 +262,7 @@ public class ComisionCorrectora2MB {
         //Agregamos el historial de cambio de estado
         Historial historial = new Historial();
         historial.setDescripcion("Comision Correctora: El estado del tema cambió de 'Vigente con borrador final' a En proceso de examen");
-        LOGGER.info("Comision Correctora: El estado del tema cambió de 'Vigente con borrador final' a En proceso de examen");
+        LOGGER.info("Comision Correctora: El estado del tema cambió de Vigente con borrador final a En proceso de examen");
         historial.setFechaHistorial(fechaCorr);
         historial.setIdEntidad(String.valueOf(idTema));
         historial.setTipoHistorial(1);
@@ -312,6 +318,14 @@ public class ComisionCorrectora2MB {
 
     public Date getDate() {
         return date;
+    }
+
+    public Date getDate2() {
+        return date2;
+    }
+
+    public void setDate2(Date date2) {
+        this.date2 = date2;
     }
 
     public void setDate(Date date) {

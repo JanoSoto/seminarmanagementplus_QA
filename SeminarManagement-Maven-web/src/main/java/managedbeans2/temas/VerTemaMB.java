@@ -37,7 +37,7 @@ public class VerTemaMB {
     private Integer idTema, idTemaEdit;
     private Profesor guia,coguia,corrector1,corrector2;
     private Tema tema;
-    private Date fechaEdit;
+    private Date fechaEdit,fechaEdit2,fechaEdit3;
     private String semestreEdit, nombreTemaEdit;
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(VerTemaMB.class);
     private Alumno alumno;
@@ -57,6 +57,13 @@ public class VerTemaMB {
             nombreTemaEdit = tema.getNombreTema();
             semestreEdit = tema.getIdSemestre().getIdSemestre();
             fechaEdit = stringToDate(tema.getFechaTema());
+            
+            if(tema.getFechaRealTema()!= null ){
+                fechaEdit2 = stringToDate(tema.getFechaRealTema());
+            }
+            if(tema.getFechaSiacTema()!= null){
+                fechaEdit3 = stringToDate(tema.getFechaSiacTema());
+            }
             
             for(int i=0;i<tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().size();i++){
                 if(tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(i).getRolGuia()==0)
@@ -79,6 +86,7 @@ public class VerTemaMB {
             context.addMessage(null, new FacesMessage("Error","No se ingresó Propuesta"));
         }
     }
+    
     
     public void descaducarTema(Integer id) throws IOException{
         FacesContext context = FacesContext.getCurrentInstance();
@@ -131,6 +139,16 @@ public class VerTemaMB {
             return;
         }
         
+        if(fechaEdit2==null || fechaEdit2.equals("")){
+            context.addMessage(null, new FacesMessage("Fecha","Debe seleccionar la fecha del Tema"));
+            return;
+        }
+        
+        if(fechaEdit3==null || fechaEdit3.equals("")){
+            context.addMessage(null, new FacesMessage("Fecha","Debe seleccionar la fecha del Tema"));
+            return;
+        }
+        
         //Validamos que no haya otro tema con el mismo nombre
         if(!temaFacade.findByName(nombreTemaEdit).isEmpty() && !temaTemp.getNombreTema().equals(nombreTemaEdit)) {
             context.addMessage(null, new FacesMessage("Nombre Tema","Ya existe un tema con ese nombre, por favor escoja otro."));
@@ -157,6 +175,10 @@ public class VerTemaMB {
         nombreTemaEdit = nombreTemaEdit.toUpperCase();
         temaTemp.setNombreTema(nombreTemaEdit);
         temaTemp.setFechaTema(dateToString(fechaEdit));
+        
+        
+        temaTemp.setFechaRealTema(dateToString(fechaEdit2));
+        temaTemp.setFechaSiacTema(dateToString(fechaEdit3));
         //Accedemos a la tabla semestre, e ingresamos semestre si no ha sido ingresado
         Semestre semTemp = new Semestre(semestreEdit);
         List<Semestre> semestres = semestreFacade.findAll();
@@ -204,6 +226,23 @@ public class VerTemaMB {
         this.fechaEdit = fechaEdit;
     }
 
+    public Date getFechaEdit2() {
+        return fechaEdit2;
+    }
+
+    public void setFechaEdit2(Date fechaEdit2) {
+        this.fechaEdit2 = fechaEdit2;
+    }
+
+    public Date getFechaEdit3() {
+        return fechaEdit3;
+    }
+
+    public void setFechaEdit3(Date fechaEdit3) {
+        this.fechaEdit3 = fechaEdit3;
+    }
+    
+    
     public Integer getIdTema() {
         return idTema;
     }

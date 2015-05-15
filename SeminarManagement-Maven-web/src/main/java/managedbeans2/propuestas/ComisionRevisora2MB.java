@@ -60,11 +60,11 @@ public class ComisionRevisora2MB {
     private ComisionRevisoraFacadeLocal comisionRevisoraFacade;
 
     private Integer idProp,tipoRevision;
-    private String nombrePropuesta,rutAlumno,fechaProp,semestreProp,nombreProp,rutProfeRev1, rutProfeRev2, fechaRev, semestreRev;
+    private String nombrePropuesta,rutAlumno,fechaProp,semestreProp,nombreProp,rutProfeRev1, rutProfeRev2, fechaRev,fechaEntRev, semestreRev;
     private Propuesta propuesta;
     private List<Profesor> profesores;
     private Profesor profGuia;
-    private Date date;
+    private Date date,date2;
     private List<ProfeDatos2> profeDatos;
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ComisionRevisora2MB.class);
     
@@ -210,7 +210,15 @@ public class ComisionRevisora2MB {
             }
         }
         //fecha
+        
+        System.out.println(date);
+        System.out.println(date2);
         if(date==null){
+            context.addMessage(null, new FacesMessage("Fecha","Debe ingresar la fecha del Tema"));
+            return;
+        }
+        
+        if(date2==null){
             context.addMessage(null, new FacesMessage("Fecha","Debe ingresar la fecha del Tema"));
             return;
         }
@@ -233,11 +241,14 @@ public class ComisionRevisora2MB {
         List<Semestre> semestres = semestreFacade.findAll();
         if (!semestres.contains(semestreRevision))
             semestreFacade.create(semestreRevision);
-        
+      
+        fechaEntRev = dateToString(date2);
+        fechaRev = dateToString(date);
         //Seteamos la nueva comision y la creamos
         nuevaComision = new ComisionRevisora();
         nuevaComision.setIdPropuesta(propuesta);
         nuevaComision.setFechaRevision(fechaRev);
+        nuevaComision.setFechaEntregaRevision(fechaEntRev);
         nuevaComision.setIdSemestre(semestreRevision);
         nuevaComision.setTipoRevision(tipoRevision);
         comisionRevisoraFacade.create(nuevaComision);
@@ -393,6 +404,15 @@ public class ComisionRevisora2MB {
     public void setDate(Date date) {
         this.date = date;
     }
+
+    public Date getDate2() {
+        return date2;
+    }
+
+    public void setDate2(Date date2) {
+        this.date2 = date2;
+    }
+    
     
     public String getNombrePropuesta() {
         return nombrePropuesta;

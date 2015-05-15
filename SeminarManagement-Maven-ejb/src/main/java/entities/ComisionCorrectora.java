@@ -35,12 +35,16 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "ComisionCorrectora.findAll", query = "SELECT c FROM ComisionCorrectora c"),
     @NamedQuery(name = "ComisionCorrectora.findByFechaCorreccion", query = "SELECT c FROM ComisionCorrectora c WHERE c.fechaCorreccion = :fechaCorreccion"),
+    @NamedQuery(name = "ComisionCorrectora.findByFechaEntregaCorreccion", query = "SELECT c FROM ComisionCorrectora c WHERE c.fechaEntCorreccion = :fechaEntCorreccion"),
     @NamedQuery(name = "ComisionCorrectora.findByIdCorrectora", query = "SELECT c FROM ComisionCorrectora c WHERE c.idCorrectora = :idCorrectora")})
 public class ComisionCorrectora implements Serializable {
     private static final long serialVersionUID = 1L;
     @Size(max = 15)
     @Column(name = "fecha_correccion")
     private String fechaCorreccion;
+    @Size(max = 15)
+    @Column(name = "fecha_entrega_correccion")
+    private String fechaEntCorreccion;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -78,6 +82,14 @@ public class ComisionCorrectora implements Serializable {
 
     public String getFechaCorreccion() {
         return fechaCorreccion;
+    }
+
+    public String getFechaEntCorreccion() {
+        return fechaEntCorreccion;
+    }
+
+    public void setFechaEntCorreccion(String fechaEntCorreccion) {
+        this.fechaEntCorreccion = fechaEntCorreccion;
     }
 
     public void setFechaCorreccion(String fechaCorreccion) {

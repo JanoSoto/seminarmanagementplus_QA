@@ -36,6 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Tema.findAll", query = "SELECT t FROM Tema t"),
     @NamedQuery(name = "Tema.findByNombreTema", query = "SELECT t FROM Tema t WHERE t.nombreTema = :nombreTema"),
     @NamedQuery(name = "Tema.findByFechaTema", query = "SELECT t FROM Tema t WHERE t.fechaTema = :fechaTema"),
+    @NamedQuery(name = "Tema.findByFechaSiacTema", query = "SELECT t FROM Tema t WHERE t.fechaSiacTema = :fechaSiacTema"),
+    @NamedQuery(name = "Tema.findByFechaRealTema", query = "SELECT t FROM Tema t WHERE t.fechaRealTema = :fechaRealTema"),
     @NamedQuery(name = "Tema.findByEstadoTema", query = "SELECT t FROM Tema t WHERE t.estadoTema = :estadoTema"),
     @NamedQuery(name = "Tema.findByIdTema", query = "SELECT t FROM Tema t WHERE t.idTema = :idTema"),
     @NamedQuery(name = "Tema.findTema", query = "SELECT t FROM Tema t WHERE t.nombreTema LIKE :nombreTema")})
@@ -47,6 +49,12 @@ public class Tema implements Serializable {
     @Size(max = 15)
     @Column(name = "fecha_tema")
     private String fechaTema;
+    @Size(max = 15)
+    @Column(name = "fecha_siac")
+    private String fechaSiacTema;
+    @Size(max = 15)
+    @Column(name = "fecha_real")
+    private String fechaRealTema;
     @Column(name = "estado_tema")
     private Integer estadoTema;
     @Id
@@ -103,6 +111,23 @@ public class Tema implements Serializable {
         this.fechaTema = fechaTema;
     }
 
+    public String getFechaSiacTema() {
+        return fechaSiacTema;
+    }
+
+    public void setFechaSiacTema(String fechaSiacTema) {
+        this.fechaSiacTema = fechaSiacTema;
+    }
+
+    public String getFechaRealTema() {
+        return fechaRealTema;
+    }
+
+    public void setFechaRealTema(String fechaRealTema) {
+        this.fechaRealTema = fechaRealTema;
+    }
+
+    
     public Integer getEstadoTema() {
         return estadoTema;
     }

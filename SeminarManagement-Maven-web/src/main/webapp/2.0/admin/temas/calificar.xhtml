@@ -66,10 +66,14 @@
                         <p:inputMask id="notaProfC2Inf" value="#{calificacionTema2MB.notaProfe2Inf}" mask="9.9" style="width: 28px"/>
                         <p:inputMask id="notaProfC2Def" value="#{calificacionTema2MB.notaProfe2Def}" mask="9.9" style="width: 28px"/>
 
-                        <p:outputLabel for="calendP" value="Fecha Calificación *" />
+                        <p:outputLabel for="calendP" value="Fecha Calificación Real*" />
                         <p:calendar id="calendP" value="#{calificacionTema2MB.date}" mode="popup"/>
                         <p:watermark for="calendP" value="Seleccionar Fecha"/>
-
+                        
+                        <p:outputLabel for="calendP2" value="Fecha Calificación Siac*" />
+                        <p:calendar id="calendP2" value="#{calificacionTema2MB.date2}" mode="popup"/>
+                        <p:watermark for="calendP2" value="Seleccionar Fecha"/>
+                        
                         <h:inputHidden value="#{calificacionTema2MB.idTema}"/>
 
                     </h:panelGrid>
