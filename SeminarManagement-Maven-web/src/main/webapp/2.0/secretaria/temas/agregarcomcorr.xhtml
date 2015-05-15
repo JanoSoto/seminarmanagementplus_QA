@@ -59,9 +59,13 @@
                         </p:selectOneMenu>
                         <br/>
 
-                        <p:outputLabel for="calendP" value="Fecha *" />
+                        <p:outputLabel for="calendP" value="Fecha de entrega al profesor *" />
                         <p:calendar id="calendP" value="#{comisionCorrectora2MB.date}" mode="popup"/>
                         <p:watermark for="calendP" value="Seleccionar Fecha"/>
+
+                        <p:outputLabel for="calendP2" value="Fecha de devolución con correciones del profesor *" />
+                        <p:calendar id="calendP2" value="#{comisionCorrectora2MB.date2}" mode="popup"/>
+                        <p:watermark for="calendP2" value="Seleccionar Fecha"/>
 
 
                         <p:outputLabel for="semestreP" value="Semestre *"  />
