@@ -51,9 +51,9 @@
 			</configuration>
 			<dependencies>
 				<dependency>
-					<groupId>org.glassfish.deployment</groupId>
+					<groupId>org.glassfish.main.deployment</groupId>
 					<artifactId>deployment-client</artifactId>
-					<version>3.2-b06</version>
+					<version>4.1</version>
 				</dependency>
 			</dependencies>
 		</plugin>
