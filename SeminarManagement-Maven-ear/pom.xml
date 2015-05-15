@@ -40,7 +40,7 @@
 						<cargo.remote.password>${cargo.remote.password}</cargo.remote.password>
 						<cargo.glassfish.adminPort>${cargo.glassfish.admin.port}</cargo.glassfish.adminPort>
 						<cargo.glassfish.domain.name>${cargo.glassfish.domain.name}</cargo.glassfish.domain.name>
-                                                <cargo.remote.port>8080</cargo.remote.port>
+                                                <cargo.servlet.port>8080</cargo.servlet.port>
 					</properties>
 				</configuration>
 				<deployables>
