@@ -14,7 +14,7 @@ import java.io.Serializable;
 public class ProfeDatos2 implements Serializable {
     private static final long serialVersionUID = 1L;
     private Profesor profesor;
-    private Integer temasVigentes, propSemActual, revSemActual, corrSemActual;
+    private Integer temasVigentes, propSemActual, revSemActual, corrSemActual, temasVigentesDiurno, temasVigentesVespertino;
     private String rutProfConGuion, contrato;
     private String rutFormateado;
 
@@ -83,6 +83,20 @@ public class ProfeDatos2 implements Serializable {
     public String getRutFormateado() {
         return this.rutFormateado;
     }
+
+    public Integer setTemasVigentesDiurno(int guiaTemp) {
+        return this.temasVigentesDiurno;
+    }
     
-    
+    public Integer setTemasVigentesVespertino(int guiaTemp) {
+        return this.temasVigentesVespertino;
+    }   
+
+    public Integer getTemasVigentesDiurno() {
+        return temasVigentesDiurno;
+    }
+
+    public Integer getTemasVigentesVespertino() {
+        return temasVigentesVespertino;
+    }    
 }
