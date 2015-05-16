@@ -215,7 +215,7 @@ public class PlantillaAcuerdo extends HttpServlet {
      */
     @Override
     public String getServletInfo() {
-        return "Short description";
+        return "Retorna un docx de Acuerdo de Consejo para una propuesta de acuerdo al id entregado por url";
     }// </editor-fold>
 
 }
