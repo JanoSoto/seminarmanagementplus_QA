@@ -29,6 +29,7 @@ import sessionbeans.HistorialFacadeLocal;
 import sessionbeans.ProfeCorreccionFacadeLocal;
 import sessionbeans.ProfePropuestaFacadeLocal;
 import sessionbeans.ProfesorFacadeLocal;
+import sessionbeans.SemestreActualFacadeLocal;
 import sessionbeans.TemaFacadeLocal;
 
 /**
@@ -52,6 +53,8 @@ public class CalificacionTema2MB {
     private ProfesorFacadeLocal profesorFacade;
     @EJB
     private TemaFacadeLocal temaFacade;
+    @EJB
+    private SemestreActualFacadeLocal semestreActualFacade;
     
     private Integer idTema;
     private String rutAlumno,nombreTema,fechaTema,semestreTema,notaProfe1Inf,notaProfe1Def
@@ -144,7 +147,9 @@ public class CalificacionTema2MB {
         
         profeProp.setNotaGuiaInforme(fNotaGuiaInf);
         profeProp.setNotaGuiaDefensa(fNotaGuiaDef);
-        profePropuestaFacade.edit(profeProp);
+        profePropuestaFacade.edit(profeProp);   
+        String semestre = semestreActualFacade.findAll().get(0).getSemestreActual();
+        tema.setSemestreTermino(semestre);
         
         //Seteamos estado "Titulado" o "Caduco" acorde a las notas
         if(promedio<4){

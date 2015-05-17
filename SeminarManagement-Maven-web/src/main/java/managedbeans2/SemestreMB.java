@@ -222,6 +222,7 @@ public class SemestreMB {
             if(temas.get(i).getEstadoTema() != null){
                 if(temas.get(i).getEstadoTema()==0){
                     temas.get(i).setEstadoTema(3);
+                    temas.get(i).setSemestreTermino(semActual.getSemestreActual());
                     temaFacade.edit(temas.get(i));
 
                     /*

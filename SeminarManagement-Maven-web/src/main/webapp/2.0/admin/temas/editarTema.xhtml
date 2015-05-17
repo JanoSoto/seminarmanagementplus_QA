@@ -52,16 +52,21 @@
                         <p:calendar id="calendT" value="#{verTemaMB.fechaEdit}" mode="popup"/>
                         <p:watermark for="calendT" value="Seleccionar Fecha"/>
                         
-                        <p:outputLabel for="calendT2" value="Fecha Tema Real*" />
-                        <p:calendar id="calendT2" value="#{verTemaMB.fechaEdit2}" mode="popup"/>
-                        <p:watermark for="calendT2" value="Seleccionar Fecha"/>
+                        <p:outputLabel for="semestreT2" value="Semestre Inicio Tema *"  />
+                        <p:inputMask  id="semestreT2" value="#{verTemaMB.semestreEdit}" mask="9/9999"/>
+                        <p:watermark  for="semestreT2" value="Ingresar Semestre"/>
                         
-                        <p:outputLabel for="calendT3" value="Fecha Tema Siac*" />
-                        <p:calendar id="calendT3" value="#{verTemaMB.fechaEdit3}" mode="popup"/>
+                        <p:outputLabel  for="calendT4" value="Fecha Tema Real *" />
+                        <p:calendar  disabled="#{verTemaMB.tema.estadoTemaBoolean}" id="calendT4" value="#{verTemaMB.fechaEdit2}" mode="popup"/>
+                        <p:watermark  for="calendT4" value="Seleccionar Fecha"/>
+                      
+                        
+                        <p:outputLabel for="calendT3" value="Fecha Tema Siac *" />
+                        <p:calendar disabled="#{verTemaMB.tema.estadoTemaBoolean}" id="calendT3" value="#{verTemaMB.fechaEdit3}" mode="popup"/>
                         <p:watermark for="calendT3" value="Seleccionar Fecha"/>
 
-                        <p:outputLabel for="semestreT" value="Semestre Tema Siac*"  />
-                        <p:inputMask id="semestreT" value="#{verTemaMB.semestreEdit}" mask="9/9999"/>
+                        <p:outputLabel for="semestreT" value="Semestre Tema Siac *"  />
+                        <p:inputMask  disabled="#{verTemaMB.tema.estadoTemaBoolean}" id="semestreT" value="#{verTemaMB.semestreTerminoEdit}" mask="9/9999"/>
                         <p:watermark for="semestreT" value="Ingresar Semestre"/>
                         
                         <h:inputHidden value="#{verTemaMB.idTemaEdit}"/>

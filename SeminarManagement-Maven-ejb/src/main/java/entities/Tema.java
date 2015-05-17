@@ -39,6 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Tema.findByFechaSiacTema", query = "SELECT t FROM Tema t WHERE t.fechaSiacTema = :fechaSiacTema"),
     @NamedQuery(name = "Tema.findByFechaRealTema", query = "SELECT t FROM Tema t WHERE t.fechaRealTema = :fechaRealTema"),
     @NamedQuery(name = "Tema.findByEstadoTema", query = "SELECT t FROM Tema t WHERE t.estadoTema = :estadoTema"),
+    @NamedQuery(name = "Tema.findByTerminoSemestre", query = "SELECT t FROM Tema t WHERE t.semestreTermino = :semestreTermino"),
     @NamedQuery(name = "Tema.findByIdTema", query = "SELECT t FROM Tema t WHERE t.idTema = :idTema"),
     @NamedQuery(name = "Tema.findTema", query = "SELECT t FROM Tema t WHERE t.nombreTema LIKE :nombreTema")})
 public class Tema implements Serializable {
@@ -55,6 +56,9 @@ public class Tema implements Serializable {
     @Size(max = 15)
     @Column(name = "fecha_real")
     private String fechaRealTema;
+    @Size(max = 15)
+    @Column(name = "semestre_termino")
+    private String semestreTermino;
     @Column(name = "estado_tema")
     private Integer estadoTema;
     @Id
@@ -161,6 +165,15 @@ public class Tema implements Serializable {
         this.idSemestre = idSemestre;
     }
 
+    public String getSemestreTermino() {
+        return semestreTermino;
+    }
+
+    public void setSemestreTermino(String semestreTermino) {
+        this.semestreTermino = semestreTermino;
+    }
+    
+
     public ComisionRevisora getIdRevisora() {
         return idRevisora;
     }
@@ -184,6 +197,10 @@ public class Tema implements Serializable {
 
     public void setComisionRevisoraList(List<ComisionRevisora> comisionRevisoraList) {
         this.comisionRevisoraList = comisionRevisoraList;
+    }
+    
+    public boolean getEstadoTemaBoolean() {
+        return estadoTema != 1;
     }
 
     @Override
