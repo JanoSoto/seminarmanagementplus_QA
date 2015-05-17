@@ -38,6 +38,9 @@ public class Log4JInitServlet extends HttpServlet {
         
         ServletContext sc = config.getServletContext();
         
+        //Docx4jProperties.getProperties().setProperty("docx4j.Log4j.Configurator.disabled", "true");
+        //Log4jConfigurator.configure();
+        
         if (log4jLocation == null) {
             BasicConfigurator.configure();
         }else{

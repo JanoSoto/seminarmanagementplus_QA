@@ -158,8 +158,6 @@ public class PlantillaPropuestaTest {
         String expResult = "Retorna un archivo PDF desplegado en el navegador que contiene la información una propuesta de trabajo de título";
         String result = instance.getServletInfo();
         assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        //fail("The test case is a prototype.");
     }
 
     private static String extractPdfText(byte[] pdfData) throws IOException {

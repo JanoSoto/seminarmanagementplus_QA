@@ -5,26 +5,23 @@
  */
 package managedbeans2.profesores;
 
-import clases.ProfeDatos;
 import clases.ProfeDatos2;
 import entities.ProfeCorreccion;
 import entities.ProfeRevision;
 import entities.Profesor;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import sessionbeans.ProfesorFacadeLocal;
 import sessionbeans.SemestreActualFacadeLocal;
 import Util.Util;
 import entities.Alumno;
-import sessionbeans.AlumnoFacade;
+import sessionbeans.AlumnoFacadeLocal;
 
 /**
  *
@@ -38,6 +35,9 @@ public class ProfesoresIndexMB {
     private SemestreActualFacadeLocal semestreActualFacade;
     @EJB
     private ProfesorFacadeLocal profesorFacade;
+
+    @EJB
+    private AlumnoFacadeLocal alumnoFacade;
 
     private List<Profesor> profesores;
     private List<ProfeDatos2> profeDatos, profesoresFiltrados;
@@ -99,12 +99,17 @@ public class ProfesoresIndexMB {
                                     if (tipoTemaTemp == 0 || tipoTemaTemp == 2) {
                                         guiaTemp++;
                                     }
-//                                    Alumno alumno = profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getRutAlumno();
-//                                    if (alumno.getJornada() == 1) {
-//                                        guiaTempDiurno++;
-//                                    } else {
-//                                        guiaTempVespertino++;
-//                                    }
+                                    List<Alumno> alumno = alumnoFacade.findByRut(profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getRutAlumno().getRutAlumno());
+
+                                    try {
+                                        if (alumno.get(0).getJornada() == 1) {
+                                            guiaTempDiurno++;
+                                        } else {
+                                            guiaTempVespertino++;
+                                        }
+                                    } catch (Exception e) {
+
+                                    }
                                 }
                             }
                         }

@@ -51,7 +51,7 @@ public class VerPropuestaMB {
     public void buscarPropuesta(){
         if(idPropuesta!=null){
             List<Propuesta> result = propuestaFacade.findById(idPropuesta);
-            if(result!=null){
+            if( ! result.isEmpty() ){
                 propuesta = result.get(0);
                 //Inicializamos datos para editar
                 idPropEdit = propuesta.getIdPropuesta();
