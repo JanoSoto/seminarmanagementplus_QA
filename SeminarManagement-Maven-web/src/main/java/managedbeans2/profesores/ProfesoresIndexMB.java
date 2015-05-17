@@ -25,6 +25,7 @@ import sessionbeans.SemestreActualFacadeLocal;
 import Util.Util;
 import entities.Alumno;
 import sessionbeans.AlumnoFacade;
+import sessionbeans.AlumnoFacadeLocal;
 
 /**
  *
@@ -38,6 +39,9 @@ public class ProfesoresIndexMB {
     private SemestreActualFacadeLocal semestreActualFacade;
     @EJB
     private ProfesorFacadeLocal profesorFacade;
+
+    @EJB
+    private AlumnoFacadeLocal alumnoFacade;
 
     private List<Profesor> profesores;
     private List<ProfeDatos2> profeDatos, profesoresFiltrados;
@@ -99,12 +103,16 @@ public class ProfesoresIndexMB {
                                     if (tipoTemaTemp == 0 || tipoTemaTemp == 2) {
                                         guiaTemp++;
                                     }
-//                                    Alumno alumno = profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getRutAlumno();
-//                                    if (alumno.getJornada() == 1) {
-//                                        guiaTempDiurno++;
-//                                    } else {
-//                                        guiaTempVespertino++;
-//                                    }
+                                    List<Alumno> alumno = alumnoFacade.findByRut(profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getRutAlumno().getRutAlumno());
+
+                                    if (alumno.get(0).getRutAlumno() == "173832168") {
+                                        guiaTempDiurno++;
+                                    }
+                                    if (alumno.get(0).getJornada() == 1) {
+                                        guiaTempDiurno++;
+                                    } else {
+                                        guiaTempVespertino++;
+                                    }
                                 }
                             }
                         }
