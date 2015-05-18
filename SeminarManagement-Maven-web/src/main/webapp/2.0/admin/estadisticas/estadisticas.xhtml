@@ -36,25 +36,30 @@
 
         <p:layoutUnit position="center" style="border:none;">
 
-            <p:dataTable value="#{profesoresIndexMB.profeDatos}" var="profesor"
+            <p:dataTable value="#{profesoresIndexMB.profeDatosJornadaCompleta}" var="profesor"
                          paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
                          {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="10,20,30,40,50">
                 <f:facet name="header">  
-                    Temas vigentes por profesor del Semestre #{semestreActual.semestre}
+                    Temas vigentes por profesores con contrato diurno del Semestre #{semestreActual.semestre}
                 </f:facet>
-                <p:column headerText="Nombre">
+
+                <p:column headerText="Contrato">
+                    <p:column>Jornada Completa</p:column>
+                </p:column>
+
+                <p:column headerText="Nombre" sortBy="#{profesor.profesor.nombreProfesor} #{profesor.profesor.apellidoProfesor}">
                     <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/profesores/profesor.xhtml?prof=#{prof.profesor.rutProfesor}">
                         <h:outputText value="#{profesor.profesor.nombreProfesor} #{profesor.profesor.apellidoProfesor}" />
                     </a>
                 </p:column>
-                
+
                 <p:column headerText="Diurno" sortBy="#{profesor.temasVigentesDiurno}">
                     <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/profesores/profesor.xhtml?prof=#{prof.profesor.rutProfesor}">
                         <h:outputText value="#{profesor.temasVigentesDiurno}" />
                     </a>
                 </p:column>
-                
+
                 <p:column headerText="Vespertino" sortBy="#{profesor.temasVigentesVespertino}">
                     <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/profesores/profesor.xhtml?prof=#{prof.profesor.rutProfesor}">
                         <h:outputText value="#{profesor.temasVigentesVespertino}" />
@@ -67,6 +72,66 @@
                     </a>
                 </p:column>
 
+                <p:columnGroup type="footer">
+                    <p:row>
+                        <p:column footerText="" />
+                        <p:column footerText="Total" style="text-align:right"/>
+                        <p:column footerText="#{profesoresIndexMB.totalTemasVigentesJornadaCompletaDiurno}" />
+                        <p:column footerText="#{profesoresIndexMB.totalTemasVigentesJornadaCompletaVespertino}" />
+                        <p:column footerText="#{profesoresIndexMB.totalTemasVigentesJornadaCompleta}" />
+                    </p:row>
+                </p:columnGroup>
+
+            </p:dataTable>
+
+            <br></br>
+
+            <p:dataTable value="#{profesoresIndexMB.profeDatosPorHoras}" var="profesor"
+                         paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+                         {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                         rowsPerPageTemplate="10,20,30,40,50">
+                <f:facet name="header">  
+                    Temas vigentes por profesores con contrato por horas del Semestre #{semestreActual.semestre}
+                </f:facet>
+
+                <p:column headerText="Contrato">
+                    <p:column>Por Horas</p:column>
+                </p:column>
+
+                <p:column headerText="Nombre">
+                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/profesores/profesor.xhtml?prof=#{prof.profesor.rutProfesor}">
+                        <h:outputText value="#{profesor.profesor.nombreProfesor} #{profesor.profesor.apellidoProfesor}" />
+                    </a>
+                </p:column>
+
+                <p:column headerText="Diurno" sortBy="#{profesor.temasVigentesDiurno}">
+                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/profesores/profesor.xhtml?prof=#{prof.profesor.rutProfesor}">
+                        <h:outputText value="#{profesor.temasVigentesDiurno}" />
+                    </a>
+                </p:column>
+
+                <p:column headerText="Vespertino" sortBy="#{profesor.temasVigentesVespertino}">
+                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/profesores/profesor.xhtml?prof=#{prof.profesor.rutProfesor}">
+                        <h:outputText value="#{profesor.temasVigentesVespertino}" />
+                    </a>
+                </p:column>
+
+                <p:column headerText="Total" sortBy="#{profesor.temasVigentes}">
+                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/profesores/profesor.xhtml?prof=#{prof.profesor.rutProfesor}">
+                        <h:outputText value="#{profesor.temasVigentes}" />
+                    </a>
+                </p:column>
+
+                <p:columnGroup type="footer">
+                    <p:row>
+                        <p:column footerText="" />
+                        <p:column footerText="Total" style="text-align:right"/>
+                        <p:column footerText="#{profesoresIndexMB.totalTemasVigentesPorHoraDiurno}" />
+                        <p:column footerText="#{profesoresIndexMB.totalTemasVigentesPorHoraVespertino}" />
+                        <p:column footerText="#{profesoresIndexMB.totalTemasVigentesPorHora}" />
+                    </p:row>
+                </p:columnGroup>
+                
             </p:dataTable>
         </p:layoutUnit>
     </ui:define>
