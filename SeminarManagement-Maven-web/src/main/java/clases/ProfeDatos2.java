@@ -84,12 +84,12 @@ public class ProfeDatos2 implements Serializable {
         return this.rutFormateado;
     }
 
-    public Integer setTemasVigentesDiurno(int guiaTemp) {
-        return this.temasVigentesDiurno;
+    public void setTemasVigentesDiurno(int guiaTemp) {
+        this.temasVigentesDiurno = guiaTemp;
     }
     
-    public Integer setTemasVigentesVespertino(int guiaTemp) {
-        return this.temasVigentesVespertino;
+    public void setTemasVigentesVespertino(int guiaTemp) {
+        this.temasVigentesVespertino = guiaTemp;
     }   
 
     public Integer getTemasVigentesDiurno() {

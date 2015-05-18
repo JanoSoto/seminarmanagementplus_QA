@@ -38,7 +38,7 @@ public class VerTemaMB {
     private Profesor guia,coguia,corrector1,corrector2;
     private Tema tema;
     private Date fechaEdit,fechaEdit2,fechaEdit3;
-    private String semestreEdit, nombreTemaEdit;
+    private String semestreEdit, nombreTemaEdit,semestreTerminoEdit;
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(VerTemaMB.class);
     private Alumno alumno;
     
@@ -57,11 +57,13 @@ public class VerTemaMB {
             nombreTemaEdit = tema.getNombreTema();
             semestreEdit = tema.getIdSemestre().getIdSemestre();
             fechaEdit = stringToDate(tema.getFechaTema());
-            
+            semestreTerminoEdit = tema.getSemestreTermino();
             if(tema.getFechaRealTema()!= null ){
+                System.out.println(tema.getFechaRealTema());
                 fechaEdit2 = stringToDate(tema.getFechaRealTema());
             }
             if(tema.getFechaSiacTema()!= null){
+                System.out.println(tema.getFechaSiacTema());
                 fechaEdit3 = stringToDate(tema.getFechaSiacTema());
             }
             
@@ -97,6 +99,7 @@ public class VerTemaMB {
         }
         Tema temaTemp = temaFacade.findById(id).get(0);
         temaTemp.setEstadoTema(0);
+        temaTemp.setSemestreTermino("");
         temaFacade.edit(temaTemp);
         
         //Mensaje de confirmación
@@ -139,14 +142,20 @@ public class VerTemaMB {
             return;
         }
         
-        if(fechaEdit2==null || fechaEdit2.equals("")){
-            context.addMessage(null, new FacesMessage("Fecha","Debe seleccionar la fecha del Tema"));
-            return;
+        if(fechaEdit2==null || fechaEdit2.equals("") ){
+            if (temaTemp.getEstadoTema()==1) {
+                context.addMessage(null, new FacesMessage("Fecha","Debe seleccionar la fecha real del Tema"));
+                return;
+            }
+            
         }
         
-        if(fechaEdit3==null || fechaEdit3.equals("")){
-            context.addMessage(null, new FacesMessage("Fecha","Debe seleccionar la fecha del Tema"));
-            return;
+        if((fechaEdit3==null || fechaEdit3.equals("") )){
+            if ( temaTemp.getEstadoTema()==1) {
+                context.addMessage(null, new FacesMessage("Fecha","Debe seleccionar la fecha SIAC del Tema"));
+                return;
+            }
+            
         }
         
         //Validamos que no haya otro tema con el mismo nombre
@@ -171,14 +180,39 @@ public class VerTemaMB {
             return;
         }
         
+         //Validaciones del Semestre
+        if ((semestreTerminoEdit == null || semestreTerminoEdit.equals("") )){
+            if (temaTemp.getEstadoTema()==1) {
+                context.addMessage(null, new FacesMessage("Semestre Tema","Debe ingresar semestre"));
+                return;
+            }
+            
+        }
+        if (temaTemp.getEstadoTema()==1) {
+             if (Integer.valueOf(semestreTerminoEdit.substring(2, 6)) <= 1972) {
+            context.addMessage(null, new FacesMessage("Semestre Tema","Año del semestre debe ser después de 1972"));
+            return;
+            }
+            if ((Integer.valueOf(semestreTerminoEdit.substring(0, 1)) != 1) && (Integer.valueOf(semestreTerminoEdit.substring(0, 1)) != 2)){
+            context.addMessage(null, new FacesMessage("Semestre Tema","Semestre ingresado debe ser '1' o '2'"));
+            return;
+            }
+            
+            temaTemp.setFechaRealTema(dateToString(fechaEdit2));
+            temaTemp.setFechaSiacTema(dateToString(fechaEdit3));
+            temaTemp.setSemestreTermino(semestreTerminoEdit);
+        }
+      
+        
+        
+        
         //Editamos el tema
         nombreTemaEdit = nombreTemaEdit.toUpperCase();
         temaTemp.setNombreTema(nombreTemaEdit);
         temaTemp.setFechaTema(dateToString(fechaEdit));
         
         
-        temaTemp.setFechaRealTema(dateToString(fechaEdit2));
-        temaTemp.setFechaSiacTema(dateToString(fechaEdit3));
+       
         //Accedemos a la tabla semestre, e ingresamos semestre si no ha sido ingresado
         Semestre semTemp = new Semestre(semestreEdit);
         List<Semestre> semestres = semestreFacade.findAll();
@@ -186,6 +220,8 @@ public class VerTemaMB {
             semestreFacade.create(semTemp);
         }
         temaTemp.setIdSemestre(semTemp);
+        
+        
         temaFacade.edit(temaTemp);
         
         //Mensaje de confirmación
@@ -295,6 +331,14 @@ public class VerTemaMB {
         return alumno;
     }
 
+    public String getSemestreTerminoEdit() {
+        return semestreTerminoEdit;
+    }
+
+    public void setSemestreTerminoEdit(String semestreTerminoEdit) {
+        this.semestreTerminoEdit = semestreTerminoEdit;
+    }
+    
     public void setAlumno(Alumno alumno) {
         this.alumno = alumno;
     }

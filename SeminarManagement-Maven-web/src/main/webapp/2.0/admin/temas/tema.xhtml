@@ -42,28 +42,37 @@
                     <h:outputText rendered="#{verTemaMB.tema.estadoTema eq 5}" style="padding-left: 1em;" value="MAGISTER"/>
                     <h:outputText rendered="#{verTemaMB.tema.estadoTema eq 6}" style="padding-left: 1em;" value="VIGENTE, CON BORRADOR FINAL"/>
                     <br/>
-
-                    <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Fecha: "/>
-                    <h:outputText style="padding-left: 1em;" value="#{verTemaMB.tema.fechaTema}"/>
-                    <br/>
                     
-                    <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Fecha Real: "/>
-                    <h:outputText style="padding-left: 1em;" value="#{verTemaMB.tema.fechaRealTema}"/>
-                    <br/>
-                    
-                    <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Fecha Siac: "/>
-                    <h:outputText style="padding-left: 1em;" value="#{verTemaMB.tema.fechaSiacTema}"/>
-                    <br/>
-
-
-                    <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Semestre "/>
-                    <h:outputText style="padding-left: 1em;" value="#{verTemaMB.tema.idSemestre.idSemestre}"/>
-                    <br/>
-
-
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Tiene Comisión: "/>
                     <h:outputText rendered="#{empty verTemaMB.tema.idCorrectora}" style="padding-left: 1em;" value="NO"/>
                     <h:outputText rendered="#{not empty verTemaMB.tema.idCorrectora}" style="padding-left: 1em;" value="SÍ"/>
+                    <br/>
+                    
+                    <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Inscripción Tema: "/>
+                    <br/>
+                    <p:outputLabel style="color: #0052cc;font-weight: bold;" value="- Fecha Inscripción: "/>
+                    <h:outputText style="padding-left: 1em;" value="#{verTemaMB.tema.fechaTema}"/>
+                   
+                    <br/>
+                    
+                    <p:outputLabel style="color: #0052cc;font-weight: bold;" value="- Semestre de Inicio:"/>
+                    <h:outputText style="padding-left: 1em;" value="#{verTemaMB.tema.idSemestre.idSemestre}"/>
+                    <br/>
+                    
+                    <p:outputLabel rendered="#{verTemaMB.tema.estadoTema eq 1}" style="color: #0052cc;font-weight: bold;" value="Término Tema: "/>
+                    <br/>
+                    
+                    <p:outputLabel rendered="#{verTemaMB.tema.estadoTema eq 1}" style="color: #0052cc;font-weight: bold;" value="- Fecha Examen Real: "/>
+                    <h:outputText rendered="#{verTemaMB.tema.estadoTema eq 1}" style="padding-left: 1em;" value="#{verTemaMB.tema.fechaRealTema}"/>
+                    <br/>
+                    
+                    <p:outputLabel rendered="#{verTemaMB.tema.estadoTema eq 1}" style="color: #0052cc;font-weight: bold;" value="- Fecha Examen SIAC: "/>
+                    <h:outputText rendered="#{verTemaMB.tema.estadoTema eq 1}" style="padding-left: 1em;" value="#{verTemaMB.tema.fechaSiacTema}"/>
+                    <br/>    
+                    <p:outputLabel rendered="#{verTemaMB.tema.estadoTema eq 1}" style="color: #0052cc;font-weight: bold;" value="- Semestre Examen SIAC: "/>
+                    <h:outputText rendered="#{verTemaMB.tema.estadoTema eq 1}" style="padding-left: 1em;" value="#{verTemaMB.tema.semestreTermino}"/>
+
+
                 </p:panel>
                 
                 <p:panel style="border:none;">

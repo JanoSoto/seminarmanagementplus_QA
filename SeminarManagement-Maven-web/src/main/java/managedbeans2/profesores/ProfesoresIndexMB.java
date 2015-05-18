@@ -5,26 +5,23 @@
  */
 package managedbeans2.profesores;
 
-import clases.ProfeDatos;
 import clases.ProfeDatos2;
 import entities.ProfeCorreccion;
 import entities.ProfeRevision;
 import entities.Profesor;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import sessionbeans.ProfesorFacadeLocal;
 import sessionbeans.SemestreActualFacadeLocal;
 import Util.Util;
 import entities.Alumno;
-import sessionbeans.AlumnoFacade;
+import sessionbeans.AlumnoFacadeLocal;
 
 /**
  *
@@ -39,8 +36,13 @@ public class ProfesoresIndexMB {
     @EJB
     private ProfesorFacadeLocal profesorFacade;
 
+    @EJB
+    private AlumnoFacadeLocal alumnoFacade;
+
     private List<Profesor> profesores;
-    private List<ProfeDatos2> profeDatos, profesoresFiltrados;
+    private List<ProfeDatos2> profeDatos, profesoresFiltrados, profeDatosJornadaCompleta, profeDatosPorHoras;
+
+    private Integer totalTemasVigentesJornadaCompleta, totalTemasVigentesJornadaCompletaDiurno, totalTemasVigentesJornadaCompletaVespertino, totalTemasVigentesPorHora, totalTemasVigentesPorHoraDiurno, totalTemasVigentesPorHoraVespertino;
 
     /**
      * Creates a new instance of ProfesoresIndexMB
@@ -50,6 +52,12 @@ public class ProfesoresIndexMB {
 
     @PostConstruct
     public void init() {
+        totalTemasVigentesJornadaCompleta = 0;
+        totalTemasVigentesJornadaCompletaDiurno = 0;
+        totalTemasVigentesJornadaCompletaVespertino = 0;
+        totalTemasVigentesPorHora = 0;
+        totalTemasVigentesPorHoraDiurno = 0;
+        totalTemasVigentesPorHoraVespertino = 0;
         String semestreActual;
         FacesContext context = FacesContext.getCurrentInstance();
         //Seteamos el semestre a semestre actual
@@ -64,6 +72,8 @@ public class ProfesoresIndexMB {
         int guiaTemp, revisorTemp, guiaP, revProp, revSem, guiaTempDiurno, guiaTempVespertino;
         ProfeDatos2 profeDatosTemp;
         profeDatos = new ArrayList();
+        profeDatosJornadaCompleta = new ArrayList();
+        profeDatosPorHoras = new ArrayList();
         List<ProfeRevision> profRev;
         for (int i = 0; i < profesores.size(); i++) {
             profeDatosTemp = new ProfeDatos2();
@@ -98,13 +108,29 @@ public class ProfesoresIndexMB {
                                     int tipoTemaTemp = profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getIdRevisora().getIdTema().getEstadoTema();
                                     if (tipoTemaTemp == 0 || tipoTemaTemp == 2) {
                                         guiaTemp++;
+
+                                        List<Alumno> alumno = alumnoFacade.findByRut(profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getRutAlumno().getRutAlumno());
+                                        if (alumno.get(0).getJornada() == 1) {
+                                            guiaTempDiurno++;
+                                            if (profesores.get(i).getContrato() == 0) {// Por Hora
+                                                totalTemasVigentesPorHora++;
+                                                totalTemasVigentesPorHoraDiurno++;
+                                            } else { // Jornada Completa
+                                                totalTemasVigentesJornadaCompleta++;
+                                                totalTemasVigentesJornadaCompletaDiurno++;
+                                            }
+                                        } else {
+                                            guiaTempVespertino++;
+                                            if (profesores.get(i).getContrato() == 0) {// Por Hora
+                                                totalTemasVigentesPorHora++;
+                                                totalTemasVigentesPorHoraVespertino++;
+                                            } else { // Jornada Completa
+                                                totalTemasVigentesJornadaCompleta++;
+                                                totalTemasVigentesJornadaCompletaVespertino++;
+                                            }
+                                        }
                                     }
-//                                    Alumno alumno = profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getRutAlumno();
-//                                    if (alumno.getJornada() == 1) {
-//                                        guiaTempDiurno++;
-//                                    } else {
-//                                        guiaTempVespertino++;
-//                                    }
+
                                 }
                             }
                         }
@@ -138,6 +164,12 @@ public class ProfesoresIndexMB {
             profeDatosTemp.setTemasVigentesVespertino(guiaTempVespertino);
             profeDatosTemp.setPropSemActual(guiaP);
             profeDatos.add(profeDatosTemp);
+            // Por horas
+            if (profesores.get(i).getContrato() == 0) {
+                profeDatosPorHoras.add(profeDatosTemp);
+            } else { // Jornada Completa
+                profeDatosJornadaCompleta.add(profeDatosTemp);
+            }
         }
     }
 
@@ -163,5 +195,37 @@ public class ProfesoresIndexMB {
 
     public void setProfesores(List<Profesor> profesores) {
         this.profesores = profesores;
+    }
+
+    public List<ProfeDatos2> getProfeDatosJornadaCompleta() {
+        return profeDatosJornadaCompleta;
+    }
+
+    public List<ProfeDatos2> getProfeDatosPorHoras() {
+        return profeDatosPorHoras;
+    }
+
+    public Integer getTotalTemasVigentesJornadaCompleta() {
+        return totalTemasVigentesJornadaCompleta;
+    }
+
+    public Integer getTotalTemasVigentesJornadaCompletaDiurno() {
+        return totalTemasVigentesJornadaCompletaDiurno;
+    }
+
+    public Integer getTotalTemasVigentesJornadaCompletaVespertino() {
+        return totalTemasVigentesJornadaCompletaVespertino;
+    }
+
+    public Integer getTotalTemasVigentesPorHora() {
+        return totalTemasVigentesPorHora;
+    }
+
+    public Integer getTotalTemasVigentesPorHoraDiurno() {
+        return totalTemasVigentesPorHoraDiurno;
+    }
+
+    public Integer getTotalTemasVigentesPorHoraVespertino() {
+        return totalTemasVigentesPorHoraVespertino;
     }
 }
