@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package util;
 
 /**
@@ -26,5 +21,26 @@ public class Util {
             }
         }
         return format;
+    }
+    
+    public static String reducirNombre(String nombre, String apellido, Integer maxChars){
+        while ( nombre.length() + apellido.length() > maxChars){
+            String nombres[] = nombre.split(" ");
+            String apellidos[] = apellido.split(" ");
+            if ( nombres.length >= apellidos.length && !nombres[0].contentEquals("") ){
+                if ( nombres.length > 1){
+                    nombre = nombre.substring(0, nombre.lastIndexOf(" "));
+                }else{
+                    break;
+                }
+            } else {
+                if ( apellidos.length > 1 ){
+                    apellido = apellido.substring(0, apellido.lastIndexOf(" "));
+                } else {
+                    break;
+                }
+            }
+        }
+        return nombre+" "+apellido;
     }
 }

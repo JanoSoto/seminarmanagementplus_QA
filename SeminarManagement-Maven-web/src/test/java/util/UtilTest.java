@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package util;
 
-import Util.Util;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -60,4 +54,12 @@ public class UtilTest {
         assertEquals(expResult, result);
     }
 
+    @Test
+    public void testReducirNombre(){
+        String result = Util.reducirNombre("juan carlos", "perez gracia", 2);
+        assertEquals("juan perez", result);
+        
+        result = Util.reducirNombre("juan carlos javier", "perez gracia", 23);
+        assertEquals("juan carlos perez gracia", result);
+    }
 }
