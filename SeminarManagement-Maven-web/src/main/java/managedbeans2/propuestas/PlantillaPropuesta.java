@@ -20,6 +20,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import util.Util;
 
 /**
  *
@@ -88,56 +89,37 @@ public class PlantillaPropuesta extends HttpServlet {
             }
             stamper.getAcroFields().setField("doc_title", str.toString());
             stamper.getAcroFields().setField("title", prop.getNombrePropuesta());
-            
-            str = new StringBuilder();
-            str.append(alumno.getNombreAlumno()).append(" ").append(alumno.getApellidoAlumno());
-            stamper.getAcroFields().setField("student_name", str.toString());
+
+            stamper.getAcroFields().setField("student_name", Util.reducirNombre(alumno.getNombreAlumno(), alumno.getApellidoAlumno(), 30));
             
             Profesor guia = propuestaMB.getGuia();
             str = new StringBuilder("");
             if (guia != null){
-                str.append(guia.getNombreProfesor()).append(" ")
-                        .append(guia.getApellidoProfesor());
+                str.append(Util.reducirNombre( guia.getNombreProfesor(), guia.getApellidoProfesor(), 30));
             }
             stamper.getAcroFields().setField("guide_proffesor", str.toString());
             
             Profesor coguia = propuestaMB.getCoguia();
             str = new StringBuilder("");
             if (coguia != null){
-                str.append(coguia.getNombreProfesor()).append(" ")
-                        .append(coguia.getApellidoProfesor());
+                str.append(Util.reducirNombre( coguia.getNombreProfesor(), coguia.getApellidoProfesor(), 30));
             }
             stamper.getAcroFields().setField("co_guide_proffesor", str.toString());
 
             Profesor profComision1 = propuestaMB.getRevisor1();
             str = new StringBuilder("");
             if (profComision1 != null){
-                str.append(profComision1.getNombreProfesor()).append(" ")
-                        .append(profComision1.getApellidoProfesor());
+                str.append(Util.reducirNombre( profComision1.getNombreProfesor(), profComision1.getApellidoProfesor(), 20));
             }
             stamper.getAcroFields().setField("commission_proffesor_1", str.toString());
             
             Profesor profComision2 = propuestaMB.getRevisor2();
             str = new StringBuilder();
             if (profComision2 != null){
-                str.append(profComision2.getNombreProfesor())
-                        .append(" ").append(profComision2.getApellidoProfesor());
+                str.append(Util.reducirNombre( profComision2.getNombreProfesor(), profComision2.getApellidoProfesor(), 20));
             }       
-            stamper.getAcroFields().setField("commission_proffesor_2", str.toString());
-            
-            //formatear el rut
-            str = new StringBuilder(alumno.getRutAlumno());
-            if (str.length() > 1){
-                str.insert(str.length()-1, "-");
-                if (str.length() > 5){
-                    str.insert(str.length()-5, ".");
-                    if (str.length() > 9){
-                        str.insert(str.length()-9, ".");
-                    }
-                }
-            }
-            
-            stamper.getAcroFields().setField("student_rut", str.toString());
+            stamper.getAcroFields().setField("commission_proffesor_2", str.toString());           
+            stamper.getAcroFields().setField("student_rut", Util.formatearRut(alumno.getRutAlumno()));
             stamper.getAcroFields().setField("student_phone", alumno.getTelefonoAlumno());
             stamper.getAcroFields().setField("student_email", alumno.getMailAlumno());
             stamper.getAcroFields().setField("student_address", alumno.getDireccionAlumno());
@@ -230,5 +212,4 @@ public class PlantillaPropuesta extends HttpServlet {
     public String getServletInfo() {
         return "Retorna un archivo PDF desplegado en el navegador que contiene la información una propuesta de trabajo de título";
     }// </editor-fold>
-
 }

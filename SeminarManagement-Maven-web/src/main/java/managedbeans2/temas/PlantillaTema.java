@@ -20,6 +20,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import util.Util;
 
 /**
  *
@@ -91,24 +92,19 @@ public class PlantillaTema extends HttpServlet {
             }
             stamper.getAcroFields().setField("doc_title", str.toString());
             stamper.getAcroFields().setField("title", tema.getNombreTema());
-            
-            str = new StringBuilder();
-            str.append(alumno.getNombreAlumno()).append(" ").append(alumno.getApellidoAlumno());
-            stamper.getAcroFields().setField("student_name", str.toString());
+            stamper.getAcroFields().setField("student_name", Util.reducirNombre(alumno.getNombreAlumno(), alumno.getApellidoAlumno(), 30));
             
             Profesor guia = temaMB.getGuia();
             str = new StringBuilder("");
             if (guia != null){
-                str.append(guia.getNombreProfesor()).append(" ")
-                        .append(guia.getApellidoProfesor());
+                str.append(Util.reducirNombre( guia.getNombreProfesor(), guia.getApellidoProfesor(), 30));
             }
             stamper.getAcroFields().setField("guide_proffesor", str.toString());
             
             Profesor coGuia = temaMB.getCoguia();
             str = new StringBuilder("");
             if ( coGuia != null){
-                str.append(coGuia.getNombreProfesor()).append(" ")
-                        .append(coGuia.getApellidoProfesor());
+                str.append(Util.reducirNombre( coGuia.getNombreProfesor(), coGuia.getApellidoProfesor(), 30));
             }
             stamper.getAcroFields().setField("co_guide_proffesor", str.toString());
             
@@ -116,30 +112,16 @@ public class PlantillaTema extends HttpServlet {
                     corrector2 = temaMB.getCorrector2();
 
             if (corrector1 != null){
-                str = new StringBuilder(corrector1.getNombreProfesor());
-                str.append(" ").append(corrector1.getApellidoProfesor());
+                str = new StringBuilder(Util.reducirNombre( corrector1.getNombreProfesor(), corrector1.getApellidoProfesor(), 20));
                 stamper.getAcroFields().setField("commission_proffesor_1", str.toString());
             }
             
             if ( corrector2 != null ){
-                str = new StringBuilder(corrector2.getNombreProfesor());
-                str.append(" ").append(corrector2.getApellidoProfesor());
+                str = new StringBuilder(Util.reducirNombre( corrector2.getNombreProfesor(), corrector2.getApellidoProfesor(), 20));
                 stamper.getAcroFields().setField("commission_proffesor_2", str.toString());
             }
             
-            //formatear el rut
-            str = new StringBuilder(alumno.getRutAlumno());
-            if (str.length() > 1){
-                str.insert(str.length()-1, "-");
-                if (str.length() > 5){
-                    str.insert(str.length()-5, ".");
-                    if (str.length() > 9){
-                        str.insert(str.length()-9, ".");
-                    }
-                }
-            }
-            
-            stamper.getAcroFields().setField("student_rut", str.toString());
+            stamper.getAcroFields().setField("student_rut", Util.formatearRut(alumno.getRutAlumno()));
             stamper.getAcroFields().setField("student_phone", alumno.getTelefonoAlumno());
             stamper.getAcroFields().setField("student_email", alumno.getMailAlumno());
             stamper.getAcroFields().setField("student_address", alumno.getDireccionAlumno());
