@@ -51,8 +51,9 @@
                     <h:form>
                         <p:growl id="growl" showDetail="true" sticky="true" />
                         <h:panelGrid columns="1" cellpadding="4">
-                            <!--<p:button href="/2.0/secretaria/propuestas/editarProp.xhtml?prop=" value="Editar Propuesta"/>-->
+                            <!--<p:button href="/2.0/admin/propuestas/editarProp.xhtml?prop=" value="Editar Propuesta"/>-->
                             <p:button style="width:150px;" rendered="#{empty verPropuestaMB.propuesta.idRevisora}" href="/2.0/secretaria/propuestas/agregarcomrev.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Agregar Comisión Revisora"/>
+                            <p:button style="width:150px;" rendered="#{not empty verPropuestaMB.propuesta.idRevisora}" href="/2.0/secretaria/propuestas/editarComRev.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Agregar Fechas Comisión"/>
                             <p:button style="width:150px;" rendered="#{empty verPropuestaMB.propuesta.idRevisora.idTema and not empty verPropuestaMB.propuesta.idRevisora}" href="/2.0/secretaria/temas/agregar.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Agregar Tema"/>
                             <p:button style="width:150px;" rendered="#{not empty verPropuestaMB.propuesta.idRevisora.idTema}" href="/2.0/secretaria/temas/tema.xhtml?tema=#{verPropuestaMB.propuesta.idRevisora.idTema.idTema}" value="Ver Tema"/>
                             <p:button style="width:150px;" href="/2.0/secretaria/propuestas/editarProp.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Editar Propuesta"/>
@@ -127,12 +128,47 @@
                     <f:facet name="header">
                         Comisión Revisora
                     </f:facet>
-                    <p:column headerText="Nombre">
+                    <p:column  headerText="Nombre">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/profesores/profesor.xhtml?prof=#{comRev.profesor.rutProfesor}">
-                            <h:outputText value="#{comRev.profesor.nombreProfesor} #{comRev.profesor.apellidoProfesor}"/>
+                            <h:outputText  value="#{comRev.profesor.nombreProfesor} #{comRev.profesor.apellidoProfesor}"/>
+                            
                         </a>
                     </p:column>
+                    
+                    
                 </p:dataTable>
+                <p:dataTable id="comRevTable2" var="comRev2" rows="1" value="#{verPropuestaMB.propuesta.idRevisora.profeRevisionList}" emptyMessage="La comision no tiene profesor 1">
+                    <f:facet name="header">
+                        Fechas Profesores
+                    </f:facet>
+                    <p:column headerText=" Fechas Profesor  #{verPropuestaMB.revisor1.nombreProfesor } #{verPropuestaMB.revisor1.apellidoProfesor}">
+                        
+                        <h:outputText value="Fecha de entrega al profesor :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                      &nbsp;&nbsp;&nbsp;&nbsp;#{comRev2.comisionRevisora.fechaRevision }"/>
+                            <br/>
+                            <h:outputText  value="Fecha de devolución con correciones del profesor :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #{comRev2.comisionRevisora.fechaEntregaRevision}" />
+                        
+                    </p:column>
+                    
+                </p:dataTable>
+                
+                <p:dataTable id="comRevTable3" var="comRev3" rows="1" value="#{comRev}" emptyMessage="La comisión no tiene profesor 2">
+                    
+                    <p:column headerText=" Fechas Profesor  #{verPropuestaMB.revisor2.nombreProfesor} #{verPropuestaMB.revisor2.apellidoProfesor}">
+                        
+                        <h:outputText value="Fecha de entrega al profesor :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                      &nbsp;&nbsp;&nbsp;&nbsp;#{comRev3.comisionRevisora.fechaRevision2 }"/>
+                            <br/>
+                            <h:outputText  value="Fecha de devolución con correciones del profesor :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #{comRev3.comisionRevisora.fechaEntregaRevision2}" />
+                        
+                    </p:column>
+                    
+                </p:dataTable>
+                   
             </p:layoutUnit>
         
         <c:if test="#{empty param.prop}">

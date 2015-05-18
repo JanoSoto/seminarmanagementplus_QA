@@ -36,6 +36,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ComisionRevisora.findAll", query = "SELECT c FROM ComisionRevisora c"),
     @NamedQuery(name = "ComisionRevisora.findByFechaRevision", query = "SELECT c FROM ComisionRevisora c WHERE c.fechaRevision = :fechaRevision"),
     @NamedQuery(name = "ComisionRevisora.findByFechaEntregaRevision", query = "SELECT c FROM ComisionRevisora c WHERE c.fechaEntregaRevision = :fechaEntregaRevision"),
+    @NamedQuery(name = "ComisionRevisora.findByFechaRevision2", query = "SELECT c FROM ComisionRevisora c WHERE c.fechaRevision2 = :fechaRevision2"),
+    @NamedQuery(name = "ComisionRevisora.findByFechaEntregaRevision2", query = "SELECT c FROM ComisionRevisora c WHERE c.fechaEntregaRevision2 = :fechaEntregaRevision2"),
     @NamedQuery(name = "ComisionRevisora.findByTipoRevision", query = "SELECT c FROM ComisionRevisora c WHERE c.tipoRevision = :tipoRevision"),
     @NamedQuery(name = "ComisionRevisora.findByIdRevisora", query = "SELECT c FROM ComisionRevisora c WHERE c.idRevisora = :idRevisora")})
 public class ComisionRevisora implements Serializable {
@@ -46,6 +48,12 @@ public class ComisionRevisora implements Serializable {
     @Size(max = 15)
     @Column(name = "fecha_entrega_revision")
     private String fechaEntregaRevision;
+    @Size(max = 15)
+    @Column(name = "fecha_revision2")
+    private String fechaRevision2;
+    @Size(max = 15)
+    @Column(name = "fecha_entrega_revision2")
+    private String fechaEntregaRevision2;
     @Column(name = "tipo_revision")
     private Integer tipoRevision;
     @Id
@@ -146,6 +154,23 @@ public class ComisionRevisora implements Serializable {
         this.profeRevisionList = profeRevisionList;
     }
 
+    public String getFechaRevision2() {
+        return fechaRevision2;
+    }
+
+    public void setFechaRevision2(String fechaRevision2) {
+        this.fechaRevision2 = fechaRevision2;
+    }
+
+    public String getFechaEntregaRevision2() {
+        return fechaEntregaRevision2;
+    }
+
+    public void setFechaEntregaRevision2(String fechaEntregaRevision2) {
+        this.fechaEntregaRevision2 = fechaEntregaRevision2;
+    }
+
+    
     @XmlTransient
     public List<Tema> getTemaList() {
         return temaList;

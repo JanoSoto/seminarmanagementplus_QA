@@ -7,6 +7,7 @@ package managedbeans2.propuestas;
 
 import clases.PropuestaDatos;
 import entities.Alumno;
+import entities.ComisionRevisora;
 import entities.Profesor;
 import entities.Propuesta;
 import entities.Semestre;
@@ -19,6 +20,8 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import sessionbeans.ComisionRevisoraFacadeLocal;
+import sessionbeans.ProfesorFacadeLocal;
 import sessionbeans.PropuestaFacadeLocal;
 import sessionbeans.SemestreFacadeLocal;
 
@@ -33,12 +36,17 @@ public class VerPropuestaMB {
     private SemestreFacadeLocal semestreFacade;
     @EJB
     private PropuestaFacadeLocal propuestaFacade;
+    @EJB
+    private ComisionRevisoraFacadeLocal comisionRevisoraFacade;
+    @EJB
+    private ProfesorFacadeLocal profesorFacade;
     
     private Integer idPropuesta, idPropEdit;
-    private String nombreCorto, semestrePropEdit, nombrePropEdit;
+    private String nombreCorto, semestrePropEdit, nombrePropEdit,fechaEntRev;
     private Profesor guia, coguia, revisor1, revisor2;
+    private List<ComisionRevisora> comision;
     private Propuesta propuesta;
-    private Date fechaPropEdit;
+    private Date fechaPropEdit,date,date2;
     private Alumno alumno;
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(VerPropuestaMB.class);
 
@@ -58,6 +66,16 @@ public class VerPropuestaMB {
                 nombrePropEdit = propuesta.getNombrePropuesta();
                 fechaPropEdit = stringToDate(propuesta.getFechaPropuesta());
                 semestrePropEdit = propuesta.getIdSemestre().getIdSemestre();
+                if (date != null) {
+                    date = stringToDate(propuesta.getIdRevisora().getFechaRevision());
+                    System.out.println(date);
+                }
+                if (date2 != null) {
+                    
+                    date2 = stringToDate(propuesta.getIdRevisora().getFechaEntregaRevision());
+                    System.out.println(date2);
+                }
+                
                 if(propuesta.getNombrePropuesta().length()>68)
                     nombreCorto = propuesta.getNombrePropuesta().substring(0, 69)+"...";
                 else
@@ -81,6 +99,8 @@ public class VerPropuestaMB {
                 alumno = propuesta.getRutAlumno();
                 
             }
+            
+        
         }
         else{
             FacesContext context = FacesContext.getCurrentInstance();
@@ -148,6 +168,11 @@ public class VerPropuestaMB {
 	} catch (ParseException e) {
                 return null;
 	}
+    }
+    
+    public String funcion(String rut){
+        Profesor propTemp = profesorFacade.findByRut(rut).get(0);
+        return propTemp.getNombreProfesor();
     }
     
     //Manejos de fechas
