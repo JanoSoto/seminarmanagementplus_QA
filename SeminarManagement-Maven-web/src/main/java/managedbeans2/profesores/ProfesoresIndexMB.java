@@ -40,7 +40,7 @@ public class ProfesoresIndexMB {
     private AlumnoFacadeLocal alumnoFacade;
 
     private List<Profesor> profesores;
-    private List<ProfeDatos2> profeDatos, profesoresFiltrados, profeDatosJornadaCompleta, profeDatosPorHoras;
+    private List<ProfeDatos2> profeDatos, profeDatosTotal, profesoresFiltrados, profeDatosJornadaCompleta, profeDatosPorHoras;
 
     private Integer totalTemasVigentesJornadaCompleta, totalTemasVigentesJornadaCompletaDiurno, totalTemasVigentesJornadaCompletaVespertino, totalTemasVigentesPorHora, totalTemasVigentesPorHoraDiurno, totalTemasVigentesPorHoraVespertino;
 
@@ -72,6 +72,7 @@ public class ProfesoresIndexMB {
         int guiaTemp, revisorTemp, guiaP, revProp, revSem, guiaTempDiurno, guiaTempVespertino;
         ProfeDatos2 profeDatosTemp;
         profeDatos = new ArrayList();
+        profeDatosTotal = new ArrayList();
         profeDatosJornadaCompleta = new ArrayList();
         profeDatosPorHoras = new ArrayList();
         List<ProfeRevision> profRev;
@@ -164,13 +165,20 @@ public class ProfesoresIndexMB {
             profeDatosTemp.setTemasVigentesVespertino(guiaTempVespertino);
             profeDatosTemp.setPropSemActual(guiaP);
             profeDatos.add(profeDatosTemp);
-            // Por horas
-            if (profesores.get(i).getContrato() == 0) {
-                profeDatosPorHoras.add(profeDatosTemp);
-            } else { // Jornada Completa
-                profeDatosJornadaCompleta.add(profeDatosTemp);
+
+            if (guiaTemp > 0) {
+                // Por horas
+                if (profesores.get(i).getContrato() == 0) {
+                    profeDatosPorHoras.add(profeDatosTemp);
+                } else { // Jornada Completa
+                    profeDatosJornadaCompleta.add(profeDatosTemp);
+                }
             }
         }
+    }
+
+    public List<ProfeDatos2> getProfeDatosTotal() {
+        return this.profeDatosTotal;
     }
 
     public List<ProfeDatos2> getProfeDatos() {

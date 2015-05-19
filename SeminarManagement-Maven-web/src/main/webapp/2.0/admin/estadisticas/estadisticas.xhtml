@@ -41,12 +41,8 @@
                          {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                          rowsPerPageTemplate="10,20,30,40,50">
                 <f:facet name="header">  
-                    Temas vigentes por profesores con contrato diurno del Semestre #{semestreActual.semestre}
+                    Temas vigentes por profesores con contrato jornada completa del Semestre #{semestreActual.semestre}
                 </f:facet>
-
-                <p:column headerText="Contrato">
-                    <p:column>Jornada Completa</p:column>
-                </p:column>
 
                 <p:column headerText="Nombre" sortBy="#{profesor.profesor.nombreProfesor} #{profesor.profesor.apellidoProfesor}">
                     <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/profesores/profesor.xhtml?prof=#{prof.profesor.rutProfesor}">
@@ -93,10 +89,6 @@
                 <f:facet name="header">  
                     Temas vigentes por profesores con contrato por horas del Semestre #{semestreActual.semestre}
                 </f:facet>
-
-                <p:column headerText="Contrato">
-                    <p:column>Por Horas</p:column>
-                </p:column>
 
                 <p:column headerText="Nombre">
                     <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/profesores/profesor.xhtml?prof=#{prof.profesor.rutProfesor}">
