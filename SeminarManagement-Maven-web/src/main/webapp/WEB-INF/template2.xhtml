@@ -8,9 +8,9 @@
       xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <f:view contentType="text/html">
-        
+
         <ui:insert name="metadata"></ui:insert>
-        
+
         <h:head>
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
@@ -19,7 +19,7 @@
                 <ui:insert name="title"><title>Template</title></ui:insert>
             </f:facet>
         </h:head>
-        
+
         <h:body>
             <p:layout fullPage="true">
                 <p:layoutUnit position="north" size="125" style="border: none;">
@@ -28,20 +28,25 @@
                             <p><a class ="enlace" href="http://www.informatica.usach.cl/" style="font-size: 20px;font-weight : bold;">Departamento de<br/>Ingeniería<br/>Informática</a></p>
                         </p:layoutUnit>
                         <p:layoutUnit position="center" style="border: none;text-align : center;">
-                            <span><a href="/SeminarManagement-Maven-web/2.0/login.xhtml"><p:graphicImage alt="Seminar Management" url="/resources/images/seminar.png"/></a></span>
+                            <c:if test="#{authMB.tipo eq 'ADMINISTRADOR'}">
+                                <span><a href="/SeminarManagement-Maven-web/2.0/admin/index.xhtml"><p:graphicImage alt="Seminar Management" url="/resources/images/seminar.png"/></a></span>
+                            </c:if>
+                            <c:if test="#{!authMB.tipo eq 'ADMINISTRADOR'}">
+                                <span><a href="/SeminarManagement-Maven-web/2.0/secretaria/index.xhtml"><p:graphicImage alt="Seminar Management" url="/resources/images/seminar.png"/></a></span>
+                            </c:if>
                         </p:layoutUnit>
                         <p:layoutUnit position="east" size="180" style="border: none;text-align : center;">
                             <span><a href="http://www.usach.cl/"><p:graphicImage alt="Seminar Management" url="/resources/images/usach.png"/></a></span>
                         </p:layoutUnit>
                     </p:layout>
                 </p:layoutUnit>
-                
+
                 <p:layoutUnit position="center" style="border: none;">
-                    
+
                     <p:layout>
                         <p:layoutUnit position="north" style="border: none;" size="62">
                             <h:form>
-                                
+
                                 <p:tabMenu activeIndex="#{accordionPanelMB.index}" >
                                     <p:menuitem rendered="#{authMB.tipo eq 'ADMINISTRADOR'}" value="Profesores" url="/2.0/admin/profesores/index.xhtml" icon="ui-icon-person"/>
                                     <p:menuitem rendered="#{authMB.tipo eq 'ADMINISTRADOR'}" value="Alumnos" url="/2.0/admin/alumnos/index.xhtml" icon="ui-icon-person"/>
@@ -55,7 +60,7 @@
                                     <p:menuitem rendered="#{authMB.tipo eq 'SECRETARIA'}" value="Alumnos" url="/2.0/secretaria/alumnos/index.xhtml" icon="ui-icon-person"/>
                                     <p:menuitem rendered="#{authMB.tipo eq 'SECRETARIA'}" value="Propuestas" url="/2.0/secretaria/propuestas/index.xhtml" icon="ui-icon-script"/>
                                     <p:menuitem rendered="#{authMB.tipo eq 'SECRETARIA'}" value="Temas" url="/2.0/secretaria/temas/index.xhtml" icon="ui-icon-script"/>
-                                    
+
                                     <p:menuitem style="border: none;">
                                         <p:commandButton rendered="#{authMB.logged}" value="Cerrar Sesión" icon="ui-icon-closethick" action="#{authMB.logout()}" />
                                     </p:menuitem>
@@ -66,13 +71,13 @@
                         <ui:insert name="content"><h1>Aqui va el Contenido</h1></ui:insert>
                     </p:layout>
                 </p:layoutUnit>
-                
+
                 <p:layoutUnit position="south" size="22" style="text-align: center;border: none;font-size: 10px;">
                     <span>Universidad de Santiago de Chile. Avenida Ecuador #3659. Estación Central, Santiago de Chile. Teléfono (562) 2 718 09 00 - Correo: contacto@informatica.usach.cl</span>
                 </p:layoutUnit>
-                
+
             </p:layout>
         </h:body>
-        
+
     </f:view>
 </html>
