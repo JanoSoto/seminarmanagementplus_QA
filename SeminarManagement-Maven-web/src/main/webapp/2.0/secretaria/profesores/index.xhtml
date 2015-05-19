@@ -7,15 +7,15 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
-    
+
     <ui:define name="metadata">
         #{accordionPanelMB.setIndex("0")}
     </ui:define>
-    
+
     <ui:define name="title"><title>Profesores | Seminar Management</title></ui:define>
 
     <ui:define name="content">
-        
+
         <p:layoutUnit position="west" size="180" style="border: none;">
             <p:panel style="border:none;">
                 <h:panelGrid columns="1" cellpadding="4">
@@ -27,13 +27,16 @@
                 </h:panelGrid>
             </p:panel>
         </p:layoutUnit>
-        
+
         <p:layoutUnit position="center" style="border:none;">
             <h:form>
                 <p:dataTable id="profTable" var="prof" value="#{profesoresIndexMB.profeDatos}" filteredValue="#{profesoresIndexMB.profesoresFiltrados}" filterDelay="100" paginator="true"
                              rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
                              {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,30,40,50"
                              emptyMessage="No se encontraron profesores">
+                    <f:facet name="header">  
+                        Cantidad de temas vigentes por profesor para el semestre #{semestreActual.semestre}
+                    </f:facet>
                     <p:column headerText="Nombre" filterMatchMode="contains" filterBy="#{prof.profesor.nombreProfesor} #{prof.profesor.apellidoProfesor}" sortBy="#{prof.profesor.nombreProfesor}">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/profesores/profesor.xhtml?prof=#{prof.profesor.rutProfesor}">
                             <h:outputText value="#{prof.profesor.nombreProfesor} #{prof.profesor.apellidoProfesor}" />
@@ -41,7 +44,7 @@
                     </p:column>
                     <p:column headerText="Rut" filterMatchMode="contains" filterBy="#{prof.rutProfConGuion}" sortBy="#{prof.rutProfConGuion}">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/profesores/profesor.xhtml?prof=#{prof.profesor.rutProfesor}">
-                            <h:outputText value="#{prof.rutProfConGuion}" />
+                            <h:outputText value="#{prof.rutFormateado}" />
                         </a>
                     </p:column>
                     <p:column headerText="Contrato" filterMatchMode="contains"  filterBy="#{prof.contrato}" sortBy="#{prof.contrato}">
@@ -53,10 +56,10 @@
                         </a>
                     </p:column>
                     <p:column headerText="Revisiones asignadas" filterMatchMode="exact"  filterBy="#{prof.revSemActual}" sortBy="#{prof.revSemActual}">
-                            <h:outputText value="#{prof.revSemActual}" />
+                        <h:outputText value="#{prof.revSemActual}" />
                     </p:column>
                     <p:column headerText="Correcciones asignadas" filterMatchMode="exact"  filterBy="#{prof.corrSemActual}" sortBy="#{prof.corrSemActual}">
-                            <h:outputText value="#{prof.corrSemActual}" />
+                        <h:outputText value="#{prof.corrSemActual}" />
                     </p:column>
                 </p:dataTable>
             </h:form>

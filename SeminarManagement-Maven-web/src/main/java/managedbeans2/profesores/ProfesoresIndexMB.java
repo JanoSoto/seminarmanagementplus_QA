@@ -168,7 +168,7 @@ public class ProfesoresIndexMB {
 
             if (guiaTemp > 0) {
                 // Por horas
-                if (profesores.get(i).getContrato() == 0) {
+                if (profesores.get(i).getContrato() == 0 )  {
                     profeDatosPorHoras.add(profeDatosTemp);
                 } else { // Jornada Completa
                     profeDatosJornadaCompleta.add(profeDatosTemp);

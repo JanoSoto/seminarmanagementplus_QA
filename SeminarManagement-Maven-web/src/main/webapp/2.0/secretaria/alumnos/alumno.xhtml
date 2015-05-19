@@ -84,17 +84,17 @@
                         Temas
                     </f:facet>
                     <p:column headerText="Nombre">
-                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/temas/tema.xhtml?tema=#{tema.idTema}">
+                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/temas/tema.xhtml?tema=#{tema.idTema}">
                             <h:outputText value="#{tema.nombreCorto}"/>
                         </a>
                     </p:column>
                     <p:column headerText="Guía">
-                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/profesores/profesor.xhtml?prof=#{tema.guia.rutProfesor}">
+                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/profesores/profesor.xhtml?prof=#{tema.guia.rutProfesor}">
                             <h:outputText value="#{tema.guia.nombreProfesor} #{tema.guia.apellidoProfesor}"/>
                         </a>
                     </p:column>
                     <p:column headerText="Estado">
-                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/temas/tema.xhtml?tema=#{tema.idTema}">
+                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/temas/tema.xhtml?tema=#{tema.idTema}">
                             <h:outputText value="#{tema.estadoTema}"/>
                         </a>
                     </p:column>
