@@ -47,6 +47,10 @@
             <groupId>org.primefaces.themes</groupId>
             <artifactId>usachborde</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <!--
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/webapp/resources/jar/usachborde.jar</systemPath>
+            -->
         </dependency>
         <dependency>
             <groupId>javax</groupId>
