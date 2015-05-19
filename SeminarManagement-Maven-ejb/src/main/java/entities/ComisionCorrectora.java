@@ -36,6 +36,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ComisionCorrectora.findAll", query = "SELECT c FROM ComisionCorrectora c"),
     @NamedQuery(name = "ComisionCorrectora.findByFechaCorreccion", query = "SELECT c FROM ComisionCorrectora c WHERE c.fechaCorreccion = :fechaCorreccion"),
     @NamedQuery(name = "ComisionCorrectora.findByFechaEntregaCorreccion", query = "SELECT c FROM ComisionCorrectora c WHERE c.fechaEntCorreccion = :fechaEntCorreccion"),
+    @NamedQuery(name = "ComisionCorrectora.findAll", query = "SELECT c FROM ComisionCorrectora c"),
+    @NamedQuery(name = "ComisionCorrectora.findByFechaCorreccion2", query = "SELECT c FROM ComisionCorrectora c WHERE c.fechaCorreccion2 = :fechaCorreccion2"),
+    @NamedQuery(name = "ComisionCorrectora.findByFechaEntregaCorreccion2", query = "SELECT c FROM ComisionCorrectora c WHERE c.fechaEntCorreccion2 = :fechaEntCorreccion2"),
     @NamedQuery(name = "ComisionCorrectora.findByIdCorrectora", query = "SELECT c FROM ComisionCorrectora c WHERE c.idCorrectora = :idCorrectora")})
 public class ComisionCorrectora implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -45,6 +48,12 @@ public class ComisionCorrectora implements Serializable {
     @Size(max = 15)
     @Column(name = "fecha_entrega_correccion")
     private String fechaEntCorreccion;
+    @Size(max = 15)
+    @Column(name = "fecha_correccion2")
+    private String fechaCorreccion2;
+    @Size(max = 15)
+    @Column(name = "fecha_entrega_correccion2")
+    private String fechaEntCorreccion2;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -157,6 +166,24 @@ public class ComisionCorrectora implements Serializable {
         }
         return true;
     }
+
+    public String getFechaCorreccion2() {
+        return fechaCorreccion2;
+    }
+
+    public void setFechaCorreccion2(String fechaCorreccion2) {
+        this.fechaCorreccion2 = fechaCorreccion2;
+    }
+
+    public String getFechaEntCorreccion2() {
+        return fechaEntCorreccion2;
+    }
+
+    public void setFechaEntCorreccion2(String fechaEntCorreccion2) {
+        this.fechaEntCorreccion2 = fechaEntCorreccion2;
+    }
+    
+    
 
     @Override
     public String toString() {
