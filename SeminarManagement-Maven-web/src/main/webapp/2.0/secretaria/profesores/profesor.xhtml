@@ -31,7 +31,7 @@
                         <h:outputText id="nombre" style="font-weight: bold" value="#{verProfesorMB.profesor.nombreProfesor} #{verProfesorMB.profesor.apellidoProfesor}"/>
 
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Rut:"/>
-                        <h:outputText value="#{verProfesorMB.profesor.rutProfesor}"/>
+                        <h:outputText value="#{verProfesorMB.profesor.rutFormateadoProfesor}"/>
 
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Contrato:"/>
                         <h:outputText rendered="#{verProfesorMB.profesor.contrato eq 0}" value="Por Hora"/>
@@ -40,6 +40,9 @@
                         <p:outputLabel rendered="#{verProfesorMB.profesor.contrato eq 0}" style="color: #0052cc;font-weight: bold;" value="Puede guiar alumnos: "/>
                         <h:outputText rendered="#{verProfesorMB.profesor.tipoProfesor eq 0 and verProfesorMB.profesor.contrato eq 0}" value="Sí"/>
                         <h:outputText rendered="#{verProfesorMB.profesor.tipoProfesor eq 1 and verProfesorMB.profesor.contrato eq 0}" value="No"/>
+
+                        <p:outputLabel rendered="#{verProfesorMB.profesor.tipoProfesor eq 0 and verProfesorMB.profesor.contrato eq 0 and verProfesorMB.profesor.maximoGuias != null}" style="color: #0052cc;font-weight: bold;" value="Cantidad máxima de guias: "/>
+                        <h:outputText rendered="#{verProfesorMB.profesor.tipoProfesor eq 0 and verProfesorMB.profesor.contrato eq 0 and verProfesorMB.profesor.maximoGuias != null}" value="#{verProfesorMB.profesor.maximoGuias}"/>
 
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="E-Mail:"/>
                         <h:outputText value="#{verProfesorMB.profesor.mailProfesor}"/>

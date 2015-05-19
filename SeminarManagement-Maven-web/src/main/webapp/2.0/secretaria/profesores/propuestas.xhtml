@@ -50,16 +50,17 @@
             </p:layoutUnit>
             
             <p:layoutUnit position="center" style="border:none;">
-                <p:dataTable id="guiasTable" var="prop" value="#{verProfesorMB.propuestaDatos}" emptyMessage="No se encontraron Propuestas">
+                <p:dataTable id="guiasTable" var="prop" value="#{verProfesorMB.propuestaDatos}" filteredValue="#{verProfesorMB.propuestasFiltradas}" filterDelay="100"
+                             emptyMessage="No se encontraron Propuestas">
                     <f:facet name="header">
                         Propuestas
                     </f:facet>
-                    <p:column headerText="Nombre">
+                    <p:column headerText="Nombre" filterBy="#{prop.nombreCorto}" filterMatchMode="contains" sortBy="#{prop.nombreCorto}">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/propuestas/propuesta.xhtml?prop=#{prop.idPropuesta}">
                             <h:outputText value="#{prop.nombreCorto}"/>
                         </a>
                     </p:column>
-                    <p:column headerText="Alumno">
+                    <p:column headerText="Alumno" filterBy="#{prop.alumno.nombreAlumno} #{prop.alumno.apellidoAlumno}" filterMatchMode="contains" sortBy="#{tema.nombreCorto}">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/alumnos/alumno.xhtml?alum=#{prop.alumno.rutAlumno}">
                             <h:outputText value="#{prop.alumno.nombreAlumno} #{prop.alumno.apellidoAlumno}"/>
                         </a>
@@ -73,7 +74,7 @@
         
         <c:if test="#{empty param.prof}">
             <p:layoutUnit position="center" style="border:none;">
-                No, no, no
+                Ha ocurrio un error en la página solicitada. Por favor ingrese nuevamente.
             </p:layoutUnit>
         </c:if>
         

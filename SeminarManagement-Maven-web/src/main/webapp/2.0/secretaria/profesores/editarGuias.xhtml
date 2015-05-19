@@ -11,7 +11,7 @@
     <ui:define name="metadata">
         #{accordionPanelMB.setIndex("0")}
         <f:metadata>
-            <f:viewParam name="prof" value="#{editarProfesorMB.rutProfesor}"/>
+            <f:viewParam name="prof" value="#{verProfesorMB.rutProfesor}"/>
         </f:metadata>
     </ui:define>
     
@@ -20,13 +20,13 @@
     <ui:define name="content">
         
         <c:if test="#{not empty param.prof}">
-            #{editarProfesorMB.buscarProfesor()}
+            #{verProfesorMB.buscarProfesor()}
         </c:if>
             
             <p:layoutUnit position="west" size="430" style="border: none;">
                 <p:panel style="border:none;">
                     <h:panelGrid columns="1" cellpadding="4">
-                        <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="/2.0/secretaria/profesores/profesor.xhtml?prof=#{editarProfesorMB.profesor.rutProfesor}" value="Volver a 'Ver Profesor'"/>
+                        <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="/2.0/secretaria/profesores/profesor.xhtml?prof=#{verProfesorMB.profesor.rutProfesor}" value="Volver a 'Ver Profesor'"/>
                     </h:panelGrid>
                 </p:panel>
             </p:layoutUnit>
@@ -34,61 +34,31 @@
             <p:layoutUnit position="center" style="border:none;">
                 <h:form id="editProf" style="font-weight: bold;">
                 <p:panel style="border: none;">
-                    <h1>Editar Datos Profesor</h1>
+                    <h1>Editar Máximo Guías Profesor</h1>
                     <p:growl id="growl" showDetail="true" sticky="true" />
                     <h:panelGrid columns="6" cellpadding="4">
-
-                        <p:outputLabel for="rut" value="Rut"/>
-                        <h:outputText id="rut" value="#{editarProfesorMB.profesor.rutProfesor}"/>
-                        <br/>
-
-                        <p:outputLabel for="nombre" value="Nombre/s"/>
-                        <p:inputText id="nombre" required="true" value="#{editarProfesorMB.profesor.nombreProfesor}"/>
-                        <p:watermark for="nombre" value="Ingresar Nombre"/>
-
-                        <p:outputLabel for="apellido" value="Apellido/s"/>
-                        <p:inputText id="apellido" required="true" value="#{editarProfesorMB.profesor.apellidoProfesor}"/>
-                        <p:watermark for="apellido" value="Ingresar Apellido"/>
-
-                        <p:outputLabel for="mail" value="E-Mail"/>
-                        <p:inputText id="mail" value="#{editarProfesorMB.profesor.mailProfesor}">
-                            <f:validator validatorId="emailValidator"/>
-                        </p:inputText>
-                        <p:watermark for="mail" value="Ingresar E-Mail"/>
-
-                        <p:outputLabel for="celular" value="Celular"/>
-                        <p:inputText id="celular" value="#{editarProfesorMB.profesor.telefonoProfesor}">
-                            <f:validator validatorId="celularValidator" />
-                        </p:inputText>
-                        <p:watermark for="celular" value="Ingresar Celular"/>
-
-                        <p:outputLabel for="contrato" value="Tipo contrato" />
-                        <p:selectOneMenu id="contrato" value="#{editarProfesorMB.profesor.contrato}">
-                            <f:selectItem itemLabel="Por hora" itemValue="0" />
-                            <f:selectItem itemLabel="JC" itemValue="1" />
-                        </p:selectOneMenu>
-                        <br/>
-
                         
-                        <p:outputLabel rendered="#{editarProfesorMB.profesor.contrato eq 0}" for="guia" value="¿Puede ser guía?" />
-                        <p:selectOneMenu rendered="#{editarProfesorMB.profesor.contrato eq 0}" id="guia" value="#{editarProfesorMB.profesor.tipoProfesor}">
+                        <p:outputLabel for="nombre" value="Nombre/s: "/>
+                        <h:outputText id="nombre" value="#{verProfesorMB.profesorEdit.nombreProfesor}"/>
+                        <br/>
+                        <p:outputLabel for="apellido" value="Apellido/s: "/>
+                        <h:outputText id="apellido" value="#{verProfesorMB.profesorEdit.apellidoProfesor}"/>
+                        <br/>
+                        <p:outputLabel for="guia" value="¿Puede ser guía?"/>
+                        <p:selectOneMenu id="guia" value="#{verProfesorMB.profesorEdit.tipoProfesor}">
                             <f:selectItem itemLabel="Si" itemValue="0" />
                             <f:selectItem itemLabel="No" itemValue="1" />
                         </p:selectOneMenu>
                         <br/>
                         
-                        <p:outputLabel rendered="#{editarProfesorMB.profesor.contrato eq 0}" for="maxGuia" value="Máximo guías" />
-                        <p:inputText rendered="#{editarProfesorMB.profesor.contrato eq 0}" id="maxGuia" value="#{editarProfesorMB.profesor.maximoGuias}"/>
-                        <br/>
-                        
-                        <p:outputLabel for="calendG" value="Fecha cambio máx guías *" />
-                        <p:calendar id="calendG" value="#{editarProfMB.dateMaxGuia}" mode="popup"/>
-                        <p:watermark for="calendG" value="Seleccionar Fecha"/>
-
+                        <p:outputLabel for="maxGuia" value="Máximo guías" />
+                        <p:inputText id="maxGuia" value="#{verProfesorMB.profesorEdit.maximoGuias}"/>
+                                               
+                        <h:inputHidden value="#{verProfesorMB.rutProfeEdit}"/>
                     </h:panelGrid>
 
-                    <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="./index.xhtml" value="Volver a Profesores"/>
-                    <p:commandButton id="bt1" value="Editar" actionListener="#{editarProfesorMB.editProfesor()}" update="growl @form"/>
+                    <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Volver a Profesores"/>
+                    <p:commandButton id="bt1" value="Editar" actionListener="#{verProfesorMB.editProfesorMaxGuias()}" update="growl"/>
                     <p:defaultCommand target="bt1" />
                 </p:panel>
             </h:form>

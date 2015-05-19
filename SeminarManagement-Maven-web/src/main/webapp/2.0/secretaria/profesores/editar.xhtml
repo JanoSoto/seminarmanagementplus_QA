@@ -11,7 +11,7 @@
     <ui:define name="metadata">
         #{accordionPanelMB.setIndex("0")}
         <f:metadata>
-            <f:viewParam name="prof" value="#{editarProfesorMB.rutProfesor}"/>
+            <f:viewParam name="prof" value="#{verProfesorMB.rutProfesor}"/>
         </f:metadata>
     </ui:define>
     
@@ -20,13 +20,13 @@
     <ui:define name="content">
         
         <c:if test="#{not empty param.prof}">
-            #{editarProfesorMB.buscarProfesor()}
+            #{verProfesorMB.buscarProfesor()}
         </c:if>
             
             <p:layoutUnit position="west" size="430" style="border: none;">
                 <p:panel style="border:none;">
                     <h:panelGrid columns="1" cellpadding="4">
-                        <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="/2.0/secretaria/profesores/profesor.xhtml?prof=#{editarProfesorMB.profesor.rutProfesor}" value="Volver a 'Ver Profesor'"/>
+                        <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="/2.0/secretaria/profesores/profesor.xhtml?prof=#{verProfesorMB.profesor.rutProfesor}" value="Volver a 'Ver Profesor'"/>
                     </h:panelGrid>
                 </p:panel>
             </p:layoutUnit>
@@ -39,80 +39,55 @@
                     <h:panelGrid columns="6" cellpadding="4">
 
                         <p:outputLabel for="rut" value="Rut"/>
-                        <h:outputText id="rut" value="#{editarProfesorMB.profesor.rutProfesor}"/>
+                        <h:outputText id="rut" value="#{verProfesorMB.rutProfeEdit}"/>
                         <br/>
 
                         <p:outputLabel for="nombre" value="Nombre/s"/>
-                        <p:inputText id="nombre" required="true" value="#{editarProfesorMB.profesor.nombreProfesor}"/>
+                        <p:inputText id="nombre" required="true" value="#{verProfesorMB.profesorEdit.nombreProfesor}"/>
                         <p:watermark for="nombre" value="Ingresar Nombre"/>
 
                         <p:outputLabel for="apellido" value="Apellido/s"/>
-                        <p:inputText id="apellido" required="true" value="#{editarProfesorMB.profesor.apellidoProfesor}"/>
+                        <p:inputText id="apellido" required="true" value="#{verProfesorMB.profesorEdit.apellidoProfesor}"/>
                         <p:watermark for="apellido" value="Ingresar Apellido"/>
 
                         <p:outputLabel for="mail" value="E-Mail"/>
-                        <p:inputText id="mail" value="#{editarProfesorMB.profesor.mailProfesor}">
+                        <p:inputText id="mail" value="#{verProfesorMB.profesorEdit.mailProfesor}">
                             <f:validator validatorId="emailValidator"/>
                         </p:inputText>
                         <p:watermark for="mail" value="Ingresar E-Mail"/>
 
                         <p:outputLabel for="celular" value="Celular"/>
-                        <p:inputText id="celular" value="#{editarProfesorMB.profesor.telefonoProfesor}">
+                        <p:inputText id="celular" value="#{verProfesorMB.profesorEdit.telefonoProfesor}">
                             <f:validator validatorId="celularValidator" />
                         </p:inputText>
                         <p:watermark for="celular" value="Ingresar Celular"/>
 
-                        <p:outputLabel for="contrato" value="Tipo contrato" />
-                        <p:selectOneMenu id="contrato" value="#{editarProfesorMB.profesor.contrato}">
+                        <p:outputLabel for="contrato" value="Contrato" />
+                        <p:selectOneMenu id="contrato" value="#{verProfesorMB.profesorEdit.contrato}">
                             <f:selectItem itemLabel="Por hora" itemValue="0" />
                             <f:selectItem itemLabel="JC" itemValue="1" />
                         </p:selectOneMenu>
                         <br/>
 
-                        <p:outputLabel for="guia" value="¿Puede ser guía?" />
-                        <p:selectOneMenu id="guia" value="#{editarProfesorMB.profesor.tipoProfesor}">
+                        <!--<p:outputLabel for="guia" value="¿Puede ser guía?"  />
+                        <p:selectOneMenu id="guia" value="#{verProfesorMB.profesorEdit.tipoProfesor}">
                             <f:selectItem itemLabel="Si" itemValue="0" />
                             <f:selectItem itemLabel="No" itemValue="1" />
                         </p:selectOneMenu>
-                        <br/>
-                        
-                        <!--
-                        <p:outputLabel for="calendG" value="Fecha en que se le permitió ser guía *" />
-                        <p:calendar id="calendG" value="#{editarProfMB.dateMaxGuia}" mode="popup"/>
-                        <p:watermark for="calendG" value="Seleccionar Fecha"/>
                         <br/>-->
-
+                        <h:inputHidden value="#{verProfesorMB.rutProfeEdit}"/>
                     </h:panelGrid>
 
-                    <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="./index.xhtml" value="Volver a Profesores"/>
-                    <p:commandButton id="bt1" value="Editar" actionListener="#{editarProfesorMB.editProfesor()}" update="growl @form"/>
+                    <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Volver a Profesores"/>
+                    <p:commandButton id="bt1" value="Editar" actionListener="#{verProfesorMB.editProfesor()}" update="growl"/>
                     <p:defaultCommand target="bt1"/>
                     </p:panel>
                 </h:form>
             </p:layoutUnit>
-        
-            <script>
-                /*
-                function setVisibleGuia(){
-                    console.log($("select[id='contrato']").val());
-                    if (document.getElementById('editProf:contrato').value===0) {
-                        if(document.getElementById('editProf:guia').valueOf()===0){
-                            PF.getElementById('editProf:guia').enable();
-                            document.getElementById('editProf:maxGuia').enable();
-                        }
-                        else {
-                            PF('editProf:maxGuia').disable()
-                        }
-                    }
-                }
-                
-                setVisibleGuia();
-                */
-            </script>
 
         <c:if test="#{empty param.prof}">
             <p:layoutUnit position="center" style="border:none;">
-                No, no, no
+                Ha ocurrido un error al ingresar a la página. Intente ingresar nuevamente.
             </p:layoutUnit>
         </c:if>
         
