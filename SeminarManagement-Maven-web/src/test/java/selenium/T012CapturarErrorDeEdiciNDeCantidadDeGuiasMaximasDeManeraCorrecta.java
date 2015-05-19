@@ -6,7 +6,8 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 import org.openqa.selenium.*;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.phantomjs.PhantomJSDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.ui.Select;
 
 public class T012CapturarErrorDeEdiciNDeCantidadDeGuiasMaximasDeManeraCorrecta {
@@ -17,7 +18,8 @@ public class T012CapturarErrorDeEdiciNDeCantidadDeGuiasMaximasDeManeraCorrecta {
 
   @Before
   public void setUp() throws Exception {
-    driver = new FirefoxDriver();
+    DesiredCapabilities capabilities = DesiredCapabilities.phantomjs();
+    PhantomJSDriver driver = new PhantomJSDriver(capabilities);
     baseUrl = "http://localhost:8080/SeminarManagement-Maven-web/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
