@@ -14,6 +14,7 @@ import entities.Profesor;
 import entities.Propuesta;
 import entities.Semestre;
 import entities.Tema;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,6 +30,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import managedbeans.AuthMB;
+import static managedbeans2.propuestas.ComisionRevisora2MB.fechaCorrecta;
 import sessionbeans.AlumnoFacadeLocal;
 import sessionbeans.HistorialFacadeLocal;
 import sessionbeans.ProfeCorreccionFacadeLocal;
@@ -59,11 +61,13 @@ public class ComisionCorrectora2MB {
     @EJB
     private ComisionCorrectoraFacadeLocal comisionCorrectoraFacade;
     
-    private Integer idTema;
-    private String rutAlumno,nombreTema, profesor1,profesor2,fechaTema,semestreTema,fechaCorr,fechaRevCorr, semestreCorr;
-    private Date date,date2;
+    private Integer idTema,idTemaEdit;
+    private String rutAlumno,nombreTema,semestreEdit,nombreTemaEdit, semestreTerminoEdit,profesor1,profesor2,fechaTema,semestreTema,fechaCorr,fechaCorr2,fechaRevCorr2,fechaRevCorr, semestreCorr;
+    private Date date,date2,date3,date4,fechaEdit,fechaEdit2,fechaEdit3;
     private Tema tema;
-    private Profesor profGuia;
+    private Alumno alumno;
+    private Profesor profGuia,corrector1,corrector2,guia,coguia;
+    private List<ComisionCorrectora> comision;
     private List<Alumno> alumnos;
     private List<Tema> temas;
     private List<Profesor> profesores;
@@ -111,6 +115,146 @@ public class ComisionCorrectora2MB {
         
     }
     
+    public void buscarTema(){
+        List<Tema> result = temaFacade.findById(idTema);
+        if( result != null ){
+            tema = result.get(0);
+            //Inicializamos info para editar
+            idTemaEdit = tema.getIdTema();
+            nombreTemaEdit = tema.getNombreTema();
+            semestreEdit = tema.getIdSemestre().getIdSemestre();
+            fechaEdit = stringToDate(tema.getFechaTema());
+            semestreTerminoEdit = tema.getSemestreTermino();
+            if(tema.getFechaRealTema()!= null ){
+                System.out.println(tema.getFechaRealTema());
+                fechaEdit2 = stringToDate(tema.getFechaRealTema());
+            }
+            if(tema.getFechaSiacTema()!= null){
+                System.out.println(tema.getFechaSiacTema());
+                fechaEdit3 = stringToDate(tema.getFechaSiacTema());
+            }
+            
+            for(int i=0;i<tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().size();i++){
+                if(tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(i).getRolGuia()==0)
+                    guia = tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(i).getProfesor();
+                if(tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(i).getRolGuia()==1)
+                    coguia = tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(i).getProfesor();
+            }
+            
+            if(tema.getIdCorrectora()!=null)
+                for(int i=0;i<tema.getIdCorrectora().getProfeCorreccionList().size();i++){
+                    if(tema.getIdCorrectora().getProfeCorreccionList().get(i).getRolCorreccion()==0)
+                        corrector1 = tema.getIdCorrectora().getProfeCorreccionList().get(i).getProfesor();
+                    if(tema.getIdCorrectora().getProfeCorreccionList().get(i).getRolCorreccion()==1)
+                        corrector2 = tema.getIdCorrectora().getProfeCorreccionList().get(i).getProfesor();
+                }
+            alumno = tema.getIdRevisora().getIdPropuesta().getRutAlumno();
+            
+             comision= comisionCorrectoraFacade.findById(tema.getIdCorrectora().getIdCorrectora());
+                if(comision.get(0).getFechaCorreccion()!= null){
+                    date = stringToDate(comision.get(0).getFechaCorreccion());
+                }
+                if(comision.get(0).getFechaEntCorreccion()!= null){
+                    date2 = stringToDate(comision.get(0).getFechaEntCorreccion());
+                }
+                if(comision.get(0).getFechaCorreccion2()!= null){
+                    date3 = stringToDate(comision.get(0).getFechaCorreccion2());
+                }
+                if(comision.get(0).getFechaEntCorreccion2()!= null){
+                    date4 = stringToDate(comision.get(0).getFechaEntCorreccion2());
+                }
+        }
+        else{
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Error","No se ingresó Propuesta"));
+        }
+    }
+    
+    public void EditarComisionCorrectora(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        
+        if(idTema==null){
+            context.addMessage(null, new FacesMessage("Error","No se ingresó Tema"));
+            return;
+        }
+        
+        tema = temaFacade.findById(idTema).get(0);
+        
+        comision= comisionCorrectoraFacade.findById(tema.getIdCorrectora().getIdCorrectora());
+        System.out.println(comision.get(0).getFechaCorreccion());
+        
+        ComisionCorrectora nuevaComision;
+        
+        //Accedemos a la tabla semestre, e ingresamos semestre actual si no ha sido ingresado
+        Semestre semestreRevision = new Semestre(semestreCorr);
+        List<Semestre> semestres = semestreFacade.findAll();
+        if (!semestres.contains(semestreRevision))
+            semestreFacade.create(semestreRevision);
+        
+   
+       
+        if (date != null ) {
+            fechaCorr = dateToString(date);   
+        }
+        else{
+            fechaCorr = null;
+        }
+        
+        if(date2 != null ) {
+            fechaRevCorr = dateToString(date2);
+        }
+        else{
+            fechaRevCorr = null;
+        }
+        
+        if(date!= null && date2 != null){
+            
+            if(fechaCorrecta(fechaCorr, fechaRevCorr) == false){
+                return;
+            }
+        }
+        
+        
+        
+        if (date3 != null) {
+            fechaCorr2 = dateToString(date3);   
+        }
+        else{
+            fechaCorr2 = null;
+        }
+        
+        if (date4 != null) {
+            fechaRevCorr2 = dateToString(date4);   
+        }
+        else{
+            fechaRevCorr2 = null;
+        }
+        
+        if(date3!= null && date4 != null){
+            
+            if(fechaCorrecta(fechaCorr2, fechaRevCorr2) == false){
+                return;
+            }
+        }
+        
+        //Seteamos la nueva comision y la creamos
+        System.out.println(comision.get(0).getIdTema().getNombreTema());
+        comision.get(0).setIdTema(comision.get(0).getIdTema());
+        comision.get(0).setFechaCorreccion(fechaCorr);
+        comision.get(0).setFechaEntCorreccion(fechaRevCorr);
+        comision.get(0).setFechaCorreccion2(fechaCorr2);
+        comision.get(0).setFechaEntCorreccion2(fechaRevCorr2);
+        comision.get(0).setIdSemestre(comision.get(0).getIdSemestre());
+        
+        comisionCorrectoraFacade.edit(comision.get(0));
+        
+        
+
+        //Mensaje de confirmación 
+        context.addMessage(null, new FacesMessage("Comisión Correctora editada en el sistema"));
+        LOGGER.info("La comision correctora del tema "+tema.getNombreTema() +" ha sido modificada en el sistema");
+    }
+    
     public void addComisionCorrectora(){
         FacesContext context = FacesContext.getCurrentInstance();
         
@@ -140,16 +284,6 @@ public class ComisionCorrectora2MB {
         //Se valida que se halla seleccionado Profesor2
         if((profesor2==null)||(profesor2.equals(""))){
             context.addMessage(null, new FacesMessage("Profesor Corrector 2","Debe seleccionar un Profesor"));
-            return;
-        }
-
-        if(date==null || date.equals("")){
-            context.addMessage(null, new FacesMessage("Fecha","Debe ingresar las fecha correspondiente"));
-            return;
-        }
-        
-         if(date2==null || date2.equals("")){
-            context.addMessage(null, new FacesMessage("Fecha","Debe ingresar las fecha correspondiente"));
             return;
         }
         
@@ -182,8 +316,34 @@ public class ComisionCorrectora2MB {
             return;
         }
         
-        fechaCorr = dateToString(date);
-        fechaRevCorr = dateToString(date2);
+         if (date != null ) {
+            fechaCorr = dateToString(date);   
+        }
+        else{
+            fechaCorr = null;
+        }
+        
+        if(date2 != null ) {
+            fechaRevCorr = dateToString(date2);
+        }
+        else{
+            fechaRevCorr = null;
+        }
+        
+        if (date3 != null) {
+            fechaCorr2 = dateToString(date3);   
+        }
+        else{
+            fechaCorr2 = null;
+        }
+        
+        if (date4 != null) {
+            fechaRevCorr2 = dateToString(date4);   
+        }
+        else{
+            fechaRevCorr2 = null;
+        }
+
         //Accedemos a la tabla semestre, e ingresamos semestre actual si no ha sido ingresado
         Semestre semestre = new Semestre(semestreCorr);
         List<Semestre> semestres = semestreFacade.findAll();
@@ -195,6 +355,8 @@ public class ComisionCorrectora2MB {
         ComisionCorrectora comisionC = new ComisionCorrectora();
         comisionC.setFechaCorreccion(fechaCorr);
         comisionC.setFechaEntCorreccion(fechaRevCorr);
+        comisionC.setFechaCorreccion2(fechaCorr2);
+        comisionC.setFechaEntCorreccion2(fechaRevCorr2);
         comisionC.setIdSemestre(semestre);
         comisionC.setIdTema(tema);
         comisionCorrectoraFacade.create(comisionC);
@@ -364,6 +526,80 @@ public class ComisionCorrectora2MB {
         this.comisionCorrectoraFacade = comisionCorrectoraFacade;
     }
 
+    public String getSemestreEdit() {
+        return semestreEdit;
+    }
+
+    public void setSemestreEdit(String semestreEdit) {
+        this.semestreEdit = semestreEdit;
+    }
+
+    public String getNombreTemaEdit() {
+        return nombreTemaEdit;
+    }
+
+    public void setNombreTemaEdit(String nombreTemaEdit) {
+        this.nombreTemaEdit = nombreTemaEdit;
+    }
+
+    public Date getFechaEdit() {
+        return fechaEdit;
+    }
+
+    public void setFechaEdit(Date fechaEdit) {
+        this.fechaEdit = fechaEdit;
+    }
+
+    public Date getFechaEdit2() {
+        return fechaEdit2;
+    }
+
+    public void setFechaEdit2(Date fechaEdit2) {
+        this.fechaEdit2 = fechaEdit2;
+    }
+
+    public Date getFechaEdit3() {
+        return fechaEdit3;
+    }
+
+    public void setFechaEdit3(Date fechaEdit3) {
+        this.fechaEdit3 = fechaEdit3;
+    }
+
+    public Profesor getCorrector1() {
+        return corrector1;
+    }
+
+    public void setCorrector1(Profesor corrector1) {
+        this.corrector1 = corrector1;
+    }
+
+    public Profesor getCorrector2() {
+        return corrector2;
+    }
+
+    public void setCorrector2(Profesor corrector2) {
+        this.corrector2 = corrector2;
+    }
+
+    public Profesor getGuia() {
+        return guia;
+    }
+
+    public void setGuia(Profesor guia) {
+        this.guia = guia;
+    }
+
+    public Profesor getCoguia() {
+        return coguia;
+    }
+
+    public void setCoguia(Profesor coguia) {
+        this.coguia = coguia;
+    }
+    
+    
+
 
     public TemaFacadeLocal getTemaFacade() {
         return temaFacade;
@@ -452,5 +688,55 @@ public class ComisionCorrectora2MB {
     public void setTemas(List<Tema> temas) {
         this.temas = temas;
     }
+
+    public String getFechaCorr2() {
+        return fechaCorr2;
+    }
+
+    public void setFechaCorr2(String fechaCorr2) {
+        this.fechaCorr2 = fechaCorr2;
+    }
+
+    public String getFechaRevCorr2() {
+        return fechaRevCorr2;
+    }
+
+    public void setFechaRevCorr2(String fechaRevCorr2) {
+        this.fechaRevCorr2 = fechaRevCorr2;
+    }
+
+    public String getFechaRevCorr() {
+        return fechaRevCorr;
+    }
+
+    public void setFechaRevCorr(String fechaRevCorr) {
+        this.fechaRevCorr = fechaRevCorr;
+    }
+
+    public Date getDate3() {
+        return date3;
+    }
+
+    public void setDate3(Date date3) {
+        this.date3 = date3;
+    }
+
+    public Date getDate4() {
+        return date4;
+    }
+
+    public void setDate4(Date date4) {
+        this.date4 = date4;
+    }
+     public Date stringToDate (String dateChoosen){
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+	try {
+            Date date = formatter.parse(dateChoosen);
+            return date;
+	} catch (ParseException e) {
+                return null;
+	}
+    }
+    
 
 }

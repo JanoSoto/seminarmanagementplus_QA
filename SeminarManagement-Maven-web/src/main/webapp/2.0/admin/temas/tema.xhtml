@@ -79,6 +79,7 @@
                     <h1>Acciones</h1>
                     <h:panelGrid columns="1" cellpadding="2">
                         <p:button style="width:140px;" rendered="#{empty verTemaMB.tema.idCorrectora and verTemaMB.tema.estadoTema eq 6}" href="/2.0/admin/temas/agregarcomcorr.xhtml?tema=#{verTemaMB.tema.idTema}" value="Agregar Comisión Correctora"/>
+                        <p:button style="width:140px;" rendered="#{not empty verTemaMB.tema.idCorrectora}" href="/2.0/admin/temas/editarComCorr.xhtml?prop=#{verTemaMB.tema.idTema}" value="Agregar Fechas Comisión"/>
                         <p:button style="width:140px;" rendered="#{empty verTemaMB.tema.idCorrectora and verTemaMB.tema.estadoTema eq 0}" href="/2.0/admin/temas/informe.xhtml?tema=#{verTemaMB.tema.idTema}" value="Agregar Informe de Avance"/>
                         <p:button style="width:140px;" rendered="#{empty verTemaMB.tema.idCorrectora and verTemaMB.tema.estadoTema eq 0}" href="/2.0/admin/temas/borrador.xhtml?tema=#{verTemaMB.tema.idTema}" value="Agregar Borrador Final"/>
                         <p:button style="width:140px;" rendered="#{verTemaMB.tema.estadoTema eq 4}" href="/2.0/admin/temas/calificar.xhtml?tema=#{verTemaMB.tema.idTema}" value="Agregar Calificaciones"/>
@@ -159,6 +160,39 @@
                     <p:column headerText="Nota Defensa">
                         <h:outputText value="#{comCorr.notaCorreccionDefensa}"/>
                     </p:column>
+                </p:dataTable>
+                
+               
+                <p:dataTable id="comRevTable3" var="comCorr3" rows="1" value="#{verTemaMB.tema.idCorrectora.profeCorreccionList}" emptyMessage="La comision no tiene profesor 1">
+                    <f:facet name="header">
+                        Fechas Profesores
+                    </f:facet>
+                    <p:column headerText=" Fechas Profesor  #{verTemaMB.corrector1.nombreProfesor } #{verTemaMB.corrector1.apellidoProfesor}">
+                        
+                        <h:outputText value="Fecha de entrega al profesor :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                      &nbsp;&nbsp;&nbsp;&nbsp;#{comCorr3.comisionCorrectora.fechaCorreccion }"/>
+                            <br/>
+                            <h:outputText  value="Fecha de devolución con correciones del profesor :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #{comCorr3.comisionCorrectora.fechaEntCorreccion}" />
+                        
+                    </p:column>
+                    
+                </p:dataTable>
+                
+                <p:dataTable id="comRevTable4" var="comCorr4" rows="1" value="#{verTemaMB.tema.idCorrectora.profeCorreccionList}" emptyMessage="La comisión no tiene profesor 2">
+                    
+                    <p:column headerText=" Fechas Profesor  #{verTemaMB.corrector2.nombreProfesor} #{verTemaMB.corrector2.apellidoProfesor}">
+                        
+                        <h:outputText value="Fecha de entrega al profesor :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                      &nbsp;&nbsp;&nbsp;&nbsp;#{comCorr4.comisionCorrectora.fechaCorreccion2 }"/>
+                            <br/>
+                            <h:outputText  value="Fecha de devolución con correciones del profesor :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #{comCorr4.comisionCorrectora.fechaEntCorreccion2}" />
+                        
+                    </p:column>
+                    
                 </p:dataTable>
             </p:layoutUnit>
         

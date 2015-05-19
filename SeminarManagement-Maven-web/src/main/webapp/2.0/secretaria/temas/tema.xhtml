@@ -42,33 +42,44 @@
                     <h:outputText rendered="#{verTemaMB.tema.estadoTema eq 5}" style="padding-left: 1em;" value="MAGISTER"/>
                     <h:outputText rendered="#{verTemaMB.tema.estadoTema eq 6}" style="padding-left: 1em;" value="VIGENTE, CON BORRADOR FINAL"/>
                     <br/>
-
-                    <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Fecha: "/>
-                    <h:outputText style="padding-left: 1em;" value="#{verTemaMB.tema.fechaTema}"/>
-                    <br/>
                     
-                    <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Fecha Real: "/>
-                    <h:outputText style="padding-left: 1em;" value="#{verTemaMB.tema.fechaRealTema}"/>
-                    <br/>
-                    
-                    <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Fecha Siac: "/>
-                    <h:outputText style="padding-left: 1em;" value="#{verTemaMB.tema.fechaSiacTema}"/>
-                    <br/>
-
-                    <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Semestre "/>
-                    <h:outputText style="padding-left: 1em;" value="#{verTemaMB.tema.idSemestre.idSemestre}"/>
-                    <br/>
-
-
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Tiene Comisión: "/>
                     <h:outputText rendered="#{empty verTemaMB.tema.idCorrectora}" style="padding-left: 1em;" value="NO"/>
                     <h:outputText rendered="#{not empty verTemaMB.tema.idCorrectora}" style="padding-left: 1em;" value="SÍ"/>
+                    <br/>
+                    
+                    <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Inscripción Tema: "/>
+                    <br/>
+                    <p:outputLabel style="color: #0052cc;font-weight: bold;" value="- Fecha Inscripción: "/>
+                    <h:outputText style="padding-left: 1em;" value="#{verTemaMB.tema.fechaTema}"/>
+                   
+                    <br/>
+                    
+                    <p:outputLabel style="color: #0052cc;font-weight: bold;" value="- Semestre de Inicio:"/>
+                    <h:outputText style="padding-left: 1em;" value="#{verTemaMB.tema.idSemestre.idSemestre}"/>
+                    <br/>
+                    
+                    <p:outputLabel rendered="#{verTemaMB.tema.estadoTema eq 1}" style="color: #0052cc;font-weight: bold;" value="Término Tema: "/>
+                    <br/>
+                    
+                    <p:outputLabel rendered="#{verTemaMB.tema.estadoTema eq 1}" style="color: #0052cc;font-weight: bold;" value="- Fecha Examen Real: "/>
+                    <h:outputText rendered="#{verTemaMB.tema.estadoTema eq 1}" style="padding-left: 1em;" value="#{verTemaMB.tema.fechaRealTema}"/>
+                    <br/>
+                    
+                    <p:outputLabel rendered="#{verTemaMB.tema.estadoTema eq 1}" style="color: #0052cc;font-weight: bold;" value="- Fecha Examen SIAC: "/>
+                    <h:outputText rendered="#{verTemaMB.tema.estadoTema eq 1}" style="padding-left: 1em;" value="#{verTemaMB.tema.fechaSiacTema}"/>
+                    <br/>    
+                    <p:outputLabel rendered="#{verTemaMB.tema.estadoTema eq 1}" style="color: #0052cc;font-weight: bold;" value="- Semestre Examen SIAC: "/>
+                    <h:outputText rendered="#{verTemaMB.tema.estadoTema eq 1}" style="padding-left: 1em;" value="#{verTemaMB.tema.semestreTermino}"/>
+
+
                 </p:panel>
                 
                 <p:panel style="border:none;">
                     <h1>Acciones</h1>
                     <h:panelGrid columns="1" cellpadding="2">
                         <p:button style="width:140px;" rendered="#{empty verTemaMB.tema.idCorrectora and verTemaMB.tema.estadoTema eq 6}" href="/2.0/secretaria/temas/agregarcomcorr.xhtml?tema=#{verTemaMB.tema.idTema}" value="Agregar Comisión Correctora"/>
+                        <p:button style="width:140px;" rendered="#{not empty verTemaMB.tema.idCorrectora}" href="/2.0/secretaria/temas/editarComCorr.xhtml?prop=#{verTemaMB.tema.idTema}" value="Agregar Fechas Comisión"/>
                         <p:button style="width:140px;" rendered="#{empty verTemaMB.tema.idCorrectora and verTemaMB.tema.estadoTema eq 0}" href="/2.0/secretaria/temas/informe.xhtml?tema=#{verTemaMB.tema.idTema}" value="Agregar Informe de Avance"/>
                         <p:button style="width:140px;" rendered="#{empty verTemaMB.tema.idCorrectora and verTemaMB.tema.estadoTema eq 0}" href="/2.0/secretaria/temas/borrador.xhtml?tema=#{verTemaMB.tema.idTema}" value="Agregar Borrador Final"/>
                         <p:button style="width:140px;" rendered="#{verTemaMB.tema.estadoTema eq 4}" href="/2.0/secretaria/temas/calificar.xhtml?tema=#{verTemaMB.tema.idTema}" value="Agregar Calificaciones"/>
@@ -149,6 +160,39 @@
                     <p:column headerText="Nota Defensa">
                         <h:outputText value="#{comCorr.notaCorreccionDefensa}"/>
                     </p:column>
+                </p:dataTable>
+                
+               
+                <p:dataTable id="comRevTable3" var="comCorr3" rows="1" value="#{verTemaMB.tema.idCorrectora.profeCorreccionList}" emptyMessage="La comision no tiene profesor 1">
+                    <f:facet name="header">
+                        Fechas Profesores
+                    </f:facet>
+                    <p:column headerText=" Fechas Profesor  #{verTemaMB.corrector1.nombreProfesor } #{verTemaMB.corrector1.apellidoProfesor}">
+                        
+                        <h:outputText value="Fecha de entrega al profesor :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                      &nbsp;&nbsp;&nbsp;&nbsp;#{comCorr3.comisionCorrectora.fechaCorreccion }"/>
+                            <br/>
+                            <h:outputText  value="Fecha de devolución con correciones del profesor :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #{comCorr3.comisionCorrectora.fechaEntCorreccion}" />
+                        
+                    </p:column>
+                    
+                </p:dataTable>
+                
+                <p:dataTable id="comRevTable4" var="comCorr4" rows="1" value="#{verTemaMB.tema.idCorrectora.profeCorreccionList}" emptyMessage="La comisión no tiene profesor 2">
+                    
+                    <p:column headerText=" Fechas Profesor  #{verTemaMB.corrector2.nombreProfesor} #{verTemaMB.corrector2.apellidoProfesor}">
+                        
+                        <h:outputText value="Fecha de entrega al profesor :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                      &nbsp;&nbsp;&nbsp;&nbsp;#{comCorr4.comisionCorrectora.fechaCorreccion2 }"/>
+                            <br/>
+                            <h:outputText  value="Fecha de devolución con correciones del profesor :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #{comCorr4.comisionCorrectora.fechaEntCorreccion2}" />
+                        
+                    </p:column>
+                    
                 </p:dataTable>
             </p:layoutUnit>
         

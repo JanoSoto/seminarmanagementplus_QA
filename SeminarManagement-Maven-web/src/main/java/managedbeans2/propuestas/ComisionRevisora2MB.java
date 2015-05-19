@@ -745,7 +745,7 @@ public class ComisionRevisora2MB {
         this.revisor2 = revisor2;
     }
     
-    public boolean fechaCorrecta(String fecha,String fecha2){
+    public static boolean fechaCorrecta(String fecha,String fecha2){
         FacesContext context = FacesContext.getCurrentInstance();
         
         int a,b,c,d,e,f;

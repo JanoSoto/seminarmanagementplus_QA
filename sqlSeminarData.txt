@@ -57,7 +57,9 @@ CREATE TABLE comision_correctora (
     id_semestre character varying(15) NOT NULL,
     id_tema integer NOT NULL,
     fecha_correccion character varying(15),
-    fecha_entrega_correccion character varying(15)
+    fecha_entrega_correccion character varying(15),
+    fecha_entrega_correccion2 character varying(15),
+    fecha_correccion2 character varying(15)
 );
 
 
@@ -995,245 +997,246 @@ COPY alumno (jornada, pet, nombre_alumno, apellido_alumno, mail_alumno, telefono
 -- Data for Name: comision_correctora; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY comision_correctora (id_correctora, id_semestre, id_tema, fecha_correccion, fecha_entrega_correccion) FROM stdin;
-1	default	1	\N	\N
-2	default	2	\N	\N
-3	default	5	\N	\N
-4	default	6	\N	\N
-5	default	8	\N	\N
-6	default	11	\N	\N
-7	default	12	\N	\N
-8	default	13	\N	\N
-9	default	16	\N	\N
-10	default	22	\N	\N
-11	default	23	\N	\N
-12	default	24	\N	\N
-13	default	26	\N	\N
-14	default	31	\N	\N
-15	default	34	\N	\N
-16	default	37	\N	\N
-17	default	39	\N	\N
-18	default	42	\N	\N
-19	default	43	\N	\N
-20	default	54	\N	\N
-21	default	57	\N	\N
-22	default	59	\N	\N
-23	default	67	\N	\N
-24	default	74	\N	\N
-25	default	75	\N	\N
-26	default	77	\N	\N
-27	default	79	\N	\N
-28	default	80	\N	\N
-29	default	81	\N	\N
-30	default	82	\N	\N
-31	default	84	\N	\N
-32	default	87	\N	\N
-33	default	88	\N	\N
-34	default	89	\N	\N
-35	default	93	\N	\N
-36	default	94	\N	\N
-37	default	95	\N	\N
-38	default	96	\N	\N
-39	default	97	\N	\N
-40	default	102	\N	\N
-41	default	103	\N	\N
-42	default	105	\N	\N
-43	default	107	\N	\N
-44	default	110	\N	\N
-45	default	112	\N	\N
-46	default	113	\N	\N
-47	default	117	\N	\N
-48	default	118	\N	\N
-49	default	120	\N	\N
-50	default	126	\N	\N
-51	default	128	\N	\N
-52	default	131	\N	\N
-53	default	136	\N	\N
-54	default	139	\N	\N
-55	default	140	\N	\N
-56	default	141	\N	\N
-57	default	142	\N	\N
-58	default	144	\N	\N
-59	default	145	\N	\N
-60	default	146	\N	\N
-61	default	147	\N	\N
-62	default	152	\N	\N
-63	default	154	\N	\N
-64	default	155	\N	\N
-65	default	157	\N	\N
-66	default	159	\N	\N
-67	default	160	\N	\N
-68	default	162	\N	\N
-69	default	165	\N	\N
-70	default	169	\N	\N
-71	default	170	\N	\N
-72	default	171	\N	\N
-73	default	172	\N	\N
-74	default	174	\N	\N
-75	default	175	\N	\N
-76	default	176	\N	\N
-77	default	178	\N	\N
-78	default	179	\N	\N
-79	default	182	\N	\N
-80	default	183	\N	\N
-81	default	185	\N	\N
-82	default	197	\N	\N
-83	default	200	\N	\N
-84	default	203	\N	\N
-85	default	204	\N	\N
-86	default	205	\N	\N
-87	default	206	\N	\N
-88	default	209	\N	\N
-89	default	210	\N	\N
-90	default	215	\N	\N
-91	default	216	\N	\N
-92	default	219	\N	\N
-93	default	221	\N	\N
-94	default	223	\N	\N
-95	default	229	\N	\N
-96	default	230	\N	\N
-97	default	231	\N	\N
-98	default	232	\N	\N
-99	default	234	\N	\N
-100	default	241	\N	\N
-101	default	243	\N	\N
-102	default	244	\N	\N
-103	default	248	\N	\N
-104	default	249	\N	\N
-105	default	251	\N	\N
-106	default	252	\N	\N
-107	default	253	\N	\N
-108	default	255	\N	\N
-109	default	257	\N	\N
-110	default	260	\N	\N
-111	default	261	\N	\N
-112	default	263	\N	\N
-113	default	268	\N	\N
-114	default	269	\N	\N
-115	default	276	\N	\N
-116	default	277	\N	\N
-117	default	278	\N	\N
-118	default	279	\N	\N
-119	default	280	\N	\N
-120	default	281	\N	\N
-121	default	292	\N	\N
-122	default	297	\N	\N
-123	default	298	\N	\N
-124	default	311	\N	\N
-125	default	319	\N	\N
-126	default	321	\N	\N
-127	default	322	\N	\N
-128	default	323	\N	\N
-129	default	324	\N	\N
-130	default	329	\N	\N
-131	default	330	\N	\N
-132	default	331	\N	\N
-133	default	332	\N	\N
-134	default	333	\N	\N
-135	default	334	\N	\N
-136	default	335	\N	\N
-137	default	341	\N	\N
-138	default	342	\N	\N
-139	default	343	\N	\N
-140	default	344	\N	\N
-141	default	346	\N	\N
-142	default	348	\N	\N
-143	default	349	\N	\N
-144	default	351	\N	\N
-145	default	353	\N	\N
-146	default	358	\N	\N
-147	default	360	\N	\N
-148	default	362	\N	\N
-149	default	365	\N	\N
-150	default	366	\N	\N
-151	default	367	\N	\N
-152	default	369	\N	\N
-153	default	372	\N	\N
-154	default	373	\N	\N
-155	default	374	\N	\N
-156	default	376	\N	\N
-157	default	377	\N	\N
-158	default	378	\N	\N
-159	default	379	\N	\N
-160	default	380	\N	\N
-161	default	383	\N	\N
-162	default	384	\N	\N
-163	default	385	\N	\N
-164	default	386	\N	\N
-165	default	387	\N	\N
-166	default	389	\N	\N
-167	default	390	\N	\N
-168	default	401	\N	\N
-169	default	402	\N	\N
-170	default	403	\N	\N
-171	default	404	\N	\N
-172	default	406	\N	\N
-173	default	409	\N	\N
-174	default	411	\N	\N
-175	default	413	\N	\N
-176	default	415	\N	\N
-177	default	416	\N	\N
-178	default	420	\N	\N
-179	default	422	\N	\N
-180	default	441	\N	\N
-181	default	443	\N	\N
-182	default	444	\N	\N
-183	default	452	\N	\N
-184	default	453	\N	\N
-185	default	457	\N	\N
-186	default	458	\N	\N
-187	default	462	\N	\N
-188	default	465	\N	\N
-189	default	466	\N	\N
-190	default	467	\N	\N
-191	default	470	\N	\N
-192	default	475	\N	\N
-193	default	476	\N	\N
-194	default	479	\N	\N
-195	default	486	\N	\N
-196	default	487	\N	\N
-197	default	494	\N	\N
-198	default	496	\N	\N
-199	default	498	\N	\N
-200	default	504	\N	\N
-201	default	505	\N	\N
-202	default	506	\N	\N
-203	default	507	\N	\N
-204	default	509	\N	\N
-205	default	510	\N	\N
-206	default	512	\N	\N
-207	default	513	\N	\N
-208	default	515	\N	\N
-209	default	516	\N	\N
-210	default	519	\N	\N
-211	default	533	\N	\N
-212	default	538	\N	\N
-213	default	539	\N	\N
-214	default	540	\N	\N
-215	default	541	\N	\N
-216	default	545	\N	\N
-217	default	546	\N	\N
-218	default	550	\N	\N
-219	default	554	\N	\N
-220	default	558	\N	\N
-221	default	559	\N	\N
-222	default	561	\N	\N
-223	default	562	\N	\N
-224	default	563	\N	\N
-225	default	566	\N	\N
-226	default	567	\N	\N
-227	default	568	\N	\N
-228	default	572	\N	\N
-229	default	574	\N	\N
-230	default	576	\N	\N
-231	default	581	\N	\N
-232	default	583	\N	\N
-233	1/2016	7	12/05/2015	\N
-235	1/2016	592	26/05/2015	\N
-236	1/2016	593	27/05/2015	28/05/2015
-237	1/2016	594	15/05/2015	16/05/2015
-238	1/2016	596	28/05/2015	29/05/2015
-239	1/2016	595	15/05/2015	16/05/2015
+COPY comision_correctora (id_correctora, id_semestre, id_tema, fecha_correccion, fecha_entrega_correccion, fecha_entrega_correccion2, fecha_correccion2) FROM stdin;
+1	default	1	\N	\N	\N	\N
+2	default	2	\N	\N	\N	\N
+4	default	6	\N	\N	\N	\N
+5	default	8	\N	\N	\N	\N
+6	default	11	\N	\N	\N	\N
+7	default	12	\N	\N	\N	\N
+8	default	13	\N	\N	\N	\N
+9	default	16	\N	\N	\N	\N
+10	default	22	\N	\N	\N	\N
+11	default	23	\N	\N	\N	\N
+12	default	24	\N	\N	\N	\N
+13	default	26	\N	\N	\N	\N
+14	default	31	\N	\N	\N	\N
+15	default	34	\N	\N	\N	\N
+16	default	37	\N	\N	\N	\N
+17	default	39	\N	\N	\N	\N
+18	default	42	\N	\N	\N	\N
+19	default	43	\N	\N	\N	\N
+20	default	54	\N	\N	\N	\N
+21	default	57	\N	\N	\N	\N
+22	default	59	\N	\N	\N	\N
+23	default	67	\N	\N	\N	\N
+24	default	74	\N	\N	\N	\N
+25	default	75	\N	\N	\N	\N
+26	default	77	\N	\N	\N	\N
+27	default	79	\N	\N	\N	\N
+28	default	80	\N	\N	\N	\N
+29	default	81	\N	\N	\N	\N
+30	default	82	\N	\N	\N	\N
+31	default	84	\N	\N	\N	\N
+32	default	87	\N	\N	\N	\N
+33	default	88	\N	\N	\N	\N
+34	default	89	\N	\N	\N	\N
+35	default	93	\N	\N	\N	\N
+36	default	94	\N	\N	\N	\N
+37	default	95	\N	\N	\N	\N
+38	default	96	\N	\N	\N	\N
+39	default	97	\N	\N	\N	\N
+40	default	102	\N	\N	\N	\N
+41	default	103	\N	\N	\N	\N
+42	default	105	\N	\N	\N	\N
+43	default	107	\N	\N	\N	\N
+44	default	110	\N	\N	\N	\N
+45	default	112	\N	\N	\N	\N
+46	default	113	\N	\N	\N	\N
+47	default	117	\N	\N	\N	\N
+48	default	118	\N	\N	\N	\N
+49	default	120	\N	\N	\N	\N
+50	default	126	\N	\N	\N	\N
+51	default	128	\N	\N	\N	\N
+52	default	131	\N	\N	\N	\N
+53	default	136	\N	\N	\N	\N
+54	default	139	\N	\N	\N	\N
+55	default	140	\N	\N	\N	\N
+56	default	141	\N	\N	\N	\N
+57	default	142	\N	\N	\N	\N
+58	default	144	\N	\N	\N	\N
+59	default	145	\N	\N	\N	\N
+60	default	146	\N	\N	\N	\N
+61	default	147	\N	\N	\N	\N
+62	default	152	\N	\N	\N	\N
+63	default	154	\N	\N	\N	\N
+64	default	155	\N	\N	\N	\N
+65	default	157	\N	\N	\N	\N
+66	default	159	\N	\N	\N	\N
+67	default	160	\N	\N	\N	\N
+68	default	162	\N	\N	\N	\N
+69	default	165	\N	\N	\N	\N
+70	default	169	\N	\N	\N	\N
+71	default	170	\N	\N	\N	\N
+72	default	171	\N	\N	\N	\N
+73	default	172	\N	\N	\N	\N
+74	default	174	\N	\N	\N	\N
+75	default	175	\N	\N	\N	\N
+76	default	176	\N	\N	\N	\N
+77	default	178	\N	\N	\N	\N
+78	default	179	\N	\N	\N	\N
+79	default	182	\N	\N	\N	\N
+80	default	183	\N	\N	\N	\N
+81	default	185	\N	\N	\N	\N
+82	default	197	\N	\N	\N	\N
+83	default	200	\N	\N	\N	\N
+84	default	203	\N	\N	\N	\N
+85	default	204	\N	\N	\N	\N
+86	default	205	\N	\N	\N	\N
+87	default	206	\N	\N	\N	\N
+88	default	209	\N	\N	\N	\N
+89	default	210	\N	\N	\N	\N
+90	default	215	\N	\N	\N	\N
+91	default	216	\N	\N	\N	\N
+92	default	219	\N	\N	\N	\N
+93	default	221	\N	\N	\N	\N
+94	default	223	\N	\N	\N	\N
+95	default	229	\N	\N	\N	\N
+96	default	230	\N	\N	\N	\N
+97	default	231	\N	\N	\N	\N
+98	default	232	\N	\N	\N	\N
+99	default	234	\N	\N	\N	\N
+100	default	241	\N	\N	\N	\N
+101	default	243	\N	\N	\N	\N
+102	default	244	\N	\N	\N	\N
+103	default	248	\N	\N	\N	\N
+104	default	249	\N	\N	\N	\N
+105	default	251	\N	\N	\N	\N
+106	default	252	\N	\N	\N	\N
+107	default	253	\N	\N	\N	\N
+108	default	255	\N	\N	\N	\N
+109	default	257	\N	\N	\N	\N
+110	default	260	\N	\N	\N	\N
+111	default	261	\N	\N	\N	\N
+112	default	263	\N	\N	\N	\N
+113	default	268	\N	\N	\N	\N
+114	default	269	\N	\N	\N	\N
+115	default	276	\N	\N	\N	\N
+116	default	277	\N	\N	\N	\N
+117	default	278	\N	\N	\N	\N
+118	default	279	\N	\N	\N	\N
+119	default	280	\N	\N	\N	\N
+120	default	281	\N	\N	\N	\N
+121	default	292	\N	\N	\N	\N
+122	default	297	\N	\N	\N	\N
+123	default	298	\N	\N	\N	\N
+124	default	311	\N	\N	\N	\N
+125	default	319	\N	\N	\N	\N
+126	default	321	\N	\N	\N	\N
+127	default	322	\N	\N	\N	\N
+128	default	323	\N	\N	\N	\N
+129	default	324	\N	\N	\N	\N
+130	default	329	\N	\N	\N	\N
+131	default	330	\N	\N	\N	\N
+132	default	331	\N	\N	\N	\N
+133	default	332	\N	\N	\N	\N
+134	default	333	\N	\N	\N	\N
+135	default	334	\N	\N	\N	\N
+136	default	335	\N	\N	\N	\N
+137	default	341	\N	\N	\N	\N
+138	default	342	\N	\N	\N	\N
+139	default	343	\N	\N	\N	\N
+140	default	344	\N	\N	\N	\N
+141	default	346	\N	\N	\N	\N
+142	default	348	\N	\N	\N	\N
+143	default	349	\N	\N	\N	\N
+144	default	351	\N	\N	\N	\N
+145	default	353	\N	\N	\N	\N
+146	default	358	\N	\N	\N	\N
+147	default	360	\N	\N	\N	\N
+148	default	362	\N	\N	\N	\N
+149	default	365	\N	\N	\N	\N
+150	default	366	\N	\N	\N	\N
+151	default	367	\N	\N	\N	\N
+152	default	369	\N	\N	\N	\N
+153	default	372	\N	\N	\N	\N
+154	default	373	\N	\N	\N	\N
+155	default	374	\N	\N	\N	\N
+156	default	376	\N	\N	\N	\N
+157	default	377	\N	\N	\N	\N
+158	default	378	\N	\N	\N	\N
+159	default	379	\N	\N	\N	\N
+160	default	380	\N	\N	\N	\N
+161	default	383	\N	\N	\N	\N
+162	default	384	\N	\N	\N	\N
+163	default	385	\N	\N	\N	\N
+164	default	386	\N	\N	\N	\N
+165	default	387	\N	\N	\N	\N
+166	default	389	\N	\N	\N	\N
+167	default	390	\N	\N	\N	\N
+168	default	401	\N	\N	\N	\N
+169	default	402	\N	\N	\N	\N
+170	default	403	\N	\N	\N	\N
+171	default	404	\N	\N	\N	\N
+172	default	406	\N	\N	\N	\N
+173	default	409	\N	\N	\N	\N
+174	default	411	\N	\N	\N	\N
+175	default	413	\N	\N	\N	\N
+176	default	415	\N	\N	\N	\N
+177	default	416	\N	\N	\N	\N
+178	default	420	\N	\N	\N	\N
+179	default	422	\N	\N	\N	\N
+180	default	441	\N	\N	\N	\N
+181	default	443	\N	\N	\N	\N
+182	default	444	\N	\N	\N	\N
+183	default	452	\N	\N	\N	\N
+184	default	453	\N	\N	\N	\N
+185	default	457	\N	\N	\N	\N
+186	default	458	\N	\N	\N	\N
+187	default	462	\N	\N	\N	\N
+188	default	465	\N	\N	\N	\N
+189	default	466	\N	\N	\N	\N
+190	default	467	\N	\N	\N	\N
+191	default	470	\N	\N	\N	\N
+192	default	475	\N	\N	\N	\N
+193	default	476	\N	\N	\N	\N
+194	default	479	\N	\N	\N	\N
+195	default	486	\N	\N	\N	\N
+196	default	487	\N	\N	\N	\N
+197	default	494	\N	\N	\N	\N
+198	default	496	\N	\N	\N	\N
+199	default	498	\N	\N	\N	\N
+200	default	504	\N	\N	\N	\N
+201	default	505	\N	\N	\N	\N
+202	default	506	\N	\N	\N	\N
+203	default	507	\N	\N	\N	\N
+204	default	509	\N	\N	\N	\N
+205	default	510	\N	\N	\N	\N
+206	default	512	\N	\N	\N	\N
+207	default	513	\N	\N	\N	\N
+208	default	515	\N	\N	\N	\N
+209	default	516	\N	\N	\N	\N
+210	default	519	\N	\N	\N	\N
+211	default	533	\N	\N	\N	\N
+212	default	538	\N	\N	\N	\N
+213	default	539	\N	\N	\N	\N
+214	default	540	\N	\N	\N	\N
+215	default	541	\N	\N	\N	\N
+216	default	545	\N	\N	\N	\N
+217	default	546	\N	\N	\N	\N
+218	default	550	\N	\N	\N	\N
+219	default	554	\N	\N	\N	\N
+220	default	558	\N	\N	\N	\N
+221	default	559	\N	\N	\N	\N
+222	default	561	\N	\N	\N	\N
+223	default	562	\N	\N	\N	\N
+224	default	563	\N	\N	\N	\N
+225	default	566	\N	\N	\N	\N
+226	default	567	\N	\N	\N	\N
+227	default	568	\N	\N	\N	\N
+228	default	572	\N	\N	\N	\N
+229	default	574	\N	\N	\N	\N
+230	default	576	\N	\N	\N	\N
+231	default	581	\N	\N	\N	\N
+232	default	583	\N	\N	\N	\N
+235	1/2016	592	26/05/2015	\N	\N	\N
+236	1/2016	593	27/05/2015	28/05/2015	\N	\N
+237	1/2016	594	15/05/2015	16/05/2015	\N	\N
+238	1/2016	596	28/05/2015	29/05/2015	\N	\N
+239	1/2016	595	15/05/2015	16/05/2015	\N	\N
+240	1/2016	598	20/05/2015	20/05/2015	28/05/2015	28/05/2015
+3	default	5	20/05/2015	21/05/2015	21/05/2015	20/05/2015
+233	1/2016	7	12/05/2015	20/05/2015	28/05/2015	27/05/2015
 \.
 
 
@@ -1241,7 +1244,7 @@ COPY comision_correctora (id_correctora, id_semestre, id_tema, fecha_correccion,
 -- Name: comision_correctora_id_correctora_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('comision_correctora_id_correctora_seq', 239, true);
+SELECT pg_catalog.setval('comision_correctora_id_correctora_seq', 241, true);
 
 
 --
@@ -1846,10 +1849,13 @@ COPY comision_revisora (fecha_revision, tipo_revision, id_revisora, id_propuesta
 21/05/2015	0	596	604	1/2016	594	22/05/2015	\N	\N
 30/05/2015	0	597	605	1/2016	595	31/05/2015	\N	\N
 18/05/2015	0	599	608	1/2016	\N	19/05/2015	27/05/2015	28/05/2015
+19/05/2015	0	606	616	1/2016	\N	20/05/2015	20/05/2015	21/05/2015
 18/05/2015	0	598	607	1/2016	596	21/05/2015	27/05/2015	28/05/2015
 19/05/2015	0	600	606	1/2016	\N	20/05/2015	21/05/2015	22/05/2015
 \N	0	602	612	1/2016	597	\N	\N	\N
-13/05/2015	0	603	613	1/2016	\N	13/05/2015	21/05/2015	21/05/2015
+13/05/2015	0	603	613	1/2016	598	13/05/2015	21/05/2015	21/05/2015
+19/05/2015	0	604	614	1/2016	\N	19/06/2015	20/05/2015	21/05/2015
+20/05/2015	2	605	615	1/2016	\N	21/05/2015	20/05/2015	21/05/2015
 \.
 
 
@@ -1857,7 +1863,7 @@ COPY comision_revisora (fecha_revision, tipo_revision, id_revisora, id_propuesta
 -- Name: comision_revisora_id_revisora_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('comision_revisora_id_revisora_seq', 603, true);
+SELECT pg_catalog.setval('comision_revisora_id_revisora_seq', 606, true);
 
 
 --
@@ -1890,6 +1896,12 @@ Comision Correctora: El estado del tema cambió de 'Vigente con borrador final' 
 Se le asignó Comisión Correctora. Lo ingresó el usuario admin admin	15/05/2015	171818575	2	23
 Ingresó Comisión Correctora al alumno JOAQUÍN OLIVARES DONOSO	15/05/2015	admin	3	24
 Comision Correctora: El estado del tema cambió de 'Vigente con borrador final' a En proceso de examen	15/05/2015	595	1	25
+Se le asignó Comisión Correctora. Lo ingresó el usuario admin admin	18/05/2015	153179409	2	26
+Ingresó Comisión Correctora al alumno SEBASTIAN ROSENDE PINO	18/05/2015	admin	3	27
+Comision Correctora: El estado del tema cambió de 'Vigente con borrador final' a En proceso de examen	20/05/2015	598	1	28
+Se le asignó Comisión Correctora. Lo ingresó el usuario admin admin	18/05/2015	173832168	2	29
+Ingresó Comisión Correctora al alumno HERNANDO ANDRES MANRIQUEZ NAVARRO	18/05/2015	admin	3	30
+Comision Correctora: El estado del tema cambió de 'Vigente con borrador final' a En proceso de examen	\N	599	1	31
 \.
 
 
@@ -1897,7 +1909,7 @@ Comision Correctora: El estado del tema cambió de 'Vigente con borrador final' 
 -- Name: historial_id_historial_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('historial_id_historial_seq', 25, true);
+SELECT pg_catalog.setval('historial_id_historial_seq', 31, true);
 
 
 --
@@ -2042,6 +2054,45 @@ COPY logs (logs_id, dated, level, logger, message, user_id) FROM stdin;
 135	2015-05-18 15:12:51.829329	INFO	managedbeans2.propuestas.ComisionRevisora2MB	La comision revisora de la propuesta PROPUESTA EJEMPLO 2 ha sido modificada en el sistema	admin
 136	2015-05-18 15:13:54.969069	INFO	managedbeans2.propuestas.ComisionRevisora2MB	La comision revisora de la propuesta PROPUESTA EJEMPLO 2 ha sido modificada en el sistema	
 137	2015-05-18 15:27:36.93759	INFO	managedbeans2.propuestas.ComisionRevisora2MB	La comision revisora de la propuesta PROPUESTA EJEMPLO 2 ha sido modificada en el sistema	
+138	2015-05-18 15:43:53.70457	INFO	managedbeans2.temas.AgregarTemaMB	El tema TEMA EJEMPLO 2 ha sido ingresado al sistema	
+139	2015-05-18 15:44:15.333593	INFO	managedbeans2.temas.BorradorFinalMB	El estado del tema seleccionado se modificó a Vigente con borrador final	
+140	2015-05-18 16:33:09.656136	INFO	managedbeans2.temas.ComisionCorrectora2MB	Se asignó Comisión Correctora al temaTEMA EJEMPLO 2	
+141	2015-05-18 16:33:09.773584	INFO	managedbeans2.temas.ComisionCorrectora2MB	Ingresó Comisión Correctora al alumno SEBASTIAN ROSENDE PINO	
+142	2015-05-18 16:33:09.806807	INFO	managedbeans2.temas.ComisionCorrectora2MB	Comision Correctora: El estado del tema cambió de Vigente con borrador final a En proceso de examen	
+143	2015-05-18 16:33:09.840123	INFO	managedbeans2.temas.ComisionCorrectora2MB	Comisión ingresada al sistema, el estado del tema seleccionado se modificó a En proceso de examen	
+144	2015-05-18 17:48:23.692235	INFO	managedbeans2.temas.ComisionCorrectora2MB	La comision correctora del tema TEMA EJEMPLO 2 ha sido modificada en el sistema	
+145	2015-05-18 17:49:56.790496	INFO	managedbeans2.temas.ComisionCorrectora2MB	La comision correctora del tema TEMA EJEMPLO 2 ha sido modificada en el sistema	admin
+146	2015-05-18 18:01:41.17838	INFO	managedbeans2.temas.ComisionCorrectora2MB	La comision correctora del tema TEMA EJEMPLO 2 ha sido modificada en el sistema	
+147	2015-05-18 18:02:13.270456	INFO	managedbeans2.temas.CalificacionTema2MB	Promedio: 5.5 Se agregaron las notas y el estado del tema seleccionado se modificó a Titulado	
+148	2015-05-18 18:26:57.29835	INFO	managedbeans2.propuestas.AgregarPropuestaMB	La propuesta propuesta con jose luis ha sido ingresada al sistema	admin
+149	2015-05-18 18:27:54.563068	INFO	managedbeans2.propuestas.ComisionRevisora2MB	La propuesta PROPUESTA CON JOSE LUIS ha sido ingresada al sistema	admin
+150	2015-05-18 18:28:19.727264	INFO	managedbeans2.propuestas.ComisionRevisora2MB	La comision revisora de la propuesta PROPUESTA CON JOSE LUIS ha sido modificada en el sistema	admin
+151	2015-05-18 18:28:54.655155	INFO	managedbeans2.propuestas.ComisionRevisora2MB	La comision revisora de la propuesta PROPUESTA CON JOSE LUIS ha sido modificada en el sistema	admin
+152	2015-05-18 18:30:39.004794	INFO	managedbeans2.temas.AgregarTemaMB	El tema TEMA JOSE LUIS ha sido ingresado al sistema	
+153	2015-05-18 18:33:21.65781	INFO	managedbeans2.temas.BorradorFinalMB	El estado del tema seleccionado se modificó a Vigente con borrador final	admin
+154	2015-05-18 18:33:49.137428	INFO	managedbeans2.temas.ComisionCorrectora2MB	Se asignó Comisión Correctora al temaTEMA JOSE LUIS	
+155	2015-05-18 18:33:49.170071	INFO	managedbeans2.temas.ComisionCorrectora2MB	Ingresó Comisión Correctora al alumno HERNANDO ANDRES MANRIQUEZ NAVARRO	
+156	2015-05-18 18:33:49.203333	INFO	managedbeans2.temas.ComisionCorrectora2MB	Comision Correctora: El estado del tema cambió de Vigente con borrador final a En proceso de examen	
+157	2015-05-18 18:33:49.22526	INFO	managedbeans2.temas.ComisionCorrectora2MB	Comisión ingresada al sistema, el estado del tema seleccionado se modificó a En proceso de examen	
+158	2015-05-18 18:34:30.01113	INFO	managedbeans2.temas.ComisionCorrectora2MB	La comision correctora del tema TEMA JOSE LUIS ha sido modificada en el sistema	admin
+159	2015-05-18 18:34:50.029026	INFO	managedbeans2.temas.ComisionCorrectora2MB	La comision correctora del tema TEMA JOSE LUIS ha sido modificada en el sistema	
+160	2015-05-18 18:40:07.743962	INFO	managedbeans2.profesores.VerProfesorMB	El profesor BRUNO JERARDINO ha sido editado exitosamente	admin
+161	2015-05-18 18:44:20.212629	INFO	managedbeans2.temas.CalificacionTema2MB	Promedio: 5.5 Se agregaron las notas y el estado del tema seleccionado se modificó a Titulado	
+162	2015-05-18 18:52:32.571339	INFO	managedbeans2.propuestas.AgregarPropuestaMB	La propuesta propuesta asd ha sido ingresada al sistema	admin
+163	2015-05-18 18:53:49.499699	INFO	managedbeans2.propuestas.ComisionRevisora2MB	La propuesta PROPUESTA ASD ha sido ingresada al sistema	admin
+164	2015-05-18 19:08:39.112539	INFO	managedbeans2.EliminarMB	La comisión correctora del tema TEMA JOSE LUIS ha sido eliminada del sistema	admin
+165	2015-05-18 19:08:39.16736	INFO	managedbeans2.EliminarMB	El tema TEMA JOSE LUIS ha sido eliminado del sistema	admin
+166	2015-05-18 23:56:10.523296	INFO	managedbeans2.temas.ComisionCorrectora2MB	La comision correctora del tema DISEÑO DE UN SISTEMA QUE PERMITA LA CREACIÓN DE APLICACIONES EDUCATIVAS ha sido modificada en el sistema	
+167	2015-05-18 23:56:36.213072	INFO	managedbeans2.propuestas.ComisionRevisora2MB	La comision revisora de la propuesta PROPUESTA ASD ha sido modificada en el sistema	
+168	2015-05-19 00:02:41.803012	INFO	managedbeans2.temas.ComisionCorrectora2MB	La comision correctora del tema DISEÑO DE UN SISTEMA QUE PERMITA LA CREACIÓN DE APLICACIONES EDUCATIVAS ha sido modificada en el sistema	
+169	2015-05-19 00:03:26.617531	INFO	managedbeans2.temas.ComisionCorrectora2MB	La comision correctora del tema QWEQWE ha sido modificada en el sistema	
+170	2015-05-19 00:03:50.756892	INFO	managedbeans2.temas.CalificacionTema2MB	Promedio: 5.5 Se agregaron las notas y el estado del tema seleccionado se modificó a Titulado	
+171	2015-05-19 00:04:02.565502	INFO	managedbeans2.temas.VerTemaMB	Tema QWEQWE editado exitosamente	SECRE
+172	2015-05-19 00:05:00.665309	INFO	managedbeans2.temas.VerTemaMB	Tema SISTEMA WEB DE APOYO A LA GESTIÓN DE UNA ORGANIZACIÓN COMUNITARIA editado exitosamente	SECRE
+173	2015-05-19 00:05:41.88585	INFO	managedbeans2.propuestas.ComisionRevisora2MB	La comision revisora de la propuesta PROPUESTA ASD ha sido modificada en el sistema	
+174	2015-05-19 00:06:12.713682	INFO	managedbeans2.propuestas.AgregarPropuestaMB	La propuesta propp ha sido ingresada al sistema	
+175	2015-05-19 00:06:30.86327	INFO	managedbeans2.propuestas.ComisionRevisora2MB	La propuesta PROPP ha sido ingresada al sistema	
+176	2015-05-19 00:06:44.021884	INFO	managedbeans2.propuestas.ComisionRevisora2MB	La comision revisora de la propuesta PROPP ha sido modificada en el sistema	
 \.
 
 
@@ -2049,7 +2100,7 @@ COPY logs (logs_id, dated, level, logger, message, user_id) FROM stdin;
 -- Name: logs_logs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('logs_logs_id_seq', 137, true);
+SELECT pg_catalog.setval('logs_logs_id_seq', 176, true);
 
 
 --
@@ -2057,8 +2108,6 @@ SELECT pg_catalog.setval('logs_logs_id_seq', 137, true);
 --
 
 COPY profe_correccion (id_correctora, rut_profesor, rol_correccion, nota_correccion_informe, nota_correccion_defensa) FROM stdin;
-233	70658828	0	\N	\N
-233	120188615	1	\N	\N
 236	145010330	0	5.5	5.5
 236	163601311	1	5.5	5.5
 238	162690302	0	6.5999999	6.5999999
@@ -2069,6 +2118,10 @@ COPY profe_correccion (id_correctora, rut_profesor, rol_correccion, nota_correcc
 237	155560002	1	5.5	5.5
 239	78132884	0	5.5	5.5
 239	70658828	1	5.5	5.5
+240	120188615	0	5.5	5.5
+240	78132884	1	5.5	5.5
+233	70658828	0	5.5	5.5
+233	120188615	1	5.5	5.5
 \.
 
 
@@ -2083,7 +2136,6 @@ COPY profe_propuesta (id_propuesta, rut_profesor, rol_guia, nota_guia_informe, n
 4	136711261	0	\N	\N	\N
 5	136711261	0	\N	\N	\N
 6	136711261	0	\N	\N	\N
-7	136711261	0	\N	\N	\N
 8	136711261	0	\N	\N	\N
 9	70549123	0	\N	\N	\N
 10	70549123	0	\N	\N	\N
@@ -2691,8 +2743,14 @@ COPY profe_propuesta (id_propuesta, rut_profesor, rol_guia, nota_guia_informe, n
 609	78132884	1	\N	\N	\N
 611	145010330	0	\N	\N	\N
 612	120188615	0	\N	\N	\N
-613	68635926	0	\N	\N	\N
 613	78132884	1	\N	\N	\N
+613	68635926	0	5.5	5.5	\N
+614	78132884	1	\N	\N	\N
+7	136711261	0	5.5	5.5	\N
+615	120188615	0	\N	\N	\N
+614	163601311	0	\N	\N	\N
+616	78132884	0	\N	\N	\N
+616	162690302	1	\N	\N	\N
 \.
 
 
@@ -2727,6 +2785,10 @@ COPY profe_revision (id_revisora, rut_profesor, rol_revision, fecha_revision) FR
 602	162690302	1	\N
 603	70658828	0	\N
 603	162690302	1	\N
+604	70658828	0	\N
+604	120188615	1	\N
+606	145010330	0	\N
+606	155560002	1	\N
 \.
 
 
@@ -2735,7 +2797,6 @@ COPY profe_revision (id_revisora, rut_profesor, rol_revision, fecha_revision) FR
 --
 
 COPY profesor (contrato, nombre_profesor, apellido_profesor, mail_profesor, telefono_profesor, tipo_profesor, maximo_guias, rut_profesor) FROM stdin;
-1	BRUNO	JERARDINO	\N	\N	0	\N	70658828
 1	CAROLINA	BONACIC	\N	\N	0	\N	120188615
 1	CRISTIÁN	BADILLA	\N	\N	0	\N	145010330
 1	CRISTÓBAL	ACOSTA	\N	\N	0	\N	163601311
@@ -2776,6 +2837,7 @@ COPY profesor (contrato, nombre_profesor, apellido_profesor, mail_profesor, tele
 0	ALBERTO	CEBALLO	ASD@ASD.CL	83340796	0	\N	136711261
 0	ARTURO	ALVAREZSDFA	\N	12312321	0	7	136934384
 0	PROFE	SOR	profe@profe.cl	89307940	0	7	176767901
+0	BRUNO	JERARDINO	mail@mail.cl	89307940	0	7	70658828
 \.
 
 
@@ -3393,6 +3455,9 @@ PROP EJEMP	21/05/2015	609	1/2016	\N	173832168	f
 ASDASDAS	14/05/2015	611	1/2016	\N	153179409	f
 ASDASDSDSADSA	19/05/2015	612	1/2016	602	128516948	f
 PROPUESTA EJEMPLO 2	21/05/2015	613	1/2016	603	153179409	f
+PROPUESTA CON JOSE LUIS	18/05/2015	614	1/2016	604	173832168	f
+PROPUESTA ASD	20/05/2015	615	1/2016	605	153179409	f
+PROPP	20/05/2015	616	1/2016	606	128516948	f
 \.
 
 
@@ -3400,7 +3465,7 @@ PROPUESTA EJEMPLO 2	21/05/2015	613	1/2016	603	153179409	f
 -- Name: propuesta_id_propuesta_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('propuesta_id_propuesta_seq', 613, true);
+SELECT pg_catalog.setval('propuesta_id_propuesta_seq', 616, true);
 
 
 --
@@ -3438,7 +3503,6 @@ COPY semestre_actual (semestre_actual) FROM stdin;
 
 COPY tema (nombre_tema, fecha_tema, estado_tema, id_tema, id_correctora, id_semestre, id_revisora, fecha_siac, fecha_real, semestre_termino) FROM stdin;
 DISEÑO DE UN SISTEMA QUE PERMITA LA CREACIÓN DE APLICACIONES EDUCATIVAS	30/03/13	1	5	3	default	5	\N	\N	\N
-SISTEMA WEB DE APOYO A LA GESTIÓN DE UNA ORGANIZACIÓN COMUNITARIA	20/12/2013	1	6	4	default	6	\N	\N	\N
 SOLUCION TECNOLOGICA PARA LA CREACION DE SITIOS WEB Y SU GESTION DE INFORMACION, EN UNA EMPRESA DE SELECCIÓN DE PERSONAL	4/8/2010	1	8	5	default	8	\N	\N	\N
 SOFTWARE DE APOYO AL PROCESO ADMINISTRATIVO DE LA EMPRESA OPTICA REAL	11/10/2012	3	10	\N	default	10	\N	\N	\N
 SISTEMA DE EVALUACIÓN INTERACTIVO CON DISPOSITIVOS SMARTPHONE	1/2014	3	18	\N	default	18	\N	\N	\N
@@ -4024,14 +4088,16 @@ OBJETOS DE APRENDIZAJE RELATIVOS AL TRATAMIENTO DE ERROR EN LA TRANSMISIÓN Y RE
 DESARROLLO DE OBJETOS DE APRENDIZAJE PARA APOYAR EL ESTUDIO DE LOS PROTOCOLOS DE TRANSPORTE UTILIZADOS EN REDES CONMUTACIÓN DE PAQUETES	2/2013	3	459	\N	default	459	\N	\N	\N
 DESARROLLO DE UN PROTOTIPO DE RED INALÁMBRICA DE MALLA PARA EL DEPARTAMENTO DE INGENIERÍA INFORMÁTICA	1/2014	3	502	\N	default	502	\N	\N	\N
 NUEVOS ALGORÍTMOS ARTIFICIALES DE OPTIMIZACIÓN PARA EL WEIGHTED INDEPENDENCE SET PROBLEM BAJO LA TEORÍA DE LA COMPUTACIÓN EVOLUTIVA		3	549	\N	default	549	\N	\N	\N
-QWEQWE	30/03/2013	4	7	233	2/2011	7	\N	\N	\N
 TEMA111	01/06/2015	1	595	239	1/2016	597	23/05/2015	16/05/2015	1/2016
 ASDTEMA	19/05/2015	0	597	\N	1/2016	602	\N	\N	\N
 SISTEMA WEW PARA AYUDAR A PADRES Y APODERADOS EN LA BUSQUEDA DE COLEGIOS USANDO UN OPEN DATE	11/10/2012	1	1	1	1/2015	1	17/05/2015	16/05/2015	\N
 TEMABAS	28/05/2015	1	593	236	1/2016	595	19/05/2015	16/05/2015	\N
+TEMA EJEMPLO 2	19/05/2015	1	598	240	1/2016	603	21/05/2015	20/05/2015	1/2016
 TEMA TM	28/05/2015	1	596	238	1/2016	598	21/05/2015	16/05/2015	\N
 TEMA PROP	15/05/2015	1	592	235	1/2016	594	23/05/2015	22/05/2015	\N
 TEMA	15/05/2015	1	594	237	1/2016	596	16/05/2015	15/05/2015	1/2016
+QWEQWE	30/03/2013	1	7	233	2/2011	7	21/05/2015	20/05/2015	1/2016
+SISTEMA WEB DE APOYO A LA GESTIÓN DE UNA ORGANIZACIÓN COMUNITARIA	20/12/2013	1	6	4	1/2016	6	21/05/2015	20/05/2015	1/2016
 \.
 
 
@@ -4039,7 +4105,7 @@ TEMA	15/05/2015	1	594	237	1/2016	596	16/05/2015	15/05/2015	1/2016
 -- Name: tema_id_tema_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('tema_id_tema_seq', 597, true);
+SELECT pg_catalog.setval('tema_id_tema_seq', 599, true);
 
 
 --
@@ -4060,6 +4126,7 @@ COPY usuario (username, nombre_usuario, apellido_usuario, password, activo) FROM
 118403096	Pamela	Aguirre	9012cfb5fd87f82382c6d51c6b1e803cd72de18fa5f403db910ab48fc256f6c0	t
 admin	admin	admin	8c6976e5b5410415bde908bd4dee15dfb167a9c873fc4bb8a81f6f2ab448a918	\N
 167500323	MARLEEN	MARLEEN	bec29f1e782001071ae91718ccb328406382ee9d982e23e34c98462c594d90f8	t
+SECRE	SECRE	SECRE	5798c5e02a99432bf8d2111fb98be1cb36031d3e46a72045a72cf6fbfd1be949	t
 \.
 
 
@@ -4071,6 +4138,7 @@ COPY usuario_tipo (id_usuario_tipo, nombre_tipo, username) FROM stdin;
 1	ADMINISTRADOR	118403096
 4	ADMINISTRADOR	admin
 5	SECRETARIA	167500323
+7	SECRETARIA	SECRE
 \.
 
 
@@ -4078,7 +4146,7 @@ COPY usuario_tipo (id_usuario_tipo, nombre_tipo, username) FROM stdin;
 -- Name: usuario_tipo_id_usuario_tipo_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('usuario_tipo_id_usuario_tipo_seq', 5, true);
+SELECT pg_catalog.setval('usuario_tipo_id_usuario_tipo_seq', 7, true);
 
 
 --
