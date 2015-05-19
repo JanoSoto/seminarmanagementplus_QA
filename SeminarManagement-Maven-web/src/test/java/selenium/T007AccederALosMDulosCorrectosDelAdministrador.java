@@ -18,7 +18,7 @@ public class T007AccederALosMDulosCorrectosDelAdministrador {
 
   @Before
   public void setUp() throws Exception {
-    dDesiredCapabilities capabilities = DesiredCapabilities.phantomjs();
+    DesiredCapabilities capabilities = DesiredCapabilities.phantomjs();
     PhantomJSDriver driver = new PhantomJSDriver(capabilities);
     baseUrl = "http://ruka.diinf.usach.cl:8080/SeminarManagement-Maven-web/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);

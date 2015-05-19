@@ -19,7 +19,7 @@ public class T006SalirDeFormaCorrectaDeLaAplicaciNComoSecretaria {
   @Before
   public void setUp() throws Exception {
     driver = new FirefoxDriver();
-    baseUrl = "http://localhost:8080/SeminarManagement-Maven-web/";
+    baseUrl = "http://ruka.diinf.usach.cl:8080/SeminarManagement-Maven-web/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
