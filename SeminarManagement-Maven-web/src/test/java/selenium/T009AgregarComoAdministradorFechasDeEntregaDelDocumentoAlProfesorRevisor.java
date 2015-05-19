@@ -1,4 +1,4 @@
-package com.example.tests;
+package selenium;
 
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
@@ -9,7 +9,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class T010AgregarComoAdministradorFechasDeEntregaDelDocumentoALosProfesoresCorrectores {
+public class T009AgregarComoAdministradorFechasDeEntregaDelDocumentoAlProfesorRevisor {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -23,7 +23,21 @@ public class T010AgregarComoAdministradorFechasDeEntregaDelDocumentoALosProfesor
   }
 
   @Test
-  public void testT010AgregarComoAdministradorFechasDeEntregaDelDocumentoALosProfesoresCorrectores() throws Exception {
+  public void testT009AgregarComoAdministradorFechasDeEntregaDelDocumentoAlProfesorRevisor() throws Exception {
+    driver.get(baseUrl + "/SeminarManagement-Maven-web/2.0/admin/alumnos/index.xhtml");
+    driver.findElement(By.xpath("//a[@id='j_idt23:j_idt27']/span[2]")).click();
+    driver.findElement(By.linkText("PROPUESTA PROP1")).click();
+    driver.findElement(By.id("j_idt65:j_idt69")).click();
+    driver.findElement(By.id("j_idt42:calendP_input")).click();
+    driver.findElement(By.linkText("20")).click();
+    driver.findElement(By.id("j_idt42:calendP2_input")).click();
+    driver.findElement(By.linkText("21")).click();
+    driver.findElement(By.id("j_idt42:calendP3_input")).click();
+    driver.findElement(By.linkText("30")).click();
+    driver.findElement(By.id("j_idt42:calendP4_input")).click();
+    driver.findElement(By.cssSelector("span.ui-icon.ui-icon-circle-triangle-e")).click();
+    driver.findElement(By.linkText("23")).click();
+    driver.findElement(By.id("j_idt42:bt1")).click();
   }
 
   @After

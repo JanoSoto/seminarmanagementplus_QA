@@ -1,4 +1,4 @@
-package com.example.tests;
+package selenium;
 
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
@@ -9,7 +9,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class T001EntrarDeFormaCorrectaALaAplicacionComoAdministrador {
+public class T015ComoAdministradorDescargarDocumentoWordCuandoLaComisionRevisoraDeUnaPropuestaDeTemaSeaDeTipoConsejo {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -23,13 +23,15 @@ public class T001EntrarDeFormaCorrectaALaAplicacionComoAdministrador {
   }
 
   @Test
-  public void testT001EntrarDeFormaCorrectaALaAplicacionComoAdministrador() throws Exception {
-    driver.get(baseUrl + "/SeminarManagement-Maven-web/");
-    driver.findElement(By.id("j_idt39:username")).clear();
-    driver.findElement(By.id("j_idt39:username")).sendKeys("admin");
-    driver.findElement(By.id("j_idt39:Password")).clear();
-    driver.findElement(By.id("j_idt39:Password")).sendKeys("admin");
-    driver.findElement(By.id("j_idt39:bt1")).click();
+  public void testT015ComoAdministradorDescargarDocumentoWordCuandoLaComisionRevisoraDeUnaPropuestaDeTemaSeaDeTipoConsejo() throws Exception {
+    driver.get(baseUrl + "/SeminarManagement-Maven-web/2.0/admin/propuestas/index.xhtml");
+    driver.findElement(By.linkText("RECONSTRUCCIÓN")).click();
+    driver.findElement(By.id("j_idt65:j_idt68")).click();
+    driver.findElement(By.id("j_idt42:tipo_label")).click();
+    driver.findElement(By.xpath("//div[@id='j_idt42:tipo_panel']/div[2]/ul/li[4]")).click();
+    driver.findElement(By.id("j_idt42:bt1")).click();
+    driver.findElement(By.id("j_idt42:j_idt80")).click();
+    driver.findElement(By.id("j_idt65:j_idt77")).click();
   }
 
   @After

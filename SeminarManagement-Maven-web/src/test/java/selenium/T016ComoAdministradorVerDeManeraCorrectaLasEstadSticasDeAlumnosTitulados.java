@@ -1,4 +1,4 @@
-package com.example.tests;
+package selenium;
 
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
@@ -9,7 +9,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class T017ComoAdministradorVerFechaDeInicioYTRminoDelTemaDeUnAlumno {
+public class T016ComoAdministradorVerDeManeraCorrectaLasEstadSticasDeAlumnosTitulados {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -23,16 +23,9 @@ public class T017ComoAdministradorVerFechaDeInicioYTRminoDelTemaDeUnAlumno {
   }
 
   @Test
-  public void testT017ComoAdministradorVerFechaDeInicioYTRminoDelTemaDeUnAlumno() throws Exception {
-    driver.get(baseUrl + "/SeminarManagement-Maven-web/2.0/admin/estadisticas/estadisticas.xhtml");
-    driver.findElement(By.xpath("//a[@id='j_idt23:j_idt28']/span[2]")).click();
-    driver.findElement(By.linkText("SISTEMA DE EVALUACIÓN INTERACTIVO C...")).click();
-    driver.findElement(By.xpath("//a[@id='j_idt24:j_idt29']/span[2]")).click();
-    driver.findElement(By.linkText("DESARROLLAR JUEGOS PARA CURSO DE EC...")).click();
-    driver.findElement(By.xpath("//a[@id='j_idt24:j_idt29']/span[2]")).click();
-    new Select(driver.findElement(By.id("j_idt44:propTable:j_idt50:filter"))).selectByVisibleText("TITULADO");
-    driver.findElement(By.cssSelector("option[value=\"TITULADO\"]")).click();
-    driver.findElement(By.linkText("SOLUCION TECNOLOGICA PARA LA CREACI...")).click();
+  public void testT016ComoAdministradorVerDeManeraCorrectaLasEstadSticasDeAlumnosTitulados() throws Exception {
+    driver.get(baseUrl + "/SeminarManagement-Maven-web/2.0/admin/propuestas/propuesta.xhtml?prop=619");
+    driver.findElement(By.xpath("//a[@id='j_idt24:j_idt31']/span[2]")).click();
   }
 
   @After

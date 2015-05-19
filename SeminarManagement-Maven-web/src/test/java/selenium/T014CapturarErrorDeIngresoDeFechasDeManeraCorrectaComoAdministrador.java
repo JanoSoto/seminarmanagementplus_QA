@@ -1,4 +1,4 @@
-package com.example.tests;
+package selenium;
 
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
@@ -9,7 +9,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class T008AccederALosMDulosCorrectosDeLaSecretaria {
+public class T014CapturarErrorDeIngresoDeFechasDeManeraCorrectaComoAdministrador {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -23,17 +23,11 @@ public class T008AccederALosMDulosCorrectosDeLaSecretaria {
   }
 
   @Test
-  public void testT008AccederALosMDulosCorrectosDeLaSecretaria() throws Exception {
-    driver.get(baseUrl + "/SeminarManagement-Maven-web/");
-    driver.findElement(By.id("j_idt39:username")).clear();
-    driver.findElement(By.id("j_idt39:username")).sendKeys("SECRE");
-    driver.findElement(By.id("j_idt39:Password")).clear();
-    driver.findElement(By.id("j_idt39:Password")).sendKeys("SECRE");
-    driver.findElement(By.id("j_idt19:j_idt29")).click();
-    driver.findElement(By.xpath("//a[@id='j_idt20:j_idt31']/span[2]")).click();
-    driver.findElement(By.xpath("//a[@id='j_idt20:j_idt32']/span")).click();
-    driver.findElement(By.xpath("//a[@id='j_idt20:j_idt33']/span[2]")).click();
-    driver.findElement(By.id("j_idt20:j_idt35")).click();
+  public void testT014CapturarErrorDeIngresoDeFechasDeManeraCorrectaComoAdministrador() throws Exception {
+    driver.get(baseUrl + "/SeminarManagement-Maven-web/2.0/admin/temas/tema.xhtml?tema=597");
+    driver.findElement(By.id("j_idt90")).click();
+    driver.findElement(By.id("j_idt46:bt1")).click();
+    driver.findElement(By.id("j_idt44")).click();
   }
 
   @After

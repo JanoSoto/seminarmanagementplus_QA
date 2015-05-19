@@ -1,4 +1,4 @@
-package com.example.tests;
+package selenium;
 
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
@@ -9,7 +9,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class T005SalirDeFormaCorrectaDeLaAplicaciNComoAdministrador {
+public class T002EntrarDeFormaIncorrectaALaAplicaciNComoAdministrador {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -23,21 +23,10 @@ public class T005SalirDeFormaCorrectaDeLaAplicaciNComoAdministrador {
   }
 
   @Test
-  public void testT005SalirDeFormaCorrectaDeLaAplicaciNComoAdministrador() throws Exception {
-    driver.get(baseUrl + "/SeminarManagement-Maven-web/2.0/admin/index.xhtml");
-    driver.findElement(By.xpath("//a[@id='j_idt22:j_idt27']/span[2]")).click();
-    new Select(driver.findElement(By.id("j_idt44:propTable:j_idt50:filter"))).selectByVisibleText("TITULADO");
-    driver.findElement(By.linkText("DISEÑO DE UN SISTEMA QUE PERMITA LA...")).click();
-    driver.findElement(By.id("j_idt85")).click();
-    driver.findElement(By.id("j_idt42:calendP_input")).click();
-    driver.findElement(By.linkText("21")).click();
-    driver.findElement(By.id("j_idt42:calendP2_input")).click();
-    driver.findElement(By.linkText("22")).click();
-    driver.findElement(By.id("j_idt42:calendP3_input")).click();
-    driver.findElement(By.linkText("23")).click();
-    driver.findElement(By.id("j_idt42:calendP4_input")).click();
-    driver.findElement(By.linkText("25")).click();
-    driver.findElement(By.id("j_idt42:bt1")).click();
+  public void testT002EntrarDeFormaIncorrectaALaAplicaciNComoAdministrador() throws Exception {
+    driver.get(baseUrl + "/SeminarManagement-Maven-web/");
+    driver.findElement(By.id("j_idt39:username")).clear();
+    driver.findElement(By.id("j_idt39:username")).sendKeys("ADMIN");
   }
 
   @After

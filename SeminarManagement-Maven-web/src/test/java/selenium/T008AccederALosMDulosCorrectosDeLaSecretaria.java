@@ -1,4 +1,4 @@
-package com.example.tests;
+package selenium;
 
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
@@ -9,7 +9,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class T003EntrarDeFormaCorrectaALaAplicaciNComoSecretaria {
+public class T008AccederALosMDulosCorrectosDeLaSecretaria {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -23,12 +23,17 @@ public class T003EntrarDeFormaCorrectaALaAplicaciNComoSecretaria {
   }
 
   @Test
-  public void testT003EntrarDeFormaCorrectaALaAplicaciNComoSecretaria() throws Exception {
+  public void testT008AccederALosMDulosCorrectosDeLaSecretaria() throws Exception {
     driver.get(baseUrl + "/SeminarManagement-Maven-web/");
     driver.findElement(By.id("j_idt39:username")).clear();
     driver.findElement(By.id("j_idt39:username")).sendKeys("SECRE");
     driver.findElement(By.id("j_idt39:Password")).clear();
     driver.findElement(By.id("j_idt39:Password")).sendKeys("SECRE");
+    driver.findElement(By.id("j_idt19:j_idt29")).click();
+    driver.findElement(By.xpath("//a[@id='j_idt20:j_idt31']/span[2]")).click();
+    driver.findElement(By.xpath("//a[@id='j_idt20:j_idt32']/span")).click();
+    driver.findElement(By.xpath("//a[@id='j_idt20:j_idt33']/span[2]")).click();
+    driver.findElement(By.id("j_idt20:j_idt35")).click();
   }
 
   @After

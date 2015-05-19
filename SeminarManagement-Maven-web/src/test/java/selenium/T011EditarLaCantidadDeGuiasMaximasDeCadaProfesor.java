@@ -1,4 +1,4 @@
-package com.example.tests;
+package selenium;
 
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
@@ -9,7 +9,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class T012CapturarErrorDeEdiciNDeCantidadDeGuiasMaximasDeManeraCorrecta {
+public class T011EditarLaCantidadDeGuiasMaximasDeCadaProfesor {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -23,14 +23,7 @@ public class T012CapturarErrorDeEdiciNDeCantidadDeGuiasMaximasDeManeraCorrecta {
   }
 
   @Test
-  public void testT012CapturarErrorDeEdiciNDeCantidadDeGuiasMaximasDeManeraCorrecta() throws Exception {
-    driver.get(baseUrl + "/SeminarManagement-Maven-web/2.0/admin/index.xhtml");
-    driver.findElement(By.cssSelector("span.ui-menuitem-text")).click();
-    driver.findElement(By.linkText("ALBERTO CEBALLO")).click();
-    driver.findElement(By.id("j_idt64")).click();
-    driver.findElement(By.id("editProf:maxGuia")).clear();
-    driver.findElement(By.id("editProf:maxGuia")).sendKeys("a");
-    driver.findElement(By.id("editProf:bt1")).click();
+  public void testT011EditarLaCantidadDeGuiasMaximasDeCadaProfesor() throws Exception {
   }
 
   @After

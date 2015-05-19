@@ -1,4 +1,4 @@
-package com.example.tests;
+package selenium;
 
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
@@ -9,7 +9,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class T018ComoUsuarioQuieroEditarCorrectamenteLosMailsDeLosProfesores {
+public class T007AccederALosMDulosCorrectosDelAdministrador {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -23,16 +23,16 @@ public class T018ComoUsuarioQuieroEditarCorrectamenteLosMailsDeLosProfesores {
   }
 
   @Test
-  public void testT018ComoUsuarioQuieroEditarCorrectamenteLosMailsDeLosProfesores() throws Exception {
-    driver.get(baseUrl + "/SeminarManagement-Maven-web/2.0/admin/profesores/index.xhtml");
-    driver.findElement(By.linkText("CRISTÓBAL ACOSTA")).click();
-    driver.findElement(By.id("j_idt63")).click();
-    driver.findElement(By.id("j_idt46:celular")).clear();
-    driver.findElement(By.id("j_idt46:celular")).sendKeys("74315582");
-    driver.findElement(By.id("j_idt46:mail")).clear();
-    driver.findElement(By.id("j_idt46:mail")).sendKeys("a@a.cl");
-    driver.findElement(By.id("j_idt46:bt1")).click();
-    driver.findElement(By.id("j_idt44")).click();
+  public void testT007AccederALosMDulosCorrectosDelAdministrador() throws Exception {
+    driver.get(baseUrl + "/SeminarManagement-Maven-web/2.0/admin/index.xhtml");
+    driver.findElement(By.xpath("//a[@id='j_idt22:j_idt31']/span[2]")).click();
+    driver.findElement(By.xpath("//a[@id='j_idt23:j_idt31']/span[2]")).click();
+    driver.findElement(By.id("j_idt23:j_idt30")).click();
+    driver.findElement(By.xpath("//a[@id='j_idt23:j_idt29']/span[2]")).click();
+    driver.findElement(By.xpath("//a[@id='j_idt23:j_idt28']/span[2]")).click();
+    driver.findElement(By.xpath("//a[@id='j_idt23:j_idt27']/span[2]")).click();
+    driver.findElement(By.xpath("//a[@id='j_idt23:j_idt26']/span[2]")).click();
+    driver.findElement(By.cssSelector("span.ui-menuitem-text")).click();
   }
 
   @After

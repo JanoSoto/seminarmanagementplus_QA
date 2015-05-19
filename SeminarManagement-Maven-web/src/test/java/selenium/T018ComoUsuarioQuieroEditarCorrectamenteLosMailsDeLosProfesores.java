@@ -1,4 +1,4 @@
-package com.example.tests;
+package selenium;
 
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
@@ -9,7 +9,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class T016ComoAdministradorVerDeManeraCorrectaLasEstadSticasDeAlumnosTitulados {
+public class T018ComoUsuarioQuieroEditarCorrectamenteLosMailsDeLosProfesores {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -23,9 +23,16 @@ public class T016ComoAdministradorVerDeManeraCorrectaLasEstadSticasDeAlumnosTitu
   }
 
   @Test
-  public void testT016ComoAdministradorVerDeManeraCorrectaLasEstadSticasDeAlumnosTitulados() throws Exception {
-    driver.get(baseUrl + "/SeminarManagement-Maven-web/2.0/admin/propuestas/propuesta.xhtml?prop=619");
-    driver.findElement(By.xpath("//a[@id='j_idt24:j_idt31']/span[2]")).click();
+  public void testT018ComoUsuarioQuieroEditarCorrectamenteLosMailsDeLosProfesores() throws Exception {
+    driver.get(baseUrl + "/SeminarManagement-Maven-web/2.0/admin/profesores/index.xhtml");
+    driver.findElement(By.linkText("CRISTÓBAL ACOSTA")).click();
+    driver.findElement(By.id("j_idt63")).click();
+    driver.findElement(By.id("j_idt46:celular")).clear();
+    driver.findElement(By.id("j_idt46:celular")).sendKeys("74315582");
+    driver.findElement(By.id("j_idt46:mail")).clear();
+    driver.findElement(By.id("j_idt46:mail")).sendKeys("a@a.cl");
+    driver.findElement(By.id("j_idt46:bt1")).click();
+    driver.findElement(By.id("j_idt44")).click();
   }
 
   @After

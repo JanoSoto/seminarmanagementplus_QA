@@ -1,4 +1,4 @@
-package com.example.tests;
+package selenium;
 
 import java.util.regex.Pattern;
 import java.util.concurrent.TimeUnit;
@@ -9,7 +9,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class T011EditarLaCantidadDeGuiasMaximasDeCadaProfesor {
+public class T010AgregarComoAdministradorFechasDeEntregaDelDocumentoALosProfesoresCorrectores {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -23,7 +23,7 @@ public class T011EditarLaCantidadDeGuiasMaximasDeCadaProfesor {
   }
 
   @Test
-  public void testT011EditarLaCantidadDeGuiasMaximasDeCadaProfesor() throws Exception {
+  public void testT010AgregarComoAdministradorFechasDeEntregaDelDocumentoALosProfesoresCorrectores() throws Exception {
   }
 
   @After
