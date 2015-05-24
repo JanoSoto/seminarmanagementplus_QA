@@ -45,7 +45,7 @@ public class Excel extends HttpServlet {
             profesorMB.verPropuestas();
             profesorMB.verTemas();
             List<TemaDatos> a = profesorMB.getTemaDatos();
-            out.println("Nombre\tAlumno\tEstado\tSemestre");
+            out.println("Nombre\tAlumno\tEstado\tSemestre Inicio");
             for (TemaDatos b : a) {
                 if ("VIGENTE".equals(b.getEstadoTema())) {
                     String salida = b.getNombreCorto();

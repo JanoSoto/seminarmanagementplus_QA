@@ -36,6 +36,9 @@
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Semestre:"/>
                     <h:outputText style="padding-left: 1em;" value="#{verPropuestaMB.propuesta.idSemestre.idSemestre}"/>
                     <br/>
+                    <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Tipo Revisión:"/>
+                    <h:outputText style="padding-left: 1em;" value="#{verPropuestaMB.propuesta.idRevisora.tipoRevision}"/>
+                    <br/>
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Tiene Comisión Revisora:"/>
                     <h:outputText rendered="#{not empty verPropuestaMB.propuesta.idRevisora}" style="padding-left: 1em;" value="SÍ"/>
                     <h:outputText rendered="#{empty verPropuestaMB.propuesta.idRevisora}" style="padding-left: 1em;" value="NO"/>

@@ -157,10 +157,10 @@ public class ProfesorMB implements Serializable{
         profesor.setContrato(contratoProfesor);
         
         if((contratoProfesor==0)&&(isProfGuia==0))
-            profesor.setMaximoGuias(7);
+            profesor.setMaximoGuias(0);
         else {
             if((contratoProfesor==0)&&(isProfGuia==1))
-                profesor.setMaximoGuias(null);
+                profesor.setMaximoGuias(7);
         }
         
         //Si es JC, puede guiar siempre, si no, se setea la opción escogida

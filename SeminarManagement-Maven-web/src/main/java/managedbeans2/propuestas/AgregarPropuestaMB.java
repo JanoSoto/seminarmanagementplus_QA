@@ -127,7 +127,7 @@ public class AgregarPropuestaMB {
         //Se valida que no exista otra propuesta con el mismo nombre
         List<Propuesta> propuestas = propuestaFacade.findByName(nombrePropuesta);
         if(!propuestas.isEmpty()) {
-            context.addMessage(null, new FacesMessage("Nombre Propuesta","Ya existe una propuesta con ese nombre"));
+            context.addMessage(null, new FacesMessage("Nombre Propuesta","Escriba el nombre de la propuesta"));
             return;
         }
         
