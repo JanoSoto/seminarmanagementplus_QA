@@ -35,9 +35,7 @@
                         
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Propuestas en total:"/>
                         <h:outputText value="#{verProfesorMB.total}"/>
-                        
-                        <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Propuestas por Semestre:"/>
-                        <h:outputText value="#{verProfesorMB.promPorSemestre}"/>
+                  
                     </h:panelGrid>
                 </p:panel>
                 
@@ -65,7 +63,7 @@
                             <h:outputText value="#{prop.alumno.nombreAlumno} #{prop.alumno.apellidoAlumno}"/>
                         </a>
                     </p:column>
-                    <p:column headerText="Semestre">
+                    <p:column headerText="Semestre Inicio">
                         <h:outputText value="#{prop.idSemestre}"/>
                     </p:column>
                 </p:dataTable>

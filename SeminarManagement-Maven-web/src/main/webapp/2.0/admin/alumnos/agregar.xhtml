@@ -49,13 +49,13 @@
                         <p:watermark for="apellido" value="Ingresar Apellido"/>
 
                         <p:outputLabel for="mail" value="E-Mail"/>
-                        <p:inputText id="mail" value="#{alumnoMB.mailAlumno}">
+                        <p:inputText id="mail" required="true" value="#{alumnoMB.mailAlumno}">
                             <f:validator validatorId="emailValidator"/>
                         </p:inputText>
                         <p:watermark for="mail" value="Ingresar E-Mail"/>
 
                         <p:outputLabel for="celular" value="Celular"/>
-                        <p:inputText id="celular" value="#{alumnoMB.celularAlumno}">
+                        <p:inputText id="celular" required="true" value="#{alumnoMB.celularAlumno}">
                             <f:validator validatorId="celularValidator" />
                         </p:inputText>
                         <p:watermark for="celular" value="Ingresar Celular"/>

@@ -57,7 +57,6 @@
                             <p:button style="width:150px;" rendered="#{empty verPropuestaMB.propuesta.idRevisora.idTema and not empty verPropuestaMB.propuesta.idRevisora}" href="/2.0/secretaria/temas/agregar.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Agregar Tema"/>
                             <p:button style="width:150px;" rendered="#{not empty verPropuestaMB.propuesta.idRevisora.idTema}" href="/2.0/secretaria/temas/tema.xhtml?tema=#{verPropuestaMB.propuesta.idRevisora.idTema.idTema}" value="Ver Tema"/>
                             <p:button style="width:150px;" href="/2.0/secretaria/propuestas/editarProp.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Editar Propuesta"/>
-                            <p:commandButton style="width:150px;" value="Eliminar Propuesta" onclick="confirmation.show()" type="button"/>
                             <h:form  rendered="#{verPropuestaMB.propuesta.idRevisora.tipoRevision != 2}" id="form66" style="" >
                                 <h:link value="" style="width: 140px" outcome="plantilla" target="_blank" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
                                     <span class="ui-button-text ui-c">Descargar Plantilla PDF</span>
