@@ -26,7 +26,7 @@
             <p:layoutUnit position="west" size="430" style="border: none;">
                 <p:panel style="border:none;">
                     <h:panelGrid columns="1" cellpadding="4">
-                        <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="/2.0/secretaria/profesores/profesor.xhtml?prof=#{verProfesorMB.profesor.rutProfesor}" value="Volver a 'Ver Profesor'"/>
+                        <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Volver a Profesores"/>
                     </h:panelGrid>
                 </p:panel>
             </p:layoutUnit>
@@ -78,7 +78,7 @@
                         <h:inputHidden value="#{verProfesorMB.rutProfeEdit}"/>
                     </h:panelGrid>
 
-                    <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Volver a Profesores"/>
+                    <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="/2.0/secretaria/profesores/profesor.xhtml?prof=#{verProfesorMB.profesor.rutProfesor}" value="Volver a 'Ver Profesor'"/>
                     <p:commandButton id="bt1" value="Editar" actionListener="#{verProfesorMB.editProfesor()}" update="growl"/>
                     <p:defaultCommand target="bt1"/>
                     </p:panel>

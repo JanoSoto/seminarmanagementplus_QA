@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import managedbeans2.SemestreMB;
 
 /**
  *
@@ -20,6 +21,8 @@ public class Excel extends HttpServlet {
 
     @Inject
     VerProfesorMB profesorMB;
+    @Inject
+    SemestreMB semestreMB;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -57,7 +60,7 @@ public class Excel extends HttpServlet {
             }
 
             response.setContentType("application/vnd.ms-excel");
-            String file_name = "salida.csv";
+            String file_name = profesorMB.getProfesor().getApellidoProfesor() +" vigentes "+ semestreMB.getSemestre() +".csv";
             response.setHeader("Content-Disposition", "attachment; filename=\"" + file_name + "\"");
 
         } catch(Exception ex){
