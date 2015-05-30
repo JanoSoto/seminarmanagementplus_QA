@@ -73,7 +73,6 @@ public class VerAlumnoMBTest {
         alumno.setJornada(1);
         alumno.setMailAlumno("mail");
         alumno.setNombreAlumno("nombre");
-        alumno.setPet(false);
         alumno.setRutAlumno("rut");
         alumno.setTelefonoAlumno("telefono");
         Propuesta propuesta = new Propuesta();

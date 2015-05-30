@@ -67,7 +67,6 @@ public class ComisionCorrectora2MBTest {
         a1.setJornada(1);
         a1.setMailAlumno("mail");
         a1.setNombreAlumno("nombre");
-        a1.setPet(false);
         a1.setRutAlumno("rut");
         a1.setTelefonoAlumno("telefono");
         

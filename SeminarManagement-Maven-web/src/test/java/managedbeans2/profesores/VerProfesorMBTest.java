@@ -118,7 +118,6 @@ public class VerProfesorMBTest {
        alumno.setJornada(1);
        alumno.setMailAlumno("mail");
        alumno.setNombreAlumno("nombre");
-       alumno.setPet(false);
        alumno.setPropuestaList(null);
        alumno.setRutAlumno("rut");
        alumno.setTelefonoAlumno("telefono");

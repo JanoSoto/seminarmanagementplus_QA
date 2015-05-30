@@ -114,10 +114,6 @@ public class ListarAlumnosMB implements Serializable{
                 alumnoDatoTemp.setTelefonoAlumno("No tiene teléfono registrado");
             else
                 alumnoDatoTemp.setTelefonoAlumno(alum.get(i).getTelefonoAlumno());
-            if (alum.get(i).getPet() == true)
-                alumnoDatoTemp.setPetAlumno("Es PET");
-            else
-                alumnoDatoTemp.setPetAlumno("No es PET");
             if (alum.get(i).getJornada() == 0)
                 alumnoDatoTemp.setJornadaAlumno("Diurno");
             else
