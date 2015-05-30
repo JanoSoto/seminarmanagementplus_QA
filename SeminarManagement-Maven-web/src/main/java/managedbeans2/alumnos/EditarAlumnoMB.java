@@ -86,7 +86,6 @@ public class EditarAlumnoMB implements Serializable {
         alumnoEdit.setCarreraAlumno(alumno.getCarreraAlumno());
         alumnoEdit.setTelefonoAlumno(alumno.getTelefonoAlumno());
         alumnoEdit.setDireccionAlumno(alumno.getDireccionAlumno().toUpperCase());
-        alumnoEdit.setPet(alumno.getPet());
         alumnoEdit.setRutAlumno(alumno.getRutAlumno());
         alumnoEdit.setPropuestaList(alumno.getPropuestaList());
         alumnoFacade.edit(alumnoEdit);

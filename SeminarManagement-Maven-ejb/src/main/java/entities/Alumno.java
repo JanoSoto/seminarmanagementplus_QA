@@ -33,7 +33,6 @@ import Util.Util;
 @NamedQueries({
     @NamedQuery(name = "Alumno.findAll", query = "SELECT a FROM Alumno a"),
     @NamedQuery(name = "Alumno.findByJornada", query = "SELECT a FROM Alumno a WHERE a.jornada = :jornada"),
-    @NamedQuery(name = "Alumno.findByPet", query = "SELECT a FROM Alumno a WHERE a.pet = :pet"),
     @NamedQuery(name = "Alumno.findByNombreAlumno", query = "SELECT a FROM Alumno a WHERE a.nombreAlumno = :nombreAlumno"),
     @NamedQuery(name = "Alumno.findByApellidoAlumno", query = "SELECT a FROM Alumno a WHERE a.apellidoAlumno = :apellidoAlumno"),
     @NamedQuery(name = "Alumno.findByMailAlumno", query = "SELECT a FROM Alumno a WHERE a.mailAlumno = :mailAlumno"),
@@ -46,8 +45,6 @@ public class Alumno implements Serializable {
     private static final long serialVersionUID = 1L;
     @Column(name = "jornada")
     private Integer jornada;
-    @Column(name = "pet")
-    private Boolean pet;
     @Size(max = 50)
     @Column(name = "nombre_alumno")
     private String nombreAlumno;
@@ -93,14 +90,6 @@ public class Alumno implements Serializable {
 
     public void setJornada(Integer jornada) {
         this.jornada = jornada;
-    }
-
-    public Boolean getPet() {
-        return pet;
-    }
-
-    public void setPet(Boolean pet) {
-        this.pet = pet;
     }
 
     public String getNombreAlumno() {

@@ -38,7 +38,7 @@ public class AlumnoMB {
     private AlumnoFacadeLocal alumnoFacade;
 
     private String nombreAlumno,apellidoAlumno, rutAlumno, mailAlumno, celularAlumno, direccionAlumno;
-    private Integer carreraAlumno, jornadaAlumno, pet;
+    private Integer carreraAlumno, jornadaAlumno;
     private List<Alumno> alumnos;
     
     
@@ -71,13 +71,6 @@ public class AlumnoMB {
         this.direccionAlumno = direccionAlumno;
     }
     
-    public Integer getPet() {
-        return pet;
-    }
-
-    public void setPet(Integer pet) {
-        this.pet = pet;
-    }
 
     public Integer getJornadaAlumno() {
         return jornadaAlumno;
@@ -171,10 +164,7 @@ public class AlumnoMB {
         nuevoAlumno.setMailAlumno(mailAlumno.toUpperCase());
         nuevoAlumno.setTelefonoAlumno(celularAlumno);
         nuevoAlumno.setDireccionAlumno(direccionAlumno);
-        if (pet == 0)
-            nuevoAlumno.setPet(false);
-        if (pet == 1)
-            nuevoAlumno.setPet(true);
+        
         nuevoAlumno.setJornada(jornadaAlumno);
         nuevoAlumno.setCarreraAlumno(carreraAlumno); 
         alumnoFacade.create(nuevoAlumno);
@@ -210,6 +200,5 @@ public class AlumnoMB {
         carreraAlumno = null;
         jornadaAlumno = null;
         direccionAlumno = null;
-        pet = null;
     }
 }

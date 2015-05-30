@@ -205,10 +205,6 @@ public class AlumnoViewMB implements Serializable {
                 alumnoSelected.setNombreTema("No tiene tema activo");
                 alumnoSelected.setProfesorGuia("No tiene tema activo");
             }
-            if(alumno.get(0).getPet() == true)
-                alumnoSelected.setPetAlumno("Es PET");
-            else
-                alumnoSelected.setPetAlumno("No es PET");
             alumnoSelected.setRutAlumno(rutAlum);
             if (!alumno.get(0).getTelefonoAlumno().isEmpty())
                 alumnoSelected.setTelefonoAlumno(alumno.get(0).getTelefonoAlumno());
@@ -233,10 +229,6 @@ public class AlumnoViewMB implements Serializable {
     public void loadEditPage() throws IOException {
         try {
             alumnoEdit = new AlumnoDatos();
-            if (alumnoSelected.getPetAlumno() == "Es PET")
-                alumnoEdit.setPetAlumno("1");
-            if (alumnoSelected.getPetAlumno() == "No es PET")
-                alumnoEdit.setPetAlumno("0");
             if(alumnoSelected.getJornadaAlumno() == "Diurno")
                 alumnoEdit.setJornadaAlumno("0");
             if(alumnoSelected.getJornadaAlumno() == "Vespertino")
@@ -272,10 +264,6 @@ public class AlumnoViewMB implements Serializable {
             alumno.setNombreAlumno(alumnoEdit.getNombreAlumno().toUpperCase());
             alumno.setApellidoAlumno(alumnoEdit.getApellidoAlumno().toUpperCase());
             alumno.setCarreraAlumno(Integer.valueOf(alumnoEdit.getCarreraAlumno()));
-            if(alumnoEdit.getPetAlumno() == "0")
-                alumno.setPet(false);
-            else
-                alumno.setPet(true);
             alumno.setRutAlumno(alumnoEdit.getRutAlumno());
             alumno.setTelefonoAlumno(alumnoEdit.getTelefonoAlumno());
             alumnoFacade.edit(alumno);
