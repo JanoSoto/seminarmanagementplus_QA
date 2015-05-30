@@ -60,7 +60,7 @@ public class Excel extends HttpServlet {
             }
 
             response.setContentType("application/vnd.ms-excel");
-            String file_name = profesorMB.getProfesor().getApellidoProfesor() +" vigentes "+ semestreMB.getSemestre() +".csv";
+            String file_name = profesorMB.getProfesor().getApellidoProfesor() +" vigentes "+ semestreMB.getSemestre().replace("/", "-") +".csv";
             response.setHeader("Content-Disposition", "attachment; filename=\"" + file_name + "\"");
 
         } catch(Exception ex){

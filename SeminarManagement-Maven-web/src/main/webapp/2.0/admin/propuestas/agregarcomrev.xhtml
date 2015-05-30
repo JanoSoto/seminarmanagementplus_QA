@@ -41,15 +41,20 @@
                         <h:outputText style="font-weight: normal;" value="#{verPropuestaMB.guia.nombreProfesor} #{verPropuestaMB.guia.apellidoProfesor}"/>
                         <br/>
                         
-                        <p:outputLabel for="tipo" value="Tipo Revisión *"/>
-                        <p:selectOneMenu id="tipo" value="#{comisionRevisora2MB.tipoRevision}" filter="true" filterMatchMode="contains">
+                        <p:outputLabel rendered="#{verPropuestaMB.guia.contrato eq 1}" for="tipo" value="Tipo Revisión *"/>
+                        <p:selectOneMenu rendered="#{verPropuestaMB.guia.contrato eq 1}" id="tipo" value="#{comisionRevisora2MB.tipoRevision}" filter="true" filterMatchMode="contains">
+                            <f:selectItem itemLabel="Seleccionar Tipo" itemValue=""/>
+                            <f:selectItem itemLabel="Seminario" itemValue="1"/>
+                            <f:selectItem itemLabel="Acuerdo Consejo" itemValue="2"/>
+                        </p:selectOneMenu>
+                        <p:outputLabel rendered="#{verPropuestaMB.guia.contrato eq 0}" for="tipo2" value="Tipo Revisión *"/>
+                        <p:selectOneMenu rendered="#{verPropuestaMB.guia.contrato eq 0}" id="tipo2" value="#{comisionRevisora2MB.tipoRevision}" filter="true" filterMatchMode="contains">
                             <f:selectItem itemLabel="Seleccionar Tipo" itemValue=""/>
                             <f:selectItem itemLabel="Seminario" itemValue="1"/>
                             <f:selectItem itemLabel="Trabajo de Título (Secretaría)" itemValue="0"/>
-                            <f:selectItem itemLabel="Acuerdo Consejo" itemValue="2"/>
                         </p:selectOneMenu>
                         <br/>
-                        
+
                         <p:outputLabel for="profeR1P" value="Profesor Revisor 1 *"/>
                         <p:selectOneMenu id="profeR1P" value="#{comisionRevisora2MB.rutProfeRev1}" filter="true" filterMatchMode="contains">
                             <f:selectItem itemLabel="Seleccionar Profesor" itemValue="-"/>

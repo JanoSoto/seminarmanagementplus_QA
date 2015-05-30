@@ -20,6 +20,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import managedbeans2.SemestreMB;
 import util.Util;
 
 /**
@@ -33,6 +34,8 @@ public class PlantillaTema extends HttpServlet {
     
     @Inject
     VerTemaMB temaMB;
+    @Inject
+    SemestreMB semestreMB;
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -81,12 +84,9 @@ public class PlantillaTema extends HttpServlet {
             } else {
                 str.append("                                                                 - ");
             }
-            if (tema.getIdSemestre() != null){
-                if ( tema.getIdSemestre().getIdSemestre().equals("default") ) {
-                    str.append("        ");
-                } else {
-                    str.append(tema.getIdSemestre().getIdSemestre().replace("/", "° "));
-                }
+
+            if (semestreMB.getSemestre() != null){
+                str.append(semestreMB.getSemestre().replace("/", "° "));
             } else {
                 str.append("       ");
             }

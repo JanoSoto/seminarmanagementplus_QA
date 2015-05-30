@@ -8,6 +8,7 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import javax.servlet.ServletException;
+import managedbeans2.SemestreMB;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.util.PDFTextStripper;
 import org.junit.After;
@@ -52,6 +53,7 @@ public class PlantillaTemaTest {
     public void setUp() throws ServletException {
         servlet = new PlantillaTema();
         servlet.temaMB = mock(VerTemaMB.class);
+        servlet.semestreMB = mock(SemestreMB.class);
         doNothing().when(servlet.temaMB).buscarTema(); //evita consultar la BD
 
         request = new MockHttpServletRequest();
@@ -124,6 +126,7 @@ public class PlantillaTemaTest {
         when(this.servlet.temaMB.getAlumno()).thenReturn(alumno);
         when(this.servlet.temaMB.getCorrector1()).thenReturn(comision1);
         when(this.servlet.temaMB.getCorrector2()).thenReturn(comision2);
+        when(this.servlet.semestreMB.getSemestre()).thenReturn("1/2015");
         
         request.addParameter("id", "1");
 
