@@ -38,6 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Propuesta.findByNombrePropuesta", query = "SELECT p FROM Propuesta p WHERE p.nombrePropuesta = :nombrePropuesta"),
     @NamedQuery(name = "Propuesta.findByFechaPropuesta", query = "SELECT p FROM Propuesta p WHERE p.fechaPropuesta = :fechaPropuesta"),
     @NamedQuery(name = "Propuesta.findByIdPropuesta", query = "SELECT p FROM Propuesta p WHERE p.idPropuesta = :idPropuesta"),
+    @NamedQuery(name = "Propuesta.findByPet", query = "SELECT p FROM Propuesta p WHERE p.pet = :pet"),
     @NamedQuery(name = "Propuesta.findByIdSemestre", query = "SELECT p FROM Propuesta p WHERE p.idSemestre = :idSemestre"),
     @NamedQuery(name = "Propuesta.findPropuesta", query = "SELECT p FROM Propuesta p WHERE p.nombrePropuesta LIKE :nombrePropuesta")})
 public class Propuesta implements Serializable {
@@ -45,6 +46,8 @@ public class Propuesta implements Serializable {
     @Size(max = 400)
     @Column(name = "nombre_propuesta")
     private String nombrePropuesta;
+    @Column(name = "pet")
+    private Boolean pet;
     @Size(max = 15)
     @Column(name = "fecha_propuesta")
     private String fechaPropuesta;
@@ -88,6 +91,15 @@ public class Propuesta implements Serializable {
         comisionRevisoraList.add(object);
     }
 
+    public Boolean getPet() {
+        return pet;
+    }
+
+    public void setPet(Boolean pet) {
+        this.pet = pet;
+    }
+
+    
     public String getNombrePropuesta() {
         return nombrePropuesta;
     }

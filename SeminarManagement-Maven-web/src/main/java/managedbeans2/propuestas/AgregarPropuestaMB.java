@@ -56,6 +56,7 @@ public class AgregarPropuestaMB {
     
     private String nombrePropuesta,rutAlumnoPropuesta, rutProfGuia, rutProfcoGuia, fecha, semestreProp;
     private Date date;
+    private Integer pet;
     private List<Profesor> profesores,profesoresGuias;
     private boolean magister;
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(AgregarPropuestaMB.class);
@@ -114,6 +115,11 @@ public class AgregarPropuestaMB {
         
         if(semestreProp == null || semestreProp.equals("")) {
             context.addMessage(null, new FacesMessage("Semestre Propuesta","Debe ingresar semestre propuesta"));
+            return;
+        }
+        System.out.println(pet);
+        if (pet != 0 && pet != 1){
+            context.addMessage(null, new FacesMessage("Semestre Propuesta","Debe ingresar si es PET o no la propuesta"));
             return;
         }
         
@@ -180,6 +186,14 @@ public class AgregarPropuestaMB {
         nuevaPropuesta.setRutAlumno(alumnoPropuesta);
         nuevaPropuesta.setIdSemestre(semestrePropuesta);
         nuevaPropuesta.setMagister(magister);
+        if (pet == 0){
+            nuevaPropuesta.setPet(false);
+        }
+        if (pet == 1){
+            nuevaPropuesta.setPet(true);
+        }
+       
+        
         propuestaFacade.create(nuevaPropuesta);
         
         //Agregamos la comision a la lista de comisiones del semestre
@@ -345,5 +359,15 @@ public class AgregarPropuestaMB {
     public void setMagister(boolean magister) {
         this.magister = magister;
     }
+
+    public Integer getPet() {
+        return pet;
+    }
+
+    public void setPet(Integer pet) {
+        this.pet = pet;
+    }
+
+
     
 }

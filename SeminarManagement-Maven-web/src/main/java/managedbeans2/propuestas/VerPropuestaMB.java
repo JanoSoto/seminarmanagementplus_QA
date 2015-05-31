@@ -46,6 +46,8 @@ public class VerPropuestaMB {
     private Profesor guia, coguia, revisor1, revisor2;
     private List<ComisionRevisora> comision;
     private Propuesta propuesta;
+    private boolean pet;
+    private String pet2;
     private Date fechaPropEdit,date,date2;
     private Alumno alumno;
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(VerPropuestaMB.class);
@@ -66,6 +68,21 @@ public class VerPropuestaMB {
                 nombrePropEdit = propuesta.getNombrePropuesta();
                 fechaPropEdit = stringToDate(propuesta.getFechaPropuesta());
                 semestrePropEdit = propuesta.getIdSemestre().getIdSemestre();
+                
+                if(propuesta.getPet()==null){
+                    pet2 = "No hay Pet";
+                    
+                }
+                else{
+                    pet = propuesta.getPet();}
+                
+                if(pet == true){
+                    pet2 = "Es Pet";
+                }
+                if(pet == false){
+                    pet2 = "No es Pet";
+                }
+                
                 if (date != null) {
                     date = stringToDate(propuesta.getIdRevisora().getFechaRevision());
                     System.out.println(date);
@@ -75,6 +92,7 @@ public class VerPropuestaMB {
                     date2 = stringToDate(propuesta.getIdRevisora().getFechaEntregaRevision());
                     System.out.println(date2);
                 }
+                
                 
                 if(propuesta.getNombrePropuesta().length()>68)
                     nombreCorto = propuesta.getNombrePropuesta().substring(0, 69)+"...";
@@ -122,6 +140,11 @@ public class VerPropuestaMB {
             return;
         }
         
+        if(pet != true && pet != false){
+           context.addMessage(null, new FacesMessage("Semestre Propuesta","Debe ingresar pet propuesta"));
+           return; 
+        }
+        
         //Se valida que no exista otra propuesta con el mismo nombre
         List<Propuesta> propuestas = propuestaFacade.findByName(nombrePropEdit);
         if(!propuestas.isEmpty() && !propTemp.equals(nombrePropEdit)) {
@@ -151,6 +174,8 @@ public class VerPropuestaMB {
         propTemp.setNombrePropuesta(nombrePropEdit);
         propTemp.setFechaPropuesta(dateToString(fechaPropEdit));
         propTemp.setIdSemestre(semTemp);
+        System.out.println("Esto es pet: "+pet);
+        propTemp.setPet(pet);
         propuestaFacade.edit(propTemp);
         
         //Mensaje de confirmación
@@ -272,6 +297,23 @@ public class VerPropuestaMB {
     public Alumno getAlumno() {
         return alumno;
     }
+
+    public boolean isPet() {
+        return pet;
+    }
+
+    public void setPet(boolean pet) {
+        this.pet = pet;
+    }
+
+    public String getPet2() {
+        return pet2;
+    }
+
+    public void setPet2(String pet2) {
+        this.pet2 = pet2;
+    }
+    
 
     public void setAlumno(Alumno alumno) {
         this.alumno = alumno;

@@ -41,6 +41,13 @@
                         <h:outputText id="alumnoP" value="#{verPropuestaMB.propuesta.rutAlumno.nombreAlumno} #{verPropuestaMB.propuesta.rutAlumno.apellidoAlumno} - #{verPropuestaMB.propuesta.rutAlumno.rutAlumno} "/>
                         <br/>
                         
+                        <p:outputLabel for="pet" value="PET"/>
+                        <p:selectOneMenu id="pet" value="#{verPropuestaMB.pet}">
+                                    <f:selectItem itemLabel="No es PET" itemValue="false" />
+                                    <f:selectItem itemLabel="Es PET" itemValue="true"/>
+                                </p:selectOneMenu>
+                                <br/>
+
                         <p:outputLabel  for="profP" style="color: #0052cc;font-weight: bold;" value="Profesor Guía" />
                         <h:outputText id="profP" value="#{verPropuestaMB.guia.nombreProfesor} #{verPropuestaMB.guia.apellidoProfesor}"/>
                         <br/>

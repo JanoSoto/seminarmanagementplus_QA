@@ -33,6 +33,13 @@
                         <p:inputTextarea id="nombreP" value="#{agregarPropuestaMB.nombrePropuesta}" cols="42" maxlength="200"/>
                         <p:watermark for="nombreP" value="Ingresar Nombre"/>
 
+                        <p:outputLabel for="pet2" value="PET"/>
+                        <p:selectOneMenu id="pet2" required="true" value="#{agregarPropuestaMB.pet}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue=""/>
+                            <f:selectItem itemLabel="No es PET" itemValue="0"/>
+                            <f:selectItem itemLabel="Es PET" itemValue="1"/>
+                        </p:selectOneMenu>
+                       <br/>
                         <p:outputLabel for="alumnoP" style="color: #0052cc;font-weight: bold;" value="Alumno" />
                         <h:outputText id="alumnoP" value="#{verAlumnoMB.alumno.nombreAlumno} #{verAlumnoMB.alumno.apellidoAlumno}"/>
                         <br/>
