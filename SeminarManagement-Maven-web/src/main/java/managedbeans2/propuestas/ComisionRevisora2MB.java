@@ -1,38 +1,34 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package managedbeans2.propuestas;
 
-import clases.ProfeDatos;
 import clases.ProfeDatos2;
 import entities.Alumno;
 import entities.ComisionRevisora;
-import entities.Historial;
 import entities.ProfePropuesta;
 import entities.ProfeRevision;
 import entities.Profesor;
 import entities.Propuesta;
 import entities.Semestre;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import sessionbeans.AlumnoFacadeLocal;
 import sessionbeans.ComisionRevisoraFacadeLocal;
 import sessionbeans.ProfeRevisionFacadeLocal;
 import sessionbeans.ProfesorFacadeLocal;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import sessionbeans.SemestreActualFacadeLocal;
 import sessionbeans.SemestreFacadeLocal;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
+import javax.faces.bean.ViewScoped;
 import managedbeans.AuthMB;
 import sessionbeans.HistorialFacadeLocal;
 import sessionbeans.PropuestaFacadeLocal;
@@ -41,9 +37,10 @@ import sessionbeans.PropuestaFacadeLocal;
  *
  * @author Eduardo
  */
-@ManagedBean(name ="comisionRevisora2MB")
-@RequestScoped
-public class ComisionRevisora2MB {
+@ManagedBean(name = "comisionRevisora2MB")
+@ViewScoped
+public class ComisionRevisora2MB implements Serializable {
+
     @EJB
     private HistorialFacadeLocal historialFacade;
     @EJB
@@ -60,83 +57,93 @@ public class ComisionRevisora2MB {
     private ProfeRevisionFacadeLocal profeRevisionFacade;
     @EJB
     private ComisionRevisoraFacadeLocal comisionRevisoraFacade;
-
-    private Integer idProp,tipoRevision,idPropEdit;
-    private String nombrePropuesta,rutAlumno,fechaProp,semestreProp,nombreProp,rutProfeRev1, rutProfeRev2, fechaRev,fechaEntRev, fechaRev2,
-            fechaEntRev2,semestreRev,nombrePropEdit,semestrePropEdit;
+    private Integer idProp, tipoRevision, idPropEdit;
+    private String nombrePropuesta, rutAlumno, fechaProp, semestreProp, nombreProp, rutProfeRev1, rutProfeRev2, fechaRev, fechaEntRev, fechaRev2,
+            fechaEntRev2, semestreRev, nombrePropEdit, semestrePropEdit;
     private Propuesta propuesta;
     private List<ComisionRevisora> comision;
     private List<Profesor> profesores;
     private Alumno alumno;
-    private Profesor profGuia,profcoGuia,revisor1,revisor2;
-    private Date date,date2,date3,date4,fechaPropEdit;
+    private Profesor profGuia, profcoGuia, revisor1, revisor2;
+    private Date date, date2, date3, date4, fechaPropEdit;
     private List<ProfeDatos2> profeDatos;
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ComisionRevisora2MB.class);
-    
+    private HashMap<Object, Object> tiposRevision;
+
     public ComisionRevisora2MB() {
     }
-    
+
     @PostConstruct
     public void init() {
         //Para inicializar el managed property, si no no se puede acceder a esos datos
-        System.out.println(user.toString());
-        
+        //System.out.println(user.toString());
+
         FacesContext context = FacesContext.getCurrentInstance();
-        
+
         //Seteamos el semestre a semestre actual
-        if(semestreActualFacade.findAll().isEmpty()){
+        if (semestreActualFacade.findAll().isEmpty()) {
             semestreRev = "";
-            context.addMessage(null, new FacesMessage("Aviso","No se ha ingresado semestre actual en el sistema"));
-        }
-        else
+            context.addMessage(null, new FacesMessage("Aviso", "No se ha ingresado semestre actual en el sistema"));
+        } else {
             semestreRev = semestreActualFacade.findAll().get(0).getSemestreActual();
-        
+        }
+
         profesores = profesorFacade.findAll();
-        
+
         //Seteamos el semestre a semestre actual
-        if(semestreActualFacade.findAll().isEmpty()){
+        if (semestreActualFacade.findAll().isEmpty()) {
             semestreRev = "";
-            context.addMessage(null, new FacesMessage("Aviso","No se ha ingresado semestre actual en el sistema"));
-        }
-        else
+            context.addMessage(null, new FacesMessage("Aviso", "No se ha ingresado semestre actual en el sistema"));
+        } else {
             semestreRev = semestreActualFacade.findAll().get(0).getSemestreActual();
-        
+        }
+
         //Generamos las listas de posibles Profesores Revisores y Guías
-        int guiaProp,revisorTemp,revProp,revSem,guiaTem;
+        int guiaProp, revisorTemp, revProp, revSem, guiaTem;
         ProfeDatos2 profeDatosTemp;
         profeDatos = new ArrayList();
         List<Profesor> profes = profesorFacade.findAll();
         List<ProfeRevision> profRev;
         List<ProfePropuesta> profProp;
-        for(int i=0;i<profes.size();i++){
+        for (int i = 0; i < profes.size(); i++) {
             profeDatosTemp = new ProfeDatos2();
-            profRev=profes.get(i).getProfeRevisionList();
-            revisorTemp=0;
-            revProp=0;
-            revSem=0;
+            profRev = profes.get(i).getProfeRevisionList();
+            revisorTemp = 0;
+            revProp = 0;
+            revSem = 0;
             //Extraemos la cantidad de propuestas revisadas este semestre por el profesor
-            for(int j=0;j<profRev.size();j++)
-                if(profRev.get(j).getComisionRevisora().getIdSemestre().getIdSemestre().equals(semestreRev)){
+            for (int j = 0; j < profRev.size(); j++) {
+                if (profRev.get(j).getComisionRevisora().getIdSemestre().getIdSemestre().equals(semestreRev)) {
                     revisorTemp++;
-                    if(profRev.get(j).getComisionRevisora().getTipoRevision()==0)
+                    if (profRev.get(j).getComisionRevisora().getTipoRevision() == 0) {
                         revProp++;
-                    if(profRev.get(j).getComisionRevisora().getTipoRevision()==1)
+                    }
+                    if (profRev.get(j).getComisionRevisora().getTipoRevision() == 1) {
                         revSem++;
+                    }
                 }
-            guiaTem=0;
-            guiaProp=0;
-            profProp=profes.get(i).getProfePropuestaList();
+            }
+            guiaTem = 0;
+            guiaProp = 0;
+            profProp = profes.get(i).getProfePropuestaList();
             //Extraemos la cantidad de Temas vigentes y las Propuestas del semestre actual guiadas por el profesor
-            for(int j=0;j<profProp.size();j++)
-                if(profProp.get(j).getRolGuia()==0){
-                    if(profProp.get(j).getPropuesta().getIdSemestre().getIdSemestre().equals(semestreRev))
+            for (int j = 0; j < profProp.size(); j++) {
+                if (profProp.get(j).getRolGuia() == 0) {
+                    if (profProp.get(j).getPropuesta().getIdSemestre().getIdSemestre().equals(semestreRev)) {
                         guiaProp++;
-                    if(profProp.get(j).getPropuesta().getIdRevisora()!=null)
-                        if(profProp.get(j).getPropuesta().getIdRevisora().getIdTema()!=null)
-                            if(profProp.get(j).getPropuesta().getIdRevisora().getIdTema().getEstadoTema()!=null)
-                                if(profProp.get(j).getPropuesta().getIdRevisora().getIdTema().getEstadoTema()==0)
+                    }
+                    if (profProp.get(j).getPropuesta().getIdRevisora() != null) {
+                        if (profProp.get(j).getPropuesta().getIdRevisora().getIdTema() != null) {
+                            if (profProp.get(j).getPropuesta().getIdRevisora().getIdTema().getEstadoTema() != null) {
+                                if (profProp.get(j).getPropuesta().getIdRevisora().getIdTema().getEstadoTema() == 0) {
                                     guiaTem++;
+                                }
+                            }
+                        }
+                    }
                 }
+            }
+
             profeDatosTemp.setRevSemActual(revProp);
             profeDatosTemp.setProfesor(profes.get(i));
             profeDatosTemp.setCorrSemActual(0);
@@ -144,8 +151,29 @@ public class ComisionRevisora2MB {
             profeDatosTemp.setTemasVigentes(guiaTem);
             profeDatos.add(profeDatosTemp);
         }
-        
-        
+
+        tiposRevision = new HashMap<>();
+        tiposRevision.put("Seminario", 1);
+
+        Map<String, String> params = context.getExternalContext().getRequestParameterMap();
+        String propuestaId = params.get("prop");
+        if (propuestaId != null) {
+            List<Propuesta> props = propuestaFacade.findById(Integer.parseInt(propuestaId));
+            if (!props.isEmpty()) {
+                Propuesta p = props.get(0);
+                for (ProfePropuesta prof : p.getProfePropuestaList()) {
+                    if (prof.getRolGuia() == 0) {
+                        if (prof.getProfesor().getContrato() == 1) {
+                            tiposRevision.put("Acuerdo Consejo", 2);
+                        }
+                        if (prof.getProfesor().getContrato() == 0) {
+                            tiposRevision.put("Trabajo de Título (Secretaría)", 0);
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
     public List<ProfeDatos2> getProfeDatos() {
@@ -155,190 +183,179 @@ public class ComisionRevisora2MB {
     public void setProfeDatos(List<ProfeDatos2> profeDatos) {
         this.profeDatos = profeDatos;
     }
-    
-     public void buscarPropuesta(){
-        if(idProp!=null){
+
+    public void buscarPropuesta() {
+        if (idProp != null) {
             List<Propuesta> result = propuestaFacade.findById(idProp);
-            if( ! result.isEmpty() ){
+            if (!result.isEmpty()) {
                 propuesta = result.get(0);
                 //Inicializamos datos para editar
                 idPropEdit = propuesta.getIdPropuesta();
                 nombrePropEdit = propuesta.getNombrePropuesta();
                 fechaPropEdit = stringToDate(propuesta.getFechaPropuesta());
                 semestrePropEdit = propuesta.getIdSemestre().getIdSemestre();
-               
-                
-                
-                if(propuesta.getNombrePropuesta().length()>68)
-                    nombreProp = propuesta.getNombrePropuesta().substring(0, 69)+"...";
-                else
-                    nombreProp = propuesta.getNombrePropuesta();
 
-                for(int i=0;i<propuesta.getProfePropuestaList().size();i++){
-                    if(propuesta.getProfePropuestaList().get(i).getRolGuia()==0)
-                        profGuia = propuesta.getProfePropuestaList().get(i).getProfesor();
-                    if(propuesta.getProfePropuestaList().get(i).getRolGuia()==1)
-                        profcoGuia = propuesta.getProfePropuestaList().get(i).getProfesor();
+                if (propuesta.getNombrePropuesta().length() > 68) {
+                    nombreProp = propuesta.getNombrePropuesta().substring(0, 69) + "...";
+                } else {
+                    nombreProp = propuesta.getNombrePropuesta();
                 }
 
-                if(propuesta.getIdRevisora()!=null)
-                    for(int i=0;i<propuesta.getIdRevisora().getProfeRevisionList().size();i++){
-                    
-                        if(propuesta.getIdRevisora().getProfeRevisionList().get(i).getRolRevision()==0)
-                            revisor1 = propuesta.getIdRevisora().getProfeRevisionList().get(i).getProfesor();
-                        if(propuesta.getIdRevisora().getProfeRevisionList().get(i).getRolRevision()==1)
-                            revisor2 = propuesta.getIdRevisora().getProfeRevisionList().get(i).getProfesor();
+                for (int i = 0; i < propuesta.getProfePropuestaList().size(); i++) {
+                    if (propuesta.getProfePropuestaList().get(i).getRolGuia() == 0) {
+                        profGuia = propuesta.getProfePropuestaList().get(i).getProfesor();
                     }
-                
+                    if (propuesta.getProfePropuestaList().get(i).getRolGuia() == 1) {
+                        profcoGuia = propuesta.getProfePropuestaList().get(i).getProfesor();
+                    }
+                }
+
+                if (propuesta.getIdRevisora() != null) {
+                    for (int i = 0; i < propuesta.getIdRevisora().getProfeRevisionList().size(); i++) {
+
+                        if (propuesta.getIdRevisora().getProfeRevisionList().get(i).getRolRevision() == 0) {
+                            revisor1 = propuesta.getIdRevisora().getProfeRevisionList().get(i).getProfesor();
+                        }
+                        if (propuesta.getIdRevisora().getProfeRevisionList().get(i).getRolRevision() == 1) {
+                            revisor2 = propuesta.getIdRevisora().getProfeRevisionList().get(i).getProfesor();
+                        }
+                    }
+                }
+
                 alumno = propuesta.getRutAlumno();
-                
-                comision= comisionRevisoraFacade.findById(propuesta.getIdRevisora().getIdRevisora());
-                if(comision.get(0).getFechaRevision()!= null){
+
+                comision = comisionRevisoraFacade.findById(propuesta.getIdRevisora().getIdRevisora());
+                if (comision.get(0).getFechaRevision() != null) {
                     date = stringToDate(comision.get(0).getFechaRevision());
                 }
-                if(comision.get(0).getFechaEntregaRevision()!= null){
+                if (comision.get(0).getFechaEntregaRevision() != null) {
                     date2 = stringToDate(comision.get(0).getFechaEntregaRevision());
                 }
-                if(comision.get(0).getFechaRevision2()!= null){
+                if (comision.get(0).getFechaRevision2() != null) {
                     date3 = stringToDate(comision.get(0).getFechaRevision2());
                 }
-                if(comision.get(0).getFechaEntregaRevision2()!= null){
+                if (comision.get(0).getFechaEntregaRevision2() != null) {
                     date4 = stringToDate(comision.get(0).getFechaEntregaRevision2());
                 }
             }
-            
-        
-        }
-        else{
+
+        } else {
             FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage("Error","No se ingresó Propuesta"));
+            context.addMessage(null, new FacesMessage("Error", "No se ingresó Propuesta"));
         }
     }
-    
-    public void editarPropuesta(){
+
+    public void editarPropuesta() {
         FacesContext context = FacesContext.getCurrentInstance();
         Propuesta propTemp = propuestaFacade.findById(idPropEdit).get(0);
-        
-        if(nombrePropEdit == null) {
-            context.addMessage(null, new FacesMessage("Nombre Propuesta","Debe ingresar nombre propuesta"));
+
+        if (nombrePropEdit == null) {
+            context.addMessage(null, new FacesMessage("Nombre Propuesta", "Debe ingresar nombre propuesta"));
             return;
         }
-        
-        if(semestrePropEdit == null || semestrePropEdit.equals("")) {
-            context.addMessage(null, new FacesMessage("Semestre Propuesta","Debe ingresar semestre propuesta"));
+
+        if (semestrePropEdit == null || semestrePropEdit.equals("")) {
+            context.addMessage(null, new FacesMessage("Semestre Propuesta", "Debe ingresar semestre propuesta"));
             return;
         }
-        
+
         //Se valida que no exista otra propuesta con el mismo nombre
         List<Propuesta> propuestas = propuestaFacade.findByName(nombrePropEdit);
-        if(!propuestas.isEmpty() && !propTemp.equals(nombrePropEdit)) {
-            context.addMessage(null, new FacesMessage("Nombre Propuesta","Ya existe una propuesta con ese nombre"));
+        if (!propuestas.isEmpty() && !propTemp.equals(nombrePropEdit)) {
+            context.addMessage(null, new FacesMessage("Nombre Propuesta", "Ya existe una propuesta con ese nombre"));
             return;
         }
-        
+
         //Validamos errores de semestre
         if (Integer.valueOf(semestrePropEdit.substring(2, 6)) <= 1972) {
-            context.addMessage(null, new FacesMessage("Semestre","Año del semestre debe ser después de 1972"));
+            context.addMessage(null, new FacesMessage("Semestre", "Año del semestre debe ser después de 1972"));
             return;
         }
-        
-        if ((Integer.valueOf(semestrePropEdit.substring(0, 1)) != 1) && (Integer.valueOf(semestrePropEdit.substring(0, 1)) != 2)){
-            context.addMessage(null, new FacesMessage("Semestre Revisión","Semestre ingresado debe ser '1' o '2'"));
+
+        if ((Integer.valueOf(semestrePropEdit.substring(0, 1)) != 1) && (Integer.valueOf(semestrePropEdit.substring(0, 1)) != 2)) {
+            context.addMessage(null, new FacesMessage("Semestre Revisión", "Semestre ingresado debe ser '1' o '2'"));
             return;
         }
-        
+
         //Accedemos a la tabla semestre, e ingresamos semestre si no ha sido ingresado
         Semestre semTemp = new Semestre(semestrePropEdit);
         List<Semestre> semestres = semestreFacade.findAll();
         if (!semestres.contains(semTemp)) {
             semestreFacade.create(semTemp);
         }
-        
+
         nombrePropEdit = nombrePropEdit.toUpperCase();
         propTemp.setNombrePropuesta(nombrePropEdit);
         propTemp.setFechaPropuesta(dateToString(fechaPropEdit));
         propTemp.setIdSemestre(semTemp);
         propuestaFacade.edit(propTemp);
-        
+
         //Mensaje de confirmación
         context.addMessage(null, new FacesMessage("Propuesta", "La propuesta ha sido editada exitosamente"));
-        LOGGER.info("La propuesta ha sido editada exitosamente por '"+nombrePropEdit+"'");
-        
-        
+        LOGGER.info("La propuesta ha sido editada exitosamente por '" + nombrePropEdit + "'");
+
     }
-            
-            
-    public void EditarComisionRevisora(){
+
+    public void EditarComisionRevisora() {
         FacesContext context = FacesContext.getCurrentInstance();
-        
-        if(idProp==null){
-            context.addMessage(null, new FacesMessage("Error","No se ingresó Propuesta"));
+
+        if (idProp == null) {
+            context.addMessage(null, new FacesMessage("Error", "No se ingresó Propuesta"));
             return;
         }
-        
+
         propuesta = propuestaFacade.findById(idProp).get(0);
-        
-        comision= comisionRevisoraFacade.findById(propuesta.getIdRevisora().getIdRevisora());
-       
-        
-       
-        
+
+        comision = comisionRevisoraFacade.findById(propuesta.getIdRevisora().getIdRevisora());
+
         ComisionRevisora nuevaComision;
-        
+
         //Accedemos a la tabla semestre, e ingresamos semestre actual si no ha sido ingresado
         Semestre semestreRevision = new Semestre(semestreRev);
         List<Semestre> semestres = semestreFacade.findAll();
-        if (!semestres.contains(semestreRevision))
+        if (!semestres.contains(semestreRevision)) {
             semestreFacade.create(semestreRevision);
-        
-   
-       
-        if (date != null ) {
-            fechaRev = dateToString(date);   
         }
-        else{
+
+        if (date != null) {
+            fechaRev = dateToString(date);
+        } else {
             fechaRev = null;
         }
-        
-        if(date2 != null ) {
+
+        if (date2 != null) {
             fechaEntRev = dateToString(date2);
-        }
-        else{
+        } else {
             fechaEntRev = null;
         }
-        
-        if(date!= null && date2 != null){
-            
-            if(fechaCorrecta(fechaRev, fechaEntRev) == false){
+
+        if (date != null && date2 != null) {
+
+            if (fechaCorrecta(fechaRev, fechaEntRev) == false) {
                 return;
             }
         }
-        
-        
-        
+
         if (date3 != null) {
-            fechaRev2 = dateToString(date3);   
-        }
-        else{
+            fechaRev2 = dateToString(date3);
+        } else {
             fechaRev2 = null;
         }
-        
+
         if (date4 != null) {
-            fechaEntRev2 = dateToString(date4);   
-        }
-        else{
+            fechaEntRev2 = dateToString(date4);
+        } else {
             fechaEntRev2 = null;
         }
-        
-        if(date3!= null && date4 != null){
-            
-            if(fechaCorrecta(fechaRev2, fechaEntRev2) == false){
+
+        if (date3 != null && date4 != null) {
+
+            if (fechaCorrecta(fechaRev2, fechaEntRev2) == false) {
                 return;
             }
         }
-        
+
         //Seteamos la nueva comision y la creamos
-        
         comision.get(0).setIdPropuesta(comision.get(0).getIdPropuesta());
         comision.get(0).setFechaRevision(fechaRev);
         comision.get(0).setFechaEntregaRevision(fechaEntRev);
@@ -347,125 +364,119 @@ public class ComisionRevisora2MB {
         comision.get(0).setIdSemestre(comision.get(0).getIdSemestre());
         comision.get(0).setTipoRevision(comision.get(0).getTipoRevision());
         comisionRevisoraFacade.edit(comision.get(0));
-        
-        
 
         //Mensaje de confirmación 
         context.addMessage(null, new FacesMessage("Comisión Revisora editada en el sistema"));
-        LOGGER.info("La comision revisora de la propuesta "+propuesta.getNombrePropuesta()+" ha sido modificada en el sistema");
+        LOGGER.info("La comision revisora de la propuesta " + propuesta.getNombrePropuesta() + " ha sido modificada en el sistema");
     }
-    
+
     public void addComisionRevisora() {
         FacesContext context = FacesContext.getCurrentInstance();
-        
-        if(idProp==null){
-            context.addMessage(null, new FacesMessage("Error","No se ingresó Propuesta"));
+
+        if (idProp == null) {
+            context.addMessage(null, new FacesMessage("Error", "No se ingresó Propuesta"));
             return;
         }
-        
+
         propuesta = propuestaFacade.findById(idProp).get(0);
         //Se valida que la propuesta no tenga Comisión Revisora
-        if(propuesta.getIdRevisora()!=null){
-            context.addMessage(null, new FacesMessage("Propuesta","La propuesta seleccionada ya tiene una Comisión Revisora asignada"));
+        if (propuesta.getIdRevisora() != null) {
+            context.addMessage(null, new FacesMessage("Propuesta", "La propuesta seleccionada ya tiene una Comisión Revisora asignada"));
             return;
         }
-        
+
         //Se valida el tipo de revisión seleccionada y los profesores
-        if(tipoRevision == null){
-            context.addMessage(null, new FacesMessage("Tipo Revisión","Debe seleccionar un tipo de Revisión"));
+        if (tipoRevision == null) {
+            context.addMessage(null, new FacesMessage("Tipo Revisión", "Debe seleccionar un tipo de Revisión"));
             return;
         }
-        if(tipoRevision == 2){
-            for(int i=0;i<propuesta.getProfePropuestaList().size();i++)
-                if(propuesta.getProfePropuestaList().get(i).getRolGuia()==0)
-                    if(propuesta.getProfePropuestaList().get(i).getProfesor().getContrato()!=1){
-                        context.addMessage(null, new FacesMessage("Tipo Revisión","El Profesor Guía de la propuesta seleccionada no es de Jornada Completa"));
+        if (tipoRevision == 2) {
+            for (int i = 0; i < propuesta.getProfePropuestaList().size(); i++) {
+                if (propuesta.getProfePropuestaList().get(i).getRolGuia() == 0) {
+                    if (propuesta.getProfePropuestaList().get(i).getProfesor().getContrato() != 1) {
+                        context.addMessage(null, new FacesMessage("Tipo Revisión", "El Profesor Guía de la propuesta seleccionada no es de Jornada Completa"));
                         return;
                     }
-            if(!rutProfeRev1.equals("-") || !rutProfeRev2.equals("-")){
-                context.addMessage(null, new FacesMessage("Tipo Revisión","Una Comisión por Acuerdo de Consejo no tiene profesores, deje estos espacios en blanco o cambie el Tipo de Revisión"));
+                }
+            }
+            if (!rutProfeRev1.equals("-") || !rutProfeRev2.equals("-")) {
+                context.addMessage(null, new FacesMessage("Tipo Revisión", "Una Comisión por Acuerdo de Consejo no tiene profesores, deje estos espacios en blanco o cambie el Tipo de Revisión"));
                 return;
             }
-        }
-        else{
+        } else {
             //Se valida que se halla seleccionado profesor1
-            if(rutProfeRev1.equals("-")){
-                context.addMessage(null, new FacesMessage("Profesor Revisor 1","Debe seleccionar Profesor"));
+            if (rutProfeRev1.equals("-")) {
+                context.addMessage(null, new FacesMessage("Profesor Revisor 1", "Debe seleccionar Profesor"));
                 return;
             }
 
             //Se valida que se halla seleccionado Profesor2
-            if(rutProfeRev2.equals("-")){
-                context.addMessage(null, new FacesMessage("Profesor Revisor 2","Debe seleccionar Profesor"));
+            if (rutProfeRev2.equals("-")) {
+                context.addMessage(null, new FacesMessage("Profesor Revisor 2", "Debe seleccionar Profesor"));
                 return;
             }
             //Se valida que se hallan seleccionado profesores revisores distintos al guia
-            for(int i =0;i<propuesta.getProfePropuestaList().size();i++)
-                if(propuesta.getProfePropuestaList().get(i).getRolGuia()==0)
+            for (int i = 0; i < propuesta.getProfePropuestaList().size(); i++) {
+                if (propuesta.getProfePropuestaList().get(i).getRolGuia() == 0) {
                     profGuia = propuesta.getProfePropuestaList().get(i).getProfesor();
-            if(profGuia.getRutProfesor().equals(rutProfeRev1) || profGuia.getRutProfesor().equals(rutProfeRev2)) {
-                context.addMessage(null, new FacesMessage("Profesor Revisor","El Profesor guía no puede ser seleccionado como Profesor Revisor"));
+                }
+            }
+            if (profGuia.getRutProfesor().equals(rutProfeRev1) || profGuia.getRutProfesor().equals(rutProfeRev2)) {
+                context.addMessage(null, new FacesMessage("Profesor Revisor", "El Profesor guía no puede ser seleccionado como Profesor Revisor"));
                 return;
             }
             //Se valida que se hallan seleccionado profesores revisores distintos entre si
-            if(rutProfeRev1.equals(rutProfeRev2)) {
-                context.addMessage(null, new FacesMessage("Profesor Revisor","Los Profesores revisores deben ser distintos"));
+            if (rutProfeRev1.equals(rutProfeRev2)) {
+                context.addMessage(null, new FacesMessage("Profesor Revisor", "Los Profesores revisores deben ser distintos"));
                 return;
             }
         }
         //fecha
-        
-        
-        
+
         //Validamos errores de semestre
         if (Integer.valueOf(semestreRev.substring(2, 6)) <= 1972) {
-            context.addMessage(null, new FacesMessage("Semestre","Año del semestre debe ser después de 1972"));
+            context.addMessage(null, new FacesMessage("Semestre", "Año del semestre debe ser después de 1972"));
             return;
         }
-        
-        if ((Integer.valueOf(semestreRev.substring(0, 1)) != 1) && (Integer.valueOf(semestreRev.substring(0, 1)) != 2)){
-            context.addMessage(null, new FacesMessage("Semestre Revisión","Semestre ingresado debe ser '1' o '2'"));
+
+        if ((Integer.valueOf(semestreRev.substring(0, 1)) != 1) && (Integer.valueOf(semestreRev.substring(0, 1)) != 2)) {
+            context.addMessage(null, new FacesMessage("Semestre Revisión", "Semestre ingresado debe ser '1' o '2'"));
             return;
         }
-        
+
         ComisionRevisora nuevaComision;
-        
+
         //Accedemos a la tabla semestre, e ingresamos semestre actual si no ha sido ingresado
         Semestre semestreRevision = new Semestre(semestreRev);
         List<Semestre> semestres = semestreFacade.findAll();
-        if (!semestres.contains(semestreRevision))
+        if (!semestres.contains(semestreRevision)) {
             semestreFacade.create(semestreRevision);
-        
-   
-       
-        if (date != null ) {
-            fechaRev = dateToString(date);   
         }
-        else{
+
+        if (date != null) {
+            fechaRev = dateToString(date);
+        } else {
             fechaRev = null;
         }
-        
-        if(date2 != null ) {
+
+        if (date2 != null) {
             fechaEntRev = dateToString(date2);
-        }
-        else{
+        } else {
             fechaEntRev = null;
         }
-        
+
         if (date3 != null) {
-            fechaRev2 = dateToString(date3);   
-        }
-        else{
+            fechaRev2 = dateToString(date3);
+        } else {
             fechaRev2 = null;
         }
-        
+
         if (date4 != null) {
-            fechaEntRev2 = dateToString(date4);   
-        }
-        else{
+            fechaEntRev2 = dateToString(date4);
+        } else {
             fechaEntRev2 = null;
         }
-        
+
         //Seteamos la nueva comision y la creamos
         nuevaComision = new ComisionRevisora();
         nuevaComision.setIdPropuesta(propuesta);
@@ -476,12 +487,12 @@ public class ComisionRevisora2MB {
         nuevaComision.setIdSemestre(semestreRevision);
         nuevaComision.setTipoRevision(tipoRevision);
         comisionRevisoraFacade.create(nuevaComision);
-        
+
         //Agregamos la comision a la lista de comisiones del semestre
         semestreRevision.add(nuevaComision);
         semestreFacade.edit(semestreRevision);
-        
-        if(tipoRevision!=2){
+
+        if (tipoRevision != 2) {
             //Profes
             Profesor profRev1 = profesorFacade.findByRut(rutProfeRev1).get(0);
             Profesor profRev2 = profesorFacade.findByRut(rutProfeRev2).get(0);
@@ -513,30 +524,26 @@ public class ComisionRevisora2MB {
             profRev2.add(nuevoProfeRevision2);
             profesorFacade.edit(profRev2);
         }
-        
+
         //Asignamos la Comision a la Propuesta
         propuesta.setIdRevisora(nuevaComision);
         propuestaFacade.edit(propuesta);
-        
+
         //Mensaje de confirmación 
-        context.addMessage(null, new FacesMessage("Comisión Revisora", propuesta.getNombrePropuesta()+", ingresada al sistema"));
-        LOGGER.info("La propuesta "+propuesta.getNombrePropuesta()+" ha sido ingresada al sistema");
+        context.addMessage(null, new FacesMessage("Comisión Revisora", propuesta.getNombrePropuesta() + ", ingresada al sistema"));
+        LOGGER.info("La propuesta " + propuesta.getNombrePropuesta() + " ha sido ingresada al sistema");
     }
-    
+
     //Declaramos esto para poder acceder al managed bean de autenticación (para almecenar el usuario en el historial)
-    @ManagedProperty(value="#{authMB}")
+    @ManagedProperty(value = "#{authMB}")
     private AuthMB user;
-    
+
     public AuthMB getUser() {
         return user;
     }
 
     public void setUser(AuthMB user) {
         this.user = user;
-    }
-
-    public Integer getTipoRevision() {
-        return tipoRevision;
     }
 
     public List<Profesor> getProfesores() {
@@ -547,10 +554,6 @@ public class ComisionRevisora2MB {
         this.profesores = profesores;
     }
 
-    public void setTipoRevision(Integer tipoRevision) {
-        this.tipoRevision = tipoRevision;
-    }
-    
     public String getSemestreRev() {
         return semestreRev;
     }
@@ -558,7 +561,7 @@ public class ComisionRevisora2MB {
     public void setSemestreRev(String semestreRev) {
         this.semestreRev = semestreRev;
     }
-    
+
     //Manejos de fechas
     public String dateToString(Date dateChoosen) {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -604,8 +607,6 @@ public class ComisionRevisora2MB {
     public void setDate4(Date date4) {
         this.date4 = date4;
     }
-    
-    
 
     public String getSemestreProp() {
         return semestreProp;
@@ -638,7 +639,7 @@ public class ComisionRevisora2MB {
     public void setProfGuia(Profesor profGuia) {
         this.profGuia = profGuia;
     }
-    
+
     public Date getDate() {
         return date;
     }
@@ -654,8 +655,7 @@ public class ComisionRevisora2MB {
     public void setDate2(Date date2) {
         this.date2 = date2;
     }
-    
-    
+
     public String getNombrePropuesta() {
         return nombrePropuesta;
     }
@@ -687,14 +687,15 @@ public class ComisionRevisora2MB {
     public void setFechaRev(String fechaRev) {
         this.fechaRev = fechaRev;
     }
-     public Date stringToDate (String dateChoosen){
+
+    public Date stringToDate(String dateChoosen) {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-	try {
+        try {
             Date date = formatter.parse(dateChoosen);
             return date;
-	} catch (ParseException e) {
-                return null;
-	}
+        } catch (ParseException e) {
+            return null;
+        }
     }
 
     public String getFechaEntRev() {
@@ -744,41 +745,53 @@ public class ComisionRevisora2MB {
     public void setRevisor2(Profesor revisor2) {
         this.revisor2 = revisor2;
     }
-    
-    public static boolean fechaCorrecta(String fecha,String fecha2){
-        FacesContext context = FacesContext.getCurrentInstance();
-        
-        int a,b,c,d,e,f;
-            a=Integer.parseInt(fecha.substring(6, 10));
-            b=Integer.parseInt(fecha2.substring(6, 10));
-            c=Integer.parseInt(fecha.substring(3, 5));
-            d=Integer.parseInt(fecha2.substring(3, 5));
-            e=Integer.parseInt(fecha.substring(0, 2));
-            f=Integer.parseInt(fecha2.substring(0, 2));
 
-            if (a>b){
-                context.addMessage(null, new FacesMessage("Año de la fecha","Debe seleccionar una año mayor"));
+    public static boolean fechaCorrecta(String fecha, String fecha2) {
+        FacesContext context = FacesContext.getCurrentInstance();
+
+        int a, b, c, d, e, f;
+        a = Integer.parseInt(fecha.substring(6, 10));
+        b = Integer.parseInt(fecha2.substring(6, 10));
+        c = Integer.parseInt(fecha.substring(3, 5));
+        d = Integer.parseInt(fecha2.substring(3, 5));
+        e = Integer.parseInt(fecha.substring(0, 2));
+        f = Integer.parseInt(fecha2.substring(0, 2));
+
+        if (a > b) {
+            context.addMessage(null, new FacesMessage("Año de la fecha", "Debe seleccionar una año mayor"));
+            return false;
+
+        } else {
+            if (c > d) {
+                context.addMessage(null, new FacesMessage("Mes de la fecha", "Debe seleccionar un mes mayor"));
                 return false;
-            
-            }
-            else{
-                if(c>d){
-                    context.addMessage(null, new FacesMessage("Mes de la fecha","Debe seleccionar un mes mayor"));
+            } else {
+                if (e > f) {
+                    context.addMessage(null, new FacesMessage("Dia de la fecha", "Debe seleccionar un dia mayor"));
                     return false;
                 }
-                
-                else {
-                    if (e > f) {
-                        context.addMessage(null, new FacesMessage("Dia de la fecha","Debe seleccionar un dia mayor"));
-                        return false;
-                    }
-                    
-                }
-                
+
             }
-            return true;
-    
+
+        }
+        return true;
+
     }
-     
-     
+
+    public Integer getTipoRevision() {
+        return tipoRevision;
+    }
+
+    public void setTipoRevision(Integer tipoRevision) {
+        this.tipoRevision = tipoRevision;
+    }
+
+    public HashMap<Object, Object> getTiposRevision() {
+        return tiposRevision;
+    }
+
+    public void setTiposRevision(HashMap<Object, Object> tiposRevision) {
+        this.tiposRevision = tiposRevision;
+    }
+
 }

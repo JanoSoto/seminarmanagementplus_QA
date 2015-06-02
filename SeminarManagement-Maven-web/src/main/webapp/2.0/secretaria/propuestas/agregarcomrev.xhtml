@@ -44,9 +44,7 @@
                         <p:outputLabel for="tipo" value="Tipo Revisión *"/>
                         <p:selectOneMenu id="tipo" value="#{comisionRevisora2MB.tipoRevision}" filter="true" filterMatchMode="contains">
                             <f:selectItem itemLabel="Seleccionar Tipo" itemValue=""/>
-                            <f:selectItem itemLabel="Seminario" itemValue="1"/>
-                            <f:selectItem itemLabel="Trabajo de Título (Secretaría)" itemValue="0"/>
-                            <f:selectItem itemLabel="Acuerdo Consejo" itemValue="2"/>
+                            <f:selectItems value="#{comisionRevisora2MB.tiposRevision}"></f:selectItems>
                         </p:selectOneMenu>
                         <br/>
                         
@@ -57,12 +55,9 @@
                         </p:selectOneMenu>
                         <br/>
                         
-                        
-                        
                         <p:outputLabel for="calendP" value="Fecha de entrega al profesor " />
                         <p:calendar id="calendP" value="#{comisionRevisora2MB.date}" mode="popup"/>
                         <p:watermark for="calendP" value="Ingresar Fecha"/>
-                        
                         
                         <p:outputLabel for="calendP2" value="Fecha de devolución con correciones del profesor " />
                         <p:calendar id="calendP2" value="#{comisionRevisora2MB.date2}" mode="popup"/>
@@ -79,11 +74,9 @@
                         <p:calendar id="calendP3" value="#{comisionRevisora2MB.date3}" mode="popup"/>
                         <p:watermark for="calendP3" value="Ingresar Fecha"/>
                         
-                        
                         <p:outputLabel for="calendP4" value="Fecha de devolución con correciones del profesor " />
                         <p:calendar id="calendP4" value="#{comisionRevisora2MB.date4}" mode="popup"/>
                         <p:watermark for="calendP4" value="Ingresar Fecha"/>
-
 
                         <p:outputLabel for="semestreP" value="Semestre Revisión *"  />
                         <p:inputMask id="semestreP" value="#{comisionRevisora2MB.semestreRev}" mask="9/9999"/>

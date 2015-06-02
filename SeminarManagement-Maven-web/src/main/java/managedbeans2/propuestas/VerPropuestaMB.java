@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package managedbeans2.propuestas;
 
-import clases.PropuestaDatos;
 import entities.Alumno;
 import entities.ComisionRevisora;
 import entities.Profesor;
@@ -14,7 +8,9 @@ import entities.Semestre;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
@@ -51,7 +47,8 @@ public class VerPropuestaMB {
     private Date fechaPropEdit,date,date2;
     private Alumno alumno;
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(VerPropuestaMB.class);
-
+    private Map<String, Integer> tiposRevision = new HashMap<>();
+    
     /**
      * Creates a new instance of VerPropuestaMB
      */
@@ -318,5 +315,4 @@ public class VerPropuestaMB {
     public void setAlumno(Alumno alumno) {
         this.alumno = alumno;
     }
-    
 }
