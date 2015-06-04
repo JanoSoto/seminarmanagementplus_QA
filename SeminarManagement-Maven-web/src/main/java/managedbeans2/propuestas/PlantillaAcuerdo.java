@@ -83,22 +83,23 @@ public class PlantillaAcuerdo extends HttpServlet {
             String ubicacion = "El documento se encuentra en el casillero de Ingeniería ";
             List <PlanEstudio> planes = alumno.getPlanes();
             if ( !planes.isEmpty() ){
-                if ( .get(0).getCarreraId() != null) {
-                    if (alumno. == 0) {
+                if ( planes.get(0).getCarreraId() != null) {
+                    if ( planes.get(0).getCarreraId().getNombre().contains("CIVIL") ) {
                         carrera += "Ing. Civil Informática, ";
                         ubicacion += "Civil";
-                    } else if (alumno.getCarreraAlumno() == 1) {
+                    } else if ( planes.get(0).getCarreraId().getNombre().contains("EJECUCIÓN") ) {
                         carrera += "Ing. De Ejecución en Computación e Informática, ";
                         ubicacion += "de Ejecución";
                     }
                 }
+                if ( planes.get(0).getJornada() == 0) {
+                    carrera += "Diurna";
+                } else if (planes.get(0).getJornada() == 1) {
+                    carrera += "Vespertina";
+                } else if (planes.get(0).getJornada() == 2) {
+                }
             }
-            if (alumno.getJornada() == 0) {
-                carrera += "Diurna";
-            } else if (alumno.getJornada() == 1) {
-                carrera += "Vespertina";
-            } else if (alumno.getJornada() == 2) {
-            }
+            
 
             SimpleDateFormat formateador = new SimpleDateFormat("dd 'de' MMMM 'de' yyyy", new Locale("ES"));
             String fecha = "Santiago, " + formateador.format(new Date());

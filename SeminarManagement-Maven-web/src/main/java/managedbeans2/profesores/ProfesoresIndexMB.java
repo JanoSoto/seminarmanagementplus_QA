@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package managedbeans2.profesores;
 
 import clases.ProfeDatos2;
@@ -21,6 +16,7 @@ import sessionbeans.ProfesorFacadeLocal;
 import sessionbeans.SemestreActualFacadeLocal;
 import util.Util;
 import entities.Alumno;
+import entities.PlanEstudio;
 import sessionbeans.AlumnoFacadeLocal;
 
 /**
@@ -110,24 +106,29 @@ public class ProfesoresIndexMB {
                                     if (tipoTemaTemp == 0 || tipoTemaTemp == 2) {
                                         guiaTemp++;
 
-                                        List<Alumno> alumno = alumnoFacade.findByRut(profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getRutAlumno().getRutAlumno());
-                                        if (alumno.get(0).getJornada() == 1) {
-                                            guiaTempDiurno++;
-                                            if (profesores.get(i).getContrato() == 0) {// Por Hora
-                                                totalTemasVigentesPorHora++;
-                                                totalTemasVigentesPorHoraDiurno++;
-                                            } else { // Jornada Completa
-                                                totalTemasVigentesJornadaCompleta++;
-                                                totalTemasVigentesJornadaCompletaDiurno++;
-                                            }
-                                        } else {
-                                            guiaTempVespertino++;
-                                            if (profesores.get(i).getContrato() == 0) {// Por Hora
-                                                totalTemasVigentesPorHora++;
-                                                totalTemasVigentesPorHoraVespertino++;
-                                            } else { // Jornada Completa
-                                                totalTemasVigentesJornadaCompleta++;
-                                                totalTemasVigentesJornadaCompletaVespertino++;
+                                        List<Alumno> alumnos = alumnoFacade.findByRut(profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getRutAlumno().getRutAlumno());
+                                        if ( !alumnos.isEmpty() ){
+                                            List<PlanEstudio> planes = alumnos.get(0).getPlanes();
+                                            if ( !planes.isEmpty() ) {
+                                                if ( planes.get(0).getJornada() == 1) {
+                                                    guiaTempDiurno++;
+                                                    if (profesores.get(i).getContrato() == 0) {// Por Hora
+                                                        totalTemasVigentesPorHora++;
+                                                        totalTemasVigentesPorHoraDiurno++;
+                                                    } else { // Jornada Completa
+                                                        totalTemasVigentesJornadaCompleta++;
+                                                        totalTemasVigentesJornadaCompletaDiurno++;
+                                                    }
+                                                } else {
+                                                    guiaTempVespertino++;
+                                                    if (profesores.get(i).getContrato() == 0) {// Por Hora
+                                                        totalTemasVigentesPorHora++;
+                                                        totalTemasVigentesPorHoraVespertino++;
+                                                    } else { // Jornada Completa
+                                                        totalTemasVigentesJornadaCompleta++;
+                                                        totalTemasVigentesJornadaCompletaVespertino++;
+                                                    }
+                                                }
                                             }
                                         }
                                     }

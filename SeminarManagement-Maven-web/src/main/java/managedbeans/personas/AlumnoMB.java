@@ -1,8 +1,7 @@
 package managedbeans.personas;
 
 import entities.Alumno;
-import entities.CarreraAlumno;
-import entities.Historial;
+import entities.PlanEstudio;
 import entities.Profesor;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -36,7 +35,7 @@ public class AlumnoMB {
 
     private String nombreAlumno,apellidoAlumno, rutAlumno, mailAlumno, celularAlumno, direccionAlumno;
     private Integer carreraAlumno, jornadaAlumno;
-    private List <CarreraAlumno> carreras;
+    private List <PlanEstudio> planes;
     private List <Alumno> alumnos;
     
     
@@ -163,8 +162,8 @@ public class AlumnoMB {
         nuevoAlumno.setTelefonoAlumno(celularAlumno);
         nuevoAlumno.setDireccionAlumno(direccionAlumno);
         
-        nuevoAlumno.setJornada(jornadaAlumno);
-        nuevoAlumno.setCarreraAlumno(carreraAlumno); 
+        //nuevoAlumno.setJornada(jornadaAlumno); deprecado
+        nuevoAlumno.setPlanes(planes); 
         alumnoFacade.create(nuevoAlumno);
         
         /*
