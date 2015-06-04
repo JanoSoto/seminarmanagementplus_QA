@@ -71,3 +71,7 @@ button.navActive {
 .ui-watermark {
     color: #0052cc !important;
 }
+
+.team tr, .team td {
+    border: none;
+}
