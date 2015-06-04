@@ -124,9 +124,7 @@ public class SemestreMBTest {
         Query querys = entityManager.createNamedQuery("SELECT c FROM Tema c");
         
         when(querys.getResultList()).thenReturn(temaTest);
-        
-        
-       
+
         assertEquals(temaTest, temas);
     }
     
