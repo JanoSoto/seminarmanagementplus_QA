@@ -1,19 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package managedbeans2.alumnos;
 
 import entities.Alumno;
-import entities.Historial;
+import entities.PlanEstudio;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
@@ -79,11 +72,10 @@ public class EditarAlumnoMB implements Serializable {
     public void editAlumno() throws IOException {
         FacesContext context = FacesContext.getCurrentInstance();
         Alumno alumnoEdit = new Alumno();
-        alumnoEdit.setJornada(alumno.getJornada());
         alumnoEdit.setMailAlumno(alumno.getMailAlumno().toUpperCase());
         alumnoEdit.setNombreAlumno(alumno.getNombreAlumno().toUpperCase());
         alumnoEdit.setApellidoAlumno(alumno.getApellidoAlumno().toUpperCase());
-        alumnoEdit.setCarreraAlumno(alumno.getCarreraAlumno());
+        alumnoEdit.setPlanes(alumno.getPlanes());
         alumnoEdit.setTelefonoAlumno(alumno.getTelefonoAlumno());
         alumnoEdit.setDireccionAlumno(alumno.getDireccionAlumno().toUpperCase());
         alumnoEdit.setRutAlumno(alumno.getRutAlumno());
