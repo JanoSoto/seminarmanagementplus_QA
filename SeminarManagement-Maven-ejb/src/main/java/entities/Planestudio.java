@@ -6,7 +6,7 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.Collection;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -31,7 +31,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Planestudio.findAll", query = "SELECT p FROM Planestudio p"),
     @NamedQuery(name = "Planestudio.findById", query = "SELECT p FROM Planestudio p WHERE p.id = :id"),
-    @NamedQuery(name = "Planestudio.findByCodigo", query = "SELECT p FROM Planestudio p WHERE p.codigo = :codigo")})
+    @NamedQuery(name = "Planestudio.findByCodigo", query = "SELECT p FROM Planestudio p WHERE p.codigo = :codigo"),
+    @NamedQuery(name = "Planestudio.findByJornada", query = "SELECT p FROM Planestudio p WHERE p.jornada = :jornada")})
 public class Planestudio implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,11 +42,13 @@ public class Planestudio implements Serializable {
     private Long id;
     @Column(name = "codigo")
     private Integer codigo;
+    @Column(name = "jornada")
+    private Integer jornada;
     @JoinColumn(name = "carrera_id", referencedColumnName = "id")
     @ManyToOne
     private Carrera carreraId;
     @OneToMany(mappedBy = "planestudioId")
-    private List<Versionplan> versionplanList;
+    private Collection<Versionplan> versionplanCollection;
 
     public Planestudio() {
     }
@@ -70,6 +73,14 @@ public class Planestudio implements Serializable {
         this.codigo = codigo;
     }
 
+    public Integer getJornada() {
+        return jornada;
+    }
+
+    public void setJornada(Integer jornada) {
+        this.jornada = jornada;
+    }
+
     public Carrera getCarreraId() {
         return carreraId;
     }
@@ -79,12 +90,12 @@ public class Planestudio implements Serializable {
     }
 
     @XmlTransient
-    public List<Versionplan> getVersionplanList() {
-        return versionplanList;
+    public Collection<Versionplan> getVersionplanCollection() {
+        return versionplanCollection;
     }
 
-    public void setVersionplanList(List<Versionplan> versionplanList) {
-        this.versionplanList = versionplanList;
+    public void setVersionplanCollection(Collection<Versionplan> versionplanCollection) {
+        this.versionplanCollection = versionplanCollection;
     }
 
     @Override

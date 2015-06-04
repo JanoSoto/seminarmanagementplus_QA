@@ -93,24 +93,11 @@ ALTER TABLE public.asignatura_profesor OWNER TO postgres;
 
 CREATE TABLE carrera (
     id bigint NOT NULL,
-    codigo integer,
     nombre character varying(255)
 );
 
 
 ALTER TABLE public.carrera OWNER TO postgres;
-
---
--- Name: carrera_alumno; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE TABLE carrera_alumno (
-    rut_alumno character varying(50),
-    carrera_id integer
-);
-
-
-ALTER TABLE public.carrera_alumno OWNER TO postgres;
 
 --
 -- Name: checklist; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -410,12 +397,25 @@ CREATE TABLE paramsemestreano (
 ALTER TABLE public.paramsemestreano OWNER TO postgres;
 
 --
+-- Name: planes_alumno; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE planes_alumno (
+    alumno_id character varying(20),
+    plan_id bigint
+);
+
+
+ALTER TABLE public.planes_alumno OWNER TO postgres;
+
+--
 -- Name: planestudio; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE planestudio (
     id bigint NOT NULL,
     codigo integer,
+    jornada integer,
     carrera_id bigint
 );
 
@@ -693,7 +693,7 @@ ALTER SEQUENCE usuario_tipo_id_usuario_tipo_seq OWNED BY usuario_tipo.id_usuario
 CREATE TABLE versionplan (
     id bigint NOT NULL,
     version integer,
-    jornada integer,
+    anio integer,
     planestudio_id bigint
 );
 
@@ -1298,23 +1298,9 @@ COPY asignatura_profesor (asignaturas_id, rut_profesor) FROM stdin;
 -- Data for Name: carrera; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY carrera (id, codigo, nombre) FROM stdin;
-1	1973	INGENIERÍA CIVIL INFORMÁTICA
-2	1863	INGENIERÍA CIVIL INFORMÁTICA
-3	1363	INGENIERÍA CIVIL INFORMÁTICA
-4	1963	INGENIERÍA CIVIL INFORMÁTICA
-5	1353	INGENIERÍA EJECUCIÓN INFORMÁTICA
-6	1853	INGENIERÍA EJECUCIÓN INFORMÁTICA
-7	1953	INGENIERÍA EJECUCIÓN INFORMÁTICA
-8	1983	INGENIERÍA EJECUCIÓN INFORMÁTICA
-\.
-
-
---
--- Data for Name: carrera_alumno; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY carrera_alumno (rut_alumno, carrera_id) FROM stdin;
+COPY carrera (id, nombre) FROM stdin;
+1	INGENIERÍA CIVIL INFORMÁTICA
+2	INGENIERÍA  EN EJECUCIÓN INFORMÁTICA
 \.
 
 
@@ -2493,18 +2479,26 @@ COPY paramsemestreano (id, anoactual, semestreactual) FROM stdin;
 
 
 --
+-- Data for Name: planes_alumno; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY planes_alumno (alumno_id, plan_id) FROM stdin;
+\.
+
+
+--
 -- Data for Name: planestudio; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY planestudio (id, codigo, carrera_id) FROM stdin;
-1	2012	3
-2	2003	1
-3	2001	2
-4	1990	4
-5	2012	5
-6	2002	6
-7	1990	7
-8	1990	8
+COPY planestudio (id, codigo, jornada, carrera_id) FROM stdin;
+1	1363	0	1
+2	1973	1	1
+3	1863	0	1
+4	1963	0	1
+5	1353	0	2
+6	1853	0	2
+7	1953	0	2
+8	1983	1	2
 \.
 
 
@@ -4582,15 +4576,15 @@ SELECT pg_catalog.setval('usuario_tipo_id_usuario_tipo_seq', 7, true);
 -- Data for Name: versionplan; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY versionplan (id, version, jornada, planestudio_id) FROM stdin;
-1	3	0	1
-2	1	1	2
-3	2	0	3
-4	2	0	4
-5	3	0	5
-6	1	0	6
-7	2	0	7
-8	1	1	8
+COPY versionplan (id, version, anio, planestudio_id) FROM stdin;
+1	3	2012	1
+2	1	2003	2
+3	2	2001	3
+4	2	1990	4
+5	3	2012	5
+6	1	2002	6
+7	2	1990	7
+8	1	1990	8
 \.
 
 
@@ -4608,14 +4602,6 @@ ALTER TABLE ONLY asignatura_asignatura
 
 ALTER TABLE ONLY asignatura
     ADD CONSTRAINT asignatura_pkey PRIMARY KEY (id);
-
-
---
--- Name: carrera_codigo_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY carrera
-    ADD CONSTRAINT carrera_codigo_key UNIQUE (codigo);
 
 
 --
@@ -5097,22 +5083,6 @@ CREATE UNIQUE INDEX usuario_tipo_pk ON usuario_tipo USING btree (id_usuario_tipo
 
 
 --
--- Name: carrera_alumno_carrera_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY carrera_alumno
-    ADD CONSTRAINT carrera_alumno_carrera_id_fkey FOREIGN KEY (carrera_id) REFERENCES carrera(id) ON UPDATE CASCADE;
-
-
---
--- Name: carrera_alumno_rut_alumno_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY carrera_alumno
-    ADD CONSTRAINT carrera_alumno_rut_alumno_fkey FOREIGN KEY (rut_alumno) REFERENCES alumno(rut_alumno) ON UPDATE CASCADE;
-
-
---
 -- Name: fk_asignatura_asignatura_asignatura_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -5406,6 +5376,22 @@ ALTER TABLE ONLY usuario_tipo
 
 ALTER TABLE ONLY versionplan
     ADD CONSTRAINT fk_versionplan_planestudio_id FOREIGN KEY (planestudio_id) REFERENCES planestudio(id);
+
+
+--
+-- Name: planes_alumno_alumno_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY planes_alumno
+    ADD CONSTRAINT planes_alumno_alumno_id_fkey FOREIGN KEY (alumno_id) REFERENCES alumno(rut_alumno);
+
+
+--
+-- Name: planes_alumno_plan_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY planes_alumno
+    ADD CONSTRAINT planes_alumno_plan_id_fkey FOREIGN KEY (plan_id) REFERENCES planestudio(id);
 
 
 --

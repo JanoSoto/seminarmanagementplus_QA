@@ -29,7 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Versionplan.findAll", query = "SELECT v FROM Versionplan v"),
     @NamedQuery(name = "Versionplan.findById", query = "SELECT v FROM Versionplan v WHERE v.id = :id"),
     @NamedQuery(name = "Versionplan.findByVersion", query = "SELECT v FROM Versionplan v WHERE v.version = :version"),
-    @NamedQuery(name = "Versionplan.findByJornada", query = "SELECT v FROM Versionplan v WHERE v.jornada = :jornada")})
+    @NamedQuery(name = "Versionplan.findByAnio", query = "SELECT v FROM Versionplan v WHERE v.anio = :anio")})
 public class Versionplan implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -39,8 +39,8 @@ public class Versionplan implements Serializable {
     private Long id;
     @Column(name = "version")
     private Integer version;
-    @Column(name = "jornada")
-    private Integer jornada;
+    @Column(name = "anio")
+    private Integer anio;
     @JoinColumn(name = "planestudio_id", referencedColumnName = "id")
     @ManyToOne
     private Planestudio planestudioId;
@@ -68,12 +68,12 @@ public class Versionplan implements Serializable {
         this.version = version;
     }
 
-    public Integer getJornada() {
-        return jornada;
+    public Integer getAnio() {
+        return anio;
     }
 
-    public void setJornada(Integer jornada) {
-        this.jornada = jornada;
+    public void setAnio(Integer anio) {
+        this.anio = anio;
     }
 
     public Planestudio getPlanestudioId() {
