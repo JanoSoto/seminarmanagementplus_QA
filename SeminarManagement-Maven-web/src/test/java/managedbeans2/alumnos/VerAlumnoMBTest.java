@@ -1,13 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package managedbeans2.alumnos;
 
 import clases.PropuestaDatos;
 import clases.TemaDatos;
 import entities.Alumno;
+import entities.Carrera;
+import entities.CarreraAlumno;
 import entities.ComisionRevisora;
 import entities.ProfePropuesta;
 import entities.ProfePropuestaPK;
@@ -68,9 +65,9 @@ public class VerAlumnoMBTest {
     public void testVerDatosMemoristas(){
         Alumno alumno = new Alumno();
         alumno.setApellidoAlumno("apellido");
-        alumno.setCarreraAlumno(1);
+        //alumno.setCarreras((List<CarreraAlumno>) new Carrera());
         alumno.setDireccionAlumno("direccion");
-        alumno.setJornada(1);
+        //alumno.setJornada(1);
         alumno.setMailAlumno("mail");
         alumno.setNombreAlumno("nombre");
         alumno.setRutAlumno("rut");

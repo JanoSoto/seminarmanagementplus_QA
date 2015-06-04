@@ -73,17 +73,17 @@ public class PlantillaTema extends HttpServlet {
             
             StringBuilder str = new StringBuilder();
             str.append("INFORME DE REVISION DE MEMORIA PARA OPTAR AL TITULO  DE INGENIERO ");
-            if (alumno.getCarreraAlumno() != null){
-                if (alumno.getCarreraAlumno() == 0){
-                    str.append("CIVIL EN INFORMATICA - ");
-                } else if (alumno.getCarreraAlumno() == 1) {
-                    str.append("DE EJECUCION EN COMPUTACION E INFORMATICA - ");
-                } else {
-                    str.append("                                                               - ");
-                }
-            } else {
-                str.append("                                                                 - ");
-            }
+//            if (alumno.getCarreraAlumno() != null){
+//                if (alumno.getCarreraAlumno() == 0){
+//                    str.append("CIVIL EN INFORMATICA - ");
+//                } else if (alumno.getCarreraAlumno() == 1) {
+//                    str.append("DE EJECUCION EN COMPUTACION E INFORMATICA - ");
+//                } else {
+//                    str.append("                                                               - ");
+//                }
+//            } else {
+//                str.append("                                                                 - ");
+//            }
 
             if (semestreMB.getSemestre() != null){
                 str.append(semestreMB.getSemestre().replace("/", "° "));

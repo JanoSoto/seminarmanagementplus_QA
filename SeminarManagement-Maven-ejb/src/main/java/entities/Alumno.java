@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -32,44 +27,50 @@ import Util.Util;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Alumno.findAll", query = "SELECT a FROM Alumno a"),
-    @NamedQuery(name = "Alumno.findByJornada", query = "SELECT a FROM Alumno a WHERE a.jornada = :jornada"),
+    //@NamedQuery(name = "Alumno.findByJornada", query = "SELECT a FROM Alumno a WHERE a.jornada = :jornada"),
     @NamedQuery(name = "Alumno.findByNombreAlumno", query = "SELECT a FROM Alumno a WHERE a.nombreAlumno = :nombreAlumno"),
     @NamedQuery(name = "Alumno.findByApellidoAlumno", query = "SELECT a FROM Alumno a WHERE a.apellidoAlumno = :apellidoAlumno"),
     @NamedQuery(name = "Alumno.findByMailAlumno", query = "SELECT a FROM Alumno a WHERE a.mailAlumno = :mailAlumno"),
     @NamedQuery(name = "Alumno.findByTelefonoAlumno", query = "SELECT a FROM Alumno a WHERE a.telefonoAlumno = :telefonoAlumno"),
-    @NamedQuery(name = "Alumno.findByCarreraAlumno", query = "SELECT a FROM Alumno a WHERE a.carreraAlumno = :carreraAlumno"),
+    //@NamedQuery(name = "Alumno.findByCarreraAlumno", query = "SELECT a FROM Alumno a WHERE a.carreraAlumno = :carreraAlumno"),
     @NamedQuery(name = "Alumno.findByRutAlumno", query = "SELECT a FROM Alumno a WHERE a.rutAlumno = :rutAlumno"),
     @NamedQuery(name = "Alumno.findByDireccionAlumno", query = "SELECT a FROM Alumno a WHERE a.direccionAlumno = :direccionAlumno"),
     @NamedQuery(name = "Alumno.findAlumno", query = "SELECT a FROM Alumno a WHERE a.nombreAlumno LIKE :nombreAlumno OR a.apellidoAlumno LIKE :apellidoAlumno OR a.rutAlumno LIKE :rutAlumno")})
 public class Alumno implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Column(name = "jornada")
-    private Integer jornada;
-    @Size(max = 50)
-    @Column(name = "nombre_alumno")
-    private String nombreAlumno;
-    @Size(max = 50)
-    @Column(name = "apellido_alumno")
-    private String apellidoAlumno;
-    @Size(max = 100)
-    @Column(name = "mail_alumno")
-    private String mailAlumno;
-    @Size(max = 20)
-    @Column(name = "telefono_alumno")
-    private String telefonoAlumno;
-    @Column(name = "carrera_alumno")
-    private Integer carreraAlumno;
+    
     @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
     @Column(name = "rut_alumno")
     private String rutAlumno;
+    
+    @Size(max = 50)
+    @Column(name = "nombre_alumno")
+    private String nombreAlumno;
+    
+    @Size(max = 50)
+    @Column(name = "apellido_alumno")
+    private String apellidoAlumno;
+    
+    @Size(max = 100)
+    @Column(name = "mail_alumno")
+    private String mailAlumno;
+    
+    @Size(max = 20)
+    @Column(name = "telefono_alumno")
+    private String telefonoAlumno;
+    
     @Size(max = 100)
     @Column(name = "direccion_alumno")
     private String direccionAlumno;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rutAlumno")
     private List<Propuesta> propuestaList;
+    
+    @OneToMany(mappedBy = "alumno")
+    private List<CarreraAlumno> carreras;
 
     public Alumno() {
         propuestaList = new ArrayList();
@@ -82,14 +83,6 @@ public class Alumno implements Serializable {
     
     public void add(Propuesta object){
         propuestaList.add(object);
-    }
-
-    public Integer getJornada() {
-        return jornada;
-    }
-
-    public void setJornada(Integer jornada) {
-        this.jornada = jornada;
     }
 
     public String getNombreAlumno() {
@@ -124,14 +117,6 @@ public class Alumno implements Serializable {
         this.telefonoAlumno = telefonoAlumno;
     }
 
-    public Integer getCarreraAlumno() {
-        return carreraAlumno;
-    }
-
-    public void setCarreraAlumno(Integer carreraAlumno) {
-        this.carreraAlumno = carreraAlumno;
-    }
-
     public String getRutAlumno() {
         return rutAlumno;
     }
@@ -159,6 +144,14 @@ public class Alumno implements Serializable {
 
     public void setPropuestaList(List<Propuesta> propuestaList) {
         this.propuestaList = propuestaList;
+    }
+
+    public List<CarreraAlumno> getCarreras() {
+        return carreras;
+    }
+
+    public void setCarreras(List<CarreraAlumno> carreras) {
+        this.carreras = carreras;
     }
 
     @Override

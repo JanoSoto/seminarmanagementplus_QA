@@ -4,6 +4,7 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 import entities.Alumno;
+import entities.CarreraAlumno;
 import entities.Profesor;
 import entities.Propuesta;
 import java.io.ByteArrayOutputStream;
@@ -12,6 +13,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -70,14 +72,16 @@ public class PlantillaPropuesta extends HttpServlet {
             
             StringBuilder str = new StringBuilder();
             str.append("PROPUESTA DE TEMA DE INGENIERIA ");
-            if (alumno.getCarreraAlumno() != null){
-                if (alumno.getCarreraAlumno() == 0){
-                    str.append("CIVIL EN INFORMATICA - ");
-                } else if (alumno.getCarreraAlumno() == 1) {
-                    str.append("DE EJECUCION EN COMPUTACION E INFORMATICA - ");
-                } else {
-                    str.append("                                             - ");
-                }
+            List <CarreraAlumno> carrs = alumno.getCarreras();
+            if ( !carrs.isEmpty() ){
+                str.append( carrs.get(0).getCarrera().getNombre() + " - ");
+//                if (alumno.getCarreraAlumno() == 0){
+//                    str.append("CIVIL EN INFORMATICA - ");
+//                } else if (alumno.getCarreraAlumno() == 1) {
+//                    str.append("DE EJECUCION EN COMPUTACION E INFORMATICA - ");
+//                } else {
+//                    str.append("                                             - ");
+//                }
             } else {
                 str.append("                                                     - ");
             }

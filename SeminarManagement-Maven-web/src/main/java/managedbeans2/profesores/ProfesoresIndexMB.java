@@ -19,7 +19,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import sessionbeans.ProfesorFacadeLocal;
 import sessionbeans.SemestreActualFacadeLocal;
-import Util.Util;
+import util.Util;
 import entities.Alumno;
 import sessionbeans.AlumnoFacadeLocal;
 

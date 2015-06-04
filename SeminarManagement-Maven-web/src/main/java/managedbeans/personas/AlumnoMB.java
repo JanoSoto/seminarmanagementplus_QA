@@ -1,10 +1,7 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package managedbeans.personas;
 
 import entities.Alumno;
+import entities.CarreraAlumno;
 import entities.Historial;
 import entities.Profesor;
 import java.text.SimpleDateFormat;
@@ -39,7 +36,8 @@ public class AlumnoMB {
 
     private String nombreAlumno,apellidoAlumno, rutAlumno, mailAlumno, celularAlumno, direccionAlumno;
     private Integer carreraAlumno, jornadaAlumno;
-    private List<Alumno> alumnos;
+    private List <CarreraAlumno> carreras;
+    private List <Alumno> alumnos;
     
     
     //Declaramos esto para poder acceder al managed bean de autenticación (para almecenar el usuario en el historial)

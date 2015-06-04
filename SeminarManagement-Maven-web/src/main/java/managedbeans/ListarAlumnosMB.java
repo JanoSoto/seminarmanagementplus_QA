@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package managedbeans;
 
 import entities.Alumno;
@@ -29,9 +25,6 @@ public class ListarAlumnosMB implements Serializable{
     private String temaAlum,profGuia,rutAlum,nombreAlum,apellidoAlum,matriculaAlum,petAlum,mailAlum,jornadaAlum, telefonoAlum, carreraAlum,profCoGuia;
     private AlumnoDatos alumnoDatoTemp;
 
-    /**
-     * Creates a new instance of listarAlumnosMB
-     */
     public ListarAlumnosMB() {
     }
     

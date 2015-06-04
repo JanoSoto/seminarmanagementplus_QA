@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -42,31 +37,40 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ComisionCorrectora.findByIdCorrectora", query = "SELECT c FROM ComisionCorrectora c WHERE c.idCorrectora = :idCorrectora")})
 public class ComisionCorrectora implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     @Size(max = 15)
     @Column(name = "fecha_correccion")
     private String fechaCorreccion;
+    
     @Size(max = 15)
     @Column(name = "fecha_entrega_correccion")
     private String fechaEntCorreccion;
+    
     @Size(max = 15)
     @Column(name = "fecha_correccion2")
     private String fechaCorreccion2;
+    
     @Size(max = 15)
     @Column(name = "fecha_entrega_correccion2")
     private String fechaEntCorreccion2;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_correctora")
     private Integer idCorrectora;
+    
     @JoinColumn(name = "id_tema", referencedColumnName = "id_tema")
     @ManyToOne(optional = false)
     private Tema idTema;
+    
     @JoinColumn(name = "id_semestre", referencedColumnName = "id_semestre")
     @ManyToOne(optional = false)
     private Semestre idSemestre;
+    
     @OneToMany(mappedBy = "idCorrectora")
     private List<Tema> temaList;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "comisionCorrectora")
     private List<ProfeCorreccion> profeCorreccionList;
 
