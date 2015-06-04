@@ -106,8 +106,7 @@ ALTER TABLE public.carrera OWNER TO postgres;
 
 CREATE TABLE carrera_alumno (
     rut_alumno character varying(50),
-    carrera_id integer,
-    jornada integer
+    carrera_id integer
 );
 
 
@@ -417,7 +416,6 @@ ALTER TABLE public.paramsemestreano OWNER TO postgres;
 CREATE TABLE planestudio (
     id bigint NOT NULL,
     codigo integer,
-    nombre character varying(255),
     carrera_id bigint
 );
 
@@ -695,7 +693,7 @@ ALTER SEQUENCE usuario_tipo_id_usuario_tipo_seq OWNED BY usuario_tipo.id_usuario
 CREATE TABLE versionplan (
     id bigint NOT NULL,
     version integer,
-    anio integer,
+    jornada integer,
     planestudio_id bigint
 );
 
@@ -1301,6 +1299,14 @@ COPY asignatura_profesor (asignaturas_id, rut_profesor) FROM stdin;
 --
 
 COPY carrera (id, codigo, nombre) FROM stdin;
+1	1973	INGENIERÍA CIVIL INFORMÁTICA
+2	1863	INGENIERÍA CIVIL INFORMÁTICA
+3	1363	INGENIERÍA CIVIL INFORMÁTICA
+4	1963	INGENIERÍA CIVIL INFORMÁTICA
+5	1353	INGENIERÍA EJECUCIÓN INFORMÁTICA
+6	1853	INGENIERÍA EJECUCIÓN INFORMÁTICA
+7	1953	INGENIERÍA EJECUCIÓN INFORMÁTICA
+8	1983	INGENIERÍA EJECUCIÓN INFORMÁTICA
 \.
 
 
@@ -1308,7 +1314,7 @@ COPY carrera (id, codigo, nombre) FROM stdin;
 -- Data for Name: carrera_alumno; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY carrera_alumno (rut_alumno, carrera_id, jornada) FROM stdin;
+COPY carrera_alumno (rut_alumno, carrera_id) FROM stdin;
 \.
 
 
@@ -2490,7 +2496,15 @@ COPY paramsemestreano (id, anoactual, semestreactual) FROM stdin;
 -- Data for Name: planestudio; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY planestudio (id, codigo, nombre, carrera_id) FROM stdin;
+COPY planestudio (id, codigo, carrera_id) FROM stdin;
+1	2012	3
+2	2003	1
+3	2001	2
+4	1990	4
+5	2012	5
+6	2002	6
+7	1990	7
+8	1990	8
 \.
 
 
@@ -4568,7 +4582,15 @@ SELECT pg_catalog.setval('usuario_tipo_id_usuario_tipo_seq', 7, true);
 -- Data for Name: versionplan; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY versionplan (id, version, anio, planestudio_id) FROM stdin;
+COPY versionplan (id, version, jornada, planestudio_id) FROM stdin;
+1	3	0	1
+2	1	1	2
+3	2	0	3
+4	2	0	4
+5	3	0	5
+6	1	0	6
+7	2	0	7
+8	1	1	8
 \.
 
 
@@ -4594,14 +4616,6 @@ ALTER TABLE ONLY asignatura
 
 ALTER TABLE ONLY carrera
     ADD CONSTRAINT carrera_codigo_key UNIQUE (codigo);
-
-
---
--- Name: carrera_nombre_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY carrera
-    ADD CONSTRAINT carrera_nombre_key UNIQUE (nombre);
 
 
 --
