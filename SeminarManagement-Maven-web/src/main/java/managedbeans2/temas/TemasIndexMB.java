@@ -1,25 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package managedbeans2.temas;
 
 import clases.TemaDatos;
-import entities.Alumno;
 import entities.ProfePropuesta;
 import entities.Propuesta;
 import entities.Tema;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.model.SelectItem;
-import sessionbeans.PropuestaFacade;
 import sessionbeans.PropuestaFacadeLocal;
 import sessionbeans.TemaFacadeLocal;
 
@@ -121,11 +112,13 @@ public class TemasIndexMB {
                     cantidad_de_temas_vigentes++;
                     List<Propuesta> propuesta;
                     propuesta = propuestaFacade.findById(temas.get(i).getIdRevisora().getIdPropuesta().getIdPropuesta());
-                    Integer jornada = propuesta.get(0).getRutAlumno().getJornada();
-                    if (jornada == 1) {
-                        cantidad_de_temas_vigentes_diurnos++;
-                    } else {
-                        cantidad_de_temas_vigentes_vespertinos++;
+                    if ( !propuesta.get(0).getRutAlumno().getPlanes().isEmpty() ){
+                        Integer jornada = propuesta.get(0).getRutAlumno().getPlanes().get(0).getJornada();
+                        if (jornada == 1) {
+                            cantidad_de_temas_vigentes_diurnos++;
+                        } else {
+                            cantidad_de_temas_vigentes_vespertinos++;
+                        }
                     }
                 }
                 if (estadoTema == 1) {

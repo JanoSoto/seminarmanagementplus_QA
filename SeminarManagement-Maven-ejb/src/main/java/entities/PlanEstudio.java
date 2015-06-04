@@ -33,7 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Planestudio.findById", query = "SELECT p FROM Planestudio p WHERE p.id = :id"),
     @NamedQuery(name = "Planestudio.findByCodigo", query = "SELECT p FROM Planestudio p WHERE p.codigo = :codigo"),
     @NamedQuery(name = "Planestudio.findByJornada", query = "SELECT p FROM Planestudio p WHERE p.jornada = :jornada")})
-public class Planestudio implements Serializable {
+public class PlanEstudio implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -50,10 +50,10 @@ public class Planestudio implements Serializable {
     @OneToMany(mappedBy = "planestudioId")
     private List<Versionplan> versionplanList;
 
-    public Planestudio() {
+    public PlanEstudio() {
     }
 
-    public Planestudio(Long id) {
+    public PlanEstudio(Long id) {
         this.id = id;
     }
 
@@ -108,10 +108,10 @@ public class Planestudio implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Planestudio)) {
+        if (!(object instanceof PlanEstudio)) {
             return false;
         }
-        Planestudio other = (Planestudio) object;
+        PlanEstudio other = (PlanEstudio) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

@@ -17,6 +17,9 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import Util.Util;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 /**
  *
@@ -69,7 +72,13 @@ public class Alumno implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rutAlumno")
     private List<Propuesta> propuestaList;
     
-
+    @ManyToMany
+    @JoinTable(
+        name="planes_alumno",
+        joinColumns={@JoinColumn(name="alumno_id", referencedColumnName="rut_alumno")},
+        inverseJoinColumns={@JoinColumn(name="plan_id", referencedColumnName="id")})
+    private List<PlanEstudio> planes;
+    
     public Alumno() {
         propuestaList = new ArrayList();
     }
@@ -144,7 +153,14 @@ public class Alumno implements Serializable {
         this.propuestaList = propuestaList;
     }
 
+    public List<PlanEstudio> getPlanes() {
+        return planes;
+    }
 
+    public void setPlanes(List<PlanEstudio> planes) {
+        this.planes = planes;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

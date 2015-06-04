@@ -4,7 +4,7 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 import entities.Alumno;
-import entities.CarreraAlumno;
+import entities.PlanEstudio;
 import entities.Profesor;
 import entities.Propuesta;
 import java.io.ByteArrayOutputStream;
@@ -72,16 +72,9 @@ public class PlantillaPropuesta extends HttpServlet {
             
             StringBuilder str = new StringBuilder();
             str.append("PROPUESTA DE TEMA DE INGENIERIA ");
-            List <CarreraAlumno> carrs = alumno.getCarreras();
-            if ( !carrs.isEmpty() ){
-                str.append( carrs.get(0).getCarrera().getNombre() + " - ");
-//                if (alumno.getCarreraAlumno() == 0){
-//                    str.append("CIVIL EN INFORMATICA - ");
-//                } else if (alumno.getCarreraAlumno() == 1) {
-//                    str.append("DE EJECUCION EN COMPUTACION E INFORMATICA - ");
-//                } else {
-//                    str.append("                                             - ");
-//                }
+            List <PlanEstudio> planes = alumno.getPlanes();
+            if ( !planes.isEmpty() ){
+                str.append(planes.get(0).getCarreraId().getNombre()).append(" - ");
             } else {
                 str.append("                                                     - ");
             }

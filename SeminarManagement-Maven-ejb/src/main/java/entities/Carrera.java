@@ -42,7 +42,7 @@ public class Carrera implements Serializable {
     @Column(name = "nombre")
     private String nombre;
     @OneToMany(mappedBy = "carreraId")
-    private List<Planestudio> planestudioList;
+    private List<PlanEstudio> planestudioList;
 
     public Carrera() {
     }
@@ -68,11 +68,11 @@ public class Carrera implements Serializable {
     }
 
     @XmlTransient
-    public List<Planestudio> getPlanestudioList() {
+    public List<PlanEstudio> getPlanestudioList() {
         return planestudioList;
     }
 
-    public void setPlanestudioList(List<Planestudio> planestudioList) {
+    public void setPlanestudioList(List<PlanEstudio> planestudioList) {
         this.planestudioList = planestudioList;
     }
 

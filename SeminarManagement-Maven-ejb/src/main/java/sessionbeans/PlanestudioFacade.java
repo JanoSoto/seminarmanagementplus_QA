@@ -5,7 +5,7 @@
  */
 package sessionbeans;
 
-import entities.Planestudio;
+import entities.PlanEstudio;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author miguel
  */
 @Stateless
-public class PlanestudioFacade extends AbstractFacade<Planestudio> implements PlanestudioFacadeLocal {
+public class PlanestudioFacade extends AbstractFacade<PlanEstudio> implements PlanestudioFacadeLocal {
     @PersistenceContext(unitName = "com.mycompany_SeminarManagement-Maven-ejb_ejb_1.0-SNAPSHOTPU")
     private EntityManager em;
 
@@ -25,7 +25,7 @@ public class PlanestudioFacade extends AbstractFacade<Planestudio> implements Pl
     }
 
     public PlanestudioFacade() {
-        super(Planestudio.class);
+        super(PlanEstudio.class);
     }
     
 }

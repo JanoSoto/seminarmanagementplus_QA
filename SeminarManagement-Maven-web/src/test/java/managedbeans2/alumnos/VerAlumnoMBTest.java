@@ -1,10 +1,6 @@
 package managedbeans2.alumnos;
 
-import clases.PropuestaDatos;
-import clases.TemaDatos;
 import entities.Alumno;
-import entities.Carrera;
-import entities.CarreraAlumno;
 import entities.ComisionRevisora;
 import entities.ProfePropuesta;
 import entities.ProfePropuestaPK;
@@ -13,25 +9,17 @@ import entities.Propuesta;
 import entities.Semestre;
 import entities.Tema;
 import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import javax.persistence.EntityManager;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
 import javax.persistence.Query;
-import sessionbeans.ComisionCorrectoraFacade;
 
 
 /**

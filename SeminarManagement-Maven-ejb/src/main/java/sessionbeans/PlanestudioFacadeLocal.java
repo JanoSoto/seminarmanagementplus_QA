@@ -5,7 +5,7 @@
  */
 package sessionbeans;
 
-import entities.Planestudio;
+import entities.PlanEstudio;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -16,17 +16,17 @@ import javax.ejb.Local;
 @Local
 public interface PlanestudioFacadeLocal {
 
-    void create(Planestudio planestudio);
+    void create(PlanEstudio planestudio);
 
-    void edit(Planestudio planestudio);
+    void edit(PlanEstudio planestudio);
 
-    void remove(Planestudio planestudio);
+    void remove(PlanEstudio planestudio);
 
-    Planestudio find(Object id);
+    PlanEstudio find(Object id);
 
-    List<Planestudio> findAll();
+    List<PlanEstudio> findAll();
 
-    List<Planestudio> findRange(int[] range);
+    List<PlanEstudio> findRange(int[] range);
 
     int count();
     

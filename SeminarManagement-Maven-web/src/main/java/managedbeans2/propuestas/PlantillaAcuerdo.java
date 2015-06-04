@@ -1,12 +1,14 @@
 package managedbeans2.propuestas;
 
 import entities.Alumno;
+import entities.PlanEstudio;
 import entities.Profesor;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -79,16 +81,18 @@ public class PlantillaAcuerdo extends HttpServlet {
                     "" + guia.getNombreProfesor() + " " + guia.getApellidoProfesor());
             String carrera = "";
             String ubicacion = "El documento se encuentra en el casillero de Ingeniería ";
-            if (alumno.getCarreraAlumno() != null) {
-                if (alumno.getCarreraAlumno() == 0) {
-                    carrera += "Ing. Civil Informática, ";
-                    ubicacion += "Civil";
-                } else if (alumno.getCarreraAlumno() == 1) {
-                    carrera += "Ing. De Ejecución en Computación e Informática, ";
-                    ubicacion += "de Ejecución";
+            List <PlanEstudio> planes = alumno.getPlanes();
+            if ( !planes.isEmpty() ){
+                if ( .get(0).getCarreraId() != null) {
+                    if (alumno. == 0) {
+                        carrera += "Ing. Civil Informática, ";
+                        ubicacion += "Civil";
+                    } else if (alumno.getCarreraAlumno() == 1) {
+                        carrera += "Ing. De Ejecución en Computación e Informática, ";
+                        ubicacion += "de Ejecución";
+                    }
                 }
             }
-            
             if (alumno.getJornada() == 0) {
                 carrera += "Diurna";
             } else if (alumno.getJornada() == 1) {

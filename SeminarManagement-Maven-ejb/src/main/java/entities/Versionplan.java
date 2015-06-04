@@ -43,7 +43,7 @@ public class Versionplan implements Serializable {
     private Integer anio;
     @JoinColumn(name = "planestudio_id", referencedColumnName = "id")
     @ManyToOne
-    private Planestudio planestudioId;
+    private PlanEstudio planestudioId;
 
     public Versionplan() {
     }
@@ -76,11 +76,11 @@ public class Versionplan implements Serializable {
         this.anio = anio;
     }
 
-    public Planestudio getPlanestudioId() {
+    public PlanEstudio getPlanestudioId() {
         return planestudioId;
     }
 
-    public void setPlanestudioId(Planestudio planestudioId) {
+    public void setPlanestudioId(PlanEstudio planestudioId) {
         this.planestudioId = planestudioId;
     }
 
