@@ -5,7 +5,7 @@
  */
 package sessionbeans;
 
-import entities.Carrera;
+import entities.Versionplan;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author miguel
  */
 @Stateless
-public class CarreraFacade extends AbstractFacade<Carrera> implements CarreraFacadeLocal {
+public class VersionplanFacade extends AbstractFacade<Versionplan> implements VersionplanFacadeLocal {
     @PersistenceContext(unitName = "com.mycompany_SeminarManagement-Maven-ejb_ejb_1.0-SNAPSHOTPU")
     private EntityManager em;
 
@@ -24,8 +24,8 @@ public class CarreraFacade extends AbstractFacade<Carrera> implements CarreraFac
         return em;
     }
 
-    public CarreraFacade() {
-        super(Carrera.class);
+    public VersionplanFacade() {
+        super(Versionplan.class);
     }
     
 }

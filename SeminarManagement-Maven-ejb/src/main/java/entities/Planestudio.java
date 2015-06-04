@@ -11,12 +11,13 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -25,14 +26,13 @@ import javax.xml.bind.annotation.XmlTransient;
  * @author miguel
  */
 @Entity
-@Table(name = "carrera")
+@Table(name = "planestudio")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Carrera.findAll", query = "SELECT c FROM Carrera c"),
-    @NamedQuery(name = "Carrera.findById", query = "SELECT c FROM Carrera c WHERE c.id = :id"),
-    @NamedQuery(name = "Carrera.findByCodigo", query = "SELECT c FROM Carrera c WHERE c.codigo = :codigo"),
-    @NamedQuery(name = "Carrera.findByNombre", query = "SELECT c FROM Carrera c WHERE c.nombre = :nombre")})
-public class Carrera implements Serializable {
+    @NamedQuery(name = "Planestudio.findAll", query = "SELECT p FROM Planestudio p"),
+    @NamedQuery(name = "Planestudio.findById", query = "SELECT p FROM Planestudio p WHERE p.id = :id"),
+    @NamedQuery(name = "Planestudio.findByCodigo", query = "SELECT p FROM Planestudio p WHERE p.codigo = :codigo")})
+public class Planestudio implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -41,16 +41,16 @@ public class Carrera implements Serializable {
     private Long id;
     @Column(name = "codigo")
     private Integer codigo;
-    @Size(max = 255)
-    @Column(name = "nombre")
-    private String nombre;
-    @OneToMany(mappedBy = "carreraId")
-    private List<Planestudio> planestudioList;
+    @JoinColumn(name = "carrera_id", referencedColumnName = "id")
+    @ManyToOne
+    private Carrera carreraId;
+    @OneToMany(mappedBy = "planestudioId")
+    private List<Versionplan> versionplanList;
 
-    public Carrera() {
+    public Planestudio() {
     }
 
-    public Carrera(Long id) {
+    public Planestudio(Long id) {
         this.id = id;
     }
 
@@ -70,21 +70,21 @@ public class Carrera implements Serializable {
         this.codigo = codigo;
     }
 
-    public String getNombre() {
-        return nombre;
+    public Carrera getCarreraId() {
+        return carreraId;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setCarreraId(Carrera carreraId) {
+        this.carreraId = carreraId;
     }
 
     @XmlTransient
-    public List<Planestudio> getPlanestudioList() {
-        return planestudioList;
+    public List<Versionplan> getVersionplanList() {
+        return versionplanList;
     }
 
-    public void setPlanestudioList(List<Planestudio> planestudioList) {
-        this.planestudioList = planestudioList;
+    public void setVersionplanList(List<Versionplan> versionplanList) {
+        this.versionplanList = versionplanList;
     }
 
     @Override
@@ -97,10 +97,10 @@ public class Carrera implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Carrera)) {
+        if (!(object instanceof Planestudio)) {
             return false;
         }
-        Carrera other = (Carrera) object;
+        Planestudio other = (Planestudio) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -109,7 +109,7 @@ public class Carrera implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Carrera[ id=" + id + " ]";
+        return "entities.Planestudio[ id=" + id + " ]";
     }
     
 }

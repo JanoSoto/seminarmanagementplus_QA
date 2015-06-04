@@ -5,7 +5,7 @@
  */
 package sessionbeans;
 
-import entities.Carrera;
+import entities.Versionplan;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -14,19 +14,19 @@ import javax.ejb.Local;
  * @author miguel
  */
 @Local
-public interface CarreraFacadeLocal {
+public interface VersionplanFacadeLocal {
 
-    void create(Carrera carrera);
+    void create(Versionplan versionplan);
 
-    void edit(Carrera carrera);
+    void edit(Versionplan versionplan);
 
-    void remove(Carrera carrera);
+    void remove(Versionplan versionplan);
 
-    Carrera find(Object id);
+    Versionplan find(Object id);
 
-    List<Carrera> findAll();
+    List<Versionplan> findAll();
 
-    List<Carrera> findRange(int[] range);
+    List<Versionplan> findRange(int[] range);
 
     int count();
     

@@ -5,7 +5,7 @@
  */
 package sessionbeans;
 
-import entities.Carrera;
+import entities.Planestudio;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -14,19 +14,19 @@ import javax.ejb.Local;
  * @author miguel
  */
 @Local
-public interface CarreraFacadeLocal {
+public interface PlanestudioFacadeLocal {
 
-    void create(Carrera carrera);
+    void create(Planestudio planestudio);
 
-    void edit(Carrera carrera);
+    void edit(Planestudio planestudio);
 
-    void remove(Carrera carrera);
+    void remove(Planestudio planestudio);
 
-    Carrera find(Object id);
+    Planestudio find(Object id);
 
-    List<Carrera> findAll();
+    List<Planestudio> findAll();
 
-    List<Carrera> findRange(int[] range);
+    List<Planestudio> findRange(int[] range);
 
     int count();
     

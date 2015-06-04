@@ -69,8 +69,6 @@ public class Alumno implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rutAlumno")
     private List<Propuesta> propuestaList;
     
-    @OneToMany(mappedBy = "alumno")
-    private List<CarreraAlumno> carreras;
 
     public Alumno() {
         propuestaList = new ArrayList();
@@ -146,13 +144,6 @@ public class Alumno implements Serializable {
         this.propuestaList = propuestaList;
     }
 
-    public List<CarreraAlumno> getCarreras() {
-        return carreras;
-    }
-
-    public void setCarreras(List<CarreraAlumno> carreras) {
-        this.carreras = carreras;
-    }
 
     @Override
     public int hashCode() {
