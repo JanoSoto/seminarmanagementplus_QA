@@ -6,7 +6,7 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.Collection;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,7 +42,7 @@ public class Carrera implements Serializable {
     @Column(name = "nombre")
     private String nombre;
     @OneToMany(mappedBy = "carreraId")
-    private Collection<Planestudio> planestudioCollection;
+    private List<Planestudio> planestudioList;
 
     public Carrera() {
     }
@@ -68,12 +68,12 @@ public class Carrera implements Serializable {
     }
 
     @XmlTransient
-    public Collection<Planestudio> getPlanestudioCollection() {
-        return planestudioCollection;
+    public List<Planestudio> getPlanestudioList() {
+        return planestudioList;
     }
 
-    public void setPlanestudioCollection(Collection<Planestudio> planestudioCollection) {
-        this.planestudioCollection = planestudioCollection;
+    public void setPlanestudioList(List<Planestudio> planestudioList) {
+        this.planestudioList = planestudioList;
     }
 
     @Override
