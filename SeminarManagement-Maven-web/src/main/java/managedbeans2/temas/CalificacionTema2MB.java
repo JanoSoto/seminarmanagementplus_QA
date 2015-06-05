@@ -256,7 +256,7 @@ public class CalificacionTema2MB {
         Float promedio;
         
         //Se valida que se haya seleccionado Tema
-        
+        tema = temaFacade.findById(idTema).get(0);
         Float fNota1Inf = Float.parseFloat(notaProfe1Inf),fNota1Def = Float.parseFloat(notaProfe1Def),
               fNota2Inf = Float.parseFloat(notaProfe2Inf),fNota2Def = Float.parseFloat(notaProfe2Def),
               fNotaGuiaInf = Float.parseFloat(notaProfeGuiaInf),fNotaGuiaDef = Float.parseFloat(notaProfeGuiaDef);
