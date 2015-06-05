@@ -55,6 +55,7 @@ public class UsuarioMB {
 
     private String username, nombreUsuario, apellidoUsuario, tipoUsuario;
     
+    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(UsuarioMB.class);
 
     @PostConstruct
     public void init() {
@@ -146,7 +147,7 @@ public class UsuarioMB {
         usuarioFacade.edit(nuevoUsuario);
         
         context.addMessage(null, new FacesMessage("Usuario", nombreUsuario+" "+apellidoUsuario+", ingresado al sistema"));
-        
+        LOGGER.info("Se ha agregado al usuario "+nombreUsuario+" "+apellidoUsuario);
         //Vaciamos el formulario
         username = null;
         nombreUsuario = null;

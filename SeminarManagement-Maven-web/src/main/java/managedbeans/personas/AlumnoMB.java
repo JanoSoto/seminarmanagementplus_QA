@@ -38,7 +38,7 @@ public class AlumnoMB {
     private List <PlanEstudio> planes;
     private List <Alumno> alumnos;
     
-    
+    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(AlumnoMB.class);
     //Declaramos esto para poder acceder al managed bean de autenticación (para almecenar el usuario en el historial)
     @ManagedProperty(value="#{authMB}")
     private AuthMB user;
@@ -187,7 +187,7 @@ public class AlumnoMB {
         historialFacade.create(histAlumAgregadoUser);
         */
         context.addMessage(null, new FacesMessage("Alumno", nombreAlumno+" "+apellidoAlumno+", ingresado al sistema"));
-        
+        LOGGER.info("Se ha agregado el alumno "+nombreAlumno+" "+apellidoAlumno);
         //Vaciamos el formulario
         nombreAlumno = null;
         apellidoAlumno = null;

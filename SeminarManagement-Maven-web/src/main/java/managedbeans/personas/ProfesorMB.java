@@ -42,7 +42,7 @@ public class ProfesorMB implements Serializable{
 
     private String nombreProfesor,apellidoProfesor,celularProfesor,rutProfesor,mailProfesor;
     private Integer contratoProfesor, jornadaProfesor, isProfGuia;
-    
+    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ProfesorMB.class);
     //Declaramos esto para poder acceder al managed bean de autenticación (para almecenar el usuario en el historial)
     @ManagedProperty(value="#{authMB}")
     private AuthMB user;
@@ -205,6 +205,7 @@ public class ProfesorMB implements Serializable{
         historialFacade.create(histProfEditadoUser);
         */
         //Mensaje de confirmación 
+        LOGGER.info("Se ha agregado el profesor "+ nombreProfesor.toUpperCase()+" "+apellidoProfesor.toUpperCase() );
         context.addMessage(null, new FacesMessage("Agregar Profesor",nombreProfesor.toUpperCase()+" "+apellidoProfesor.toUpperCase()+", ingresado al sistema"));
         
         //Vaciamos el formulario
