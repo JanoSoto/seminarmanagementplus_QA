@@ -138,12 +138,16 @@ public class TemasIndexMB {
                 if (estadoTema == 6) {
                     temaDTemp.setEstadoTema("VIGENTE, CON BORRADOR FINAL");
                 }
+                
+                if (estadoTema == 7){
+                    temaDTemp.setEstadoTema("REPROBADO");
+                }
             }
             temaDatos.add(temaDTemp);
         }
 
         //Inicializamos filtros de estados
-        estados = new SelectItem[7];
+        estados = new SelectItem[8];
         estados[0] = new SelectItem("");
         estados[1] = new SelectItem("VIGENTE");
         estados[2] = new SelectItem("TITULADO");
@@ -151,6 +155,7 @@ public class TemasIndexMB {
         estados[4] = new SelectItem("CADUCO");
         estados[5] = new SelectItem("EN PROCESO DE EXAMEN");
         estados[6] = new SelectItem("VIGENTE, CON BORRADOR FINAL");
+        estados[7] = new SelectItem("REPROBADO");
         semestres.add(0, new SelectItem("", "Todos"));
     }
 
