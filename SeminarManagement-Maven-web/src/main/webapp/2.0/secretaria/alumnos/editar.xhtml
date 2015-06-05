@@ -66,20 +66,7 @@
                                 <p:inputText id="direccion" value="#{editarAlumnoMB.alumno.direccionAlumno}"/>
                                 <p:watermark for="direccion" value="Ingresar Dirección"/>
 
-                                <p:outputLabel for="carrera" value="Carrera"/>
-                                <p:selectOneMenu id="carrera" value="#{editarAlumnoMB.alumno.carreraAlumno}">
-                                    <f:selectItem itemLabel="Civil Informática" itemValue="0"/>
-                                    <f:selectItem itemLabel="Ejecución Informática" itemValue="1"/>
-                                </p:selectOneMenu>
-                                <br/>
-
-                               
-                                <p:outputLabel for="jornada" value="Jornada" />
-                                <p:selectOneMenu id="jornada" value="#{editarAlumnoMB.alumno.jornada}">
-                                    <f:selectItem itemLabel="Diurno" itemValue="0" />
-                                    <f:selectItem itemLabel="Vespertino" itemValue="1" />
-                                </p:selectOneMenu>
-                                <br/>
+                                
 
                             </h:panelGrid>
                         <p:commandButton id="bt1" value="Editar" actionListener="#{editarAlumnoMB.editAlumno()}" update="growl @form"/>
