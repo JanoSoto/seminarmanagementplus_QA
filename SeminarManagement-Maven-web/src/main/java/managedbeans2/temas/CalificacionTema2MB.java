@@ -68,7 +68,7 @@ public class CalificacionTema2MB {
     
     public void calificarTema(){
         FacesContext context = FacesContext.getCurrentInstance();
-        
+        Float promedio;
         //Se valida que se haya seleccionado Tema
         if((idTema==null)||(idTema==-1)){
             context.addMessage(null, new FacesMessage("Tema","No se ingresó un tema"));
@@ -100,9 +100,14 @@ public class CalificacionTema2MB {
         Float fNota1Inf = Float.parseFloat(notaProfe1Inf),fNota1Def = Float.parseFloat(notaProfe1Def),
               fNota2Inf = Float.parseFloat(notaProfe2Inf),fNota2Def = Float.parseFloat(notaProfe2Def),
               fNotaGuiaInf = Float.parseFloat(notaProfeGuiaInf),fNotaGuiaDef = Float.parseFloat(notaProfeGuiaDef);
-        Float promedioInf = (fNota1Inf+fNota2Inf+fNotaGuiaInf)/3, promedioDef = (fNota1Def+fNota2Def+fNotaGuiaDef)/3;
-        Float promedio = (promedioDef+promedioInf)/2;
         
+        if (fNota1Def < 4 && fNota2Def < 4 || fNota1Def < 4 && fNotaGuiaDef < 4 || fNota2Def < 4 && fNotaGuiaDef < 4){
+            promedio = notaMenor(fNota1Def,fNota2Def,fNotaGuiaDef);
+        }
+        else{
+            Float promedioInf = (fNota1Inf+fNota2Inf+fNotaGuiaInf)/3, promedioDef = (fNota1Def+fNota2Def+fNotaGuiaDef)/3;
+            promedio = (promedioDef+promedioInf)/2;
+        }
         //validamos que las notas sean dentro del rango [1,7]
         if((fNota1Inf<1) || (fNota1Def<1) || (fNota2Inf<1) || (fNota2Def<1) || (fNotaGuiaInf<1) || (fNotaGuiaDef<1)){
             context.addMessage(null, new FacesMessage("Notas Tema","Debe ingresar notas mayores a 1.0"));
@@ -151,12 +156,12 @@ public class CalificacionTema2MB {
         String semestre = semestreActualFacade.findAll().get(0).getSemestreActual();
         tema.setSemestreTermino(semestre);
         
-        //Seteamos estado "Titulado" o "Caduco" acorde a las notas
+        //Seteamos estado "Titulado" o "Reprobado" acorde a las notas
         if(promedio<4){
-            tema.setEstadoTema(3);
+            tema.setEstadoTema(7);
             //Mensaje de confirmación
-            context.addMessage(null, new FacesMessage("Calificación: "+promedio, "Se agregaron las notas y el estado del tema seleccionado se modificó a 'Caduco'"));
-            LOGGER.info("Promedio: "+promedio+ " Se agregaron las notas y el estado del tema seleccionado se modificó a Caduco");
+            context.addMessage(null, new FacesMessage("Calificación: "+promedio, "Se agregaron las notas y el estado del tema seleccionado se modificó a 'Reprobado'"));
+            LOGGER.info("Promedio: "+promedio+ " Se agregaron las notas y el estado del tema seleccionado se modificó a Reprobado");
         }
         else{
             tema.setEstadoTema(1);
@@ -360,4 +365,12 @@ public class CalificacionTema2MB {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         return format.format(dateChoosen);
     }
+
+    private Float notaMenor(Float fNota1Def, Float fNota2Def, Float fNotaGuiaDef) {
+        Float aux,aux2;
+        aux = Math.min(fNota1Def, fNota2Def);
+        aux2= Math.min(aux, fNotaGuiaDef);
+        return aux2;
+    }
+   
 }
