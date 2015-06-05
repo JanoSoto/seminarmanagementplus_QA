@@ -29,10 +29,10 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "planestudio")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Planestudio.findAll", query = "SELECT p FROM PlanEstudio p"),
-    @NamedQuery(name = "Planestudio.findById", query = "SELECT p FROM PlanEstudio p WHERE p.id = :id"),
-    @NamedQuery(name = "Planestudio.findByCodigo", query = "SELECT p FROM PlanEstudio p WHERE p.codigo = :codigo"),
-    @NamedQuery(name = "Planestudio.findByJornada", query = "SELECT p FROM PlanEstudio p WHERE p.jornada = :jornada")})
+    @NamedQuery(name = "PlanEstudio.findAll", query = "SELECT p FROM PlanEstudio p"),
+    @NamedQuery(name = "PlanEstudio.findById", query = "SELECT p FROM PlanEstudio p WHERE p.id = :id"),
+    @NamedQuery(name = "PlanEstudio.findByCodigo", query = "SELECT p FROM PlanEstudio p WHERE p.codigo = :codigo"),
+    @NamedQuery(name = "PlanEstudio.findByJornada", query = "SELECT p FROM PlanEstudio p WHERE p.jornada = :jornada")})
 public class PlanEstudio implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
