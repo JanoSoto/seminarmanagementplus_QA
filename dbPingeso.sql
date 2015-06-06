@@ -164,7 +164,9 @@ CREATE TABLE comision_revisora (
     id_tema integer,
     fecha_entrega_revision character varying(15),
     fecha_revision2 character varying(15),
-    fecha_entrega_revision2 character varying(15)
+    fecha_entrega_revision2 character varying(15),
+    fecha_publicacion_consejo character varying(15),
+    fecha_termino_publicacion_consejo character varying(15)
 );
 
 
@@ -217,7 +219,7 @@ CREATE TABLE encuesta (
     anio integer,
     comentario character varying(255),
     semestre integer,
-    rut_profesor character varying(255)
+    profesor_rut_profesor character varying(255)
 );
 
 
@@ -1082,7 +1084,7 @@ FELIPE	TAPIA ARACENA	FELIPE.TAPIAA@USACH.CL	\N	167463479	\N
 JORGE GUILLERMO	TOBAR VALLADARES	JORGE.TOBAR@USACH.CL	\N	167460003	\N
 JONATHAN	UMAÑA RAMÍREZ	JONATHAN.UMANAR@USACH.CL	\N	164910652	\N
 GERARDO	URETA QUEVEDO	GURETAQ@GMAIL.COM	\N	83157739	\N
-NATALIA	VARAS RIVERA	VARASSR@GMAIL.COM"	\N	170631129	\N
+NATALIA	VARAS RIVERA	VARASSR@GMAIL.COM	\N	170631129	\N
 DAVID IGNACIO	AGUILAR BORNE	DAVID.AGUILAR@USACH.CL	\N	169448264	\N
 VICTOR MANUEL	BARRA BUSTAMANTE	MAILTO:BALROG687@GMAIL.COM	\N	164792560	\N
 DIEGO ESTEBAN	BERRÍOS AGUIRRE	DIEGO.BERRIOS@USACH.CL	\N	174044953	\N
@@ -1570,611 +1572,611 @@ SELECT pg_catalog.setval('comision_correctora_id_correctora_seq', 241, true);
 -- Data for Name: comision_revisora; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY comision_revisora (fecha_revision, tipo_revision, id_revisora, id_propuesta, id_semestre, id_tema, fecha_entrega_revision, fecha_revision2, fecha_entrega_revision2) FROM stdin;
-	\N	1	1	default	1	\N	\N	\N
-	1	122	123	default	122	\N	\N	\N
-	1	2	2	default	2	\N	\N	\N
-	1	3	3	default	3	\N	\N	\N
-	1	123	124	default	123	\N	\N	\N
-	1	4	4	default	4	\N	\N	\N
-	1	5	5	default	5	\N	\N	\N
-	\N	124	125	default	124	\N	\N	\N
-	0	6	6	default	6	\N	\N	\N
-	1	7	7	default	7	\N	\N	\N
-	\N	125	126	default	125	\N	\N	\N
-	1	8	8	default	8	\N	\N	\N
-	1	9	9	default	9	\N	\N	\N
-	1	126	127	default	126	\N	\N	\N
-	\N	10	10	default	10	\N	\N	\N
-	0	11	11	default	11	\N	\N	\N
-	1	127	128	default	127	\N	\N	\N
-	1	12	12	default	12	\N	\N	\N
-	0	13	13	default	13	\N	\N	\N
-	\N	128	129	default	128	\N	\N	\N
-	\N	14	14	default	14	\N	\N	\N
-	\N	15	15	default	15	\N	\N	\N
-	1	129	130	default	129	\N	\N	\N
-	\N	16	16	default	16	\N	\N	\N
-	\N	17	17	default	17	\N	\N	\N
-	1	18	18	default	18	\N	\N	\N
-	1	19	19	default	19	\N	\N	\N
-	\N	20	20	default	20	\N	\N	\N
-	0	21	21	default	21	\N	\N	\N
-	\N	22	22	default	22	\N	\N	\N
-	1	23	23	default	23	\N	\N	\N
-	1	24	24	default	24	\N	\N	\N
-	1	25	25	default	25	\N	\N	\N
-	0	26	26	default	26	\N	\N	\N
-	1	27	27	default	27	\N	\N	\N
-	1	28	28	default	28	\N	\N	\N
-	1	29	29	default	29	\N	\N	\N
-	0	30	30	default	30	\N	\N	\N
-	1	31	31	default	31	\N	\N	\N
-	1	32	32	default	32	\N	\N	\N
-	1	33	33	default	33	\N	\N	\N
-	\N	34	34	default	34	\N	\N	\N
-	1	35	35	default	35	\N	\N	\N
-	1	36	36	default	36	\N	\N	\N
-	0	37	37	default	37	\N	\N	\N
-	1	38	38	default	38	\N	\N	\N
-	0	39	39	default	39	\N	\N	\N
-	1	40	40	default	40	\N	\N	\N
-	1	41	41	default	41	\N	\N	\N
-	1	42	42	default	42	\N	\N	\N
-	1	43	43	default	43	\N	\N	\N
-	1	44	44	default	44	\N	\N	\N
-	1	45	45	default	45	\N	\N	\N
-	1	46	46	default	46	\N	\N	\N
-	1	47	47	default	47	\N	\N	\N
-	1	48	48	default	48	\N	\N	\N
-	1	49	49	default	49	\N	\N	\N
-	1	50	50	default	50	\N	\N	\N
-	1	51	51	default	51	\N	\N	\N
-	1	52	52	default	52	\N	\N	\N
-	1	53	53	default	53	\N	\N	\N
-	0	54	54	default	54	\N	\N	\N
-	\N	55	55	default	55	\N	\N	\N
-	1	56	56	default	56	\N	\N	\N
-	\N	57	57	default	57	\N	\N	\N
-	1	58	58	default	58	\N	\N	\N
-	1	59	59	default	59	\N	\N	\N
-	1	60	60	default	60	\N	\N	\N
-	1	61	61	default	61	\N	\N	\N
-	1	62	63	default	62	\N	\N	\N
-	0	63	64	default	63	\N	\N	\N
-	1	64	65	default	64	\N	\N	\N
-	1	65	66	default	65	\N	\N	\N
-	0	66	67	default	66	\N	\N	\N
-	1	67	68	default	67	\N	\N	\N
-	1	68	69	default	68	\N	\N	\N
-	1	69	70	default	69	\N	\N	\N
-	1	70	71	default	70	\N	\N	\N
-	0	71	72	default	71	\N	\N	\N
-	0	72	73	default	72	\N	\N	\N
-	0	73	74	default	73	\N	\N	\N
-	1	74	75	default	74	\N	\N	\N
-	1	75	76	default	75	\N	\N	\N
-	0	76	77	default	76	\N	\N	\N
-	0	77	78	default	77	\N	\N	\N
-	1	78	79	default	78	\N	\N	\N
-	0	79	80	default	79	\N	\N	\N
-	0	80	81	default	80	\N	\N	\N
-	0	81	82	default	81	\N	\N	\N
-	0	82	83	default	82	\N	\N	\N
-	1	83	84	default	83	\N	\N	\N
-	1	84	85	default	84	\N	\N	\N
-	1	85	86	default	85	\N	\N	\N
-	0	86	87	default	86	\N	\N	\N
-	0	87	88	default	87	\N	\N	\N
-	1	88	89	default	88	\N	\N	\N
-	1	89	90	default	89	\N	\N	\N
-	1	90	91	default	90	\N	\N	\N
-	0	91	92	default	91	\N	\N	\N
-	0	92	93	default	92	\N	\N	\N
-	1	93	94	default	93	\N	\N	\N
-	1	94	95	default	94	\N	\N	\N
-	1	95	96	default	95	\N	\N	\N
-	0	96	97	default	96	\N	\N	\N
-	1	97	98	default	97	\N	\N	\N
-	1	98	99	default	98	\N	\N	\N
-	1	99	100	default	99	\N	\N	\N
-	1	100	101	default	100	\N	\N	\N
-	\N	101	102	default	101	\N	\N	\N
-	1	102	103	default	102	\N	\N	\N
-	1	103	104	default	103	\N	\N	\N
-	1	104	105	default	104	\N	\N	\N
-	1	105	106	default	105	\N	\N	\N
-	0	106	107	default	106	\N	\N	\N
-	1	107	108	default	107	\N	\N	\N
-	1	108	109	default	108	\N	\N	\N
-	1	109	110	default	109	\N	\N	\N
-	1	110	111	default	110	\N	\N	\N
-	0	111	112	default	111	\N	\N	\N
-	1	112	113	default	112	\N	\N	\N
-	0	113	114	default	113	\N	\N	\N
-	0	114	115	default	114	\N	\N	\N
-	0	115	116	default	115	\N	\N	\N
-	1	116	117	default	116	\N	\N	\N
-	0	117	118	default	117	\N	\N	\N
-	0	118	119	default	118	\N	\N	\N
-	1	119	120	default	119	\N	\N	\N
-	1	120	121	default	120	\N	\N	\N
-	1	121	122	default	121	\N	\N	\N
-	1	130	131	default	130	\N	\N	\N
-	1	131	132	default	131	\N	\N	\N
-	1	132	133	default	132	\N	\N	\N
-	1	133	134	default	133	\N	\N	\N
-	1	134	135	default	134	\N	\N	\N
-	1	135	136	default	135	\N	\N	\N
-	1	136	137	default	136	\N	\N	\N
-	1	137	138	default	137	\N	\N	\N
-	1	138	139	default	138	\N	\N	\N
-	1	139	140	default	139	\N	\N	\N
-	1	140	141	default	140	\N	\N	\N
-	1	141	142	default	141	\N	\N	\N
-	1	142	143	default	142	\N	\N	\N
-	1	143	144	default	143	\N	\N	\N
-	\N	144	145	default	144	\N	\N	\N
-	\N	145	146	default	145	\N	\N	\N
-	\N	146	147	default	146	\N	\N	\N
-	1	147	148	default	147	\N	\N	\N
-	1	148	149	default	148	\N	\N	\N
-	1	149	150	default	149	\N	\N	\N
-	1	150	151	default	150	\N	\N	\N
-	1	151	152	default	151	\N	\N	\N
-	1	152	153	default	152	\N	\N	\N
-	1	153	154	default	153	\N	\N	\N
-	0	154	155	default	154	\N	\N	\N
-	1	155	156	default	155	\N	\N	\N
-	1	156	157	default	156	\N	\N	\N
-	1	157	158	default	157	\N	\N	\N
-	1	158	159	default	158	\N	\N	\N
-	1	159	160	default	159	\N	\N	\N
-	0	160	161	default	160	\N	\N	\N
-	1	161	162	default	161	\N	\N	\N
-	1	162	163	default	162	\N	\N	\N
-	1	163	164	default	163	\N	\N	\N
-	1	164	165	default	164	\N	\N	\N
-	0	165	166	default	165	\N	\N	\N
-	1	166	167	default	166	\N	\N	\N
-	1	167	168	default	167	\N	\N	\N
-	1	168	169	default	168	\N	\N	\N
-	1	169	170	default	169	\N	\N	\N
-	1	170	171	default	170	\N	\N	\N
-	0	171	172	default	171	\N	\N	\N
-	1	172	173	default	172	\N	\N	\N
-	1	173	174	default	173	\N	\N	\N
-	0	174	175	default	174	\N	\N	\N
-	1	175	176	default	175	\N	\N	\N
-	1	176	177	default	176	\N	\N	\N
-	1	177	178	default	177	\N	\N	\N
-	1	178	179	default	178	\N	\N	\N
-	1	179	180	default	179	\N	\N	\N
-	0	180	181	default	180	\N	\N	\N
-	1	181	182	default	181	\N	\N	\N
-	0	182	183	default	182	\N	\N	\N
-	0	183	184	default	183	\N	\N	\N
-	1	184	185	default	184	\N	\N	\N
-	\N	185	186	default	185	\N	\N	\N
-	1	186	187	default	186	\N	\N	\N
-	1	187	188	default	187	\N	\N	\N
-	0	188	189	default	188	\N	\N	\N
-	1	189	190	default	189	\N	\N	\N
-	1	190	191	default	190	\N	\N	\N
-	0	191	192	default	191	\N	\N	\N
-	1	192	193	default	192	\N	\N	\N
-	1	193	194	default	193	\N	\N	\N
-	1	194	195	default	194	\N	\N	\N
-	\N	195	196	default	195	\N	\N	\N
-	0	196	197	default	196	\N	\N	\N
-	1	197	198	default	197	\N	\N	\N
-	1	198	199	default	198	\N	\N	\N
-	1	199	200	default	199	\N	\N	\N
-	1	200	201	default	200	\N	\N	\N
-	1	201	202	default	201	\N	\N	\N
-	1	202	203	default	202	\N	\N	\N
-	\N	203	204	default	203	\N	\N	\N
-	0	204	205	default	204	\N	\N	\N
-	0	205	206	default	205	\N	\N	\N
-	0	206	207	default	206	\N	\N	\N
-	0	207	208	default	207	\N	\N	\N
-	1	208	209	default	208	\N	\N	\N
-	0	209	210	default	209	\N	\N	\N
-	0	210	211	default	210	\N	\N	\N
-	0	211	212	default	211	\N	\N	\N
-	0	212	213	default	212	\N	\N	\N
-	0	213	214	default	213	\N	\N	\N
-	1	214	215	default	214	\N	\N	\N
-	0	215	216	default	215	\N	\N	\N
-	0	216	217	default	216	\N	\N	\N
-	0	217	218	default	217	\N	\N	\N
-	\N	218	219	default	218	\N	\N	\N
-	0	219	220	default	219	\N	\N	\N
-	1	220	221	default	220	\N	\N	\N
-	0	221	222	default	221	\N	\N	\N
-	1	222	223	default	222	\N	\N	\N
-	1	223	224	default	223	\N	\N	\N
-	1	224	225	default	224	\N	\N	\N
-	0	225	226	default	225	\N	\N	\N
-	0	226	227	default	226	\N	\N	\N
-	1	227	228	default	227	\N	\N	\N
-	1	228	229	default	228	\N	\N	\N
-	0	229	230	default	229	\N	\N	\N
-	0	230	231	default	230	\N	\N	\N
-	1	231	232	default	231	\N	\N	\N
-	1	232	233	default	232	\N	\N	\N
-	1	233	234	default	233	\N	\N	\N
-	0	234	235	default	234	\N	\N	\N
-	0	235	236	default	235	\N	\N	\N
-	1	236	237	default	236	\N	\N	\N
-	1	237	238	default	237	\N	\N	\N
-	\N	238	239	default	238	\N	\N	\N
-	1	239	240	default	239	\N	\N	\N
-	0	240	241	default	240	\N	\N	\N
-	\N	241	242	default	241	\N	\N	\N
-	\N	242	243	default	242	\N	\N	\N
-	0	243	244	default	243	\N	\N	\N
-	1	244	245	default	244	\N	\N	\N
-	0	245	246	default	245	\N	\N	\N
-	\N	246	247	default	246	\N	\N	\N
-	0	247	248	default	247	\N	\N	\N
-	1	248	249	default	248	\N	\N	\N
-	0	249	250	default	249	\N	\N	\N
-	1	250	251	default	250	\N	\N	\N
-	1	251	252	default	251	\N	\N	\N
-	1	252	253	default	252	\N	\N	\N
-	1	253	254	default	253	\N	\N	\N
-	1	254	255	default	254	\N	\N	\N
-	\N	255	256	default	255	\N	\N	\N
-	1	256	257	default	256	\N	\N	\N
-	0	257	258	default	257	\N	\N	\N
-	0	258	259	default	258	\N	\N	\N
-	\N	259	260	default	259	\N	\N	\N
-	1	260	261	default	260	\N	\N	\N
-	1	261	262	default	261	\N	\N	\N
-	1	262	263	default	262	\N	\N	\N
-	0	263	264	default	263	\N	\N	\N
-	0	264	265	default	264	\N	\N	\N
-	1	265	266	default	265	\N	\N	\N
-	1	266	267	default	266	\N	\N	\N
-	1	267	268	default	267	\N	\N	\N
-	1	268	269	default	268	\N	\N	\N
-	1	269	270	default	269	\N	\N	\N
-	1	270	271	default	270	\N	\N	\N
-	1	271	272	default	271	\N	\N	\N
-	0	272	273	default	272	\N	\N	\N
-	0	273	274	default	273	\N	\N	\N
-	1	274	275	default	274	\N	\N	\N
-	1	275	276	default	275	\N	\N	\N
-	0	276	277	default	276	\N	\N	\N
-	0	277	278	default	277	\N	\N	\N
-	0	278	279	default	278	\N	\N	\N
-	1	279	280	default	279	\N	\N	\N
-	0	280	281	default	280	\N	\N	\N
-	0	281	282	default	281	\N	\N	\N
-	1	282	283	default	282	\N	\N	\N
-	1	283	284	default	283	\N	\N	\N
-	0	284	285	default	284	\N	\N	\N
-	1	285	286	default	285	\N	\N	\N
-	1	286	287	default	286	\N	\N	\N
-	0	287	288	default	287	\N	\N	\N
-	1	288	289	default	288	\N	\N	\N
-	1	289	290	default	289	\N	\N	\N
-	\N	290	291	default	290	\N	\N	\N
-	0	291	292	default	291	\N	\N	\N
-	1	292	293	default	292	\N	\N	\N
-	1	293	294	default	293	\N	\N	\N
-	1	294	295	default	294	\N	\N	\N
-	\N	295	296	default	295	\N	\N	\N
-	1	296	297	default	296	\N	\N	\N
-	0	297	298	default	297	\N	\N	\N
-	1	298	299	default	298	\N	\N	\N
-	1	299	300	default	299	\N	\N	\N
-	0	300	301	default	300	\N	\N	\N
-	0	301	302	default	301	\N	\N	\N
-	1	302	303	default	302	\N	\N	\N
-	0	303	304	default	303	\N	\N	\N
-	1	304	305	default	304	\N	\N	\N
-	1	305	306	default	305	\N	\N	\N
-	1	306	307	default	306	\N	\N	\N
-	0	307	308	default	307	\N	\N	\N
-	0	308	309	default	308	\N	\N	\N
-	0	309	310	default	309	\N	\N	\N
-	\N	310	311	default	310	\N	\N	\N
-	1	311	312	default	311	\N	\N	\N
-	1	312	313	default	312	\N	\N	\N
-	1	313	314	default	313	\N	\N	\N
-	1	314	315	default	314	\N	\N	\N
-	1	315	316	default	315	\N	\N	\N
-	1	316	317	default	316	\N	\N	\N
-	0	317	318	default	317	\N	\N	\N
-	0	318	319	default	318	\N	\N	\N
-	\N	319	320	default	319	\N	\N	\N
-	1	320	321	default	320	\N	\N	\N
-	1	321	322	default	321	\N	\N	\N
-	\N	322	323	default	322	\N	\N	\N
-	1	323	324	default	323	\N	\N	\N
-	1	324	326	default	324	\N	\N	\N
-	1	325	327	default	325	\N	\N	\N
-	0	326	328	default	326	\N	\N	\N
-	1	327	329	default	327	\N	\N	\N
-	1	328	330	default	328	\N	\N	\N
-	0	329	331	default	329	\N	\N	\N
-	1	330	332	default	330	\N	\N	\N
-	1	331	333	default	331	\N	\N	\N
-	\N	332	334	default	332	\N	\N	\N
-	1	333	335	default	333	\N	\N	\N
-	1	334	336	default	334	\N	\N	\N
-	1	335	337	default	335	\N	\N	\N
-	0	336	338	default	336	\N	\N	\N
-	1	337	339	default	337	\N	\N	\N
-	1	338	340	default	338	\N	\N	\N
-	0	339	341	default	339	\N	\N	\N
-	1	340	342	default	340	\N	\N	\N
-	1	341	343	default	341	\N	\N	\N
-	0	342	344	default	342	\N	\N	\N
-	\N	343	345	default	343	\N	\N	\N
-	0	344	346	default	344	\N	\N	\N
-	1	345	347	default	345	\N	\N	\N
-	1	346	348	default	346	\N	\N	\N
-	1	347	349	default	347	\N	\N	\N
-	1	348	350	default	348	\N	\N	\N
-	\N	349	351	default	349	\N	\N	\N
-	0	350	352	default	350	\N	\N	\N
-	0	351	353	default	351	\N	\N	\N
-	0	352	354	default	352	\N	\N	\N
-	0	353	355	default	353	\N	\N	\N
-	1	354	356	default	354	\N	\N	\N
-	1	355	357	default	355	\N	\N	\N
-	1	356	358	default	356	\N	\N	\N
-	0	357	359	default	357	\N	\N	\N
-	1	358	360	default	358	\N	\N	\N
-	0	359	361	default	359	\N	\N	\N
-	1	360	362	default	360	\N	\N	\N
-	1	361	363	default	361	\N	\N	\N
-	1	362	364	default	362	\N	\N	\N
-	1	363	365	default	363	\N	\N	\N
-	1	364	366	default	364	\N	\N	\N
-	1	365	367	default	365	\N	\N	\N
-	0	366	368	default	366	\N	\N	\N
-	1	367	369	default	367	\N	\N	\N
-	1	368	370	default	368	\N	\N	\N
-	1	369	371	default	369	\N	\N	\N
-	1	370	372	default	370	\N	\N	\N
-	1	371	373	default	371	\N	\N	\N
-	1	372	374	default	372	\N	\N	\N
-	1	373	375	default	373	\N	\N	\N
-	0	374	376	default	374	\N	\N	\N
-	1	375	377	default	375	\N	\N	\N
-	1	376	378	default	376	\N	\N	\N
-	\N	377	379	default	377	\N	\N	\N
-	1	378	380	default	378	\N	\N	\N
-	1	379	381	default	379	\N	\N	\N
-	1	380	382	default	380	\N	\N	\N
-	0	381	383	default	381	\N	\N	\N
-	0	382	384	default	382	\N	\N	\N
-	1	383	385	default	383	\N	\N	\N
-	1	384	386	default	384	\N	\N	\N
-	1	385	387	default	385	\N	\N	\N
-	0	386	388	default	386	\N	\N	\N
-	1	387	389	default	387	\N	\N	\N
-	\N	388	390	default	388	\N	\N	\N
-	1	389	391	default	389	\N	\N	\N
-	1	390	392	default	390	\N	\N	\N
-	1	391	393	default	391	\N	\N	\N
-	0	392	394	default	392	\N	\N	\N
-	1	393	395	default	393	\N	\N	\N
-	1	394	396	default	394	\N	\N	\N
-	1	395	397	default	395	\N	\N	\N
-	1	396	398	default	396	\N	\N	\N
-	1	397	399	default	397	\N	\N	\N
-	1	398	400	default	398	\N	\N	\N
-	0	399	401	default	399	\N	\N	\N
-	0	400	402	default	400	\N	\N	\N
-	0	401	403	default	401	\N	\N	\N
-	0	402	404	default	402	\N	\N	\N
-	\N	403	405	default	403	\N	\N	\N
-	0	404	406	default	404	\N	\N	\N
-	0	405	407	default	405	\N	\N	\N
-	1	406	408	default	406	\N	\N	\N
-	1	407	409	default	407	\N	\N	\N
-	1	408	410	default	408	\N	\N	\N
-	1	409	411	default	409	\N	\N	\N
-	0	410	412	default	410	\N	\N	\N
-	0	411	413	default	411	\N	\N	\N
-	1	412	414	default	412	\N	\N	\N
-	1	413	415	default	413	\N	\N	\N
-	0	414	416	default	414	\N	\N	\N
-	1	415	417	default	415	\N	\N	\N
-	1	416	418	default	416	\N	\N	\N
-	1	417	419	default	417	\N	\N	\N
-	0	418	420	default	418	\N	\N	\N
-	1	419	421	default	419	\N	\N	\N
-	1	420	422	default	420	\N	\N	\N
-	0	421	423	default	421	\N	\N	\N
-	1	422	424	default	422	\N	\N	\N
-	1	423	425	default	423	\N	\N	\N
-	1	424	426	default	424	\N	\N	\N
-	1	425	428	default	425	\N	\N	\N
-	1	426	429	default	426	\N	\N	\N
-	1	427	430	default	427	\N	\N	\N
-	\N	428	431	default	428	\N	\N	\N
-	1	429	432	default	429	\N	\N	\N
-	0	430	433	default	430	\N	\N	\N
-	1	431	434	default	431	\N	\N	\N
-	1	432	435	default	432	\N	\N	\N
-	1	433	436	default	433	\N	\N	\N
-	1	434	437	default	434	\N	\N	\N
-	1	435	438	default	435	\N	\N	\N
-	1	436	439	default	436	\N	\N	\N
-	1	437	440	default	437	\N	\N	\N
-	1	438	441	default	438	\N	\N	\N
-	1	439	442	default	439	\N	\N	\N
-	1	440	443	default	440	\N	\N	\N
-	1	441	444	default	441	\N	\N	\N
-	1	442	445	default	442	\N	\N	\N
-	1	443	446	default	443	\N	\N	\N
-	1	444	447	default	444	\N	\N	\N
-	1	445	448	default	445	\N	\N	\N
-	1	446	449	default	446	\N	\N	\N
-	1	447	450	default	447	\N	\N	\N
-	1	448	451	default	448	\N	\N	\N
-	1	449	452	default	449	\N	\N	\N
-	1	450	453	default	450	\N	\N	\N
-	0	451	454	default	451	\N	\N	\N
-	1	452	455	default	452	\N	\N	\N
-	0	453	456	default	453	\N	\N	\N
-	1	454	457	default	454	\N	\N	\N
-	1	455	458	default	455	\N	\N	\N
-	1	456	459	default	456	\N	\N	\N
-	0	457	460	default	457	\N	\N	\N
-	0	458	461	default	458	\N	\N	\N
-	1	459	462	default	459	\N	\N	\N
-	0	460	463	default	460	\N	\N	\N
-	0	461	464	default	461	\N	\N	\N
-	0	462	465	default	462	\N	\N	\N
-	1	463	466	default	463	\N	\N	\N
-	0	464	467	default	464	\N	\N	\N
-	1	465	468	default	465	\N	\N	\N
-	0	466	469	default	466	\N	\N	\N
-	1	467	470	default	467	\N	\N	\N
-	1	468	471	default	468	\N	\N	\N
-	1	469	472	default	469	\N	\N	\N
-	1	470	473	default	470	\N	\N	\N
-	0	471	474	default	471	\N	\N	\N
-	1	472	475	default	472	\N	\N	\N
-	1	473	476	default	473	\N	\N	\N
-	1	474	477	default	474	\N	\N	\N
-	1	475	478	default	475	\N	\N	\N
-	0	476	479	default	476	\N	\N	\N
-	1	477	480	default	477	\N	\N	\N
-	0	478	481	default	478	\N	\N	\N
-	1	479	482	default	479	\N	\N	\N
-	1	480	483	default	480	\N	\N	\N
-	1	481	484	default	481	\N	\N	\N
-	1	482	485	default	482	\N	\N	\N
-	1	483	486	default	483	\N	\N	\N
-	\N	484	487	default	484	\N	\N	\N
-	0	485	488	default	485	\N	\N	\N
-	1	486	489	default	486	\N	\N	\N
-	1	487	490	default	487	\N	\N	\N
-	0	488	491	default	488	\N	\N	\N
-	1	489	493	default	489	\N	\N	\N
-	1	490	494	default	490	\N	\N	\N
-	0	491	495	default	491	\N	\N	\N
-	1	492	496	default	492	\N	\N	\N
-	1	493	497	default	493	\N	\N	\N
-	1	494	498	default	494	\N	\N	\N
-	1	495	499	default	495	\N	\N	\N
-	0	496	500	default	496	\N	\N	\N
-	1	497	501	default	497	\N	\N	\N
-	1	498	502	default	498	\N	\N	\N
-	0	499	503	default	499	\N	\N	\N
-	0	500	504	default	500	\N	\N	\N
-	1	501	505	default	501	\N	\N	\N
-	1	502	506	default	502	\N	\N	\N
-	1	503	507	default	503	\N	\N	\N
-	0	504	508	default	504	\N	\N	\N
-	1	505	509	default	505	\N	\N	\N
-	0	506	510	default	506	\N	\N	\N
-	0	507	511	default	507	\N	\N	\N
-	1	508	512	default	508	\N	\N	\N
-	0	509	513	default	509	\N	\N	\N
-	1	510	514	default	510	\N	\N	\N
-	1	511	515	default	511	\N	\N	\N
-	0	512	516	default	512	\N	\N	\N
-	0	513	517	default	513	\N	\N	\N
-\N	1	591	597	1/2015	\N	\N	\N	\N
-	1	514	518	default	514	\N	\N	\N
-\N	1	590	596	1/2015	\N	\N	\N	\N
-	0	515	519	default	515	\N	\N	\N
-\N	0	592	598	1/2015	\N	\N	\N	\N
-	1	516	520	default	516	\N	\N	\N
-\N	0	589	595	1/2015	590	\N	\N	\N
-	0	517	521	default	517	\N	\N	\N
-	0	518	522	default	518	\N	\N	\N
-	0	519	523	default	519	\N	\N	\N
-	\N	520	524	default	520	\N	\N	\N
-	1	521	525	default	521	\N	\N	\N
-	0	522	526	default	522	\N	\N	\N
-	1	523	527	default	523	\N	\N	\N
-	1	524	528	default	524	\N	\N	\N
-	1	525	529	default	525	\N	\N	\N
-	1	526	530	default	526	\N	\N	\N
-	1	527	531	default	527	\N	\N	\N
-	1	528	532	default	528	\N	\N	\N
-	1	529	533	default	529	\N	\N	\N
-	1	530	534	default	530	\N	\N	\N
-	1	531	535	default	531	\N	\N	\N
-	1	532	536	default	532	\N	\N	\N
-	1	533	537	default	533	\N	\N	\N
-	1	534	538	default	534	\N	\N	\N
-	1	535	539	default	535	\N	\N	\N
-	1	536	540	default	536	\N	\N	\N
-	1	537	541	default	537	\N	\N	\N
-	1	538	542	default	538	\N	\N	\N
-	0	539	543	default	539	\N	\N	\N
-	1	540	544	default	540	\N	\N	\N
-	1	541	545	default	541	\N	\N	\N
-	1	542	546	default	542	\N	\N	\N
-	1	543	547	default	543	\N	\N	\N
-	1	544	548	default	544	\N	\N	\N
-	1	545	549	default	545	\N	\N	\N
-	0	546	550	default	546	\N	\N	\N
-	1	547	551	default	547	\N	\N	\N
-	0	548	552	default	548	\N	\N	\N
-	1	549	553	default	549	\N	\N	\N
-	1	550	554	default	550	\N	\N	\N
-	1	551	555	default	551	\N	\N	\N
-	1	552	556	default	552	\N	\N	\N
-	1	553	557	default	553	\N	\N	\N
-	1	554	558	default	554	\N	\N	\N
-	0	555	559	default	555	\N	\N	\N
-	1	556	560	default	556	\N	\N	\N
-	1	557	561	default	557	\N	\N	\N
-	0	558	562	default	558	\N	\N	\N
-	1	559	563	default	559	\N	\N	\N
-	1	560	564	default	560	\N	\N	\N
-	\N	561	565	default	561	\N	\N	\N
-	\N	562	566	default	562	\N	\N	\N
-	0	563	567	default	563	\N	\N	\N
-	0	564	568	default	564	\N	\N	\N
-	1	565	569	default	565	\N	\N	\N
-	0	566	570	default	566	\N	\N	\N
-	1	567	571	default	567	\N	\N	\N
-	1	568	572	default	568	\N	\N	\N
-	1	569	573	default	569	\N	\N	\N
-	1	570	574	default	570	\N	\N	\N
-	1	571	575	default	571	\N	\N	\N
-	0	572	576	default	572	\N	\N	\N
-	0	573	577	default	573	\N	\N	\N
-	1	574	578	default	574	\N	\N	\N
-	1	575	579	default	575	\N	\N	\N
-	1	576	580	default	576	\N	\N	\N
-	1	577	581	default	577	\N	\N	\N
-	1	578	582	default	578	\N	\N	\N
-	1	579	584	default	579	\N	\N	\N
-	1	580	585	default	580	\N	\N	\N
-	1	581	586	default	581	\N	\N	\N
-	\N	582	587	default	582	\N	\N	\N
-	0	583	588	default	583	\N	\N	\N
-	1	584	589	default	584	\N	\N	\N
-	1	585	590	default	585	\N	\N	\N
-	1	586	591	default	586	\N	\N	\N
-	1	587	592	default	587	\N	\N	\N
-	1	588	593	default	588	\N	\N	\N
-\N	0	594	602	1/2016	592	\N	\N	\N
-\N	0	595	603	1/2016	593	\N	\N	\N
-21/05/2015	0	596	604	1/2016	594	22/05/2015	\N	\N
-30/05/2015	0	597	605	1/2016	595	31/05/2015	\N	\N
-18/05/2015	0	599	608	1/2016	\N	19/05/2015	27/05/2015	28/05/2015
-19/05/2015	0	606	616	1/2016	\N	20/05/2015	20/05/2015	21/05/2015
-18/05/2015	0	598	607	1/2016	596	21/05/2015	27/05/2015	28/05/2015
-19/05/2015	0	600	606	1/2016	\N	20/05/2015	21/05/2015	22/05/2015
-\N	0	602	612	1/2016	597	\N	\N	\N
-13/05/2015	0	603	613	1/2016	598	13/05/2015	21/05/2015	21/05/2015
-19/05/2015	0	604	614	1/2016	\N	19/06/2015	20/05/2015	21/05/2015
-20/05/2015	2	605	615	1/2016	\N	21/05/2015	20/05/2015	21/05/2015
+COPY comision_revisora (fecha_revision, tipo_revision, id_revisora, id_propuesta, id_semestre, id_tema, fecha_entrega_revision, fecha_revision2, fecha_entrega_revision2, fecha_publicacion_consejo, fecha_termino_publicacion_consejo) FROM stdin;
+	\N	1	1	default	1	\N	\N	\N	\N	\N
+	1	122	123	default	122	\N	\N	\N	\N	\N
+	1	2	2	default	2	\N	\N	\N	\N	\N
+	1	3	3	default	3	\N	\N	\N	\N	\N
+	1	123	124	default	123	\N	\N	\N	\N	\N
+	1	4	4	default	4	\N	\N	\N	\N	\N
+	1	5	5	default	5	\N	\N	\N	\N	\N
+	\N	124	125	default	124	\N	\N	\N	\N	\N
+	0	6	6	default	6	\N	\N	\N	\N	\N
+	1	7	7	default	7	\N	\N	\N	\N	\N
+	\N	125	126	default	125	\N	\N	\N	\N	\N
+	1	8	8	default	8	\N	\N	\N	\N	\N
+	1	9	9	default	9	\N	\N	\N	\N	\N
+	1	126	127	default	126	\N	\N	\N	\N	\N
+	\N	10	10	default	10	\N	\N	\N	\N	\N
+	0	11	11	default	11	\N	\N	\N	\N	\N
+	1	127	128	default	127	\N	\N	\N	\N	\N
+	1	12	12	default	12	\N	\N	\N	\N	\N
+	0	13	13	default	13	\N	\N	\N	\N	\N
+	\N	128	129	default	128	\N	\N	\N	\N	\N
+	\N	14	14	default	14	\N	\N	\N	\N	\N
+	\N	15	15	default	15	\N	\N	\N	\N	\N
+	1	129	130	default	129	\N	\N	\N	\N	\N
+	\N	16	16	default	16	\N	\N	\N	\N	\N
+	\N	17	17	default	17	\N	\N	\N	\N	\N
+	1	18	18	default	18	\N	\N	\N	\N	\N
+	1	19	19	default	19	\N	\N	\N	\N	\N
+	\N	20	20	default	20	\N	\N	\N	\N	\N
+	0	21	21	default	21	\N	\N	\N	\N	\N
+	\N	22	22	default	22	\N	\N	\N	\N	\N
+	1	23	23	default	23	\N	\N	\N	\N	\N
+	1	24	24	default	24	\N	\N	\N	\N	\N
+	1	25	25	default	25	\N	\N	\N	\N	\N
+	0	26	26	default	26	\N	\N	\N	\N	\N
+	1	27	27	default	27	\N	\N	\N	\N	\N
+	1	28	28	default	28	\N	\N	\N	\N	\N
+	1	29	29	default	29	\N	\N	\N	\N	\N
+	0	30	30	default	30	\N	\N	\N	\N	\N
+	1	31	31	default	31	\N	\N	\N	\N	\N
+	1	32	32	default	32	\N	\N	\N	\N	\N
+	1	33	33	default	33	\N	\N	\N	\N	\N
+	\N	34	34	default	34	\N	\N	\N	\N	\N
+	1	35	35	default	35	\N	\N	\N	\N	\N
+	1	36	36	default	36	\N	\N	\N	\N	\N
+	0	37	37	default	37	\N	\N	\N	\N	\N
+	1	38	38	default	38	\N	\N	\N	\N	\N
+	0	39	39	default	39	\N	\N	\N	\N	\N
+	1	40	40	default	40	\N	\N	\N	\N	\N
+	1	41	41	default	41	\N	\N	\N	\N	\N
+	1	42	42	default	42	\N	\N	\N	\N	\N
+	1	43	43	default	43	\N	\N	\N	\N	\N
+	1	44	44	default	44	\N	\N	\N	\N	\N
+	1	45	45	default	45	\N	\N	\N	\N	\N
+	1	46	46	default	46	\N	\N	\N	\N	\N
+	1	47	47	default	47	\N	\N	\N	\N	\N
+	1	48	48	default	48	\N	\N	\N	\N	\N
+	1	49	49	default	49	\N	\N	\N	\N	\N
+	1	50	50	default	50	\N	\N	\N	\N	\N
+	1	51	51	default	51	\N	\N	\N	\N	\N
+	1	52	52	default	52	\N	\N	\N	\N	\N
+	1	53	53	default	53	\N	\N	\N	\N	\N
+	0	54	54	default	54	\N	\N	\N	\N	\N
+	\N	55	55	default	55	\N	\N	\N	\N	\N
+	1	56	56	default	56	\N	\N	\N	\N	\N
+	\N	57	57	default	57	\N	\N	\N	\N	\N
+	1	58	58	default	58	\N	\N	\N	\N	\N
+	1	59	59	default	59	\N	\N	\N	\N	\N
+	1	60	60	default	60	\N	\N	\N	\N	\N
+	1	61	61	default	61	\N	\N	\N	\N	\N
+	1	62	63	default	62	\N	\N	\N	\N	\N
+	0	63	64	default	63	\N	\N	\N	\N	\N
+	1	64	65	default	64	\N	\N	\N	\N	\N
+	1	65	66	default	65	\N	\N	\N	\N	\N
+	0	66	67	default	66	\N	\N	\N	\N	\N
+	1	67	68	default	67	\N	\N	\N	\N	\N
+	1	68	69	default	68	\N	\N	\N	\N	\N
+	1	69	70	default	69	\N	\N	\N	\N	\N
+	1	70	71	default	70	\N	\N	\N	\N	\N
+	0	71	72	default	71	\N	\N	\N	\N	\N
+	0	72	73	default	72	\N	\N	\N	\N	\N
+	0	73	74	default	73	\N	\N	\N	\N	\N
+	1	74	75	default	74	\N	\N	\N	\N	\N
+	1	75	76	default	75	\N	\N	\N	\N	\N
+	0	76	77	default	76	\N	\N	\N	\N	\N
+	0	77	78	default	77	\N	\N	\N	\N	\N
+	1	78	79	default	78	\N	\N	\N	\N	\N
+	0	79	80	default	79	\N	\N	\N	\N	\N
+	0	80	81	default	80	\N	\N	\N	\N	\N
+	0	81	82	default	81	\N	\N	\N	\N	\N
+	0	82	83	default	82	\N	\N	\N	\N	\N
+	1	83	84	default	83	\N	\N	\N	\N	\N
+	1	84	85	default	84	\N	\N	\N	\N	\N
+	1	85	86	default	85	\N	\N	\N	\N	\N
+	0	86	87	default	86	\N	\N	\N	\N	\N
+	0	87	88	default	87	\N	\N	\N	\N	\N
+	1	88	89	default	88	\N	\N	\N	\N	\N
+	1	89	90	default	89	\N	\N	\N	\N	\N
+	1	90	91	default	90	\N	\N	\N	\N	\N
+	0	91	92	default	91	\N	\N	\N	\N	\N
+	0	92	93	default	92	\N	\N	\N	\N	\N
+	1	93	94	default	93	\N	\N	\N	\N	\N
+	1	94	95	default	94	\N	\N	\N	\N	\N
+	1	95	96	default	95	\N	\N	\N	\N	\N
+	0	96	97	default	96	\N	\N	\N	\N	\N
+	1	97	98	default	97	\N	\N	\N	\N	\N
+	1	98	99	default	98	\N	\N	\N	\N	\N
+	1	99	100	default	99	\N	\N	\N	\N	\N
+	1	100	101	default	100	\N	\N	\N	\N	\N
+	\N	101	102	default	101	\N	\N	\N	\N	\N
+	1	102	103	default	102	\N	\N	\N	\N	\N
+	1	103	104	default	103	\N	\N	\N	\N	\N
+	1	104	105	default	104	\N	\N	\N	\N	\N
+	1	105	106	default	105	\N	\N	\N	\N	\N
+	0	106	107	default	106	\N	\N	\N	\N	\N
+	1	107	108	default	107	\N	\N	\N	\N	\N
+	1	108	109	default	108	\N	\N	\N	\N	\N
+	1	109	110	default	109	\N	\N	\N	\N	\N
+	1	110	111	default	110	\N	\N	\N	\N	\N
+	0	111	112	default	111	\N	\N	\N	\N	\N
+	1	112	113	default	112	\N	\N	\N	\N	\N
+	0	113	114	default	113	\N	\N	\N	\N	\N
+	0	114	115	default	114	\N	\N	\N	\N	\N
+	0	115	116	default	115	\N	\N	\N	\N	\N
+	1	116	117	default	116	\N	\N	\N	\N	\N
+	0	117	118	default	117	\N	\N	\N	\N	\N
+	0	118	119	default	118	\N	\N	\N	\N	\N
+	1	119	120	default	119	\N	\N	\N	\N	\N
+	1	120	121	default	120	\N	\N	\N	\N	\N
+	1	121	122	default	121	\N	\N	\N	\N	\N
+	1	130	131	default	130	\N	\N	\N	\N	\N
+	1	131	132	default	131	\N	\N	\N	\N	\N
+	1	132	133	default	132	\N	\N	\N	\N	\N
+	1	133	134	default	133	\N	\N	\N	\N	\N
+	1	134	135	default	134	\N	\N	\N	\N	\N
+	1	135	136	default	135	\N	\N	\N	\N	\N
+	1	136	137	default	136	\N	\N	\N	\N	\N
+	1	137	138	default	137	\N	\N	\N	\N	\N
+	1	138	139	default	138	\N	\N	\N	\N	\N
+	1	139	140	default	139	\N	\N	\N	\N	\N
+	1	140	141	default	140	\N	\N	\N	\N	\N
+	1	141	142	default	141	\N	\N	\N	\N	\N
+	1	142	143	default	142	\N	\N	\N	\N	\N
+	1	143	144	default	143	\N	\N	\N	\N	\N
+	\N	144	145	default	144	\N	\N	\N	\N	\N
+	\N	145	146	default	145	\N	\N	\N	\N	\N
+	\N	146	147	default	146	\N	\N	\N	\N	\N
+	1	147	148	default	147	\N	\N	\N	\N	\N
+	1	148	149	default	148	\N	\N	\N	\N	\N
+	1	149	150	default	149	\N	\N	\N	\N	\N
+	1	150	151	default	150	\N	\N	\N	\N	\N
+	1	151	152	default	151	\N	\N	\N	\N	\N
+	1	152	153	default	152	\N	\N	\N	\N	\N
+	1	153	154	default	153	\N	\N	\N	\N	\N
+	0	154	155	default	154	\N	\N	\N	\N	\N
+	1	155	156	default	155	\N	\N	\N	\N	\N
+	1	156	157	default	156	\N	\N	\N	\N	\N
+	1	157	158	default	157	\N	\N	\N	\N	\N
+	1	158	159	default	158	\N	\N	\N	\N	\N
+	1	159	160	default	159	\N	\N	\N	\N	\N
+	0	160	161	default	160	\N	\N	\N	\N	\N
+	1	161	162	default	161	\N	\N	\N	\N	\N
+	1	162	163	default	162	\N	\N	\N	\N	\N
+	1	163	164	default	163	\N	\N	\N	\N	\N
+	1	164	165	default	164	\N	\N	\N	\N	\N
+	0	165	166	default	165	\N	\N	\N	\N	\N
+	1	166	167	default	166	\N	\N	\N	\N	\N
+	1	167	168	default	167	\N	\N	\N	\N	\N
+	1	168	169	default	168	\N	\N	\N	\N	\N
+	1	169	170	default	169	\N	\N	\N	\N	\N
+	1	170	171	default	170	\N	\N	\N	\N	\N
+	0	171	172	default	171	\N	\N	\N	\N	\N
+	1	172	173	default	172	\N	\N	\N	\N	\N
+	1	173	174	default	173	\N	\N	\N	\N	\N
+	0	174	175	default	174	\N	\N	\N	\N	\N
+	1	175	176	default	175	\N	\N	\N	\N	\N
+	1	176	177	default	176	\N	\N	\N	\N	\N
+	1	177	178	default	177	\N	\N	\N	\N	\N
+	1	178	179	default	178	\N	\N	\N	\N	\N
+	1	179	180	default	179	\N	\N	\N	\N	\N
+	0	180	181	default	180	\N	\N	\N	\N	\N
+	1	181	182	default	181	\N	\N	\N	\N	\N
+	0	182	183	default	182	\N	\N	\N	\N	\N
+	0	183	184	default	183	\N	\N	\N	\N	\N
+	1	184	185	default	184	\N	\N	\N	\N	\N
+	\N	185	186	default	185	\N	\N	\N	\N	\N
+	1	186	187	default	186	\N	\N	\N	\N	\N
+	1	187	188	default	187	\N	\N	\N	\N	\N
+	0	188	189	default	188	\N	\N	\N	\N	\N
+	1	189	190	default	189	\N	\N	\N	\N	\N
+	1	190	191	default	190	\N	\N	\N	\N	\N
+	0	191	192	default	191	\N	\N	\N	\N	\N
+	1	192	193	default	192	\N	\N	\N	\N	\N
+	1	193	194	default	193	\N	\N	\N	\N	\N
+	1	194	195	default	194	\N	\N	\N	\N	\N
+	\N	195	196	default	195	\N	\N	\N	\N	\N
+	0	196	197	default	196	\N	\N	\N	\N	\N
+	1	197	198	default	197	\N	\N	\N	\N	\N
+	1	198	199	default	198	\N	\N	\N	\N	\N
+	1	199	200	default	199	\N	\N	\N	\N	\N
+	1	200	201	default	200	\N	\N	\N	\N	\N
+	1	201	202	default	201	\N	\N	\N	\N	\N
+	1	202	203	default	202	\N	\N	\N	\N	\N
+	\N	203	204	default	203	\N	\N	\N	\N	\N
+	0	204	205	default	204	\N	\N	\N	\N	\N
+	0	205	206	default	205	\N	\N	\N	\N	\N
+	0	206	207	default	206	\N	\N	\N	\N	\N
+	0	207	208	default	207	\N	\N	\N	\N	\N
+	1	208	209	default	208	\N	\N	\N	\N	\N
+	0	209	210	default	209	\N	\N	\N	\N	\N
+	0	210	211	default	210	\N	\N	\N	\N	\N
+	0	211	212	default	211	\N	\N	\N	\N	\N
+	0	212	213	default	212	\N	\N	\N	\N	\N
+	0	213	214	default	213	\N	\N	\N	\N	\N
+	1	214	215	default	214	\N	\N	\N	\N	\N
+	0	215	216	default	215	\N	\N	\N	\N	\N
+	0	216	217	default	216	\N	\N	\N	\N	\N
+	0	217	218	default	217	\N	\N	\N	\N	\N
+	\N	218	219	default	218	\N	\N	\N	\N	\N
+	0	219	220	default	219	\N	\N	\N	\N	\N
+	1	220	221	default	220	\N	\N	\N	\N	\N
+	0	221	222	default	221	\N	\N	\N	\N	\N
+	1	222	223	default	222	\N	\N	\N	\N	\N
+	1	223	224	default	223	\N	\N	\N	\N	\N
+	1	224	225	default	224	\N	\N	\N	\N	\N
+	0	225	226	default	225	\N	\N	\N	\N	\N
+	0	226	227	default	226	\N	\N	\N	\N	\N
+	1	227	228	default	227	\N	\N	\N	\N	\N
+	1	228	229	default	228	\N	\N	\N	\N	\N
+	0	229	230	default	229	\N	\N	\N	\N	\N
+	0	230	231	default	230	\N	\N	\N	\N	\N
+	1	231	232	default	231	\N	\N	\N	\N	\N
+	1	232	233	default	232	\N	\N	\N	\N	\N
+	1	233	234	default	233	\N	\N	\N	\N	\N
+	0	234	235	default	234	\N	\N	\N	\N	\N
+	0	235	236	default	235	\N	\N	\N	\N	\N
+	1	236	237	default	236	\N	\N	\N	\N	\N
+	1	237	238	default	237	\N	\N	\N	\N	\N
+	\N	238	239	default	238	\N	\N	\N	\N	\N
+	1	239	240	default	239	\N	\N	\N	\N	\N
+	0	240	241	default	240	\N	\N	\N	\N	\N
+	\N	241	242	default	241	\N	\N	\N	\N	\N
+	\N	242	243	default	242	\N	\N	\N	\N	\N
+	0	243	244	default	243	\N	\N	\N	\N	\N
+	1	244	245	default	244	\N	\N	\N	\N	\N
+	0	245	246	default	245	\N	\N	\N	\N	\N
+	\N	246	247	default	246	\N	\N	\N	\N	\N
+	0	247	248	default	247	\N	\N	\N	\N	\N
+	1	248	249	default	248	\N	\N	\N	\N	\N
+	0	249	250	default	249	\N	\N	\N	\N	\N
+	1	250	251	default	250	\N	\N	\N	\N	\N
+	1	251	252	default	251	\N	\N	\N	\N	\N
+	1	252	253	default	252	\N	\N	\N	\N	\N
+	1	253	254	default	253	\N	\N	\N	\N	\N
+	1	254	255	default	254	\N	\N	\N	\N	\N
+	\N	255	256	default	255	\N	\N	\N	\N	\N
+	1	256	257	default	256	\N	\N	\N	\N	\N
+	0	257	258	default	257	\N	\N	\N	\N	\N
+	0	258	259	default	258	\N	\N	\N	\N	\N
+	\N	259	260	default	259	\N	\N	\N	\N	\N
+	1	260	261	default	260	\N	\N	\N	\N	\N
+	1	261	262	default	261	\N	\N	\N	\N	\N
+	1	262	263	default	262	\N	\N	\N	\N	\N
+	0	263	264	default	263	\N	\N	\N	\N	\N
+	0	264	265	default	264	\N	\N	\N	\N	\N
+	1	265	266	default	265	\N	\N	\N	\N	\N
+	1	266	267	default	266	\N	\N	\N	\N	\N
+	1	267	268	default	267	\N	\N	\N	\N	\N
+	1	268	269	default	268	\N	\N	\N	\N	\N
+	1	269	270	default	269	\N	\N	\N	\N	\N
+	1	270	271	default	270	\N	\N	\N	\N	\N
+	1	271	272	default	271	\N	\N	\N	\N	\N
+	0	272	273	default	272	\N	\N	\N	\N	\N
+	0	273	274	default	273	\N	\N	\N	\N	\N
+	1	274	275	default	274	\N	\N	\N	\N	\N
+	1	275	276	default	275	\N	\N	\N	\N	\N
+	0	276	277	default	276	\N	\N	\N	\N	\N
+	0	277	278	default	277	\N	\N	\N	\N	\N
+	0	278	279	default	278	\N	\N	\N	\N	\N
+	1	279	280	default	279	\N	\N	\N	\N	\N
+	0	280	281	default	280	\N	\N	\N	\N	\N
+	0	281	282	default	281	\N	\N	\N	\N	\N
+	1	282	283	default	282	\N	\N	\N	\N	\N
+	1	283	284	default	283	\N	\N	\N	\N	\N
+	0	284	285	default	284	\N	\N	\N	\N	\N
+	1	285	286	default	285	\N	\N	\N	\N	\N
+	1	286	287	default	286	\N	\N	\N	\N	\N
+	0	287	288	default	287	\N	\N	\N	\N	\N
+	1	288	289	default	288	\N	\N	\N	\N	\N
+	1	289	290	default	289	\N	\N	\N	\N	\N
+	\N	290	291	default	290	\N	\N	\N	\N	\N
+	0	291	292	default	291	\N	\N	\N	\N	\N
+	1	292	293	default	292	\N	\N	\N	\N	\N
+	1	293	294	default	293	\N	\N	\N	\N	\N
+	1	294	295	default	294	\N	\N	\N	\N	\N
+	\N	295	296	default	295	\N	\N	\N	\N	\N
+	1	296	297	default	296	\N	\N	\N	\N	\N
+	0	297	298	default	297	\N	\N	\N	\N	\N
+	1	298	299	default	298	\N	\N	\N	\N	\N
+	1	299	300	default	299	\N	\N	\N	\N	\N
+	0	300	301	default	300	\N	\N	\N	\N	\N
+	0	301	302	default	301	\N	\N	\N	\N	\N
+	1	302	303	default	302	\N	\N	\N	\N	\N
+	0	303	304	default	303	\N	\N	\N	\N	\N
+	1	304	305	default	304	\N	\N	\N	\N	\N
+	1	305	306	default	305	\N	\N	\N	\N	\N
+	1	306	307	default	306	\N	\N	\N	\N	\N
+	0	307	308	default	307	\N	\N	\N	\N	\N
+	0	308	309	default	308	\N	\N	\N	\N	\N
+	0	309	310	default	309	\N	\N	\N	\N	\N
+	\N	310	311	default	310	\N	\N	\N	\N	\N
+	1	311	312	default	311	\N	\N	\N	\N	\N
+	1	312	313	default	312	\N	\N	\N	\N	\N
+	1	313	314	default	313	\N	\N	\N	\N	\N
+	1	314	315	default	314	\N	\N	\N	\N	\N
+	1	315	316	default	315	\N	\N	\N	\N	\N
+	1	316	317	default	316	\N	\N	\N	\N	\N
+	0	317	318	default	317	\N	\N	\N	\N	\N
+	0	318	319	default	318	\N	\N	\N	\N	\N
+	\N	319	320	default	319	\N	\N	\N	\N	\N
+	1	320	321	default	320	\N	\N	\N	\N	\N
+	1	321	322	default	321	\N	\N	\N	\N	\N
+	\N	322	323	default	322	\N	\N	\N	\N	\N
+	1	323	324	default	323	\N	\N	\N	\N	\N
+	1	324	326	default	324	\N	\N	\N	\N	\N
+	1	325	327	default	325	\N	\N	\N	\N	\N
+	0	326	328	default	326	\N	\N	\N	\N	\N
+	1	327	329	default	327	\N	\N	\N	\N	\N
+	1	328	330	default	328	\N	\N	\N	\N	\N
+	0	329	331	default	329	\N	\N	\N	\N	\N
+	1	330	332	default	330	\N	\N	\N	\N	\N
+	1	331	333	default	331	\N	\N	\N	\N	\N
+	\N	332	334	default	332	\N	\N	\N	\N	\N
+	1	333	335	default	333	\N	\N	\N	\N	\N
+	1	334	336	default	334	\N	\N	\N	\N	\N
+	1	335	337	default	335	\N	\N	\N	\N	\N
+	0	336	338	default	336	\N	\N	\N	\N	\N
+	1	337	339	default	337	\N	\N	\N	\N	\N
+	1	338	340	default	338	\N	\N	\N	\N	\N
+	0	339	341	default	339	\N	\N	\N	\N	\N
+	1	340	342	default	340	\N	\N	\N	\N	\N
+	1	341	343	default	341	\N	\N	\N	\N	\N
+	0	342	344	default	342	\N	\N	\N	\N	\N
+	\N	343	345	default	343	\N	\N	\N	\N	\N
+	0	344	346	default	344	\N	\N	\N	\N	\N
+	1	345	347	default	345	\N	\N	\N	\N	\N
+	1	346	348	default	346	\N	\N	\N	\N	\N
+	1	347	349	default	347	\N	\N	\N	\N	\N
+	1	348	350	default	348	\N	\N	\N	\N	\N
+	\N	349	351	default	349	\N	\N	\N	\N	\N
+	0	350	352	default	350	\N	\N	\N	\N	\N
+	0	351	353	default	351	\N	\N	\N	\N	\N
+	0	352	354	default	352	\N	\N	\N	\N	\N
+	0	353	355	default	353	\N	\N	\N	\N	\N
+	1	354	356	default	354	\N	\N	\N	\N	\N
+	1	355	357	default	355	\N	\N	\N	\N	\N
+	1	356	358	default	356	\N	\N	\N	\N	\N
+	0	357	359	default	357	\N	\N	\N	\N	\N
+	1	358	360	default	358	\N	\N	\N	\N	\N
+	0	359	361	default	359	\N	\N	\N	\N	\N
+	1	360	362	default	360	\N	\N	\N	\N	\N
+	1	361	363	default	361	\N	\N	\N	\N	\N
+	1	362	364	default	362	\N	\N	\N	\N	\N
+	1	363	365	default	363	\N	\N	\N	\N	\N
+	1	364	366	default	364	\N	\N	\N	\N	\N
+	1	365	367	default	365	\N	\N	\N	\N	\N
+	0	366	368	default	366	\N	\N	\N	\N	\N
+	1	367	369	default	367	\N	\N	\N	\N	\N
+	1	368	370	default	368	\N	\N	\N	\N	\N
+	1	369	371	default	369	\N	\N	\N	\N	\N
+	1	370	372	default	370	\N	\N	\N	\N	\N
+	1	371	373	default	371	\N	\N	\N	\N	\N
+	1	372	374	default	372	\N	\N	\N	\N	\N
+	1	373	375	default	373	\N	\N	\N	\N	\N
+	0	374	376	default	374	\N	\N	\N	\N	\N
+	1	375	377	default	375	\N	\N	\N	\N	\N
+	1	376	378	default	376	\N	\N	\N	\N	\N
+	\N	377	379	default	377	\N	\N	\N	\N	\N
+	1	378	380	default	378	\N	\N	\N	\N	\N
+	1	379	381	default	379	\N	\N	\N	\N	\N
+	1	380	382	default	380	\N	\N	\N	\N	\N
+	0	381	383	default	381	\N	\N	\N	\N	\N
+	0	382	384	default	382	\N	\N	\N	\N	\N
+	1	383	385	default	383	\N	\N	\N	\N	\N
+	1	384	386	default	384	\N	\N	\N	\N	\N
+	1	385	387	default	385	\N	\N	\N	\N	\N
+	0	386	388	default	386	\N	\N	\N	\N	\N
+	1	387	389	default	387	\N	\N	\N	\N	\N
+	\N	388	390	default	388	\N	\N	\N	\N	\N
+	1	389	391	default	389	\N	\N	\N	\N	\N
+	1	390	392	default	390	\N	\N	\N	\N	\N
+	1	391	393	default	391	\N	\N	\N	\N	\N
+	0	392	394	default	392	\N	\N	\N	\N	\N
+	1	393	395	default	393	\N	\N	\N	\N	\N
+	1	394	396	default	394	\N	\N	\N	\N	\N
+	1	395	397	default	395	\N	\N	\N	\N	\N
+	1	396	398	default	396	\N	\N	\N	\N	\N
+	1	397	399	default	397	\N	\N	\N	\N	\N
+	1	398	400	default	398	\N	\N	\N	\N	\N
+	0	399	401	default	399	\N	\N	\N	\N	\N
+	0	400	402	default	400	\N	\N	\N	\N	\N
+	0	401	403	default	401	\N	\N	\N	\N	\N
+	0	402	404	default	402	\N	\N	\N	\N	\N
+	\N	403	405	default	403	\N	\N	\N	\N	\N
+	0	404	406	default	404	\N	\N	\N	\N	\N
+	0	405	407	default	405	\N	\N	\N	\N	\N
+	1	406	408	default	406	\N	\N	\N	\N	\N
+	1	407	409	default	407	\N	\N	\N	\N	\N
+	1	408	410	default	408	\N	\N	\N	\N	\N
+	1	409	411	default	409	\N	\N	\N	\N	\N
+	0	410	412	default	410	\N	\N	\N	\N	\N
+	0	411	413	default	411	\N	\N	\N	\N	\N
+	1	412	414	default	412	\N	\N	\N	\N	\N
+	1	413	415	default	413	\N	\N	\N	\N	\N
+	0	414	416	default	414	\N	\N	\N	\N	\N
+	1	415	417	default	415	\N	\N	\N	\N	\N
+	1	416	418	default	416	\N	\N	\N	\N	\N
+	1	417	419	default	417	\N	\N	\N	\N	\N
+	0	418	420	default	418	\N	\N	\N	\N	\N
+	1	419	421	default	419	\N	\N	\N	\N	\N
+	1	420	422	default	420	\N	\N	\N	\N	\N
+	0	421	423	default	421	\N	\N	\N	\N	\N
+	1	422	424	default	422	\N	\N	\N	\N	\N
+	1	423	425	default	423	\N	\N	\N	\N	\N
+	1	424	426	default	424	\N	\N	\N	\N	\N
+	1	425	428	default	425	\N	\N	\N	\N	\N
+	1	426	429	default	426	\N	\N	\N	\N	\N
+	1	427	430	default	427	\N	\N	\N	\N	\N
+	\N	428	431	default	428	\N	\N	\N	\N	\N
+	1	429	432	default	429	\N	\N	\N	\N	\N
+	0	430	433	default	430	\N	\N	\N	\N	\N
+	1	431	434	default	431	\N	\N	\N	\N	\N
+	1	432	435	default	432	\N	\N	\N	\N	\N
+	1	433	436	default	433	\N	\N	\N	\N	\N
+	1	434	437	default	434	\N	\N	\N	\N	\N
+	1	435	438	default	435	\N	\N	\N	\N	\N
+	1	436	439	default	436	\N	\N	\N	\N	\N
+	1	437	440	default	437	\N	\N	\N	\N	\N
+	1	438	441	default	438	\N	\N	\N	\N	\N
+	1	439	442	default	439	\N	\N	\N	\N	\N
+	1	440	443	default	440	\N	\N	\N	\N	\N
+	1	441	444	default	441	\N	\N	\N	\N	\N
+	1	442	445	default	442	\N	\N	\N	\N	\N
+	1	443	446	default	443	\N	\N	\N	\N	\N
+	1	444	447	default	444	\N	\N	\N	\N	\N
+	1	445	448	default	445	\N	\N	\N	\N	\N
+	1	446	449	default	446	\N	\N	\N	\N	\N
+	1	447	450	default	447	\N	\N	\N	\N	\N
+	1	448	451	default	448	\N	\N	\N	\N	\N
+	1	449	452	default	449	\N	\N	\N	\N	\N
+	1	450	453	default	450	\N	\N	\N	\N	\N
+	0	451	454	default	451	\N	\N	\N	\N	\N
+	1	452	455	default	452	\N	\N	\N	\N	\N
+	0	453	456	default	453	\N	\N	\N	\N	\N
+	1	454	457	default	454	\N	\N	\N	\N	\N
+	1	455	458	default	455	\N	\N	\N	\N	\N
+	1	456	459	default	456	\N	\N	\N	\N	\N
+	0	457	460	default	457	\N	\N	\N	\N	\N
+	0	458	461	default	458	\N	\N	\N	\N	\N
+	1	459	462	default	459	\N	\N	\N	\N	\N
+	0	460	463	default	460	\N	\N	\N	\N	\N
+	0	461	464	default	461	\N	\N	\N	\N	\N
+	0	462	465	default	462	\N	\N	\N	\N	\N
+	1	463	466	default	463	\N	\N	\N	\N	\N
+	0	464	467	default	464	\N	\N	\N	\N	\N
+	1	465	468	default	465	\N	\N	\N	\N	\N
+	0	466	469	default	466	\N	\N	\N	\N	\N
+	1	467	470	default	467	\N	\N	\N	\N	\N
+	1	468	471	default	468	\N	\N	\N	\N	\N
+	1	469	472	default	469	\N	\N	\N	\N	\N
+	1	470	473	default	470	\N	\N	\N	\N	\N
+	0	471	474	default	471	\N	\N	\N	\N	\N
+	1	472	475	default	472	\N	\N	\N	\N	\N
+	1	473	476	default	473	\N	\N	\N	\N	\N
+	1	474	477	default	474	\N	\N	\N	\N	\N
+	1	475	478	default	475	\N	\N	\N	\N	\N
+	0	476	479	default	476	\N	\N	\N	\N	\N
+	1	477	480	default	477	\N	\N	\N	\N	\N
+	0	478	481	default	478	\N	\N	\N	\N	\N
+	1	479	482	default	479	\N	\N	\N	\N	\N
+	1	480	483	default	480	\N	\N	\N	\N	\N
+	1	481	484	default	481	\N	\N	\N	\N	\N
+	1	482	485	default	482	\N	\N	\N	\N	\N
+	1	483	486	default	483	\N	\N	\N	\N	\N
+	\N	484	487	default	484	\N	\N	\N	\N	\N
+	0	485	488	default	485	\N	\N	\N	\N	\N
+	1	486	489	default	486	\N	\N	\N	\N	\N
+	1	487	490	default	487	\N	\N	\N	\N	\N
+	0	488	491	default	488	\N	\N	\N	\N	\N
+	1	489	493	default	489	\N	\N	\N	\N	\N
+	1	490	494	default	490	\N	\N	\N	\N	\N
+	0	491	495	default	491	\N	\N	\N	\N	\N
+	1	492	496	default	492	\N	\N	\N	\N	\N
+	1	493	497	default	493	\N	\N	\N	\N	\N
+	1	494	498	default	494	\N	\N	\N	\N	\N
+	1	495	499	default	495	\N	\N	\N	\N	\N
+	0	496	500	default	496	\N	\N	\N	\N	\N
+	1	497	501	default	497	\N	\N	\N	\N	\N
+	1	498	502	default	498	\N	\N	\N	\N	\N
+	0	499	503	default	499	\N	\N	\N	\N	\N
+	0	500	504	default	500	\N	\N	\N	\N	\N
+	1	501	505	default	501	\N	\N	\N	\N	\N
+	1	502	506	default	502	\N	\N	\N	\N	\N
+	1	503	507	default	503	\N	\N	\N	\N	\N
+	0	504	508	default	504	\N	\N	\N	\N	\N
+	1	505	509	default	505	\N	\N	\N	\N	\N
+	0	506	510	default	506	\N	\N	\N	\N	\N
+	0	507	511	default	507	\N	\N	\N	\N	\N
+	1	508	512	default	508	\N	\N	\N	\N	\N
+	0	509	513	default	509	\N	\N	\N	\N	\N
+	1	510	514	default	510	\N	\N	\N	\N	\N
+	1	511	515	default	511	\N	\N	\N	\N	\N
+	0	512	516	default	512	\N	\N	\N	\N	\N
+	0	513	517	default	513	\N	\N	\N	\N	\N
+\N	1	591	597	1/2015	\N	\N	\N	\N	\N	\N
+	1	514	518	default	514	\N	\N	\N	\N	\N
+\N	1	590	596	1/2015	\N	\N	\N	\N	\N	\N
+	0	515	519	default	515	\N	\N	\N	\N	\N
+\N	0	592	598	1/2015	\N	\N	\N	\N	\N	\N
+	1	516	520	default	516	\N	\N	\N	\N	\N
+\N	0	589	595	1/2015	590	\N	\N	\N	\N	\N
+	0	517	521	default	517	\N	\N	\N	\N	\N
+	0	518	522	default	518	\N	\N	\N	\N	\N
+	0	519	523	default	519	\N	\N	\N	\N	\N
+	\N	520	524	default	520	\N	\N	\N	\N	\N
+	1	521	525	default	521	\N	\N	\N	\N	\N
+	0	522	526	default	522	\N	\N	\N	\N	\N
+	1	523	527	default	523	\N	\N	\N	\N	\N
+	1	524	528	default	524	\N	\N	\N	\N	\N
+	1	525	529	default	525	\N	\N	\N	\N	\N
+	1	526	530	default	526	\N	\N	\N	\N	\N
+	1	527	531	default	527	\N	\N	\N	\N	\N
+	1	528	532	default	528	\N	\N	\N	\N	\N
+	1	529	533	default	529	\N	\N	\N	\N	\N
+	1	530	534	default	530	\N	\N	\N	\N	\N
+	1	531	535	default	531	\N	\N	\N	\N	\N
+	1	532	536	default	532	\N	\N	\N	\N	\N
+	1	533	537	default	533	\N	\N	\N	\N	\N
+	1	534	538	default	534	\N	\N	\N	\N	\N
+	1	535	539	default	535	\N	\N	\N	\N	\N
+	1	536	540	default	536	\N	\N	\N	\N	\N
+	1	537	541	default	537	\N	\N	\N	\N	\N
+	1	538	542	default	538	\N	\N	\N	\N	\N
+	0	539	543	default	539	\N	\N	\N	\N	\N
+	1	540	544	default	540	\N	\N	\N	\N	\N
+	1	541	545	default	541	\N	\N	\N	\N	\N
+	1	542	546	default	542	\N	\N	\N	\N	\N
+	1	543	547	default	543	\N	\N	\N	\N	\N
+	1	544	548	default	544	\N	\N	\N	\N	\N
+	1	545	549	default	545	\N	\N	\N	\N	\N
+	0	546	550	default	546	\N	\N	\N	\N	\N
+	1	547	551	default	547	\N	\N	\N	\N	\N
+	0	548	552	default	548	\N	\N	\N	\N	\N
+	1	549	553	default	549	\N	\N	\N	\N	\N
+	1	550	554	default	550	\N	\N	\N	\N	\N
+	1	551	555	default	551	\N	\N	\N	\N	\N
+	1	552	556	default	552	\N	\N	\N	\N	\N
+	1	553	557	default	553	\N	\N	\N	\N	\N
+	1	554	558	default	554	\N	\N	\N	\N	\N
+	0	555	559	default	555	\N	\N	\N	\N	\N
+	1	556	560	default	556	\N	\N	\N	\N	\N
+	1	557	561	default	557	\N	\N	\N	\N	\N
+	0	558	562	default	558	\N	\N	\N	\N	\N
+	1	559	563	default	559	\N	\N	\N	\N	\N
+	1	560	564	default	560	\N	\N	\N	\N	\N
+	\N	561	565	default	561	\N	\N	\N	\N	\N
+	\N	562	566	default	562	\N	\N	\N	\N	\N
+	0	563	567	default	563	\N	\N	\N	\N	\N
+	0	564	568	default	564	\N	\N	\N	\N	\N
+	1	565	569	default	565	\N	\N	\N	\N	\N
+	0	566	570	default	566	\N	\N	\N	\N	\N
+	1	567	571	default	567	\N	\N	\N	\N	\N
+	1	568	572	default	568	\N	\N	\N	\N	\N
+	1	569	573	default	569	\N	\N	\N	\N	\N
+	1	570	574	default	570	\N	\N	\N	\N	\N
+	1	571	575	default	571	\N	\N	\N	\N	\N
+	0	572	576	default	572	\N	\N	\N	\N	\N
+	0	573	577	default	573	\N	\N	\N	\N	\N
+	1	574	578	default	574	\N	\N	\N	\N	\N
+	1	575	579	default	575	\N	\N	\N	\N	\N
+	1	576	580	default	576	\N	\N	\N	\N	\N
+	1	577	581	default	577	\N	\N	\N	\N	\N
+	1	578	582	default	578	\N	\N	\N	\N	\N
+	1	579	584	default	579	\N	\N	\N	\N	\N
+	1	580	585	default	580	\N	\N	\N	\N	\N
+	1	581	586	default	581	\N	\N	\N	\N	\N
+	\N	582	587	default	582	\N	\N	\N	\N	\N
+	0	583	588	default	583	\N	\N	\N	\N	\N
+	1	584	589	default	584	\N	\N	\N	\N	\N
+	1	585	590	default	585	\N	\N	\N	\N	\N
+	1	586	591	default	586	\N	\N	\N	\N	\N
+	1	587	592	default	587	\N	\N	\N	\N	\N
+	1	588	593	default	588	\N	\N	\N	\N	\N
+\N	0	594	602	1/2016	592	\N	\N	\N	\N	\N
+\N	0	595	603	1/2016	593	\N	\N	\N	\N	\N
+21/05/2015	0	596	604	1/2016	594	22/05/2015	\N	\N	\N	\N
+30/05/2015	0	597	605	1/2016	595	31/05/2015	\N	\N	\N	\N
+18/05/2015	0	599	608	1/2016	\N	19/05/2015	27/05/2015	28/05/2015	\N	\N
+19/05/2015	0	606	616	1/2016	\N	20/05/2015	20/05/2015	21/05/2015	\N	\N
+18/05/2015	0	598	607	1/2016	596	21/05/2015	27/05/2015	28/05/2015	\N	\N
+19/05/2015	0	600	606	1/2016	\N	20/05/2015	21/05/2015	22/05/2015	\N	\N
+\N	0	602	612	1/2016	597	\N	\N	\N	\N	\N
+13/05/2015	0	603	613	1/2016	598	13/05/2015	21/05/2015	21/05/2015	\N	\N
+19/05/2015	0	604	614	1/2016	\N	19/06/2015	20/05/2015	21/05/2015	\N	\N
+20/05/2015	2	605	615	1/2016	\N	21/05/2015	20/05/2015	21/05/2015	\N	\N
 \.
 
 
@@ -2197,7 +2199,7 @@ COPY coordinacion (id, anio, cantalumnosestimado, cantalumnosreal, semestre, asi
 -- Data for Name: encuesta; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY encuesta (id, anio, comentario, semestre, rut_profesor) FROM stdin;
+COPY encuesta (id, anio, comentario, semestre, profesor_rut_profesor) FROM stdin;
 \.
 
 
@@ -5191,7 +5193,7 @@ ALTER TABLE ONLY coordinacion
 --
 
 ALTER TABLE ONLY encuesta
-    ADD CONSTRAINT fk_encuesta_rut_profesor FOREIGN KEY (rut_profesor) REFERENCES profesor(rut_profesor);
+    ADD CONSTRAINT fk_encuesta_rut_profesor FOREIGN KEY (profesor_rut_profesor) REFERENCES profesor(rut_profesor);
 
 
 --
