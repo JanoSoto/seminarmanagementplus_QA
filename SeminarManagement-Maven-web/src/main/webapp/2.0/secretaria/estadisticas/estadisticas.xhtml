@@ -10,6 +10,9 @@
 
     <ui:define name="metadata">
         #{accordionPanelMB.setIndex("4")}
+        <f:metadata>
+            <f:viewParam name="prof" value="#{verProfesorMB.rutProfesor}"/>
+        </f:metadata>
     </ui:define>
 
     <ui:define name="title"><title>Estadísticas | Seminar Management</title></ui:define>
@@ -45,25 +48,25 @@
                 </f:facet>
 
                 <p:column headerText="Nombre" sortBy="#{profesor.profesor.nombreProfesor} #{profesor.profesor.apellidoProfesor}">
-                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/profesores/profesor.xhtml?prof=#{prof.profesor.rutProfesor}">
+                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/profesores/profesor.xhtml?prof=#{profesor.profesor.rutProfesor}">
                         <h:outputText value="#{profesor.profesor.nombreProfesor} #{profesor.profesor.apellidoProfesor}" />
                     </a>
                 </p:column>
 
                 <p:column headerText="Diurno" sortBy="#{profesor.temasVigentesDiurno}">
-                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/profesores/profesor.xhtml?prof=#{prof.profesor.rutProfesor}">
+                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/profesores/profesor.xhtml?prof=#{profesor.profesor.rutProfesor}">
                         <h:outputText value="#{profesor.temasVigentesDiurno}" />
                     </a>
                 </p:column>
 
                 <p:column headerText="Vespertino" sortBy="#{profesor.temasVigentesVespertino}">
-                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/profesores/profesor.xhtml?prof=#{prof.profesor.rutProfesor}">
+                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/profesores/profesor.xhtml?prof=#{profesor.profesor.rutProfesor}">
                         <h:outputText value="#{profesor.temasVigentesVespertino}" />
                     </a>
                 </p:column>
 
                 <p:column headerText="Total" sortBy="#{profesor.temasVigentes}">
-                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/profesores/profesor.xhtml?prof=#{prof.profesor.rutProfesor}">
+                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/profesores/profesor.xhtml?prof=#{profesor.profesor.rutProfesor}">
                         <h:outputText value="#{profesor.temasVigentes}" />
                     </a>
                 </p:column>
@@ -91,25 +94,25 @@
                 </f:facet>
 
                 <p:column headerText="Nombre">
-                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/profesores/profesor.xhtml?prof=#{prof.profesor.rutProfesor}">
+                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/profesores/profesor.xhtml?prof=#{profesor.profesor.rutProfesor}">
                         <h:outputText value="#{profesor.profesor.nombreProfesor} #{profesor.profesor.apellidoProfesor}" />
                     </a>
                 </p:column>
 
                 <p:column headerText="Diurno" sortBy="#{profesor.temasVigentesDiurno}">
-                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/profesores/profesor.xhtml?prof=#{prof.profesor.rutProfesor}">
+                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/profesores/profesor.xhtml?prof=#{profesor.profesor.rutProfesor}">
                         <h:outputText value="#{profesor.temasVigentesDiurno}" />
                     </a>
                 </p:column>
 
                 <p:column headerText="Vespertino" sortBy="#{profesor.temasVigentesVespertino}">
-                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/profesores/profesor.xhtml?prof=#{prof.profesor.rutProfesor}">
+                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/profesores/profesor.xhtml?prof=#{profesor.profesor.rutProfesor}">
                         <h:outputText value="#{profesor.temasVigentesVespertino}" />
                     </a>
                 </p:column>
 
                 <p:column headerText="Total" sortBy="#{profesor.temasVigentes}">
-                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/profesores/profesor.xhtml?prof=#{prof.profesor.rutProfesor}">
+                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/profesores/profesor.xhtml?prof=#{profesor.profesor.rutProfesor}">
                         <h:outputText value="#{profesor.temasVigentes}" />
                     </a>
                 </p:column>

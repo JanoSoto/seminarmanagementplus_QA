@@ -813,11 +813,10 @@ public class ComisionRevisora2MB implements Serializable {
                 context.addMessage(null, new FacesMessage("Mes de la fecha", "Debe seleccionar un mes mayor"));
                 return false;
             } else {
-                if (e > f) {
-                    context.addMessage(null, new FacesMessage("Dia de la fecha", "Debe seleccionar un dia mayor"));
-                    return false;
+                if (e > f && c >= d){
+                        context.addMessage(null, new FacesMessage("Dia de la fecha", "Debe seleccionar un dia mayor"));
+                        return false;
                 }
-
             }
 
         }

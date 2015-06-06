@@ -33,6 +33,7 @@ public class VerTemaMB {
     private Profesor guia,coguia,corrector1,corrector2;
     private Tema tema;
     private Date fechaEdit,fechaEdit2,fechaEdit3;
+    
     private String semestreEdit, nombreTemaEdit,semestreTerminoEdit;
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(VerTemaMB.class);
     private Alumno alumno;
@@ -77,6 +78,10 @@ public class VerTemaMB {
                         corrector2 = tema.getIdCorrectora().getProfeCorreccionList().get(i).getProfesor();
                 }
             alumno = tema.getIdRevisora().getIdPropuesta().getRutAlumno();
+            if(!tema.getComisionCorrectoraList().isEmpty()){
+                    //System.out.println(tema.getComisionCorrectoraList().get(0).getProfeCorreccionList().get(0).getNotaCorreccionDefensa());
+                    
+        }
         }
         else{
             FacesContext context = FacesContext.getCurrentInstance();
@@ -337,4 +342,6 @@ public class VerTemaMB {
     public void setAlumno(Alumno alumno) {
         this.alumno = alumno;
     }
+    
+    
 }

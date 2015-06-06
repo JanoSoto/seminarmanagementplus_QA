@@ -41,6 +41,8 @@
                     <h:outputText rendered="#{verTemaMB.tema.estadoTema eq 4}" style="padding-left: 1em;" value="EN PROCESO EXAMEN"/>
                     <h:outputText rendered="#{verTemaMB.tema.estadoTema eq 5}" style="padding-left: 1em;" value="MAGISTER"/>
                     <h:outputText rendered="#{verTemaMB.tema.estadoTema eq 6}" style="padding-left: 1em;" value="VIGENTE, CON BORRADOR FINAL"/>
+                    <h:outputText rendered="#{verTemaMB.tema.estadoTema eq 7}" style="padding-left: 1em;" value="REPROBADO"/>
+                    <h:outputText rendered="#{verTemaMB.tema.estadoTema eq 8}" style="padding-left: 1em;" value="CADUCO POR RENUNCIA"/>
                     <br/>
                     
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Tiene Comisión: "/>
@@ -83,6 +85,7 @@
                         <p:button style="width:140px;" rendered="#{empty verTemaMB.tema.idCorrectora and verTemaMB.tema.estadoTema eq 0}" href="/2.0/secretaria/temas/informe.xhtml?tema=#{verTemaMB.tema.idTema}" value="Agregar Informe de Avance"/>
                         <p:button style="width:140px;" rendered="#{empty verTemaMB.tema.idCorrectora and verTemaMB.tema.estadoTema eq 0}" href="/2.0/secretaria/temas/borrador.xhtml?tema=#{verTemaMB.tema.idTema}" value="Agregar Borrador Final"/>
                         <p:button style="width:140px;" rendered="#{verTemaMB.tema.estadoTema eq 4}" href="/2.0/secretaria/temas/calificar.xhtml?tema=#{verTemaMB.tema.idTema}" value="Agregar Calificaciones"/>
+                        <p:button style="width:140px;" rendered="#{verTemaMB.tema.estadoTema eq 0}" href="/2.0/secretaria/temas/caducarrenuncia.xhtml?tema=#{verTemaMB.tema.idTema}" value="Renunciar"/>
                         <p:button style="width:140px;" rendered="#{empty verTemaMB.tema.idCorrectora and verTemaMB.tema.estadoTema eq 0}" href="/2.0/secretaria/temas/caducar.xhtml?tema=#{verTemaMB.tema.idTema}" value="Caducar"/>
                         <p:button style="width:140px;" href="/2.0/secretaria/temas/editarTema.xhtml?tema=#{verTemaMB.tema.idTema}" value="Editar Tema"/>
                         <p:commandButton style="width:140px;" rendered="#{verTemaMB.tema.estadoTema eq 3}" value="Descaducar Tema" onclick="confirmationCaducar.show()" type="button"/>
