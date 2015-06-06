@@ -25,7 +25,7 @@
         <p:layoutUnit position="center" style="border:none;">
             <h:form style="font-weight: bold;">
                 <p:panel style="border:none;">
-                    <h1>Agregar Fechas Comisión Revisora</h1>
+                    <h1>Agregar/Editar Fechas Acuerdo de Consejo</h1>
                     <p:growl id="growl" showDetail="true" sticky="true" />
                     #{comisionRevisora2MB.setIdProp(comisionRevisora2MB.idProp)}
                     <h:panelGrid columns="3" cellpadding="4">
@@ -41,47 +41,24 @@
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Guía"/>
                         <h:outputText style="font-weight: normal;" value="#{comisionRevisora2MB.profGuia.nombreProfesor} #{comisionRevisora2MB.profGuia.apellidoProfesor}"/>
                         <br/>
-                        
-                        <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Profesor Revisor 1 "/>
-                        <h:outputText style="font-weight: normal;" value="#{comisionRevisora2MB.revisor1.nombreProfesor} #{comisionRevisora2MB.revisor1.apellidoProfesor}"/>
-                        <br/>
-                        
                    
-                        <p:outputLabel for="calendP" value="Fecha de entrega al profesor " />
-                        <p:calendar id="calendP" value="#{comisionRevisora2MB.date}" mode="popup"/>
-                        <p:watermark for="calendP" value="Ingresar Fecha"/>
+                        <p:outputLabel for="calendP" value="Fecha publicación" />
+                        <p:calendar id="calendP" value="#{comisionRevisora2MB.publicacionConsejo}" mode="popup"/>
+                        <p:watermark for="calendP" value="Ingresar Fecha"/>  
                         
-                        
-                        <p:outputLabel for="calendP2" value="Fecha de devolución con correciones del profesor " />
-                        <p:calendar id="calendP2" value="#{comisionRevisora2MB.date2}" mode="popup"/>
+                        <p:outputLabel for="calendP2" value="Fecha término publicación" />
+                        <p:calendar id="calendP2" value="#{comisionRevisora2MB.terminoPublicacionConsejo}" mode="popup"/>
                         <p:watermark for="calendP2" value="Ingresar Fecha"/>
-                        
-                        <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Profesor Revisor 2"/>
-                        <h:outputText style="font-weight: normal;" value="#{comisionRevisora2MB.revisor2.nombreProfesor} #{comisionRevisora2MB.revisor2.apellidoProfesor}"/>
-                        <br/>
-                        
-                        
-                        <p:outputLabel for="calendP3" value="Fecha de entrega al profesor " />
-                        <p:calendar id="calendP3" value="#{comisionRevisora2MB.date3}" mode="popup"/>
-                        <p:watermark for="calendP3" value="Ingresar Fecha"/>
-                        
-                        
-                        <p:outputLabel for="calendP4" value="Fecha de devolución con correciones del profesor " />
-                        <p:calendar id="calendP4" value="#{comisionRevisora2MB.date4}" mode="popup"/>
-                        <p:watermark for="calendP4" value="Ingresar Fecha"/>
-
 
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Semestre Revisión "/>
                         <h:outputText style="font-weight: normal;" value="#{comisionRevisora2MB.semestreRev}"/>
-                        <br/>
-                        
+                        <br/>  
 
                         <h:inputHidden value="#{comisionRevisora2MB.idProp}"/>
-
                     </h:panelGrid>
 
                     <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="/2.0/admin/propuestas/propuesta.xhtml?prop=#{comisionRevisora2MB.idProp}" value="Volver a la Propuesta"/>
-                    <p:commandButton id="bt1" value="Ingresar" actionListener="#{comisionRevisora2MB.EditarComisionRevisora()}" update="growl"/>
+                    <p:commandButton id="bt1" value="Ingresar" actionListener="#{comisionRevisora2MB.editarFechasComisionRevisoraAcuerdoConsejo()}" update="growl"/>
                     <p:defaultCommand target="bt1" />
                 </p:panel>
             </h:form>
@@ -92,5 +69,4 @@
             </p:layoutUnit>
         </c:if>
     </ui:define>
-
 </ui:composition>

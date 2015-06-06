@@ -18,7 +18,6 @@
     <ui:define name="title"><title>Editar Tema | Seminar Management</title></ui:define>
 
     <ui:define name="content">
-        
         <c:if test="#{not empty param.tema}">
             #{verTemaMB.buscarTema()}
         </c:if>
