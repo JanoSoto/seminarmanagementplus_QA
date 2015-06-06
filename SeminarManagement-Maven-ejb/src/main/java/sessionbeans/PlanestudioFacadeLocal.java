@@ -29,5 +29,7 @@ public interface PlanestudioFacadeLocal {
     List<PlanEstudio> findRange(int[] range);
 
     int count();
+
+    public PlanEstudio findById(Integer id);
     
 }

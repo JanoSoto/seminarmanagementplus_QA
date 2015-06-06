@@ -7,80 +7,88 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
-    
+
     <ui:define name="metadata">
         #{accordionPanelMB.setIndex("1")}
         <f:metadata>
             <f:viewParam name="alum" value="#{editarAlumnoMB.rutAlumno}"/>
         </f:metadata>
     </ui:define>
-    
+
     <ui:define name="title"><title>Editar Alumno | Seminar Management</title></ui:define>
 
     <ui:define name="content">
-        
+
         <c:if test="#{not empty param.alum}">
             #{editarAlumnoMB.buscarAlumno()}
-            </c:if>
-            
-            <p:layoutUnit position="west" size="430" style="border: none;">
+        </c:if>
+
+        <p:layoutUnit position="west" size="430" style="border: none;">
+            <p:panel style="border:none;">
+                <h:panelGrid columns="1" cellpadding="4">
+                    <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="/2.0/admin/alumnos/alumno.xhtml?alum=#{editarAlumnoMB.alumno.rutAlumno}" value="Volver a Ver Alumno"/>
+                </h:panelGrid>
+            </p:panel>
+        </p:layoutUnit>
+
+        <p:layoutUnit position="center" style="border:none;">
+            <h:form style="font-weight: bold;">
                 <p:panel style="border:none;">
-                    <h:panelGrid columns="1" cellpadding="4">
-                        <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="/2.0/admin/alumnos/alumno.xhtml?alum=#{editarAlumnoMB.alumno.rutAlumno}" value="Volver a Ver Alumno"/>
+                    <h1>Editar Datos Alumno</h1>
+                    <p:growl id="growl" showDetail="true" sticky="true"/>
+                    <h:panelGrid columns="6" cellpadding="2">
+
+                        <p:outputLabel for="rut" value="Rut"/>
+                        <h:outputText id="rut" value="#{editarAlumnoMB.alumno.rutAlumno}"/>
+                        <br/>
+
+                        <p:outputLabel for="nombre" value="Nombre/s"/>
+                        <p:inputText required="true" id="nombre" value="#{editarAlumnoMB.alumno.nombreAlumno}"/>
+                        <p:watermark for="nombre" value="Ingresar Nombre"/>
+
+                        <p:outputLabel for="apellido" value="Apellido/s"/>
+                        <p:inputText required="true" id="apellido" value="#{editarAlumnoMB.alumno.apellidoAlumno}"/>
+                        <p:watermark for="apellido" value="Ingresar Apellido"/>
+
+                        <p:outputLabel for="mail" value="E-Mail"/>
+                        <p:inputText id="mail" value="#{editarAlumnoMB.alumno.mailAlumno}">
+                            <f:validator validatorId="emailValidator"/>
+                        </p:inputText>
+                        <p:watermark for="mail" value="Ingresar E-Mail"/>
+
+                        <p:outputLabel for="celular" value="Celular"/>
+                        <p:inputText id="celular" value="#{editarAlumnoMB.alumno.telefonoAlumno}">
+                            <f:validator validatorId="celularValidator" />
+                        </p:inputText>
+                        <p:watermark for="celular" value="Ingresar Celular"/>
+
+                        <p:outputLabel for="direccion" value="Dirección"/>
+                        <p:inputText id="direccion" value="#{editarAlumnoMB.alumno.direccionAlumno}"/>
+                        <p:watermark for="direccion" value="Ingresar Dirección"/>
+
+                        <!--<p:outputLabel for="planEstudio" value="Plan de Estudio"/>-->
+                        <c:if test="#{not empty carreraMB.carreras}">
+                            <p:selectOneListbox style="width: 200px;" value="#{editarAlumnoMB.planEstudioAlumno}">
+                                <f:selectItems value="#{carreraMB.carreras}" var="planEstudio" itemLabel="#{planEstudio.nombre}" itemValue="#{planEstudio.id}" />
+                            </p:selectOneListbox>
+                        </c:if>
+                        <c:if test="#{empty carreraMB.carreras}">
+                            <strong>Error: No existen carreras disponibles para seleccionar</strong>
+                        </c:if>
+
                     </h:panelGrid>
+                    <p:commandButton id="bt1" value="Editar" actionListener="#{editarAlumnoMB.editAlumno()}" update="growl @form"/>
+                    <p:defaultCommand target="bt1" />
                 </p:panel>
-            </p:layoutUnit>
-            
-            <p:layoutUnit position="center" style="border:none;">
-                <h:form style="font-weight: bold;">
-                    <p:panel style="border:none;">
-                        <h1>Editar Datos Alumno</h1>
-                        <p:growl id="growl" showDetail="true" sticky="true"/>
-                            <h:panelGrid columns="6" cellpadding="2">
+            </h:form>
+        </p:layoutUnit>
 
-                                <p:outputLabel for="rut" value="Rut"/>
-                                <h:outputText id="rut" value="#{editarAlumnoMB.alumno.rutAlumno}"/>
-                                <br/>
-
-                                <p:outputLabel for="nombre" value="Nombre/s"/>
-                                <p:inputText required="true" id="nombre" value="#{editarAlumnoMB.alumno.nombreAlumno}"/>
-                                <p:watermark for="nombre" value="Ingresar Nombre"/>
-
-                                <p:outputLabel for="apellido" value="Apellido/s"/>
-                                <p:inputText required="true" id="apellido" value="#{editarAlumnoMB.alumno.apellidoAlumno}"/>
-                                <p:watermark for="apellido" value="Ingresar Apellido"/>
-
-                                <p:outputLabel for="mail" value="E-Mail"/>
-                                <p:inputText id="mail" value="#{editarAlumnoMB.alumno.mailAlumno}">
-                                    <f:validator validatorId="emailValidator"/>
-                                </p:inputText>
-                                <p:watermark for="mail" value="Ingresar E-Mail"/>
-
-                                <p:outputLabel for="celular" value="Celular"/>
-                                <p:inputText id="celular" value="#{editarAlumnoMB.alumno.telefonoAlumno}">
-                                    <f:validator validatorId="celularValidator" />
-                                </p:inputText>
-                                <p:watermark for="celular" value="Ingresar Celular"/>
-
-                                <p:outputLabel for="direccion" value="Dirección"/>
-                                <p:inputText id="direccion" value="#{editarAlumnoMB.alumno.direccionAlumno}"/>
-                                <p:watermark for="direccion" value="Ingresar Dirección"/>
-
-                               
-
-                            </h:panelGrid>
-                        <p:commandButton id="bt1" value="Editar" actionListener="#{editarAlumnoMB.editAlumno()}" update="growl @form"/>
-                        <p:defaultCommand target="bt1" />
-                   </p:panel>
-                </h:form>
-            </p:layoutUnit>
-        
         <c:if test="#{empty param.alum}">
             <p:layoutUnit position="center" style="border:none;">
                 No, no, no
             </p:layoutUnit>
         </c:if>
-        
+
     </ui:define>
 
 </ui:composition>

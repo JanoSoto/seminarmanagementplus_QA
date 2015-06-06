@@ -5,6 +5,7 @@ import entities.PlanEstudio;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Objects;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -14,6 +15,7 @@ import javax.faces.context.FacesContext;
 import managedbeans.AuthMB;
 import sessionbeans.AlumnoFacadeLocal;
 import sessionbeans.HistorialFacadeLocal;
+import sessionbeans.PlanestudioFacadeLocal;
 
 /**
  *
@@ -27,6 +29,8 @@ public class EditarAlumnoMB implements Serializable {
     private HistorialFacadeLocal historialFacade;
     @EJB
     private AlumnoFacadeLocal alumnoFacade;
+    @EJB
+    private PlanestudioFacadeLocal planEstudioFacade;
 
     private Alumno alumno;
     private String rutAlumno;
@@ -34,6 +38,16 @@ public class EditarAlumnoMB implements Serializable {
     //Declaramos esto para poder acceder al managed bean de autenticación (para almecenar el usuario en el historial)
     @ManagedProperty(value = "#{authMB}")
     private AuthMB user;
+
+    private Integer planEstudioAlumno;
+
+    public Integer getPlanEstudioAlumno() {
+        return planEstudioAlumno;
+    }
+
+    public void setPlanEstudioAlumno(Integer planEstudioAlumno) {
+        this.planEstudioAlumno = planEstudioAlumno;
+    }
 
     /**
      * Creates a new instance of EditarAlumnoMB
@@ -75,11 +89,26 @@ public class EditarAlumnoMB implements Serializable {
         alumnoEdit.setMailAlumno(alumno.getMailAlumno().toUpperCase());
         alumnoEdit.setNombreAlumno(alumno.getNombreAlumno().toUpperCase());
         alumnoEdit.setApellidoAlumno(alumno.getApellidoAlumno().toUpperCase());
-        alumnoEdit.setPlanes(alumno.getPlanes());
         alumnoEdit.setTelefonoAlumno(alumno.getTelefonoAlumno());
         alumnoEdit.setDireccionAlumno(alumno.getDireccionAlumno().toUpperCase());
         alumnoEdit.setRutAlumno(alumno.getRutAlumno());
         alumnoEdit.setPropuestaList(alumno.getPropuestaList());
+
+        List<PlanEstudio> planesEstudio = alumno.getPlanes();
+        Boolean existe = false;
+        for (int i = 0; i < planesEstudio.size(); i++) {
+            Integer id = Integer.parseInt(planesEstudio.get(i).getId() + "");
+            if (id == this.planEstudioAlumno) {
+                existe = true;
+            }
+        }
+        if (!existe) {
+            PlanEstudio a = planEstudioFacade.findById(this.planEstudioAlumno);
+            planesEstudio.add(a);
+            alumno.setPlanes(planesEstudio);
+        }
+        alumnoEdit.setPlanes(alumno.getPlanes());
+
         alumnoFacade.edit(alumnoEdit);
 
         //Añadimos al historial del alumno cuándo lo editaron
@@ -102,9 +131,8 @@ public class EditarAlumnoMB implements Serializable {
          histProfAgregadoUser.setIdEntidad(user.getUsername());
          historialFacade.create(histProfAgregadoUser);
          */
-        
-        context.addMessage(null, new FacesMessage("Editar Alumno", alumnoEdit.getNombreAlumno()+" "+alumnoEdit.getApellidoAlumno()+" editado exitosamente"));
-        LOGGER.info("El alumno "+alumnoEdit.getNombreAlumno()+" "+alumnoEdit.getApellidoAlumno()+" ha sido editado exitosamente");
+        context.addMessage(null, new FacesMessage("Editar Alumno", alumnoEdit.getNombreAlumno() + " " + alumnoEdit.getApellidoAlumno() + " editado exitosamente"));
+        LOGGER.info("El alumno " + alumnoEdit.getNombreAlumno() + " " + alumnoEdit.getApellidoAlumno() + " ha sido editado exitosamente");
 
     }
 
