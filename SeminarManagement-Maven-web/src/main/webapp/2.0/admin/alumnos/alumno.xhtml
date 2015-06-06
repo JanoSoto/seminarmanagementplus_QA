@@ -31,6 +31,11 @@
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Rut:"/>
                         <h:outputText value="#{verAlumnoMB.alumno.rutAlumnoFormateado}"/>
 
+                        <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Jornada:"/>
+                        <h:outputText rendered="{verAlumnoMB.alumno.jornada eq 0}" value="Diurno"/>
+                        <h:outputText rendered="{verAlumnoMB.alumno.jornada eq 1}" value="Vespertino"/>
+                        <h:outputText value="TODO-jornada"/>
+                        
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="E-Mail:"/>
                         <h:outputText value="#{verAlumnoMB.alumno.mailAlumno}"/>
 

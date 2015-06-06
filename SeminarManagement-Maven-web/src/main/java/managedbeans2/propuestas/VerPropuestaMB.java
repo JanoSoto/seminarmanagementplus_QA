@@ -5,6 +5,7 @@ import entities.ComisionRevisora;
 import entities.Profesor;
 import entities.Propuesta;
 import entities.Semestre;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -13,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 import javax.ejb.EJB;
 import javax.inject.Named;
-import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import sessionbeans.ComisionRevisoraFacadeLocal;
@@ -26,8 +27,8 @@ import sessionbeans.SemestreFacadeLocal;
  * @author David
  */
 @Named(value = "verPropuestaMB")
-@RequestScoped
-public class VerPropuestaMB {
+@SessionScoped
+public class VerPropuestaMB implements Serializable {
     @EJB
     private SemestreFacadeLocal semestreFacade;
     @EJB

@@ -65,7 +65,7 @@ public class ComisionRevisora2MB implements Serializable {
     private List<Profesor> profesores;
     private Alumno alumno;
     private Profesor profGuia, profcoGuia, revisor1, revisor2;
-    private Date date, date2, date3, date4, fechaPropEdit;
+    private Date date, date2, date3, date4, fechaPropEdit, publicacionConsejo, terminoPublicacionConsejo;
     private List<ProfeDatos2> profeDatos;
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ComisionRevisora2MB.class);
     private HashMap<Object, Object> tiposRevision;
@@ -237,6 +237,12 @@ public class ComisionRevisora2MB implements Serializable {
                 if (comision.get(0).getFechaEntregaRevision2() != null) {
                     date4 = stringToDate(comision.get(0).getFechaEntregaRevision2());
                 }
+                if (comision.get(0).getFechaPublicacionConsejo() != null) {
+                    publicacionConsejo = stringToDate(comision.get(0).getFechaPublicacionConsejo());
+                }
+                if (comision.get(0).getFechaTerminoPublicacionConsejo() != null) {
+                    terminoPublicacionConsejo = stringToDate(comision.get(0).getFechaTerminoPublicacionConsejo());
+                }
             }
 
         } else {
@@ -369,6 +375,47 @@ public class ComisionRevisora2MB implements Serializable {
         context.addMessage(null, new FacesMessage("Comisión Revisora editada en el sistema"));
         LOGGER.info("La comision revisora de la propuesta " + propuesta.getNombrePropuesta() + " ha sido modificada en el sistema");
     }
+    
+    public void editarFechasComisionRevisoraAcuerdoConsejo() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        String fechaPublicacion = null, fechaTerminoPublicacion = null;
+        if (idProp == null) {
+            context.addMessage(null, new FacesMessage("Error", "No se ingresó Propuesta"));
+            return;
+        }
+
+        propuesta = propuestaFacade.findById(idProp).get(0);
+        comision  = comisionRevisoraFacade.findById(propuesta.getIdRevisora().getIdRevisora());
+        ComisionRevisora com = comision.get(0);
+        ComisionRevisora nuevaComision;
+
+        //Accedemos a la tabla semestre, e ingresamos semestre actual si no ha sido ingresado
+        Semestre semestreRevision = new Semestre(semestreRev);
+        List<Semestre> semestres = semestreFacade.findAll();
+        if (!semestres.contains(semestreRevision)) {
+            semestreFacade.create(semestreRevision);
+        }
+
+        if (publicacionConsejo != null && terminoPublicacionConsejo != null) {
+            fechaPublicacion = dateToString(publicacionConsejo);
+            fechaTerminoPublicacion = dateToString(terminoPublicacionConsejo);
+            if ( !fechaCorrecta(fechaPublicacion, fechaTerminoPublicacion) ) {
+                return;
+            }
+        }
+
+        //Seteamos la nueva comision y la creamos
+        com.setIdPropuesta(com.getIdPropuesta());
+        com.setFechaPublicacionConsejo(fechaPublicacion);
+        com.setFechaTerminoPublicacionConsejo(fechaTerminoPublicacion);
+        com.setIdSemestre(com.getIdSemestre());
+        com.setTipoRevision(com.getTipoRevision());
+        comisionRevisoraFacade.edit(com);
+
+        //Mensaje de confirmación 
+        context.addMessage(null, new FacesMessage("Acuerdo de consejo editado en el sistema"));
+        LOGGER.info("La comision revisora de la propuesta " + propuesta.getNombrePropuesta() + " ha sido modificada en el sistema");
+    }
 
     public void addComisionRevisora() {
         FacesContext context = FacesContext.getCurrentInstance();
@@ -399,10 +446,10 @@ public class ComisionRevisora2MB implements Serializable {
                     }
                 }
             }
-            if (!rutProfeRev1.equals("-") || !rutProfeRev2.equals("-")) {
-                context.addMessage(null, new FacesMessage("Tipo Revisión", "Una Comisión por Acuerdo de Consejo no tiene profesores, deje estos espacios en blanco o cambie el Tipo de Revisión"));
-                return;
-            }
+            //if (!rutProfeRev1.equals("-") || !rutProfeRev2.equals("-")) {
+            //    context.addMessage(null, new FacesMessage("Tipo Revisión", "Una Comisión por Acuerdo de Consejo no tiene profesores, deje estos espacios en blanco o cambie el Tipo de Revisión"));
+            //    return;
+            //}
         } else {
             //Se valida que se halla seleccionado profesor1
             if (rutProfeRev1.equals("-")) {
@@ -793,4 +840,21 @@ public class ComisionRevisora2MB implements Serializable {
         this.tiposRevision = tiposRevision;
     }
 
+    public Date getPublicacionConsejo() {
+        return publicacionConsejo;
+    }
+
+    public void setPublicacionConsejo(Date publicacionConsejo) {
+        this.publicacionConsejo = publicacionConsejo;
+    }
+
+    public Date getTerminoPublicacionConsejo() {
+        return terminoPublicacionConsejo;
+    }
+
+    public void setTerminoPublicacionConsejo(Date terminoPublicacionConsejo) {
+        this.terminoPublicacionConsejo = terminoPublicacionConsejo;
+    }
+
+    
 }

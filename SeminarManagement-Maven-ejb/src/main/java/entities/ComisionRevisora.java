@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -42,37 +37,54 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ComisionRevisora.findByIdRevisora", query = "SELECT c FROM ComisionRevisora c WHERE c.idRevisora = :idRevisora")})
 public class ComisionRevisora implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Size(max = 15)
-    @Column(name = "fecha_revision")
-    private String fechaRevision;
-    @Size(max = 15)
-    @Column(name = "fecha_entrega_revision")
-    private String fechaEntregaRevision;
-    @Size(max = 15)
-    @Column(name = "fecha_revision2")
-    private String fechaRevision2;
-    @Size(max = 15)
-    @Column(name = "fecha_entrega_revision2")
-    private String fechaEntregaRevision2;
-    @Column(name = "tipo_revision")
-    private Integer tipoRevision;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_revisora")
     private Integer idRevisora;
+    
+    @Size(max = 15)
+    @Column(name = "fecha_revision")
+    private String fechaRevision;
+    
+    @Size(max = 15)
+    @Column(name = "fecha_entrega_revision")
+    private String fechaEntregaRevision;
+    
+    @Size(max = 15)
+    @Column(name = "fecha_revision2")
+    private String fechaRevision2;
+    
+    @Size(max = 15)
+    @Column(name = "fecha_entrega_revision2")
+    private String fechaEntregaRevision2;
+    
+    @Column(name = "tipo_revision")
+    private Integer tipoRevision;
+    
+    @Column(name = "fecha_publicacion_consejo")
+    private String fechaPublicacionConsejo;
+    
+    @Column(name = "fecha_termino_publicacion_consejo")
+    private String fechaTerminoPublicacionConsejo;
+    
     @OneToMany(mappedBy = "idRevisora")
     private List<Propuesta> propuestaList;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "comisionRevisora")
     private List<ProfeRevision> profeRevisionList;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRevisora")
     private List<Tema> temaList;
+    
     @JoinColumn(name = "id_tema", referencedColumnName = "id_tema")
     @ManyToOne
     private Tema idTema;
+    
     @JoinColumn(name = "id_semestre", referencedColumnName = "id_semestre")
     @ManyToOne(optional = false)
     private Semestre idSemestre;
+    
     @JoinColumn(name = "id_propuesta", referencedColumnName = "id_propuesta")
     @ManyToOne(optional = false)
     private Propuesta idPropuesta;
@@ -204,6 +216,22 @@ public class ComisionRevisora implements Serializable {
         this.idPropuesta = idPropuesta;
     }
 
+    public String getFechaPublicacionConsejo() {
+        return fechaPublicacionConsejo;
+    }
+
+    public void setFechaPublicacionConsejo(String fechaPublicacionConsejo) {
+        this.fechaPublicacionConsejo = fechaPublicacionConsejo;
+    }
+
+    public String getFechaTerminoPublicacionConsejo() {
+        return fechaTerminoPublicacionConsejo;
+    }
+
+    public void setFechaTerminoPublicacionConsejo(String fechaTerminoPublicacionConsejo) {
+        this.fechaTerminoPublicacionConsejo = fechaTerminoPublicacionConsejo;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
