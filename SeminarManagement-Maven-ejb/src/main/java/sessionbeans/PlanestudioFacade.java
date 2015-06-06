@@ -9,6 +9,7 @@ import entities.PlanEstudio;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,6 +27,14 @@ public class PlanestudioFacade extends AbstractFacade<PlanEstudio> implements Pl
 
     public PlanestudioFacade() {
         super(PlanEstudio.class);
+    }
+    
+    @Override
+    public PlanEstudio findById(Integer id) {
+        Query query;
+        query = em.createNamedQuery("PlanEstudio.findById")
+                .setParameter("id", id);
+       return (PlanEstudio) query.getSingleResult();
     }
     
 }
