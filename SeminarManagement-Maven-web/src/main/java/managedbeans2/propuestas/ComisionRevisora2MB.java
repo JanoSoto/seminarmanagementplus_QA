@@ -437,7 +437,7 @@ public class ComisionRevisora2MB implements Serializable {
             context.addMessage(null, new FacesMessage("Tipo Revisión", "Debe seleccionar un tipo de Revisión"));
             return;
         }
-        if (tipoRevision == 2) {
+        if (tipoRevision == 2) { //acuerdo consejo
             for (int i = 0; i < propuesta.getProfePropuestaList().size(); i++) {
                 if (propuesta.getProfePropuestaList().get(i).getRolGuia() == 0) {
                     if (propuesta.getProfePropuestaList().get(i).getProfesor().getContrato() != 1) {
@@ -490,8 +490,15 @@ public class ComisionRevisora2MB implements Serializable {
             context.addMessage(null, new FacesMessage("Semestre Revisión", "Semestre ingresado debe ser '1' o '2'"));
             return;
         }
+        
+        String fechaPublicacion = null, fechaTerminoPublicacion = null;
+        if (publicacionConsejo != null) fechaPublicacion = dateToString(publicacionConsejo);
+        if (terminoPublicacionConsejo != null) fechaTerminoPublicacion = dateToString(terminoPublicacionConsejo);
+        if ( (fechaPublicacion != null) && (fechaTerminoPublicacion != null) 
+                && !fechaCorrecta(fechaPublicacion, fechaTerminoPublicacion))
+            return;
 
-        ComisionRevisora nuevaComision;
+        ComisionRevisora nuevaComision = new ComisionRevisora();
 
         //Accedemos a la tabla semestre, e ingresamos semestre actual si no ha sido ingresado
         Semestre semestreRevision = new Semestre(semestreRev);
@@ -525,7 +532,6 @@ public class ComisionRevisora2MB implements Serializable {
         }
 
         //Seteamos la nueva comision y la creamos
-        nuevaComision = new ComisionRevisora();
         nuevaComision.setIdPropuesta(propuesta);
         nuevaComision.setFechaRevision(fechaRev);
         nuevaComision.setFechaEntregaRevision(fechaEntRev);
@@ -533,6 +539,8 @@ public class ComisionRevisora2MB implements Serializable {
         nuevaComision.setFechaEntregaRevision2(fechaEntRev2);
         nuevaComision.setIdSemestre(semestreRevision);
         nuevaComision.setTipoRevision(tipoRevision);
+        nuevaComision.setFechaPublicacionConsejo(fechaPublicacion);
+        nuevaComision.setFechaTerminoPublicacionConsejo(fechaTerminoPublicacion);
         comisionRevisoraFacade.create(nuevaComision);
 
         //Agregamos la comision a la lista de comisiones del semestre
