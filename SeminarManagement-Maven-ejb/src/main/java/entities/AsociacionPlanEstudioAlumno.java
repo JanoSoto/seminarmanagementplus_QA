@@ -18,10 +18,12 @@ public class AsociacionPlanEstudioAlumno {
 
     @Id
     private String alumno_id;
+
     @Id
     private Integer plan_id;
+    
     @Column(name = "activo")
-    private boolean activo;
+    private Boolean activo;
 
     @ManyToOne
     @PrimaryKeyJoinColumn(name = "plan_id", referencedColumnName = "id")
@@ -47,11 +49,11 @@ public class AsociacionPlanEstudioAlumno {
         this.plan_id = planId;
     }
 
-    public boolean isActivo() {
+    public Boolean isActivo() {
         return activo;
     }
 
-    public void setActivo(boolean activo) {
+    public void setActivo(Boolean activo) {
         this.activo = activo;
     }
 

@@ -97,43 +97,45 @@ public class EditarAlumnoMB implements Serializable {
         alumnoEdit.setPropuestaList(alumno.getPropuestaList());
 
 //        alumno.getPlanEstudioAlumno();
-
         List<AsociacionPlanEstudioAlumno> planesEstudioAlumno = alumno.getAsociacionPlanEstudioAlumno();
-                
+
         Boolean existe = false;
         for (int i = 0; i < planesEstudioAlumno.size(); i++) {
-            Long id = planesEstudioAlumno.get(i).getPlanEstudio().getId();
+            Integer id = Integer.parseInt(planesEstudioAlumno.get(i).getPlanEstudio().getId()+"");
             System.out.println(id + " == " + this.planEstudioAlumno);
-            if (Objects.equals(id, this.planEstudioAlumno)) {
+            if (id == this.planEstudioAlumno) {
                 System.out.println("Existe !!!!");
                 existe = true;
             }
         }
 
-        if (!existe) {
-            PlanEstudio a = planEstudioFacade.findById(this.planEstudioAlumno);
-            AsociacionPlanEstudioAlumno nueva_asociacion = new AsociacionPlanEstudioAlumno();
-            List<AsociacionPlanEstudioAlumno> asociacion_antigua = alumno.getAsociacionPlanEstudioAlumno();
-            
-            for (int i = 0; i < asociacion_antigua.size(); i++) {
-                asociacion_antigua.get(i).setActivo(false);
-            }
+        List<AsociacionPlanEstudioAlumno> asociacion_antigua = alumno.getAsociacionPlanEstudioAlumno();
 
+        PlanEstudio a = planEstudioFacade.findById(this.planEstudioAlumno);
+        if (!existe) {
+            AsociacionPlanEstudioAlumno nueva_asociacion = new AsociacionPlanEstudioAlumno();
+
+//            asociacion_antigua.get(0).setActivo(false);
             nueva_asociacion.setActivo(true);
             nueva_asociacion.setAlumno(alumnoEdit);
             nueva_asociacion.setAlumnoId(alumnoEdit.getRutAlumno());
             nueva_asociacion.setPlanEstudio(a);
             nueva_asociacion.setPlanId(this.planEstudioAlumno);
 
+            for (int i = 0; i < asociacion_antigua.size(); i++) {
+                System.out.println(asociacion_antigua.get(i).isActivo());
+                asociacion_antigua.get(i).setActivo(false);
+            }
             asociacion_antigua.add(nueva_asociacion);
-            alumnoEdit.setAsociacionPlanEstudioAlumno(asociacion_antigua);
             a.setAsociacionPlanEstudioAlumno(asociacion_antigua);
 //            alumno.setPlanes(planesEstudio);
         }
+        alumnoEdit.setAsociacionPlanEstudioAlumno(asociacion_antigua);
+        a.setAsociacionPlanEstudioAlumno(asociacion_antigua);
 //        alumnoEdit.setPlanes(alumno.getPlanes());
         alumnoFacade.edit(alumnoEdit);
 
-            //Añadimos al historial del alumno cuándo lo editaron
+        //Añadimos al historial del alumno cuándo lo editaron
         /*
          Date temp = new Date();
          String dateHist = dateToString(temp);
