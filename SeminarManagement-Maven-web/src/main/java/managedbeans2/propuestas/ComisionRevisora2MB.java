@@ -396,9 +396,13 @@ public class ComisionRevisora2MB implements Serializable {
             semestreFacade.create(semestreRevision);
         }
 
-        if (publicacionConsejo != null && terminoPublicacionConsejo != null) {
+        if (publicacionConsejo != null)
             fechaPublicacion = dateToString(publicacionConsejo);
+        
+        if (terminoPublicacionConsejo != null)
             fechaTerminoPublicacion = dateToString(terminoPublicacionConsejo);
+            
+        if (publicacionConsejo != null && terminoPublicacionConsejo != null) {
             if ( !fechaCorrecta(fechaPublicacion, fechaTerminoPublicacion) ) {
                 return;
             }
