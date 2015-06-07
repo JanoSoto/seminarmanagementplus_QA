@@ -79,6 +79,17 @@ public class Alumno implements Serializable {
         inverseJoinColumns={@JoinColumn(name="plan_id", referencedColumnName="id")})
     private List<PlanEstudio> planes;
     
+    @OneToMany(mappedBy="alumno")
+    private List<AsociacionPlanEstudioAlumno> asociacionPlanEstudioAlumno;
+
+    public List<AsociacionPlanEstudioAlumno> getPlanEstudioAlumno() {
+        return asociacionPlanEstudioAlumno;
+    }
+
+    public void setPlanEstudioAlumno(List<AsociacionPlanEstudioAlumno> asociacionPlanEstudioAlumnos) {
+        this.asociacionPlanEstudioAlumno = asociacionPlanEstudioAlumnos;
+    }
+    
     public Alumno() {
         propuestaList = new ArrayList();
     }

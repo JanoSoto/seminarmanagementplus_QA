@@ -94,20 +94,24 @@ public class EditarAlumnoMB implements Serializable {
         alumnoEdit.setRutAlumno(alumno.getRutAlumno());
         alumnoEdit.setPropuestaList(alumno.getPropuestaList());
 
-        List<PlanEstudio> planesEstudio = alumno.getPlanes();
-        Boolean existe = false;
-        for (int i = 0; i < planesEstudio.size(); i++) {
-            Integer id = Integer.parseInt(planesEstudio.get(i).getId() + "");
-            if (id == this.planEstudioAlumno) {
-                existe = true;
-            }
-        }
-        if (!existe) {
-            PlanEstudio a = planEstudioFacade.findById(this.planEstudioAlumno);
-            planesEstudio.add(a);
-            alumno.setPlanes(planesEstudio);
-        }
-        alumnoEdit.setPlanes(alumno.getPlanes());
+        
+        alumno.getPlanEstudioAlumno();
+        System.out.println("asdasda");
+        
+//        List<PlanEstudio> planesEstudio = alumno.getPlanes();
+//        Boolean existe = false;
+//        for (int i = 0; i < planesEstudio.size(); i++) {
+//            Integer id = Integer.parseInt(planesEstudio.get(i).getId() + "");
+//            if (id == this.planEstudioAlumno) {
+//                existe = true;
+//            }
+//        }
+//        if (!existe) {
+//            PlanEstudio a = planEstudioFacade.findById(this.planEstudioAlumno);
+//            planesEstudio.add(a);
+//            alumno.setPlanes(planesEstudio);
+//        }
+//        alumnoEdit.setPlanes(alumno.getPlanes());
 
         alumnoFacade.edit(alumnoEdit);
 

@@ -49,6 +49,9 @@ public class PlanEstudio implements Serializable {
     private Carrera carreraId;
     @OneToMany(mappedBy = "planestudioId")
     private List<Versionplan> versionplanList;
+    
+    @OneToMany(mappedBy="planEstudio")
+    private List<AsociacionPlanEstudioAlumno> asociacionPlanEstudioAlumno;
 
     public PlanEstudio() {
     }
