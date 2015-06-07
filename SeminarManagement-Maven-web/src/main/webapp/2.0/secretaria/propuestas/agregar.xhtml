@@ -30,7 +30,7 @@
                     <h:panelGrid columns="3" cellpadding="4">
 
                         <p:outputLabel for="nombreP" value="Nombre Propuesta"/>
-                        <p:inputTextarea id="nombreP" value="#{agregarPropuestaMB.nombrePropuesta}" cols="42" maxlength="200"/>
+                        <p:inputTextarea id="nombreP" required="true" value="#{agregarPropuestaMB.nombrePropuesta}" cols="42" maxlength="200"/>
                         <p:watermark for="nombreP" value="Ingresar Nombre"/>
 
                         <p:outputLabel for="pet2" value="PET"/>
@@ -64,7 +64,7 @@
                         <br/>
 
                         <p:outputLabel for="calendP" value="Fecha Propuesta" />
-                        <p:calendar id="calendP" value="#{agregarPropuestaMB.date}" mode="popup"/>
+                        <p:calendar id="calendP" required="true" value="#{agregarPropuestaMB.date}" mode="popup"/>
                         <p:watermark for="calendP" value="Seleccionar Fecha"/>
 
                         <p:outputLabel for="semestreP" value="Semestre Propuesta"  />

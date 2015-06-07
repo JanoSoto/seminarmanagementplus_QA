@@ -404,7 +404,8 @@ ALTER TABLE public.paramsemestreano OWNER TO postgres;
 
 CREATE TABLE planes_alumno (
     alumno_id character varying(20),
-    plan_id bigint
+    plan_id bigint,
+    activo boolean
 );
 
 
@@ -2484,7 +2485,7 @@ COPY paramsemestreano (id, anoactual, semestreactual) FROM stdin;
 -- Data for Name: planes_alumno; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY planes_alumno (alumno_id, plan_id) FROM stdin;
+COPY planes_alumno (alumno_id, plan_id, activo) FROM stdin;
 \.
 
 
