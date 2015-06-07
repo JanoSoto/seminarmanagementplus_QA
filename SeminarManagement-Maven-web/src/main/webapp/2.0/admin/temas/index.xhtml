@@ -59,10 +59,7 @@
                             <h:outputText value="#{tema.guia.nombreProfesor} #{tema.guia.apellidoProfesor}" />
                         </a>
                     </p:column>
-                    <p:column headerText="Nombre Tema" filterBy="#{tema.semestreTema}" filterMatchMode="contains" sortBy="#{tema.semestreTema}" filterOptions="#{temasIndexMB.semestres}">
-                        <f:facet name="header">
-                            <h:outputLabel value="Inicio" />
-                        </f:facet>
+                    <p:column headerText="Inicio Tema" filterBy="#{tema.semestreTema}" filterMatchMode="contains" sortBy="#{tema.semestreTema}" filterOptions="#{temasIndexMB.semestres}">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/temas/tema.xhtml?tema=#{tema.idTema}">
                             <h:outputText value="#{tema.semestreTema}"/>
                         </a>
