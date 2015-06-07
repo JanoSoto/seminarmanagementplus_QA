@@ -34,6 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "PlanEstudio.findByCodigo", query = "SELECT p FROM PlanEstudio p WHERE p.codigo = :codigo"),
     @NamedQuery(name = "PlanEstudio.findByJornada", query = "SELECT p FROM PlanEstudio p WHERE p.jornada = :jornada")})
 public class PlanEstudio implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -49,9 +50,17 @@ public class PlanEstudio implements Serializable {
     private Carrera carreraId;
     @OneToMany(mappedBy = "planestudioId")
     private List<Versionplan> versionplanList;
-    
-    @OneToMany(mappedBy="planEstudio")
+
+    @OneToMany(mappedBy = "planEstudio")
     private List<AsociacionPlanEstudioAlumno> asociacionPlanEstudioAlumno;
+
+    public List<AsociacionPlanEstudioAlumno> getAsociacionPlanEstudioAlumno() {
+        return asociacionPlanEstudioAlumno;
+    }
+
+    public void setAsociacionPlanEstudioAlumno(List<AsociacionPlanEstudioAlumno> asociacionPlanEstudioAlumno) {
+        this.asociacionPlanEstudioAlumno = asociacionPlanEstudioAlumno;
+    }
 
     public PlanEstudio() {
     }
@@ -125,5 +134,5 @@ public class PlanEstudio implements Serializable {
     public String toString() {
         return "entities.Planestudio[ id=" + id + " ]";
     }
-    
+
 }

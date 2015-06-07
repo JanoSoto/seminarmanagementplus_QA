@@ -96,34 +96,44 @@ public class EditarAlumnoMB implements Serializable {
         alumnoEdit.setRutAlumno(alumno.getRutAlumno());
         alumnoEdit.setPropuestaList(alumno.getPropuestaList());
 
-        
 //        alumno.getPlanEstudioAlumno();
-        System.out.println("asdasda");
-        
-        
-        List<AsociacionPlanEstudioAlumno> planesEstudio = alumno.getAsociacionPlanEstudioAlumno();
-        
-        List<PlanEstudio> planesEstudioLocal = new ArrayList<>();
-        for (int i = 0; i < planesEstudio.size(); i++) {
-            planesEstudioLocal.add(planesEstudio.get(i).getPlanEstudio());
-        }
+
+        List<AsociacionPlanEstudioAlumno> planesEstudioAlumno = alumno.getAsociacionPlanEstudioAlumno();
+                
         Boolean existe = false;
-        for (int i = 0; i < planesEstudioLocal.size(); i++) {
-            Integer id = Integer.parseInt(planesEstudioLocal.get(i).getId() + "");
-            if (id == this.planEstudioAlumno) {
+        for (int i = 0; i < planesEstudioAlumno.size(); i++) {
+            Long id = planesEstudioAlumno.get(i).getPlanEstudio().getId();
+            System.out.println(id + " == " + this.planEstudioAlumno);
+            if (Objects.equals(id, this.planEstudioAlumno)) {
+                System.out.println("Existe !!!!");
                 existe = true;
             }
         }
-//        if (!existe) {
-//            PlanEstudio a = planEstudioFacade.findById(this.planEstudioAlumno);
-//            planesEstudio.add(a);
-//            alumno.setPlanes(planesEstudio);
-//        }
-//        alumnoEdit.setPlanes(alumno.getPlanes());
 
+        if (!existe) {
+            PlanEstudio a = planEstudioFacade.findById(this.planEstudioAlumno);
+            AsociacionPlanEstudioAlumno nueva_asociacion = new AsociacionPlanEstudioAlumno();
+            List<AsociacionPlanEstudioAlumno> asociacion_antigua = alumno.getAsociacionPlanEstudioAlumno();
+            
+            for (int i = 0; i < asociacion_antigua.size(); i++) {
+                asociacion_antigua.get(i).setActivo(false);
+            }
+
+            nueva_asociacion.setActivo(true);
+            nueva_asociacion.setAlumno(alumnoEdit);
+            nueva_asociacion.setAlumnoId(alumnoEdit.getRutAlumno());
+            nueva_asociacion.setPlanEstudio(a);
+            nueva_asociacion.setPlanId(this.planEstudioAlumno);
+
+            asociacion_antigua.add(nueva_asociacion);
+            alumnoEdit.setAsociacionPlanEstudioAlumno(asociacion_antigua);
+            a.setAsociacionPlanEstudioAlumno(asociacion_antigua);
+//            alumno.setPlanes(planesEstudio);
+        }
+//        alumnoEdit.setPlanes(alumno.getPlanes());
         alumnoFacade.edit(alumnoEdit);
 
-        //Añadimos al historial del alumno cuándo lo editaron
+            //Añadimos al historial del alumno cuándo lo editaron
         /*
          Date temp = new Date();
          String dateHist = dateToString(temp);
