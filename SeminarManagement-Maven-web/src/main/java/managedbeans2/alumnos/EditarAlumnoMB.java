@@ -106,6 +106,8 @@ public class EditarAlumnoMB implements Serializable {
             if (id == this.planEstudioAlumno) {
                 System.out.println("Existe !!!!");
                 existe = true;
+            } else {
+//                planesEstudioAlumno.get(i).setActivo(false);
             }
         }
 
@@ -124,15 +126,17 @@ public class EditarAlumnoMB implements Serializable {
 
             for (int i = 0; i < asociacion_antigua.size(); i++) {
                 System.out.println(asociacion_antigua.get(i).isActivo());
-                asociacion_antigua.get(i).setActivo(false);
+//                asociacion_antigua.get(i).setActivo(false);
             }
             asociacion_antigua.add(nueva_asociacion);
             a.setAsociacionPlanEstudioAlumno(asociacion_antigua);
-//            alumno.setPlanes(planesEstudio);
+
+            a.setAsociacionPlanEstudioAlumno(asociacion_antigua);
         }
+        
+        alumno.setAsociacionPlanEstudioAlumno(asociacion_antigua);
         alumnoEdit.setAsociacionPlanEstudioAlumno(asociacion_antigua);
         a.setAsociacionPlanEstudioAlumno(asociacion_antigua);
-//        alumnoEdit.setPlanes(alumno.getPlanes());
         alumnoFacade.edit(alumnoEdit);
 
         //Añadimos al historial del alumno cuándo lo editaron
