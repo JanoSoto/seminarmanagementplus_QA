@@ -4,18 +4,18 @@ import java.io.Serializable;
 
 public class AsociacionPlanEstudioAlumnoId implements Serializable {
  
-  private Integer planId;
+  private Integer plan_id;
  
-  private Integer alumnoId;
+  private String alumno_id;
  
   public int hashCode() {
-    return (int)(planId + alumnoId);
+    return (int)(plan_id + Integer.parseInt(alumno_id.substring(0, alumno_id.length() - 2)));
   }
  
   public boolean equals(Object object) {
     if (object instanceof AsociacionPlanEstudioAlumnoId) {
       AsociacionPlanEstudioAlumnoId otherId = (AsociacionPlanEstudioAlumnoId) object;
-      return (otherId.planId == this.planId) && (otherId.alumnoId == this.alumnoId);
+      return (otherId.plan_id == this.plan_id) && (otherId.alumno_id == this.alumno_id);
     }
     return false;
   }

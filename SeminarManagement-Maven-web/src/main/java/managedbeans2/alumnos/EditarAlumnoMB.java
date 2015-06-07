@@ -1,9 +1,11 @@
 package managedbeans2.alumnos;
 
 import entities.Alumno;
+import entities.AsociacionPlanEstudioAlumno;
 import entities.PlanEstudio;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.ejb.EJB;
@@ -95,17 +97,23 @@ public class EditarAlumnoMB implements Serializable {
         alumnoEdit.setPropuestaList(alumno.getPropuestaList());
 
         
-        alumno.getPlanEstudioAlumno();
+//        alumno.getPlanEstudioAlumno();
         System.out.println("asdasda");
         
-//        List<PlanEstudio> planesEstudio = alumno.getPlanes();
-//        Boolean existe = false;
-//        for (int i = 0; i < planesEstudio.size(); i++) {
-//            Integer id = Integer.parseInt(planesEstudio.get(i).getId() + "");
-//            if (id == this.planEstudioAlumno) {
-//                existe = true;
-//            }
-//        }
+        
+        List<AsociacionPlanEstudioAlumno> planesEstudio = alumno.getAsociacionPlanEstudioAlumno();
+        
+        List<PlanEstudio> planesEstudioLocal = new ArrayList<>();
+        for (int i = 0; i < planesEstudio.size(); i++) {
+            planesEstudioLocal.add(planesEstudio.get(i).getPlanEstudio());
+        }
+        Boolean existe = false;
+        for (int i = 0; i < planesEstudioLocal.size(); i++) {
+            Integer id = Integer.parseInt(planesEstudioLocal.get(i).getId() + "");
+            if (id == this.planEstudioAlumno) {
+                existe = true;
+            }
+        }
 //        if (!existe) {
 //            PlanEstudio a = planEstudioFacade.findById(this.planEstudioAlumno);
 //            planesEstudio.add(a);
