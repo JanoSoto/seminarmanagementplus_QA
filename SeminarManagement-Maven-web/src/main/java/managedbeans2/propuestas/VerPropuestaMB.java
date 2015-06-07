@@ -178,7 +178,7 @@ public class VerPropuestaMB implements Serializable {
         
         //Mensaje de confirmación
         context.addMessage(null, new FacesMessage("Propuesta", "La propuesta ha sido editada exitosamente"));
-        LOGGER.info("La propuesta ha sido editada exitosamente por '"+nombrePropEdit+"'");
+        LOGGER.info("La el nombre de la propuesta ha sido editada exitosamente por "+nombrePropEdit);
         
         
     }
