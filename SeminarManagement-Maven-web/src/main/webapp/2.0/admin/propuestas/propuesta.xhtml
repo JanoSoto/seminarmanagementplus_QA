@@ -67,7 +67,7 @@
                         <p:button style="width:150px;" href="/2.0/admin/propuestas/editarProp.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Editar Propuesta"/>
                         <p:commandButton style="width:150px;" value="Eliminar Propuesta" onclick="confirmation.show()" type="button"/>
                         <h:form  rendered="#{verPropuestaMB.propuesta.idRevisora.tipoRevision != 2}" id="form66" style="" >
-                            <h:link value="" style="width: 140px" outcome="plantilla" target="_blank" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                            <h:link value="" style="width: 148px" outcome="plantilla" target="_blank" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
                                 <span class="ui-button-text ui-c">Descargar Plantilla PDF</span>
                                 <f:param name="id" value="#{verPropuestaMB.idPropuesta}" />
                             </h:link>

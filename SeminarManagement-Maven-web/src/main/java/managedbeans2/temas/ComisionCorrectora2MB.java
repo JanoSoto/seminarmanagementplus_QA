@@ -1,17 +1,11 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package managedbeans2.temas;
 
-import clases.ProfeDatos;
 import clases.ProfeDatos2;
 import entities.Alumno;
 import entities.ComisionCorrectora;
 import entities.Historial;
 import entities.ProfeCorreccion;
 import entities.Profesor;
-import entities.Propuesta;
 import entities.Semestre;
 import entities.Tema;
 import java.text.ParseException;
