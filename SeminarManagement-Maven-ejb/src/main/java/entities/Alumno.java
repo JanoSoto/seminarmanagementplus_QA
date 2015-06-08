@@ -40,56 +40,59 @@ import javax.persistence.ManyToMany;
     @NamedQuery(name = "Alumno.findByDireccionAlumno", query = "SELECT a FROM Alumno a WHERE a.direccionAlumno = :direccionAlumno"),
     @NamedQuery(name = "Alumno.findAlumno", query = "SELECT a FROM Alumno a WHERE a.nombreAlumno LIKE :nombreAlumno OR a.apellidoAlumno LIKE :apellidoAlumno OR a.rutAlumno LIKE :rutAlumno")})
 public class Alumno implements Serializable {
+
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
     @Column(name = "rut_alumno")
     private String rutAlumno;
-    
+
     @Size(max = 50)
     @Column(name = "nombre_alumno")
     private String nombreAlumno;
-    
+
     @Size(max = 50)
     @Column(name = "apellido_alumno")
     private String apellidoAlumno;
-    
+
     @Size(max = 100)
     @Column(name = "mail_alumno")
     private String mailAlumno;
-    
+
     @Size(max = 20)
     @Column(name = "telefono_alumno")
     private String telefonoAlumno;
-    
+
     @Size(max = 100)
     @Column(name = "direccion_alumno")
     private String direccionAlumno;
-    
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rutAlumno")
     private List<Propuesta> propuestaList;
-    
+
     @ManyToMany
     @JoinTable(
-        name="planes_alumno",
-        joinColumns={@JoinColumn(name="alumno_id", referencedColumnName="rut_alumno")},
-        inverseJoinColumns={@JoinColumn(name="plan_id", referencedColumnName="id")})
+            name = "planes_alumno",
+            joinColumns = {
+                @JoinColumn(name = "alumno_id", referencedColumnName = "rut_alumno")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "plan_id", referencedColumnName = "id")})
     private List<PlanEstudio> planes;
-    
-    @OneToMany(mappedBy="alumno")
+
+    @OneToMany(mappedBy = "alumno")
     private List<AsociacionPlanEstudioAlumno> asociacionPlanEstudioAlumno;
 
-    public List<AsociacionPlanEstudioAlumno> getPlanEstudioAlumno() {
+    public List<AsociacionPlanEstudioAlumno> getAsociacionPlanEstudioAlumno() {
         return asociacionPlanEstudioAlumno;
     }
 
-    public void setPlanEstudioAlumno(List<AsociacionPlanEstudioAlumno> asociacionPlanEstudioAlumnos) {
-        this.asociacionPlanEstudioAlumno = asociacionPlanEstudioAlumnos;
+    public void setAsociacionPlanEstudioAlumno(List<AsociacionPlanEstudioAlumno> asociacionPlanEstudioAlumno) {
+        this.asociacionPlanEstudioAlumno = asociacionPlanEstudioAlumno;
     }
-    
+
     public Alumno() {
         propuestaList = new ArrayList();
     }
@@ -98,8 +101,8 @@ public class Alumno implements Serializable {
         propuestaList = new ArrayList();
         this.rutAlumno = rutAlumno;
     }
-    
-    public void add(Propuesta object){
+
+    public void add(Propuesta object) {
         propuestaList.add(object);
     }
 
@@ -138,7 +141,7 @@ public class Alumno implements Serializable {
     public String getRutAlumno() {
         return rutAlumno;
     }
-    
+
     public String getRutAlumnoFormateado() {
         return Util.formatearRut(rutAlumno);
     }
@@ -171,7 +174,7 @@ public class Alumno implements Serializable {
     public void setPlanes(List<PlanEstudio> planes) {
         this.planes = planes;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -196,5 +199,5 @@ public class Alumno implements Serializable {
     public String toString() {
         return "entities.Alumno[ rutAlumno=" + rutAlumno + " ]";
     }
-    
+
 }
