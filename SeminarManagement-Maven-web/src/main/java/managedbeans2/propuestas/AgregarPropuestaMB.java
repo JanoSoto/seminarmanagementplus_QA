@@ -67,7 +67,7 @@ public class AgregarPropuestaMB {
     @PostConstruct
     public void init() {
         //Para inicializar el managed property, si no no se puede acceder a esos datos
-        //System.out.println(user.toString());
+        
         
         FacesContext context = FacesContext.getCurrentInstance();
         
@@ -117,7 +117,7 @@ public class AgregarPropuestaMB {
             context.addMessage(null, new FacesMessage("Semestre Propuesta","Debe ingresar semestre propuesta"));
             return;
         }
-        System.out.println(pet);
+        
         if (pet != 0 && pet != 1){
             context.addMessage(null, new FacesMessage("Semestre Propuesta","Debe ingresar si es PET o no la propuesta"));
             return;
