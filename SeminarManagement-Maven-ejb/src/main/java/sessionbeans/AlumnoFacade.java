@@ -1,6 +1,7 @@
 package sessionbeans;
 
 import entities.Alumno;
+import entities.AsociacionPlanEstudioAlumno;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -50,5 +51,5 @@ public class AlumnoFacade extends AbstractFacade<Alumno> implements AlumnoFacade
                 .setParameter("nombreAlumno", "%"+q+"%")
                 .setParameter("apellidoAlumno", "%"+q+"%");
        return query.getResultList();
-    }  
+    }
 }

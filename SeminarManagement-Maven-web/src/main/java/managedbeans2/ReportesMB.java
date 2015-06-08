@@ -21,7 +21,7 @@ import sessionbeans.SemestreActualFacadeLocal;
  * @author stateless
  */
 @Named(value = "reportesMB")
-@ViewScoped
+@SessionScoped
 public class ReportesMB implements Serializable {
     @EJB
     SemestreActualFacadeLocal semActFacade;
@@ -41,18 +41,19 @@ public class ReportesMB implements Serializable {
     
     @PostConstruct
     public void init(){
-        System.out.println("init");
         List<SemestreActual> sems = semActFacade.findAll();
-        if (!sems.isEmpty()){
-            System.out.println("no vacio");
+        //System.out.println("init");
+        if ( !sems.isEmpty() ){
+
             semestreActual = sems.get(0);
-            System.out.println("sem act "+semestreActual.getSemestreActual());
-            findPropuestasSemestre();
-            findTemasSemestre();
+
+            // se asume que los reportes son para temas y propuestas con comision
+            //correctoras = correctoraFacade.findBySemestre(semestreActual.getSemestreActual());
+            //revisoras = revisoraFacade.findBySemestre(semestreActual.getSemestreActual());
         }
     }
     
-    public void findPropuestasSemestre() {
+    public void findPropuestasSemestre() {//System.out.println("propuestas");
         revisoras = revisoraFacade.findBySemestre(semestreActual.getSemestreActual());
     }
     
