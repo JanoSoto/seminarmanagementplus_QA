@@ -1,22 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package managedbeans2.temas;
 
 import entities.Alumno;
-import entities.Historial;
 import entities.Profesor;
 import entities.Tema;
 import entities.ProfeCorreccion;
 import entities.ProfePropuesta;
-import entities.Propuesta;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;

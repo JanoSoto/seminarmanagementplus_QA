@@ -84,7 +84,11 @@
                         <p:button style="width:140px;" rendered="#{not empty verTemaMB.tema.idCorrectora}" href="/2.0/admin/temas/editarComCorr.xhtml?prop=#{verTemaMB.tema.idTema}" value="Agregar Fechas Comisión"/>
                         <p:button style="width:140px;" rendered="#{empty verTemaMB.tema.idCorrectora and verTemaMB.tema.estadoTema eq 0}" href="/2.0/admin/temas/informe.xhtml?tema=#{verTemaMB.tema.idTema}" value="Agregar Informe de Avance"/>
                         <p:button style="width:140px;" rendered="#{empty verTemaMB.tema.idCorrectora and verTemaMB.tema.estadoTema eq 0}" href="/2.0/admin/temas/borrador.xhtml?tema=#{verTemaMB.tema.idTema}" value="Agregar Borrador Final"/>
-                        <p:button style="width:140px;" rendered="#{verTemaMB.tema.estadoTema eq 4}" href="/2.0/admin/temas/calificar.xhtml?tema=#{verTemaMB.tema.idTema}" value="Agregar Calificaciones"/>
+                        <h:panelGroup rendered="#{verTemaMB.tema.estadoTema eq 4}" id="botonCalificar" layout="block" >
+                            <p:button style="width:140px;" rendered="#{verTemaMB.tema.estadoTema eq 4}" href="/2.0/admin/temas/calificar.xhtml?tema=#{verTemaMB.tema.idTema}" value="Agregar Calificaciones"
+                                      disabled="#{empty verTemaMB.tema.idCorrectora.fechaCorreccion or empty verTemaMB.tema.idCorrectora.fechaCorreccion2
+                                                  or empty verTemaMB.tema.idCorrectora.fechaEntCorreccion or empty verTemaMB.tema.idCorrectora.fechaEntCorreccion2}"/>
+                        </h:panelGroup>
                         <p:button style="width:140px;" rendered="#{verTemaMB.tema.estadoTema eq 7 || verTemaMB.tema.estadoTema eq 1}" href="/2.0/admin/temas/modificarCalificaciones.xhtml?tema=#{verTemaMB.tema.idTema}" value="Modificar Calificaciones"/>
                         <p:button style="width:140px;" rendered="#{verTemaMB.tema.estadoTema eq 0}" href="/2.0/admin/temas/caducarrenuncia.xhtml?tema=#{verTemaMB.tema.idTema}" value="Renunciar"/>
                         <p:button style="width:140px;" rendered="#{empty verTemaMB.tema.idCorrectora and verTemaMB.tema.estadoTema eq 0}" href="/2.0/admin/temas/caducar.xhtml?tema=#{verTemaMB.tema.idTema}" value="Caducar"/>
@@ -92,7 +96,7 @@
                         <p:commandButton style="width:140px;" rendered="#{verTemaMB.tema.estadoTema eq 3}" value="Descaducar Tema" onclick="confirmationCaducar.show()" type="button"/>
                         <p:commandButton style="width:140px;" value="Eliminar Tema" onclick="confirmation.show()" type="button"/>
                         <h:form id="form66" style="width: 140px" >
-                            <h:link value="" style="width: 140px" outcome="plantilla" target="_blank" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                            <h:link value="" style="width: 137px" outcome="plantilla" target="_blank" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
                                 <span class="ui-button-text ui-c">Descargar Plantilla PDF</span>
                                 <f:param name="id" value="#{verTemaMB.idTema}" />
                             </h:link>
@@ -100,7 +104,9 @@
                         <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Volver a Temas"/>
                     </h:panelGrid>
                 </p:panel>
-                
+                <p:tooltip id="ttBotonCalificar" rendered="#{empty verTemaMB.tema.idCorrectora.fechaCorreccion or empty verTemaMB.tema.idCorrectora.fechaCorreccion2
+                                                  or empty verTemaMB.tema.idCorrectora.fechaEntCorreccion or empty verTemaMB.tema.idCorrectora.fechaEntCorreccion2}"
+                                   for="botonCalificar" value="Debe ingresar las fechas de correción antes de las calificaciones"/>
                 <p:dialog modal="true" appendToBody="true" header="Confirmación" widgetVar="confirmation" width="350" closeOnEscape="true" closable="true" draggable="false" resizable="false" >
                     <strong>¿Está seguro? Esta acción generará los siguientes cambios dentro del sistema.</strong><br/>
                     <ul>
