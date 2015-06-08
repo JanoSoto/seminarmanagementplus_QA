@@ -89,6 +89,13 @@ public class Alumno implements Serializable {
         return asociacionPlanEstudioAlumno;
     }
 
+    public Integer getJornadaParcial() {
+        if (this.getAsociacionPlanEstudioAlumno().size() > 0) {
+            return this.getAsociacionPlanEstudioAlumno().get(0).getPlanEstudio().getJornada();
+        }
+        return 0;
+    }
+
     public void setAsociacionPlanEstudioAlumno(List<AsociacionPlanEstudioAlumno> asociacionPlanEstudioAlumno) {
         this.asociacionPlanEstudioAlumno = asociacionPlanEstudioAlumno;
     }

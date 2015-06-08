@@ -2,7 +2,6 @@ package managedbeans2;
 
 import entities.ComisionCorrectora;
 import entities.ComisionRevisora;
-import entities.Semestre;
 import entities.SemestreActual;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -10,8 +9,6 @@ import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
-import javax.faces.bean.ViewScoped;
 import sessionbeans.ComisionCorrectoraFacadeLocal;
 import sessionbeans.ComisionRevisoraFacadeLocal;
 import sessionbeans.SemestreActualFacadeLocal;

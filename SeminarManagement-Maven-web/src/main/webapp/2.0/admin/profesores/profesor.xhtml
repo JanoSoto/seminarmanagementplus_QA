@@ -100,6 +100,36 @@
                         </a>
                     </p:column>
                 </p:dataTable>
+                <p:dataTable id="guiasTable3" var="tema" value="#{verProfesorMB.temaDatosCorrectora}" emptyMessage="No soy parte de comision correctora">
+                    <f:facet name="header">
+                        Participacion Comision Correctora #{semestreActual.semestre}
+                    </f:facet>
+                    <p:column headerText="Nombre">
+                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/temas/tema.xhtml?tema=#{tema.idTema}">
+                            <h:outputText value="#{tema.nombreCorto}"/>
+                        </a>
+                    </p:column>
+                    <p:column headerText="Alumno">
+                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/alumnos/alumno.xhtml?alum=#{tema.alumno.rutAlumno}">
+                            <h:outputText value="#{tema.alumno.nombreAlumno} #{tema.alumno.apellidoAlumno}"/>
+                        </a>
+                    </p:column>
+                </p:dataTable>
+                <p:dataTable id="guiasTable4" var="tema" value="#{verProfesorMB.temaDatosCorrectoraSemViejo}" emptyMessage="No soy parte de comision correctora">
+                    <f:facet name="header">
+                        Temas del cual soy parte Comision Correctora #{semestreActual.semestreAnterior}
+                    </f:facet>
+                    <p:column headerText="Nombre">
+                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/temas/tema.xhtml?tema=#{tema.idTema}">
+                            <h:outputText value="#{tema.nombreCorto}"/>
+                        </a>
+                    </p:column>
+                    <p:column headerText="Alumno">
+                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/alumnos/alumno.xhtml?alum=#{tema.alumno.rutAlumno}">
+                            <h:outputText value="#{tema.alumno.nombreAlumno} #{tema.alumno.apellidoAlumno}"/>
+                        </a>
+                    </p:column>
+                </p:dataTable>
             </p:layoutUnit>
         </c:if>
         

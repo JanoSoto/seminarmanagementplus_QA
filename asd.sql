@@ -43,7 +43,7 @@ CREATE TABLE alumno (
 );
 
 
-ALTER TABLE public.alumno OWNER TO postgres;
+ALTER TABLE alumno OWNER TO postgres;
 
 --
 -- Name: asignatura; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -61,7 +61,7 @@ CREATE TABLE asignatura (
 );
 
 
-ALTER TABLE public.asignatura OWNER TO postgres;
+ALTER TABLE asignatura OWNER TO postgres;
 
 --
 -- Name: asignatura_asignatura; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -73,7 +73,7 @@ CREATE TABLE asignatura_asignatura (
 );
 
 
-ALTER TABLE public.asignatura_asignatura OWNER TO postgres;
+ALTER TABLE asignatura_asignatura OWNER TO postgres;
 
 --
 -- Name: asignatura_profesor; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -85,7 +85,7 @@ CREATE TABLE asignatura_profesor (
 );
 
 
-ALTER TABLE public.asignatura_profesor OWNER TO postgres;
+ALTER TABLE asignatura_profesor OWNER TO postgres;
 
 --
 -- Name: carrera; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -97,7 +97,7 @@ CREATE TABLE carrera (
 );
 
 
-ALTER TABLE public.carrera OWNER TO postgres;
+ALTER TABLE carrera OWNER TO postgres;
 
 --
 -- Name: checklist; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -111,7 +111,7 @@ CREATE TABLE checklist (
 );
 
 
-ALTER TABLE public.checklist OWNER TO postgres;
+ALTER TABLE checklist OWNER TO postgres;
 
 --
 -- Name: comision_correctora; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -128,7 +128,7 @@ CREATE TABLE comision_correctora (
 );
 
 
-ALTER TABLE public.comision_correctora OWNER TO postgres;
+ALTER TABLE comision_correctora OWNER TO postgres;
 
 --
 -- Name: comision_correctora_id_correctora_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -142,7 +142,7 @@ CREATE SEQUENCE comision_correctora_id_correctora_seq
     CACHE 1;
 
 
-ALTER TABLE public.comision_correctora_id_correctora_seq OWNER TO postgres;
+ALTER TABLE comision_correctora_id_correctora_seq OWNER TO postgres;
 
 --
 -- Name: comision_correctora_id_correctora_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -170,7 +170,7 @@ CREATE TABLE comision_revisora (
 );
 
 
-ALTER TABLE public.comision_revisora OWNER TO postgres;
+ALTER TABLE comision_revisora OWNER TO postgres;
 
 --
 -- Name: comision_revisora_id_revisora_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -184,7 +184,7 @@ CREATE SEQUENCE comision_revisora_id_revisora_seq
     CACHE 1;
 
 
-ALTER TABLE public.comision_revisora_id_revisora_seq OWNER TO postgres;
+ALTER TABLE comision_revisora_id_revisora_seq OWNER TO postgres;
 
 --
 -- Name: comision_revisora_id_revisora_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -208,7 +208,7 @@ CREATE TABLE coordinacion (
 );
 
 
-ALTER TABLE public.coordinacion OWNER TO postgres;
+ALTER TABLE coordinacion OWNER TO postgres;
 
 --
 -- Name: encuesta; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -223,7 +223,7 @@ CREATE TABLE encuesta (
 );
 
 
-ALTER TABLE public.encuesta OWNER TO postgres;
+ALTER TABLE encuesta OWNER TO postgres;
 
 --
 -- Name: evento; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -261,7 +261,7 @@ CREATE TABLE evento (
 );
 
 
-ALTER TABLE public.evento OWNER TO postgres;
+ALTER TABLE evento OWNER TO postgres;
 
 --
 -- Name: expositor; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -280,7 +280,7 @@ CREATE TABLE expositor (
 );
 
 
-ALTER TABLE public.expositor OWNER TO postgres;
+ALTER TABLE expositor OWNER TO postgres;
 
 --
 -- Name: historial; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -295,7 +295,7 @@ CREATE TABLE historial (
 );
 
 
-ALTER TABLE public.historial OWNER TO postgres;
+ALTER TABLE historial OWNER TO postgres;
 
 --
 -- Name: historial_id_historial_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -309,7 +309,7 @@ CREATE SEQUENCE historial_id_historial_seq
     CACHE 1;
 
 
-ALTER TABLE public.historial_id_historial_seq OWNER TO postgres;
+ALTER TABLE historial_id_historial_seq OWNER TO postgres;
 
 --
 -- Name: historial_id_historial_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -331,7 +331,7 @@ CREATE TABLE horario (
 );
 
 
-ALTER TABLE public.horario OWNER TO postgres;
+ALTER TABLE horario OWNER TO postgres;
 
 --
 -- Name: inscripcion; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -346,7 +346,7 @@ CREATE TABLE inscripcion (
 );
 
 
-ALTER TABLE public.inscripcion OWNER TO postgres;
+ALTER TABLE inscripcion OWNER TO postgres;
 
 --
 -- Name: logs; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -362,7 +362,7 @@ CREATE TABLE logs (
 );
 
 
-ALTER TABLE public.logs OWNER TO postgres;
+ALTER TABLE logs OWNER TO postgres;
 
 --
 -- Name: logs_logs_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -376,7 +376,7 @@ CREATE SEQUENCE logs_logs_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.logs_logs_id_seq OWNER TO postgres;
+ALTER TABLE logs_logs_id_seq OWNER TO postgres;
 
 --
 -- Name: logs_logs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -396,7 +396,7 @@ CREATE TABLE paramsemestreano (
 );
 
 
-ALTER TABLE public.paramsemestreano OWNER TO postgres;
+ALTER TABLE paramsemestreano OWNER TO postgres;
 
 --
 -- Name: planes_alumno; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -405,11 +405,11 @@ ALTER TABLE public.paramsemestreano OWNER TO postgres;
 CREATE TABLE planes_alumno (
     alumno_id character varying(20),
     plan_id bigint,
-    activo boolean
+    activo boolean DEFAULT false NOT NULL
 );
 
 
-ALTER TABLE public.planes_alumno OWNER TO postgres;
+ALTER TABLE planes_alumno OWNER TO postgres;
 
 --
 -- Name: planestudio; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -423,7 +423,7 @@ CREATE TABLE planestudio (
 );
 
 
-ALTER TABLE public.planestudio OWNER TO postgres;
+ALTER TABLE planestudio OWNER TO postgres;
 
 --
 -- Name: profe_correccion; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -438,7 +438,7 @@ CREATE TABLE profe_correccion (
 );
 
 
-ALTER TABLE public.profe_correccion OWNER TO postgres;
+ALTER TABLE profe_correccion OWNER TO postgres;
 
 --
 -- Name: profe_propuesta; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -454,7 +454,7 @@ CREATE TABLE profe_propuesta (
 );
 
 
-ALTER TABLE public.profe_propuesta OWNER TO postgres;
+ALTER TABLE profe_propuesta OWNER TO postgres;
 
 --
 -- Name: profe_revision; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -468,7 +468,7 @@ CREATE TABLE profe_revision (
 );
 
 
-ALTER TABLE public.profe_revision OWNER TO postgres;
+ALTER TABLE profe_revision OWNER TO postgres;
 
 --
 -- Name: profesor; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -487,7 +487,7 @@ CREATE TABLE profesor (
 );
 
 
-ALTER TABLE public.profesor OWNER TO postgres;
+ALTER TABLE profesor OWNER TO postgres;
 
 --
 -- Name: propuesta; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -505,7 +505,7 @@ CREATE TABLE propuesta (
 );
 
 
-ALTER TABLE public.propuesta OWNER TO postgres;
+ALTER TABLE propuesta OWNER TO postgres;
 
 --
 -- Name: propuesta_id_propuesta_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -519,7 +519,7 @@ CREATE SEQUENCE propuesta_id_propuesta_seq
     CACHE 1;
 
 
-ALTER TABLE public.propuesta_id_propuesta_seq OWNER TO postgres;
+ALTER TABLE propuesta_id_propuesta_seq OWNER TO postgres;
 
 --
 -- Name: propuesta_id_propuesta_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -539,7 +539,7 @@ CREATE TABLE seccion (
 );
 
 
-ALTER TABLE public.seccion OWNER TO postgres;
+ALTER TABLE seccion OWNER TO postgres;
 
 --
 -- Name: semestre; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -550,7 +550,7 @@ CREATE TABLE semestre (
 );
 
 
-ALTER TABLE public.semestre OWNER TO postgres;
+ALTER TABLE semestre OWNER TO postgres;
 
 --
 -- Name: semestre_actual; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -561,7 +561,7 @@ CREATE TABLE semestre_actual (
 );
 
 
-ALTER TABLE public.semestre_actual OWNER TO postgres;
+ALTER TABLE semestre_actual OWNER TO postgres;
 
 --
 -- Name: subtipo; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -574,7 +574,7 @@ CREATE TABLE subtipo (
 );
 
 
-ALTER TABLE public.subtipo OWNER TO postgres;
+ALTER TABLE subtipo OWNER TO postgres;
 
 --
 -- Name: tema; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -594,7 +594,7 @@ CREATE TABLE tema (
 );
 
 
-ALTER TABLE public.tema OWNER TO postgres;
+ALTER TABLE tema OWNER TO postgres;
 
 --
 -- Name: tema_id_tema_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -608,7 +608,7 @@ CREATE SEQUENCE tema_id_tema_seq
     CACHE 1;
 
 
-ALTER TABLE public.tema_id_tema_seq OWNER TO postgres;
+ALTER TABLE tema_id_tema_seq OWNER TO postgres;
 
 --
 -- Name: tema_id_tema_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -626,7 +626,7 @@ CREATE TABLE tipo (
 );
 
 
-ALTER TABLE public.tipo OWNER TO postgres;
+ALTER TABLE tipo OWNER TO postgres;
 
 --
 -- Name: tipoevento; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -638,7 +638,7 @@ CREATE TABLE tipoevento (
 );
 
 
-ALTER TABLE public.tipoevento OWNER TO postgres;
+ALTER TABLE tipoevento OWNER TO postgres;
 
 --
 -- Name: usuario; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -653,7 +653,7 @@ CREATE TABLE usuario (
 );
 
 
-ALTER TABLE public.usuario OWNER TO postgres;
+ALTER TABLE usuario OWNER TO postgres;
 
 --
 -- Name: usuario_tipo; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -666,7 +666,7 @@ CREATE TABLE usuario_tipo (
 );
 
 
-ALTER TABLE public.usuario_tipo OWNER TO postgres;
+ALTER TABLE usuario_tipo OWNER TO postgres;
 
 --
 -- Name: usuario_tipo_id_usuario_tipo_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -680,7 +680,7 @@ CREATE SEQUENCE usuario_tipo_id_usuario_tipo_seq
     CACHE 1;
 
 
-ALTER TABLE public.usuario_tipo_id_usuario_tipo_seq OWNER TO postgres;
+ALTER TABLE usuario_tipo_id_usuario_tipo_seq OWNER TO postgres;
 
 --
 -- Name: usuario_tipo_id_usuario_tipo_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -701,7 +701,7 @@ CREATE TABLE versionplan (
 );
 
 
-ALTER TABLE public.versionplan OWNER TO postgres;
+ALTER TABLE versionplan OWNER TO postgres;
 
 --
 -- Name: id_correctora; Type: DEFAULT; Schema: public; Owner: postgres
@@ -1139,7 +1139,6 @@ DANIEL ANDRÉS	NAVARRO BRITO	DANIEL.NAVARRO.BRITO@GMAIL.COM	\N	164273008	\N
 HERNAN	OLAVARRIA VENEGAS			141928664	\N
 IVAN	PEREZ PANTOJA			118453816	\N
 MIGUEL ANGEL	POBLETE ESCALONA	MAPOBLETE2005@GMAIL.COM		126776691	\N
-ALEJANDRO	ROMERO POBLETE			07364058K	\N
 CARLOS ALFREDO	BARRERA PULGAR	CARLOS.BARRERAP@USACH.CL	\N	17705318K	\N
 RODRIGO HERNÁN	CIFUENTES RUIZ	RODRIGO.CIFUENTES@USACH.CL	\N	174859329	\N
 ESTEBAN ANDRÉS	CONTARDO PÉREZ	ESTEBAN.CONTARDO@USACH.CL	\N	176233516	\N
@@ -1270,6 +1269,7 @@ SEBASTIÁN 	ESCOBAR TRONCOSO	86517264	\N	180628754	\N
 EDUARDO	 PEÑA ANDRADES	63366169	\N	17962091K	\N
 WALESKA ANDREA	CARREÑO ARANDA	ASD@ASD.CL		176744650	
 GLEN ENRIQUE	CIFUENTES TOR	GLEN.CIFUENTES@GMAIL.COM		167110614	
+ALEJANDRO	ROMERO POBLETE	GIOVANNI.BENUSSI@USACH.CL	74659339	07364058K	
 \.
 
 
@@ -2178,6 +2178,12 @@ COPY comision_revisora (fecha_revision, tipo_revision, id_revisora, id_propuesta
 13/05/2015	0	603	613	1/2016	598	13/05/2015	21/05/2015	21/05/2015	\N	\N
 19/05/2015	0	604	614	1/2016	\N	19/06/2015	20/05/2015	21/05/2015	\N	\N
 20/05/2015	2	605	615	1/2016	\N	21/05/2015	20/05/2015	21/05/2015	\N	\N
+09/06/2015	1	607	617	1/2016	600	17/06/2015	10/06/2015	24/06/2015	\N	\N
+09/06/2015	1	608	618	1/2016	\N	23/06/2015	15/06/2015	22/06/2015	\N	\N
+09/06/2015	1	609	619	1/2016	601	16/06/2015	15/06/2015	22/06/2015	\N	\N
+10/06/2015	1	610	620	2/2016	602	17/06/2015	24/06/2015	30/06/2015	\N	\N
+10/06/2015	1	611	621	1/2016	603	17/06/2015	18/06/2015	25/06/2015	\N	\N
+04/06/2015	1	612	622	2/2016	604	17/06/2015	25/06/2015	30/06/2015	\N	\N
 \.
 
 
@@ -2185,7 +2191,7 @@ COPY comision_revisora (fecha_revision, tipo_revision, id_revisora, id_propuesta
 -- Name: comision_revisora_id_revisora_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('comision_revisora_id_revisora_seq', 606, true);
+SELECT pg_catalog.setval('comision_revisora_id_revisora_seq', 612, true);
 
 
 --
@@ -2463,6 +2469,86 @@ COPY logs (logs_id, dated, level, logger, message, user_id) FROM stdin;
 174	2015-05-19 00:06:12.713682	INFO	managedbeans2.propuestas.AgregarPropuestaMB	La propuesta propp ha sido ingresada al sistema	
 175	2015-05-19 00:06:30.86327	INFO	managedbeans2.propuestas.ComisionRevisora2MB	La propuesta PROPP ha sido ingresada al sistema	
 176	2015-05-19 00:06:44.021884	INFO	managedbeans2.propuestas.ComisionRevisora2MB	La comision revisora de la propuesta PROPP ha sido modificada en el sistema	
+177	2015-06-07 16:27:41.258017	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	
+178	2015-06-07 16:27:51.920532	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	admin
+179	2015-06-07 16:28:00.377779	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	
+180	2015-06-07 16:31:22.011317	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	
+181	2015-06-07 16:40:00.042636	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	
+182	2015-06-07 16:52:07.085019	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	
+183	2015-06-07 16:52:11.755958	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	
+184	2015-06-07 16:52:17.767833	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	
+185	2015-06-07 16:56:16.529867	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	admin
+186	2015-06-07 16:58:27.164739	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	
+187	2015-06-07 16:58:40.170223	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	
+188	2015-06-07 16:58:45.000013	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	
+189	2015-06-07 16:58:50.499881	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	
+190	2015-06-07 16:59:22.751829	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	admin
+191	2015-06-07 16:59:28.994248	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	admin
+192	2015-06-07 17:05:21.350943	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	admin
+193	2015-06-07 17:05:26.69292	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	admin
+194	2015-06-07 17:05:31.434304	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	admin
+195	2015-06-07 17:05:38.595091	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	
+196	2015-06-07 17:12:32.885292	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	
+197	2015-06-07 17:12:37.558059	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	
+198	2015-06-07 17:12:51.541653	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	admin
+199	2015-06-07 17:17:11.264983	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	admin
+200	2015-06-07 17:17:17.998275	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	
+201	2015-06-07 17:17:30.889566	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	admin
+202	2015-06-07 17:18:29.732877	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	admin
+203	2015-06-07 17:18:58.0794	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	
+204	2015-06-07 17:22:03.420882	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	
+205	2015-06-07 17:22:10.249114	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	
+206	2015-06-07 17:26:28.855659	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	
+207	2015-06-07 17:26:35.39842	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	
+208	2015-06-07 17:26:39.611432	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	admin
+209	2015-06-07 17:28:55.50084	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	admin
+210	2015-06-07 17:29:00.397294	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	admin
+211	2015-06-07 18:51:45.139332	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	
+212	2015-06-07 18:53:31.443395	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	
+213	2015-06-07 18:58:44.418843	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	
+214	2015-06-07 18:58:49.535129	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	
+215	2015-06-07 19:04:14.358349	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	
+216	2015-06-07 19:04:19.981722	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	admin
+217	2015-06-07 19:05:08.413352	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	
+218	2015-06-07 19:05:17.199683	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno ALEJANDRO ROMERO POBLETE ha sido editado exitosamente	
+219	2015-06-07 21:30:39.534168	INFO	managedbeans2.temas.VerTemaMB	Tema SOFTWARE DE APOYO AL PROCESO ADMINISTRATIVO DE LA EMPRESA OPTICA REAL editado en el sistema	
+220	2015-06-07 21:31:14.656974	INFO	managedbeans2.temas.VerTemaMB	Tema SOFTWARE DE APOYO AL PROCESO ADMINISTRATIVO DE LA EMPRESA OPTICA REAL editado exitosamente	
+221	2015-06-07 21:32:07.316014	INFO	managedbeans2.temas.VerTemaMB	Tema SOFTWARE DE APOYO AL PROCESO ADMINISTRATIVO DE LA EMPRESA OPTICA REAL editado exitosamente	admin
+222	2015-06-08 08:40:01.827868	INFO	managedbeans2.propuestas.AgregarPropuestaMB	La propuesta Hello World ha sido ingresada al sistema	
+223	2015-06-08 08:40:31.73841	INFO	managedbeans2.propuestas.ComisionRevisora2MB	La propuesta HELLO WORLD ha sido ingresada al sistema	admin
+224	2015-06-08 08:40:46.48376	INFO	managedbeans2.temas.AgregarTemaMB	El tema HELLO WORLD THEME ha sido ingresado al sistema	
+225	2015-06-08 08:41:39.284511	INFO	managedbeans2.propuestas.AgregarPropuestaMB	La propuesta Propuesta 2 2016 ha sido ingresada al sistema	
+226	2015-06-08 08:42:13.869643	INFO	managedbeans2.propuestas.ComisionRevisora2MB	La propuesta PROPUESTA 2 2016 ha sido ingresada al sistema	
+227	2015-06-08 08:43:35.838761	INFO	managedbeans2.propuestas.AgregarPropuestaMB	La propuesta Propuesta semestre 2 2016 ha sido ingresada al sistema	
+228	2015-06-08 08:44:14.368445	INFO	managedbeans2.propuestas.ComisionRevisora2MB	La propuesta PROPUESTA SEMESTRE 2 2016 ha sido ingresada al sistema	admin
+229	2015-06-08 08:44:42.060656	INFO	managedbeans2.temas.AgregarTemaMB	El tema TEMA SEMESTRE 2 2016 ha sido ingresado al sistema	
+230	2015-06-08 08:45:37.007007	INFO	managedbeans2.propuestas.AgregarPropuestaMB	La propuesta Prueba propuesta 2 2016 ha sido ingresada al sistema	
+231	2015-06-08 08:47:25.942716	INFO	managedbeans2.propuestas.ComisionRevisora2MB	La propuesta PRUEBA PROPUESTA 2 2016 ha sido ingresada al sistema	
+232	2015-06-08 08:47:53.256457	INFO	managedbeans2.temas.AgregarTemaMB	El tema PRUEBA TEMA 2 2016 ha sido ingresado al sistema	
+233	2015-06-08 13:06:33.328579	INFO	managedbeans2.SemestreMB	Estados y semestre modificados, el semestre actual es: 2/2016	
+234	2015-06-08 13:12:01.430895	INFO	managedbeans2.SemestreMB	Estados y semestre modificados, el semestre actual es: 2/2016	admin
+235	2015-06-08 13:12:02.171562	INFO	managedbeans2.SemestreMB	Estados y semestre modificados, el semestre actual es: 1/2017	
+236	2015-06-08 13:14:23.638186	INFO	managedbeans2.SemestreMB	Estados y semestre modificados, el semestre actual es: 2/2016	
+237	2015-06-08 13:16:02.274165	INFO	managedbeans2.SemestreMB	Estados y semestre modificados, el semestre actual es: 2/2016	admin
+238	2015-06-08 13:17:19.960713	INFO	managedbeans2.SemestreMB	Estados y semestre modificados, el semestre actual es: 2/2016	
+239	2015-06-08 13:19:31.850073	INFO	managedbeans2.SemestreMB	Estados y semestre modificados, el semestre actual es: 2/2016	
+240	2015-06-08 13:20:51.714473	INFO	managedbeans2.SemestreMB	Estados y semestre modificados, el semestre actual es: 2/2016	admin
+241	2015-06-08 13:21:48.784005	INFO	managedbeans2.SemestreMB	Estados y semestre modificados, el semestre actual es: 2/2016	admin
+242	2015-06-08 13:23:02.239135	INFO	managedbeans2.SemestreMB	Estados y semestre modificados, el semestre actual es: 2/2016	
+243	2015-06-08 13:24:46.70774	INFO	managedbeans2.SemestreMB	Estados y semestre modificados, el semestre actual es: 2/2016	admin
+244	2015-06-08 13:26:17.534344	INFO	managedbeans2.SemestreMB	Estados y semestre modificados, el semestre actual es: 2/2016	
+245	2015-06-08 13:27:23.538	INFO	managedbeans2.SemestreMB	Estados y semestre modificados, el semestre actual es: 2/2016	
+246	2015-06-08 13:30:00.146756	INFO	managedbeans2.SemestreMB	Estados y semestre modificados, el semestre actual es: 2/2016	
+247	2015-06-08 13:30:34.847786	INFO	managedbeans2.SemestreMB	Estados y semestre modificados, el semestre actual es: 2/2016	
+248	2015-06-08 13:47:42.111155	INFO	managedbeans2.temas.VerTemaMB	Tema TEMA SEMESTRE 2 2016 editado exitosamente	
+249	2015-06-08 13:48:21.024928	INFO	managedbeans2.temas.VerTemaMB	Tema TEMA SEMESTRE 2 2016 editado exitosamente	
+250	2015-06-08 13:59:39.306015	INFO	managedbeans2.propuestas.AgregarPropuestaMB	La propuesta Propuesta Nico 1/2016 ha sido ingresada al sistema	
+251	2015-06-08 14:00:13.428656	INFO	managedbeans2.propuestas.AgregarPropuestaMB	La propuesta Propuesta Nico 2/2016 ha sido ingresada al sistema	
+252	2015-06-08 14:00:59.77983	INFO	managedbeans2.propuestas.ComisionRevisora2MB	La propuesta PROPUESTA NICO 1/2016 ha sido ingresada al sistema	
+253	2015-06-08 14:01:18.648812	INFO	managedbeans2.temas.AgregarTemaMB	El tema TEMA NICO 1/2016  ha sido ingresado al sistema	
+254	2015-06-08 14:01:58.353067	INFO	managedbeans2.propuestas.AgregarPropuestaMB	La propuesta PROPUESTA NICO 2/2016  ha sido ingresada al sistema	admin
+255	2015-06-08 14:03:43.572069	INFO	managedbeans2.propuestas.ComisionRevisora2MB	La propuesta PROPUESTA NICO 2/2016 ha sido ingresada al sistema	
+256	2015-06-08 14:05:36.138719	INFO	managedbeans2.temas.AgregarTemaMB	El tema TEMA NICO 2/2016  ha sido ingresado al sistema	
 \.
 
 
@@ -2470,7 +2556,7 @@ COPY logs (logs_id, dated, level, logger, message, user_id) FROM stdin;
 -- Name: logs_logs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('logs_logs_id_seq', 176, true);
+SELECT pg_catalog.setval('logs_logs_id_seq', 256, true);
 
 
 --
@@ -2486,6 +2572,8 @@ COPY paramsemestreano (id, anoactual, semestreactual) FROM stdin;
 --
 
 COPY planes_alumno (alumno_id, plan_id, activo) FROM stdin;
+07364058K	1	t
+07364058K	2	t
 \.
 
 
@@ -3153,6 +3241,20 @@ COPY profe_propuesta (id_propuesta, rut_profesor, rol_guia, nota_guia_informe, n
 614	163601311	0	\N	\N	\N
 616	78132884	0	\N	\N	\N
 616	162690302	1	\N	\N	\N
+617	155560002	0	\N	\N	\N
+617	155898712	1	\N	\N	\N
+618	155560002	0	\N	\N	\N
+618	155898712	1	\N	\N	\N
+619	155560002	0	\N	\N	\N
+619	155898712	1	\N	\N	\N
+620	155560002	0	\N	\N	\N
+620	155898712	1	\N	\N	\N
+621	155898712	0	\N	\N	\N
+621	155560002	1	\N	\N	\N
+622	155898712	0	\N	\N	\N
+622	155560002	1	\N	\N	\N
+623	155898712	0	\N	\N	\N
+623	155560002	1	\N	\N	\N
 \.
 
 
@@ -3191,6 +3293,18 @@ COPY profe_revision (id_revisora, rut_profesor, rol_revision, fecha_revision) FR
 604	120188615	1	\N
 606	145010330	0	\N
 606	155560002	1	\N
+607	65776545	0	\N
+607	78132884	1	\N
+608	68635926	0	\N
+608	95794912	1	\N
+609	68635926	0	\N
+609	95794912	1	\N
+610	65776545	0	\N
+610	109857017	1	\N
+611	120188615	0	\N
+611	162690302	1	\N
+612	145010330	0	\N
+612	109857017	1	\N
 \.
 
 
@@ -3860,6 +3974,13 @@ PROPUESTA EJEMPLO 2	21/05/2015	613	1/2016	603	153179409	f	\N
 PROPUESTA CON JOSE LUIS	18/05/2015	614	1/2016	604	173832168	f	\N
 PROPUESTA ASD	20/05/2015	615	1/2016	605	153179409	f	\N
 PROPP	20/05/2015	616	1/2016	606	128516948	f	\N
+HELLO WORLD	17/06/2015	617	1/2016	607	128516948	f	f
+PROPUESTA 22 2016	15/09/2015	618	2/2016	608	173832168	f	t
+PROPUESTA SEMESTRE 2 2016	30/06/2015	619	2/2016	609	171818575	f	f
+PRUEBA PROPUESTA 2 2016	16/06/2015	620	2/2016	610	159073122	f	f
+PROPUESTA NICO 1/2016	20/04/2016	621	1/2016	611	169367353	f	f
+PROPUESTA NICO 2/2016 	20/08/2016	623	2/2016	\N	17841447K	f	f
+PROPUESTA NICO 2/2016	11/08/2016	622	2/2016	612	171176654	f	f
 \.
 
 
@@ -3867,7 +3988,7 @@ PROPP	20/05/2015	616	1/2016	606	128516948	f	\N
 -- Name: propuesta_id_propuesta_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('propuesta_id_propuesta_seq', 616, true);
+SELECT pg_catalog.setval('propuesta_id_propuesta_seq', 623, true);
 
 
 --
@@ -3895,6 +4016,8 @@ default
 1/2010
 1/2016
 2/2011
+2/2016
+1/2017
 \.
 
 
@@ -3922,139 +4045,72 @@ COPY subtipo (idsubtipo, nombresubtipo, idtipoevento_idtipoevento) FROM stdin;
 COPY tema (nombre_tema, fecha_tema, estado_tema, id_tema, id_correctora, id_semestre, id_revisora, fecha_siac, fecha_real, semestre_termino) FROM stdin;
 DISEÑO DE UN SISTEMA QUE PERMITA LA CREACIÓN DE APLICACIONES EDUCATIVAS	30/03/13	1	5	3	default	5	\N	\N	\N
 SOLUCION TECNOLOGICA PARA LA CREACION DE SITIOS WEB Y SU GESTION DE INFORMACION, EN UNA EMPRESA DE SELECCIÓN DE PERSONAL	4/8/2010	1	8	5	default	8	\N	\N	\N
-SOFTWARE DE APOYO AL PROCESO ADMINISTRATIVO DE LA EMPRESA OPTICA REAL	11/10/2012	3	10	\N	default	10	\N	\N	\N
-SISTEMA DE EVALUACIÓN INTERACTIVO CON DISPOSITIVOS SMARTPHONE	1/2014	3	18	\N	default	18	\N	\N	\N
+TEMA NICO 1/2016 	17/05/2016	0	603	\N	1/2016	611	\N	\N	\N
+TEMA NICO 2/2016 	14/07/2016	0	604	\N	2/2016	612	\N	\N	\N
 SISTEMA INFORMÁTICO PARA EL PROCESO DE POSTULACIÓN EN LÍNEA Y POSTERIOR SELECCIÓN DE AYUDANTES DEL DEPARTAMENTO DE INFENIERÍA INFORMÁTICA DE LA UNIVERSIDAD DE SANTIAGO DE CHILE	7/9/2012	1	11	6	default	11	\N	\N	\N
-IMPLEMENTACIÓN DE WEB SERVICE PARA INTEGRACIÓN SAP CON PLATAFORMAS WEB		3	19	\N	default	19	\N	\N	\N
 SISTEMA INFORMÁTICO PARA LA GESTIÓN DE RECURSOS DEL DEPARTAMENTO DE DEPORTES DE LA UNIVERSIDAD DE SANTIAGO DE CHILE	2/2013	1	12	7	default	12	\N	\N	\N
-AUTOMATIZACIÓN DEL PROCESO PARA VISADO DE PAGO A PROVEEDORES DE LA EMPRESA ENVASES DEL PACÍFICO (EDELPA)	11/11/2014	3	21	\N	default	21	\N	\N	\N
 SISTEMA PARA MONITOREO Y GESTIÓN DE REQUERIMIENTOS E INCIDENTES DE CLIENTES CORPORATIVOS EMPRESA ENTEL, MEDIANTE HERRAMIENTA SPLUNK	20/03/12	1	13	8	default	13	\N	\N	\N
-DESARROLLAR JUEGOS PARA CURSO DE ECONOMÍA DE BACHILLER DE TECNOLOGÍA		3	15	\N	default	15	\N	\N	\N
-DESARROLLO DE SISTEMA DE PLANIFICACIÓN DE MISIÓN Y CONTROL ADAPTIVO EN VUELO PARA EL SISTEMA AEREO ROBOTICO RUAS	11/10/1012	3	27	\N	default	27	\N	\N	\N
 PROTOTIPO FUNCIANAL DE UN SISTEMA BROKER PARA LA EMPRESA SOLINGAS S.A	11/1/2013	1	16	9	default	16	\N	\N	\N
-DISEÑO E IMPLEMENTACIÓN DE UN SISTEMA WEB ADMINISTRATIVO Y RESERVAS DE ATENCIÓN EN LÍNEA PARA UNA SERVITECA	11/1/2013	3	17	\N	default	17	\N	\N	\N
-OBJETOS DE APRENDIZAJE PARA APOYAR EL ESTUDIO DE TECNOLOGÍAS DE LA INFORMACIÓN EN LA ENSEÑANZA BÁSICA	11/1/2013	3	20	\N	default	20	\N	\N	\N
-SOFTWARE PARA PLANIFICACIÓN DE VUELO FOTOGRAMÉTRICO DE UAV EN TERRENOS COMPLEJOS	1/2014	3	28	\N	default	28	\N	\N	\N
 OBEJTOS DE APRENDIZAJE PARA LA ENSEÑANZA DE LA LENGUA DE SEÑAS CHILENAS PARA NIÑOS CON DISCAPACIDAD AUDITIVA	11/1/2013	1	22	10	default	22	\N	\N	\N
-SISTEMA DE DETECCIÓN Y EVASIÓN DE OBSTÁCULOS PARA UAV CUADRICOPTERO BASADO EN ARDUPILOT	1/2014	3	32	\N	default	32	\N	\N	\N
 HERRAMIENTA DE SOFTWARE PARA ENTREGA DE INFORMACIÓN TURÍSTICA DIFERENCIADA Y FOCALIZADA EN PERFILES DE TURISTICA	30/03/12	1	23	11	default	23	\N	\N	\N
-SISTEMA DE DETECCIÓN DE PERSONAS EXTRAVIADAS, POR MEDIO DE RECONOCIMIENTO DE PATRONES EN IMAGÉNES TRANSMITIDAS EN TIEMPO REAL DESDE AVIÓN NO TRIPULADO	11/01/13	3	33	\N	default	33	\N	\N	\N
 PROTOCOLO PARA LA INTEROPERACIÓN DE UAVS, MEDIANTE UNA TORRE DE CONTROL VIRTUAL EN UN ESPACIO  AÉREO NO SEGREGADO "OGMIOS"	12/10/11	1	24	12	default	24	\N	\N	\N
-UN SISTEMA PARA EL LANZAMIENTO DE SUMINISTROS MÉDICOS DESDE UN VEHÍCULO AÉREO NO TRIPULADO	2/2013	3	35	\N	default	35	\N	\N	\N
 EVALUACIÓN DEALGORITMOS AEROFOTOGRAMÉTRICOS PARA CORRECCIÓN ORTOGONAL DE IMÁGENES, OBTENIDAS MEDIANTES UAV, USACDAS PARA GENERAR MOSAICOS Y MODELOS 3D	21/03/2013	1	26	13	default	26	\N	\N	\N
-DESARROLLO DE SOFTWARE PARA CONTROL DE PLANES DE VUELO DE SISTEMA ROBÓTICO AÉREO MULTIAGENTE, BASADO EN LA ARQUITECTURA L-ALLIANCE	11/01/13	3	29	\N	default	29	\N	\N	\N
-IMPLEMENTACIÓN DE ARQUITECTURA MULTIAGENTE L-ALLIANCE PARA EL CONTROL DE COMPORTAMIENTO DE VUELO DE ROBOTS AÉREOS		3	30	\N	default	30	\N	\N	\N
-AUTOPILOTO INTEGRADO EN SMARTPHONE PARA VEHÍCULO AÉREO NO TRIPULADO (UAV)	1/2014	3	36	\N	default	36	\N	\N	\N
 DIFERENCIACIÓN DE VIGOR VEGETATIVO EN CULTIVOS AGRÍCOLAS POR MEDIO DEL TRATAMIENTO DE IMÁGENES INFRARROJAS AÉREAS, CAPTURADAS CON UN AVIÓN ROBOTIZADO	30/03/12	1	31	14	default	31	\N	\N	\N
-SISTEMA DE SOFTWARE EMBEBIDO EN HARDWARE PARA DETECCIÓN DE FIGURAS HUMANAS DESDE ROBOT AÉREO	2/2014	3	38	\N	default	38	\N	\N	\N
 SISTEMA DE APOYO A LA DOCUMENTACIÓN DE IMÁGENES, AUTOMATIZANDO EL RECONOCIMIENTO DE EDIFICIOS Y ESTRUCTURAS	11/10/12	1	34	15	default	34	\N	\N	\N
-DESARROLLO DE UNA PLATAFORMA DE SOFTWARE PARA PRUEBAS DE REGRESIÓN AUTOMATIZADAS DE APLICACIONES WEB USADAS EN EL OBSERVATORIO ALMA	23/07/2013	3	40	\N	default	40	\N	\N	\N
 SISTEMA DE ORIENTACIÓN DE SERVICIOS TURÍSTICOS PARA DISPOSITIVOS MÓVILES UTILIZANDO REALIDAD AUMENTADA.	30/03/12	1	37	16	default	37	\N	\N	\N
-UTILIZACIÓN DE UNA METODOLOGÍA ÁGIL PARA ENTEL S.A.	29/07/2013	3	41	\N	default	41	\N	\N	\N
 APLICACIÓN WEB PARA EVALUACIÓN DEL DESEMPEÑO Y AUTOCONSULTA DE RECURSOS HUMANOS	22/01/13	1	39	17	default	39	\N	\N	\N
-UNA APLICACIÓN COLABORATIVA PARA APOYAR EL USO DE LA METODOLOGÍA DE SISTEMAS BLANDOS DE PETER CHECKLAND	1/2014	3	44	\N	default	44	\N	\N	\N
 DESARROLLO DE UNA APLICACIÓN DE PROTOTIPO EN LA WEB USANDO TECNOLOGÍA DE LA NUBE	22/07/2013	1	42	18	default	42	\N	\N	\N
-PREDICCIÓN DE LA RENTABILIDAD DE LOS FONDOS DE PENSIONES UTILIZANDO AUTÓMATAS CELULARES	22/07/2013	3	45	\N	default	45	\N	\N	\N
 SISTEMA DE APOYO A LA GESTIÓN PARA EL PROCESO DE CERTIFICACIÓN DE SOFTWARE QA	22/07/2013	1	43	19	default	43	\N	\N	\N
-CLASIFICADOR DE PUNTOS SOBRE NUBE DE OBJETOS GENERADA POR SISTEMA LIDAR		3	46	\N	default	46	\N	\N	\N
-UNA APLICACIÓN MÓVIL QUE APOYA LA REALIZACIÓN DE LA METODOLOGÍA DE SISTEMAS BLANDOS DE PETER CHECKLAND	2/2014	3	47	\N	default	47	\N	\N	\N
-PROPUESTA DE MEJORAS METODOLÓGICAS PARA LA GESTIÓN DE LA INCERTIDUMBRE EN PROYECTOS DE SOFTWARE ÁGILES DESDE UN ENFOQUE DE SISTEMAS BLANDOS	2/2014	3	48	\N	default	48	\N	\N	\N
-SISTEMA DE SOPORTE A EDUCADORES EN ENTORNOS DE EVALUACIÓN Y APRENDIZAJE DE ALUMNOS CON NECESIDADES EDUCATIVAS ESPECIALES EN ÁREAS COGNITIVAS	1/2014	3	49	\N	default	49	\N	\N	\N
-SISTEMA DE ADMINISTRACIÓN PARA LA INFORMACIÓN TRANSPARENTE EN UNA COMUNIDAD DE EDIFICIOS		3	9	\N	default	9	\N	\N	\N
-DESARROLLO DE ESTRATÉGIAS DE PLANIFICACIÓN PARA MOTORES DE BÚSQUEDA VERTICALES		3	51	\N	default	51	\N	\N	\N
 PREDICCIÓN DE L ESTRUCTURA TRIDIMENSIONAL DE PROTEÍNAS MEDIANTE CLOUD COMPUTING		1	54	20	default	54	\N	\N	\N
-ADAPTACIÓN DE ALGORITMOS DE ORDENAMIENTO A MÁQUINAS DE BÚSQUEDA VERTICALES	11/1/2013	3	55	\N	default	55	\N	\N	\N
-SISTEMA DE APOYO A LA PLANIFICACIÓN DOCENTE Y MEDICIÓN DEL ESTADO DE AVANCE DE LOS ALUMNOS EN HABILIDADES COGNITIVAS ESPECÍFICAS	30/03/2013	3	3	\N	1/2016	3	15/05/2015	15/05/2015	\N
+CREACIÓN DE UN SISTEMA GENERADOR DE DIFERENTES SERIES DE INSTRUMENTOS DE EVALUACIÓN PARA LA COORDINACIÓN DE FUNDAMENTOS DE COMPUTACIÓN Y PROGRAMACIÓN DE LA UNIVERSIDAD DE SANTIAGO DE CHILE	1/2014	0	236	\N	2/2016	236	\N	\N	2/2016
+DISEÑO E IMPLEMENTACIÓN DEL PORTAL WEB PARA LA MUNICIPALIDAD DE HIJUELAS	13/12/12	0	207	\N	2/2016	207	\N	\N	2/2016
 DESARROLLO DE API DE VALIDACIÓN MEDIANTE HUELLA DIGITAL EN TARJETAS CON CHIP	11/10/2012	1	2	2	2/2012	2	16/05/2015	15/05/2015	\N
-NO HAY INFORMACION		3	246	\N	default	246	\N	\N	\N
-DESARROLLO DE PROTOTIPO DE UNA CALCULADORA DE DOSIS PARA EL APOYO DEL ÁREA DE PEDRIATRÍA	15/05/2015	3	14	\N	1/2015	14	17/05/2015	16/05/2015	\N
-SOFTWARE DE AGENDA PERSONAL Y ASISTENTE PARA ESTRATEGIAS SOCIALES PARA PERSONAS CON SÍNDROME DE ASPERGER	1/2014	3	52	\N	default	52	\N	\N	\N
+SISTEMA DE SEGUIMIENTO A CLIENTES Y DE APOYO A LAS REPARACIONES PARA UN TALLER MECÁNICO	11/10/2012	0	137	\N	2/2016	137	\N	\N	2/2016
+DESARROLLO DE COMPONENTES DE SOFWARE PARA LA PRODUCCIÓN DE CUENTOS INFANTILES	12/07/10	0	195	\N	2/2016	195	\N	\N	2/2016
+PLATAFORMA PARA LA DEFINICIÓN Y APOYO A LA EVALUACIÓN DE GESTOS TÁCTILES EN LA INTERACCIÓN CON OBJETOS DIGITALES DE INFORMACIÓN	1/2014	0	431	\N	2/2016	431	\N	\N	2/2016
+SISTEMA INTEGRADO DE REMUNERACIONES Y DECLARACIÓN JURADA ANUAL DE RENTAS	1/2014	0	289	\N	2/2016	289	\N	\N	2/2016
 ESTUDIO Y ANÁLISIS DE HERRAMIENTAS DE PROCESAMIENTO DE DATOS EN STREAMING	11/1/2013	1	57	21	default	57	\N	\N	\N
-PREDICCION DE LA ESTRUCTURA TRIDIMENSIONAL DE PROTEINAS MEDIANTE CLOUD COMPUTING		3	53	\N	default	53	\N	\N	\N
+SISTEMA WEB DE APOYO A LA ADMINISTRACIÓN DEL CONTROL DE CAMBIOS EN SERVIDORES DELA PLATAFORMA WINTEL DE HP	29/07/2013	0	283	\N	2/2016	283	\N	\N	2/2016
 PROTOTIPO DE SOFTWARE DE COMUNICACIÓN A TRAVÉS DE BLUETOOTH PARA USO COMERCIAL Y SOCIAL	11/01/13	1	59	22	default	59	\N	\N	\N
-IMPLEMENTACIÓN DE ALGORITMOS DE MEJORA DE CLASIFICACIÓN EXTRAÍDOS DESDE EL ESTADO DEL ARTE	1/2014	3	56	\N	default	56	\N	\N	\N
+DESARROLLO DE COMPONENTES DE SOFWARE QUE IMPLEMENTEN ESTRATEGIAS VISUALES PARA LA PRUDUCCIIÓN DE TEXTO ARGUMENTATIVO TIPO ENSAYO DE NIVEL BÁSICO TRES A SEIS.	12/07/10	0	194	\N	2/2016	194	\N	\N	2/2016
 INSTALACIÓN Y CONFIGURACIÓN DE HERRAMIENTA ORACLE ENTERPRICE GOVERNANCE, RISK AND COMPLIANCE, MÓDULO APPLICATION ACCESS CONTROL GOVERNOR	29/07/2013	1	67	23	default	67	\N	\N	\N
-SISTEMA DE SEGUIMIENTO DE JUICIOS APOYAR LA GESTIÓN DE COBRANZA DE EMPRESA RECOLINE	21/12/2012	3	71	\N	default	71	\N	\N	\N
-SISTEMA WEB DE APOYO A LAS VENTAS Y SERVICIOS TÉCNICOS DE LA EMPRESA IMPORTADORA NORTE	28/09/2012	3	72	\N	default	72	\N	\N	\N
-DISEÑO E IMPLEMENTACIÓN DE UN FIREWALL EN ALTA DISPONIBILIDAD		3	58	\N	default	58	\N	\N	\N
+UN SISTEMA DE APOYO AL PROCESO DE TITULACIÓN PARA EL DEPARTAMENTO DE INGENIERÍA INFORMÁTICA DE LA UNIVERSIDAD DE SANTIAGO DE CHILE		0	217	\N	2/2016	217	\N	\N	2/2016
+DESARROLLO E IMPLEMENTACIÓN DE DATAMART PARA LA GERENCIA COMERCIAL DE UNA ASOCIACIÓN GENERAL DE FONDOS	6/11/2014	0	291	\N	2/2016	291	\N	\N	2/2016
+SOLUCION INFORMATICA PARA SOLICITUDES DE INSCRIPCIONES DE ASIGNATURAS	4/8/2010	0	220	\N	2/2016	220	\N	\N	2/2016
 SISTEMA DE TRAZABILIDAD COMO APOYO AL PROCESO DE ELABORACIÓN DE JUGO/MOSTO	2/2012	1	74	24	default	74	\N	\N	\N
-APLICACIÓN DE APOYO AL PROCESO DE GESTIÓN DE SERVICIOS DE TALLER	1/2014	3	60	\N	default	60	\N	\N	\N
+OBJETO DE APRENDIZAJE PARA EL ESTUDIO DE REDES DE ÁREA LOCAL	1/2014	0	454	\N	2/2016	454	\N	\N	2/2016
 SISTEMA DE CONTROL DE ASISTENCIA Y APOYO AL CÁLCULO DE REMUNERACIONES BASADOS EN PRODUCCIÓN	2/2012	1	75	25	default	75	\N	\N	\N
-SISTEMA DE SEGUIMIENTO DE CLIENTES DE UNA EMPRESA INFORMÁTICA	1/2014	3	61	\N	default	61	\N	\N	\N
+UNA ARQUITECTURA DISTRIBUIDA MULTIPLATAFORMA APLICADA A SIMULACIONES MONTE CARLO	1/2014	0	143	\N	2/2016	143	\N	\N	2/2016
 CENTRAL DE REPORTES PARA EL ÁREA DE RIESGOS DE MERCADO DEL BANCO SANTANDER	11/09/13	1	77	26	default	77	\N	\N	\N
-DESARROLO DE BASE DE DATOS PARA OBSERVATORIOS WEB	1/2014	3	62	\N	default	62	\N	\N	\N
 METODOLOGÍA DE GESTIÓN DE PROCESOS ORIENTADA A LA DETERMINACIÓN Y ADMINISTRACIÓN DE RIESGOS OPERACIONAL EN UNA INSTITUCIÓN BANCARIA	27/2012	1	79	27	default	79	\N	\N	\N
-ALGORITMO DE IDENTIFICACIÓN DE LÍDERES DE OPINIÓN EN TWITTER		3	63	\N	default	63	\N	\N	\N
 IMPLEMENTACIÓN DE BPM PARA LA GESTIÓN DOCUMENTAL DE UN SERVICIO PÚBLICO	15/01/2013	1	80	28	default	80	\N	\N	\N
-SISTEMA DE UBICACIÓN DEL CENTRO DE MASA EN ADULTOS MAYORES A TRAVÉS DE DISPOSITIVOS MÓVILES	1/2014	3	64	\N	default	64	\N	\N	\N
 SISTEMA DE ADMINISTRACIÓN DE CAPACITACIONES PARA EMPRESA CAPACITACIÓN USACH LTDA.	20/01/2014	1	81	29	default	81	\N	\N	\N
-SIMULACION DE APLICACIOINES UTILIZADAS EN ESCENARIOS DE EMERGENCIA, DESPLEGADAS SOBRE LA PLATAFORMA S4 ADAPTADA A CELULARES		3	65	\N	default	65	\N	\N	\N
 INTEGRACIÓN DE PLATAFORMA ERP CORPORATIVA CON LICENCIA MEDICA ELECTRONICA Y REDISEÑO DE PROCESOS ASOCIADOS	25/01/2013	1	82	30	default	82	\N	\N	\N
-MODELO DE PROCESOS DE LA OTEC USECAP, SEGÚN NORMAS NCH 2728  E ISO 9001/2008. DESARROLLO DE SISTEMA PARA LA TRAZABILIDAD	20/09/2011	3	83	\N	default	83	\N	\N	\N
 DETECCIÓN DE LOS ACTOS DEL HABLA DE INDAGACIÓN Y PERSUACIÓN UTILIZANDO EN FRAMEWORK DE EXPERIMENTACIÓN.	11/10/12	1	84	31	default	84	\N	\N	\N
-INTEGRACION DEL CONTROL DE UN PROCESO DE NEGOCIOS DE GENERACION DE NOTICIAS CON LA COLABORACION ENTRE PERIODISTAS UTILIZANDO UNA RED SOCIAL CORPORATIVA	1/2013	3	85	\N	default	85	\N	\N	\N
-SOFTWARE DE EJERCICIOS DE ESTIMULACIÓN Y EVALUACIÓN COGNITIVA PARA PACIENTES CON PARKINSON	2/2014	3	68	\N	default	68	\N	\N	\N
 SISTEMA DE INFORMACIÓN PARA EL APOYO A LA EVALUACIÓN DE LOCALES PARA EMPRESA TACK S.A	7/12/2011	1	87	32	default	87	\N	\N	\N
-SOFTWARE DE EJERCICIOS DE ESTIMULACIÓN Y EVALUACIÓN MOTORA PARA PACIENTES CON PARKINSON	2/2014	3	69	\N	default	69	\N	\N	\N
 INFERENCIA DE SOMNOLENCIA AL CONDUCIR UN AUTOMÓVIL MEDIANTE LOS MOVIMIENTOS DE LA CABEZA	10/11/12	1	88	33	default	88	\N	\N	\N
-DESARROLLO DE API PARA ANÁLISIS DE TÓPICOS EN REDES SOCIALES	2/2014	3	70	\N	default	70	\N	\N	\N
 INCORPORACION DE LA DETECCION DEL BOSTEZO EN UN PROTOTIPO RECONOCEDOR DEL ESTADO DE SOMNOLENCIA EN EL DOMINIO DE LA CONDUCCION DE VEHICULOS		1	89	34	default	89	\N	\N	\N
-FORO WEB CON ENFOQUE DE DIÁLOGO DISTRIBUIDO PARA MANTEKA	2/2013	3	90	\N	default	90	\N	\N	\N
-PROTOTIPO DE UN SISTEMA INFORMÁTICO DE POSTULACIÓN, EVALUAVIÓN Y SELECCIÓN DE AYUDANTE DE DOCENCIA	19/05/2014	3	73	\N	default	73	\N	\N	\N
 EVALUACIÓN Y MEJORA DE LA INFRAESTRUCTURA DE UNA RED SOCIAL GENERADORA DE NOTICIAS MEDIANTE MONITORES DE RENDIMIENTO DE SOFTWARE	11/10/2012	1	93	35	default	93	\N	\N	\N
-DISEÑO E IMPLEMENTACIÓN DE ETL PARA SERVICIOS DE LEASING FINANCIERO Y OPERATIVO	27/10/2014	3	76	\N	default	76	\N	\N	\N
 DESARROLLO DE UNA PLATAFORMA DE SOFTWARE PARA LA RECAUDACIÓN EN LÍNEA MODALIDAD PRESENCIAL ENTRE INSTITUCIONES RECAUDADORAS AUTORIZADAS Y LA TESORERÍA GENERAL DE LA REPUBLICA	22/07/2013	1	94	36	default	94	\N	\N	\N
-OBSERVATORIO WEB DE PROYECTOS INNOVADORES EN INFORMÁTICA	2/2013	3	78	\N	default	78	\N	\N	\N
 DETECCIÓN DE NIVELES DE ESTRÉS  A TRAVÉS DEL PROCESAMIENTO DE LA VOZ EN TELÉFONOS INTELIGENTES	3/12/2013	1	95	37	default	95	\N	\N	\N
-PORTAL WEB CON RED SOCIAL CORPORATIVA PARA LA ORGANIZACIÓN REASE	28/11/2014	3	91	\N	default	91	\N	\N	\N
 HERRAMIENTA DE EXPERIMENTACIÓN CONFIGURABLE QUE PERMITA  COMPARAR Y PROBAR ALGORITMOS DE RECOMENDACIÓN CON EL FIN DE GENERAR  DISPONIBIZAR SERVICIOS DE RECOMENDACIÓN PARA DISTINTOS TIPOS DE REDES SOCIALES		1	96	38	default	96	\N	\N	\N
-DISEÑO E IMPLEMENTACION DE UN MODULO DE EVALUACION DE RENDIMIENTO ESCALABLE Y MANTENIBLE PARA UNA RED SOCIAL GENERADORA DE NOTICIAS	25/10/2013	3	92	\N	default	92	\N	\N	\N
 SOFTWARE COMO LABORATORIO PARA PROBAR Y EVALUAR ALGORITMOS DE RECOMENDACIÓN COLABORATIVA	04/10/11	1	97	39	default	97	\N	\N	\N
-MODELO PREDICTIVO PARA LA VENTA-CRUZADA DE PRODUCTOS FINANCIEROS UTILIZANDO MINERÍA DE DATOS.	22/12/10	3	247	\N	default	247	\N	\N	\N
-DESARROLLO DE HERRAMIENTAS PARA MEDIR COMPETENECIAS EN APRENDIZAJE BASADO EN PROYECTOS	1/2014	3	98	\N	default	98	\N	\N	\N
-SOFTWARE DE APOYO EN EL RECONOCIMEINTO DE MENTIRAS EN VICTIMAS DE ABUSO SEXUAL INFANTIL	1/2014	3	99	\N	default	99	\N	\N	\N
-APLICACIÓN ANDROID FISCALIZACIÓN CIUDADANA	21/11/2013	3	66	\N	default	66	\N	\N	\N
-DESARROLLO DE UN SERVICIO DE INTEGRACIÓN PARA ACTUALIZAR SERVICIOS DE RECOMENDACIÓN DE ETIQUETAS EN UNA RED SOCIAL EMPRESARIAL DE NOTICIAS	11/01/13	3	100	\N	default	100	\N	\N	\N
-RECONOCEDOR DE SONRISAS ANSIOSAS EN SITUACIONES EXPERIMENTALES PARA PESQUISAR ENGAÑO	1/2014	3	109	\N	default	109	\N	\N	\N
 DESARROLLO DE UN ETIQUETADOR INTERACTIVO DE DOCUMENTOS DENTRO DE UN PROCESO DE NEGOCIOS DE GENERACIÓN DE NOTICIAS.	22/07/2012	1	102	40	default	102	\N	\N	\N
-VISUALIZANDO DIÁLOGOS EN COMUNIDADES VIRTUALES DE APRENDIZAJE	22/08/2014	3	115	\N	default	115	\N	\N	\N
 SISTEMA DE ADMINISTRACION AGIL PARA MULTIPLES PROYECTOS		1	103	41	default	103	\N	\N	\N
-IDENTIFICACIÓN DE PATRONES DE USO PARA USUARIOS DEL TRANSANTIAGO.	07/10/11	3	565	\N	default	565	\N	\N	\N
-SELECCIÓN DE IMPLEMENTACIÓN DE ALGORITMO DE RECOMENDACIÓN BASADO EN TGS EN UNA RED SOCIAL GENERADORA DE NOTICIAS	11/01/13	3	104	\N	default	104	\N	\N	\N
-DESARROLLO DE APLICACIONES WEB PARA ORGANIZACIONES SIN FINES DE LUCRO POR MEDIO DE LA ARQUITECTURA DE LA INFORMACIÓN	2/2013	3	116	\N	default	116	\N	\N	\N
 ALGORITMO DE RECOMENDACIÓN DE TAGS BASADO EN CLUTERS PARA UNA RED SOCIAL DE NOTICIAS	29/05/2014	1	105	42	default	105	\N	\N	\N
-PROTOTIPO DE SUITE AFECTIVA PARA EL ANALISIS DE LA SATISFACCIÓN DEL USUARIO.	25/02/10	3	106	\N	default	106	\N	\N	\N
-ETIQUETADO EMOCIONAL IMPLÍCITO EN REDES SOCIALES DE NOTICIAS	11/10/2012	3	119	\N	default	119	\N	\N	\N
 AUTOMATIZACION DEL PROCESO DE CONTRATACION DE PROFESORES POR HORA PARA LA FACULTAD DE INGENIERIA DE LA UNIVERSIDAD DE SANTIAGO DE CHILE		1	107	43	default	107	\N	\N	\N
-EL ENFOQUE DIÁLOGO-ACCIÓN: CASO DE LAS ACTAS DIALÓGICAS EN SCRUM USANDO TABLEROS KANBAN	2/2014	3	121	\N	default	121	\N	\N	\N
 “DESCRIPCIÓN ARQUITECTURAL DE UN SISTEMA GENERADOR DE SERVICIOS DE RECOMENDACIÓN PARA OBSERVATORIOS DE LA WEB”	11/10/2012	1	110	44	default	110	\N	\N	\N
-MANUAL PARA SELECCIONAR SUITES BMP CON CRITERIOS DE FUNCIONALIDAD Y USABILIDAD: CASO DE PROCESO DE GENERACIÓN DE NOTICIAS		3	111	\N	default	111	\N	\N	\N
-RECURSO DE APRENDIZAJE DE USABILIDAD WEB: UNA APROXIMACIÓN DESDE LA CUARTA HEURÍSTICA DE NIELSEN	2/2014	3	122	\N	default	122	\N	\N	\N
 GENERACIÓN DE DATASETS CON ESQUEMA ESTÁNDAR PARA ENTRENAR ALGORITMOS DE RECOMENDACIÓN PARA REDES SOCIALES	11/10/2012	1	112	45	default	112	\N	\N	\N
-SISTEMA DE RECOMENDACION Y DIFUSION PARA MOVILES		3	127	\N	default	127	\N	\N	\N
 SISTEMA DE CONTROL DE CONTRATO CON KANBAN		1	113	46	default	113	\N	\N	\N
-DISEÑO Y DESARROLLO DE UN FRAMEWORK DE NOTIFICACIONES VÍA MENSAJERÍA SMS	21/12/12	3	114	\N	default	114	\N	\N	\N
-SISTEMA DE REPUTACIÓN PARA LA RED SOCIAL WAZE	2/2014	3	129	\N	default	129	\N	\N	\N
 CONSTRUCCION DE UNA INFRAESTRUCTURA EMPRESARIAL PARA UN SISTEMA DE GENERACIÓN DE NOTICIAS CON ETIQUETADO SOCIAL EN UNA RED SOCIAL CORPORATIVA	29/11/12	1	117	47	default	117	\N	\N	\N
-UNA ARQUITECTURA DISTRIBUIDA MULTIPLATAFORMA APLICADA A SIMULACIONES MONTE CARLO	1/2014	3	143	\N	default	143	\N	\N	\N
 INTERACCIÓN DE SERVICIOS POR EL MEDIO DE UNA INFRAESTRUCTURA SOA, PARA REALIZAR RECOMENDACIONES EN UNA INTERNET DE GENERACIÓN DE NOTICIAS	09/07/12	1	118	48	default	118	\N	\N	\N
-HERRAMIENTA DE DISEÑO DE OBJETOS Y VISUALIZACIÓN DE RESULTADOS PARA SIMULACIÓN DE CAMPO MAGNÉTICO	1/2014	3	148	\N	default	148	\N	\N	\N
 SELECCIÓN DE PERSONAS BAJO EL ENFOQUE DE LA DIRECCIÓN POR VALORES	11/10/2012	1	120	49	default	120	\N	\N	\N
-SISTEMA DE GESTIÓN DE INFORMACIÓN TRANSPARENTE PARA EDIFICIOS DE DEPARTAMENTOS	11/10/2012	3	123	\N	default	123	\N	\N	\N
-GENERACIÓN ASISTIDA DE DOCUMENTOS COTIDIANOS PARA PERSONAS CON DISCAPACIDAD INTELECTUAL.	11/10/2012	3	124	\N	default	124	\N	\N	\N
-DETECCIÓN DE FALLAS EN LA RED DE SUMINISTRO DE BANDA ANCHA UTILIZANDO EL PROTOCOLO RADIUS	11/10/2012	3	125	\N	default	125	\N	\N	\N
-SIMULACIÓN MONTE CARLO PARALELA DEL MODELO HEISENBERG PARA SISTEMAS FERROMAGNÉTICOS	2/2013	3	150	\N	default	150	\N	\N	\N
 LOCALIZACION DISTRIBUIDA DE STREAMS PARA EL PROCESAMIENTO DE EVENTOS EN TIEMPO REAL		1	126	50	default	126	\N	\N	\N
 MEJORAR LA TOLERANCIA A FALLAS EN UN SISTEMA DE PROCESAMIENTO DE EVENTOS SOBRE DISPOSITIVOS MOVILES		1	128	51	default	128	\N	\N	\N
-DISEÑO MOTODOLÓGICO PARA LA ELABORACIÓN Y DESARROLLO DE SECUENCIAS DE ACTIVIDADES INTERACTIVAS PARA LA ENSEÑANZA DEL CAMPO ADICTIVO EN EL PRIMER CICLO BÁSICO	11/10/12	3	130	\N	default	130	\N	\N	\N
 SISTEMA PARA GUIAR LA REALIZACIÓN DE ACTIVIDADES ESCOLARES EN CASA	22/02/12	1	131	52	default	131	\N	\N	\N
-PROTOTIPO FUNCIONAL DE UNA RED SOCIAL VERTICAL PARA EL SOFTWARE GREI	11/10/12	3	132	\N	default	132	\N	\N	\N
-ANALISIS BIOMECANICA DE ANGULOS EN LA SALIDA DE TACOS	05/10/11	3	133	\N	default	133	\N	\N	\N
-DESARROLLO DE SISTEMA DE COTIZACIÓN Y DE CONTROL DE EXISTENCIAS PARA LA EMPRESA ALUMAR	11/10/2012	3	134	\N	default	134	\N	\N	\N
-SISTEMA DE RECONOCIMIENTO Y DIGITALIZACIÓN DE IMÁGENES DE PARTITURAS ESCRITAS A MANO	07/08/10	3	135	\N	default	135	\N	\N	\N
 OBJETIVOS DE APRNEDIZAJE PARA APOYART LA COMPRENSION Y APLICACION DE LA CRIPTOGRAFIA CLASICA 	12/7/2010	1	136	53	default	136	\N	\N	\N
-SISTEMA DE SEGUIMIENTO A CLIENTES Y DE APOYO A LAS REPARACIONES PARA UN TALLER MECÁNICO	11/10/2012	3	137	\N	default	137	\N	\N	\N
-SISTEMA DE VISUALIZACION DEL POSICIONAMIENTO GEORREFERENCIAL ON-LINE DE EQUIPOS DE EXTRACCION MINERA	20/09/2011	3	138	\N	default	138	\N	\N	\N
+SISTEM DE FACTURACIÓN ENTRE SOCIEDADES DE ENJOY POR CANJE DE PROMOCIONES Y PRESTACIÓN DE SERVICIOS		0	235	\N	2/2016	235	\N	\N	2/2016
+APLICACIÓN ANDROID UTILIZANDO REALIDAD AUMENTADA PARA LA UBICACIÓN ESPACIAL DE SITIOS DE INTERÉS	2/2013	0	265	\N	2/2016	265	\N	\N	2/2016
 ESTRATEGIA DE PARALELIZACION DE SIMULACIONES DE EVENTOS DISCRETOS E INDEPENDIENTES EN GPU	1/2013	1	139	54	default	139	\N	\N	\N
 RESOLUCIÓN DEL GENERALIZED MINIMUN SPANNING TREE PROBLEM MEDIANTE ALGORITMOS GENÉTICOS	1/19/2010	1	140	55	default	140	\N	\N	\N
 CARACTERIZACIÓN Y OPTIMIZACIÓN DEL USO DE LA MEMORIA CACHE PARA EL ALGORITMO DE RECONSTRUCCIÓN ESTADÍSTICO DE IMÁGENES MÉDICAS EM-ML.	1/2010	1	141	56	default	141	\N	\N	\N
@@ -4063,225 +4119,132 @@ DISEÑO DE UNA API PARA LA IMPLEMENTACIÓN DE ALGORITMOS ESTADÍSTICOS DE RECONS
 MODELACIÓN Y SIMULACIÓN DEL ESCÁNER PET SIEMENS BIOGRAPH	11/01/13	1	145	59	default	145	\N	\N	\N
 MODELAMIENTO E IMPLEMENTACION ORIENTADA A OBJETOS DE SIMULACIONES MONTE CARLO CONCURRENTES EN BIOLUMINISCENCIA MEDIANTE EL USO DE LA EXTENSION UC++	11/10/12	1	146	60	default	146	\N	\N	\N
 ESTUDIO E IMPLEMENTACIÓN DE ALGORITMOS ESTADÍSTICOS PARALELOS, PARA LA RECONSTRUCCIÓN DE IMÁGENES.	1/2010	1	147	61	default	147	\N	\N	\N
-RECONTRUCCIÓN TOMOGRÁFICA PARALELA PARA UN ESCÁNER PET DE ANIMALES PEQUEÑOS	05/12/08	3	149	\N	default	149	\N	\N	\N
 PREDICCIÓN DE FENÓMENOS SÍSMICOS EN UN ÁREA GEOGRÁFICA DETERMINADA USANDO REDES NEURONALES	2/2012	1	152	62	default	152	\N	\N	\N
-APLICACIÓN WEB PARA ADMINISTRACIÓN DOCUMENTAL DE VEHÍCULOS		3	328	\N	default	328	\N	\N	\N
-ANÁLISIS COMPARATIVO DE MODELOS NARMA (X) Y NAR (X) USANDO REDES NEURONALES Y SVM SOBRE SISTEMAS CAÓTICOS	11/1/2013	3	153	\N	default	153	\N	\N	\N
+SISTEMA ONLINE DE ENSEÑANZA DE ESTRATEGIAS ORIENTADO A LOS PADRES PARA APOYAR LAS TAREAS ESCOLARES DE LOS HIJOS	30/03/2012	0	208	\N	2/2016	208	\N	\N	2/2016
+OBSERVATORIO WEB DE PROYECTOS INNOVADORES EN INFORMÁTICA	2/2013	0	78	\N	2/2016	78	\N	\N	2/2016
+SIMULACION DE APLICACIOINES UTILIZADAS EN ESCENARIOS DE EMERGENCIA, DESPLEGADAS SOBRE LA PLATAFORMA S4 ADAPTADA A CELULARES		0	65	\N	2/2016	65	\N	\N	2/2016
+SISTEMA DE RECOLECCIÓN DE LECHE FRESCA PARA LAS PLANTAS NESTLÉ CHILE S.A.	15/05/2013	0	410	\N	2/2016	410	\N	\N	2/2016
 SISTEMA DE PREDICCIÓN DEL TRÁFICO DE UN MOTOR DE BÚSQUEDA WEB	02/02/12	1	154	63	default	154	\N	\N	\N
 PREDICCION DE SERIES DE TIEMPO USANDO RN Y SVM	20/09/11	1	155	64	default	155	\N	\N	\N
-CONSTRUCCIÓN DE MODELOS PREDICTIVOS PARA EL ÍNDICE DE DISPONIBILIDAD DE LOS EQUIPOS MINEROS PESADOS USANDO MODELOS DINÁMICOS CON RNA Y SVM	2/2013	3	156	\N	default	156	\N	\N	\N
 PREDICCIÓN DE FENÓMENOS SÍSMICOS EN UN ÁREA GEOGRÁFICA DETERMINADA USANDO REDES NEURONALES Y MÁQUINAS DE VECTORES DE SOPORTE	30/03/2012	1	157	65	default	157	\N	\N	\N
-SISTEMA PROTOTIPO DE APOYO A LA ALERTA TEMPRANA DE SISMOS MEDIANTE USO DE HERRAMIENTAS DE INTELIGENCIA COMPUTACIONAL	1/2014	3	158	\N	default	158	\N	\N	\N
 SISTEMA INFORMATICO PARA LA PREDICCIÓN DE FALLAS EN ANTENAS DEL OBSERVATORIO ALMA, UTILIZANDO HERRAMIENTAS DE INTELIGENCIA COMPUTACIONAL	22/07/2013	1	159	66	default	159	\N	\N	\N
-MODELO DINÁMICO PARA LA GESTIÓN DE FLOTAS DE PALAS EN FAENAS MINERAS	2/2013	3	161	\N	default	161	\N	\N	\N
 DISEÑO Y EVALUACIÓN DE UN MODELO CUANTITATIVO DE ESTIMACIÓN DE COMPONENTES MINERALÓGICOS DE ARCILLAS, A TRAVÉS DEL ANÁLISIS DEL ESPECTROGRAMA DEL INFRARROJO CERCANO (NIR), BASADO EN ALGORTIMOS COMPUTACIONALES, PARA EMPRESAS CUPRÍFERAS.	22/11/2013	1	160	67	default	160	\N	\N	\N
-ELABORACION DE UN CLASIFICADOR DE SEÑALES SISMOGRAFICAS P Y S MEDIANTE SVM: ESTUDIO DE ALGORITMOS DE FILTRADO Y AUTOSIMILARIDAD		3	163	\N	default	163	\N	\N	\N
 ELABORACIÓN DE CLASIFICADORES PARA DETECCIÓN DE SEÑALES DE TIPO S Y P MEDIANTE REDES NAURONALES Y SVM	11/10/2012	1	162	68	default	162	\N	\N	\N
-CONSTRUCCIÓN DE UN MODELO PARA DETERMINAR VARIABLES DE DISPONIBILIDAD Y TIEMPO ENTRE FALLAS EN EL ÁREA DE LA MINERÍA	2/2014	3	164	\N	default	164	\N	\N	\N
 SISTEMA COLABORATIVO WEB PARA EL ANÁLISIS Y EVALUACIÓN DE PLANES ESTRATÉGICOS	17/10/2013	1	165	69	default	165	\N	\N	\N
-SISTEMA COLABORATIVO DE APOYO AL APRENDIZAJE DE MATEMÁTICAS EN PRIMER AÑO BÁSICO	30/03/2012	3	166	\N	default	166	\N	\N	\N
-DESARROLLO DE UN SISTEMA COLABORATIVO PARA APOYAR EL REFORZAMIENTO DEL IDIOMA INGLÉS EN NIÑOS DE 5Tº AÑO BÁSICO	30/03/2012	3	167	\N	default	167	\N	\N	\N
-SISTEMA COLABORATIVO PARA LA PLANIFICACIÓN DE PROYECTOS MEDIANTE CARTAS GANTT.	15/12/10	3	168	\N	default	168	\N	\N	\N
-SISTEMA COLABORATIVO PARA COMPLEMENTAR LA ENSEÑANZA DE NIÑOS ENTRE PRIMERO Y SEGUNDO BÁSICO EN LA ASIGNATURA DE INGLÉS	01/11/13	3	173	\N	default	173	\N	\N	\N
 SISTEMA COMUNICACIÓN MEDIADA COMPUTADOR PARA APOYAR EL AÁNILIS DE TEMAS EN GRUPOS	04/10/11	1	169	70	default	169	\N	\N	\N
-SISTEMA WEB Y MOVIL PARA FOMENTAR EL TURISMO		3	177	\N	default	177	\N	\N	\N
 SISTEMA DE APOYO AL  ANÁLISIS DE ASUNTOS PARA LA INGENIERÍA DE REQUERIMIENTOS ORIENTADA A ASPECTOS	13/11/2012	1	170	71	default	170	\N	\N	\N
-AUTOMATIZACIÓN DE PROCESOS DE INSPECCIONES DE VEHÍCULOS PARA RSA SEGUROS	1/8/2013	3	181	\N	default	181	\N	\N	\N
 SOFTWARE DE APOYO AL SEGUIMIENTO DEL PLAN ESTRATÉGICO DE LA EMPRESA PÚBLICA EMERES	7/11/2013	1	171	72	default	171	\N	\N	\N
-HERRAMIENTA DE APOYO A LA DEFINICIÓN DE REQUISITOS, EN LA INGENIERÍA DE SOFTWARE, EXPLOTANDO RECURSOS DE AUDIO	2/2012	3	187	\N	default	187	\N	\N	\N
 SISTEMA COLABORATIVO PARA APOYAR LA PREPARACIÓN DE ENTREVISTAS Y SU POSTERIOR ANÁLISIS EN EL PROCESO DE CAPTURA DE REQUISITOS.	10/6/2011	1	172	73	default	172	\N	\N	\N
-SISTEMA COOPERATIVO PARA EL DESARROLLO DE INTERFACES GRÁFICAS	1/2014	3	189	\N	default	189	\N	\N	\N
 UN MODELO PARA LA ESTIMULACIÓN DEL ESFUERZO EN PROYECTOS DE DESARROLLO DE SOFTWARE.	16/01/12	1	174	74	default	174	\N	\N	\N
-SISTEMA DE APLICACIONES PARA EL APOYO EN LA INTERACCIÓN ANFITRIÓN-AUDIENCIA Y LA GENERACIÓN DE CONTENIDO EN PRESENTACIONES CON PROYECTOR	1/2014	3	190	\N	default	190	\N	\N	\N
 DESARROLLO DE UNA GUÍA DE ESTRATEGIAS EN APOYO A LA INGENIERÍA DE REQUISITOS	30/03/2012	1	175	75	default	175	\N	\N	\N
-IMPLEMENTACIÓN DE ARQUITECTURA BASADA EN SWARM PARA BÚSQUEDA COLABORATIVA MEDIANTE VEHÍCULOS AÉREOS NO TRIPULADOS (UAVS)	1/2014	3	25	\N	default	25	\N	\N	\N
 GENERACIÓN DE UN JUEGO COLABORATIVO QUE PERMITA EL DESARROLLO DE HABILIDADES METAFONOLÓGICAS EN NIÑOS DE ENTRE 4 Y 6 AÑOS	30/03/2012	1	176	76	default	176	\N	\N	\N
 SISTEMA DE COORDINACIÓN DE ACTIVIDADES ACADÉMICAS, REGISTRO DE NOTAS Y PLANES DE ESTUDIO PARA UNA ESCUELA DE ENSEÑANZA BÁSICA	30/03/2012	1	178	77	default	178	\N	\N	\N
 APLICACIÓN PARA MEJORAR EL SEGUIMIENTO DEL RENDIMIENTO Y LA CONDUCTA DE LOS ALUMNOS EN EL AULA DE CLASES	30/03/2012	1	179	78	default	179	\N	\N	\N
-SISTEMA DE GESTIÓN DE AYUDAS A PROYECTOS E IDEAS (GAPI)	16/11/2011	3	180	\N	default	180	\N	\N	\N
 EVALUACIÓN DE LA EFECTIVIDAD DE UNA PROPUESTA DE TOMA DE REQUIRIMIENTOS BASADA EN CIENCIAS SOCIALES.	7/30/2010	1	182	79	default	182	\N	\N	\N
 EVALUACIÓN DE LA EFECTIVIDAD Y REFORMULACIÓN DE UNA PROPUESTA PARA LA ROMA DE REQUERIMIENTOS APLICADO A UN CASO PRÁCTICO	27/11/12	1	183	80	default	183	\N	\N	\N
 METODOLOGIA DE HACKING ETICO PARA APLICACIONES WEB EN PRODUCCION	11/10/12	4	184	\N	default	184	\N	\N	\N
 DESARROLLO DE APLICACIÓN COLABORATIVA PARA LA EVALUACIÓN DE USABILIDAD DE SOFTWARE STANDALONE BASADO EN FORMULARIO	07/05/13	1	185	81	default	185	\N	\N	\N
-SISTEMA DE APOYO AL APRENDIZAJE DE LA LECTURA DE LOS NIÑOS	03/09/08	3	186	\N	default	186	\N	\N	\N
-EVALUACIÓN Y RECOMENDACIONES DE MEJORAS DE LA USABILIDAD DE BROWSERS WEB PARA USUARIOS ADULTOS MAYORES CON POCA EXPERIENCIA EN EL USO DE COMPUTADORES.	12/13/2010	3	188	\N	default	188	\N	\N	\N
-DESARROLLAR UN AMBIENTE WEB QUE PERMITA REPRESENTAR  INFORMACIÓN ASOCIADA AL CRÉDITO HIPOTECARIO UTULIZANDO ORGANIZADORES GRÁFICOS PARA VIRTUALAB - USACH	24/06/2013	3	191	\N	default	191	\N	\N	\N
-DESARROLLO DE COMPONENTES DE SOFWARE EN HTML 5 QUE IMPLEMENTEN ORGANIZADORES GRAFICOS INTERACTIVOS	22/03/11	3	192	\N	default	192	\N	\N	\N
-DESARROLLO DE UN AMBIENTE WEB UTILIZANDO ORGANIZADORES GRÁFICOS EN LA REPRESENTACIÓN DE CONTENODOS SOBRE EL INFARTO AGUDO AL MIOCARDIO.	02/08/10	3	193	\N	default	193	\N	\N	\N
-DESARROLLO DE COMPONENTES DE SOFWARE QUE IMPLEMENTEN ESTRATEGIAS VISUALES PARA LA PRUDUCCIIÓN DE TEXTO ARGUMENTATIVO TIPO ENSAYO DE NIVEL BÁSICO TRES A SEIS.	12/07/10	3	194	\N	default	194	\N	\N	\N
-DESARROLLO DE COMPONENTES DE SOFWARE PARA LA PRODUCCIÓN DE CUENTOS INFANTILES	12/07/10	3	195	\N	default	195	\N	\N	\N
-DESARROLLO DE UN AMBIENTE WEB PROTOTIPO QUE PERMITA REPRESENTAR INFORMACIÓN DEL CRÉDITO HIPOTECARIO UTILIZANDO ORGANIZADORES GRÁFICOS.	24/08/10	3	196	\N	default	196	\N	\N	\N
-TEMA DE ALBERTOX	24/12/2010	3	590	\N	1/2015	589	\N	\N	\N
+DESARROLLO DE COMPONENTES DE SOFWARE PARA LA IMPLEMENTACIÓN DE HERRAMIENTAS QUE FACILITEN LA UTILIZACIÓN DE DIAGRAMAS PARA LA PLANIFICACIÓN DE MARKETING.	21/12/10	0	198	\N	2/2016	198	\N	\N	2/2016
+DISEÑO E IMPLEMENTACIÓN DE COMPONENTES DE SOFTWARE VISUALES QUE FACILITEN EL DESARROLLO DE LA HABILIDAD COGNITIVA DE LA CLASIFICACIÓN.	20/07/10	0	199	\N	2/2016	199	\N	\N	2/2016
+DESARROLLO DE COMPONENTES DE SOFTWARE PARA FACILITAR LA PRODUCCIÓN DE TEXTO DISCURSIVO DE ALUMNOS ENTRE 5º Y 8º AÑO DE ENSEÑANZA BÁSICA.	08/03/10	0	201	\N	2/2016	201	\N	\N	2/2016
+ELABORACION DE UN CLASIFICADOR DE SEÑALES SISMOGRAFICAS P Y S MEDIANTE SVM: ESTUDIO DE ALGORITMOS DE FILTRADO Y AUTOSIMILARIDAD		0	163	\N	2/2016	163	\N	\N	2/2016
+OBTENCIÓN DE LA CARGA ANUAL EQUIVALENTE (CAE) Y CARGA ANUAL EQUIVALENTE VIGENTE (CAEV) UTILIZANDO UN MÉTODO MATEMÁTICO PARA LA EMPRESA PENTAVIDA	19/12/2012	0	211	\N	2/2016	211	\N	\N	2/2016
+SISTEMA DE EVALUACIÓN INTERACTIVO CON DISPOSITIVOS SMARTPHONE	1/2014	0	18	\N	2/2016	18	\N	\N	2/2016
+CONJUNTOS INDEPENDIENTES MAXIMALES EN GRAFO GOOD	1/2014	0	371	\N	2/2016	371	\N	\N	2/2016
 DESARROLLO DE COMPONENTES DE SOFTWARE QUE IMPLEMENTEN DIAGRAMAS UTILIZADOS EN LA PLANEACIÓN ESTRATÉGICA.	03/08/10	1	197	82	default	197	\N	\N	\N
-DESARROLLO DE COMPONENTES DE SOFWARE PARA LA IMPLEMENTACIÓN DE HERRAMIENTAS QUE FACILITEN LA UTILIZACIÓN DE DIAGRAMAS PARA LA PLANIFICACIÓN DE MARKETING.	21/12/10	3	198	\N	default	198	\N	\N	\N
-DISEÑO E IMPLEMENTACIÓN DE COMPONENTES DE SOFTWARE VISUALES QUE FACILITEN EL DESARROLLO DE LA HABILIDAD COGNITIVA DE LA CLASIFICACIÓN.	20/07/10	3	199	\N	default	199	\N	\N	\N
 DESARROLLO DE COMPONENTES DE SOFTWARE QUE IMPLEMENTAN ESTRATEGIAS VISUALES PARA APOYAR LA CONCEPTUALIZACIÓN DE FRACCIONES EN ALUMNOS DE CUARTO BÁSICO.	20/08/10	1	200	83	default	200	\N	\N	\N
-DESARROLLO DE COMPONENTES DE SOFTWARE PARA FACILITAR LA PRODUCCIÓN DE TEXTO DISCURSIVO DE ALUMNOS ENTRE 5º Y 8º AÑO DE ENSEÑANZA BÁSICA.	08/03/10	3	201	\N	default	201	\N	\N	\N
-DESARROLLO DE COMPONENTES VISUALES DE APOYO A COBIT.	15/11/10	3	202	\N	default	202	\N	\N	\N
-APLICACIÓN WEB PARA APOYAR LA GESTIÓN DE MÁQUINAS VIRTUALES EN LA EMPRESA ADESSA LTDA.	1/2012	3	227	\N	default	227	\N	\N	\N
 DISEÑO E IMPLEMENTACIÓN DEL SISTEMA CAJA VECINA EN APLICACIONES TRANSACCIONALES DEL BANCO ESTADO	12/12/12	1	203	84	default	203	\N	\N	\N
-CREACIÓN DE UN SISTEMA GENERADOR DE DIFERENTES SERIES DE INSTRUMENTOS DE EVALUACIÓN PARA LA COORDINACIÓN DE FUNDAMENTOS DE COMPUTACIÓN Y PROGRAMACIÓN DE LA UNIVERSIDAD DE SANTIAGO DE CHILE	1/2014	3	236	\N	default	236	\N	\N	\N
 SOLUCIÓN BASADA EN ESB PARA MIGRAR SOTWARE LEGADO CRITICO EN EL SISTEMA PÚBLICO	01/07/13	1	204	85	default	204	\N	\N	\N
-DESARROLLO DE APLICACIÓN MÓVIL PARA MONITOREO, DETECCIÓN Y ALERTA AUTOMÁTICA DE CRISIS EPILÉPTICA CONVULSIVA	5/8/2013	3	237	\N	default	237	\N	\N	\N
 PROYECTO INTRANET DE GENDARMERÍA DE CHILE	15/01/13	1	205	86	default	205	\N	\N	\N
-PREDICCIÓN DE ESTADIA DE PACIENTES HOSPITALIZADOS EN LA UNIDAD DE CUIDADOS INTENSIVOS ADULTOS EN UNA CLINICA PRIVADA DE SANTIAGO	1/2014	3	239	\N	default	239	\N	\N	\N
 IMPLEMENTACIÓN DE UN TERCER FACTOR DE AUTENTICACIÓN PARA AUTORIZACIÓN DE TRANSACCIONES EN LA BANCA INTERNET	13/12/12	1	206	87	default	206	\N	\N	\N
-DISEÑO E IMPLEMENTACIÓN DEL PORTAL WEB PARA LA MUNICIPALIDAD DE HIJUELAS	13/12/12	3	207	\N	default	207	\N	\N	\N
-SISTEMA ONLINE DE ENSEÑANZA DE ESTRATEGIAS ORIENTADO A LOS PADRES PARA APOYAR LAS TAREAS ESCOLARES DE LOS HIJOS	30/03/2012	3	208	\N	default	208	\N	\N	\N
 SISTEMA DE GESTIÓN PARA EL HUERTO SANTA MERCEDES	22/05/2012	1	209	88	default	209	\N	\N	\N
 CREACIÓN Y APLICACIÓN DE OBJETOS DE APRENDIZAJES PARA EL APOYO A PROGRAMACIÓN COMPUTACIONAL	16/01/2013	1	210	89	default	210	\N	\N	\N
-OBTENCIÓN DE LA CARGA ANUAL EQUIVALENTE (CAE) Y CARGA ANUAL EQUIVALENTE VIGENTE (CAEV) UTILIZANDO UN MÉTODO MATEMÁTICO PARA LA EMPRESA PENTAVIDA	19/12/2012	3	211	\N	default	211	\N	\N	\N
-DESARROLLO E IMPLEMENTACIÓN DE LA ESTACIÓN DE TRABAJO EVEREST PARA EL BANCO DE CRÉDITO E INVERSIONES	20/3/13	3	212	\N	default	212	\N	\N	\N
-CONSTRUCCIÓN Y APLICACIÓN DE OBJETOS DE APRENDIZAJE PARA LA UNIDAD DE ANÁLISIS LÉXICO DE LA ASIGNATURA COMPILADORES	20/03/13	3	213	\N	default	213	\N	\N	\N
 LABORATORIO VIRTUAL DE MATEMÁTICAS "LABMAT3EM" PARA ESTABLECIMIENTOS MUNICIPALIZADOS	05/02/12	1	215	90	default	215	\N	\N	\N
 LABORATORIO VIRTUAL DE MATEMÁTICAS "LABMAT3EM" PARA ESTABLECIMIENTOS MUNICIPALIZADOS	10/4/2011	1	216	91	default	216	\N	\N	\N
-UN SISTEMA DE APOYO AL PROCESO DE TITULACIÓN PARA EL DEPARTAMENTO DE INGENIERÍA INFORMÁTICA DE LA UNIVERSIDAD DE SANTIAGO DE CHILE		3	217	\N	default	217	\N	\N	\N
-NO HAY INFORMACION		3	218	\N	default	218	\N	\N	\N
 SISTEMA DE REMUNERACIONES MODULO DE RELIQUIDACIONES	21/12/2012	1	219	92	default	219	\N	\N	\N
-SOLUCION INFORMATICA PARA SOLICITUDES DE INSCRIPCIONES DE ASIGNATURAS	4/8/2010	3	220	\N	default	220	\N	\N	\N
 SISTEMA DE APOYO AL CONTROL DE GASTOS Y VIAJES DE VEHÍCULOS DE SERVICIOS DE TRANSPORTE DE LA EMPRESA TRASANDES S.A	24/01/2014	1	221	93	default	221	\N	\N	\N
-SISTEMA WEB DE APOYO A LA GESTON DE ADQUISICIONES DE MATERIALES DE CONSTRUCCION DE LA CONSTRUCCION KOPPMANN	7/4/2011	3	222	\N	default	222	\N	\N	\N
 SISTEMA WEB DE APOYO A LA ADMINISTRACION DEL GIMNASIO "PUNTO VITAL"	20/09/2011	1	223	94	default	223	\N	\N	\N
 SISTEMA DE BUSQUEDA Y VISUALIZACIÓN DE INFORMACIÓN PARA LA BIBLIOTECA CIENTÍFICA DE CONICYT	1/2011	\N	224	\N	default	224	\N	\N	\N
-SISTEMA DE GESTIÓN DE COMPRA DE VEHÍCULOS Y EQUIPAMIENTOS PARA EMPRESA SALFA RENT	21/12/12	3	225	\N	default	225	\N	\N	\N
-ADMINISTRACIÓN Y TRACKING DE ACTIVOSDE UNA EMPRESA DE SERVICIOS DE ARRIENDO DE CONTENEDORAS	21/03/13	3	226	\N	default	226	\N	\N	\N
-UN SISTEMA PARA LA GESTION DE FALLAS EN CENTRALES ELECTRICAS	20/06/2012	3	228	\N	default	228	\N	\N	\N
 UNA HERRAMIENTA DE APOYO A LA EVALUACIÓN DEL CONTROL INTERNO EN COOPERATIVAS DE AHORRO Y CREDITO	21/12/12	1	229	95	default	229	\N	\N	\N
 AUTOMATIZACIÓN DE LA INVITACIÓN A OFERTAR EN LICITACIONES DE SAP - SRM EN CODELCO	19/04/2013	1	230	96	default	230	\N	\N	\N
 IMPLEMENTACIÓN DE PLATAFORMA DE ALTA DISPONIBILIDAD PARA SISTEMA WEB	2/2012	1	231	97	default	231	\N	\N	\N
 DESARROLLO UN SISTEMA DE APOYO A LA PLANIFICACION DOCENTE PARA EL DEPARTAMENTO DE INGENIERIA INFORMATICA DE LA FACULTAD DE INGENIERIA DE LA UNIVERSIDAD DE SANTIAGO DE CHILE	01/08/11	1	232	98	default	232	\N	\N	\N
-SISTEMA PARA LA ADMINISTRACIÓN DE PROVEEDORES Y PRODUCTOS DE LA MICROEMPRESA FCI LTDA.	30/03/2011	3	233	\N	default	233	\N	\N	\N
 SISTEMA PARA LA CERTIFICACIÓN Y SUPERVISIÓN DE VENTA DE MÚSICA DIGITALIZADA	15/01/13	1	234	99	default	234	\N	\N	\N
-SISTEM DE FACTURACIÓN ENTRE SOCIEDADES DE ENJOY POR CANJE DE PROMOCIONES Y PRESTACIÓN DE SERVICIOS		3	235	\N	default	235	\N	\N	\N
-SISTEMA ADMINISTRADOR DE ACCESOS PARA USUARIOS EN SAP		3	238	\N	default	238	\N	\N	\N
-ANÁLISIS Y DESARRLLO DE UN DSS PARA LA SELECCIÓN DE PERSONAS TI	26/05/2010	3	240	\N	default	240	\N	\N	\N
 DESARROLLO DE UN SISTEMA DE SERVICIOS DE MAPAS WEB PARA VISUALIZACION Y USO DE PRODUCTOS TOPOGRAFICOS ELABORADOS POR EL SAF		1	241	100	default	241	\N	\N	\N
-EVALUACIÓN DEL EFECTO DE FACTORES EXTERNOS EN LA RESOLUCIÓN DE UN PROBLEMA NP-C UTILIZANDO JUEGOS COMPUTACIONALES.	10/07/11	3	242	\N	default	242	\N	\N	\N
+PROTOTIPO DE SISTEMA WEB PARA LA GESTIÓN Y CONSOLIDACIÓN DE INFORMACIÓN ADMINISTRATIVA COMO APOYO AL PROCESO DE ACREDITACIÓN DE LOS PROGRAMAS DEL DEPARTAMENTO DE INGENIERÍA INFORMÁTICA	2/2013	0	270	\N	2/2016	270	\N	\N	2/2016
 SISTEMA WEB PARA POTENCIAR RELACION DE CLIENTES Y PROVEEDORES DE DISTRIBUIDORAS DE ABARROTES, LICORES Y CARNES	7/4/2011	1	243	101	default	243	\N	\N	\N
 MODELO PARA LA ESTIMACIÓN DE LA VARIABILIDAD DE LOS COSTOS EN LA FORMULACIÓN DE PROYECTOS DE TECNOLO GÍAS DE LA INFORMACIÓN.	26/07/10	1	244	102	default	244	\N	\N	\N
-PROTOTIPO DE SOFTWARE Y ESTUDIO DE MERCADO DE UNA PLATAFORMA SOCIAL DE APRENDIZAJE.	27/09/2010	3	245	\N	default	245	\N	\N	\N
+DESARROLLO DE UN SISTEMA DE INFORMACIÓN PARA OPTIMIZAR LA GESTIÓN DE PLANIFICACIÓN DE LA RED DE TRANSMISIÓN ELÉCTRICA.	30/11/2011	0	501	\N	2/2016	501	\N	\N	2/2016
+SISTEMA DE INFORMACION DE APOYO A LOS PROCESOS DE VENTA E INVENTARIO PARA LA EMPRESA RODAMIENTO "VILLELA"	9/3/2010	0	306	\N	2/2016	306	\N	\N	2/2016
+SELECCIÓN DE IMPLEMENTACIÓN DE ALGORITMO DE RECOMENDACIÓN BASADO EN TGS EN UNA RED SOCIAL GENERADORA DE NOTICIAS	11/01/13	0	104	\N	2/2016	104	\N	\N	2/2016
+DESARROLLO DE UN SISTEMA DE APOYO A LA GESTIÓN DE TORNEOS Y APUESTAS EN LA COMUNIDAD DE VIDEOJUEGOS CIBERDEPORTES.NET.	30/03/2012	0	428	\N	2/2016	428	\N	\N	2/2016
+CURSE DE CREDITOS HIPOTECARIO EN WORKFLOW	12/12/12	0	273	\N	2/2016	273	\N	\N	2/2016
 SISTEMA PARA EL SEGUIMIENTO Y CONTROL DE LA OPERATIVIDAD DE SERVIDORES DEL AREA TIC DE CARABINEROS DE CHILE	4/8/2010	1	248	103	default	248	\N	\N	\N
-DATAMART PARA UN SISTEMA DE REPORTES DE TIEMPOS EN LÍNEA DE ENLACES DE TELECOMUNICACIONES	12/8/2013	3	254	\N	default	254	\N	\N	\N
 SISTEMA DE REALIDAD AUMENTADA PARA LA DIFUSIÓN DE INFORMACIÓN DE LA UNIVERSIDAD DE SANTIAGO DE CHILE	21/03/2013	1	249	104	default	249	\N	\N	\N
 PROTOTIPO PARA LA DETECCIÓN DE MALWARE EN EL SISTEMA OPERATIVO	11/01/13	1	251	105	default	251	\N	\N	\N
-PROTOTIPO DE APLICACIÓN MÓVIL PARA LA DETECCIÓN DE MALWARE EN DISPOSITIVOS CON SISTEMA OPERATIVO ANDROID	1/2014	3	262	\N	default	262	\N	\N	\N
 DISEÑO E IMPLEMENTACIÓN DE SISTEMA DE INFORMACIÓN DE APOYO DE GESTIÓN DE INVENTARIO DE LA EMPRESA COMERCIAL E INDUSTRIAL BERMUDAS S.A.	30/03/2012	1	252	106	default	252	\N	\N	\N
-PROPUESTA DE MÉTODO ÁGIL DE DESARROLLO DE SOFTWARE FUNCIONAL, USABLE Y SEGURO.	22/01/2015	3	264	\N	default	264	\N	\N	\N
 SISTEMA WED PARA SUBASTAR VIDEOS DE CAZANOTICIAS ENTRE CANALES DE TELEVISIÓN	11/10/12	1	253	107	default	253	\N	\N	\N
-PROTOTIPO DE SISTEMA DE DETECCIÓN DE MALWARE PARA DISPOSITIVOS ANDROID	2/2013	3	266	\N	default	266	\N	\N	\N
 UN PROTOTIPO DE SOFWARE DE APOYO PARA EL TEST DE CAFRA.	21/12/10	1	255	108	default	255	\N	\N	\N
-SISTEMA DE FACTURACIÓN ELECTRÓNICA, INVENTARIO Y PRESUPUESTOS WEB PARA TALLER DE TORNERÍA TRIFLEX	30/03/2012	3	256	\N	default	256	\N	\N	\N
-DESARROLLO DE UN PLAN DE CONTINGENCIA Y RECUPERACIÓN ANTE DESASTRES PARA EL ÁREA INFORMÁTICA DE LA EMPRESA ARCADIS CHILE		3	267	\N	default	267	\N	\N	\N
 SISTEMAS PARA LA DETECCIÓN PREVENTIVA DE BAJOS RENDIMIENTOS ACADÉMICOS DE ALUMNOS DEL MÓDULO BÁSICO DE LA FACULTAD DE INGENIERÍA	10/02/12	1	257	109	default	257	\N	\N	\N
 SISTEMA WEB DE APOYO A LA GESTIÓN DE UNA ORGANIZACIÓN COMUNITARIA		7	258	\N	default	258	\N	\N	\N
 PROPUESTA DE MÉTODO ÁGIL DE DESARROLLO DE SOFTWARE FUNCIONAL, USABLE Y SEGURO		\N	259	\N	default	259	\N	\N	\N
-PROTOTIPO DE SISTEMA WEB PARA LA GESTIÓN Y CONSOLIDACIÓN DE INFORMACIÓN ADMINISTRATIVA COMO APOYO AL PROCESO DE ACREDITACIÓN DE LOS PROGRAMAS DEL DEPARTAMENTO DE INGENIERÍA INFORMÁTICA	2/2013	3	270	\N	default	270	\N	\N	\N
 PROTOTIPO DE SISTEMA DE DETECCIÓN DE INTRUSOS BASADO EN HOST PARA ANDROID	11/01/13	1	260	110	default	260	\N	\N	\N
-SISTEMA DE GESTIÓN DE LA SEGURIDAD DE LA INFORMACIÓN PARA EL DIINF	2/2014	3	271	\N	default	271	\N	\N	\N
 SISTEMA DE INFORMACIÓN Y AUTOMATIZACIÓN WEB PARA GESTIÓN Y ADMINISTRACIÓN DE SERVICIOS Y RECURSOS DEL COMPLEJO TURÍSTICO ATALAYA LANALHUE.	30/03/2012	1	261	111	default	261	\N	\N	\N
-DESARROLLO DE UN ASISTENTE PARA EL SOFTWARE GREI QUE PERMITA GUIAR A LOS DOCENTES EN LA CREACIÓN DE SECUENCIAS INTERACTIVAS DE APRENDIZAJE RESGUARDANDO CRITERIOS DIDÁCTICOS-MATEMÁTICOS	24/06/2014	3	272	\N	default	272	\N	\N	\N
 SISTEMA DE ACTAS DE SESIONES DE CONSEJO Y AGENDA DEPARTAMENTAL.	19/07/2011	1	263	112	default	263	\N	\N	\N
-APLICACIÓN ANDROID UTILIZANDO REALIDAD AUMENTADA PARA LA UBICACIÓN ESPACIAL DE SITIOS DE INTERÉS	2/2013	3	265	\N	default	265	\N	\N	\N
-SISTEMA WEB DE APOYO A LA ADMINISTRACIÓN DEL CONTROL DE CAMBIOS EN SERVIDORES DELA PLATAFORMA WINTEL DE HP	29/07/2013	3	283	\N	default	283	\N	\N	\N
 GENERACION DE UNA PLATAFORMA VIRTUALIZADA DE SERVICIOS INTEGRADOS PARA EL DEPARTAMENTO DE INGENIERIA EN INFORMATICA		1	268	113	default	268	\N	\N	\N
-APLICACION DE APOYO AL DEPARTAMENTO DE RECURSOS HUMANOS PARA "AMEC ING Y CONSTRUCCIÓN LTDA"	2/2012	3	286	\N	default	286	\N	\N	\N
 SISTEMA DE GESTIÓN ADMINISTRATIVA DE ALUMNOS PARA EL COLEGIO PUKARAY.	30/03/2012	1	269	114	default	269	\N	\N	\N
-CURSE DE CREDITOS HIPOTECARIO EN WORKFLOW	12/12/12	3	273	\N	default	273	\N	\N	\N
-DESARROLLO DE UNA HERRAMIENTA DE SOFTWARE BASADA EN UN MARCO DE TRABAJO PARA LA GUÍA DE GESTIÓN DE PROYECTOS TI PARA PUMES	09/04/12	3	274	\N	default	274	\N	\N	\N
-METODOLOGIA DE TRABAJO PARA LA GESTION DE PROYECTOS TI EN PYMES		3	275	\N	default	275	\N	\N	\N
-MODELACIÓN LINE-PACK DE LA OPERACIÓN DEL GASODUCTO GAS ATACAMA MEDIANTE REDES NEURONALES ARTIFICIALES 	29/07/2013	3	288	\N	default	288	\N	\N	\N
 TESTING DE CORE BUSINESS PARA UNA EMPRESA DE TELECOMUNICACIONES	21/03/2013	1	276	115	default	276	\N	\N	\N
-SISTEMA INTEGRADO DE REMUNERACIONES Y DECLARACIÓN JURADA ANUAL DE RENTAS	1/2014	3	289	\N	default	289	\N	\N	\N
 DESARROLLO  E IMPLEMENTACIÓN DE UN DATAMART PARA EL APOYO A LAS VENTAS DEL GRUPO SIG	24/07/2012	1	277	116	default	277	\N	\N	\N
-DESARROLLO E IMPLEMENTACIÓN DE DATAMART PARA LA GERENCIA COMERCIAL DE UNA ASOCIACIÓN GENERAL DE FONDOS	6/11/2014	3	291	\N	default	291	\N	\N	\N
 SISTEMA WEB DE APOYO AL CONTROL ACADÉMICO PARA LA ACADEMIA POLITÉCNICA AERONÁUTICA DE FUERZA AÉREA DE CHILE	21/08/2012	1	278	117	default	278	\N	\N	\N
-SISTEMA DE APOYO A LA GESTIÓN DE FRANQUICIAS MÉDICAS-DENTALES PARA ALUMNOS DE LA UNIVERSIDAD DE CHILE	1/2014	3	293	\N	default	293	\N	\N	\N
 SISTEMA VACACIONES PROGRESIVAS Y GENERACIÓN DE ALARMAS PARA LA EMPRESA CYSS	19/07/2012	1	279	118	default	279	\N	\N	\N
-CLASIFICACION DEL GRUPO SOCIO ECOOMICO UTILIZANDO VARIABLES DE CONSUME DE PRODUCTOS DE SUPERMERCADO	3/4/2013	3	352	\N	default	352	\N	\N	\N
 DISEÑO E IMPLEMENTACIÓN DE UN DATAWAREHOUSE Y DE REPORTES DE APOYO PARA EL ÁREA GLOBAL BPO DE UN CLIENTE DE LA EMPRESA METRIC ARTS	1/8/2013	1	280	119	default	280	\N	\N	\N
 SISTEMA DE INFORMACION WEB PARA EL CONTROL DE ORDENES DE TRABAJO EN IMPRENTA COLORAMA S.A	11/10/2012	1	281	120	default	281	\N	\N	\N
 SISTEMA WEB DE CONTROL Y SOPORTE DE INFORMACIÓN AL SERVICIO TÉCNICO DE LA EMPRESA PROYEXION SERVICIOS S.A.	2/2013	7	282	\N	default	282	\N	\N	\N
-SISTEMA WEB PARA PUBLICACION Y AYUDA A LA COMPRA-VENTA DE AUTOS DE EL PORTAL DEL AUTO	4/4/2011	3	284	\N	default	284	\N	\N	\N
-SISTEMA WEB DE APOYO A LA LABOR COMERCIAL DE UNA EMPRESA DISTRIBUIDORA DE GAS LICUADO	7/4/2011	3	285	\N	default	285	\N	\N	\N
-SISTEMA DE APOYO A LA ATENCIÓN DE CLIENTES	20/03/13	3	287	\N	default	287	\N	\N	\N
-DESARROLLO UN SISTEMA WEB DE APOYO A LA ADMINISTRACION DE PROYECTOS DE INGENIERIA EN LA EMPRESA L&C		3	290	\N	default	290	\N	\N	\N
 SISTEMA MONITOR DE DISPOSITIVOS ELECTRÓNICOS EN UNA PLANTA TRASMISORA DE FRECUENCIA MODULADA	30/03/2013	1	292	121	default	292	\N	\N	\N
-SISTEMA WEB DE APOYO A LA GESTION DE MONITOREO Y SEGUIMIENTO DEL TRABAJO EN EL AUTO	7/4/2011	3	294	\N	default	294	\N	\N	\N
-NO HAY INFORMACION		3	295	\N	default	295	\N	\N	\N
-SISTEMA DE APOYO A LA GESTION DE BODEGA PARA LA EMPRESA MC2	15/12/11	3	296	\N	default	296	\N	\N	\N
+INFRAESTRUCTURA EMPRESARIAL PARA OBSERVATORIO DE LA WEB: CASO DE LA GENERACIÓN DE NOTICIAS EN UNA RED SOCIAL CORPORATIVA CON UN PROCESO DE NEGOCIO ASOCIADO	9/9/2014	0	86	\N	2/2016	86	\N	\N	2/2016
+DESARROLLO UN SISTEMA WEB DE APOYO A LA ADMINISTRACION DE PROYECTOS DE INGENIERIA EN LA EMPRESA L&C		0	290	\N	2/2016	290	\N	\N	2/2016
+SISTEMA WEB DE APOYO A LA GESTION DE MONITOREO Y SEGUIMIENTO DEL TRABAJO EN EL AUTO	7/4/2011	0	294	\N	2/2016	294	\N	\N	2/2016
+SISTEMA DE APOYO A LA GESTION DE BODEGA PARA LA EMPRESA MC2	15/12/11	0	296	\N	2/2016	296	\N	\N	2/2016
+SISTEMA WEB DE GENERACION Y SEGUIMIENTO DE REQUERIMIENTOS DE SOPORTE PARA SISTEMAS LTDA.	7/4/2011	0	305	\N	2/2016	305	\N	\N	2/2016
 SISTEMA WEB DE EVALUACIÓN DE DESEMPEÑO PARA EL PERSONAL DE OFICIALES DE LA FUERZA AÉREA DE CHILE		1	297	122	default	297	\N	\N	\N
-UN AG COOPERATIVO PARA PROBLEMAS DE CORTE Y EMPAQUE	25/06/12	3	548	\N	default	548	\N	\N	\N
 SISTEMA WEB DE APOYO A LA GESTION DEL AREA DE SOPORTE COMPUTACIONAL PARA LA EMPRESA MARCARIA.COM	7/4/2011	1	298	123	default	298	\N	\N	\N
-DESARROLLAR UN SISTEMA DE APOYO A LA GESTION DE FICHAS,HORAS Y MEDICAMENTOS PARA LA POSTA RURAL DE PENCAHUE BAJO	15/12/11	3	301	\N	default	301	\N	\N	\N
 DESARROLLO DEL SISTEMA SAP SRM PARA LA EMPRESA MULTINACIONAL ALFA	19/3/13	4	303	\N	default	303	\N	\N	\N
-SISTEMA WEB DE GENERACION Y SEGUIMIENTO DE REQUERIMIENTOS DE SOPORTE PARA SISTEMAS LTDA.	7/4/2011	3	305	\N	default	305	\N	\N	\N
-SISTEMA DE INFORMACION DE APOYO A LOS PROCESOS DE VENTA E INVENTARIO PARA LA EMPRESA RODAMIENTO "VILLELA"	9/3/2010	3	306	\N	default	306	\N	\N	\N
-AUTOMATIZACIÓN DEL PROYECTO DE FORMALIZACIÓN DE SUBSIDIOS DE CORFO	15/04/2013	3	309	\N	default	309	\N	\N	\N
 RESOLUCIÓN DE KO THREATS UTILIZANDO HEURÍSTICAS EN MONTE CARLO GO.	12/6/2010	1	311	124	default	311	\N	\N	\N
-USO DE GPU EN ALGORITMOS DE BUSQUEDA LOCAL PARA EL PROBLEMA DE LA ASIGNACION CUADRATICA	05/10/11	3	312	\N	default	312	\N	\N	\N
-ACERELERACION DE DESEMPEÑO DEL ALGORITMO DE BUSQUEDA LOCAL PARA FLOW SHOP USANDO PROCESADORES GRAFICOS	10/7/2011	3	313	\N	default	313	\N	\N	\N
-CONSTRUCCIÓN DE UN FRAMEWORK PARA PIPELINE DE APLICACIONES DE BIOINFORMÁTICA	2/2013	3	316	\N	default	316	\N	\N	\N
-DISEÑO Y DESARROLLO DE UN ALGORITMOS DE BÚSQUEDA DE ARN OBJETIVOS PARA UN MICROARN	12/7/2012	3	317	\N	default	317	\N	\N	\N
-SISTEMA DE EVALUCIÓN FORMATIVA EN LINEA PARA LA SOCIEDAD CHILENA DE RADIOLOGIA	04/08/10	3	318	\N	default	318	\N	\N	\N
 SISTEMA WEB DE DENUNCIA CIUDADANA PARA LA ILUSTRE MUNICIPALIDAD DE SAN JOAQUIN	20/09/2011	1	409	173	default	409	\N	\N	\N
 ALGORITMO PARA LA VISUALIZACIÓN DE DATOS EXPERIMENTOS DE MIROARRAYS BASADOS EN ANOTACIONES BIOLÓGICAS Y EXPRESIÓN GENÉTICA	11/10/1012	1	319	125	default	319	\N	\N	\N
-GRAFO DE CONSENSO DE FUENTES DE ANOTACIONES BIOLÓGICAS DE GENES HUMANOS 	2/2013	3	320	\N	default	320	\N	\N	\N
 DESARROLLO DE UNA APLICACIÓN WEB PARA EL APOYO AL ANÁLISIS DE DATOS RT-PCR.	10/4/2011	1	321	126	default	321	\N	\N	\N
 INCORPORACIÓN DE ANOTACIONES GENÉTICAS EN EL ALGORITMO DE AGRUPAMIENTO MST -KNN	11/10/1012	1	322	127	default	322	\N	\N	\N
 REINGENIERIA PORTAL DE PAGOS DEL ESTADO PARA TESORERÍA GENERAL DELA REPÚBLICA	23/07/2013	1	323	128	default	323	\N	\N	\N
 ANÁLISIS DE TÉCNICAS PARA FILTRADO DE NOTICIAS DE LA WEB	1/2012	1	324	129	default	324	\N	\N	\N
-CLASIFICACIÓN AUTOMÁTICA DE TEXTOS PERIODÍSTICOS ENRIQUECIDA CON FUENTES EXTERNAS	20/03/2012	3	325	\N	default	325	\N	\N	\N
-SISTEMA DE SEGUIMIENTO DE JUICIOS PARA GESTIÓN DE COBRANZA		3	326	\N	default	326	\N	\N	\N
-EVALUACIÓN DE ALGORITMOS PARA LA IDENTIFICACIÓN DE ESTRUCTURA DE SITIOS WEB CON APLICACIONES EN RECOLECTORES FOCALIZADOS DE LA WEB.	03/10/11	3	327	\N	default	327	\N	\N	\N
 MÓDULOS DEL SISTEMA INFORMÁTICO PARA APOYAR LA GESTIÓN EN UNA EMPRESA DE RETAIL		1	329	130	default	329	\N	\N	\N
 DESARROLLO DE UNA API PARA LA ASOCIACIÓN DE PERSONAS Y EL CONTENIDO DE NOTICIAS EN ESPACIOS.		1	330	131	default	330	\N	\N	\N
 GENERACIÓN DE REPORTES CON EL CONTEXTO DE NOTICIAS EN TWITTER.	05/10/11	1	331	132	default	331	\N	\N	\N
-SISTEMA DE COORDINACION Y GESTION DE RESERVA HORARIA PARA EVENTOS Y ACTIVIDADES DEL COLEGIO ALEMAN DE SANTIAGO	20/09/2011	3	4	\N	default	4	\N	\N	\N
 ANÁLISIS DE SENTIMIENTO EN EL SISTEMA DE RED SOCIAL TWITTER	03/10/11	1	332	133	default	332	\N	\N	\N
-DESARROLLAR UN JUEGO COMO HERRAMIENTA DE APRENDIZAJE PARA EL CURSO DE ECONOMÍA DE LA FACULTAD TECNOLÓGICA    	208/11/2014	3	300	\N	default	300	\N	\N	\N
 DISEÑOS DE UN CLASIFICADOR DE PATENTES INDUSTRIALES	11/10/12	1	333	134	default	333	\N	\N	\N
-SISTEMA DE APOYO AL PRCOESO DE EVALUACIÓN ECONÓMICA SOCIAL DE PROYECTOS DE VIALIDAD URBANA	2/2012	3	302	\N	default	302	\N	\N	\N
 API PARA LA VISUALIZACIÓN DE RELACIONES EXISTENTES ENTRE CONTACTOS PERSONALES A TRAVÉS DE REDES SOCIALES.	07/10/11	1	334	135	default	334	\N	\N	\N
-SISTEMA WEB DE APOYO A LA GESTIÓN DE UN CENTRO DE DISTRIBUCIÓN	1/2014	3	304	\N	default	304	\N	\N	\N
 DESARROLLO DE UN SISTEMA DE GESTION HORARIA PARA RECURSOS DE UNA EMPRESA DE DEPILACION LASER	11/10/12	1	335	136	default	335	\N	\N	\N
-DISEÑO DE UN ALGORITMO DE PLANIFICACIÓN PARA APLICACIONES PARALELAS SOBRE RECURSOS HETEROGÉNEOS EN CLOUD COMPUTING	3/7/2012	3	336	\N	default	336	\N	\N	\N
-PLATAFORMA DE EVALUACIÓN DE ALGORITMOS DE SUBASTA PARA BUSQUEDAS PATROCINADAS	11/10/12	3	337	\N	default	337	\N	\N	\N
-ANÁLISIS DE LA SATISFACCIÓN DE CLIENTES MEDIANTE EL ANÁLISIS DE CORREOS ELECTRÓNICOS	11/01/13	3	338	\N	default	338	\N	\N	\N
-INTEGRACIÓN ERP MICROSOFT DYNAMICS AX CON SISTEMA WEB EXTERNO PARA EL INGRESO DE PEDIDOS DE VENTA		3	339	\N	default	339	\N	\N	\N
-REDISEÑO DEL PROCESO DE NEGOCIO ASOCIADO AL SERVICIO DE ARRIENDO DE GRÚAS HORQUILLA, PARA LA EMPRESA GRÚAS M&L LTDA.	03/04/15	3	307	\N	default	307	\N	\N	\N
 DETERMINACIÓN DE LA INFLUENCIA DE ESTÍMULOS SONOROSY SU EMOCIÓN EN LA AUTORREGULACIÓN.	11/10/12	1	341	137	default	341	\N	\N	\N
-DESARROLLAR UN JUEGO COMO HERRAMIENTA DE APRENDIZAJE PARA EL CURSO DE ECONOMÍA DE LA FACULTAD TECNOLÓGICA    	5/11/2014	3	308	\N	default	308	\N	\N	\N
 DETERMINACIÓN DE LA INFLUENCIA DE ESTÍMULOS MUSICALES EN LA AUTORREGULACIÓN DEL FLUJO SANGUÍNEO CEREBRAL.	18/01/2012	1	342	138	default	342	\N	\N	\N
-IMPLEMENTACIÓN DEL PROCESO DE FORMALIZACIÓN DE SUBSIDIOS DE CORFO EN ADOBE LIVE CYCL	25/11/2014	3	310	\N	default	310	\N	\N	\N
 PRE-PROCESAMIENTO DE SEÑALES DE HEMODINÁMICA CEREBRAL PARA ESTUDIOS DE AUTTOREGULACION DEL FLUJO SANGUINEO CEREBRAL	7/4/2011	1	343	139	default	343	\N	\N	\N
-ALGORITMO DE AGRUPAMIENTO PARA DATOS DE EXPRESIÓN GÉNICA DE RNA-SEQ CON LA INCORPORACIÓN DE ANOTACIONES BIOLÓGICAS	1/2014	3	314	\N	default	314	\N	\N	\N
 DISEÑO E IMPLEMENTACIÓN DE UN SISTEMA DE CONTRASTE DE HIPÓTESIS BASADO EN BOOTSTRAP	30/03/2012	1	344	140	default	344	\N	\N	\N
-ANÁLISIS DE LA COMPLEJIDAD DE LAS SEÑALES DEL SISTEMA DE HEMODINÁMICA CEREBRAL Y LA RELACIÓN DE ESTA CARACTERÍSTICA CON SU MODELAMIENTO		3	345	\N	default	345	\N	\N	\N
-ALGORITMO MEMÉTICO BASADO EN CONOCIMIENTO BIOLÓGICO PARA EL PROBLEMA DE PREDICCIÓN DE LA ESTRUCTURA TRIDIMENSIONAL DE LA PROTEÍNA	1/2014	3	315	\N	default	315	\N	\N	\N
 ANALISIS COMPARATIVO ENTRE METODOS PARA EL CALCULO DE LA AUTORREGULACION CEREBRAL QUE USAN CAMBIOS BRUSCOS DE PRESION Y VARIACIONES ESPONTANEAS UTILIZANDO SVM		1	346	141	default	346	\N	\N	\N
-ACTUALIZACIÓN CONCURRENTE DE ÍNDICES INVERTIDOS EN MOTORES DE BÚSQUEDA VERTICALES	2/2014	3	340	\N	default	340	\N	\N	\N
-COMPARACIÓN DE LOS MÉTODOS DE CÁLCULO DE AUTOREGULACIÓN USANDO MODELOS LINEALES CON LA MANIOBRA DE VALSALVA Y VARIACIONES ESPONTANEAS DE PRESIÓN	1/2014	3	347	\N	default	347	\N	\N	\N
+SISTEMA COLABORATIVO PARA LA PLANIFICACIÓN DE PROYECTOS MEDIANTE CARTAS GANTT.	15/12/10	0	168	\N	2/2016	168	\N	\N	2/2016
+SISTEMA COLABORATIVO PARA COMPLEMENTAR LA ENSEÑANZA DE NIÑOS ENTRE PRIMERO Y SEGUNDO BÁSICO EN LA ASIGNATURA DE INGLÉS	01/11/13	0	173	\N	2/2016	173	\N	\N	2/2016
+AUTOMATIZACIÓN DE PROCESOS DE INSPECCIONES DE VEHÍCULOS PARA RSA SEGUROS	1/8/2013	0	181	\N	2/2016	181	\N	\N	2/2016
+DISEÑO E IMPLEMENTACIÓN DE UNA HERRAMIENTA PARA LA CATEGOGORIZACIÓN DE PACIENTES EN SERVICIOS DE URGENCIA 		0	355	\N	2/2016	355	\N	\N	2/2016
+RECONOCEDOR DE SONRISAS ANSIOSAS EN SITUACIONES EXPERIMENTALES PARA PESQUISAR ENGAÑO	1/2014	0	109	\N	2/2016	109	\N	\N	2/2016
+PORTAL WEB CON RED SOCIAL CORPORATIVA PARA LA ORGANIZACIÓN REASE	28/11/2014	0	91	\N	2/2016	91	\N	\N	2/2016
+CUBO OLAP PARA ANÁLISIS DE VENTAS	REFORMULAR	0	405	\N	2/2016	405	\N	\N	2/2016
+ENUMERACIÓN DE CONJUNTOS INDEPENDIENTES MAXIMALES EN FRAFOS OCTOPUS	2/2014	0	398	\N	2/2016	398	\N	\N	2/2016
+NO HAY INFORMACION		0	295	\N	2/2016	295	\N	\N	2/2016
+PROTOTIPO DE APLICACIÓN MÓVIL PARA LA DETECCIÓN DE MALWARE EN DISPOSITIVOS CON SISTEMA OPERATIVO ANDROID	1/2014	0	262	\N	2/2016	262	\N	\N	2/2016
 MODIFICACION DE LOS METODOS DE DETECCION DE LATIDOS CARDIACOS PARA SER UTILIZADOS EN LA ESTIMACION DE SEÑALES DE PSAM Y FSCM	30/05/11	1	348	142	default	348	\N	\N	\N
-COMPARACIÓN DE LOS MÉTODOS DE CÁLCULO DE AUTORREGULACIÓN CON LA MANIOBRA "SIT-TO-STAND" Y VARIACIONES ESPONTÁNEAS DE PRESIÓN	2/2013	3	354	\N	default	354	\N	\N	\N
 SOLUCIÓN DE INTELIGENCIA DE NEGOCIOS Y MODELO PREDICTIVO COMO APOYO A LA GESTIÓN DE INDICADORES CLÍNICOS EN CLÍNICA ALEMANA DE SANTIAGO		1	349	143	default	349	\N	\N	\N
-SELECCIÓN DE CARACTERÍSTICAS PARA LA ESTIMACIÓN DE NIVELES DE PRESIÓN INTRACRANEAL EN FORMA NO INVASIVA.	20/09/11	3	350	\N	default	350	\N	\N	\N
-DISEÑO DE UN CLASIFICADOR PARA LA DETECCIÓN DEL MOBILOMA EN GENOMAS DE BACTERIAS	04/06/14	3	357	\N	default	357	\N	\N	\N
 CREACIÓN DE MODELOS DE CLASIFICACIÓN PARA CULTIVOS NEURONALES CON CLASES DESBALANCEADAS Y BÚSQUEDA DE VARIABLES REPRESENTATIVAS	3/6/2014	1	351	144	default	351	\N	\N	\N
-ENUMERACIÓN DE CONJUNTOS INDEPENDIENTES MAXIMALES EN GRAFOS POLARES 	1/2014	3	368	\N	default	368	\N	\N	\N
 MEJORAMIENTO DEL ÍNDICE DE AUTORREGULACIÓN DE FLUJO SANGUÍNEO CEREBRAL (ARI) MEDIANTE LA MEDICIÓN DE FASE ENTRE PRESIÓN Y FLUJO.	13/09/11	1	353	145	default	353	\N	\N	\N
-DISEÑO E IMPLEMENTACIÓN DE UNA HERRAMIENTA PARA LA CATEGOGORIZACIÓN DE PACIENTES EN SERVICIOS DE URGENCIA 		3	355	\N	default	355	\N	\N	\N
-IDENTIFICACIÓN DE EVENTOS DE TRANSFERENCIA HORIZONTAL DE GENES EN BACTERIAS MEDIANTE DISEÑO DE CLASIFICADORES DE DATOS	03/11/13	3	356	\N	default	356	\N	\N	\N
-ENUMERACIÓN DE CONJUNTOS INDEPENDIENTES MAXIMALES EN GRAFOS OCTOPUS	1/2014	3	370	\N	default	370	\N	\N	\N
 EVALUACIÓN COMPARATIVA DE MÑETODOS DE MINERÍA DE DATOS PARA LA CLASIFICACIÓN DE SEÑALES SÍSMICAS DEL VOLCÁN LLAIMA	03/11/13	1	358	146	default	358	\N	\N	\N
-OPTIMIZACIÓN Y MEJORAS A PROCESOS EJECUTADOS PARA LA OBTENCIÓN DE LOS ESTADOS DE RESULTADOS COMERCIALES DE LAN CHILE		3	359	\N	default	359	\N	\N	\N
-CONJUNTOS INDEPENDIENTES MAXIMALES EN GRAFO GOOD	1/2014	3	371	\N	default	371	\N	\N	\N
 USO DE TÉCNICAS DE CAJA GRIS Y FUNCIÓN DE TRANSFERENCIA PARA MODELAR LA AUTORREGULACIÓN CEREBRAL	30/03/2012	1	360	147	default	360	\N	\N	\N
-SISTEMA PARA CONTROL DE ENVÍO Y RECEPCIÓN DE MENSAJERÍA DE TEXTO EN EQUIPOS DE TELEFONÍA MÓVIL	13/12/12	3	361	\N	default	361	\N	\N	\N
-ENUMERACIÓN DE CONJUNTOS INDEPENDIENTES MAXIMALES EN GRAFOS LOBSTER		3	388	\N	default	388	\N	\N	\N
 COMPARACIÓN DE ÍNDICES DE AUTORREGULACIÓN DE FLUJO SANGUÍNEO CEREBRAL BASADOS SOLO EN SEÑAL DE FLUJO	03/11/13	1	362	148	default	362	\N	\N	\N
-COMPARACION ENTRE MODELOS NARX DE SVM Y TLRNN PARA OBTENER INDICE AUTORREGULATORIO CEREBRAL EN VARIACIONES ESPONTANEAS		3	363	\N	default	363	\N	\N	\N
-EVALUACIÓN DE MÉTODOS QUE MEJORAN LA IDENTIFICACIÓN DE BIOMARCADORES A PARTIR DE DATOS DE EXPRESIÓN GÉNETICA EN EL SALMÓN ATLÁNTICO (SALMO SALAR)	03/11/13	3	364	\N	default	364	\N	\N	\N
-EVALUACIÓN DE OBJETOS DE APRENDIZAJE MOODLE, MEDIANTE LA SUPERVISIÓN DE USO DE LOS ESTUDIANTES	2/2014	3	393	\N	default	393	\N	\N	\N
 EVALUACIÓN DE LOS EFECTOS DE LA POSICIÓN CORPORAL EN EL CÁLCULO DE LOS ÍNDICES DE AUTORREGULACIÓN DEL FLUJO SANGUÍNEO CEREBRAL USANDO MODELOS LINEALES	03/11/13	1	365	149	default	365	\N	\N	\N
 APLICACIÓN DEL CRÉDITO TRIBUTARIO PARA LA INSTALACIÓN DE UN SISTEMA SOLAR TÉRMICO Y SU IMPACTO EN EL SISTEMA INFORMÁTICO TRIBUTARIO CHILENO ADMINISTRADO POR EL S.I.I.	18/12/12	1	366	150	default	366	\N	\N	\N
 CONSTRUCCIÓN DE MODELOS PARA EVALUAR LA AUTORREGULACIÓN DE PACIENTES CON TEC USANDO MODELOS NARMAX Y FIR CON SVM.	11/10/12	1	367	151	default	367	\N	\N	\N
@@ -4289,225 +4252,126 @@ IMPLEMENTACIÓN DE ALGORITMOS DE LAYOUT DE GRAFOS Y ANÁLISIS DE SU COMPORTAMIEN
 OBJETOS DE APRENDIZAJE PARA POYAR LA COMPRENSIÓN Y APLICACIÓN DE CONCEPTOS BÁSICOS DE INTRODUCCIÓN A LAS BASES DE DATOS	11/01/13	1	372	153	default	372	\N	\N	\N
 SISTEMA DE GESTIÓN ESCOLAR PARA LA EMPRESA DE CLASES PARTICULARES "PLAY HOUSE TEACHER"	2/2011	1	373	154	default	373	\N	\N	\N
 GENERACION VIRTUAL DE NANOTUBOS DE CARBONO DE UNA PARED FUNCIONALIZADOS CON DISTINTAS MOLECULAS	03/05/13	1	374	155	default	374	\N	\N	\N
-DISEÑO E IMPLEMENTACIÓN DE UN SISTEMA DE PREDICCIÓN PARA LA CANTIDAD DE ALUMNOS EN LAS ASIGNATURAS DEL DEPARTAMENTO DE INGENIERIA INFORMATICA	11/10/12	3	375	\N	default	375	\N	\N	\N
 OBJETOS DE APRENDIZAJE PARA APOYAR EL ESTUDIO DE ALGORITMOS DE PLANIFICACIÓN DE PROCESOS EN CPU EN EL CURSO DE SISTEMAS OPERATIVOS	11/01/13	1	376	156	default	376	\N	\N	\N
 SISTEMA PARA LA CREACION,GESTION Y DIFUSION DE BANDAS MUSICALES	02/11/11	1	377	157	default	377	\N	\N	\N
 REINGENIERÍA DE PROCESOS DE DOCENCIA  DEL DEPARTAMENTE DE INGENIERÍA INFORMÁTICA DE LA UNIVERSIDAD DE SANTIAGO DE CHILE	11/10//2012	1	378	158	default	378	\N	\N	\N
 OBJETOS DE APRENDIZAJE PARA EL ESTUDIO DE CONTABILIDAD PARA ALUMNOS DEL INSTITUTO PROFESIONAL LA ARAUCANA		1	379	159	default	379	\N	\N	\N
 OBJETOS DE APRENDIZAJE PARA APOYAR EL MODELAMIENTO MATEMÁTICO DE PROBLEMAS DE OPTIMIZACIÓN	11/01/13	1	380	160	default	380	\N	\N	\N
 ENUMERACIÓN DE CONJUNTOS INDEPENDIENTES MAXIMALES EN GRAFOS "K-TREE"		\N	381	\N	default	381	\N	\N	\N
-ENUMERACIÓN DE CONJUNTOS INDEPENDIENTES MAXIMALES EN GRAFOS "K-TREE"	05/10/11	3	382	\N	default	382	\N	\N	\N
 APLICACIÓN DE APOYO A LA ENSEÑANZA - APRENDIZAJE PARA EL MANEJO DE LENJUAGE DE MATRICES EN OCTAVE EN EL CURSO DE FUNDAMENTOS DE PROGRAMACIÓN	11/01/13	1	383	161	default	383	\N	\N	\N
 DETECCIÓN PREVENTIVA DE ALUMNOS CON BAJO RENDIMIENTO ACADÉMICO EN LA FACULTAD DE INGENIERÍA DE LA UNIVERSIDAD DE SANTIAGO DE CHILE	 1º 2012	1	384	162	default	384	\N	\N	\N
 OBJETOS DE APRENDIZAJE PARA APOYAR LA APREHESIÓN DE LOS CONCEPTOS DE PROCESOS Y HEBRAS	11/01/13	1	385	163	default	385	\N	\N	\N
 DESARROLLO DE UN MÓDULO DE EXTENSIÓN PARA DETERMINAR RUTAS DE TRANSPORTES DE CARGA POR EL MEDIO VIAL, FERROVIARIO O MARÍTIMO EN EL ENTORNO ARCMAP	23/04/12	1	386	164	default	386	\N	\N	\N
 APLICACIÓN WEB DE APOYO PARA LA GESTIÓN DE PROCESO DE POSTULACIONES  ACADÉMICAS EN EL DEPARTAMENTO DE INGENIERÍA INFORMÁTICA DE LA UNIIVERSIDAD DE SANTIAGO DE CHILE	11/10/12	1	387	165	default	387	\N	\N	\N
 OBJETIVOS DE APRENDIZAJE PARA APOYAR LA COMPRENSIÓN DE CONCURRENCIA COMPUTACIONAL	11/01/13	1	389	166	default	389	\N	\N	\N
+APLICACIÓN WEB PARA APOYAR LA GESTIÓN DE MÁQUINAS VIRTUALES EN LA EMPRESA ADESSA LTDA.	1/2012	0	227	\N	2/2016	227	\N	\N	2/2016
+NO HAY INFORMACION		0	218	\N	2/2016	218	\N	\N	2/2016
+PLAN DE CONTINUIDAD DE NEGOCIOS PARA EL MACRO PROCESO GESTIÓN FINANCIERA Y OTROS ACTIVOS DEL TESORO PÚBLICO	8/1/2014	0	421	\N	2/2016	421	\N	\N	2/2016
+DETECCIÓN IMPLÍCITA DE RELEVANCIA DE PÁGINAS WEB UTILIZANDO REGISTROS DE ACTIVIDAD DEL USUARIO EN LA BÚSQUEDA DE INFORMACIÓN	1/2014	0	434	\N	2/2016	434	\N	\N	2/2016
+HERRAMIENTA DE APOYO A LA DEFINICIÓN DE REQUISITOS, EN LA INGENIERÍA DE SOFTWARE, EXPLOTANDO RECURSOS DE AUDIO	2/2012	0	187	\N	2/2016	187	\N	\N	2/2016
+SISTEMA DE APOYO A LA FORMULACIÓN DE PROYECTOS CONCURSABLES DEL DEPARTAMENTO DE INGENIERÍA INFORMÁTICA DE LA UNIVERSIDAD DE SANTIAGO DE CHILE	2/2014	0	395	\N	2/2016	395	\N	\N	2/2016
+ALGORITMOS PARALELOS PARA LA GENERACIÓN DE LOS CONJUNTOS INDEPENDIENTES MAXIMALES DE UN GRAFO CAMINO SIN CUERDAS Y DE UN GRAFO CATERPILLAR	2/2014	0	396	\N	2/2016	396	\N	\N	2/2016
 ENUMERACIÓN DE CONJUNTOS INDEPENDIENTES MAXIMALES EN GRAFOS BISPLIT.	05/10/11	1	390	167	default	390	\N	\N	\N
-OBJETO DE APRENDIZAJE PARA LA EJERCITACIÓN DE LOS CONCEPTOS DEL MÉTODO SIMPLEX	11/01/13	3	391	\N	default	391	\N	\N	\N
-DIAGNOSTICO DE INGRESO DE ALUMNOS A LA CARRERA DE INGENIERÍA DE EJECUCIÓN EN COMPUTACIÓN E INFORMÁTICA MODALIDAD VESPERTINA		3	392	\N	default	392	\N	\N	\N
-INTELIGENCIA DE NEGOCIOS APLICADA A CAJA DE COMPENSACIÓN	19/07/2012	3	399	\N	default	399	\N	\N	\N
-SISTEMA DE APOYO A LA ADMINISTRACIÓN DE INFORMACIÓN PARA LOS COMITÉS DE AGUA POTABLE RURALES	04/07/12	3	400	\N	default	400	\N	\N	\N
-DESARROLLO DE UN SISTEMA PERSONALIZABLE PARA QUE PROFESORES TRABAJEN LA INCLUSIÓN DE ALUMNOS CON NECESIDADES ESPECIALES TRANSITORIAS	1/2014	3	50	\N	default	50	\N	\N	\N
 DESARROLLO DE UNA APLICACIÓN DE MONITOREO SPLUNK PARA AGUILIZAR EL PROCESO ITIL DE GESTIÓN DE INCIDENTES EN BANCO ESTADO	20/01/2014	1	401	168	default	401	\N	\N	\N
-SISTEMA DE APOYO A LA FORMULACIÓN DE PROYECTOS CONCURSABLES DEL DEPARTAMENTO DE INGENIERÍA INFORMÁTICA DE LA UNIVERSIDAD DE SANTIAGO DE CHILE	2/2014	3	395	\N	default	395	\N	\N	\N
 SISTEMA DE GESTIÓN Y CONTROL PARA EMPRESA "PG&I"	7/5/2012	1	402	169	default	402	\N	\N	\N
-ALGORITMOS PARALELOS PARA LA GENERACIÓN DE LOS CONJUNTOS INDEPENDIENTES MAXIMALES DE UN GRAFO CAMINO SIN CUERDAS Y DE UN GRAFO CATERPILLAR	2/2014	3	396	\N	default	396	\N	\N	\N
 BUSINESS INTELLIGENCE PARA EL ÁREA DE CONTROL DE GESTIÓN EN LA SUPERINTENDENCIA DE ELECTRICIDAD Y COMBUSTIBLES	21/12/12	1	403	170	default	403	\N	\N	\N
-MODELADO DE LAS CARACTERÍSTICAS DE LOS POSTULANTES A LA CARRERA DE INGENIERÍA DE EJECUCIÓN EN COMPUTACIÓN E INFORMÁTICA MODALIDAD VESPERTINA	2/2014	3	397	\N	default	397	\N	\N	\N
 MONITOREO Y MANEJO DE REDES INALÁMBRICAS EN MINAS A RAJO ABIERTO	13/12/12	1	404	171	default	404	\N	\N	\N
-CUBO OLAP PARA ANÁLISIS DE VENTAS	REFORMULAR	3	405	\N	default	405	\N	\N	\N
-ENUMERACIÓN DE CONJUNTOS INDEPENDIENTES MAXIMALES EN FRAFOS OCTOPUS	2/2014	3	398	\N	default	398	\N	\N	\N
 ESTUDIO DE FACTIBILIDAD PARA LA IMPLEMENTACION DE APLICACIONES DISTRIBUIDAS SOBRE SET-TOP-BOXES EN CHILE		1	406	172	default	406	\N	\N	\N
-IMPLEMENTACION DE PROCESOS DE GESTION DE PROYECTOS FOSIS UTILIZANDO HERRAMIENTAS BPMS	4/8/2010	3	408	\N	default	408	\N	\N	\N
-BIBLIOTECA PARA EL DESPEGUE ÁGIL DE APLICACIONES DE STREAM EN ESCENARIOS DE DESASTRES	1/2014	3	407	\N	default	407	\N	\N	\N
-SISTEMA DE RECOLECCIÓN DE LECHE FRESCA PARA LAS PLANTAS NESTLÉ CHILE S.A.	15/05/2013	3	410	\N	default	410	\N	\N	\N
-PLAN DE CONTINUIDAD DE NEGOCIOS PARA EL MACRO PROCESO GESTIÓN FINANCIERA Y OTROS ACTIVOS DEL TESORO PÚBLICO	8/1/2014	3	421	\N	default	421	\N	\N	\N
 PROTOTIPO DE SISTEMA DE GESTIÓN DOCUMENTAL PARA LA DIRECCIÓN DE ASISTENCIA JURÍDICA DE LA UNIVERSIDAD DE SANTIAGO DE CHILE	APROBADO	1	411	174	default	411	\N	\N	\N
-REDISEÑO DE PROCESOS: IMPLEMENTACION DE SISTEA RIS/PACS EN UNIDAD DE IMAGENOLOGIA, HOSPITAL SAN JUAN DE DIOS	4/8/2010	3	412	\N	default	412	\N	\N	\N
-SISTEMA DE INFORMACIÓN WEB, PARA LA "CLÍNICA DENTAL - ALEXANDRA ALVAREZ"	2/2011	3	427	\N	default	427	\N	\N	\N
 SISTEMA DE CONTROL Y MONITOREO A LAS TRANSACCIONES DE UN CONJUNTO DE BASES DE DATOS SQL SERVER	20/09/2011	1	413	175	default	413	\N	\N	\N
-DATAMART PARA EL ÁREA DE APROVISIONAMIENTO DE ENDESA COLOMBIA		3	414	\N	default	414	\N	\N	\N
-PLATAFORMA PARA LA DEFINICIÓN Y APOYO A LA EVALUACIÓN DE GESTOS TÁCTILES EN LA INTERACCIÓN CON OBJETOS DIGITALES DE INFORMACIÓN	1/2014	3	431	\N	default	431	\N	\N	\N
 DISEÑO E IMPLEMENTACIÓN DE UN CUADRO DE MANDO INTEGRAL	4/8/2010	1	415	176	default	415	\N	\N	\N
-IDENTIFICACIÓN AUTOMATIZADA DE ETAPAS DEL PROCESO DE BÚSQUEDA DE INFORMACIÓN DEL USUARIO 	1/2014	3	432	\N	default	432	\N	\N	\N
 SISTEMA DE CONTROL DE PROCESOS Y GESTION PARA EL AREA DE SOPORTE INFORMATICO PARA BROWSE INGENIERIA	4/8/2010	1	416	177	default	416	\N	\N	\N
-PROCESO DE DESARROLLO DE PROYECTOS DE SEGURIDAD PARA SAP ERP EN ROLES Y PERFILES	4/8/2010	3	417	\N	default	417	\N	\N	\N
-SISATEMA DE INVENTARIO WEB PARA APOYAR LA GESTIÓN DE LA EMPRESA VTV LTDA.	26-07-2012	3	418	\N	default	418	\N	\N	\N
-SISTEMA DE ASIGNACIÓN DE LABORATORIOS DE DOCENCIA	4/8/2010	3	419	\N	default	419	\N	\N	\N
-DISEÑO Y DESARROLLO DE UNA APLICACIÓN MODULAR PARA APOYAR LA INVESTIGACIÓN OBSERVACIONAL CON DATOS MULTIMODALES 	1/2014	3	433	\N	default	433	\N	\N	\N
 SISTEMA DE LICENCIAS MEDICAS EN UNA CAJA DE COMPENSACION	4/8/2010	1	420	178	default	420	\N	\N	\N
-DETECCIÓN IMPLÍCITA DE RELEVANCIA DE PÁGINAS WEB UTILIZANDO REGISTROS DE ACTIVIDAD DEL USUARIO EN LA BÚSQUEDA DE INFORMACIÓN	1/2014	3	434	\N	default	434	\N	\N	\N
 SISTEMA DE CONTROL DE PERMISOS Y AUSENCIAS DE FUNCIONARIOS DEL 3º JUZGADO DE FAMILIA DE SANTIAGO DE CHILE	7/4/2011	1	422	179	default	422	\N	\N	\N
-DESARROLLO DE SISTEMA DE COTIZACIÓN Y DE CONTROL DE EXISTENCIAS PARA LA EMPRESA ALUMAR	11/10/12	3	423	\N	default	423	\N	\N	\N
-SISTEMA WEB DE APOYO A LA ADMINISTRACION Y PLANIFICACION DE EVIDENCIA NORMATIVA DE AUDITORIAS PARA NEXUS S.A.	7/4/2011	3	424	\N	default	424	\N	\N	\N
-SISTEMA WEB PARA MONITOREAR DISPOSITIVOS GPS	20/09/2011	3	425	\N	default	425	\N	\N	\N
-SISTEMA CMR DE APOYO A LA FUERZA DE VENTAS CON CLIENTE DE OPERACION ASINCRONICA	7/4/2011	3	426	\N	default	426	\N	\N	\N
-DESARROLLO DE UN SISTEMA DE APOYO A LA GESTIÓN DE TORNEOS Y APUESTAS EN LA COMUNIDAD DE VIDEOJUEGOS CIBERDEPORTES.NET.	30/03/2012	3	428	\N	default	428	\N	\N	\N
-WEB SERVICES PARA APOYAR LA VENTA DE SEGUROS DE VEHÍCULOS PARTICULARES A TRAVES DE UNA MULTITIENDA	1/2/2012	3	429	\N	default	429	\N	\N	\N
-SISTEMA DE INFORMACIÓN DE APOYO PARA AUTOMATIZACIÓN Y MONITOREO DE ACTIVIDADES DE PLAN DE CORTE EN CONVERSIÓN DE TIENDAS PARA LA COMPAÑÍA ZCMART CHILE.		3	430	\N	default	430	\N	\N	\N
-PLATAFORMA PARA LA GENERACIÓN Y APOYO A LA EVALUACIÓN DE VISUALIZAORES DE RESULTADOS DE BÚSQUEDA	1/2014	3	435	\N	default	435	\N	\N	\N
 METODOLOGIA PARA EL DISEÑO DE INFRAESTRUCTURA DE ALTA DISPONIBILIDAD TI	20/09/2011	1	441	180	default	441	\N	\N	\N
-PROTOCOLO SERVIDOR VIRTUAL EN NUBE PARA RESPALDO Y ACTUALIZACION DINAMICA DE AGENDA TELEFONICA CELULAR		3	442	\N	default	442	\N	\N	\N
-HERRAMIENTA INTERACTIVA PARA APOYAR LA EVALUACIÓN DE PACIENTES EN TRATAMIENTO DEL TRASTORNO DE DÉFICIT ATENCIONAL A PARTIR DEL RASTREO OCULAR	1/2014	3	436	\N	default	436	\N	\N	\N
-PLATAFORMA PARA EL APOYO A LA EVALUACIÓN Y DEFINICIÓN DE GESTOS CORPORALES EN LA INTERACCIÓN CON OBJETOS DIGITALES DE INFORMACIÓN	1/2014	3	437	\N	default	437	\N	\N	\N
-EVALUACIÓN IMPLÍCITA DE CARGA COGNITIVA DURANTE EL PROCESAMIENTO DE INFORMACIÓN A PARTIR DE PATRONES DE LECTURA	1/2014	3	438	\N	default	438	\N	\N	\N
-FÁBRICA DE COLABORATORIOS PARA APOYAR LA INVESTIGACIÓN EN BÚSQUEDA COLABORATIVA DE INFORMACIÓN	2/2014	3	439	\N	default	439	\N	\N	\N
-PLATAFORMA PARA LA DEFINICIÓN Y APOYO A LA EVALUACIÓN DE RETROALIMENTACIÓN TÁCTIL EN LA INTERACCIÓN CON OBJETOS DE INFORMACIÓN DIGITAL A TRAVÉS DE INTERFACES NATURALES	2/2014	3	440	\N	default	440	\N	\N	\N
+DESARROLLO DE UNA HERRAMIENTA DE SOFTWARE BASADA EN UN MARCO DE TRABAJO PARA LA GUÍA DE GESTIÓN DE PROYECTOS TI PARA PUMES	09/04/12	0	274	\N	2/2016	274	\N	\N	2/2016
+REDISEÑO DE PROCESOS: IMPLEMENTACION DE SISTEA RIS/PACS EN UNIDAD DE IMAGENOLOGIA, HOSPITAL SAN JUAN DE DIOS	4/8/2010	0	412	\N	2/2016	412	\N	\N	2/2016
+SISTEMA DE INFORMACIÓN WEB, PARA LA "CLÍNICA DENTAL - ALEXANDRA ALVAREZ"	2/2011	0	427	\N	2/2016	427	\N	\N	2/2016
+SISATEMA DE INVENTARIO WEB PARA APOYAR LA GESTIÓN DE LA EMPRESA VTV LTDA.	26-07-2012	0	418	\N	2/2016	418	\N	\N	2/2016
+SISTEMA DE ASIGNACIÓN DE LABORATORIOS DE DOCENCIA	4/8/2010	0	419	\N	2/2016	419	\N	\N	2/2016
+ENUMERACIÓN DE CONJUNTOS INDEPENDIENTES MAXIMALES EN GRAFOS "K-TREE"	05/10/11	0	382	\N	2/2016	382	\N	\N	2/2016
+SISTEMA WEB DE APOYO A LA GESTON DE ADQUISICIONES DE MATERIALES DE CONSTRUCCION DE LA CONSTRUCCION KOPPMANN	7/4/2011	0	222	\N	2/2016	222	\N	\N	2/2016
 RED SOCIAL TWITTER APLICADA A SEGURIDAD DOMOTICA PROTOTIPO CON ACCESO MOBILE	8/22/2011	1	443	181	default	443	\N	\N	\N
-DESARROLLO DE OBJETOS DE APRENDIZAJE PARA EL ESTUDIO DE LAS REDES IP	2/2013	3	449	\N	default	449	\N	\N	\N
 TECNOLOGÍA QR MÓVIL DE APOYO A LA VENTA ONLINE Y FUNCIÓN DE CAJEROS MÓVILES EN SUPERMERCADOS.	8/22/2011	1	444	182	default	444	\N	\N	\N
-PROTOTIPO DE NODO OBSERVATORIO TERRITORIAL INTEGRADO EN RED,PARA GEOLOCALIZACIÓN DE RECURSOS Y APOYO A LA GESTIÓN DINÁMICA COMUNAL (P-NOT).	12/7/2010	3	445	\N	default	445	\N	\N	\N
-NODO COMUNAL INTEGRABLE A RED DE GEO-REPRESENTACIÓN DE ZONAS DE RIESGO Y CONTINGENCIA TERRITORIAL, BASADO EN SOFWARE LIBRE (NODO CIR-GR2).	13/08/2010	3	446	\N	default	446	\N	\N	\N
-SISTEMA PARA EL MANEJO DE PARTITURAS DIGITALES BASADA EN TECNOLOGÍA TOUCH-MOBILE PARA ORQUESTAS SINFÓNICAS.		3	447	\N	default	447	\N	\N	\N
-DESARROLLO DE UNA APLICACIÓN MULTIMEDIA QUE APOYE EL APRENDIZAJE DEL IDIOMA CHINO MANDARIN COMO LENGUAJE EXTRANJERA ORIENTADO A LA ESCRITURA	7/10/2011	3	450	\N	default	450	\N	\N	\N
-DISEÑO DE UN LABORATORIO VIRTUAL PARA EL CURSO CRIPTOGRAFÍA	05/08/11	3	451	\N	default	451	\N	\N	\N
-OBJETO DE APRENDIZAJE PARA EL ESTUDIO DE REDES DE ÁREA LOCAL	1/2014	3	454	\N	default	454	\N	\N	\N
 SISTEMA DE MONITIREO REMOTO EXCLUSIVO PARA DISPOSITIVOS CON SOPORTE IPV6	10/5/2011	1	452	183	default	452	\N	\N	\N
-DESARROLLO DE OBJETOS DE APRENDIZAJE PARA EL APOYO A LA INTRODUCCIÓN A LA PROGRAMACIÓN	1/2014	3	455	\N	default	455	\N	\N	\N
 SISTEMA DE APOYO DE GESTIÓN EFICIENTE DE LAS ENERGÍAS DEL DIINF		1	453	184	default	453	\N	\N	\N
-DESARROLLO DE OBJETOS DE APRENDIZAJE PARA APOYAR EL ESTUDIO DE LAS REDS SATELITALES	2/2012	3	456	\N	default	456	\N	\N	\N
 OBJETOS DE APRENDIZAJE PARA APOYAR LA COMPRESIÓN Y APLICACIÓN DE LOS FUNDAMENTOS DE DESARROLLO WEB	04/12/12	1	457	185	default	457	\N	\N	\N
-DESARROLLO DE UN FRAMEWORK PARA LA CONSTRUCCIÓN DE OBJETOS DE APRENDIZAJE		3	461	\N	default	461	\N	\N	\N
 DISEÑO E IMPLEMENTACIÓN DE UN SISTEMA DE COMPRA VENTA DE SEGUROS EN LÍNEA	25/04/12	1	458	186	default	458	\N	\N	\N
-DESARROLLO DE UN SISTEMA DE NOTIFICACIONES A TRAVÉS DE REDES SOCIALES DE INTERNET	19/03/13	3	460	\N	default	460	\N	\N	\N
-SISTEMA DE COMUNICACIÓN DE EMERGENCIAS AL CUERPO DE BOMBEROS DE SANTIAGO	1/2014	3	463	\N	default	463	\N	\N	\N
 DISEÑO E IMPLEMENTACIÓN DE RED COMPUTACIONAL EMPRESA VYS	02/04/12	1	462	187	default	462	\N	\N	\N
-SOFTWARE DE APOYO AL SEGUIMIENTO DEL PLAN ESTRATÉGICO DE LA EMPRESA PÚBLICA EMERES	7/11/2013	3	464	\N	default	464	\N	\N	\N
 OBJETO DE APRENDIZAJE PARA EL ESTUDIO DE DISTRIBUCIÓN DE CLAVES CRIPTOPOGRÁFIA		1	465	188	default	465	\N	\N	\N
-DESARROLLO DE OBJETOS DE APRENDIZAJE PARA APOYAR EL ESTUDIO DE LOS MÉTODOS DE DETECCIÓN Y CORRECCIÓN DE ERRORES EN LA TRANSMISIÓN DE DATOS.	3/10/2013	3	468	\N	default	468	\N	\N	\N
 MODELO PARA LA AUTORIZACIÓN DE TRANSACCIONES FINANCIERAS BASADO EN ESTÁNDAR EMV	12/11/12	1	466	189	default	466	\N	\N	\N
-OBJETO DE APRENDIZAJE PARA TRANSMISIÓN DE DATOS		3	471	\N	default	471	\N	\N	\N
 APLICACIÓN DE APOYO AL APRENDIZAJE DE LA FONÉTICA DEL IDIOMA CHINO MANDARÍN.	15/10/11	1	467	190	default	467	\N	\N	\N
-EVALUCION DE LA EFICIENCIA DE LOS OBJETOS DE APRENDIZAJE QUE APOYAN LA ENSEÑANZA DE LOS ALUMNOS DEL CURSO DE CRIPTOGRAFIA	20/06/11	3	469	\N	default	469	\N	\N	\N
-DESARROLLO DE OBJETOS DE APRENDIZAJE PARA EL ESTUDIO DE PROTOCOLOS CRIPTOGRÁFICOS CLÁSICOS	2/2013	3	472	\N	default	472	\N	\N	\N
 METODOLOGÍA PARA EL DESARROLLO DE OBJETOS DE APRENDIZAJE	11/01/13	1	470	191	default	470	\N	\N	\N
-OBJETOS DE APRENDIZAJE PARA EL ESTUDIO DEL MARCO DE TRABAJO DE DESARROLLO DE SOFTWARE SCRUM	1/2014	3	473	\N	default	473	\N	\N	\N
 OBJETOS DE APRENDIZAJE EN APOYO A CONDUCTAS DE AUTOCUIDADO PARA NIÑOS Y JÓVENES CON DISCAPACIDAD INTELECTUAL	11/01/13	1	475	192	default	475	\N	\N	\N
-SERVICIO DE COMUNICACIÓN POR VOZ EN UNA RED INALÁMBRICA DE MALLA SIMULADA	1/2014	3	474	\N	default	474	\N	\N	\N
 	2/2013	1	476	193	default	476	\N	\N	\N
-PLAN DE CAPACITACIÓN EMPRESARIAL PARA ENSEÑAR TELEFONIA CELULAR USANDO OBJETOS DE APRENDIZAJE	05/08/11	3	478	\N	default	478	\N	\N	\N
-SOFTWARE PREDICTIVO DE APOYO A LA PLANEACIÓN DE CAPACIDAD DE INFRAESTRUCTURAS DE RED		3	477	\N	default	477	\N	\N	\N
 OBJETOS DE APRENDIZAJE PARA EL ESTUDIO DEL PROTOCOLO DE AUTENTICACIÓN KERBEROS	11/01/13	1	479	194	default	479	\N	\N	\N
-EAPECIFICACIÓNES FORMAL DE UNA RED MESH ORIENTADA AL ESTUDIO DE ALGORITMOS DE ENRUTAMIENTO Y AUTENTICACIÓN.		3	482	\N	default	482	\N	\N	\N
 SERVICIO DE CONFIDENCIALIDAD EN RED DE MALLA INALAMBRICA	2/2013	7	483	\N	default	483	\N	\N	\N
-UNA PLATAFORMA CROWDSOURCING PARA LA PREPARACIÓN DE LA PSU	1/2014	3	480	\N	default	480	\N	\N	\N
 OBJETOS DE APRENDIZAJE PARA APOYAR EL ESTUDIO DE PROTOCOLOS DE SEGURIDAD PARA CORREO ELECTRÓNICOS	30/03/2012	1	486	195	default	486	\N	\N	\N
-DESARROLLO DE OBJETOS DE APRENDIZAJE PARA APOYAR EL ESTUDIO DE LAS REDES DE AREA LOCAL (ETHERNET)	13/08/2013	3	481	\N	default	481	\N	\N	\N
 APLICACION DE APOYO AL APRENDIZAJE DE LA ESCRITURA EN CHINO MANDARIN		1	487	196	default	487	\N	\N	\N
-OBJETOS DE APRENDIZAJE PARA APOYAR LA COMPRENSIÓN Y APLICACIÓN DE IPV6.	27/07/11	3	488	\N	default	488	\N	\N	\N
-GUÍ METODOLÓGICA PARA LA IMPLEMENTACIÓN DE UN PROTOCOLO DE AUTENTICACIÓN BASADO EN KERBEROS.	28/08/2009	3	489	\N	default	489	\N	\N	\N
-DESARROLLO DE OBJETOS DE APRENDIZAJE ENFOCADOS EN TRANSMISIÓN INALÁMBRICA	01/03/12	3	491	\N	default	491	\N	\N	\N
-OBJETO DE APRENDIZAJE PARA APOYAR EL APRENDIZAJE DE LA HERRAMIENTA OMNET++	22/09/2014	3	484	\N	default	484	\N	\N	\N
 OBJETOS DE APRENDIZAJE PARA APOYAR EL ESTUDIO DE LA SEGURIDAD EN REDES A TRAVÉS DE FUNCIONES HASH, FUNCIONES MAC Y FIRMA DIGITAL	11/10/12	1	494	197	default	494	\N	\N	\N
-OBJETOS DE APRENDIZAJE COMO HERRAMIENTA DE APOYO A LA ENSEÑANZA DE PROTOCOLOS DE SEGURIDAD EN LA RED.	04/10/12	3	485	\N	default	485	\N	\N	\N
 SISTEMA DE GESTIÓN DE PROYECTOS CONSULTORA SAP PRIME GROUP.	03/05/11	1	496	198	default	496	\N	\N	\N
-OBJETOS DE APRENDIZAJE PARA APOYAR EL ESTUDIO DE APLICACIONES DE TIEMPO REAL EN INTERNET	1/2014	3	490	\N	default	490	\N	\N	\N
-DESARROLLO DE OBJETOS DE APRENDIZAJE PARA APOYAR EL ESTUDIO DEL IDIOMA INGLÉS EN NIÑOS PREESCOLARES	22/07/2013	3	492	\N	default	492	\N	\N	\N
-SERVICIO PARA COMPARTIR MATERIAL DE ESTUDIO SOBRE UNA RED INALÁMBRICA DE MALLA SIMULADA 	1/2014	3	493	\N	default	493	\N	\N	\N
-OBJETO DE APRENDIZAJE PARA APOYAR EL PROCESO DE LECTURA INFANTIL	1/2014	3	495	\N	default	495	\N	\N	\N
-APLICACIÓN DE APOYO AL APRENDIZAJE DE LA GRAMÁTICA DEL CHINO MANDARIN	1/2014	3	497	\N	default	497	\N	\N	\N
-EVALUACION DE UNA NUEVA METODOLOGIA PARA EL DESARROLLO DE OBJETOS DE APRENDIZAJE		3	503	\N	default	503	\N	\N	\N
+GUÍ METODOLÓGICA PARA LA IMPLEMENTACIÓN DE UN PROTOCOLO DE AUTENTICACIÓN BASADO EN KERBEROS.	28/08/2009	0	489	\N	2/2016	489	\N	\N	2/2016
+DESARROLLO DE OBJETOS DE APRENDIZAJE ENFOCADOS EN TRANSMISIÓN INALÁMBRICA	01/03/12	0	491	\N	2/2016	491	\N	\N	2/2016
+EVALUACIÓN IMPLÍCITA DE CARGA COGNITIVA DURANTE EL PROCESAMIENTO DE INFORMACIÓN A PARTIR DE PATRONES DE LECTURA	1/2014	0	438	\N	2/2016	438	\N	\N	2/2016
+DESARROLLO DE SISTEMA DE COTIZACIÓN Y DE CONTROL DE EXISTENCIAS PARA LA EMPRESA ALUMAR	11/10/12	0	423	\N	2/2016	423	\N	\N	2/2016
+SISTEMA WEB DE APOYO A LA ADMINISTRACION Y PLANIFICACION DE EVIDENCIA NORMATIVA DE AUDITORIAS PARA NEXUS S.A.	7/4/2011	0	424	\N	2/2016	424	\N	\N	2/2016
+PROTOCOLO SERVIDOR VIRTUAL EN NUBE PARA RESPALDO Y ACTUALIZACION DINAMICA DE AGENDA TELEFONICA CELULAR		0	442	\N	2/2016	442	\N	\N	2/2016
+HELLO WORLD THEME	10/06/2015	0	600	\N	2/2016	607	\N	\N	2/2016
+EVALUACION DE UNA NUEVA METODOLOGIA PARA EL DESARROLLO DE OBJETOS DE APRENDIZAJE		0	503	\N	2/2016	503	\N	\N	2/2016
+OBJETOS DE APRENDIZAJE COMO HERRAMIENTA DE APOYO A LA ENSEÑANZA DE PROTOCOLOS DE SEGURIDAD EN LA RED.	04/10/12	0	485	\N	2/2016	485	\N	\N	2/2016
+DESARROLLO DE OBJETOS DE APRENDIZAJE PARA APOYAR EL ESTUDIO DEL IDIOMA INGLÉS EN NIÑOS PREESCOLARES	22/07/2013	0	492	\N	2/2016	492	\N	\N	2/2016
+OBJETO DE APRENDIZAJE PARA APOYAR EL APRENDIZAJE DE LA HERRAMIENTA OMNET++	22/09/2014	0	484	\N	2/2016	484	\N	\N	2/2016
+FÁBRICA DE COLABORATORIOS PARA APOYAR LA INVESTIGACIÓN EN BÚSQUEDA COLABORATIVA DE INFORMACIÓN	2/2014	0	439	\N	2/2016	439	\N	\N	2/2016
 DESARROLLO DE OBJETOS DE APRENDIZAJE INTERACTIVOS PARA APOYAR EL ESTUDIO DE LOS MÉTODOS DE DETECCIÓN Y CORRECCIÓN DE ERRORES EN LA TRANSACCIÓN DE DATOS	2/2013	1	498	199	default	498	\N	\N	\N
 OBJETOS DE APRENDIZAJE PARA APOYAR EL ESTUDIO DE LOS PROTOCOLOS USADOS EN APLICACIONES TIEMPO-REAL EN INTERNET, REAL TIME PROTOCOL (RTP) Y REAL TIME PROTOCOL (RTCP).	12/5/2014	7	499	\N	default	499	\N	\N	\N
-OBJETOS DE APRENDIZAJE PARA EL ESTUDIO DE ALGORITMOS HASH.	20/09/11	3	500	\N	default	500	\N	\N	\N
-DESARROLLO DE UN SISTEMA DE INFORMACIÓN PARA OPTIMIZAR LA GESTIÓN DE PLANIFICACIÓN DE LA RED DE TRANSMISIÓN ELÉCTRICA.	30/11/2011	3	501	\N	default	501	\N	\N	\N
-OBJETOS DE APRENDIZAJE PARA EL ESTUDIO DE PROTOCOLOS DE APLICACIÓN EN INTERNET	1/2014	3	508	\N	default	508	\N	\N	\N
+VISUALIZANDO DIÁLOGOS EN COMUNIDADES VIRTUALES DE APRENDIZAJE	22/08/2014	0	115	\N	2/2016	115	\N	\N	2/2016
+PROTOTIPO FUNCIONAL DE UNA RED SOCIAL VERTICAL PARA EL SOFTWARE GREI	11/10/12	0	132	\N	2/2016	132	\N	\N	2/2016
+ANALISIS BIOMECANICA DE ANGULOS EN LA SALIDA DE TACOS	05/10/11	0	133	\N	2/2016	133	\N	\N	2/2016
 EVALUACIÓN DE METODOLOGÍA CPIS PARA EL DESARROLLO DE OBJETOS DE APRENDIZAJE		1	504	200	default	504	\N	\N	\N
-DESARROLLO DE OBJETOS DE APRENDIZAJE PARA EL ESTUDIO DE LOS MECANISMOS DE CONTROL DE CONGESTIÓN EN REDES DE CONMUTACIÓN DE PAQUETES	1/2014	3	511	\N	default	511	\N	\N	\N
+ANÁLISIS Y DESARRLLO DE UN DSS PARA LA SELECCIÓN DE PERSONAS TI	26/05/2010	0	240	\N	2/2016	240	\N	\N	2/2016
 OBJETOS DE APRENDIZAJE PARA APOYAR EL ESTUDIO Y COMPRENSIÓN DE LOS PROTOCOLOS DE SEGURIDAD IPSEC Y SSL PARA INTERNET	11/10/12	1	505	201	default	505	\N	\N	\N
-DESARROLLO DE OBJETOS DE APRENDIZAJE PARA APOYAR EL ESTUDIO DE LAS REDES WI-FI Y WI-MAX	22/07/2013	3	514	\N	default	514	\N	\N	\N
 DESARROLLO DE UN REPOSITORIO DE OBJETOS DE APRENDIZAJE PARA EL DEPARTAMENTO DE INGENIERÍA INFORMÁTICA	27/12/2012	1	506	202	default	506	\N	\N	\N
-MODELO DE GESTIÓN DE COTIZACIONES Y VENTAS DE SEGUROS DE VEHÍCULOS	24/10/2014	3	517	\N	default	517	\N	\N	\N
 IMPLEMENTACIÓN DE SEGURIDAD EN ROLES Y PERFILES PARA SAP ERP EN CONSTRUMART S.A.	12/11/12	1	507	203	default	507	\N	\N	\N
-OBJETO DE APRENDIZAJE SOBRE LA DIRECCIÓN Y GESTIÓN DE PROYECTOR TI	1/2014	3	521	\N	default	521	\N	\N	\N
 APLICACIÓN WEB PARA LA ADMINISTRACIÓN DE EVALUACIONES DE ATENCIÓN A CLIENTES PARA CONSULTORA GETGAIN	13/1/12	1	509	204	default	509	\N	\N	\N
-OBJETOS DE APRENDIZAJE PARA APOYAR LA COMPRENSIÓN DE LOS CIFRADORES SIMÉTRICOS RC4, IDEA Y BLOWFISH	5/3/2013	3	522	\N	default	522	\N	\N	\N
 DESARROLLO DE OBJETIVOS DE APRENDIZAJE PARA APOYAR EL ESTUDIO DE LOS MECANISMOS DE CONTROL DE CONGESTION USANDO REDES DE CONMUTACION DE PAQUETES		1	510	205	default	510	\N	\N	\N
-DISEÑO, IMPLEMENTACIÓN Y ANÁLISIS DE BLOQUES ATÓMICOS EN CONTRA DE SSCA, ATAQUES C-SAFE-FAULTS Y ATAQUES DE COLISIÓN DE CORRELACIÓN HORIZONTAL EN CRIPTOGRAFÍA DE CURVA ELÍPTICA	2/2014	3	523	\N	default	523	\N	\N	\N
 DESARROLLO DE OBJETOS DE APRENDIZAJE PARA APOYAR EL ESTUDIO DE LAS REDES DE TELEFONÍA CELULAR.	30/05/11	1	512	206	default	512	\N	\N	\N
-OBJETO DE APRENDIZAJE PARA APOYAR LA ENSEÑANZA DE PROTOCOLOS DE VENTANA DESLIZANTE	2/2014	3	524	\N	default	524	\N	\N	\N
 OBJETOS DE APRENDIZAJE PARA APOYAR LA COMPRENSIÓN DE LOS CIFRADOS SIMÉTRICOS AES Y DES.	10/11/11	1	513	207	default	513	\N	\N	\N
-APLICACIÓN DE UN MÉTODO DE VALIDACIÓN SOBRE LOS OBJETOS DE APRENDIZAJE DEL REPOSITORIO DEL DIINF	2/2014	3	525	\N	default	525	\N	\N	\N
 METODO DE VALIDACION PARA OBJETOS DE APRENDIZAJE	25/10/2013	1	515	208	default	515	\N	\N	\N
-OBJETOS DE APRENDIZAJE SOBRE CRIPTOGRAFÍA SIMÉTRICO PARA BLOWFISH	2/2014	3	526	\N	default	526	\N	\N	\N
 UN ALGORITMO DE AUTENTICACIÓN PARA LA SEGURIDAD EN REDES DE MALLA	11/10/12	1	516	209	default	516	\N	\N	\N
-PROCESO DE NEGOCIO Y REQUERIMIENTOS PARA SISTEMA DE RECLUTAMIENTO Y SELESCCIÓN DE EMPRESA DE ÁREA FINANCIERA	19/01/13	3	518	\N	default	518	\N	\N	\N
-LOCALIZACIÓN Y SEGUIMIENTO DE PERSONAS DENTRO DE UN TREN EN MOVIMIENTO UTILIZANDO VISIÓN ARTIFICIAL	2/2013	3	527	\N	default	527	\N	\N	\N
 ESTUDIO Y DESARROLLO DE UN SISTEMA DE RESPALDO (BACKUP) Y RECUPERACIÓN PARA LA SEGURIDAD Y CONTINUIDAD OPERACIONAL DE PROVECTIS S.A.	06/01/11	1	519	210	default	519	\N	\N	\N
-DISEÑO E IMPLEMENTACIÓN DE UN REPOSITORIO DE OAS PARA EL DEPARTAMENTO DE INGENIÉRIA INFORMÁTICA	01/08/12	3	520	\N	default	520	\N	\N	\N
-CONTABILIZACIÓN DE PERSONAS QUE SUBEN Y BAJAN DE UN TREN METROPOLITANO USANDO VISIÓN POR COMPUTADOR	2/2013	3	528	\N	default	528	\N	\N	\N
+EVALUACIÓN DEL EFECTO DE FACTORES EXTERNOS EN LA RESOLUCIÓN DE UN PROBLEMA NP-C UTILIZANDO JUEGOS COMPUTACIONALES.	10/07/11	0	242	\N	2/2016	242	\N	\N	2/2016
 PICKUP AND DELIVERY PROBLEM: APLICACIÓN AL PROBLEMA DE ASIGNACIÓN DE TAREAS PARA LA FLOTA DE CAMIONES DE TRANSPORTES BELLO.	10/11/11	1	533	211	default	533	\N	\N	\N
-UN MODELO DE OPTIMIZACIÓN PARA EL RUTEO DE FLOTA DE CAMIONES DE UNA EMPRESA DE TRANSPORTES	21/12/09	3	535	\N	default	535	\N	\N	\N
-UNA SOLUCIÓN AL PROBLEMA DE PLANIFICACIÓN DE DISTRIBUCIÓN DE CONTENEDORES LLENOS Y VACÍOS.	05/10/11	3	537	\N	default	537	\N	\N	\N
-DETECCIÓN DE PERSONAS EN TIEMPO REAL MEDIANTE EL USO DE UNA RASPBERRY PI	2/2013	3	529	\N	default	529	\N	\N	\N
 GENERACION DE NUEVOS ALGORITMOS UTILIZANDO PROGRAMACION GENETICA PARA EL PROBLEMA DE OPTIMIZACION JOB SHOP FLEXIBLE		1	538	212	default	538	\N	\N	\N
-DETECCIÓN DE VEHÍCULOS DETENIDOS EN SECTORES PROHIBIDOS DEL TRÁFICO URBANO UTILIZANDO TÉCNICAS DE VISIÓN POR COMPUTADOR.	2/2013	3	530	\N	default	530	\N	\N	\N
 SITIO WEB PARA LA INCORPORACION DE VIDEOS EN LAS SALAS DE CLASES	7/4/2011	1	539	213	default	539	\N	\N	\N
-ANÁLISIS COMPARATIVO DE CLASIFICADORES EN CUANTO A SU SENSIBILIDAD ESPACIAL PARA LA DETECCIÓN DE PEATONES EN IMÁGENES	1/2014	3	531	\N	default	531	\N	\N	\N
 RESOLVIENDO EL PROBLEMA CORTE DE PIEZAS GUILLOTINA MEDIANTE LA COMPUTACION EVOLUTIVA	1/2013	1	540	214	default	540	\N	\N	\N
-DETECCIÓN, LOCALIZACIÓN Y CONTEO AUTOMÁTICO DE PERSONAS QUE ENTRAN A UN MICROBÚS, MEDIANTE ALGORITMOS DE VISIÓN POR COMPUTADOR.	2/2013	3	532	\N	default	532	\N	\N	\N
 ALGOBOTS PARA EL PROBLEMA DE LA MOCHILA MULTIDIMENSIONAL		1	541	215	default	541	\N	\N	\N
-GENERACION AUTOMATICA DE ALGORITMO PARA EL PROBLEMA DE FORMACION DE CELULAS DE MANUFACTURAS	12/10/11	3	542	\N	default	542	\N	\N	\N
-ESTUDIO DE APLICABILIDAD DE VIDEOS JUEGOS PARA SOLUCIONAR PROBLEMAS DE OPTIMIZACION	28/07/10	3	544	\N	default	544	\N	\N	\N
-SISTEMA WEB DE VIDEOS CLASIFICADOS DE APOYO EN LA PREPARACIÓN DE ESTUDIANTES PARA LA PSU-MATEMÁTICAS		3	534	\N	default	534	\N	\N	\N
+PROTOTIPO DE SOFTWARE Y ESTUDIO DE MERCADO DE UNA PLATAFORMA SOCIAL DE APRENDIZAJE.	27/09/2010	0	245	\N	2/2016	245	\N	\N	2/2016
 GENERACION DE ALGORITMOS PARA EL PROBLEMA JOB-SHOP FLEXIBLE UTILIZANDO PROGRAMACION GENETICA		1	545	216	default	545	\N	\N	\N
-EVOLUCIÓN DE METAHEURÍSTICAS PARA PROBLEMAS DE OPTIMIZACIÓN COMBINATORIA	1/2014	3	536	\N	default	536	\N	\N	\N
 UN ALGORITMO GENÉTICO COOPERATIVO PARA PROBLEMAS DE CORTES Y EMPAQUE	19/07/2012	1	546	217	default	546	\N	\N	\N
-UNA SOLUCIÓN HEURÍSTICA PARA EL PROBLEMA ASIGNACIÓN DE BUSES Y TRIPULACIONES CONSIDERANDO SUS ROTACIONES.		3	547	\N	default	547	\N	\N	\N
-DETECCIÓN DE FALLAS EN GRANJA FOTOVOLTAICA MODULAR DE 10 MW/H	1/2014	3	543	\N	default	543	\N	\N	\N
-INFRAESTRUCTURA EMPRESARIAL PARA OBSERVATORIO DE LA WEB: CASO DE LA GENERACIÓN DE NOTICIAS EN UNA RED SOCIAL CORPORATIVA CON UN PROCESO DE NEGOCIO ASOCIADO	9/9/2014	3	86	\N	default	86	\N	\N	\N
 MEJORA DE ALGORITMOS AUTOMÁTICOS PARA EL PROBLEMA DE LA MOCHILA IDENTIFICANDO EL CONJUNTO DE FUNCIONES Y TERMINALES ADECUADO	11/10/12	1	550	218	default	550	\N	\N	\N
-AGENTES RECURSIVOS PARA EL CONTROL DE LA CENTRALIZACIÓN Y DISTRIBUCIÓN DE LAS DECISIONES EN SISTEMAS INTELIGENTES DE PRODUCCIÓN	30/03/2012	3	551	\N	default	551	\N	\N	\N
-CONTINUOUSDELIVERY DE SERVICIOS DE RECOMENDACIÓN EN UNA RED SOCIAL EMPRESARIAL DE NOTICIAS	10/6/2014	3	101	\N	default	101	\N	\N	\N
 EVOLUCION DE ALGORITMOS DETECTORES DE TRAYECTORIA PARA EL PROBLEMA DEL VENDEDOR VIAJERO		1	554	219	default	554	\N	\N	\N
-EFECTOS DEL CRITERIO DE ENFRIAMIENTO SOBRE SIMULATED ANNEALING EN LA RESOLUCIÓN DEL PROBLEMA DEL ÁRBOL DE COBERTURA MÍNIMA	04/10/12	3	555	\N	default	555	\N	\N	\N
-DISEÑO Y DESARROLLO DE UNA PLATAFORMA PARA EL SOPORTE DE LAS CLASAS VIRTUALES EN CURSOS DE INGENIERÍA EN EJECUCIÓN EN COMPUTACIÓN E INFORMÁTICA.	20/12/10	3	556	\N	default	556	\N	\N	\N
 REGISTRO DE IMÁGENES ASTRONÓMICAS	2/2013	\N	557	\N	default	557	\N	\N	\N
-DESARROLLO DE SISTEMAS WORKFLOW PARA EL PLANTEAMIENTO Y VERIFICACIÓN DE COMPETENCIAS DE MANEJO DE PROYECTOS EN LOS CURSOS DE INGENIERÍA CIVIL INFORMÁTICA	1/2014	3	108	\N	default	108	\N	\N	\N
 UN JUEGO GENERADOR DE ALGORITMOS PARA EL PROBLEMA DE LA MOCHILA.	20/09/11	1	558	220	default	558	\N	\N	\N
-DESARROLLO Y APLICACIÓN DE MODELO DINÁMICO EN AMBIENTE REAL DE CONMINUCIÓN PARA ESTIMAR EN LINEA VARIABLES CRÍTICAS DE MOLIENDA SEMIAUTÓGENA	1/2012	3	151	\N	default	151	\N	\N	\N
 GENERACION ATOMATICA DE ALGORITMOS PARA EL PROBLEMA DEL VENDEDOR VIAJERO		1	559	221	default	559	\N	\N	\N
-UNA RESOLUCIÓN AL PROBLEMA DE LA SELECCIÓN UBICADA DE INTERRUPTORES EN UN SISTEMA DE DISTRIBUSIÓN ELÉCTRICO, CON MÉTODO DE OPTIMIZACIÓN HEURÍSTICA ALGORITMO GENÉTICO PARALELO		3	560	\N	default	560	\N	\N	\N
-UN SISTEMA WEB PARA MEJORAR EL RENDIMIENTO DE IMPRESORAS AL ENVIAR TRABAJOS DE IMPRESIÓN MASIVA	22/07/2013	3	214	\N	default	214	\N	\N	\N
 SOLUCIÓN NUMÉRICA AL PROBLEMA DEL ÁRBOL DE COBERTURA MÍNIMO GENERALIZADO MEDIANTE SIMULATED ANNEALING	26/09/2012	1	561	222	default	561	\N	\N	\N
-DESARROLLO E IMPLEMENTACIÓN DE APLICACIÓN MÓVIL EN ANDROID PARA EL CONTROL PERSONALIZADO DE LA ALIMENTACIÓN	2/2013	3	250	\N	default	250	\N	\N	\N
 REDUCCIÓN DE ARISTAS PARA INSTANCIAS DE ÁRBOL DE COBERTURA MÍNIMO GENERALIZADO	03/09/12	1	562	223	default	562	\N	\N	\N
-IMPLEMENTACIÓN DE UN ERP DE APOYO A LA ADMINISTRACIÓN DEL SALÓN DE BELLEZA ÁRTICO	1/2014	3	299	\N	default	299	\N	\N	\N
 UNA CONTRIBUCIÓN AL PROBLEMA DE ASIGNACIÓN DE VEHÍCULOS CON MÚLTLIPES DEPÓSITOS Y MANTENCIONES PROGRAMADAS	26/04/12	1	563	224	default	563	\N	\N	\N
-GENERACIÓN AUTOMÁTICA DE ALGORITMOS PARA EL PROBLEMA DE CORTE DE PIEZAS NO GUILLOTINA CON PROGRAMACIÓN GENÉTICA BINARIA PARALELA.	02/12/10	3	564	\N	default	564	\N	\N	\N
-EVALUACIÓN DE LOS MÉTODOS NARX Y NARMAX CON REDES NEURONALES Y MÁQUINA DE SOPORTE VECTORIAL PARA LA ESTIMACIÓN DE LA ACCIDENTABILIDAD EN LA MINERÍA	2/2012	3	552	\N	default	552	\N	\N	\N
 GENERACIÓN AUTOMÁTICA DE ALGORITMOS DE CLUSTERIZACIÓN.		1	566	225	default	566	\N	\N	\N
-GENERACIÓN DE UNA SOLUCIÓN HEURÍSTICA PARA EL PROBLEMA DE TSPPC A TRAVÉS DE LA PROGRAMACIÓN GENÉTICA	1/2014	3	553	\N	default	553	\N	\N	\N
 BÚSQUEDA DE ALGORITMOS ESPECIALIZADOS PARA FAMILIAS DE INSTANCIAS DE PROBLEMAS DE OPTIMIZACIÓN	2/2013	1	567	226	default	567	\N	\N	\N
-GENERACIÓN DE LA CALENDARIZACIÓN DE LOS PARTIDOS DEL CAMPEONATO DE FÚTBOL DE CHILE MEDIANTE SIMULATED ANNEALING	1/2014	3	569	\N	default	569	\N	\N	\N
 NUEVOS ALGORITMOS ARTIFICIALES PARA LA ASIGNACION DE BUSES Y SERVICIOS DE CONDUCCION EN EL TRANSPORTE URBANO	13/11/10	1	568	227	default	568	\N	\N	\N
-IMPLEMENTACION DE HERRAMIENTA DE APOYO A LA GESTION DE LA DOCENCIA EN  COLEGIOS DE EDUCACION MEDIA BASDA EN TECNOLOGIA DE CODIGO ABIERTO		3	571	\N	default	571	\N	\N	\N
-GENERACIÓN DE ALGORITMOS PARA EL PROBLEMA DE OPTIMIZACIÓN CELL FORMATION PROBLEM UTILIZANDO COMPUTACIÓN EVOLUTIVA	2/2013	3	570	\N	default	570	\N	\N	\N
 DESARROLLO DE UN SISTEMA PARA MEJORAR LA BÚSQUEDA Y MANEJO DE ÍTEMS DE CONFIGURACIÓN PARA APOYO AL PROCESO DE GESTIÓN DE CONFIGURACIÓN ITIL V3	14/07/2014	1	572	228	default	572	\N	\N	\N
-APLICANDO INDICADORES A ALGORITMOS GENERADOS POR PROGRAMACIÓN GENÉTICA PARA EL PROBLEMA NP-C TSP.	28/05/2012	3	573	\N	default	573	\N	\N	\N
-GENERADOR DE ALGORITMOS PARA RESOLVER EL PROBLEMA DE LA PLANIFICACIÓN DE BUSES PARA EL TRANSPORTE URBANO DE PASAJEROS	1/2012	3	575	\N	default	575	\N	\N	\N
 NUEVOS ENFOQUES ALGORÍTMICOS PARA JOB SHOP SCHEDUBLING PROBLEM Y FLOW SHOP SCHEDULING PROBLEM	11/10/12	1	574	229	default	574	\N	\N	\N
-ALGORITMO DE CLASIFICACIÓN DE GALAXIAS SEGÚN SU MORFOLOGÍA EN IMÁGENES CAPTURADAS POR EL RADIOTELESCOPIO DEL OBSERVATORIO ALMA.	31/03/2014	3	578	\N	default	578	\N	\N	\N
 CREACIÓN AUTOMATICA DE ALGORITMOS PARA RESOLVER EL PROBLEMA DE CAMINO MINIMO BASANDOSE EN COMPUTACIÓN EVOLUTIVA0	11/10/12	1	576	230	default	576	\N	\N	\N
-DESARROLLO E IMPLEMENTACION DE CONTENIDOS DE UN SITIO WEB PARA LA SOLUCION DE LOS PROBLEMAS DEL CAMINO MINIMO, FLOW SHOP Y JOB SHOP Y ARBOL DE COBERTURA DE COSTO MINIMO	4/8/2010	3	577	\N	default	577	\N	\N	\N
-NUEVAS HIPERHEURÍSTICAS COMPETITIVAS PARA EL PROBLEMA DEL CONJUNTO INDEPENDIENTE MÁXIMO DE VÉRTICES	2/2013	3	579	\N	default	579	\N	\N	\N
 EVALUACIÓN DE ALGORITMOS GENÉTICOS CELULARES PARA EL PROBLEMA DE CORTE DE PIEZAS	11/01/13	1	581	231	default	581	\N	\N	\N
-DISEÑO DE UN ALGORITMO PARA EL PROBLEMA DEL COLOREAMIENTO DE GRAFOS A TRAVÉS DE UN JUEGO COMPUTACIONAL.		3	582	\N	default	582	\N	\N	\N
-GENERACIÓN DE ALGORITMOS UTILIZANDO PROGRAMACIÓN GENÉTICA PARA EL PROBLEMA DE OPTIMIZACIÓN GENERALIZED TRAVELLING SALESMAN PROBLEM	2/2013	3	580	\N	default	580	\N	\N	\N
 UN SISTEMA WEB DE VIDEOS EDUCATIVOS PARA SEGUNDO Y TERCER NIVEL DE INGENIERÍA.	07/10/11	1	583	232	default	583	\N	\N	\N
-CO-EVOLUCIÓN COMPUTACIONAL EN PROBLEMAS DE OPTIMIZACIÓN COMBINATORIA	2/2014	3	584	\N	default	584	\N	\N	\N
-REVISIÓN Y MEJORAS DEL SOFTWARE PARA LA ADMINISTRACIÓN DE LAS POSTULACIONES A PROGRAMAS VESPERTINOS DEL DIINF	2/2014	3	585	\N	default	585	\N	\N	\N
-DATOS SENSIBLES Y SU MANIPULACIÓN EN DISPOSITIVOS MÓVILES	2/2014	3	586	\N	default	586	\N	\N	\N
-APLICACIÓN MULTIPLATAFORMA PARA DENUNCIAS, SUCESOS Y EVENTOS GEOCALIZADOS EN TIEMPO REAL CON EVIDENCIA MULTIMEDIA	2/2014	3	587	\N	default	587	\N	\N	\N
-SISTEMA WEB DE CARACTERIZACIÓN BIOLÓGICA DE GRUPOS DE GENES 	2/2014	3	588	\N	default	588	\N	\N	\N
-SISTEMA DE INFORMACIÓN DOCENTE PARA APOYO A LA ACREDITACIÓN DE LOS PROGRAMAS DE PREGRADO DEL DEPARTAMENTO DE INGENIERÍA INFORMÁTICA DE LA UNIVERSIDAD DE SANTIAGO DE CHILE	2/2014	3	394	\N	default	394	\N	\N	\N
-OBJETOS DE APRENDIZAJE RELATIVOS AL TRATAMIENTO DE ERROR EN LA TRANSMISIÓN Y RECEPCIÓN DE DATOS	1/2014	3	448	\N	default	448	\N	\N	\N
-DESARROLLO DE OBJETOS DE APRENDIZAJE PARA APOYAR EL ESTUDIO DE LOS PROTOCOLOS DE TRANSPORTE UTILIZADOS EN REDES CONMUTACIÓN DE PAQUETES	2/2013	3	459	\N	default	459	\N	\N	\N
-DESARROLLO DE UN PROTOTIPO DE RED INALÁMBRICA DE MALLA PARA EL DEPARTAMENTO DE INGENIERÍA INFORMÁTICA	1/2014	3	502	\N	default	502	\N	\N	\N
-NUEVOS ALGORÍTMOS ARTIFICIALES DE OPTIMIZACIÓN PARA EL WEIGHTED INDEPENDENCE SET PROBLEM BAJO LA TEORÍA DE LA COMPUTACIÓN EVOLUTIVA		3	549	\N	default	549	\N	\N	\N
+SISTEMA WEB PARA PUBLICACION Y AYUDA A LA COMPRA-VENTA DE AUTOS DE EL PORTAL DEL AUTO	4/4/2011	0	284	\N	2/2016	284	\N	\N	2/2016
+SISTEMA WEB DE APOYO A LA LABOR COMERCIAL DE UNA EMPRESA DISTRIBUIDORA DE GAS LICUADO	7/4/2011	0	285	\N	2/2016	285	\N	\N	2/2016
+SISTEMA DE APOYO A LA ATENCIÓN DE CLIENTES	20/03/13	0	287	\N	2/2016	287	\N	\N	2/2016
+PROTOTIPO DE SUITE AFECTIVA PARA EL ANALISIS DE LA SATISFACCIÓN DEL USUARIO.	25/02/10	0	106	\N	2/2016	106	\N	\N	2/2016
+ENUMERACIÓN DE CONJUNTOS INDEPENDIENTES MAXIMALES EN GRAFOS LOBSTER		0	388	\N	2/2016	388	\N	\N	2/2016
+ETIQUETADO EMOCIONAL IMPLÍCITO EN REDES SOCIALES DE NOTICIAS	11/10/2012	0	119	\N	2/2016	119	\N	\N	2/2016
+SISTEMA DE GESTIÓN DE LA SEGURIDAD DE LA INFORMACIÓN PARA EL DIINF	2/2014	0	271	\N	2/2016	271	\N	\N	2/2016
 TEMA111	01/06/2015	1	595	239	1/2016	597	23/05/2015	16/05/2015	1/2016
-ASDTEMA	19/05/2015	0	597	\N	1/2016	602	\N	\N	\N
 SISTEMA WEW PARA AYUDAR A PADRES Y APODERADOS EN LA BUSQUEDA DE COLEGIOS USANDO UN OPEN DATE	11/10/2012	1	1	1	1/2015	1	17/05/2015	16/05/2015	\N
 TEMABAS	28/05/2015	1	593	236	1/2016	595	19/05/2015	16/05/2015	\N
 TEMA EJEMPLO 2	19/05/2015	1	598	240	1/2016	603	21/05/2015	20/05/2015	1/2016
@@ -4516,6 +4380,270 @@ TEMA PROP	15/05/2015	1	592	235	1/2016	594	23/05/2015	22/05/2015	\N
 TEMA	15/05/2015	1	594	237	1/2016	596	16/05/2015	15/05/2015	1/2016
 QWEQWE	30/03/2013	1	7	233	2/2011	7	21/05/2015	20/05/2015	1/2016
 SISTEMA WEB DE APOYO A LA GESTIÓN DE UNA ORGANIZACIÓN COMUNITARIA	20/12/2013	1	6	4	1/2016	6	21/05/2015	20/05/2015	1/2016
+DESARROLLAR UN JUEGO COMO HERRAMIENTA DE APRENDIZAJE PARA EL CURSO DE ECONOMÍA DE LA FACULTAD TECNOLÓGICA    	208/11/2014	0	300	\N	2/2016	300	\N	\N	2/2016
+SISTEMA DE APOYO AL PRCOESO DE EVALUACIÓN ECONÓMICA SOCIAL DE PROYECTOS DE VIALIDAD URBANA	2/2012	0	302	\N	2/2016	302	\N	\N	2/2016
+DISEÑO E IMPLEMENTACIÓN DE UN REPOSITORIO DE OAS PARA EL DEPARTAMENTO DE INGENIÉRIA INFORMÁTICA	01/08/12	0	520	\N	2/2016	520	\N	\N	2/2016
+CONTABILIZACIÓN DE PERSONAS QUE SUBEN Y BAJAN DE UN TREN METROPOLITANO USANDO VISIÓN POR COMPUTADOR	2/2013	0	528	\N	2/2016	528	\N	\N	2/2016
+UN MODELO DE OPTIMIZACIÓN PARA EL RUTEO DE FLOTA DE CAMIONES DE UNA EMPRESA DE TRANSPORTES	21/12/09	0	535	\N	2/2016	535	\N	\N	2/2016
+EVALUCION DE LA EFICIENCIA DE LOS OBJETOS DE APRENDIZAJE QUE APOYAN LA ENSEÑANZA DE LOS ALUMNOS DEL CURSO DE CRIPTOGRAFIA	20/06/11	0	469	\N	2/2016	469	\N	\N	2/2016
+DESARROLLO DE OBJETOS DE APRENDIZAJE PARA EL ESTUDIO DE PROTOCOLOS CRIPTOGRÁFICOS CLÁSICOS	2/2013	0	472	\N	2/2016	472	\N	\N	2/2016
+UNA PLATAFORMA CROWDSOURCING PARA LA PREPARACIÓN DE LA PSU	1/2014	0	480	\N	2/2016	480	\N	\N	2/2016
+DESARROLLO DE ESTRATÉGIAS DE PLANIFICACIÓN PARA MOTORES DE BÚSQUEDA VERTICALES		0	51	\N	2/2016	51	\N	\N	2/2016
+PLATAFORMA PARA LA GENERACIÓN Y APOYO A LA EVALUACIÓN DE VISUALIZAORES DE RESULTADOS DE BÚSQUEDA	1/2014	0	435	\N	2/2016	435	\N	\N	2/2016
+USO DE GPU EN ALGORITMOS DE BUSQUEDA LOCAL PARA EL PROBLEMA DE LA ASIGNACION CUADRATICA	05/10/11	0	312	\N	2/2016	312	\N	\N	2/2016
+TEMA SEMESTRE 2 2016	17/06/2015	0	601	\N	2/2016	609	\N	\N	2/2016
+EL ENFOQUE DIÁLOGO-ACCIÓN: CASO DE LAS ACTAS DIALÓGICAS EN SCRUM USANDO TABLEROS KANBAN	2/2014	0	121	\N	2/2016	121	\N	\N	2/2016
+SISTEMA PARA EL MANEJO DE PARTITURAS DIGITALES BASADA EN TECNOLOGÍA TOUCH-MOBILE PARA ORQUESTAS SINFÓNICAS.		0	447	\N	2/2016	447	\N	\N	2/2016
+DESARROLLO DE UNA APLICACIÓN MULTIMEDIA QUE APOYE EL APRENDIZAJE DEL IDIOMA CHINO MANDARIN COMO LENGUAJE EXTRANJERA ORIENTADO A LA ESCRITURA	7/10/2011	0	450	\N	2/2016	450	\N	\N	2/2016
+DESARROLLO DE UN FRAMEWORK PARA LA CONSTRUCCIÓN DE OBJETOS DE APRENDIZAJE		0	461	\N	2/2016	461	\N	\N	2/2016
+DESARROLLO DE OBJETOS DE APRENDIZAJE PARA APOYAR EL ESTUDIO DE LOS MÉTODOS DE DETECCIÓN Y CORRECCIÓN DE ERRORES EN LA TRANSMISIÓN DE DATOS.	3/10/2013	0	468	\N	2/2016	468	\N	\N	2/2016
+OBJETOS DE APRENDIZAJE PARA EL ESTUDIO DEL MARCO DE TRABAJO DE DESARROLLO DE SOFTWARE SCRUM	1/2014	0	473	\N	2/2016	473	\N	\N	2/2016
+SERVICIO DE COMUNICACIÓN POR VOZ EN UNA RED INALÁMBRICA DE MALLA SIMULADA	1/2014	0	474	\N	2/2016	474	\N	\N	2/2016
+SOFTWARE PREDICTIVO DE APOYO A LA PLANEACIÓN DE CAPACIDAD DE INFRAESTRUCTURAS DE RED		0	477	\N	2/2016	477	\N	\N	2/2016
+GENERACIÓN AUTOMÁTICA DE ALGORITMOS PARA EL PROBLEMA DE CORTE DE PIEZAS NO GUILLOTINA CON PROGRAMACIÓN GENÉTICA BINARIA PARALELA.	02/12/10	0	564	\N	2/2016	564	\N	\N	2/2016
+GENERACIÓN DE UNA SOLUCIÓN HEURÍSTICA PARA EL PROBLEMA DE TSPPC A TRAVÉS DE LA PROGRAMACIÓN GENÉTICA	1/2014	0	553	\N	2/2016	553	\N	\N	2/2016
+DETECCIÓN DE FALLAS EN LA RED DE SUMINISTRO DE BANDA ANCHA UTILIZANDO EL PROTOCOLO RADIUS	11/10/2012	0	125	\N	2/2016	125	\N	\N	2/2016
+PLATAFORMA DE EVALUACIÓN DE ALGORITMOS DE SUBASTA PARA BUSQUEDAS PATROCINADAS	11/10/12	0	337	\N	2/2016	337	\N	\N	2/2016
+ANÁLISIS DE LA SATISFACCIÓN DE CLIENTES MEDIANTE EL ANÁLISIS DE CORREOS ELECTRÓNICOS	11/01/13	0	338	\N	2/2016	338	\N	\N	2/2016
+INTEGRACIÓN ERP MICROSOFT DYNAMICS AX CON SISTEMA WEB EXTERNO PARA EL INGRESO DE PEDIDOS DE VENTA		0	339	\N	2/2016	339	\N	\N	2/2016
+DESARROLLO DE UN SERVICIO DE INTEGRACIÓN PARA ACTUALIZAR SERVICIOS DE RECOMENDACIÓN DE ETIQUETAS EN UNA RED SOCIAL EMPRESARIAL DE NOTICIAS	11/01/13	0	100	\N	2/2016	100	\N	\N	2/2016
+DESARROLLO DE OBJETOS DE APRENDIZAJE PARA EL ESTUDIO DE LOS MECANISMOS DE CONTROL DE CONGESTIÓN EN REDES DE CONMUTACIÓN DE PAQUETES	1/2014	0	511	\N	2/2016	511	\N	\N	2/2016
+CO-EVOLUCIÓN COMPUTACIONAL EN PROBLEMAS DE OPTIMIZACIÓN COMBINATORIA	2/2014	0	584	\N	2/2016	584	\N	\N	2/2016
+DESARROLLO DE UN PROTOTIPO DE RED INALÁMBRICA DE MALLA PARA EL DEPARTAMENTO DE INGENIERÍA INFORMÁTICA	1/2014	0	502	\N	2/2016	502	\N	\N	2/2016
+NUEVOS ALGORÍTMOS ARTIFICIALES DE OPTIMIZACIÓN PARA EL WEIGHTED INDEPENDENCE SET PROBLEM BAJO LA TEORÍA DE LA COMPUTACIÓN EVOLUTIVA		0	549	\N	2/2016	549	\N	\N	2/2016
+DESARROLLO DE UN PLAN DE CONTINGENCIA Y RECUPERACIÓN ANTE DESASTRES PARA EL ÁREA INFORMÁTICA DE LA EMPRESA ARCADIS CHILE		0	267	\N	2/2016	267	\N	\N	2/2016
+TEMA DE ALBERTOX	24/12/2010	0	590	\N	2/2016	589	\N	\N	2/2016
+DESARROLLO DE UN SISTEMA PERSONALIZABLE PARA QUE PROFESORES TRABAJEN LA INCLUSIÓN DE ALUMNOS CON NECESIDADES ESPECIALES TRANSITORIAS	1/2014	0	50	\N	2/2016	50	\N	\N	2/2016
+DISEÑO Y DESARROLLO DE UNA APLICACIÓN MODULAR PARA APOYAR LA INVESTIGACIÓN OBSERVACIONAL CON DATOS MULTIMODALES 	1/2014	0	433	\N	2/2016	433	\N	\N	2/2016
+PLATAFORMA PARA EL APOYO A LA EVALUACIÓN Y DEFINICIÓN DE GESTOS CORPORALES EN LA INTERACCIÓN CON OBJETOS DIGITALES DE INFORMACIÓN	1/2014	0	437	\N	2/2016	437	\N	\N	2/2016
+OBJETOS DE APRENDIZAJE PARA APOYAR EL ESTUDIO DE APLICACIONES DE TIEMPO REAL EN INTERNET	1/2014	0	490	\N	2/2016	490	\N	\N	2/2016
+LOCALIZACIÓN Y SEGUIMIENTO DE PERSONAS DENTRO DE UN TREN EN MOVIMIENTO UTILIZANDO VISIÓN ARTIFICIAL	2/2013	0	527	\N	2/2016	527	\N	\N	2/2016
+SOFTWARE DE AGENDA PERSONAL Y ASISTENTE PARA ESTRATEGIAS SOCIALES PARA PERSONAS CON SÍNDROME DE ASPERGER	1/2014	0	52	\N	2/2016	52	\N	\N	2/2016
+PROPUESTA DE MEJORAS METODOLÓGICAS PARA LA GESTIÓN DE LA INCERTIDUMBRE EN PROYECTOS DE SOFTWARE ÁGILES DESDE UN ENFOQUE DE SISTEMAS BLANDOS	2/2014	0	48	\N	2/2016	48	\N	\N	2/2016
+DESARROLLO DE OBJETOS DE APRENDIZAJE PARA EL APOYO A LA INTRODUCCIÓN A LA PROGRAMACIÓN	1/2014	0	455	\N	2/2016	455	\N	\N	2/2016
+UN SISTEMA PARA LA GESTION DE FALLAS EN CENTRALES ELECTRICAS	20/06/2012	0	228	\N	2/2016	228	\N	\N	2/2016
+APLICACION DE APOYO AL DEPARTAMENTO DE RECURSOS HUMANOS PARA "AMEC ING Y CONSTRUCCIÓN LTDA"	2/2012	0	286	\N	2/2016	286	\N	\N	2/2016
+PREDICCION DE LA ESTRUCTURA TRIDIMENSIONAL DE PROTEINAS MEDIANTE CLOUD COMPUTING		0	53	\N	2/2016	53	\N	\N	2/2016
+APLICACIÓN MULTIPLATAFORMA PARA DENUNCIAS, SUCESOS Y EVENTOS GEOCALIZADOS EN TIEMPO REAL CON EVIDENCIA MULTIMEDIA	2/2014	0	587	\N	2/2016	587	\N	\N	2/2016
+IMPLEMENTACIÓN DE UN ERP DE APOYO A LA ADMINISTRACIÓN DEL SALÓN DE BELLEZA ÁRTICO	1/2014	0	299	\N	2/2016	299	\N	\N	2/2016
+SOFTWARE DE EJERCICIOS DE ESTIMULACIÓN Y EVALUACIÓN MOTORA PARA PACIENTES CON PARKINSON	2/2014	0	69	\N	2/2016	69	\N	\N	2/2016
+DESARROLLO DE API PARA ANÁLISIS DE TÓPICOS EN REDES SOCIALES	2/2014	0	70	\N	2/2016	70	\N	\N	2/2016
+DISEÑO, IMPLEMENTACIÓN Y ANÁLISIS DE BLOQUES ATÓMICOS EN CONTRA DE SSCA, ATAQUES C-SAFE-FAULTS Y ATAQUES DE COLISIÓN DE CORRELACIÓN HORIZONTAL EN CRIPTOGRAFÍA DE CURVA ELÍPTICA	2/2014	0	523	\N	2/2016	523	\N	\N	2/2016
+OBJETO DE APRENDIZAJE PARA APOYAR LA ENSEÑANZA DE PROTOCOLOS DE VENTANA DESLIZANTE	2/2014	0	524	\N	2/2016	524	\N	\N	2/2016
+DESARROLLO DE PROTOTIPO DE UNA CALCULADORA DE DOSIS PARA EL APOYO DEL ÁREA DE PEDRIATRÍA	15/05/2015	0	14	\N	2/2016	14	17/05/2015	16/05/2015	2/2016
+SIMULACIÓN MONTE CARLO PARALELA DEL MODELO HEISENBERG PARA SISTEMAS FERROMAGNÉTICOS	2/2013	0	150	\N	2/2016	150	\N	\N	2/2016
+SISTEMA DE GESTIÓN DE INFORMACIÓN TRANSPARENTE PARA EDIFICIOS DE DEPARTAMENTOS	11/10/2012	0	123	\N	2/2016	123	\N	\N	2/2016
+AUTOMATIZACIÓN DEL PROCESO PARA VISADO DE PAGO A PROVEEDORES DE LA EMPRESA ENVASES DEL PACÍFICO (EDELPA)	11/11/2014	0	21	\N	2/2016	21	\N	\N	2/2016
+DESARROLLAR JUEGOS PARA CURSO DE ECONOMÍA DE BACHILLER DE TECNOLOGÍA		0	15	\N	2/2016	15	\N	\N	2/2016
+CONSTRUCCIÓN DE UN MODELO PARA DETERMINAR VARIABLES DE DISPONIBILIDAD Y TIEMPO ENTRE FALLAS EN EL ÁREA DE LA MINERÍA	2/2014	0	164	\N	2/2016	164	\N	\N	2/2016
+SISTEMA WEB Y MOVIL PARA FOMENTAR EL TURISMO		0	177	\N	2/2016	177	\N	\N	2/2016
+IMPLEMENTACIÓN DE ALGORITMOS DE MEJORA DE CLASIFICACIÓN EXTRAÍDOS DESDE EL ESTADO DEL ARTE	1/2014	0	56	\N	2/2016	56	\N	\N	2/2016
+SISTEMA DE COMUNICACIÓN DE EMERGENCIAS AL CUERPO DE BOMBEROS DE SANTIAGO	1/2014	0	463	\N	2/2016	463	\N	\N	2/2016
+SISTEMA PARA CONTROL DE ENVÍO Y RECEPCIÓN DE MENSAJERÍA DE TEXTO EN EQUIPOS DE TELEFONÍA MÓVIL	13/12/12	0	361	\N	2/2016	361	\N	\N	2/2016
+DISEÑO E IMPLEMENTACIÓN DE UN SISTEMA DE PREDICCIÓN PARA LA CANTIDAD DE ALUMNOS EN LAS ASIGNATURAS DEL DEPARTAMENTO DE INGENIERIA INFORMATICA	11/10/12	0	375	\N	2/2016	375	\N	\N	2/2016
+IMPLEMENTACIÓN DE ARQUITECTURA BASADA EN SWARM PARA BÚSQUEDA COLABORATIVA MEDIANTE VEHÍCULOS AÉREOS NO TRIPULADOS (UAVS)	1/2014	0	25	\N	2/2016	25	\N	\N	2/2016
+DESARROLLAR UN SISTEMA DE APOYO A LA GESTION DE FICHAS,HORAS Y MEDICAMENTOS PARA LA POSTA RURAL DE PENCAHUE BAJO	15/12/11	0	301	\N	2/2016	301	\N	\N	2/2016
+UNA SOLUCIÓN HEURÍSTICA PARA EL PROBLEMA ASIGNACIÓN DE BUSES Y TRIPULACIONES CONSIDERANDO SUS ROTACIONES.		0	547	\N	2/2016	547	\N	\N	2/2016
+DETECCIÓN DE FALLAS EN GRANJA FOTOVOLTAICA MODULAR DE 10 MW/H	1/2014	0	543	\N	2/2016	543	\N	\N	2/2016
+AGENTES RECURSIVOS PARA EL CONTROL DE LA CENTRALIZACIÓN Y DISTRIBUCIÓN DE LAS DECISIONES EN SISTEMAS INTELIGENTES DE PRODUCCIÓN	30/03/2012	0	551	\N	2/2016	551	\N	\N	2/2016
+ESTUDIO DE APLICABILIDAD DE VIDEOS JUEGOS PARA SOLUCIONAR PROBLEMAS DE OPTIMIZACION	28/07/10	0	544	\N	2/2016	544	\N	\N	2/2016
+SISTEMA WEB DE CARACTERIZACIÓN BIOLÓGICA DE GRUPOS DE GENES 	2/2014	0	588	\N	2/2016	588	\N	\N	2/2016
+IDENTIFICACIÓN DE EVENTOS DE TRANSFERENCIA HORIZONTAL DE GENES EN BACTERIAS MEDIANTE DISEÑO DE CLASIFICADORES DE DATOS	03/11/13	0	356	\N	2/2016	356	\N	\N	2/2016
+SISTEMA DE FACTURACIÓN ELECTRÓNICA, INVENTARIO Y PRESUPUESTOS WEB PARA TALLER DE TORNERÍA TRIFLEX	30/03/2012	0	256	\N	2/2016	256	\N	\N	2/2016
+DISEÑO Y DESARROLLO DE UNA PLATAFORMA PARA EL SOPORTE DE LAS CLASAS VIRTUALES EN CURSOS DE INGENIERÍA EN EJECUCIÓN EN COMPUTACIÓN E INFORMÁTICA.	20/12/10	0	556	\N	2/2016	556	\N	\N	2/2016
+SISTEMA PARA LA ADMINISTRACIÓN DE PROVEEDORES Y PRODUCTOS DE LA MICROEMPRESA FCI LTDA.	30/03/2011	0	233	\N	2/2016	233	\N	\N	2/2016
+DESARROLLAR UN AMBIENTE WEB QUE PERMITA REPRESENTAR  INFORMACIÓN ASOCIADA AL CRÉDITO HIPOTECARIO UTULIZANDO ORGANIZADORES GRÁFICOS PARA VIRTUALAB - USACH	24/06/2013	0	191	\N	2/2016	191	\N	\N	2/2016
+SISTEMA ADMINISTRADOR DE ACCESOS PARA USUARIOS EN SAP		0	238	\N	2/2016	238	\N	\N	2/2016
+PROTOTIPO DE NODO OBSERVATORIO TERRITORIAL INTEGRADO EN RED,PARA GEOLOCALIZACIÓN DE RECURSOS Y APOYO A LA GESTIÓN DINÁMICA COMUNAL (P-NOT).	12/7/2010	0	445	\N	2/2016	445	\N	\N	2/2016
+ALGORITMO DE IDENTIFICACIÓN DE LÍDERES DE OPINIÓN EN TWITTER		0	63	\N	2/2016	63	\N	\N	2/2016
+DESARROLLO DE COMPONENTES DE SOFWARE EN HTML 5 QUE IMPLEMENTEN ORGANIZADORES GRAFICOS INTERACTIVOS	22/03/11	0	192	\N	2/2016	192	\N	\N	2/2016
+SISTEMA DE APOYO A LA GESTIÓN DE FRANQUICIAS MÉDICAS-DENTALES PARA ALUMNOS DE LA UNIVERSIDAD DE CHILE	1/2014	0	293	\N	2/2016	293	\N	\N	2/2016
+EVALUACIÓN DE ALGORITMOS PARA LA IDENTIFICACIÓN DE ESTRUCTURA DE SITIOS WEB CON APLICACIONES EN RECOLECTORES FOCALIZADOS DE LA WEB.	03/10/11	0	327	\N	2/2016	327	\N	\N	2/2016
+NODO COMUNAL INTEGRABLE A RED DE GEO-REPRESENTACIÓN DE ZONAS DE RIESGO Y CONTINGENCIA TERRITORIAL, BASADO EN SOFWARE LIBRE (NODO CIR-GR2).	13/08/2010	0	446	\N	2/2016	446	\N	\N	2/2016
+DESARROLLO DE UN SISTEMA COLABORATIVO PARA APOYAR EL REFORZAMIENTO DEL IDIOMA INGLÉS EN NIÑOS DE 5Tº AÑO BÁSICO	30/03/2012	0	167	\N	2/2016	167	\N	\N	2/2016
+MODELADO DE LAS CARACTERÍSTICAS DE LOS POSTULANTES A LA CARRERA DE INGENIERÍA DE EJECUCIÓN EN COMPUTACIÓN E INFORMÁTICA MODALIDAD VESPERTINA	2/2014	0	397	\N	2/2016	397	\N	\N	2/2016
+FORO WEB CON ENFOQUE DE DIÁLOGO DISTRIBUIDO PARA MANTEKA	2/2013	0	90	\N	2/2016	90	\N	\N	2/2016
+DATAMART PARA EL ÁREA DE APROVISIONAMIENTO DE ENDESA COLOMBIA		0	414	\N	2/2016	414	\N	\N	2/2016
+IDENTIFICACIÓN AUTOMATIZADA DE ETAPAS DEL PROCESO DE BÚSQUEDA DE INFORMACIÓN DEL USUARIO 	1/2014	0	432	\N	2/2016	432	\N	\N	2/2016
+PROCESO DE DESARROLLO DE PROYECTOS DE SEGURIDAD PARA SAP ERP EN ROLES Y PERFILES	4/8/2010	0	417	\N	2/2016	417	\N	\N	2/2016
+ADMINISTRACIÓN Y TRACKING DE ACTIVOSDE UNA EMPRESA DE SERVICIOS DE ARRIENDO DE CONTENEDORAS	21/03/13	0	226	\N	2/2016	226	\N	\N	2/2016
+SISTEMA DE GESTIÓN DE COMPRA DE VEHÍCULOS Y EQUIPAMIENTOS PARA EMPRESA SALFA RENT	21/12/12	0	225	\N	2/2016	225	\N	\N	2/2016
+CONSTRUCCIÓN DE UN FRAMEWORK PARA PIPELINE DE APLICACIONES DE BIOINFORMÁTICA	2/2013	0	316	\N	2/2016	316	\N	\N	2/2016
+DISEÑO Y DESARROLLO DE UN ALGORITMOS DE BÚSQUEDA DE ARN OBJETIVOS PARA UN MICROARN	12/7/2012	0	317	\N	2/2016	317	\N	\N	2/2016
+DESARROLLO DE APLICACIONES WEB PARA ORGANIZACIONES SIN FINES DE LUCRO POR MEDIO DE LA ARQUITECTURA DE LA INFORMACIÓN	2/2013	0	116	\N	2/2016	116	\N	\N	2/2016
+GRAFO DE CONSENSO DE FUENTES DE ANOTACIONES BIOLÓGICAS DE GENES HUMANOS 	2/2013	0	320	\N	2/2016	320	\N	\N	2/2016
+SISTEMA CMR DE APOYO A LA FUERZA DE VENTAS CON CLIENTE DE OPERACION ASINCRONICA	7/4/2011	0	426	\N	2/2016	426	\N	\N	2/2016
+MODELO PREDICTIVO PARA LA VENTA-CRUZADA DE PRODUCTOS FINANCIEROS UTILIZANDO MINERÍA DE DATOS.	22/12/10	0	247	\N	2/2016	247	\N	\N	2/2016
+DESARROLLO DE HERRAMIENTAS PARA MEDIR COMPETENECIAS EN APRENDIZAJE BASADO EN PROYECTOS	1/2014	0	98	\N	2/2016	98	\N	\N	2/2016
+SOFTWARE DE APOYO EN EL RECONOCIMEINTO DE MENTIRAS EN VICTIMAS DE ABUSO SEXUAL INFANTIL	1/2014	0	99	\N	2/2016	99	\N	\N	2/2016
+AUTOMATIZACIÓN DEL PROYECTO DE FORMALIZACIÓN DE SUBSIDIOS DE CORFO	15/04/2013	0	309	\N	2/2016	309	\N	\N	2/2016
+SISTEMA DE RECONOCIMIENTO Y DIGITALIZACIÓN DE IMÁGENES DE PARTITURAS ESCRITAS A MANO	07/08/10	0	135	\N	2/2016	135	\N	\N	2/2016
+SISTEMA DE VISUALIZACION DEL POSICIONAMIENTO GEORREFERENCIAL ON-LINE DE EQUIPOS DE EXTRACCION MINERA	20/09/2011	0	138	\N	2/2016	138	\N	\N	2/2016
+SISTEMA COLABORATIVO DE APOYO AL APRENDIZAJE DE MATEMÁTICAS EN PRIMER AÑO BÁSICO	30/03/2012	0	166	\N	2/2016	166	\N	\N	2/2016
+PLAN DE CAPACITACIÓN EMPRESARIAL PARA ENSEÑAR TELEFONIA CELULAR USANDO OBJETOS DE APRENDIZAJE	05/08/11	0	478	\N	2/2016	478	\N	\N	2/2016
+SOFTWARE DE APOYO AL SEGUIMIENTO DEL PLAN ESTRATÉGICO DE LA EMPRESA PÚBLICA EMERES	7/11/2013	0	464	\N	2/2016	464	\N	\N	2/2016
+PROCESO DE NEGOCIO Y REQUERIMIENTOS PARA SISTEMA DE RECLUTAMIENTO Y SELESCCIÓN DE EMPRESA DE ÁREA FINANCIERA	19/01/13	0	518	\N	2/2016	518	\N	\N	2/2016
+AUTOPILOTO INTEGRADO EN SMARTPHONE PARA VEHÍCULO AÉREO NO TRIPULADO (UAV)	1/2014	0	36	\N	2/2016	36	\N	\N	2/2016
+DESARROLLO DE SISTEMAS WORKFLOW PARA EL PLANTEAMIENTO Y VERIFICACIÓN DE COMPETENCIAS DE MANEJO DE PROYECTOS EN LOS CURSOS DE INGENIERÍA CIVIL INFORMÁTICA	1/2014	0	108	\N	2/2016	108	\N	\N	2/2016
+DESARROLLO Y APLICACIÓN DE MODELO DINÁMICO EN AMBIENTE REAL DE CONMINUCIÓN PARA ESTIMAR EN LINEA VARIABLES CRÍTICAS DE MOLIENDA SEMIAUTÓGENA	1/2012	0	151	\N	2/2016	151	\N	\N	2/2016
+ALGORITMO DE CLASIFICACIÓN DE GALAXIAS SEGÚN SU MORFOLOGÍA EN IMÁGENES CAPTURADAS POR EL RADIOTELESCOPIO DEL OBSERVATORIO ALMA.	31/03/2014	0	578	\N	2/2016	578	\N	\N	2/2016
+DESARROLLO E IMPLEMENTACION DE CONTENIDOS DE UN SITIO WEB PARA LA SOLUCION DE LOS PROBLEMAS DEL CAMINO MINIMO, FLOW SHOP Y JOB SHOP Y ARBOL DE COBERTURA DE COSTO MINIMO	4/8/2010	0	577	\N	2/2016	577	\N	\N	2/2016
+NUEVAS HIPERHEURÍSTICAS COMPETITIVAS PARA EL PROBLEMA DEL CONJUNTO INDEPENDIENTE MÁXIMO DE VÉRTICES	2/2013	0	579	\N	2/2016	579	\N	\N	2/2016
+DISEÑO DE UN ALGORITMO PARA EL PROBLEMA DEL COLOREAMIENTO DE GRAFOS A TRAVÉS DE UN JUEGO COMPUTACIONAL.		0	582	\N	2/2016	582	\N	\N	2/2016
+GENERACIÓN DE ALGORITMOS UTILIZANDO PROGRAMACIÓN GENÉTICA PARA EL PROBLEMA DE OPTIMIZACIÓN GENERALIZED TRAVELLING SALESMAN PROBLEM	2/2013	0	580	\N	2/2016	580	\N	\N	2/2016
+EVALUACIÓN DE OBJETOS DE APRENDIZAJE MOODLE, MEDIANTE LA SUPERVISIÓN DE USO DE LOS ESTUDIANTES	2/2014	0	393	\N	2/2016	393	\N	\N	2/2016
+INTELIGENCIA DE NEGOCIOS APLICADA A CAJA DE COMPENSACIÓN	19/07/2012	0	399	\N	2/2016	399	\N	\N	2/2016
+DESARROLLO DE OBJETOS DE APRENDIZAJE PARA APOYAR EL ESTUDIO DE LAS REDS SATELITALES	2/2012	0	456	\N	2/2016	456	\N	\N	2/2016
+OBJETO DE APRENDIZAJE PARA TRANSMISIÓN DE DATOS		0	471	\N	2/2016	471	\N	\N	2/2016
+PROTOTIPO DE SISTEMA DE DETECCIÓN DE MALWARE PARA DISPOSITIVOS ANDROID	2/2013	0	266	\N	2/2016	266	\N	\N	2/2016
+RECONTRUCCIÓN TOMOGRÁFICA PARALELA PARA UN ESCÁNER PET DE ANIMALES PEQUEÑOS	05/12/08	0	149	\N	2/2016	149	\N	\N	2/2016
+ANÁLISIS COMPARATIVO DE MODELOS NARMA (X) Y NAR (X) USANDO REDES NEURONALES Y SVM SOBRE SISTEMAS CAÓTICOS	11/1/2013	0	153	\N	2/2016	153	\N	\N	2/2016
+SISTEMA DE APLICACIONES PARA EL APOYO EN LA INTERACCIÓN ANFITRIÓN-AUDIENCIA Y LA GENERACIÓN DE CONTENIDO EN PRESENTACIONES CON PROYECTOR	1/2014	0	190	\N	2/2016	190	\N	\N	2/2016
+DESARROLLO DE UN AMBIENTE WEB PROTOTIPO QUE PERMITA REPRESENTAR INFORMACIÓN DEL CRÉDITO HIPOTECARIO UTILIZANDO ORGANIZADORES GRÁFICOS.	24/08/10	0	196	\N	2/2016	196	\N	\N	2/2016
+DESARROLLO DE UN SISTEMA DE NOTIFICACIONES A TRAVÉS DE REDES SOCIALES DE INTERNET	19/03/13	0	460	\N	2/2016	460	\N	\N	2/2016
+SISTEMA DE APOYO AL APRENDIZAJE DE LA LECTURA DE LOS NIÑOS	03/09/08	0	186	\N	2/2016	186	\N	\N	2/2016
+IMPLEMENTACION DE PROCESOS DE GESTION DE PROYECTOS FOSIS UTILIZANDO HERRAMIENTAS BPMS	4/8/2010	0	408	\N	2/2016	408	\N	\N	2/2016
+BIBLIOTECA PARA EL DESPEGUE ÁGIL DE APLICACIONES DE STREAM EN ESCENARIOS DE DESASTRES	1/2014	0	407	\N	2/2016	407	\N	\N	2/2016
+MODELACIÓN LINE-PACK DE LA OPERACIÓN DEL GASODUCTO GAS ATACAMA MEDIANTE REDES NEURONALES ARTIFICIALES 	29/07/2013	0	288	\N	2/2016	288	\N	\N	2/2016
+DISEÑO DE UN ALGORITMO DE PLANIFICACIÓN PARA APLICACIONES PARALELAS SOBRE RECURSOS HETEROGÉNEOS EN CLOUD COMPUTING	3/7/2012	0	336	\N	2/2016	336	\N	\N	2/2016
+DISEÑO MOTODOLÓGICO PARA LA ELABORACIÓN Y DESARROLLO DE SECUENCIAS DE ACTIVIDADES INTERACTIVAS PARA LA ENSEÑANZA DEL CAMPO ADICTIVO EN EL PRIMER CICLO BÁSICO	11/10/12	0	130	\N	2/2016	130	\N	\N	2/2016
+EVALUACIÓN Y RECOMENDACIONES DE MEJORAS DE LA USABILIDAD DE BROWSERS WEB PARA USUARIOS ADULTOS MAYORES CON POCA EXPERIENCIA EN EL USO DE COMPUTADORES.	12/13/2010	0	188	\N	2/2016	188	\N	\N	2/2016
+WEB SERVICES PARA APOYAR LA VENTA DE SEGUROS DE VEHÍCULOS PARTICULARES A TRAVES DE UNA MULTITIENDA	1/2/2012	0	429	\N	2/2016	429	\N	\N	2/2016
+SISTEMA DE INFORMACIÓN DE APOYO PARA AUTOMATIZACIÓN Y MONITOREO DE ACTIVIDADES DE PLAN DE CORTE EN CONVERSIÓN DE TIENDAS PARA LA COMPAÑÍA ZCMART CHILE.		0	430	\N	2/2016	430	\N	\N	2/2016
+PRUEBA TEMA 2 2016	16/09/2015	0	602	\N	2/2016	610	\N	\N	2/2016
+OBJETO DE APRENDIZAJE PARA LA EJERCITACIÓN DE LOS CONCEPTOS DEL MÉTODO SIMPLEX	11/01/13	0	391	\N	2/2016	391	\N	\N	2/2016
+DISEÑO DE UN CLASIFICADOR PARA LA DETECCIÓN DEL MOBILOMA EN GENOMAS DE BACTERIAS	04/06/14	0	357	\N	2/2016	357	\N	\N	2/2016
+ENUMERACIÓN DE CONJUNTOS INDEPENDIENTES MAXIMALES EN GRAFOS POLARES 	1/2014	0	368	\N	2/2016	368	\N	\N	2/2016
+SERVICIO PARA COMPARTIR MATERIAL DE ESTUDIO SOBRE UNA RED INALÁMBRICA DE MALLA SIMULADA 	1/2014	0	493	\N	2/2016	493	\N	\N	2/2016
+HERRAMIENTA INTERACTIVA PARA APOYAR LA EVALUACIÓN DE PACIENTES EN TRATAMIENTO DEL TRASTORNO DE DÉFICIT ATENCIONAL A PARTIR DEL RASTREO OCULAR	1/2014	0	436	\N	2/2016	436	\N	\N	2/2016
+SISTEMA PROTOTIPO DE APOYO A LA ALERTA TEMPRANA DE SISMOS MEDIANTE USO DE HERRAMIENTAS DE INTELIGENCIA COMPUTACIONAL	1/2014	0	158	\N	2/2016	158	\N	\N	2/2016
+DIAGNOSTICO DE INGRESO DE ALUMNOS A LA CARRERA DE INGENIERÍA DE EJECUCIÓN EN COMPUTACIÓN E INFORMÁTICA MODALIDAD VESPERTINA		0	392	\N	2/2016	392	\N	\N	2/2016
+EAPECIFICACIÓNES FORMAL DE UNA RED MESH ORIENTADA AL ESTUDIO DE ALGORITMOS DE ENRUTAMIENTO Y AUTENTICACIÓN.		0	482	\N	2/2016	482	\N	\N	2/2016
+DESARROLLO DE COMPONENTES VISUALES DE APOYO A COBIT.	15/11/10	0	202	\N	2/2016	202	\N	\N	2/2016
+SISTEMA DE ADMINISTRACIÓN PARA LA INFORMACIÓN TRANSPARENTE EN UNA COMUNIDAD DE EDIFICIOS		0	9	\N	2/2016	9	\N	\N	2/2016
+SISTEMA DE UBICACIÓN DEL CENTRO DE MASA EN ADULTOS MAYORES A TRAVÉS DE DISPOSITIVOS MÓVILES	1/2014	0	64	\N	2/2016	64	\N	\N	2/2016
+ALGORITMO MEMÉTICO BASADO EN CONOCIMIENTO BIOLÓGICO PARA EL PROBLEMA DE PREDICCIÓN DE LA ESTRUCTURA TRIDIMENSIONAL DE LA PROTEÍNA	1/2014	0	315	\N	2/2016	315	\N	\N	2/2016
+ACTUALIZACIÓN CONCURRENTE DE ÍNDICES INVERTIDOS EN MOTORES DE BÚSQUEDA VERTICALES	2/2014	0	340	\N	2/2016	340	\N	\N	2/2016
+MODELO DE PROCESOS DE LA OTEC USECAP, SEGÚN NORMAS NCH 2728  E ISO 9001/2008. DESARROLLO DE SISTEMA PARA LA TRAZABILIDAD	20/09/2011	0	83	\N	2/2016	83	\N	\N	2/2016
+PROTOTIPO DE UN SISTEMA INFORMÁTICO DE POSTULACIÓN, EVALUAVIÓN Y SELECCIÓN DE AYUDANTE DE DOCENCIA	19/05/2014	0	73	\N	2/2016	73	\N	\N	2/2016
+DISEÑO E IMPLEMENTACIÓN DE ETL PARA SERVICIOS DE LEASING FINANCIERO Y OPERATIVO	27/10/2014	0	76	\N	2/2016	76	\N	\N	2/2016
+SISTEMA COOPERATIVO PARA EL DESARROLLO DE INTERFACES GRÁFICAS	1/2014	0	189	\N	2/2016	189	\N	\N	2/2016
+SISTEMA DE GESTIÓN DE AYUDAS A PROYECTOS E IDEAS (GAPI)	16/11/2011	0	180	\N	2/2016	180	\N	\N	2/2016
+DESARROLLO DE OBJETOS DE APRENDIZAJE PARA APOYAR EL ESTUDIO DE LAS REDES DE AREA LOCAL (ETHERNET)	13/08/2013	0	481	\N	2/2016	481	\N	\N	2/2016
+OBJETOS DE APRENDIZAJE PARA APOYAR LA COMPRENSIÓN Y APLICACIÓN DE IPV6.	27/07/11	0	488	\N	2/2016	488	\N	\N	2/2016
+DATAMART PARA UN SISTEMA DE REPORTES DE TIEMPOS EN LÍNEA DE ENLACES DE TELECOMUNICACIONES	12/8/2013	0	254	\N	2/2016	254	\N	\N	2/2016
+UN SISTEMA PARA EL LANZAMIENTO DE SUMINISTROS MÉDICOS DESDE UN VEHÍCULO AÉREO NO TRIPULADO	2/2013	0	35	\N	2/2016	35	\N	\N	2/2016
+DESARROLLO DE SOFTWARE PARA CONTROL DE PLANES DE VUELO DE SISTEMA ROBÓTICO AÉREO MULTIAGENTE, BASADO EN LA ARQUITECTURA L-ALLIANCE	11/01/13	0	29	\N	2/2016	29	\N	\N	2/2016
+IMPLEMENTACIÓN DE ARQUITECTURA MULTIAGENTE L-ALLIANCE PARA EL CONTROL DE COMPORTAMIENTO DE VUELO DE ROBOTS AÉREOS		0	30	\N	2/2016	30	\N	\N	2/2016
+SISTEMA WEB DE APOYO A LA GESTIÓN DE UN CENTRO DE DISTRIBUCIÓN	1/2014	0	304	\N	2/2016	304	\N	\N	2/2016
+ENUMERACIÓN DE CONJUNTOS INDEPENDIENTES MAXIMALES EN GRAFOS OCTOPUS	1/2014	0	370	\N	2/2016	370	\N	\N	2/2016
+OPTIMIZACIÓN Y MEJORAS A PROCESOS EJECUTADOS PARA LA OBTENCIÓN DE LOS ESTADOS DE RESULTADOS COMERCIALES DE LAN CHILE		0	359	\N	2/2016	359	\N	\N	2/2016
+DESARROLLO DE UNA PLATAFORMA DE SOFTWARE PARA PRUEBAS DE REGRESIÓN AUTOMATIZADAS DE APLICACIONES WEB USADAS EN EL OBSERVATORIO ALMA	23/07/2013	0	40	\N	2/2016	40	\N	\N	2/2016
+UTILIZACIÓN DE UNA METODOLOGÍA ÁGIL PARA ENTEL S.A.	29/07/2013	0	41	\N	2/2016	41	\N	\N	2/2016
+UNA APLICACIÓN COLABORATIVA PARA APOYAR EL USO DE LA METODOLOGÍA DE SISTEMAS BLANDOS DE PETER CHECKLAND	1/2014	0	44	\N	2/2016	44	\N	\N	2/2016
+PREDICCIÓN DE LA RENTABILIDAD DE LOS FONDOS DE PENSIONES UTILIZANDO AUTÓMATAS CELULARES	22/07/2013	0	45	\N	2/2016	45	\N	\N	2/2016
+CLASIFICADOR DE PUNTOS SOBRE NUBE DE OBJETOS GENERADA POR SISTEMA LIDAR		0	46	\N	2/2016	46	\N	\N	2/2016
+UNA APLICACIÓN MÓVIL QUE APOYA LA REALIZACIÓN DE LA METODOLOGÍA DE SISTEMAS BLANDOS DE PETER CHECKLAND	2/2014	0	47	\N	2/2016	47	\N	\N	2/2016
+METODOLOGIA DE TRABAJO PARA LA GESTION DE PROYECTOS TI EN PYMES		0	275	\N	2/2016	275	\N	\N	2/2016
+APLICACIÓN DE UN MÉTODO DE VALIDACIÓN SOBRE LOS OBJETOS DE APRENDIZAJE DEL REPOSITORIO DEL DIINF	2/2014	0	525	\N	2/2016	525	\N	\N	2/2016
+OBJETOS DE APRENDIZAJE SOBRE CRIPTOGRAFÍA SIMÉTRICO PARA BLOWFISH	2/2014	0	526	\N	2/2016	526	\N	\N	2/2016
+APLICACIÓN ANDROID FISCALIZACIÓN CIUDADANA	21/11/2013	0	66	\N	2/2016	66	\N	\N	2/2016
+SISTEMA DE EVALUCIÓN FORMATIVA EN LINEA PARA LA SOCIEDAD CHILENA DE RADIOLOGIA	04/08/10	0	318	\N	2/2016	318	\N	\N	2/2016
+CLASIFICACIÓN AUTOMÁTICA DE TEXTOS PERIODÍSTICOS ENRIQUECIDA CON FUENTES EXTERNAS	20/03/2012	0	325	\N	2/2016	325	\N	\N	2/2016
+DESARROLLO DE UN ASISTENTE PARA EL SOFTWARE GREI QUE PERMITA GUIAR A LOS DOCENTES EN LA CREACIÓN DE SECUENCIAS INTERACTIVAS DE APRENDIZAJE RESGUARDANDO CRITERIOS DIDÁCTICOS-MATEMÁTICOS	24/06/2014	0	272	\N	2/2016	272	\N	\N	2/2016
+DESARROLLO DE SISTEMA DE COTIZACIÓN Y DE CONTROL DE EXISTENCIAS PARA LA EMPRESA ALUMAR	11/10/2012	0	134	\N	2/2016	134	\N	\N	2/2016
+PLATAFORMA PARA LA DEFINICIÓN Y APOYO A LA EVALUACIÓN DE RETROALIMENTACIÓN TÁCTIL EN LA INTERACCIÓN CON OBJETOS DE INFORMACIÓN DIGITAL A TRAVÉS DE INTERFACES NATURALES	2/2014	0	440	\N	2/2016	440	\N	\N	2/2016
+DESARROLLO DE OBJETOS DE APRENDIZAJE PARA EL ESTUDIO DE LAS REDES IP	2/2013	0	449	\N	2/2016	449	\N	\N	2/2016
+IDENTIFICACIÓN DE PATRONES DE USO PARA USUARIOS DEL TRANSANTIAGO.	07/10/11	0	565	\N	2/2016	565	\N	\N	2/2016
+SOFTWARE DE EJERCICIOS DE ESTIMULACIÓN Y EVALUACIÓN COGNITIVA PARA PACIENTES CON PARKINSON	2/2014	0	68	\N	2/2016	68	\N	\N	2/2016
+DESARROLLO DE UN AMBIENTE WEB UTILIZANDO ORGANIZADORES GRÁFICOS EN LA REPRESENTACIÓN DE CONTENODOS SOBRE EL INFARTO AGUDO AL MIOCARDIO.	02/08/10	0	193	\N	2/2016	193	\N	\N	2/2016
+SISTEMA DE APOYO A LA ADMINISTRACIÓN DE INFORMACIÓN PARA LOS COMITÉS DE AGUA POTABLE RURALES	04/07/12	0	400	\N	2/2016	400	\N	\N	2/2016
+EVALUACIÓN DE LOS MÉTODOS NARX Y NARMAX CON REDES NEURONALES Y MÁQUINA DE SOPORTE VECTORIAL PARA LA ESTIMACIÓN DE LA ACCIDENTABILIDAD EN LA MINERÍA	2/2012	0	552	\N	2/2016	552	\N	\N	2/2016
+UN AG COOPERATIVO PARA PROBLEMAS DE CORTE Y EMPAQUE	25/06/12	0	548	\N	2/2016	548	\N	\N	2/2016
+SISTEMA DE SEGUIMIENTO DE JUICIOS PARA GESTIÓN DE COBRANZA		0	326	\N	2/2016	326	\N	\N	2/2016
+SISTEMA DE COORDINACION Y GESTION DE RESERVA HORARIA PARA EVENTOS Y ACTIVIDADES DEL COLEGIO ALEMAN DE SANTIAGO	20/09/2011	0	4	\N	2/2016	4	\N	\N	2/2016
+SISTEMA WEB PARA MONITOREAR DISPOSITIVOS GPS	20/09/2011	0	425	\N	2/2016	425	\N	\N	2/2016
+SISTEMA DE APOYO A LA PLANIFICACIÓN DOCENTE Y MEDICIÓN DEL ESTADO DE AVANCE DE LOS ALUMNOS EN HABILIDADES COGNITIVAS ESPECÍFICAS	30/03/2013	0	3	\N	2/2016	3	15/05/2015	15/05/2015	2/2016
+OBJETO DE APRENDIZAJE PARA APOYAR EL PROCESO DE LECTURA INFANTIL	1/2014	0	495	\N	2/2016	495	\N	\N	2/2016
+APLICACIÓN DE APOYO AL APRENDIZAJE DE LA GRAMÁTICA DEL CHINO MANDARIN	1/2014	0	497	\N	2/2016	497	\N	\N	2/2016
+REDISEÑO DEL PROCESO DE NEGOCIO ASOCIADO AL SERVICIO DE ARRIENDO DE GRÚAS HORQUILLA, PARA LA EMPRESA GRÚAS M&L LTDA.	03/04/15	0	307	\N	2/2016	307	\N	\N	2/2016
+DESARROLLAR UN JUEGO COMO HERRAMIENTA DE APRENDIZAJE PARA EL CURSO DE ECONOMÍA DE LA FACULTAD TECNOLÓGICA    	5/11/2014	0	308	\N	2/2016	308	\N	\N	2/2016
+IMPLEMENTACIÓN DEL PROCESO DE FORMALIZACIÓN DE SUBSIDIOS DE CORFO EN ADOBE LIVE CYCL	25/11/2014	0	310	\N	2/2016	310	\N	\N	2/2016
+ALGORITMO DE AGRUPAMIENTO PARA DATOS DE EXPRESIÓN GÉNICA DE RNA-SEQ CON LA INCORPORACIÓN DE ANOTACIONES BIOLÓGICAS	1/2014	0	314	\N	2/2016	314	\N	\N	2/2016
+ANÁLISIS DE LA COMPLEJIDAD DE LAS SEÑALES DEL SISTEMA DE HEMODINÁMICA CEREBRAL Y LA RELACIÓN DE ESTA CARACTERÍSTICA CON SU MODELAMIENTO		0	345	\N	2/2016	345	\N	\N	2/2016
+COMPARACIÓN DE LOS MÉTODOS DE CÁLCULO DE AUTOREGULACIÓN USANDO MODELOS LINEALES CON LA MANIOBRA DE VALSALVA Y VARIACIONES ESPONTANEAS DE PRESIÓN	1/2014	0	347	\N	2/2016	347	\N	\N	2/2016
+PREDICCIÓN DE ESTADIA DE PACIENTES HOSPITALIZADOS EN LA UNIDAD DE CUIDADOS INTENSIVOS ADULTOS EN UNA CLINICA PRIVADA DE SANTIAGO	1/2014	0	239	\N	2/2016	239	\N	\N	2/2016
+UN SISTEMA WEB PARA MEJORAR EL RENDIMIENTO DE IMPRESORAS AL ENVIAR TRABAJOS DE IMPRESIÓN MASIVA	22/07/2013	0	214	\N	2/2016	214	\N	\N	2/2016
+SISTEMA DE INFORMACIÓN DOCENTE PARA APOYO A LA ACREDITACIÓN DE LOS PROGRAMAS DE PREGRADO DEL DEPARTAMENTO DE INGENIERÍA INFORMÁTICA DE LA UNIVERSIDAD DE SANTIAGO DE CHILE	2/2014	0	394	\N	2/2016	394	\N	\N	2/2016
+DESARROLLO DE OBJETOS DE APRENDIZAJE PARA APOYAR EL ESTUDIO DE LOS PROTOCOLOS DE TRANSPORTE UTILIZADOS EN REDES CONMUTACIÓN DE PAQUETES	2/2013	0	459	\N	2/2016	459	\N	\N	2/2016
+SOFTWARE DE APOYO AL PROCESO ADMINISTRATIVO DE LA EMPRESA OPTICA REAL	13/04/2016	0	10	\N	2/2016	10	\N	\N	2/2016
+DISEÑO DE UN LABORATORIO VIRTUAL PARA EL CURSO CRIPTOGRAFÍA	05/08/11	0	451	\N	2/2016	451	\N	\N	2/2016
+SISTEMA DE RECOMENDACION Y DIFUSION PARA MOVILES		0	127	\N	2/2016	127	\N	\N	2/2016
+NO HAY INFORMACION		0	246	\N	2/2016	246	\N	\N	2/2016
+SISTEMA DE SOPORTE A EDUCADORES EN ENTORNOS DE EVALUACIÓN Y APRENDIZAJE DE ALUMNOS CON NECESIDADES EDUCATIVAS ESPECIALES EN ÁREAS COGNITIVAS	1/2014	0	49	\N	2/2016	49	\N	\N	2/2016
+INTEGRACION DEL CONTROL DE UN PROCESO DE NEGOCIOS DE GENERACION DE NOTICIAS CON LA COLABORACION ENTRE PERIODISTAS UTILIZANDO UNA RED SOCIAL CORPORATIVA	1/2013	0	85	\N	2/2016	85	\N	\N	2/2016
+EVALUACIÓN DE MÉTODOS QUE MEJORAN LA IDENTIFICACIÓN DE BIOMARCADORES A PARTIR DE DATOS DE EXPRESIÓN GÉNETICA EN EL SALMÓN ATLÁNTICO (SALMO SALAR)	03/11/13	0	364	\N	2/2016	364	\N	\N	2/2016
+ASDTEMA	19/05/2015	0	597	\N	2/2016	602	\N	\N	2/2016
+PROPUESTA DE MÉTODO ÁGIL DE DESARROLLO DE SOFTWARE FUNCIONAL, USABLE Y SEGURO.	22/01/2015	0	264	\N	2/2016	264	\N	\N	2/2016
+MANUAL PARA SELECCIONAR SUITES BMP CON CRITERIOS DE FUNCIONALIDAD Y USABILIDAD: CASO DE PROCESO DE GENERACIÓN DE NOTICIAS		0	111	\N	2/2016	111	\N	\N	2/2016
+RECURSO DE APRENDIZAJE DE USABILIDAD WEB: UNA APROXIMACIÓN DESDE LA CUARTA HEURÍSTICA DE NIELSEN	2/2014	0	122	\N	2/2016	122	\N	\N	2/2016
+DISEÑO Y DESARROLLO DE UN FRAMEWORK DE NOTIFICACIONES VÍA MENSAJERÍA SMS	21/12/12	0	114	\N	2/2016	114	\N	\N	2/2016
+UNA RESOLUCIÓN AL PROBLEMA DE LA SELECCIÓN UBICADA DE INTERRUPTORES EN UN SISTEMA DE DISTRIBUSIÓN ELÉCTRICO, CON MÉTODO DE OPTIMIZACIÓN HEURÍSTICA ALGORITMO GENÉTICO PARALELO		0	560	\N	2/2016	560	\N	\N	2/2016
+IMPLEMENTACIÓN DE WEB SERVICE PARA INTEGRACIÓN SAP CON PLATAFORMAS WEB		0	19	\N	2/2016	19	\N	\N	2/2016
+OBJETOS DE APRENDIZAJE RELATIVOS AL TRATAMIENTO DE ERROR EN LA TRANSMISIÓN Y RECEPCIÓN DE DATOS	1/2014	0	448	\N	2/2016	448	\N	\N	2/2016
+DESARROLLO DE SISTEMA DE PLANIFICACIÓN DE MISIÓN Y CONTROL ADAPTIVO EN VUELO PARA EL SISTEMA AEREO ROBOTICO RUAS	11/10/1012	0	27	\N	2/2016	27	\N	\N	2/2016
+DISEÑO E IMPLEMENTACIÓN DE UN SISTEMA WEB ADMINISTRATIVO Y RESERVAS DE ATENCIÓN EN LÍNEA PARA UNA SERVITECA	11/1/2013	0	17	\N	2/2016	17	\N	\N	2/2016
+GENERACIÓN ASISTIDA DE DOCUMENTOS COTIDIANOS PARA PERSONAS CON DISCAPACIDAD INTELECTUAL.	11/10/2012	0	124	\N	2/2016	124	\N	\N	2/2016
+DESARROLLO DE APLICACIÓN MÓVIL PARA MONITOREO, DETECCIÓN Y ALERTA AUTOMÁTICA DE CRISIS EPILÉPTICA CONVULSIVA	5/8/2013	0	237	\N	2/2016	237	\N	\N	2/2016
+DESARROLLO E IMPLEMENTACIÓN DE LA ESTACIÓN DE TRABAJO EVEREST PARA EL BANCO DE CRÉDITO E INVERSIONES	20/3/13	0	212	\N	2/2016	212	\N	\N	2/2016
+CONSTRUCCIÓN Y APLICACIÓN DE OBJETOS DE APRENDIZAJE PARA LA UNIDAD DE ANÁLISIS LÉXICO DE LA ASIGNATURA COMPILADORES	20/03/13	0	213	\N	2/2016	213	\N	\N	2/2016
+APLICACIÓN WEB PARA ADMINISTRACIÓN DOCUMENTAL DE VEHÍCULOS		0	328	\N	2/2016	328	\N	\N	2/2016
+CONSTRUCCIÓN DE MODELOS PREDICTIVOS PARA EL ÍNDICE DE DISPONIBILIDAD DE LOS EQUIPOS MINEROS PESADOS USANDO MODELOS DINÁMICOS CON RNA Y SVM	2/2013	0	156	\N	2/2016	156	\N	\N	2/2016
+MODELO DINÁMICO PARA LA GESTIÓN DE FLOTAS DE PALAS EN FAENAS MINERAS	2/2013	0	161	\N	2/2016	161	\N	\N	2/2016
+SISTEMA DE SOFTWARE EMBEBIDO EN HARDWARE PARA DETECCIÓN DE FIGURAS HUMANAS DESDE ROBOT AÉREO	2/2014	0	38	\N	2/2016	38	\N	\N	2/2016
+SISTEMA DE REPUTACIÓN PARA LA RED SOCIAL WAZE	2/2014	0	129	\N	2/2016	129	\N	\N	2/2016
+ADAPTACIÓN DE ALGORITMOS DE ORDENAMIENTO A MÁQUINAS DE BÚSQUEDA VERTICALES	11/1/2013	0	55	\N	2/2016	55	\N	\N	2/2016
+SISTEMA DE SEGUIMIENTO DE CLIENTES DE UNA EMPRESA INFORMÁTICA	1/2014	0	61	\N	2/2016	61	\N	\N	2/2016
+DESARROLO DE BASE DE DATOS PARA OBSERVATORIOS WEB	1/2014	0	62	\N	2/2016	62	\N	\N	2/2016
+DESARROLLO E IMPLEMENTACIÓN DE APLICACIÓN MÓVIL EN ANDROID PARA EL CONTROL PERSONALIZADO DE LA ALIMENTACIÓN	2/2013	0	250	\N	2/2016	250	\N	\N	2/2016
+REVISIÓN Y MEJORAS DEL SOFTWARE PARA LA ADMINISTRACIÓN DE LAS POSTULACIONES A PROGRAMAS VESPERTINOS DEL DIINF	2/2014	0	585	\N	2/2016	585	\N	\N	2/2016
+SISTEMA DE SEGUIMIENTO DE JUICIOS APOYAR LA GESTIÓN DE COBRANZA DE EMPRESA RECOLINE	21/12/2012	0	71	\N	2/2016	71	\N	\N	2/2016
+DETECCIÓN DE PERSONAS EN TIEMPO REAL MEDIANTE EL USO DE UNA RASPBERRY PI	2/2013	0	529	\N	2/2016	529	\N	\N	2/2016
+DETECCIÓN DE VEHÍCULOS DETENIDOS EN SECTORES PROHIBIDOS DEL TRÁFICO URBANO UTILIZANDO TÉCNICAS DE VISIÓN POR COMPUTADOR.	2/2013	0	530	\N	2/2016	530	\N	\N	2/2016
+ANÁLISIS COMPARATIVO DE CLASIFICADORES EN CUANTO A SU SENSIBILIDAD ESPACIAL PARA LA DETECCIÓN DE PEATONES EN IMÁGENES	1/2014	0	531	\N	2/2016	531	\N	\N	2/2016
+DETECCIÓN, LOCALIZACIÓN Y CONTEO AUTOMÁTICO DE PERSONAS QUE ENTRAN A UN MICROBÚS, MEDIANTE ALGORITMOS DE VISIÓN POR COMPUTADOR.	2/2013	0	532	\N	2/2016	532	\N	\N	2/2016
+EFECTOS DEL CRITERIO DE ENFRIAMIENTO SOBRE SIMULATED ANNEALING EN LA RESOLUCIÓN DEL PROBLEMA DEL ÁRBOL DE COBERTURA MÍNIMA	04/10/12	0	555	\N	2/2016	555	\N	\N	2/2016
+ACERELERACION DE DESEMPEÑO DEL ALGORITMO DE BUSQUEDA LOCAL PARA FLOW SHOP USANDO PROCESADORES GRAFICOS	10/7/2011	0	313	\N	2/2016	313	\N	\N	2/2016
+SISTEMA WEB DE APOYO A LAS VENTAS Y SERVICIOS TÉCNICOS DE LA EMPRESA IMPORTADORA NORTE	28/09/2012	0	72	\N	2/2016	72	\N	\N	2/2016
+DISEÑO E IMPLEMENTACIÓN DE UN FIREWALL EN ALTA DISPONIBILIDAD		0	58	\N	2/2016	58	\N	\N	2/2016
+APLICACIÓN DE APOYO AL PROCESO DE GESTIÓN DE SERVICIOS DE TALLER	1/2014	0	60	\N	2/2016	60	\N	\N	2/2016
+DATOS SENSIBLES Y SU MANIPULACIÓN EN DISPOSITIVOS MÓVILES	2/2014	0	586	\N	2/2016	586	\N	\N	2/2016
+SOFTWARE PARA PLANIFICACIÓN DE VUELO FOTOGRAMÉTRICO DE UAV EN TERRENOS COMPLEJOS	1/2014	0	28	\N	2/2016	28	\N	\N	2/2016
+DISEÑO E IMPLEMENTACION DE UN MODULO DE EVALUACION DE RENDIMIENTO ESCALABLE Y MANTENIBLE PARA UNA RED SOCIAL GENERADORA DE NOTICIAS	25/10/2013	0	92	\N	2/2016	92	\N	\N	2/2016
+OBJETOS DE APRENDIZAJE PARA EL ESTUDIO DE ALGORITMOS HASH.	20/09/11	0	500	\N	2/2016	500	\N	\N	2/2016
+OBJETOS DE APRENDIZAJE PARA EL ESTUDIO DE PROTOCOLOS DE APLICACIÓN EN INTERNET	1/2014	0	508	\N	2/2016	508	\N	\N	2/2016
+DESARROLLO DE OBJETOS DE APRENDIZAJE PARA APOYAR EL ESTUDIO DE LAS REDES WI-FI Y WI-MAX	22/07/2013	0	514	\N	2/2016	514	\N	\N	2/2016
+MODELO DE GESTIÓN DE COTIZACIONES Y VENTAS DE SEGUROS DE VEHÍCULOS	24/10/2014	0	517	\N	2/2016	517	\N	\N	2/2016
+OBJETO DE APRENDIZAJE SOBRE LA DIRECCIÓN Y GESTIÓN DE PROYECTOR TI	1/2014	0	521	\N	2/2016	521	\N	\N	2/2016
+OBJETOS DE APRENDIZAJE PARA APOYAR LA COMPRENSIÓN DE LOS CIFRADORES SIMÉTRICOS RC4, IDEA Y BLOWFISH	5/3/2013	0	522	\N	2/2016	522	\N	\N	2/2016
+COMPARACION ENTRE MODELOS NARX DE SVM Y TLRNN PARA OBTENER INDICE AUTORREGULATORIO CEREBRAL EN VARIACIONES ESPONTANEAS		0	363	\N	2/2016	363	\N	\N	2/2016
+HERRAMIENTA DE DISEÑO DE OBJETOS Y VISUALIZACIÓN DE RESULTADOS PARA SIMULACIÓN DE CAMPO MAGNÉTICO	1/2014	0	148	\N	2/2016	148	\N	\N	2/2016
+CONTINUOUSDELIVERY DE SERVICIOS DE RECOMENDACIÓN EN UNA RED SOCIAL EMPRESARIAL DE NOTICIAS	10/6/2014	0	101	\N	2/2016	101	\N	\N	2/2016
+OBJETOS DE APRENDIZAJE PARA APOYAR EL ESTUDIO DE TECNOLOGÍAS DE LA INFORMACIÓN EN LA ENSEÑANZA BÁSICA	11/1/2013	0	20	\N	2/2016	20	\N	\N	2/2016
+SISTEMA WEB DE VIDEOS CLASIFICADOS DE APOYO EN LA PREPARACIÓN DE ESTUDIANTES PARA LA PSU-MATEMÁTICAS		0	534	\N	2/2016	534	\N	\N	2/2016
+EVOLUCIÓN DE METAHEURÍSTICAS PARA PROBLEMAS DE OPTIMIZACIÓN COMBINATORIA	1/2014	0	536	\N	2/2016	536	\N	\N	2/2016
+SISTEMA DE DETECCIÓN Y EVASIÓN DE OBSTÁCULOS PARA UAV CUADRICOPTERO BASADO EN ARDUPILOT	1/2014	0	32	\N	2/2016	32	\N	\N	2/2016
+SISTEMA DE DETECCIÓN DE PERSONAS EXTRAVIADAS, POR MEDIO DE RECONOCIMIENTO DE PATRONES EN IMAGÉNES TRANSMITIDAS EN TIEMPO REAL DESDE AVIÓN NO TRIPULADO	11/01/13	0	33	\N	2/2016	33	\N	\N	2/2016
+COMPARACIÓN DE LOS MÉTODOS DE CÁLCULO DE AUTORREGULACIÓN CON LA MANIOBRA "SIT-TO-STAND" Y VARIACIONES ESPONTÁNEAS DE PRESIÓN	2/2013	0	354	\N	2/2016	354	\N	\N	2/2016
+SELECCIÓN DE CARACTERÍSTICAS PARA LA ESTIMACIÓN DE NIVELES DE PRESIÓN INTRACRANEAL EN FORMA NO INVASIVA.	20/09/11	0	350	\N	2/2016	350	\N	\N	2/2016
+UNA SOLUCIÓN AL PROBLEMA DE PLANIFICACIÓN DE DISTRIBUCIÓN DE CONTENEDORES LLENOS Y VACÍOS.	05/10/11	0	537	\N	2/2016	537	\N	\N	2/2016
+GENERACION AUTOMATICA DE ALGORITMO PARA EL PROBLEMA DE FORMACION DE CELULAS DE MANUFACTURAS	12/10/11	0	542	\N	2/2016	542	\N	\N	2/2016
+GENERADOR DE ALGORITMOS PARA RESOLVER EL PROBLEMA DE LA PLANIFICACIÓN DE BUSES PARA EL TRANSPORTE URBANO DE PASAJEROS	1/2012	0	575	\N	2/2016	575	\N	\N	2/2016
+GENERACIÓN DE LA CALENDARIZACIÓN DE LOS PARTIDOS DEL CAMPEONATO DE FÚTBOL DE CHILE MEDIANTE SIMULATED ANNEALING	1/2014	0	569	\N	2/2016	569	\N	\N	2/2016
+IMPLEMENTACION DE HERRAMIENTA DE APOYO A LA GESTION DE LA DOCENCIA EN  COLEGIOS DE EDUCACION MEDIA BASDA EN TECNOLOGIA DE CODIGO ABIERTO		0	571	\N	2/2016	571	\N	\N	2/2016
+GENERACIÓN DE ALGORITMOS PARA EL PROBLEMA DE OPTIMIZACIÓN CELL FORMATION PROBLEM UTILIZANDO COMPUTACIÓN EVOLUTIVA	2/2013	0	570	\N	2/2016	570	\N	\N	2/2016
+APLICANDO INDICADORES A ALGORITMOS GENERADOS POR PROGRAMACIÓN GENÉTICA PARA EL PROBLEMA NP-C TSP.	28/05/2012	0	573	\N	2/2016	573	\N	\N	2/2016
+CLASIFICACION DEL GRUPO SOCIO ECOOMICO UTILIZANDO VARIABLES DE CONSUME DE PRODUCTOS DE SUPERMERCADO	3/4/2013	0	352	\N	2/2016	352	\N	\N	2/2016
 \.
 
 
@@ -4523,7 +4651,7 @@ SISTEMA WEB DE APOYO A LA GESTIÓN DE UNA ORGANIZACIÓN COMUNITARIA	20/12/2013	1
 -- Name: tema_id_tema_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('tema_id_tema_seq', 599, true);
+SELECT pg_catalog.setval('tema_id_tema_seq', 604, true);
 
 
 --
@@ -5238,6 +5366,22 @@ ALTER TABLE ONLY inscripcion
 
 
 --
+-- Name: fk_planes_alumno_alumno_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY planes_alumno
+    ADD CONSTRAINT fk_planes_alumno_alumno_id FOREIGN KEY (alumno_id) REFERENCES alumno(rut_alumno);
+
+
+--
+-- Name: fk_planes_alumno_plan_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY planes_alumno
+    ADD CONSTRAINT fk_planes_alumno_plan_id FOREIGN KEY (plan_id) REFERENCES planestudio(id);
+
+
+--
 -- Name: fk_planestudio_carrera_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -5410,5 +5554,4 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 --
 -- PostgreSQL database dump complete
 --
-
 

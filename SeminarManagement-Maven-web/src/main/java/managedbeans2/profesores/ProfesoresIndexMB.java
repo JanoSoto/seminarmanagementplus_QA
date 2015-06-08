@@ -108,11 +108,15 @@ public class ProfesoresIndexMB {
                                         System.out.println(profesores.get(i).getNombreProfesor());
                                         System.out.println(profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getIdRevisora().getIdPropuesta());
                                         System.out.println(profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getIdRevisora().getIdSemestre().getIdSemestre());
+                                        System.out.println(profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getIdRevisora().getIdTema().getIdSemestre().getIdSemestre());
                                         System.out.println(semestreActual);
                                         
 //                                        System.out.println(profesores.get(i).getProfePropuestaList().get(j).getgetComisionRevisoraList().get(0).getProfeRevisionList().get(0).getProfesor().getNombreProfesor()  );
                                         
-                                        if (profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getIdRevisora().getIdSemestre().getIdSemestre() == null ? semestreActual == null : profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getIdRevisora().getIdSemestre().getIdSemestre().equals(semestreActual)) {
+                                        String semestre = profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getIdRevisora().getIdTema().getIdSemestre().getIdSemestre();
+//                                        semestre = (String) (profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getIdRevisora().getIdSemestre().getIdSemestre() == null ? semestreActual == null : profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getIdRevisora().getIdSemestre().getIdSemestre());
+
+                                        if (semestre.equals(semestreActual)) {
     //                                        if (profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getFechaPropuesta()
                                             guiaTemp++;
                                             System.out.println("TRUE");
@@ -160,7 +164,8 @@ public class ProfesoresIndexMB {
             profCorr = profes.get(i).getProfeCorreccionList();
             corrTemp = 0;
             for (int j = 0; j < profCorr.size(); j++) {
-                if (profCorr.get(j).getComisionCorrectora().getIdSemestre().getIdSemestre().equals(semestreActual)) {
+//                if (profCorr.get(j).getComisionCorrectora().getIdSemestre().getIdSemestre().equals(semestreActual)) {
+                if (profCorr.get(j).getComisionCorrectora().getIdTema().getIdSemestre().getIdSemestre().equals(semestreActual)) {
                     corrTemp++;
                 }
             }
