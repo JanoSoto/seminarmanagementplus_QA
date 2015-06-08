@@ -33,8 +33,7 @@
 
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Jornada:"/>
                         <h:outputText rendered="#{verAlumnoMB.alumno.jornadaParcial eq 0}" value="Diurno"/>
-                        <h:outputText rendered="{verAlumnoMB.alumno.jornada eq 1}" value="Vespertino"/>
-                        <h:outputText value="TODO-jornada"/>
+                        <h:outputText rendered="#{verAlumnoMB.alumno.jornadaParcial eq 1}" value="Vespertino"/>
                         
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="E-Mail:"/>
                         <h:outputText value="#{verAlumnoMB.alumno.mailAlumno}"/>
