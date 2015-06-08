@@ -56,20 +56,20 @@
                     <f:facet name="header">
                         Listado histórico de temas
                     </f:facet>
-                    <p:column headerText="Nombre">
+                    <p:column headerText="Nombre" sortBy="#{tema.nombreCorto}">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/temas/tema.xhtml?tema=#{tema.idTema}">
                             <h:outputText value="#{tema.nombreCorto}"/>
                         </a>
                     </p:column>
-                    <p:column headerText="Alumno">
+                    <p:column headerText="Alumno" sortBy="#{tema.alumno.nombreAlumno} #{tema.alumno.apellidoAlumno}">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/alumnos/alumno.xhtml?alum=#{tema.alumno.rutAlumno}">
                             <h:outputText value="#{tema.alumno.nombreAlumno} #{tema.alumno.apellidoAlumno}"/>
                         </a>
                     </p:column>
-                    <p:column headerText="Estado">
+                    <p:column headerText="Estado" sortBy="#{tema.estadoTema}">
                         <h:outputText value="#{tema.estadoTema}"/>
                     </p:column>
-                    <p:column headerText="Semestre Inicio">
+                    <p:column headerText="Semestre Inicio" sortBy="#{tema.semestreTema}">
                         <h:outputText value="#{tema.semestreTema}"/>
                     </p:column>
                 </p:dataTable>

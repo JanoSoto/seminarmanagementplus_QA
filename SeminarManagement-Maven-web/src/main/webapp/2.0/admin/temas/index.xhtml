@@ -41,7 +41,7 @@
                             <h:outputText value="#{tema.nombreCorto}" />
                         </a>
                     </p:column>
-                    <p:column filterBy="#{tema.estadoTema}" filterMatchMode="exact" filterOptions="#{temasIndexMB.estados}">
+                    <p:column filterBy="#{tema.estadoTema}" sortBy="#{tema.estadoTema}" filterMatchMode="exact" filterOptions="#{temasIndexMB.estados}">
                         <f:facet name="header">
                             <h:outputLabel value="Estado" />
                         </f:facet>
