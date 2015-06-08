@@ -72,12 +72,12 @@ public class PlantillaPropuesta extends HttpServlet {
             
             StringBuilder str = new StringBuilder();
             str.append("PROPUESTA DE TEMA DE INGENIERIA ");
-            List <PlanEstudio> planes = alumno.getPlanes();
-            if ( !planes.isEmpty() ){
-                str.append(planes.get(0).getCarreraId().getNombre()).append(" - ");
-            } else {
-                str.append("                                                     - ");
-            }
+//            List <PlanEstudio> planes = alumno.getPlanes();
+//            if ( !planes.isEmpty() ){
+//                str.append(planes.get(0).getCarreraId().getNombre()).append(" - ");
+//            } else {
+//                str.append("                                                     - ");
+//            }
             
             if (prop.getIdSemestre() != null){
                 str.append(prop.getIdSemestre().getIdSemestre().replace("/", "° "));

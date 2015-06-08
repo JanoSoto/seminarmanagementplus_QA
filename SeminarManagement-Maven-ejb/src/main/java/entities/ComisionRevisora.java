@@ -103,6 +103,42 @@ public class ComisionRevisora implements Serializable {
         this.idRevisora = idRevisora;
     }
     
+    public Profesor getGuia(){
+        List <ProfePropuesta> profesores = this.idPropuesta.getProfePropuestaList();
+        profesores.size();
+        Profesor guia = null;
+        for (ProfePropuesta pp : profesores) {
+            if (pp.getRolGuia() == 0){
+                guia = pp.getProfesor();
+            }
+        }
+        return guia;
+    }
+    
+    public Profesor getRevisor1(){
+        List <ProfeRevision> profesores = getProfeRevisionList();
+        profesores.size();
+        Profesor revisor1 = null;
+        for (ProfeRevision pr : profesores) {
+            if (pr.getRolRevision() == 0){
+                revisor1 = pr.getProfesor();
+            }
+        }
+        return revisor1;
+    }
+    
+    public Profesor getRevisor2(){
+        List <ProfeRevision> profesores = getProfeRevisionList();
+        profesores.size();
+        Profesor revisor2 = null;
+        for (ProfeRevision pr : profesores) {
+            if (pr.getRolRevision() == 1){
+                revisor2 = pr.getProfesor();
+            }
+        }
+        return revisor2;
+    }
+    
     public void add(Propuesta object){
         propuestaList.add(object);
     }

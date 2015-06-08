@@ -14,14 +14,17 @@
             <f:viewParam name="prof" value="#{verProfesorMB.rutProfesor}"/>
         </f:metadata>
     </ui:define>
-    #{reportesMB.init()}
-    #{reportesMB.findPropuestasSemestre()}
-    <ui:define name="title"><title>Estadísticas | Seminar Management</title></ui:define>
+    <ui:define name="title"><title>Reportes | Seminar Management</title></ui:define>
     <ui:define name="content">
         <p:layoutUnit position="west" size="180" style="border: none;">
+            
         </p:layoutUnit>
         <p:layoutUnit position="center" style="border:none;">
-            #{reportesMB.revisoras.size()} hola
+            <p:panel header="Reportes #{reportesMB.semestreActual.semestreActual}">
+                <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/reportes/seminario.xhtml">
+                    <h:outputText value="Fechas Exámenes Seminario Memoristas Civil y Ejecución #{reportesMB.semestreActual.semestreActual}" style="color: #0052cc;font-weight: bold;" />
+                </a>
+            </p:panel>
         </p:layoutUnit>
     </ui:define>
 

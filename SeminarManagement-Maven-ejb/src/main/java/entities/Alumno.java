@@ -164,6 +164,19 @@ public class Alumno implements Serializable {
     public void setDireccionAlumno(String direccionAlumno) {
         this.direccionAlumno = direccionAlumno;
     }
+    
+    public PlanEstudio getPlanActivo(){
+        List<AsociacionPlanEstudioAlumno> alumnoPlanes = this.getAsociacionPlanEstudioAlumno();
+        alumnoPlanes.size();
+        AsociacionPlanEstudioAlumno activo = null;
+        for (AsociacionPlanEstudioAlumno aluPlan : alumnoPlanes) {
+            if ( aluPlan.isActivo() ){
+                activo = aluPlan;
+                break;
+            }
+        }
+        return activo == null ? null : activo.getPlanEstudio();
+    }
 
     @XmlTransient
     public List<Propuesta> getPropuestaList() {

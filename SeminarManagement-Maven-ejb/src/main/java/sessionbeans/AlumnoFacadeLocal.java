@@ -1,6 +1,7 @@
 package sessionbeans;
 
 import entities.Alumno;
+import entities.AsociacionPlanEstudioAlumno;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -30,6 +31,4 @@ public interface AlumnoFacadeLocal {
     public boolean existe(String rutAlumno);
 
     List<Alumno> findAlumno(String q);
-
-    
 }
