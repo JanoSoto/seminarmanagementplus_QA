@@ -85,6 +85,7 @@
                         <p:button style="width:140px;" rendered="#{empty verTemaMB.tema.idCorrectora and verTemaMB.tema.estadoTema eq 0}" href="/2.0/secretaria/temas/informe.xhtml?tema=#{verTemaMB.tema.idTema}" value="Agregar Informe de Avance"/>
                         <p:button style="width:140px;" rendered="#{empty verTemaMB.tema.idCorrectora and verTemaMB.tema.estadoTema eq 0}" href="/2.0/secretaria/temas/borrador.xhtml?tema=#{verTemaMB.tema.idTema}" value="Agregar Borrador Final"/>
                         <p:button style="width:140px;" rendered="#{verTemaMB.tema.estadoTema eq 4}" href="/2.0/secretaria/temas/calificar.xhtml?tema=#{verTemaMB.tema.idTema}" value="Agregar Calificaciones"/>
+                        <p:button style="width:140px;" rendered="#{verTemaMB.tema.estadoTema eq 7 || verTemaMB.tema.estadoTema eq 1}" href="/2.0/secretaria/temas/modificarCalificaciones.xhtml?tema=#{verTemaMB.tema.idTema}" value="Modificar Calificaciones"/>
                         <p:button style="width:140px;" rendered="#{verTemaMB.tema.estadoTema eq 0}" href="/2.0/secretaria/temas/caducarrenuncia.xhtml?tema=#{verTemaMB.tema.idTema}" value="Renunciar"/>
                         <p:button style="width:140px;" rendered="#{empty verTemaMB.tema.idCorrectora and verTemaMB.tema.estadoTema eq 0}" href="/2.0/secretaria/temas/caducar.xhtml?tema=#{verTemaMB.tema.idTema}" value="Caducar"/>
                         <p:button style="width:140px;" href="/2.0/secretaria/temas/editarTema.xhtml?tema=#{verTemaMB.tema.idTema}" value="Editar Tema"/>
