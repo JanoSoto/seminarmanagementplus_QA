@@ -1,9 +1,11 @@
 package managedbeans2.alumnos;
 
 import entities.Alumno;
+import entities.AsociacionPlanEstudioAlumno;
 import entities.PlanEstudio;
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.ejb.EJB;
@@ -94,25 +96,47 @@ public class EditarAlumnoMB implements Serializable {
         alumnoEdit.setRutAlumno(alumno.getRutAlumno());
         alumnoEdit.setPropuestaList(alumno.getPropuestaList());
 
-        
-        alumno.getPlanEstudioAlumno();
-        System.out.println("asdasda");
-        
-//        List<PlanEstudio> planesEstudio = alumno.getPlanes();
-//        Boolean existe = false;
-//        for (int i = 0; i < planesEstudio.size(); i++) {
-//            Integer id = Integer.parseInt(planesEstudio.get(i).getId() + "");
-//            if (id == this.planEstudioAlumno) {
-//                existe = true;
-//            }
-//        }
-//        if (!existe) {
-//            PlanEstudio a = planEstudioFacade.findById(this.planEstudioAlumno);
-//            planesEstudio.add(a);
-//            alumno.setPlanes(planesEstudio);
-//        }
-//        alumnoEdit.setPlanes(alumno.getPlanes());
+//        alumno.getPlanEstudioAlumno();
+        List<AsociacionPlanEstudioAlumno> planesEstudioAlumno = alumno.getAsociacionPlanEstudioAlumno();
 
+        Boolean existe = false;
+        for (int i = 0; i < planesEstudioAlumno.size(); i++) {
+            Integer id = Integer.parseInt(planesEstudioAlumno.get(i).getPlanEstudio().getId()+"");
+            System.out.println(id + " == " + this.planEstudioAlumno);
+            if (id == this.planEstudioAlumno) {
+                System.out.println("Existe !!!!");
+                existe = true;
+            } else {
+//                planesEstudioAlumno.get(i).setActivo(false);
+            }
+        }
+
+        List<AsociacionPlanEstudioAlumno> asociacion_antigua = alumno.getAsociacionPlanEstudioAlumno();
+
+        PlanEstudio a = planEstudioFacade.findById(this.planEstudioAlumno);
+        if (!existe) {
+            AsociacionPlanEstudioAlumno nueva_asociacion = new AsociacionPlanEstudioAlumno();
+
+//            asociacion_antigua.get(0).setActivo(false);
+            nueva_asociacion.setActivo(true);
+            nueva_asociacion.setAlumno(alumnoEdit);
+            nueva_asociacion.setAlumnoId(alumnoEdit.getRutAlumno());
+            nueva_asociacion.setPlanEstudio(a);
+            nueva_asociacion.setPlanId(this.planEstudioAlumno);
+
+            for (int i = 0; i < asociacion_antigua.size(); i++) {
+                System.out.println(asociacion_antigua.get(i).isActivo());
+//                asociacion_antigua.get(i).setActivo(false);
+            }
+            asociacion_antigua.add(nueva_asociacion);
+            a.setAsociacionPlanEstudioAlumno(asociacion_antigua);
+
+            a.setAsociacionPlanEstudioAlumno(asociacion_antigua);
+        }
+        
+        alumno.setAsociacionPlanEstudioAlumno(asociacion_antigua);
+        alumnoEdit.setAsociacionPlanEstudioAlumno(asociacion_antigua);
+        a.setAsociacionPlanEstudioAlumno(asociacion_antigua);
         alumnoFacade.edit(alumnoEdit);
 
         //Añadimos al historial del alumno cuándo lo editaron
