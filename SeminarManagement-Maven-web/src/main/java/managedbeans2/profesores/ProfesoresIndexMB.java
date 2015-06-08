@@ -94,7 +94,7 @@ public class ProfesoresIndexMB {
                     }
                 }
             }
-            //Seteamos la cantidad de temas vigentes en que es guía
+            //Seteamos la cantidad de temas vigentes en que es guía           
             for (int j = 0; j < profesores.get(i).getProfePropuestaList().size(); j++) {
                 if (profesores.get(i).getProfePropuestaList().get(j).getRolGuia() == 0) {
                     guiaP++;
@@ -104,13 +104,27 @@ public class ProfesoresIndexMB {
                                 if (profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getIdRevisora().getIdTema().getEstadoTema() != null) {
                                     int tipoTemaTemp = profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getIdRevisora().getIdTema().getEstadoTema();
                                     if (tipoTemaTemp == 0 || tipoTemaTemp == 2) {
-                                        guiaTemp++;
+//                                        System.out.println("Fecha: " + profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getIdRevisora().getIdTema().getFechaTema());
+                                        System.out.println(profesores.get(i).getNombreProfesor());
+                                        System.out.println(profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getIdRevisora().getIdPropuesta());
+                                        System.out.println(profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getIdRevisora().getIdSemestre().getIdSemestre());
+                                        System.out.println(semestreActual);
+                                        
+//                                        System.out.println(profesores.get(i).getProfePropuestaList().get(j).getgetComisionRevisoraList().get(0).getProfeRevisionList().get(0).getProfesor().getNombreProfesor()  );
+                                        
+                                        if (profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getIdRevisora().getIdSemestre().getIdSemestre() == null ? semestreActual == null : profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getIdRevisora().getIdSemestre().getIdSemestre().equals(semestreActual)) {
+    //                                        if (profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getFechaPropuesta()
+                                            guiaTemp++;
+                                            System.out.println("TRUE");
+                                        }
+                                        
+                                        System.out.println("======");
 
                                         List<Alumno> alumnos = alumnoFacade.findByRut(profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getRutAlumno().getRutAlumno());
-                                        if ( !alumnos.isEmpty() ){
+                                        if (!alumnos.isEmpty()) {
                                             List<PlanEstudio> planes = alumnos.get(0).getPlanes();
-                                            if ( !planes.isEmpty() ) {
-                                                if ( planes.get(0).getJornada() == 1) {
+                                            if (!planes.isEmpty()) {
+                                                if (planes.get(0).getJornada() == 1) {
                                                     guiaTempDiurno++;
                                                     if (profesores.get(i).getContrato() == 0) {// Por Hora
                                                         totalTemasVigentesPorHora++;
@@ -169,7 +183,7 @@ public class ProfesoresIndexMB {
 
             if (guiaTemp > 0) {
                 // Por horas
-                if (profesores.get(i).getContrato() == 0 )  {
+                if (profesores.get(i).getContrato() == 0) {
                     profeDatosPorHoras.add(profeDatosTemp);
                 } else { // Jornada Completa
                     profeDatosJornadaCompleta.add(profeDatosTemp);
