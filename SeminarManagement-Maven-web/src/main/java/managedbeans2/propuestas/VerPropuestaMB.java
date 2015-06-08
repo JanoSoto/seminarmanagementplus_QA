@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -83,12 +84,10 @@ public class VerPropuestaMB implements Serializable {
                 
                 if (date != null) {
                     date = stringToDate(propuesta.getIdRevisora().getFechaRevision());
-                    System.out.println(date);
                 }
+                
                 if (date2 != null) {
-                    
                     date2 = stringToDate(propuesta.getIdRevisora().getFechaEntregaRevision());
-                    System.out.println(date2);
                 }
                 
                 
@@ -145,7 +144,7 @@ public class VerPropuestaMB implements Serializable {
         
         //Se valida que no exista otra propuesta con el mismo nombre
         List<Propuesta> propuestas = propuestaFacade.findByName(nombrePropEdit);
-        if(!propuestas.isEmpty() && !propTemp.equals(nombrePropEdit)) {
+        if(!propuestas.isEmpty() && !Objects.equals(propTemp.getIdPropuesta(), propuestas.get(0).getIdPropuesta())) {
             context.addMessage(null, new FacesMessage("Nombre Propuesta","Ya existe una propuesta con ese nombre"));
             return;
         }
@@ -172,7 +171,6 @@ public class VerPropuestaMB implements Serializable {
         propTemp.setNombrePropuesta(nombrePropEdit);
         propTemp.setFechaPropuesta(dateToString(fechaPropEdit));
         propTemp.setIdSemestre(semTemp);
-        System.out.println("Esto es pet: "+pet);
         propTemp.setPet(pet);
         propuestaFacade.edit(propTemp);
         
