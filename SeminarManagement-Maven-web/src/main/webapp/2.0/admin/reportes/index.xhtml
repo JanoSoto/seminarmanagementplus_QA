@@ -14,12 +14,14 @@
             <f:viewParam name="prof" value="#{verProfesorMB.rutProfesor}"/>
         </f:metadata>
     </ui:define>
-
+    #{reportesMB.init()}
+    #{reportesMB.findPropuestasSemestre()}
     <ui:define name="title"><title>Estadísticas | Seminar Management</title></ui:define>
     <ui:define name="content">
         <p:layoutUnit position="west" size="180" style="border: none;">
         </p:layoutUnit>
         <p:layoutUnit position="center" style="border:none;">
+            #{reportesMB.revisoras.size()} hola
         </p:layoutUnit>
     </ui:define>
 

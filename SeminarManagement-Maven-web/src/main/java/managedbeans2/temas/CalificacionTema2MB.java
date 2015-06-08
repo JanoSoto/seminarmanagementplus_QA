@@ -1,22 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package managedbeans2.temas;
 
 import entities.Alumno;
-import entities.Historial;
 import entities.Profesor;
 import entities.Tema;
 import entities.ProfeCorreccion;
 import entities.ProfePropuesta;
-import entities.Propuesta;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
@@ -82,8 +73,25 @@ public class CalificacionTema2MB {
     public void buscarTema(){
         
         tema = temaFacade.findById(idTema).get(0);
-        nombreprofe=tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(0).getProfesor().getNombreProfesor();
-        apellidoprofe=tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(0).getProfesor().getApellidoProfesor();
+        if(tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(0).getRolGuia()==0){
+            nombreprofe= tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(0).getProfesor().getNombreProfesor();
+            apellidoprofe=tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(0).getProfesor().getApellidoProfesor();
+            if (!tema.getIdCorrectora().getProfeCorreccionList().isEmpty()){
+                notaProfeGuiaInf = String.valueOf(tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(0).getNotaGuiaInforme());
+                notaProfeGuiaDef = String.valueOf(tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(0).getNotaGuiaDefensa());
+            }
+        }
+        else{
+            nombreprofe= tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(1).getProfesor().getNombreProfesor();
+            apellidoprofe=tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(1).getProfesor().getApellidoProfesor();
+            if (!tema.getIdCorrectora().getProfeCorreccionList().isEmpty()){
+                notaProfeGuiaInf = String.valueOf(tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(1).getNotaGuiaInforme());
+                notaProfeGuiaDef = String.valueOf(tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(1).getNotaGuiaDefensa());
+            }
+        }
+    
+        
+        
         
         nombrecorrector1 = tema.getIdCorrectora().getProfeCorreccionList().get(0).getProfesor().getNombreProfesor();
         apellidocorrector1 = tema.getIdCorrectora().getProfeCorreccionList().get(0).getProfesor().getApellidoProfesor();
@@ -93,8 +101,6 @@ public class CalificacionTema2MB {
         date2=stringToDate(tema.getFechaSiacTema());
         
         if (!tema.getIdCorrectora().getProfeCorreccionList().isEmpty()){
-            notaProfeGuiaInf = String.valueOf(tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(0).getNotaGuiaInforme());
-            notaProfeGuiaDef = String.valueOf(tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(0).getNotaGuiaDefensa());
             notaProfe1Inf = String.valueOf(tema.getIdCorrectora().getProfeCorreccionList().get(0).getNotaCorreccionInforme());
             notaProfe1Def = String.valueOf(tema.getIdCorrectora().getProfeCorreccionList().get(0).getNotaCorreccionDefensa());
             notaProfe2Inf = String.valueOf(tema.getIdCorrectora().getProfeCorreccionList().get(1).getNotaCorreccionInforme());
@@ -279,8 +285,7 @@ public class CalificacionTema2MB {
             context.addMessage(null, new FacesMessage("Notas Tema","Debe ingresar notas menores a 7.0"));
             return;
         }
-        System.out.println(nombreTema);
-        //System.out.println(idTema);
+        
         //tema = temaFacade.findById(idTema).get(0);
         //Obtenemos los profesores correctores
         Profesor profCorrector1,profCorrector2,profGuia;

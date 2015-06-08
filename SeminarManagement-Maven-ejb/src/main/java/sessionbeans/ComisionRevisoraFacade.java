@@ -34,4 +34,11 @@ public class ComisionRevisoraFacade extends AbstractFacade<ComisionRevisora> imp
  
     }
 
+    @Override
+    public List<ComisionRevisora> findBySemestre(String semestre){
+        Query q;
+        q = em.createNamedQuery("ComisionRevisora.findBySemestre")
+                .setParameter("semestre", semestre);
+        return q.getResultList();
+    }
 }

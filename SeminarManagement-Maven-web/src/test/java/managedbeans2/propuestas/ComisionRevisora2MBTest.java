@@ -5,8 +5,12 @@ import entities.ComisionRevisora;
 import entities.Propuesta;
 import entities.Semestre;
 import entities.Tema;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import org.junit.Before;
@@ -15,10 +19,16 @@ import static org.junit.Assert.*;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
+import sessionbeans.ComisionRevisoraFacadeLocal;
+import sessionbeans.PropuestaFacade;
+import sessionbeans.PropuestaFacadeLocal;
+import sessionbeans.SemestreActualFacadeLocal;
+import sessionbeans.SemestreFacadeLocal;
 
 /**
  *
@@ -28,11 +38,24 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class ComisionRevisora2MBTest {
     @Mock
     private ComisionRevisora2MBTest comisionRevisora2MBTest;
-   
+    
     @Mock
     private EntityManager entityManager;
+    
     @Mock
     private Query query;
+    
+    private ComisionRevisora2MB managedBean;
+    
+    @EJB
+    private PropuestaFacadeLocal propuestaFacade;
+    
+    @EJB
+    private ComisionRevisoraFacadeLocal comisionFacade;
+    
+    @EJB
+    private SemestreFacadeLocal semestreFacade;
+    
     public ComisionRevisora2MBTest() {
     }
     @Before
@@ -42,6 +65,13 @@ public class ComisionRevisora2MBTest {
         entityManager = Mockito.mock(EntityManager.class);
         comisionRevisora2MBTest = Mockito.mock(ComisionRevisora2MBTest.class);
         comisionRevisora2MBTest.entityManager = entityManager; 
+        
+        managedBean = Mockito.mock(ComisionRevisora2MB.class);
+        
+        propuestaFacade = Mockito.mock(PropuestaFacadeLocal.class);
+        comisionFacade = Mockito.mock(ComisionRevisoraFacadeLocal.class);
+        semestreFacade = Mockito.mock(SemestreFacadeLocal.class);
+        
         
     }
 
@@ -123,4 +153,37 @@ public class ComisionRevisora2MBTest {
         assertEquals(comisionListTest, comisionList);
     }
 
+    @Test
+    public void testEditarFechasComisionRevisoraAcuerdoConsejo() throws ParseException{
+        Propuesta propuesta = new Propuesta(1);
+        ComisionRevisora comision = new ComisionRevisora(2);
+        Semestre semestre = new Semestre("1/2015");
+        
+        List<Propuesta> propuestas = new ArrayList<>();
+        propuestas.add(propuesta);
+        
+        List<ComisionRevisora> comisiones = new ArrayList<>();
+        comisiones.add(comision);
+        
+        List<Semestre> semestres = new ArrayList<>();
+        semestres.add(semestre);
+        
+        when(this.propuestaFacade.findById(1)).thenReturn(propuestas);
+        when(this.comisionFacade.findById(2)).thenReturn(comisiones);
+        when(this.semestreFacade.findAll()).thenReturn(semestres);
+        doNothing().when(this.comisionFacade).edit(comision);
+        
+        managedBean.setIdProp(1);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        Date publicacion = sdf.parse("10/03/2015");
+        Date termino = sdf.parse("16/03/2015");
+        managedBean.setPublicacionConsejo(publicacion);
+        managedBean.setTerminoPublicacionConsejo(termino);
+        managedBean.setSemestreRev("1/2015");
+        comision.setFechaPublicacionConsejo("10/03/2015");
+        comision.setFechaTerminoPublicacionConsejo("16/03/2015");
+        
+        managedBean.EditarComisionRevisora();
+
+    }
 }

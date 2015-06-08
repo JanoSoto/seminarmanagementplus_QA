@@ -387,7 +387,6 @@ public class ComisionRevisora2MB implements Serializable {
         propuesta = propuestaFacade.findById(idProp).get(0);
         comision  = comisionRevisoraFacade.findById(propuesta.getIdRevisora().getIdRevisora());
         ComisionRevisora com = comision.get(0);
-        ComisionRevisora nuevaComision;
 
         //Accedemos a la tabla semestre, e ingresamos semestre actual si no ha sido ingresado
         Semestre semestreRevision = new Semestre(semestreRev);
@@ -396,9 +395,13 @@ public class ComisionRevisora2MB implements Serializable {
             semestreFacade.create(semestreRevision);
         }
 
-        if (publicacionConsejo != null && terminoPublicacionConsejo != null) {
+        if (publicacionConsejo != null)
             fechaPublicacion = dateToString(publicacionConsejo);
+        
+        if (terminoPublicacionConsejo != null)
             fechaTerminoPublicacion = dateToString(terminoPublicacionConsejo);
+            
+        if (publicacionConsejo != null && terminoPublicacionConsejo != null) {
             if ( !fechaCorrecta(fechaPublicacion, fechaTerminoPublicacion) ) {
                 return;
             }
@@ -409,7 +412,6 @@ public class ComisionRevisora2MB implements Serializable {
         com.setFechaPublicacionConsejo(fechaPublicacion);
         com.setFechaTerminoPublicacionConsejo(fechaTerminoPublicacion);
         com.setIdSemestre(com.getIdSemestre());
-        com.setTipoRevision(com.getTipoRevision());
         comisionRevisoraFacade.edit(com);
 
         //Mensaje de confirmación 

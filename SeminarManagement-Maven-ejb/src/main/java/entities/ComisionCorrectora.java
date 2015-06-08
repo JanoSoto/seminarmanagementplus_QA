@@ -31,10 +31,10 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ComisionCorrectora.findAll", query = "SELECT c FROM ComisionCorrectora c"),
     @NamedQuery(name = "ComisionCorrectora.findByFechaCorreccion", query = "SELECT c FROM ComisionCorrectora c WHERE c.fechaCorreccion = :fechaCorreccion"),
     @NamedQuery(name = "ComisionCorrectora.findByFechaEntregaCorreccion", query = "SELECT c FROM ComisionCorrectora c WHERE c.fechaEntCorreccion = :fechaEntCorreccion"),
-    @NamedQuery(name = "ComisionCorrectora.findAll", query = "SELECT c FROM ComisionCorrectora c"),
     @NamedQuery(name = "ComisionCorrectora.findByFechaCorreccion2", query = "SELECT c FROM ComisionCorrectora c WHERE c.fechaCorreccion2 = :fechaCorreccion2"),
     @NamedQuery(name = "ComisionCorrectora.findByFechaEntregaCorreccion2", query = "SELECT c FROM ComisionCorrectora c WHERE c.fechaEntCorreccion2 = :fechaEntCorreccion2"),
-    @NamedQuery(name = "ComisionCorrectora.findByIdCorrectora", query = "SELECT c FROM ComisionCorrectora c WHERE c.idCorrectora = :idCorrectora")})
+    @NamedQuery(name = "ComisionCorrectora.findByIdCorrectora", query = "SELECT c FROM ComisionCorrectora c WHERE c.idCorrectora = :idCorrectora"),
+    @NamedQuery(name = "ComisionCorrectora.findBySemestre", query = "SELECT c FROM ComisionCorrectora c WHERE c.idSemestre.idSemestre = :semestre")})
 public class ComisionCorrectora implements Serializable {
     private static final long serialVersionUID = 1L;
     
