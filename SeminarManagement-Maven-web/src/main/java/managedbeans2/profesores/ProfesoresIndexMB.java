@@ -91,6 +91,7 @@ public class ProfesoresIndexMB {
                     }
                     if (profRev.get(j).getComisionRevisora().getTipoRevision() == 1) {
                         revSem++;
+                        
                     }
                 }
             }
@@ -179,7 +180,7 @@ public class ProfesoresIndexMB {
             } else {
                 profeDatosTemp.setContrato("Jornada Completa");
             }
-            profeDatosTemp.setRevSemActual(revProp);
+            profeDatosTemp.setRevSemActual(revSem);
             profeDatosTemp.setTemasVigentes(guiaTemp);
             profeDatosTemp.setTemasVigentesDiurno(guiaTempDiurno);
             profeDatosTemp.setTemasVigentesVespertino(guiaTempVespertino);

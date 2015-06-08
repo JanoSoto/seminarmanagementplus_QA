@@ -73,7 +73,7 @@
                     <f:facet name="header">
                         Temas Vigentes #{semestreActual.semestre}
                     </f:facet>
-                    <p:column headerText="Nombre">
+                    <p:column headerText="Nombre" width="400px;">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/temas/tema.xhtml?tema=#{tema.idTema}">
                             <h:outputText value="#{tema.nombreCorto}"/>
                         </a>
@@ -89,7 +89,7 @@
                     <f:facet name="header">
                         Temas Prorrogados #{semestreActual.semestre}
                     </f:facet>
-                    <p:column headerText="Nombre">
+                    <p:column headerText="Nombre" width="400px;">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/temas/tema.xhtml?tema=#{tema.idTema}">
                             <h:outputText value="#{tema.nombreCorto}"/>
                         </a>
@@ -104,7 +104,7 @@
                     <f:facet name="header">
                         Participacion Comision Correctora #{semestreActual.semestre}
                     </f:facet>
-                    <p:column headerText="Nombre">
+                    <p:column headerText="Nombre" width="400px;">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/temas/tema.xhtml?tema=#{tema.idTema}">
                             <h:outputText value="#{tema.nombreCorto}"/>
                         </a>
@@ -117,9 +117,9 @@
                 </p:dataTable>
                 <p:dataTable id="guiasTable4" var="tema" value="#{verProfesorMB.temaDatosCorrectoraSemViejo}" emptyMessage="No soy parte de comision correctora">
                     <f:facet name="header">
-                        Temas del cual soy parte Comision Correctora #{semestreActual.semestreAnterior}
+                        Participacion Comision Correctora #{semestreActual.semestreAnterior}
                     </f:facet>
-                    <p:column headerText="Nombre">
+                    <p:column headerText="Nombre" width="400px;">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/temas/tema.xhtml?tema=#{tema.idTema}">
                             <h:outputText value="#{tema.nombreCorto}"/>
                         </a>
@@ -127,6 +127,36 @@
                     <p:column headerText="Alumno">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/alumnos/alumno.xhtml?alum=#{tema.alumno.rutAlumno}">
                             <h:outputText value="#{tema.alumno.nombreAlumno} #{tema.alumno.apellidoAlumno}"/>
+                        </a>
+                    </p:column>
+                </p:dataTable>
+                <p:dataTable id="guiasTable5" var="propuesta" value="#{verProfesorMB.propuestaDatosRevisora}" emptyMessage="No soy parte de comision revisora">
+                    <f:facet name="header">
+                        Participacion Comision Revisora #{semestreActual.semestre}
+                    </f:facet>
+                    <p:column headerText="Nombre" width="400px;">
+                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/propuestas/propuesta.xhtml?prop=#{propuesta.idPropuesta}">
+                            <h:outputText value="#{propuesta.nombreCorto}"/>
+                        </a>
+                    </p:column>
+                    <p:column headerText="Alumno">
+                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/alumnos/alumno.xhtml?alum=#{propuesta.alumno.rutAlumno}">
+                            <h:outputText value="#{propuesta.alumno.nombreAlumno} #{propuesta.alumno.apellidoAlumno}"/>
+                        </a>
+                    </p:column>
+                </p:dataTable>
+                <p:dataTable id="guiasTable6" var="propuesta" value="#{verProfesorMB.propuestaDatosRevisoraViejo}" emptyMessage="No soy parte de comision revisora">
+                    <f:facet name="header">
+                        Participacion Comision Revisora #{semestreActual.semestreAnterior}
+                    </f:facet>
+                    <p:column headerText="Nombre" width="400px;">
+                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/propuestas/propuesta.xhtml?prop=#{propuesta.idPropuesta}">
+                            <h:outputText value="#{propuesta.nombreCorto}"/>
+                        </a>
+                    </p:column>
+                    <p:column headerText="Alumno">
+                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/alumnos/alumno.xhtml?alum=#{propuesta.alumno.rutAlumno}">
+                            <h:outputText value="#{propuesta.alumno.nombreAlumno} #{propuesta.alumno.apellidoAlumno}"/>
                         </a>
                     </p:column>
                 </p:dataTable>
