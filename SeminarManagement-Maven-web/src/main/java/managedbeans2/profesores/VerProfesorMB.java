@@ -473,5 +473,15 @@ public class VerProfesorMB {
         }
         return semAnt;
     }
+    
+    private String semestreSiguiente(String semestreActual) {
+        String a = semestreActual.substring(0, 1);
+        String b = semestreActual.substring(2, 6);
+        if ("2".equals(a)) {
+            return "1/" + (Integer.parseInt(b) + 1);
+        } else {
+            return "2/" + b;
+        }
+    }
 
 }
