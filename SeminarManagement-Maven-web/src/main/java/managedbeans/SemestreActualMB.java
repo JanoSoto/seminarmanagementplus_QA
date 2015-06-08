@@ -4,6 +4,7 @@
  */
 package managedbeans;
 
+import Util.Util;
 import entities.Historial;
 import entities.Semestre;
 import entities.SemestreActual;
@@ -38,7 +39,7 @@ public class SemestreActualMB {
     @EJB
     private SemestreActualFacadeLocal semestreActualFacade;
     
-    private String semestre;
+    private String semestre,semestreAnterior;
     private Date date;
 
     
@@ -53,7 +54,18 @@ public class SemestreActualMB {
         }
         else
             semestre = semestreActualFacade.findAll().get(0).getSemestreActual();
+            semestreAnterior = Util.semestreAnterior(semestre);
     }
+
+    public String getSemestreAnterior() {
+        return semestreAnterior;
+    }
+
+    public void setSemestreAnterior(String semestreAnterior) {
+        this.semestreAnterior = semestreAnterior;
+    }
+    
+    
 
     public String getSemestre() {
         return semestre;
