@@ -1,4 +1,4 @@
-package managedbeans2;
+package managedbeans2.reportes;
 
 import entities.ComisionCorrectora;
 import entities.ComisionRevisora;
@@ -7,6 +7,7 @@ import entities.Tema;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -56,9 +57,15 @@ public class ReportesMB implements Serializable {
         }
     }
     
-    public void findPropuestasSemestre() {//System.out.println("propuestas");
-        // propuestas con comision
+    public void findPropuestasSemestre() {
+        // propuestas con comision, eliminando las por acuerdo de consejo
         revisoras = revisoraFacade.findBySemestre(semestreActual.getSemestreActual());
+        List<ComisionRevisora> porAcuerdo = new ArrayList<>();
+        for (ComisionRevisora revisora : revisoras) {
+            if ( revisora.getTipoRevision() == 2)
+                porAcuerdo.add(revisora);
+        }
+        revisoras.removeAll(porAcuerdo);
     }
     
     public void findTemasSemestre() {

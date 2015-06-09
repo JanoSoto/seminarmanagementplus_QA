@@ -44,6 +44,9 @@
                     <p:column headerText="Fecha&#10;Entrega" style="white-space:pre-line;" filterBy="#{tema.idRevisora.idPropuesta.fechaPropuesta}" filterMatchMode="contains" sortBy="#{tema.idRevisora.idPropuesta.fechaPropuesta}">
                         <h:outputText value="#{tema.idRevisora.idPropuesta.fechaPropuesta}" />
                     </p:column>
+                    <p:column headerText="Semestre" style="white-space:pre-line;" filterBy="#{tema.semestreTermino}" filterMatchMode="contains" sortBy="#{tema.semestreTermino}">
+                        <h:outputText value="#{tema.semestreTermino}" />
+                    </p:column>
                     <p:column headerText="Profesor Guía" filterBy="#{tema.idRevisora.guia.nombreProfesor} #{tema.idRevisora.guia.apellidoProfesor}" filterMatchMode="contains" sortBy="#{tema.idRevisora.guia.nombreProfesor} #{tema.idRevisora.guia.apellidoProfesor}">
                         <h:outputText value="#{tema.idRevisora.guia.nombreProfesor} #{tema.idRevisora.guia.apellidoProfesor}" />
                     </p:column>
