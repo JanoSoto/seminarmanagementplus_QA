@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package sessionbeans;
 
 import entities.Profesor;
@@ -56,6 +50,13 @@ public class ProfesorFacade extends AbstractFacade<Profesor> implements Profesor
                 .setParameter("nombreProfesor", "%"+q+"%")
                 .setParameter("apellidoProfesor", "%"+q+"%");
        return query.getResultList();
+    }
+
+    @Override
+    public List<Profesor> findByContrato(Integer tipoContrato) {
+        Query q = em.createNamedQuery("Profesor.findByContrato")
+                .setParameter("contrato", tipoContrato);
+        return q.getResultList();
     }
     
     

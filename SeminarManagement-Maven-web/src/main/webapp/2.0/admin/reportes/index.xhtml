@@ -18,7 +18,6 @@
     <ui:define name="content">
         <p:layoutUnit position="center" style="border:none;">
             <p:panel header="Reportes #{reportesMB.semestreActual.semestreActual}">
-                
                 <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/reportes/propuestas.xhtml">
                     <h:outputText value="Seguimiento Revisión Propuestas #{reportesMB.semestreActual.semestreActual}" style="color: #0052cc;font-weight: bold;" />
                 </a>
@@ -26,7 +25,6 @@
                 <a class="enlace"  href="/SeminarManagement-Maven-web/ReportePropuestas">
                     <h:outputText value="Descargar" style="color: #0052cc;font-weight: bold;" />
                 </a>
-                
                 <br/>
                 <br/>
                 <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/reportes/borradores.xhtml">
@@ -34,6 +32,15 @@
                 </a>
                 <p:spacer width="50" height="10" />
                 <a class="enlace"  href="/SeminarManagement-Maven-web/ReporteBorradores">
+                    <h:outputText value="Descargar" style="color: #0052cc;font-weight: bold;" />
+                </a>
+                <br/>
+                <br/>
+                <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/reportes/memoristas.xhtml">
+                    <h:outputText value="Cantidad de Memoristas #{reportesMB.semestreActual.semestreActual}" style="color: #0052cc;font-weight: bold;" />
+                </a>
+                <p:spacer width="50" height="10" />
+                <a class="enlace"  href="#">
                     <h:outputText value="Descargar" style="color: #0052cc;font-weight: bold;" />
                 </a>
             </p:panel>
