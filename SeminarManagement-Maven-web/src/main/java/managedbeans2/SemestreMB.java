@@ -50,6 +50,9 @@ public class SemestreMB {
 
     private String semestre;
     private Date date;
+    private Date fechaprecierre;
+
+    
     private Integer temasVSemActual = 0, temasCSemActual = 0, propSemActual = 0;
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(SemestreMB.class);
 
@@ -93,6 +96,14 @@ public class SemestreMB {
 
     public void setTemasVSemActual(Integer temasVSemActual) {
         this.temasVSemActual = temasVSemActual;
+    }
+    
+    public Date getFechaprecierre() {
+        return fechaprecierre;
+    }
+
+    public void setFechaprecierre(Date fechaprecierre) {
+        this.fechaprecierre = fechaprecierre;
     }
 
     public Integer getTemasCSemActual() {
@@ -265,6 +276,12 @@ public class SemestreMB {
                      historial.setTipoHistorial(1);
                      historialFacade.create(historial);
                      */
+                } else if (temas.get(i).getEstadoTema() == 6){
+                    Tema temaCerrado = temas.get(i);
+                    if(temaCerrado.getPrecerrado()==false){
+                        temaCerrado.setIdSemestre(semestreTemp);
+                        temaFacade.edit(temaCerrado);
+                    }
                 }
             }
         }
@@ -276,6 +293,30 @@ public class SemestreMB {
                 null, new FacesMessage("Estados y semestre modificados"));
         LOGGER.info(
                 "Estados y semestre modificados, el semestre actual es: " + semActual.getSemestreActual());
+    }
+    
+    public void preterminarSemestreActual() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        //Validamos que haya semestre actual
+        
+        List<Tema> temas = temaFacade.findAll();
+        
+        for (int i = 0; i < temas.size(); i++) {
+            if (temas.get(i).getEstadoTema() != null) {
+                if (temas.get(i).getEstadoTema() == 6){
+                    temas.get(i).setPrecerrado(true);
+                    temas.get(i).setPrecierre(dateToString(fechaprecierre));
+                    temaFacade.edit(temas.get(i));
+                }
+            }
+        }
+
+        context.addMessage(
+                null, new FacesMessage("Se ha precerrado el semestre", "borradores finales entregados luego de esta fecha pasarán a ser del próximo semestre"));
+
+        context.addMessage(
+                null, new FacesMessage("Estados y semestre modificados"));
+        LOGGER.info("Se ha precerrado el semestre, borradores finales entregados luego de esta fecha pasarán a ser del próximo semestre");
     }
 
     private String semestreSiguiente(String semestreActual) {
