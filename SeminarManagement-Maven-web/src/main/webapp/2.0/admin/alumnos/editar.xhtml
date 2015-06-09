@@ -85,10 +85,10 @@
                             <h:panelGrid>
                                 <!--#{plan.id}-->
                                 <!--#{planEstudioMB.getIdPlanActivo(editarAlumnoMB.rutAlumno)}-->
-                                <!--<c:if test="#{planEstudioMB.getIdPlanActivo(editarAlumnoMB.rutAlumno)} ne #{plan.id}">-->
+                                <c:if test="#{planEstudioMB.getIdPlanActivo(editarAlumnoMB.rutAlumno) != plan.id}">
                                 <p:commandButton id="boton_#{plan.codigo}" value="Marcar como activo" actionListener="#{editarAlumnoMB.setPlanActivoAlumno(editarAlumnoMB.rutAlumno, plan.id)}"  update="growl @form"/>
                                     <p:defaultCommand target="boton_#{plan.codigo}" />
-                                <!--</c:if>-->
+                                </c:if>
 
                                 <p:commandButton id="eliminar_boton_#{plan.codigo}" value="Eliminar" actionListener="#{editarAlumnoMB.eliminarPlan(editarAlumnoMB.rutAlumno, plan.id)}"  update="growl @form"/>
                                 <p:defaultCommand target="eliminar_boton_#{plan.codigo}" />
