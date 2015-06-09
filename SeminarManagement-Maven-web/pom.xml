@@ -4,12 +4,12 @@
     <parent>
         <artifactId>SeminarManagement-Maven</artifactId>
         <groupId>com.mycompany</groupId>
-        <version>1.0</version>
+        <version>3.0</version>
     </parent>
 
     <groupId>com.mycompany</groupId>
     <artifactId>SeminarManagement-Maven-web</artifactId>
-    <version>1.0</version>
+    <version>3.0</version>
     <packaging>war</packaging>
 
     <name>SeminarManagement-Maven-web</name>
@@ -24,7 +24,7 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>SeminarManagement-Maven-ejb</artifactId>
-            <version>1.0</version>
+            <version>3.0</version>
             <type>ejb</type>
             <scope>provided</scope>
         </dependency>
