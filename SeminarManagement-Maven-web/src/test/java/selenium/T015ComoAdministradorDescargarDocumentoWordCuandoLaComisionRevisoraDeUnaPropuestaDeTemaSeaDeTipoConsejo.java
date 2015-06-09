@@ -20,7 +20,7 @@ public class T015ComoAdministradorDescargarDocumentoWordCuandoLaComisionRevisora
   public void setUp() throws Exception {
     DesiredCapabilities capabilities = DesiredCapabilities.phantomjs();
     PhantomJSDriver driver = new PhantomJSDriver(capabilities);
-    baseUrl = "http://localhost:8080/SeminarManagement-Maven-web/";
+    baseUrl = "http://ruka.diinf.usach.cl:8080/SeminarManagement-Maven-web/";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
 
