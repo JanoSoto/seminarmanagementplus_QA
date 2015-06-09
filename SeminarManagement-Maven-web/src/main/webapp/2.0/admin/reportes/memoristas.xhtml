@@ -38,8 +38,8 @@
                     <p:column headerText="Carrera" filterBy="#{tema.idRevisora.idPropuesta.rutAlumno.planActivo.codigo}" filterMatchMode="contains" sortBy="#{tema.idRevisora.idPropuesta.rutAlumno.planActivo.codigo}">
                         <h:outputText value="#{tema.idRevisora.idPropuesta.rutAlumno.planActivo.codigo}" />
                     </p:column>
-                    <p:column headerText="Título Tema" filterBy="#{tema.nombreTema}" filterMatchMode="contains" sortBy="#{tema.nombreTema}">
-                        <h:outputText value="#{tema.nombreTema}" />
+                    <p:column headerText="Título Propuesta" filterBy="#{tema.idRevisora.idPropuesta.nombrePropuesta}" filterMatchMode="contains" sortBy="#{tema.idRevisora.idPropuesta.nombrePropuesta}">
+                        <h:outputText value="#{tema.idRevisora.idPropuesta.nombrePropuesta}" />
                     </p:column>
                     <p:column headerText="Fecha&#10;Entrega" style="white-space:pre-line;" filterBy="#{tema.idRevisora.idPropuesta.fechaPropuesta}" filterMatchMode="contains" sortBy="#{tema.idRevisora.idPropuesta.fechaPropuesta}">
                         <h:outputText value="#{tema.idRevisora.idPropuesta.fechaPropuesta}" />
@@ -65,12 +65,20 @@
                     <p:column headerText="Fecha&#10;Entrega" style="white-space:pre-line;" filterBy="#{tema.idCorrectora.fechaCorreccion2}" filterMatchMode="contains" sortBy="#{tema.idCorrectora.fechaCorreccion2}">
                         <h:outputText value="#{tema.idCorrectora.fechaCorreccion2}" />
                     </p:column>
-                    <p:column headerText="Fecha&#10;Devolución" style="white-space:pre-line;" filterBy="#{tema.idCorrectora.fechaEntCorreccion2}" filterMatchMode="contains" sortBy="#{tema.idCorrectora.fechaEntCorreccion2}">
+                    <p:column footerText="asd" headerText="Fecha&#10;Devolución" style="white-space:pre-line;" filterBy="#{tema.idCorrectora.fechaEntCorreccion2}" filterMatchMode="contains" sortBy="#{tema.idCorrectora.fechaEntCorreccion2}">
                         <h:outputText value="#{tema.idCorrectora.fechaEntCorreccion2}" />
+                        
                     </p:column>
+                    <f:facet name="footer">
+                        asd
+                    </f:facet>
+                    <f:facet name="footer">
+                        dsa
+                    </f:facet>
                 </p:dataTable>
             </h:form>
         </p:layoutUnit>
     </ui:define>
 
 </ui:composition>
+
