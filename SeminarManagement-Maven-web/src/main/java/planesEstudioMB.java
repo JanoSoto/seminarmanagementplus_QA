@@ -5,29 +5,31 @@
  */
 
 import entities.Carrera;
+import entities.PlanEstudio;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.Dependent;
 import sessionbeans.CarreraFacadeLocal;
+import sessionbeans.PlanestudioFacadeLocal;
 
 /**
  *
  * @author giovanni
  */
-@Named(value = "carreraMB")
+@Named(value = "planesEstudioMB")
 @Dependent
-public class carreraMB {
+public class planesEstudioMB {
 
     @EJB
-    CarreraFacadeLocal carreraFacade;
+    PlanestudioFacadeLocal planesEstudioFacade;
     
-    public carreraMB() {
+    public planesEstudioMB() {
     }
     
-    public List<Carrera> getCarreras() {
-        return carreraFacade.findAll();
+    public List<PlanEstudio> getPlanesEstudio() {
+        return planesEstudioFacade.findAll();
     }
     
 }

@@ -20,7 +20,7 @@ public class AsociacionPlanEstudioAlumno {
     private String alumno_id;
 
     @Id
-    private Integer plan_id;
+    private Long plan_id;
     
     @Column(name = "activo")
     private Boolean activo;
@@ -41,11 +41,11 @@ public class AsociacionPlanEstudioAlumno {
         this.alumno_id = alumnoId;
     }
 
-    public Integer getPlanId() {
+    public Long getPlanId() {
         return plan_id;
     }
 
-    public void setPlanId(Integer planId) {
+    public void setPlanId(Long planId) {
         this.plan_id = planId;
     }
 
