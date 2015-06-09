@@ -43,8 +43,8 @@ public class VerProfesorMB {
     private Profesor profesor, profesorEdit = new Profesor();
     private List<Alumno> alumnos;
     private List<Propuesta> propuestas;
-    private List<PropuestaDatos> propuestaDatos, propuestasFiltradas,propuestaDatosRevisora,propuestaDatosRevisoraViejo;
-    private List<Tema> temas; 
+    private List<PropuestaDatos> propuestaDatos, propuestasFiltradas;
+    private List<Tema> temas;
     private List<SemestreActual> semestre;
     private List<TemaDatos> temaDatos, temaDatosProrrogados, temasFiltrados,temaDatosCorrectora,temaDatosCorrectoraSemViejo;
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(VerProfesorMB.class);
@@ -60,7 +60,11 @@ public class VerProfesorMB {
             profesor = profesorFacade.findByRut(rutProfesor).get(0);
             semestre = semestreActualFacade.findAll();
             semestreActual = semestre.get(0).getSemestreActual();
+<<<<<<< HEAD
             semestreAnterior= Util.semestreAnterior(semestreActual);
+=======
+            semestreAnterior = semestreAnterior(semestreActual);
+>>>>>>> a45680babfce38d23752b9125352d32536bdc341
             System.out.println(semestreActual);
             System.out.println(semestreAnterior);
             //Instanciamos para editar al profesor
@@ -70,11 +74,9 @@ public class VerProfesorMB {
             temaDatosProrrogados = new ArrayList();
             temaDatosCorrectora = new ArrayList();
             temaDatosCorrectoraSemViejo = new ArrayList();
-            propuestaDatosRevisora = new ArrayList();
-            propuestaDatosRevisoraViejo = new ArrayList();
             alumnos = alumnoFacade.findAll();
 
-            
+            //System.out.println(semestre.get(0).getSemestreActual());
             for (Alumno alumno : alumnos) {
                 if (!alumno.getPropuestaList().isEmpty()) {
                     for (int k = 0; k < alumno.getPropuestaList().size(); k++) {
@@ -83,35 +85,26 @@ public class VerProfesorMB {
                                 if (!alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getProfeRevisionList().isEmpty()) {
                                     for (int n = 0; n < alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getProfeRevisionList().size(); n++) {
                                         if (profesorEdit.getNombreProfesor() == null ? alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getProfeRevisionList().get(n).getProfesor().getNombreProfesor() == null : profesorEdit.getNombreProfesor().equals(alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getProfeRevisionList().get(n).getProfesor().getNombreProfesor())) {
+                                            //System.out.println(alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getProfeRevisionList().get(n).getProfesor().getNombreProfesor());
+                                            //System.out.println(alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getIdSemestre().getIdSemestre());
                                             if (alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getIdSemestre().getIdSemestre() == null ? semestre.get(0).getSemestreActual() == null : alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getIdSemestre().getIdSemestre().equals(semestreActual)) {
                                                 nombrePropuesta = alumno.getPropuestaList().get(k).getNombrePropuesta();
-                                                PropuestaDatos propDatos = new PropuestaDatos();
-                                                
-                                                propDatos.setAlumno(alumno);
-                                                propDatos.setIdPropuesta(String.valueOf(alumno.getPropuestaList().get(k).getIdPropuesta()));
-                                                if(alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getIdPropuesta().getNombrePropuesta().length() > 64){
-                                                    propDatos.setNombreCorto(alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getIdPropuesta().getNombrePropuesta().substring(0, 65) + "...");
-                                                }
-                                                else{
-                                                    propDatos.setNombreCorto(alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getIdPropuesta().getNombrePropuesta());
-                                                }
-                                                propuestaDatosRevisora.add(propDatos);
-                                                
-                                            }
+                                                System.out.println("Semestre Actual:" + semestreActual);
+<<<<<<< HEAD
+                                                System.out.println("Nombre Propuesta: "+ nombrePropuesta );
+                                                System.out.println("Nombre Alumno: "+ alumno.getNombreAlumno() + " " + alumno.getApellidoAlumno());
                                             
+=======
+                                                System.out.println("Nombre Propuesta: " + nombrePropuesta);
+                                                System.out.println("Nombre Alumno: " + alumno.getNombreAlumno() + " " + alumno.getApellidoAlumno());
+>>>>>>> a45680babfce38d23752b9125352d32536bdc341
+                                            }
+
                                             if (alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getIdSemestre().getIdSemestre() == null ? semestre.get(0).getSemestreActual() == null : alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getIdSemestre().getIdSemestre().equals(semestreAnterior)) {
                                                 nombrePropuesta = alumno.getPropuestaList().get(k).getNombrePropuesta();
-                                                PropuestaDatos propDatos2 = new PropuestaDatos();
-                                                
-                                                propDatos2.setAlumno(alumno);
-                                                propDatos2.setIdPropuesta(String.valueOf(alumno.getPropuestaList().get(k).getIdPropuesta()));
-                                                if(alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getIdPropuesta().getNombrePropuesta().length() > 64){
-                                                    propDatos2.setNombreCorto(alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getIdPropuesta().getNombrePropuesta().substring(0, 65) + "...");
-                                                }
-                                                else{
-                                                    propDatos2.setNombreCorto(alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getIdPropuesta().getNombrePropuesta());
-                                                }
-                                                propuestaDatosRevisoraViejo.add(propDatos2);
+                                                System.out.println("Semestre Actual:" + semestreActual);
+                                                System.out.println("Nombre Propuesta: " + nombrePropuesta);
+                                                System.out.println("Nombre Alumno: " + alumno.getNombreAlumno() + " " + alumno.getApellidoAlumno());
                                             }
                                         }
                                     }
@@ -122,13 +115,18 @@ public class VerProfesorMB {
                 }
             }
             
+            //alumnos.get(0).getPropuestaList().get(0).getComisionRevisoraList().get(0).getProfeRevisionList().get(0).getProfesor().getNombreProfesor();
             //alumnos.get(0).getPropuestaList().get(0).getIdRevisora().getIdTema().getIdCorrectora().getProfeCorreccionList().get(0).getProfesor().getNombreProfesor();
-            if(!profesor.getProfeCorreccionList().isEmpty()){
+            if (!profesor.getProfeCorreccionList().isEmpty()) {
                 for (int n = 0; n < profesor.getProfeCorreccionList().size(); n++) {
-                    //System.out.println("alumno: "+ profesor.getProfePropuestaList().get(n).getPropuesta().getIdRevisora().getIdTema().getIdRevisora().getIdPropuesta().getRutAlumno().getApellidoAlumno());
+<<<<<<< HEAD
+                    System.out.println("alumno: "+ profesor.getProfePropuestaList().get(n).getPropuesta().getIdRevisora().getIdTema().getIdRevisora().getIdPropuesta().getRutAlumno());
                     if(!profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().isEmpty()){
                         for (int o = 0; o < profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().size(); o++) {
                             if( profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().get(o).getIdSemestre().getIdSemestre() == null ? semestreActual == null : profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().get(o).getIdSemestre().getIdSemestre().equals(semestreActual)){
+                                System.out.println("tema : " +profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().get(o).getNombreTema());
+                                System.out.println("semestre : "+ profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().get(o).getIdSemestre().getIdSemestre());
+                                
                                 nombreTemaAlumno = profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().get(o).getNombreTema();
                                 TemaDatos temaDTemp2 = new TemaDatos();
                                 temaDTemp2.setAlumno(profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getIdTema().getIdRevisora().getIdPropuesta().getRutAlumno());
@@ -144,7 +142,8 @@ public class VerProfesorMB {
                             }
                             
                             if( profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().get(o).getIdSemestre().getIdSemestre() == null ? semestreAnterior == null : profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().get(o).getIdSemestre().getIdSemestre().equals(semestreAnterior)){
-                                
+                                System.out.println("tema : " +profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().get(o).getNombreTema());
+                                System.out.println("semestre : "+ profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().get(o).getIdSemestre().getIdSemestre());
                                 nombreTemaAlumno = profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().get(o).getNombreTema();
                                 TemaDatos temaDTemp3 = new TemaDatos();
                                 temaDTemp3.setAlumno(profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getIdTema().getIdRevisora().getIdPropuesta().getRutAlumno());
@@ -162,6 +161,35 @@ public class VerProfesorMB {
                     }
                 }        //System.out.println(profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().get(o));
             }
+            
+=======
+                    if (!profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().isEmpty()) {
+                        for (int o = 0; o < profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().size(); o++) {
+                            System.out.println("tema : " + profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().get(o).getNombreTema());
+                            System.out.println("semestre : " + profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().get(o).getIdSemestre().getIdSemestre());
+                            nombreTemaAlumno = profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().get(o).getNombreTema();
+
+                            //System.out.println("semestre : "+ ;
+                        }
+                    }
+                }        //System.out.println(profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().get(o));
+            }
+            //profesor.getProfeCorreccionList().get(0).getComisionCorrectora().get
+            /*for (int j = 0; j < alumnos.size(); j++) {
+             if(!alumnos.get(j).getPropuestaList().isEmpty()){
+             for (int k = 0; k < alumnos.get(j).getPropuestaList().size(); k++) {
+             if(!alumnos.get(j).getPropuestaList().get(k).getProfePropuestaList().isEmpty()){
+             for (int l = 0; l < alumnos.get(j).getPropuestaList().get(k).getProfePropuestaList().size(); l++) {
+             if(!alumnos.get(j).getPropuestaList().get(k).getProfePropuestaList().get(l).getProfesor().get)
+                                
+             }
+             }
+             }
+             }
+             }*/
+
+            //alumnos.get(0).getPropuestaList().get(0).getProfePropuestaList().get(0).getProfesor().getProfeCorreccionList().get(0).getProfesor()
+>>>>>>> a45680babfce38d23752b9125352d32536bdc341
             temas = new ArrayList();
             for (int i = 0; i < profesor.getProfePropuestaList().size(); i++) {
                 if (profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora() != null) {
@@ -176,7 +204,13 @@ public class VerProfesorMB {
                                 } else {
                                     temaDTemp.setNombreCorto(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getNombreTema());
                                 }
-                               
+                                System.out.println(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getIdTema());
+                                System.out.println(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getNombreTema());
+                                System.out.println(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getIdSemestre().getIdSemestre());
+//                                System.out.println(profesor.getProfePropuestaList().get(i).getPropuesta().getProfePropuestaList().get(0).getProfesor().getProfeCorreccionList().get(0).getComisionCorrectora().getIdTema().getIdSemestre().getIdSemestre()
+                                System.out.println("Asd: "  + profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getIdSemestre().getIdSemestre());
+                                System.out.println("Asd: "  + profesor.getProfePropuestaList().get(i).getPropuesta().getIdSemestre().getIdSemestre());
+                                System.out.println("=======");
                                 String semestre = profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getIdSemestre().getIdSemestre();
                                 if (semestre.equals(semestreActual)) {
                                     System.out.println("TRUE");
@@ -481,6 +515,7 @@ public class VerProfesorMB {
         this.temaDatosProrrogados = temaDatosProrrogados;
     }
 
+<<<<<<< HEAD
     
 
     public List<TemaDatos> getTemaDatosCorrectoraSemViejo() {
@@ -489,6 +524,34 @@ public class VerProfesorMB {
 
     public void setTemaDatosCorrectoraSemViejo(List<TemaDatos> temaDatosCorrectoraSemViejo) {
         this.temaDatosCorrectoraSemViejo = temaDatosCorrectoraSemViejo;
+    }
+    
+
+    public List<TemaDatos> getTemaDatosCorrectora() {
+        return temaDatosCorrectora;
+    }
+
+    public void setTemaDatosCorrectora(List<TemaDatos> temaDatosCorrectora) {
+        this.temaDatosCorrectora = temaDatosCorrectora;
+=======
+    private String semestreAnterior(String semestreActual) {
+        String a = semestreActual.substring(0, 1);
+        String b = semestreActual.substring(2, 6);
+        String aux, aux2, semAnt;
+        Integer cont;
+        if ("2".equals(a)) {
+            aux = "1";
+            aux2 = b;
+            semAnt = aux + "/" + aux2;
+        } else {
+            aux = "2";
+            cont = Integer.parseInt(b);
+            cont--;
+            aux2 = String.valueOf(cont);
+            semAnt = aux + "/" + aux2;
+        }
+        return semAnt;
+>>>>>>> a45680babfce38d23752b9125352d32536bdc341
     }
     
     private String semestreSiguiente(String semestreActual) {
@@ -500,29 +563,5 @@ public class VerProfesorMB {
             return "2/" + b;
         }
     }
-public List<TemaDatos> getTemaDatosCorrectora() {
-        return temaDatosCorrectora;
-    }
-
-    public void setTemaDatosCorrectora(List<TemaDatos> temaDatosCorrectora) {
-        this.temaDatosCorrectora = temaDatosCorrectora;
-    }
-
-    public List<PropuestaDatos> getPropuestaDatosRevisora() {
-        return propuestaDatosRevisora;
-    }
-
-    public void setPropuestaDatosRevisora(List<PropuestaDatos> propuestaDatosRevisora) {
-        this.propuestaDatosRevisora = propuestaDatosRevisora;
-    }
-
-    public List<PropuestaDatos> getPropuestaDatosRevisoraViejo() {
-        return propuestaDatosRevisoraViejo;
-    }
-
-    public void setPropuestaDatosRevisoraViejo(List<PropuestaDatos> propuestaDatosRevisoraViejo) {
-        this.propuestaDatosRevisoraViejo = propuestaDatosRevisoraViejo;
-    }
-    
 
 }
