@@ -69,6 +69,9 @@ public class Alumno implements Serializable {
     @Size(max = 100)
     @Column(name = "direccion_alumno")
     private String direccionAlumno;
+    
+    @Column(name = "id_plan_activo")
+    Integer idPlanActivo;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rutAlumno")
     private List<Propuesta> propuestaList;
@@ -218,6 +221,14 @@ public class Alumno implements Serializable {
     @Override
     public String toString() {
         return "entities.Alumno[ rutAlumno=" + rutAlumno + " ]";
+    }
+
+    public Integer getIdPlanActivo() {
+        return idPlanActivo;
+    }
+
+    public void setIdPlanActivo(Integer idPlanActivo) {
+        this.idPlanActivo = idPlanActivo;
     }
 
 }

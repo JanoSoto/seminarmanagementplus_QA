@@ -47,4 +47,8 @@ public class Util {
         }
         return semAnt;
     }
+    
+    public static String jornadaToString(Integer jornada) {
+        return jornada == 0 ? "Diurno" : "Vespertino";
+    }
 }
