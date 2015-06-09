@@ -16,13 +16,25 @@
     </ui:define>
     <ui:define name="title"><title>Reportes | Seminar Management</title></ui:define>
     <ui:define name="content">
-        <p:layoutUnit position="west" size="180" style="border: none;">
-            
-        </p:layoutUnit>
         <p:layoutUnit position="center" style="border:none;">
             <p:panel header="Reportes #{reportesMB.semestreActual.semestreActual}">
-                <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/reportes/seminario.xhtml">
-                    <h:outputText value="Fechas Exámenes Seminario Memoristas Civil y Ejecución #{reportesMB.semestreActual.semestreActual}" style="color: #0052cc;font-weight: bold;" />
+                
+                <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/reportes/propuestas.xhtml">
+                    <h:outputText value="Seguimiento Revisión Propuestas #{reportesMB.semestreActual.semestreActual}" style="color: #0052cc;font-weight: bold;" />
+                </a>
+                <p:spacer width="50" height="10" />
+                <a class="enlace"  href="/SeminarManagement-Maven-web/ReportePropuestas">
+                    <h:outputText value="Descargar" style="color: #0052cc;font-weight: bold;" />
+                </a>
+                
+                <br/>
+                <br/>
+                <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/reportes/borradores.xhtml">
+                    <h:outputText value="Seguimiento Revisión Borradores #{reportesMB.semestreActual.semestreActual}" style="color: #0052cc;font-weight: bold;" />
+                </a>
+                <p:spacer width="50" height="10" />
+                <a class="enlace"  href="/SeminarManagement-Maven-web/ReporteBorradores">
+                    <h:outputText value="Descargar" style="color: #0052cc;font-weight: bold;" />
                 </a>
             </p:panel>
         </p:layoutUnit>

@@ -1,8 +1,6 @@
 package entities;
 
-import entities.Alumno;
-import entities.AsociacionPlanEstudioAlumnoId;
-import entities.PlanEstudio;
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,13 +12,13 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "planes_alumno")
 @IdClass(AsociacionPlanEstudioAlumnoId.class)
-public class AsociacionPlanEstudioAlumno {
+public class AsociacionPlanEstudioAlumno implements Serializable {
 
     @Id
     private String alumno_id;
 
     @Id
-    private Integer plan_id;
+    private Long plan_id;
     
     @Column(name = "activo")
     private Boolean activo;
@@ -41,11 +39,11 @@ public class AsociacionPlanEstudioAlumno {
         this.alumno_id = alumnoId;
     }
 
-    public Integer getPlanId() {
+    public Long getPlanId() {
         return plan_id;
     }
 
-    public void setPlanId(Integer planId) {
+    public void setPlanId(Long planId) {
         this.plan_id = planId;
     }
 

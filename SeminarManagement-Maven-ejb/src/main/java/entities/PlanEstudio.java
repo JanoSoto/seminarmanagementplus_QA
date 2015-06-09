@@ -36,18 +36,23 @@ import javax.xml.bind.annotation.XmlTransient;
 public class PlanEstudio implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @Basic(optional = false)
     @NotNull
     @Column(name = "id")
     private Long id;
+    
     @Column(name = "codigo")
     private Integer codigo;
+    
     @Column(name = "jornada")
     private Integer jornada;
+    
     @JoinColumn(name = "carrera_id", referencedColumnName = "id")
     @ManyToOne
     private Carrera carreraId;
+
     @OneToMany(mappedBy = "planestudioId")
     private List<Versionplan> versionplanList;
 

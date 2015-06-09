@@ -87,7 +87,8 @@ public class EditarAlumnoMB implements Serializable {
 
     public void editAlumno() throws IOException {
         FacesContext context = FacesContext.getCurrentInstance();
-        Alumno alumnoEdit = new Alumno();
+        Alumno alumnoEdit = alumnoFacade.findByRut(alumno.getRutAlumno()).get(0);
+//        Alumno alumnoEdit = new Alumno();
         alumnoEdit.setMailAlumno(alumno.getMailAlumno().toUpperCase());
         alumnoEdit.setNombreAlumno(alumno.getNombreAlumno().toUpperCase());
         alumnoEdit.setApellidoAlumno(alumno.getApellidoAlumno().toUpperCase());
@@ -106,11 +107,9 @@ public class EditarAlumnoMB implements Serializable {
             if (id == this.planEstudioAlumno) {
                 System.out.println("Existe !!!!");
                 existe = true;
-            } else {
-//                planesEstudioAlumno.get(i).setActivo(false);
             }
         }
-
+        
         List<AsociacionPlanEstudioAlumno> asociacion_antigua = alumno.getAsociacionPlanEstudioAlumno();
 
         PlanEstudio a = planEstudioFacade.findById(this.planEstudioAlumno);
@@ -119,46 +118,23 @@ public class EditarAlumnoMB implements Serializable {
 
 //            asociacion_antigua.get(0).setActivo(false);
             nueva_asociacion.setActivo(true);
+           
             nueva_asociacion.setAlumno(alumnoEdit);
             nueva_asociacion.setAlumnoId(alumnoEdit.getRutAlumno());
             nueva_asociacion.setPlanEstudio(a);
-            nueva_asociacion.setPlanId(this.planEstudioAlumno);
+            nueva_asociacion.setPlanId(a.getId());
 
-            for (int i = 0; i < asociacion_antigua.size(); i++) {
-                System.out.println(asociacion_antigua.get(i).isActivo());
-//                asociacion_antigua.get(i).setActivo(false);
-            }
             asociacion_antigua.add(nueva_asociacion);
-            a.setAsociacionPlanEstudioAlumno(asociacion_antigua);
-
-            a.setAsociacionPlanEstudioAlumno(asociacion_antigua);
         }
         
-        alumno.setAsociacionPlanEstudioAlumno(asociacion_antigua);
-        alumnoEdit.setAsociacionPlanEstudioAlumno(asociacion_antigua);
+//        alumno.setAsociacionPlanEstudioAlumno(asociacion_antigua);
         a.setAsociacionPlanEstudioAlumno(asociacion_antigua);
+        alumnoEdit.setAsociacionPlanEstudioAlumno(asociacion_antigua);
+        
         alumnoFacade.edit(alumnoEdit);
-
-        //Añadimos al historial del alumno cuándo lo editaron
-        /*
-         Date temp = new Date();
-         String dateHist = dateToString(temp);
-         Historial histEditAlum = new Historial();
-         histEditAlum.setDescripcion("Se editó el alumno. Lo editó el usuario "+user.getFullNameUser());
-         histEditAlum.setFechaHistorial(dateHist);
-         histEditAlum.setTipoHistorial(2);
-         histEditAlum.setIdEntidad(alumnoSelected.getRutAlumno());
-         historialFacade.create(histEditAlum);
+        System.out.println("Largo asociacion: " + asociacion_antigua.size());
 
 
-         //Añadimos al historial del usuario que editó al alumno
-         Historial histProfAgregadoUser = new Historial();
-         histProfAgregadoUser.setDescripcion("Editó al alumno "+alumno.getNombreAlumno()+" "+alumno.getApellidoAlumno());
-         histProfAgregadoUser.setFechaHistorial(dateHist);
-         histProfAgregadoUser.setTipoHistorial(3);
-         histProfAgregadoUser.setIdEntidad(user.getUsername());
-         historialFacade.create(histProfAgregadoUser);
-         */
         context.addMessage(null, new FacesMessage("Editar Alumno", alumnoEdit.getNombreAlumno() + " " + alumnoEdit.getApellidoAlumno() + " editado exitosamente"));
         LOGGER.info("El alumno " + alumnoEdit.getNombreAlumno() + " " + alumnoEdit.getApellidoAlumno() + " ha sido editado exitosamente");
 

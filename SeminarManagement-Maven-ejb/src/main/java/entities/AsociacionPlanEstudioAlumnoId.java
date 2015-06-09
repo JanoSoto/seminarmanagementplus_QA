@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class AsociacionPlanEstudioAlumnoId implements Serializable {
  
-  private Integer plan_id;
+  private Long plan_id;
  
   private String alumno_id;
  
@@ -15,7 +15,7 @@ public class AsociacionPlanEstudioAlumnoId implements Serializable {
   public boolean equals(Object object) {
     if (object instanceof AsociacionPlanEstudioAlumnoId) {
       AsociacionPlanEstudioAlumnoId otherId = (AsociacionPlanEstudioAlumnoId) object;
-      return (otherId.plan_id == this.plan_id) && (otherId.alumno_id == this.alumno_id);
+      return (otherId.plan_id == this.plan_id) && (otherId.alumno_id.equals(this.alumno_id));
     }
     return false;
   }

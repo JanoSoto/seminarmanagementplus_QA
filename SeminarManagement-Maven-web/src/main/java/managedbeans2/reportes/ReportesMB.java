@@ -1,20 +1,20 @@
-package managedbeans2;
+package managedbeans2.reportes;
 
 import entities.ComisionCorrectora;
 import entities.ComisionRevisora;
-import entities.Semestre;
 import entities.SemestreActual;
+import entities.Tema;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.RequestScoped;
-import javax.faces.bean.ViewScoped;
 import sessionbeans.ComisionCorrectoraFacadeLocal;
 import sessionbeans.ComisionRevisoraFacadeLocal;
 import sessionbeans.SemestreActualFacadeLocal;
+import sessionbeans.TemaFacadeLocal;
 
 /**
  *
@@ -32,9 +32,13 @@ public class ReportesMB implements Serializable {
     @EJB
     ComisionCorrectoraFacadeLocal correctoraFacade;
     
+    @EJB
+    TemaFacadeLocal temasFacade;
+    
     SemestreActual semestreActual;
     List<ComisionRevisora> revisoras;
     List<ComisionCorrectora> correctoras;
+    List<Tema> temas;
 
     public ReportesMB() {
     }
@@ -53,12 +57,22 @@ public class ReportesMB implements Serializable {
         }
     }
     
-    public void findPropuestasSemestre() {//System.out.println("propuestas");
+    public void findPropuestasSemestre() {
+        // propuestas con comision, eliminando las por acuerdo de consejo
         revisoras = revisoraFacade.findBySemestre(semestreActual.getSemestreActual());
+        List<ComisionRevisora> porAcuerdo = new ArrayList<>();
+        for (ComisionRevisora revisora : revisoras) {
+            if ( revisora.getTipoRevision() == 2)
+                porAcuerdo.add(revisora);
+        }
+        revisoras.removeAll(porAcuerdo);
     }
     
     public void findTemasSemestre() {
-        correctoras = correctoraFacade.findBySemestre(semestreActual.getSemestreActual());
+        // temas en estado borrador entregado
+        temas = temasFacade.findByEstado(4);
+        //correctoras = correctoraFacade.findBySemestre(semestreActual.getSemestreActual());
+        //correctoras = correctoraFacade.
     }
 
     public SemestreActual getSemestreActual() {
@@ -84,6 +98,12 @@ public class ReportesMB implements Serializable {
     public void setCorrectoras(List<ComisionCorrectora> correctoras) {
         this.correctoras = correctoras;
     }
-    
-    
+
+    public List<Tema> getTemas() {
+        return temas;
+    }
+
+    public void setTemas(List<Tema> temas) {
+        this.temas = temas;
+    }
 }
