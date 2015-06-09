@@ -193,7 +193,7 @@ public class SemestreMB {
 
         //Validamos el semestre
         if ((Integer.valueOf(semestre.substring(0, 1)) != 1) && (Integer.valueOf(semestre.substring(0, 1)) != 2)) {
-            System.out.println("date es null");
+            
             context.addMessage(null, new FacesMessage("Terminar Semestre", "Semestre ingresado debe ser '1' o '2'"));
             return;
         }
@@ -246,7 +246,7 @@ public class SemestreMB {
         for (int i = 0; i < temas.size(); i++) {
             if (temas.get(i).getEstadoTema() != null) {
                 String semestre_tema = temas.get(i).getIdSemestre().getIdSemestre();
-                System.out.println(temas.get(i).getIdTema() + "! ( " + proximo_semestre + " == " + semestre_tema + " ) ");
+                
                 if (temas.get(i).getEstadoTema() == 0 && !(proximo_semestre.equals(semestre_tema))) { // Vigente
                     temas.get(i).setEstadoTema(3);
                     temas.get(i).setSemestreTermino(semActual.getSemestreActual());
