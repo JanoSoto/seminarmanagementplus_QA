@@ -22,38 +22,26 @@
         </p:layoutUnit>
         <p:layoutUnit position="center" style="border:none;">
             <h:form>
-                <p:dataTable id="tablaSem" var="prop" value="#{reportesMB.revisoras}" filteredValue="" filterDelay="100" paginator="true"
-                             rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+                <p:dataTable id="tablaSem" var="prop" value="#{reportesMB.revisoras}" filteredValue="" filterDelay="100" paginator="false"
+                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
                              {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,30,40,50"
                              emptyMessage="No se encontraron Propuestas" rowIndexVar="rowIndex">
                     <f:facet name="header">  
-                        TODO título #{semestreActual.semestre}
+                        Seguimiento Revisión Propuestas #{semestreActual.semestre}
                     </f:facet>
                     <p:column headerText="N°" filterBy="" filterMatchMode="contains" sortBy="">
                         <h:outputText value="#{rowIndex+1}" />
                     </p:column>
-                    <p:column headerText="Alumno" filterBy="#{prop.idPropuesta}" filterMatchMode="contains" sortBy="#{prop.hashCode}">
-                        <h:outputText value="#{prop.idPropuesta.rutAlumno.apellidoAlumno}" />
-                    </p:column>
-                    <p:column headerText="RUN" filterBy="#{prop.idPropuesta.rutAlumno.rutAlumnoFormateado}" filterMatchMode="contains" sortBy="#{prop.idPropuesta.rutAlumno.rutAlumnoFormateado}">
-                        <h:outputText value="#{prop.idPropuesta.rutAlumno.rutAlumnoFormateado}" />
+                    <p:column headerText="Alumno" filterBy="#{prop.idPropuesta.rutAlumno.nombreAlumno} #{prop.idPropuesta.rutAlumno.apellidoAlumno}" filterMatchMode="contains" sortBy="#{prop.idPropuesta.rutAlumno.nombreAlumno} #{prop.idPropuesta.rutAlumno.apellidoAlumno}">
+                        <h:outputText value="#{prop.idPropuesta.rutAlumno.nombreAlumno} #{prop.idPropuesta.rutAlumno.apellidoAlumno}" />
                     </p:column>
                     <p:column headerText="Carrera" filterBy="" filterMatchMode="contains" sortBy="">
                         <h:outputText value="#{prop.idPropuesta.rutAlumno.planActivo.codigo}" />
                     </p:column>
-                    <p:column headerText="Mail" filterBy="#{prop.idPropuesta.rutAlumno.mailAlumno}" filterMatchMode="contains" sortBy="#{prop.idPropuesta.rutAlumno.mailAlumno}">
-                        <h:outputText value="#{prop.idPropuesta.rutAlumno.mailAlumno}" />
-                    </p:column>
-                    <p:column headerText="Fono" filterBy="#{prop.idPropuesta.rutAlumno.telefonoAlumno}" filterMatchMode="contains" sortBy="#{prop.idPropuesta.rutAlumno.telefonoAlumno}">
-                        <h:outputText value="#{prop.idPropuesta.rutAlumno.telefonoAlumno}" />
-                    </p:column>
-                    <p:column headerText="Dirección" filterBy="#{prop.idPropuesta.rutAlumno.direccionAlumno}" filterMatchMode="contains" sortBy="#{prop.idPropuesta.rutAlumno.direccionAlumno}">
-                        <h:outputText value="#{prop.idPropuesta.rutAlumno.direccionAlumno}" />
-                    </p:column>
                     <p:column headerText="Título Propuesta" filterBy="#{prop.idPropuesta.nombrePropuesta}" filterMatchMode="contains" sortBy="#{prop.idPropuesta.nombrePropuesta}">
                         <h:outputText value="#{prop.idPropuesta.nombrePropuesta}" />
                     </p:column>
-                    <p:column headerText="Fecha Entrega" filterBy="#{prop.idPropuesta.fechaPropuesta}" filterMatchMode="contains" sortBy="#{prop.idPropuesta.fechaPropuesta}">
+                    <p:column headerText="Fecha&#10;Entrega" style="white-space:pre-line;" filterBy="#{prop.idPropuesta.fechaPropuesta}" filterMatchMode="contains" sortBy="#{prop.idPropuesta.fechaPropuesta}">
                         <h:outputText value="#{prop.idPropuesta.fechaPropuesta}" />
                     </p:column>
                     <p:column headerText="Profesor Guía" filterBy="#{prop.guia.nombreProfesor} #{prop.guia.apellidoProfesor}" filterMatchMode="contains" sortBy="#{prop.guia.nombreProfesor} #{prop.guia.apellidoProfesor}">
@@ -62,19 +50,19 @@
                     <p:column headerText="Integrante 1" filterBy="#{prop.revisor1.apellidoProfesor}" filterMatchMode="contains" sortBy="#{prop.revisor1.apellidoProfesor} #{prop.revisor1.nombreProfesor}">
                         <h:outputText value="#{prop.revisor1.nombreProfesor} #{prop.revisor1.apellidoProfesor}" />
                     </p:column>
-                    <p:column headerText="Fecha Entrega" filterBy="#{prop.guia.nombreProfesor} #{prop.guia.apellidoProfesor}" filterMatchMode="contains" sortBy="#{prop.guia.nombreProfesor} #{prop.guia.apellidoProfesor}">
-                        <h:outputText value="#{prop.fechaEntregaRevision}" />
+                    <p:column headerText="Fecha&#10;Entrega" style="white-space:pre-line;" filterBy="#{prop.fechaRevision}" filterMatchMode="contains" sortBy="#{prop.fechaRevision}">
+                        <h:outputText value="#{prop.fechaRevision}" />
                     </p:column>
-                    <p:column headerText="Fecha Devolución" filterBy="#{prop.guia.nombreProfesor} #{prop.guia.apellidoProfesor}" filterMatchMode="contains" sortBy="#{prop.guia.nombreProfesor} #{prop.guia.apellidoProfesor}">
+                    <p:column headerText="Fecha&#10;Devolución" style="white-space:pre-line;" filterBy="#{prop.fechaEntregaRevision}" filterMatchMode="contains" sortBy="#{prop.fechaEntregaRevision}">
                         <h:outputText value="#{prop.fechaEntregaRevision}" />
                     </p:column>
                     <p:column headerText="Integrante 2" filterBy="#{prop.revisor2.nombreProfesor} #{prop.revisor2.apellidoProfesor}" filterMatchMode="contains" sortBy="#{prop.revisor2.nombreProfesor} #{prop.revisor2.apellidoProfesor}">
                         <h:outputText value="#{prop.revisor2.nombreProfesor} #{prop.revisor2.apellidoProfesor}" />
                     </p:column>
-                    <p:column headerText="Fecha Entrega" filterBy="#{prop.guia.nombreProfesor} #{prop.guia.apellidoProfesor}" filterMatchMode="contains" sortBy="#{prop.guia.nombreProfesor} #{prop.guia.apellidoProfesor}">
+                    <p:column headerText="Fecha&#10;Entrega" style="white-space:pre-line;" filterBy="#{prop.fechaRevision2}" filterMatchMode="contains" sortBy="#{prop.fechaRevision2}">
                         <h:outputText value="#{prop.fechaRevision2}" />
                     </p:column>
-                    <p:column headerText="Fecha Devolución" filterBy="#{prop.guia.nombreProfesor} #{prop.guia.apellidoProfesor}" filterMatchMode="contains" sortBy="#{prop.guia.nombreProfesor} #{prop.guia.apellidoProfesor}">
+                    <p:column headerText="Fecha&#10;Devolución" style="white-space:pre-line;" filterBy="#{prop.fechaEntregaRevision2}" filterMatchMode="contains" sortBy="#{prop.fechaEntregaRevision2}">
                         <h:outputText value="#{prop.fechaEntregaRevision2}" />
                     </p:column>
                 </p:dataTable>

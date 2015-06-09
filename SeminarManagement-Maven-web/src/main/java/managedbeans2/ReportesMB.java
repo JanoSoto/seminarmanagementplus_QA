@@ -3,6 +3,7 @@ package managedbeans2;
 import entities.ComisionCorrectora;
 import entities.ComisionRevisora;
 import entities.SemestreActual;
+import entities.Tema;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -12,6 +13,7 @@ import javax.ejb.EJB;
 import sessionbeans.ComisionCorrectoraFacadeLocal;
 import sessionbeans.ComisionRevisoraFacadeLocal;
 import sessionbeans.SemestreActualFacadeLocal;
+import sessionbeans.TemaFacadeLocal;
 
 /**
  *
@@ -29,9 +31,13 @@ public class ReportesMB implements Serializable {
     @EJB
     ComisionCorrectoraFacadeLocal correctoraFacade;
     
+    @EJB
+    TemaFacadeLocal temasFacade;
+    
     SemestreActual semestreActual;
     List<ComisionRevisora> revisoras;
     List<ComisionCorrectora> correctoras;
+    List<Tema> temas;
 
     public ReportesMB() {
     }
@@ -51,11 +57,15 @@ public class ReportesMB implements Serializable {
     }
     
     public void findPropuestasSemestre() {//System.out.println("propuestas");
+        // propuestas con comision
         revisoras = revisoraFacade.findBySemestre(semestreActual.getSemestreActual());
     }
     
     public void findTemasSemestre() {
-        correctoras = correctoraFacade.findBySemestre(semestreActual.getSemestreActual());
+        // temas en estado borrador entregado
+        temas = temasFacade.findByEstado(4);
+        //correctoras = correctoraFacade.findBySemestre(semestreActual.getSemestreActual());
+        //correctoras = correctoraFacade.
     }
 
     public SemestreActual getSemestreActual() {
@@ -81,6 +91,12 @@ public class ReportesMB implements Serializable {
     public void setCorrectoras(List<ComisionCorrectora> correctoras) {
         this.correctoras = correctoras;
     }
-    
-    
+
+    public List<Tema> getTemas() {
+        return temas;
+    }
+
+    public void setTemas(List<Tema> temas) {
+        this.temas = temas;
+    }
 }

@@ -150,7 +150,33 @@ public class ComisionCorrectora implements Serializable {
     public void setProfeCorreccionList(List<ProfeCorreccion> profeCorreccionList) {
         this.profeCorreccionList = profeCorreccionList;
     }
+    
+    public Profesor getCorrector1(){
+        Profesor corr1 = null;
+        List<ProfeCorreccion> profesores;
+        profesores = getProfeCorreccionList();
+        profesores.size();
+        for (ProfeCorreccion p : profesores) {
+            if ( p.getRolCorreccion() == 0 ){
+                corr1 = p.getProfesor();
+            }
+        }
+        return corr1;
+    }
 
+    public Profesor getCorrector2(){
+        Profesor corr2 = null;
+        List<ProfeCorreccion> profesores;
+        profesores = getProfeCorreccionList();
+        profesores.size();
+        for (ProfeCorreccion p : profesores) {
+            if ( p.getRolCorreccion() == 1 ){
+                corr2 = p.getProfesor();
+            }
+        }
+        return corr2;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
