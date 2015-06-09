@@ -78,6 +78,7 @@ public class BorradorFinalMB {
         
         tema = temaFacade.findById(idTema).get(0);
         //Seteamos estado "Vigente con Borrador Final"
+        tema.setPrecerrado(false);
         tema.setEstadoTema(6);
         temaFacade.edit(tema);
         

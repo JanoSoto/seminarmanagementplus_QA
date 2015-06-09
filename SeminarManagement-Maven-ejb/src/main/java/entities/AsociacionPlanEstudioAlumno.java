@@ -1,8 +1,6 @@
 package entities;
 
-import entities.Alumno;
-import entities.AsociacionPlanEstudioAlumnoId;
-import entities.PlanEstudio;
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -14,7 +12,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "planes_alumno")
 @IdClass(AsociacionPlanEstudioAlumnoId.class)
-public class AsociacionPlanEstudioAlumno {
+public class AsociacionPlanEstudioAlumno implements Serializable {
 
     @Id
     private String alumno_id;
