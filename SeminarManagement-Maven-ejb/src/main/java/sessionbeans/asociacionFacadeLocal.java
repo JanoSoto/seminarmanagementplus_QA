@@ -15,23 +15,7 @@ import javax.persistence.Query;
  * @author miguel
  */
 @Local
-public interface PlanestudioFacadeLocal {
-
-    void create(PlanEstudio planestudio);
-
-    void edit(PlanEstudio planestudio);
-
-    void remove(PlanEstudio planestudio);
-
-    PlanEstudio find(Object id);
-
-    List<PlanEstudio> findAll();
-
-    List<PlanEstudio> findRange(int[] range);
-
-    int count();
-
-    public PlanEstudio findById(Integer id);
+public interface asociacionFacadeLocal {
 
     public void eliminarPlanAlumno(Integer codigo_plan, String rut_alumno);
     

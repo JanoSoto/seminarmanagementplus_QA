@@ -1,5 +1,6 @@
 package managedbeans2.alumnos;
 
+import Util.Util;
 import entities.Alumno;
 import entities.AsociacionPlanEstudioAlumno;
 import entities.PlanEstudio;
@@ -14,10 +15,14 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import managedbeans.AuthMB;
 import sessionbeans.AlumnoFacadeLocal;
 import sessionbeans.HistorialFacadeLocal;
 import sessionbeans.PlanestudioFacadeLocal;
+import sessionbeans.asociacionFacadeLocal;
 
 /**
  *
@@ -33,6 +38,9 @@ public class EditarAlumnoMB implements Serializable {
     private AlumnoFacadeLocal alumnoFacade;
     @EJB
     private PlanestudioFacadeLocal planEstudioFacade;
+    
+    @EJB
+    private asociacionFacadeLocal asociacionFacade;
 
     private Alumno alumno;
     private String rutAlumno;
@@ -102,14 +110,14 @@ public class EditarAlumnoMB implements Serializable {
 
         Boolean existe = false;
         for (int i = 0; i < planesEstudioAlumno.size(); i++) {
-            Integer id = Integer.parseInt(planesEstudioAlumno.get(i).getPlanEstudio().getId()+"");
+            Integer id = Integer.parseInt(planesEstudioAlumno.get(i).getPlanEstudio().getId() + "");
             System.out.println(id + " == " + this.planEstudioAlumno);
             if (id == this.planEstudioAlumno) {
                 System.out.println("Existe !!!!");
                 existe = true;
             }
         }
-        
+
         List<AsociacionPlanEstudioAlumno> asociacion_antigua = alumno.getAsociacionPlanEstudioAlumno();
 
         PlanEstudio a = planEstudioFacade.findById(this.planEstudioAlumno);
@@ -118,26 +126,96 @@ public class EditarAlumnoMB implements Serializable {
 
 //            asociacion_antigua.get(0).setActivo(false);
             nueva_asociacion.setActivo(true);
-           
+
             nueva_asociacion.setAlumno(alumnoEdit);
             nueva_asociacion.setAlumnoId(alumnoEdit.getRutAlumno());
             nueva_asociacion.setPlanEstudio(a);
             nueva_asociacion.setPlanId(a.getId());
+//            nueva_asociacion.setPlanId(Long.parseLong(a.getCodigo()+""));
+
+            for (AsociacionPlanEstudioAlumno asociacion_antigua1 : asociacion_antigua) {
+                asociacion_antigua1.setActivo(false);
+            }
 
             asociacion_antigua.add(nueva_asociacion);
         }
-        
-//        alumno.setAsociacionPlanEstudioAlumno(asociacion_antigua);
-        a.setAsociacionPlanEstudioAlumno(asociacion_antigua);
-        alumnoEdit.setAsociacionPlanEstudioAlumno(asociacion_antigua);
-        
+
+//        a.setAsociacionPlanEstudioAlumno(asociacion_antigua);
+//        alumnoEdit.setAsociacionPlanEstudioAlumno(asociacion_antigua);
+        List<AsociacionPlanEstudioAlumno> asociacion_final = new ArrayList<>();
+        for (int i = 0; i < asociacion_antigua.size(); i++) {
+            AsociacionPlanEstudioAlumno asd = asociacion_antigua.get(i);
+
+            if (Integer.parseInt(asd.getPlanId() + "") == this.planEstudioAlumno) {
+                asd.setActivo(true);
+            } else {
+                asd.setActivo(false);
+            }
+
+            asociacion_final.add(asd);
+        }
+
+        for (int i = 0; i < asociacion_antigua.size(); i++) {
+            AsociacionPlanEstudioAlumno asd = asociacion_antigua.get(i);
+            Alumno ab = asd.getAlumno();
+            ab.setAsociacionPlanEstudioAlumno(asociacion_final);
+            alumnoFacade.edit(ab);
+        }
+
+        alumnoEdit.setIdPlanActivo(Integer.parseInt(this.planEstudioAlumno + ""));
+
+        a.setAsociacionPlanEstudioAlumno(asociacion_final);
+        alumnoEdit.setAsociacionPlanEstudioAlumno(asociacion_final);
+
         alumnoFacade.edit(alumnoEdit);
         System.out.println("Largo asociacion: " + asociacion_antigua.size());
-
 
         context.addMessage(null, new FacesMessage("Editar Alumno", alumnoEdit.getNombreAlumno() + " " + alumnoEdit.getApellidoAlumno() + " editado exitosamente"));
         LOGGER.info("El alumno " + alumnoEdit.getNombreAlumno() + " " + alumnoEdit.getApellidoAlumno() + " ha sido editado exitosamente");
 
+    }
+
+    public void setPlanActivoAlumno(String rutAlumno, Integer codigo_plan) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Alumno alumnoEdit = alumnoFacade.findByRut(rutAlumno).get(0);
+        List<AsociacionPlanEstudioAlumno> asociacion = alumnoEdit.getAsociacionPlanEstudioAlumno();
+        alumnoEdit.setIdPlanActivo(codigo_plan);
+        alumnoFacade.edit(alumnoEdit);
+        context.addMessage(null, new FacesMessage("Se ha dejado el plan " + codigo_plan + " como activo."));
+    }
+
+    public void eliminarPlan(String rutAlumno, Integer codigo_plan) {
+        FacesContext context = FacesContext.getCurrentInstance();
+        Alumno alumnoEdit = alumnoFacade.findByRut(rutAlumno).get(0);
+        List<AsociacionPlanEstudioAlumno> asociacion = alumnoEdit.getAsociacionPlanEstudioAlumno();
+
+        for (int i = 0; i < asociacion.size(); i++) {
+            AsociacionPlanEstudioAlumno asoc = asociacion.get(i);
+            if (Integer.parseInt(asoc.getPlanId() + "") == codigo_plan) {
+                System.out.println("Elmine: " + codigo_plan);
+                asociacion.remove(asoc);
+            }
+        }
+
+        if (alumnoEdit.getIdPlanActivo() == codigo_plan) {
+            if (asociacion.size() > 0) {
+                alumnoEdit.setIdPlanActivo(Integer.parseInt(asociacion.get(0).getPlanId() + ""));
+            } else {
+                alumnoEdit.setIdPlanActivo(null);
+            }
+        }
+        alumnoEdit.setAsociacionPlanEstudioAlumno(asociacion);
+        asociacionFacade.eliminarPlanAlumno(codigo_plan, alumnoEdit.getRutAlumno());
+        alumnoFacade.edit(alumnoEdit);
+        context.addMessage(null, new FacesMessage("Plan " + codigo_plan + " eliminado correctamente."));
+    }
+
+    public String jornadaToString(Integer jornada) {
+        return Util.jornadaToString(jornada);
+    }
+
+    public String jornadaToStringUpperCase(Integer jornada) {
+        return Util.jornadaToString(jornada).toUpperCase();
     }
 
 }

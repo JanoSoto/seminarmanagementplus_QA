@@ -66,19 +66,35 @@
                         <p:inputText id="direccion" value="#{editarAlumnoMB.alumno.direccionAlumno}"/>
                         <p:watermark for="direccion" value="Ingresar Dirección"/>
 
-                        <!--<p:outputLabel for="planEstudio" value="Plan de Estudio"/>-->
-                        <c:if test="#{not empty planEstudioMB.planesEstudio}">
-                            <p:selectOneListbox style="width: 200px;" value="#{editarAlumnoMB.planEstudioAlumno}">
-                                <f:selectItems value="#{planEstudioMB.planesEstudio}" var="planEstudio" itemLabel="#{planEstudio.codigo}" itemValue="#{planEstudio.id}" />
-                            </p:selectOneListbox>
-                        </c:if>
-                        <c:if test="#{empty planEstudioMB.planesEstudio}">
-                            <strong>Error: No existen carreras disponibles para seleccionar</strong>
-                        </c:if>
+                        <p:commandButton id="bt1" value="Editar" actionListener="#{editarAlumnoMB.editAlumno()}" update="growl @form"/>
+                        <p:defaultCommand target="bt1" />
 
                     </h:panelGrid>
-                    <p:commandButton id="bt1" value="Editar" actionListener="#{editarAlumnoMB.editAlumno()}" update="growl @form"/>
-                    <p:defaultCommand target="bt1" />
+                    <!--<p:outputLabel for="planEstudio" value="Plan de Estudio"/>-->
+                    <c:if test="#{not empty planEstudioMB.getPlanesEstudio(editarAlumnoMB.rutAlumno)}">
+                        <p:selectOneListbox value="#{editarAlumnoMB.planEstudioAlumno}" style="width: 600px;">
+                            <f:selectItems value="#{planEstudioMB.getPlanesEstudio(editarAlumnoMB.rutAlumno)}" var="planEstudio" itemLabel="#{planEstudio.codigo} #{planEstudio.carreraId.nombre} (#{editarAlumnoMB.jornadaToStringUpperCase(planEstudio.jornada)})" itemValue="#{planEstudio.id}" />
+                        </p:selectOneListbox>
+                    </c:if>
+                    <c:if test="#{empty planEstudioMB.getPlanesEstudio(editarAlumnoMB.rutAlumno)}">
+                        <strong>Error: No existen carreras disponibles para seleccionar</strong>
+                    </c:if>
+                    Plan activo: #{planEstudioMB.getNombrePlanActivo(editarAlumnoMB.rutAlumno)}
+                    <c:forEach var="plan" items="#{planEstudioMB.getPlanesEstudioAlumno(editarAlumnoMB.rutAlumno)}">
+                        <p:panel header="#{plan.codigo} #{plan.carreraId.nombre}" style="width: 600px; float: left;">
+                            <h:panelGrid>
+                                <!--#{plan.id}-->
+                                <!--#{planEstudioMB.getIdPlanActivo(editarAlumnoMB.rutAlumno)}-->
+                                <!--<c:if test="#{planEstudioMB.getIdPlanActivo(editarAlumnoMB.rutAlumno)} ne #{plan.id}">-->
+                                <p:commandButton id="boton_#{plan.codigo}" value="Marcar como activo" actionListener="#{editarAlumnoMB.setPlanActivoAlumno(editarAlumnoMB.rutAlumno, plan.id)}"  update="growl @form"/>
+                                    <p:defaultCommand target="boton_#{plan.codigo}" />
+                                <!--</c:if>-->
+
+                                <p:commandButton id="eliminar_boton_#{plan.codigo}" value="Eliminar" actionListener="#{editarAlumnoMB.eliminarPlan(editarAlumnoMB.rutAlumno, plan.id)}"  update="growl @form"/>
+                                <p:defaultCommand target="eliminar_boton_#{plan.codigo}" />
+                            </h:panelGrid>
+                        </p:panel>
+                    </c:forEach>
                 </p:panel>
             </h:form>
         </p:layoutUnit>

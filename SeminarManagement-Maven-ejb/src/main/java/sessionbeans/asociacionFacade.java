@@ -5,6 +5,7 @@
  */
 package sessionbeans;
 
+import entities.AsociacionPlanEstudioAlumno;
 import entities.PlanEstudio;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -16,7 +17,7 @@ import javax.persistence.Query;
  * @author miguel
  */
 @Stateless
-public class PlanestudioFacade extends AbstractFacade<PlanEstudio> implements PlanestudioFacadeLocal {
+public class asociacionFacade extends AbstractFacade<AsociacionPlanEstudioAlumno> implements asociacionFacadeLocal {
     @PersistenceContext(unitName = "com.mycompany_SeminarManagement-Maven-ejb_ejb_1.0-SNAPSHOTPU")
     private EntityManager em;
 
@@ -25,22 +26,14 @@ public class PlanestudioFacade extends AbstractFacade<PlanEstudio> implements Pl
         return em;
     }
 
-    public PlanestudioFacade() {
-        super(PlanEstudio.class);
-    }
-    
-    @Override
-    public PlanEstudio findById(Integer id) {
-        Query query;
-        query = em.createNamedQuery("PlanEstudio.findById")
-                .setParameter("id", id);
-       return (PlanEstudio) query.getSingleResult();
+    public asociacionFacade() {
+        super(AsociacionPlanEstudioAlumno.class);
     }
     
     @Override
     public void eliminarPlanAlumno(Integer codigo_plan, String rut_alumno){
         Query query;
-        query = em.createQuery("delete from PlanEstudio");
+        query = em.createNativeQuery("delete from planes_alumno where plan_id='" + codigo_plan + "';");
         query.executeUpdate();
     }
     
