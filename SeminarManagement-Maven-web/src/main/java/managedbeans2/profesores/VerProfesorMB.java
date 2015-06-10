@@ -61,8 +61,7 @@ public class VerProfesorMB {
             semestre = semestreActualFacade.findAll();
             semestreActual = semestre.get(0).getSemestreActual();
             semestreAnterior= Util.semestreAnterior(semestreActual);
-            System.out.println(semestreActual);
-            System.out.println(semestreAnterior);
+            
             //Instanciamos para editar al profesor
             profesorEdit = profesor;
             rutProfeEdit = profesor.getRutProfesor();
@@ -125,7 +124,6 @@ public class VerProfesorMB {
             //alumnos.get(0).getPropuestaList().get(0).getIdRevisora().getIdTema().getIdCorrectora().getProfeCorreccionList().get(0).getProfesor().getNombreProfesor();
             if(!profesor.getProfeCorreccionList().isEmpty()){
                 for (int n = 0; n < profesor.getProfeCorreccionList().size(); n++) {
-                    //System.out.println("alumno: "+ profesor.getProfePropuestaList().get(n).getPropuesta().getIdRevisora().getIdTema().getIdRevisora().getIdPropuesta().getRutAlumno().getApellidoAlumno());
                     if(!profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().isEmpty()){
                         for (int o = 0; o < profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().size(); o++) {
                             if( profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().get(o).getIdSemestre().getIdSemestre() == null ? semestreActual == null : profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().get(o).getIdSemestre().getIdSemestre().equals(semestreActual)){
@@ -160,7 +158,7 @@ public class VerProfesorMB {
                             }
                         }
                     }
-                }        //System.out.println(profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().get(o));
+                }        
             }
             temas = new ArrayList();
             for (int i = 0; i < profesor.getProfePropuestaList().size(); i++) {
@@ -179,7 +177,6 @@ public class VerProfesorMB {
                                
                                 String semestre = profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getIdSemestre().getIdSemestre();
                                 if (semestre.equals(semestreActual)) {
-                                    System.out.println("TRUE");
                                     temaDatos.add(temaDTemp);
                                 }
                                 temas.add(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema());

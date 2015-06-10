@@ -97,7 +97,7 @@ public class CalificacionTema2MBTest {
         
         when(querys.getResultList()).thenReturn(ccList);
        
-        System.out.println(ccList.get(0).getFechaTema());
+        
         assertEquals(ccListTest, ccList);
     }
 

@@ -141,8 +141,7 @@ public class VerAlumnoMBTest {
         
         when(querys.getResultList()).thenReturn(listaAlumno);
         
-        //System.out.println(temaList.get(0).getEstadoTema());
-       
+        
         assertEquals(listaAlumnoTest, listaAlumno);
         
     }

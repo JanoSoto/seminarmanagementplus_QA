@@ -112,9 +112,7 @@ public class EditarAlumnoMB implements Serializable {
             Boolean existe = false;
             for (int i = 0; i < planesEstudioAlumno.size(); i++) {
                 Integer id = Integer.parseInt(planesEstudioAlumno.get(i).getPlanEstudio().getId() + "");
-                System.out.println(id + " == " + this.planEstudioAlumno);
                 if (id == this.planEstudioAlumno) {
-                    System.out.println("Existe !!!!");
                     existe = true;
                 }
             }
@@ -193,7 +191,6 @@ public class EditarAlumnoMB implements Serializable {
         for (int i = 0; i < asociacion.size(); i++) {
             AsociacionPlanEstudioAlumno asoc = asociacion.get(i);
             if (Integer.parseInt(asoc.getPlanId() + "") == codigo_plan) {
-                System.out.println("Elmine: " + codigo_plan);
                 asociacion.remove(asoc);
             }
         }

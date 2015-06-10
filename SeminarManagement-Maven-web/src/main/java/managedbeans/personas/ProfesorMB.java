@@ -50,7 +50,6 @@ public class ProfesorMB implements Serializable{
     @PostConstruct
     public void init(){
         //Para inicializar el managed property, si no no se puede acceder a esos datos
-        System.out.println(user.toString());
     }
     
     public ProfesorMB() {

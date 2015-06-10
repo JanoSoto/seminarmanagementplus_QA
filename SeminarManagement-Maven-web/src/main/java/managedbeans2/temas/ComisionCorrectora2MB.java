@@ -74,7 +74,6 @@ public class ComisionCorrectora2MB {
     @PostConstruct
     public void init(){
         //Para inicializar el managed property, si no no se puede acceder a esos datos
-        System.out.println(user.toString());
         
         FacesContext context = FacesContext.getCurrentInstance();
         
@@ -120,11 +119,9 @@ public class ComisionCorrectora2MB {
             fechaEdit = stringToDate(tema.getFechaTema());
             semestreTerminoEdit = tema.getSemestreTermino();
             if(tema.getFechaRealTema()!= null ){
-                System.out.println(tema.getFechaRealTema());
                 fechaEdit2 = stringToDate(tema.getFechaRealTema());
             }
             if(tema.getFechaSiacTema()!= null){
-                System.out.println(tema.getFechaSiacTema());
                 fechaEdit3 = stringToDate(tema.getFechaSiacTema());
             }
             
@@ -175,8 +172,6 @@ public class ComisionCorrectora2MB {
         tema = temaFacade.findById(idTema).get(0);
         
         comision= comisionCorrectoraFacade.findById(tema.getIdCorrectora().getIdCorrectora());
-        System.out.println(comision.get(0).getFechaCorreccion());
-        
         ComisionCorrectora nuevaComision;
         
         //Accedemos a la tabla semestre, e ingresamos semestre actual si no ha sido ingresado
@@ -232,7 +227,6 @@ public class ComisionCorrectora2MB {
         }
         
         //Seteamos la nueva comision y la creamos
-        System.out.println(comision.get(0).getIdTema().getNombreTema());
         comision.get(0).setIdTema(comision.get(0).getIdTema());
         comision.get(0).setFechaCorreccion(fechaCorr);
         comision.get(0).setFechaEntCorreccion(fechaRevCorr);

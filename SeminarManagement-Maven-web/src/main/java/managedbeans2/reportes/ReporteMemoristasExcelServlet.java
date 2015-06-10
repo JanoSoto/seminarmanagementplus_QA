@@ -44,7 +44,6 @@ public class ReporteMemoristasExcelServlet extends HttpServlet {
             
             reportesMB.findTemasMemoristas();
             
-            System.out.println("total "+reportesMB.getCuentaPorPlanJC().get(reportesMB.getCuentaPorPlanJC().size() - 1 ));
             
             pw.print("\t\t");
             for (int i = 0; i < reportesMB.getPlanes().size(); i++) {

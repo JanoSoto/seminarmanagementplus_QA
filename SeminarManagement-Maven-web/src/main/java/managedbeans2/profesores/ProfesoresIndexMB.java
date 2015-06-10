@@ -105,26 +105,12 @@ public class ProfesoresIndexMB {
                                 if (profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getIdRevisora().getIdTema().getEstadoTema() != null) {
                                     int tipoTemaTemp = profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getIdRevisora().getIdTema().getEstadoTema();
                                     if (tipoTemaTemp == 0 || tipoTemaTemp == 2) {
-//                                        System.out.println("Fecha: " + profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getIdRevisora().getIdTema().getFechaTema());
-                                        System.out.println(profesores.get(i).getNombreProfesor());
-                                        System.out.println(profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getIdRevisora().getIdPropuesta());
-                                        System.out.println(profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getIdRevisora().getIdSemestre().getIdSemestre());
-                                        System.out.println(profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getIdRevisora().getIdTema().getIdSemestre().getIdSemestre());
-                                        System.out.println(semestreActual);
-                                        
-//                                        System.out.println(profesores.get(i).getProfePropuestaList().get(j).getgetComisionRevisoraList().get(0).getProfeRevisionList().get(0).getProfesor().getNombreProfesor()  );
                                         
                                         String semestre = profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getIdRevisora().getIdTema().getIdSemestre().getIdSemestre();
-//                                        semestre = (String) (profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getIdRevisora().getIdSemestre().getIdSemestre() == null ? semestreActual == null : profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getIdRevisora().getIdSemestre().getIdSemestre());
-
                                         if (semestre.equals(semestreActual)) {
-    //                                        if (profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getFechaPropuesta()
                                             guiaTemp++;
-                                            System.out.println("TRUE");
                                         }
                                         
-                                        System.out.println("======");
-
                                         List<Alumno> alumnos = alumnoFacade.findByRut(profesores.get(i).getProfePropuestaList().get(j).getPropuesta().getRutAlumno().getRutAlumno());
                                         if (!alumnos.isEmpty()) {
                                             List<PlanEstudio> planes = alumnos.get(0).getPlanes();

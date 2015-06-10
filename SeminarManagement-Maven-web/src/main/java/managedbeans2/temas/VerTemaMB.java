@@ -55,11 +55,9 @@ public class VerTemaMB {
             fechaEdit = stringToDate(tema.getFechaTema());
             semestreTerminoEdit = tema.getSemestreTermino();
             if(tema.getFechaRealTema()!= null ){
-                System.out.println(tema.getFechaRealTema());
                 fechaEdit2 = stringToDate(tema.getFechaRealTema());
             }
             if(tema.getFechaSiacTema()!= null){
-                System.out.println(tema.getFechaSiacTema());
                 fechaEdit3 = stringToDate(tema.getFechaSiacTema());
             }
             
@@ -78,11 +76,7 @@ public class VerTemaMB {
                         corrector2 = tema.getIdCorrectora().getProfeCorreccionList().get(i).getProfesor();
                 }
             alumno = tema.getIdRevisora().getIdPropuesta().getRutAlumno();
-            if(!tema.getComisionCorrectoraList().isEmpty()){
-                    //System.out.println(tema.getComisionCorrectoraList().get(0).getProfeCorreccionList().get(0).getNotaCorreccionDefensa());
-                    
-        }
-        }
+            }
         else{
             FacesContext context = FacesContext.getCurrentInstance();
             context.addMessage(null, new FacesMessage("Error","No se ingresó Propuesta"));
