@@ -38,8 +38,8 @@ public class ReporteBorradoresExcelServlet extends HttpServlet {
             if ( !sems.isEmpty() ){
                 semestreActual = sems.get(0);
             }
-            pw.println("Alumno\tCarrera\tTítulo Propuesta\tProfesor Guía\t"
-                    + "Fecha Entrega Propuesta\tSemestre\tProfesor Revisor 1\tEntrega\t"
+            pw.println("Alumno\tCarrera\tTítulo Tema\tProfesor Guía\t"
+                    + "Fecha Entrega Borrador\tSemestre\tProfesor Revisor 1\tEntrega\t"
                     + "Devolución\tProfesor Revisor 2\tEntrega\tDevolución");
             for (Tema  tema : temasFacade.findByEstado(4)) {
 
@@ -57,8 +57,8 @@ public class ReporteBorradoresExcelServlet extends HttpServlet {
                         + tema.getIdRevisora().getGuia().getApellidoProfesor();
                 salida += "\t" + tema.getFechaTema();
                 
-                if (tema.getSemestreTermino() != null)
-                    salida += "\t" + tema.getSemestreTermino();
+                if (tema.getIdSemestre().getIdSemestre() != null)
+                    salida += "\t" + tema.getIdSemestre().getIdSemestre();
                 else
                     salida += "\t";
                 
