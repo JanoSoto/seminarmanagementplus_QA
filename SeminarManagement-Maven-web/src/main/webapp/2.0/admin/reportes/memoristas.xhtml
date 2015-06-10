@@ -23,7 +23,7 @@
         <p:layoutUnit position="center" style="border:none;">
             <h:form>
                 <p:dataTable id="tablaSem" var="tema" value="#{reportesMB.temas}" filteredValue="" filterDelay="100" paginator="false"
-                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink}    
                              {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,30,40,50"
                              emptyMessage="No se encontraron Temas" rowIndexVar="rowIndex">
                     <f:facet name="header">  
@@ -65,16 +65,6 @@
                     <p:column headerText="Fecha&#10;Entrega" style="white-space:pre-line;" filterBy="#{tema.idCorrectora.fechaCorreccion2}" filterMatchMode="contains" sortBy="#{tema.idCorrectora.fechaCorreccion2}">
                         <h:outputText value="#{tema.idCorrectora.fechaCorreccion2}" />
                     </p:column>
-                    <p:column footerText="asd" headerText="Fecha&#10;Devolución" style="white-space:pre-line;" filterBy="#{tema.idCorrectora.fechaEntCorreccion2}" filterMatchMode="contains" sortBy="#{tema.idCorrectora.fechaEntCorreccion2}">
-                        <h:outputText value="#{tema.idCorrectora.fechaEntCorreccion2}" />
-                        
-                    </p:column>
-                    <f:facet name="footer">
-                        asd
-                    </f:facet>
-                    <f:facet name="footer">
-                        dsa
-                    </f:facet>
                 </p:dataTable>
                 <br/>
                 <p:button style="border: none;" href="/ReporteMemoristas" value="Descargar excel"/>
