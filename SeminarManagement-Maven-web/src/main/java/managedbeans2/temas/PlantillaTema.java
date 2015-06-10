@@ -163,7 +163,7 @@ public class PlantillaTema extends HttpServlet {
             sos.flush();
             
         } catch (NumberFormatException | NullPointerException | DocumentException | IOException dex) {
-            System.out.println(dex);
+            
             //LOGGER.error(dex);
             response.setContentType("text/html");
             PrintWriter writer = response.getWriter();

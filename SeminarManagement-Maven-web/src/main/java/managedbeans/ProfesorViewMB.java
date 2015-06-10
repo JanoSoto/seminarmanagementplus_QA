@@ -72,7 +72,6 @@ public class ProfesorViewMB implements Serializable {
     @PostConstruct
     public void init(){
         //Para inicializar el managed property, si no no se puede acceder a esos datos
-        //System.out.println(user.toString());
     }
     
     public ProfesorViewMB() {
@@ -386,7 +385,6 @@ public class ProfesorViewMB implements Serializable {
     
     public void loadEditProfMaxGuias() throws IOException{
         try{
-            System.out.println(profeSelected.getNombreProfesor());
             if(profeSelected == null)
                 FacesContext.getCurrentInstance().getExternalContext().redirect("../error.xhtml");
             if(!mostrarMaxGuias){

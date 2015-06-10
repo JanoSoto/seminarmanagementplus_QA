@@ -78,7 +78,7 @@ public class PlantillaAcuerdoTest {
 
     @Test
     public void testProcessRequestIfNoIdParam() throws Exception {
-        System.out.println("ProcessRequestIfNoIdParam");
+        
 
         servlet.processRequest(request, response);
 
@@ -93,7 +93,7 @@ public class PlantillaAcuerdoTest {
     @Ignore
     @Test
     public void testProcessRequestCorrectDocxGeneration() throws Exception {
-        System.out.println("testProcessRequestCorrectDocxGeneration");
+        
 
         Alumno alumno = new Alumno("19");
         alumno.setApellidoAlumno("GARCIA");
@@ -121,7 +121,7 @@ public class PlantillaAcuerdoTest {
         String docxText = getDocxAsText(response.getContentAsByteArray());
         
         // verfica contenido
-        System.out.println(docxText);
+        
         assertTrue(docxText.contains("Diego Garcia"));
         assertTrue(docxText.contains("Juan Perez"));
         //assertTrue(docxText.contains("Ing. Civil Informática, Diurna"));
@@ -136,7 +136,7 @@ public class PlantillaAcuerdoTest {
      */
     @Test
     public void testGetServletInfo() {
-        System.out.println("getServletInfo");
+        
         PlantillaAcuerdo instance = new PlantillaAcuerdo();
         String expResult = "Retorna un docx de Acuerdo de Consejo para una propuesta de acuerdo al id entregado por url";
         String result = instance.getServletInfo();

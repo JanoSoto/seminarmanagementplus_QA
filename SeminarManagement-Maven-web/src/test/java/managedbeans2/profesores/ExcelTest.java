@@ -59,7 +59,7 @@ public class ExcelTest {
      */
     @Test(expected = NullPointerException.class)
     public void testProcessRequestNullParam() throws Exception {
-        System.out.println("processRequest");
+        
         HttpServletRequest request = null;
         HttpServletResponse response = null;
         Excel instance = new Excel();
@@ -68,7 +68,7 @@ public class ExcelTest {
 
     @Test
     public void testProcessRequestCorrectCsvGeneration() throws Exception {
-        System.out.println("processRequest");
+        
         
         excelServlet = new Excel();
         excelServlet.profesorMB = mock(VerProfesorMB.class);
@@ -137,7 +137,7 @@ public class ExcelTest {
      */
     @Test
     public void testGetServletInfo() {
-        System.out.println("getServletInfo");
+      
         Excel instance = new Excel();
         String expResult = "Retorna un archivo csv con la información de los temas vigentes para un profesor";
         String result = instance.getServletInfo();

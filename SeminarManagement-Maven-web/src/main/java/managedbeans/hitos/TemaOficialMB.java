@@ -67,7 +67,6 @@ public class TemaOficialMB{
     @PostConstruct
     public void init() {
         //Para inicializar el managed property, si no no se puede acceder a esos datos
-        System.out.println(user.toString());
         
         FacesContext context = FacesContext.getCurrentInstance();
         

@@ -178,7 +178,6 @@ public class UsuarioViewMB implements Serializable {
         try{
             histUser = new ArrayList();
             histUser = historialFacade.findByIdEntidad(rut);
-            System.out.println("La cantidad de historiales es: "+histUser.size());
         } catch (Exception e){
             Logger.getLogger(ProfesorViewMB.class.getName()).log(Level.SEVERE, null, e);
             FacesContext.getCurrentInstance().getExternalContext().redirect("../error.xhtml");
@@ -188,7 +187,6 @@ public class UsuarioViewMB implements Serializable {
     public void destroyHist() throws IOException {
         try{
             histUser = new ArrayList<Historial>();
-            System.out.println("Se destruyó histUser");
         } catch (Exception e){
             Logger.getLogger(ProfesorViewMB.class.getName()).log(Level.SEVERE, null, e);
             FacesContext.getCurrentInstance().getExternalContext().redirect("../error.xhtml");

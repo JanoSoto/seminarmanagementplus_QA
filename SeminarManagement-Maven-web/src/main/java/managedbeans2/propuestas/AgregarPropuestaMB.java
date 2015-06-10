@@ -88,7 +88,6 @@ public class AgregarPropuestaMB {
     }
     /*
     public void profGChosen() {
-        System.out.println("dentro de profGChosen");
         for (int i=0; i<profesores.size(); i++){
             
             if(profesores.get(i).getRutProfesor().equals(rutProfGuia))
