@@ -103,6 +103,7 @@ public class CalificacionTema2MBTest {
 
     /**
      * Test of calificarTema method, of class CalificacionTema2MB.
+     * @throws java.text.ParseException
      */
     @Test
     public void testmodificarCalificacion() throws ParseException {

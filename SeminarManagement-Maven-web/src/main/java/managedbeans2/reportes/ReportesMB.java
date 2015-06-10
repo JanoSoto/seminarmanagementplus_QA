@@ -18,7 +18,6 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import sessionbeans.ComisionCorrectoraFacadeLocal;
 import sessionbeans.ComisionRevisoraFacadeLocal;
-import sessionbeans.PlanestudioFacade;
 import sessionbeans.PlanestudioFacadeLocal;
 import sessionbeans.ProfesorFacadeLocal;
 import sessionbeans.SemestreActualFacadeLocal;
@@ -49,16 +48,20 @@ public class ReportesMB implements Serializable {
     @EJB
     ProfesorFacadeLocal profesorFacade;
     
-    SemestreActual semestreActual;
-    List<ComisionRevisora> revisoras;
-    List<ComisionCorrectora> correctoras;
-    List<Tema> temas;
-    List<PlanEstudio> planes;
+    private SemestreActual semestreActual;
+    private List<ComisionRevisora> revisoras;
+    private List<ComisionCorrectora> correctoras;
+    private List<Tema> temas;
+    private List<PlanEstudio> planes;
     private List<Profesor> profesoresJC;
     private List<Profesor> profesoresPH;
-    private ArrayList<Integer> cuentaPorPlan;
-    private ArrayList<Object> cuentaPorProfeJC;
-    private ArrayList<Object> cuentaPorProfePH;
+    private ArrayList<Integer> cuentaPorPlanJC;
+    private ArrayList<Integer> cuentaPorPlanPH;
+    private ArrayList<Integer> cuentaPorPlanTotal;
+    private ArrayList<ArrayList<Integer>> cuentaPorProfeJC;
+    private ArrayList<ArrayList<Integer>> cuentaPorProfePH;
+    private ArrayList<Integer> cuentaTotalPorProfeJC;
+    private ArrayList<Integer> cuentaTotalPorProfePH;
 
     public ReportesMB() {
     }
@@ -66,14 +69,8 @@ public class ReportesMB implements Serializable {
     @PostConstruct
     public void init(){
         List<SemestreActual> sems = semActFacade.findAll();
-        //System.out.println("init");
         if ( !sems.isEmpty() ){
-
             semestreActual = sems.get(0);
-
-            // se asume que los reportes son para temas y propuestas con comision
-            //correctoras = correctoraFacade.findBySemestre(semestreActual.getSemestreActual());
-            //revisoras = revisoraFacade.findBySemestre(semestreActual.getSemestreActual());
         }
     }
     
@@ -89,10 +86,7 @@ public class ReportesMB implements Serializable {
     }
     
     public void findTemasSemestre() {
-        // temas en estado borrador entregado
         temas = temasFacade.findByEstado(4);
-        //correctoras = correctoraFacade.findBySemestre(semestreActual.getSemestreActual());
-        //correctoras = correctoraFacade.
     }
     
     // todos los contadores están en arraylist de enteros
@@ -101,17 +95,26 @@ public class ReportesMB implements Serializable {
     public void findTemasMemoristas(){ 
         planes = planesFacade.findAll();
         
-        cuentaPorPlan = new ArrayList<>(Collections.nCopies(planes.size(), 0));
+        cuentaPorPlanJC = new ArrayList<>(Collections.nCopies(planes.size() + 1, 0));
+        cuentaPorPlanPH = new ArrayList<>(Collections.nCopies(planes.size() + 1, 0));
+        cuentaPorPlanTotal = new ArrayList<>(Collections.nCopies(planes.size() + 1, 0));
         
-        profesoresJC = profesorFacade.findByContrato(0);
+        profesoresJC = profesorFacade.findByContrato(1);
         cuentaPorProfeJC = new ArrayList<>();
+        cuentaTotalPorProfeJC = new ArrayList<>(Collections.nCopies(profesoresJC.size(), 0));
         
-        profesoresPH = profesorFacade.findByContrato(1);
+        profesoresPH = profesorFacade.findByContrato(0);
         cuentaPorProfePH = new ArrayList<>();
+        cuentaTotalPorProfePH = new ArrayList<>(Collections.nCopies(profesoresPH.size(), 0));
         
-        for (Profesor profe : profesoresJC) {
-            List<Integer> cantGuiados = new ArrayList<>( Collections.nCopies(planes.size(), 0));
-            List<ProfePropuesta> profeProps = profe.getProfePropuestaList();
+        contarMemoristasProfesores(profesoresJC, cuentaPorProfeJC, 1);
+        contarMemoristasProfesores(profesoresPH, cuentaPorProfePH, 0);
+    }
+    
+    private void contarMemoristasProfesores(List<Profesor> profesores, ArrayList<ArrayList<Integer>> contadoresProfesor, Integer tipoContrato) {
+        for (int c = 0; c < profesores.size(); c++) {
+            ArrayList<Integer> cantGuiados = new ArrayList<>( Collections.nCopies(planes.size(), 0));
+            List<ProfePropuesta> profeProps = profesores.get(c).getProfePropuestaList();
             for (ProfePropuesta profePro : profeProps) {
                 if ( !(profePro.getRolGuia() == 0) ) //si no es guia, lo salta
                     continue;
@@ -121,64 +124,46 @@ public class ReportesMB implements Serializable {
                     ComisionRevisora comRev = propuesta.getIdRevisora();
                     if ( comRev.getIdTema() != null){
                         Tema tema = comRev.getIdTema();
-                        if ( ( tema.getEstadoTema() == 0 ) ||     //vigente
-                                ( tema.getEstadoTema() == 2 ) ||  // prorrogado
-                                ( tema.getEstadoTema() == 4 ) ||  // en proceso de examen
-                                ( tema.getEstadoTema() == 6 ) ){  // vigente con borrador final
-                            
-                            if ( propuesta.getRutAlumno() != null ){
-                                if ( propuesta.getRutAlumno().getPlanActivo() != null ){
-                                    PlanEstudio planActivoAlumno = propuesta.getRutAlumno().getPlanActivo();
-                                    for (int i = 0; i < planes.size(); i++) {
-                                        if ( planes.get(i).equals(planActivoAlumno) ){
-                                            cantGuiados.set(i, cantGuiados.get(i) + 1);
-                                            cuentaPorPlan.set(i, cuentaPorPlan.get(i) + 1);
+                        if ( tema.getEstadoTema() != null ){
+                            if ( ( tema.getEstadoTema() == 0 ) ||     //vigente
+                                    ( tema.getEstadoTema() == 2 ) ||  // prorrogado
+                                    ( tema.getEstadoTema() == 4 ) ||  // en proceso de examen
+                                    ( tema.getEstadoTema() == 6 ) ){  // vigente con borrador final
+
+                                if ( propuesta.getRutAlumno() != null ){
+                                    if ( propuesta.getRutAlumno().getPlanActivo() != null ){
+                                        PlanEstudio planActivoAlumno = propuesta.getRutAlumno().getPlanActivo();
+                                        for (int i = 0; i < planes.size(); i++) {
+                                            if ( planes.get(i).equals(planActivoAlumno) ){
+                                                cantGuiados.set(i, cantGuiados.get(i) + 1);
+                                                
+                                                if (tipoContrato == 1) {
+                                                    cuentaPorPlanJC.set(i, cuentaPorPlanJC.get(i) + 1);
+                                                    cuentaPorPlanJC.set(cuentaPorPlanJC.size() -1  ,
+                                                            cuentaPorPlanJC.get(cuentaPorPlanJC.size() -1) + 1);
+                                                    cuentaTotalPorProfeJC.set(c , cuentaTotalPorProfeJC.get(c) + 1);
+                                                } else if (tipoContrato == 0) {
+                                                    cuentaPorPlanPH.set(i, cuentaPorPlanPH.get(i) + 1);
+                                                    cuentaPorPlanPH.set(cuentaPorPlanPH.size() -1  ,
+                                                            cuentaPorPlanPH.get(cuentaPorPlanPH.size() -1) + 1);
+                                                    cuentaTotalPorProfePH.set(c , cuentaTotalPorProfePH.get(c) + 1);
+                                                }
+                                                cuentaPorPlanTotal.set(i, cuentaPorPlanTotal.get(i) + 1);
+                                                cuentaPorPlanTotal.set(cuentaPorPlanTotal.size() -1  ,
+                                                            cuentaPorPlanTotal.get(cuentaPorPlanTotal.size() -1) + 1);
+                                            }
                                         }
                                     }
-                                    
                                 }
                             }
                         }
                     }
                 }
             }
-            cuentaPorProfeJC.add(cantGuiados);
-        }
-        
-        for (Profesor profe : profesoresPH) {
-            List<Integer> cantGuiados = new ArrayList<>( Collections.nCopies(planes.size(), 0));
-            List<ProfePropuesta> profeProps = profe.getProfePropuestaList();
-            for (ProfePropuesta profePro : profeProps) {
-                if ( !(profePro.getRolGuia() == 0) ) //si no es guia, lo salta
-                    continue;
-                
-                Propuesta propuesta = profePro.getPropuesta();
-                if ( propuesta.getIdRevisora() != null){
-                    ComisionRevisora comRev = propuesta.getIdRevisora();
-                    if ( comRev.getIdTema() != null){
-                        Tema tema = comRev.getIdTema();
-                        if ( ( tema.getEstadoTema() == 0 ) ||     //vigente
-                                ( tema.getEstadoTema() == 2 ) ||  // prorrogado
-                                ( tema.getEstadoTema() == 4 ) ||  // en proceso de examen
-                                ( tema.getEstadoTema() == 6 ) ){  // vigente con borrador final
-                            
-                            if ( propuesta.getRutAlumno() != null ){
-                                if ( propuesta.getRutAlumno().getPlanActivo() != null ){
-                                    PlanEstudio planActivoAlumno = propuesta.getRutAlumno().getPlanActivo();
-                                    for (int i = 0; i < planes.size(); i++) {
-                                        if ( planes.get(i).equals(planActivoAlumno) ){
-                                            cantGuiados.set(i, cantGuiados.get(i) + 1);
-                                            cuentaPorPlan.set(i, cuentaPorPlan.get(i) + 1);
-                                        }
-                                    }
-                                    
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            cuentaPorProfePH.add(cantGuiados);
+            if (tipoContrato == 1)
+                cuentaPorProfeJC.add(cantGuiados);
+            else if (tipoContrato == 0)
+                cuentaPorProfePH.add(cantGuiados);
         }
     }
 
@@ -238,29 +223,59 @@ public class ReportesMB implements Serializable {
         this.profesoresPH = profesoresPH;
     }
 
-    public ArrayList<Integer> getCuentaPorPlan() {
-        return cuentaPorPlan;
-    }
-
-    public void setCuentaPorPlan(ArrayList<Integer> cuentaPorPlan) {
-        this.cuentaPorPlan = cuentaPorPlan;
-    }
-
-    public ArrayList<Object> getCuentaPorProfeJC() {
+    public ArrayList<ArrayList<Integer>> getCuentaPorProfeJC() {
         return cuentaPorProfeJC;
     }
 
-    public void setCuentaPorProfeJC(ArrayList<Object> cuentaPorProfeJC) {
+    public void setCuentaPorProfeJC(ArrayList<ArrayList<Integer>> cuentaPorProfeJC) {
         this.cuentaPorProfeJC = cuentaPorProfeJC;
     }
 
-    public ArrayList<Object> getCuentaPorProfePH() {
+    public ArrayList<ArrayList<Integer>> getCuentaPorProfePH() {
         return cuentaPorProfePH;
     }
 
-    public void setCuentaPorProfePH(ArrayList<Object> cuentaPorProfePH) {
+    public void setCuentaPorProfePH(ArrayList<ArrayList<Integer>> cuentaPorProfePH) {
         this.cuentaPorProfePH = cuentaPorProfePH;
     }
-    
-    
+
+    public ArrayList<Integer> getCuentaPorPlanJC() {
+        return cuentaPorPlanJC;
+    }
+
+    public void setCuentaPorPlanJC(ArrayList<Integer> cuentaPorPlanJC) {
+        this.cuentaPorPlanJC = cuentaPorPlanJC;
+    }
+
+    public ArrayList<Integer> getCuentaPorPlanPH() {
+        return cuentaPorPlanPH;
+    }
+
+    public void setCuentaPorPlanPH(ArrayList<Integer> cuentaPorPlanPH) {
+        this.cuentaPorPlanPH = cuentaPorPlanPH;
+    }
+
+    public ArrayList<Integer> getCuentaPorPlanTotal() {
+        return cuentaPorPlanTotal;
+    }
+
+    public void setCuentaPorPlanTotal(ArrayList<Integer> cuentaPorPlanTotal) {
+        this.cuentaPorPlanTotal = cuentaPorPlanTotal;
+    }
+
+    public ArrayList<Integer> getCuentaTotalPorProfeJC() {
+        return cuentaTotalPorProfeJC;
+    }
+
+    public void setCuentaTotalPorProfeJC(ArrayList<Integer> cuentaTotalPorProfeJC) {
+        this.cuentaTotalPorProfeJC = cuentaTotalPorProfeJC;
+    }
+
+    public ArrayList<Integer> getCuentaTotalPorProfePH() {
+        return cuentaTotalPorProfePH;
+    }
+
+    public void setCuentaTotalPorProfePH(ArrayList<Integer> cuentaTotalPorProfePH) {
+        this.cuentaTotalPorProfePH = cuentaTotalPorProfePH;
+    }
 }
