@@ -102,7 +102,6 @@ public class EditarProfesorMB implements Serializable {
         else {
             //Si pasó de ser JC a Por Hora y SI puede guiar
             if((datosAntiguos.getTipoProfesor()==1 && profesorEdit.getTipoProfesor()==0) && profesor.getTipoProfesor()==0){
-                System.out.println("de JC a por hora");
                 profesorEdit.setMaximoGuias(7); //Máximo guías por defecto es 7
             }
             else {

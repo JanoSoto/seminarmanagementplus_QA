@@ -114,7 +114,7 @@ public class VerTemaMBTest {
         
         when(querys.getResultList()).thenReturn(temaList);
         
-        System.out.println(temaList.get(0).getIdTema());
+        
         temaList.get(0).setFechaRealTema("fechareal2");
         temaList.get(0).setFechaSiacTema("fechasiac2");
         temaList.get(0).setFechaTema("fecha2");

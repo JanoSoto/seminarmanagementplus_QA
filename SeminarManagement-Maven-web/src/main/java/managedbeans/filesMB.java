@@ -55,7 +55,6 @@ public class filesMB {
             in.close();
             out.flush();
             out.close();
-            System.out.println("New file created!");
         } catch (IOException e) {
             System.out.println(e.getMessage());
         }

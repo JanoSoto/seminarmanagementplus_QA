@@ -118,7 +118,6 @@ public class PlantillaAcuerdo extends HttpServlet {
             saver.save(response.getOutputStream());
 
         } catch (Exception e) {
-            System.out.println(e);
             response.setContentType("text/html");
             PrintWriter writer = response.getWriter();
             writer.println("Documento no disponible<br>");
@@ -152,7 +151,6 @@ public class PlantillaAcuerdo extends HttpServlet {
                     org.docx4j.wml.Text t = (org.docx4j.wml.Text) v;
                     String text = t.getValue();
                     if (text.startsWith("SM_")) {
-                        //System.out.println("Text: " + text);
                         if ( text.compareTo("SM_NOMBRE_ALUMNO") == 0) {
                             t.setValue(alumno);
                         } else if ( text.compareTo("SM_CARRERA") == 0) {

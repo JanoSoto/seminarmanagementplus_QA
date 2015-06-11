@@ -106,7 +106,7 @@ public class PlantillaTemaTest {
      */
     @Test
     public void testProcessRequestIfNoIdParam() throws Exception {
-        System.out.println("ProcessRequestIfNoIdParam");
+        
 
         servlet.processRequest(request, response);
 
@@ -117,7 +117,7 @@ public class PlantillaTemaTest {
     @Test
     @Ignore
     public void testProcessRequestCorrectPDFGeneration() throws ServletException, IOException, URISyntaxException {
-        System.out.println("ProcessRequestCorrectPDFGeneration");
+        
 
         //stubbs de los métodos del MB
         when(this.servlet.temaMB.getIdTema()).thenReturn(1);
@@ -160,7 +160,7 @@ public class PlantillaTemaTest {
      */
     @Test
     public void testGetServletInfo() {
-        System.out.println("getServletInfo");
+        
         PlantillaTema instance = new PlantillaTema();
         String expResult ="Retorna un archivo PDF desplegado en el navegador que contiene la información un tema de trabajo de título";
         String result = instance.getServletInfo();

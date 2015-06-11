@@ -106,7 +106,7 @@ public class PlantillaPropuestaTest {
      */
     @Test
     public void testProcessRequestIfNoIdParam() throws Exception {
-        System.out.println("ProcessRequestIfNoIdParam");
+        
 
         servlet.processRequest(request, response);
 
@@ -117,7 +117,7 @@ public class PlantillaPropuestaTest {
     @Test
     @Ignore
     public void testProcessRequestCorrectPDFGeneration() throws ServletException, IOException, URISyntaxException {
-        System.out.println("ProcessRequestCorrectPDFGeneration");
+        
 
         //stubbs de los métodos del MB
         when(this.servlet.propuestaMB.getIdPropuesta()).thenReturn(1);
@@ -155,7 +155,7 @@ public class PlantillaPropuestaTest {
      */
     @Test
     public void testGetServletInfo() {
-        System.out.println("getServletInfo");
+        
         PlantillaPropuesta instance = new PlantillaPropuesta();
         String expResult = "Retorna un archivo PDF desplegado en el navegador que contiene la información una propuesta de trabajo de título";
         String result = instance.getServletInfo();
