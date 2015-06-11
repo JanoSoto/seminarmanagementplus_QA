@@ -75,3 +75,7 @@ button.navActive {
 .team tr, .team td {
     border: none;
 }
+
+.ui-datatable-tablewrapper {
+  overflow-x: auto;
+}

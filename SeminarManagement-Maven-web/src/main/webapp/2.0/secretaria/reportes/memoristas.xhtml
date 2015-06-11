@@ -22,60 +22,65 @@
         </p:layoutUnit>
         <p:layoutUnit position="center" style="border:none;">
             <h:form>
-                <p:dataTable id="tablaSem" var="tema" value="#{reportesMB.temas}" filteredValue="" filterDelay="100" paginator="false"
-                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
-                             {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,30,40,50"
-                             emptyMessage="No se encontraron Temas" rowIndexVar="rowIndex">
-                    <f:facet name="header">  
-                        Seguimiento Revisión Borradores #{semestreActual.semestre}
-                    </f:facet>
-                    <p:column headerText="N°" filterBy="" filterMatchMode="contains" sortBy="">
-                        <h:outputText value="#{rowIndex+1}" />
-                    </p:column>
-                    <p:column headerText="Alumno" filterBy="#{tema.idRevisora.idPropuesta.rutAlumno.nombreAlumno} #{tema.idRevisora.idPropuesta.rutAlumno.apellidoAlumno}" filterMatchMode="contains" sortBy="#{tema.idRevisora.idPropuesta.rutAlumno.nombreAlumno}">
-                        <h:outputText value="#{tema.idRevisora.idPropuesta.rutAlumno.nombreAlumno} #{tema.idRevisora.idPropuesta.rutAlumno.apellidoAlumno}" />
-                    </p:column>
-                    <p:column headerText="Carrera" filterBy="#{tema.idRevisora.idPropuesta.rutAlumno.planActivo.codigo}" filterMatchMode="contains" sortBy="#{tema.idRevisora.idPropuesta.rutAlumno.planActivo.codigo}">
-                        <h:outputText value="#{tema.idRevisora.idPropuesta.rutAlumno.planActivo.codigo}" />
-                    </p:column>
-                    <p:column headerText="Título Propuesta" filterBy="#{tema.idRevisora.idPropuesta.nombrePropuesta}" filterMatchMode="contains" sortBy="#{tema.idRevisora.idPropuesta.nombrePropuesta}">
-                        <h:outputText value="#{tema.idRevisora.idPropuesta.nombrePropuesta}" />
-                    </p:column>
-                    <p:column headerText="Fecha&#10;Entrega" style="white-space:pre-line;" filterBy="#{tema.idRevisora.idPropuesta.fechaPropuesta}" filterMatchMode="contains" sortBy="#{tema.idRevisora.idPropuesta.fechaPropuesta}">
-                        <h:outputText value="#{tema.idRevisora.idPropuesta.fechaPropuesta}" />
-                    </p:column>
-                    <p:column headerText="Semestre" filterBy="#{tema.idSemestre.idSemestre}" filterMatchMode="contains" sortBy="#{tema.idSemestre.idSemestre}">
-                        <h:outputText value="#{tema.idSemestre.idSemestre}" />
-                    </p:column>
-                    <p:column headerText="Profesor Guía" filterBy="#{tema.idRevisora.guia.nombreProfesor} #{tema.idRevisora.guia.apellidoProfesor}" filterMatchMode="contains" sortBy="#{tema.idRevisora.guia.nombreProfesor} #{tema.idRevisora.guia.apellidoProfesor}">
-                        <h:outputText value="#{tema.idRevisora.guia.nombreProfesor} #{tema.idRevisora.guia.apellidoProfesor}" />
-                    </p:column>
-                    <p:column headerText="Integrante 1" filterBy="#{tema.idCorrectora.corrector1.nombreProfesor} #{tema.idCorrectora.corrector1.apellidoProfesor}" filterMatchMode="contains" sortBy="#{tema.idCorrectora.corrector1.nombreProfesor} #{tema.idCorrectora.corrector1.apellidoProfesor}">
-                        <h:outputText value="#{tema.idCorrectora.corrector1.nombreProfesor} #{tema.idCorrectora.corrector1.apellidoProfesor}" />
-                    </p:column>
-                    <p:column headerText="Fecha&#10;Entrega" style="white-space:pre-line;" filterBy="#{tema.idCorrectora.fechaCorreccion}" filterMatchMode="contains" sortBy="#{tema.idCorrectora.fechaCorreccion}">
-                        <h:outputText value="#{tema.idCorrectora.fechaCorreccion}" />
-                    </p:column>
-                    <p:column headerText="Fecha&#10;Devolución" style="white-space:pre-line;" filterBy="#{tema.idCorrectora.fechaEntCorreccion}" filterMatchMode="contains" sortBy="#{tema.idCorrectora.fechaEntCorreccion}">
-                        <h:outputText value="#{tema.idCorrectora.fechaEntCorreccion}" />
-                    </p:column>
-                    <p:column headerText="Integrante 2" filterBy="#{tema.idCorrectora.corrector2.nombreProfesor} #{tema.idCorrectora.corrector2.apellidoProfesor}" filterMatchMode="contains" sortBy="#{tema.idCorrectora.corrector2.nombreProfesor}">
-                        <h:outputText value="#{tema.idCorrectora.corrector2.nombreProfesor} #{tema.idCorrectora.corrector2.apellidoProfesor}" />
-                    </p:column>
-                    <p:column headerText="Fecha&#10;Entrega" style="white-space:pre-line;" filterBy="#{tema.idCorrectora.fechaCorreccion2}" filterMatchMode="contains" sortBy="#{tema.idCorrectora.fechaCorreccion2}">
-                        <h:outputText value="#{tema.idCorrectora.fechaCorreccion2}" />
-                    </p:column>
-                    <p:column footerText="asd" headerText="Fecha&#10;Devolución" style="white-space:pre-line;" filterBy="#{tema.idCorrectora.fechaEntCorreccion2}" filterMatchMode="contains" sortBy="#{tema.idCorrectora.fechaEntCorreccion2}">
-                        <h:outputText value="#{tema.idCorrectora.fechaEntCorreccion2}" />
-                        
-                    </p:column>
-                    <f:facet name="footer">
-                        asd
-                    </f:facet>
-                    <f:facet name="footer">
-                        dsa
-                    </f:facet>
-                </p:dataTable>
+                <table class="ui-panelgrid ui-widget" role="grid" style="margin: 0 auto;">
+                    <thead class="ui-panelgrid-header">
+                        <tr class="ui-widget-header" role="row">
+                            <td role="columnheader" colspan="#{reportesMB.planesToDisplay.size()+3}" class="ui-datatable-header ui-widget-header">
+                                Cantidad de Memoristas Vigentes (#{reportesMB.semestreActual.semestreActual})
+                            </td>
+                        </tr>
+                        <tr class="ui-widget-header" role="row">
+                            <td role="columnheader" rowspan="2" class="ui-datatable-header ui-widget-header">Tipo Contrato</td>
+                            <td role="columnheader" rowspan="2" class="ui-datatable-header ui-widget-header">Profesor</td>
+                            <td role="columnheader" colspan="#{reportesMB.planesToDisplay.size()}" class="ui-datatable-header ui-widget-header">Plan</td>
+                            <td role="columnheader" rowspan="2" class="ui-datatable-header ui-widget-header">Grand Total</td>
+                        </tr>
+                        <tr class="ui-widget-header" role="row">
+                            <ui:repeat var="plan" value="#{reportesMB.planesToDisplay}" varStatus="status">
+                                <td role="columnheader" class="ui-datatable-header ui-widget-header ">#{plan}</td>
+                            </ui:repeat>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ui:repeat var="profe" value="#{reportesMB.profesoresJCDatos}" varStatus="status">
+                            <tr>
+                                <td role="gridcell">#{status.first ? 'JC' : '' }</td>
+                                <td class="order-table-even-row">#{profe.nombre}</td>
+                                <ui:repeat var="cant" value="#{profe.cantAlumnosPorPlan}">
+                                    <td style="text-align: right">#{cant}</td>
+                                </ui:repeat>
+                            </tr>
+                        </ui:repeat>
+                        <tr class="ui-widget-header">
+                            <td colspan="2">JC Total</td>
+                            <ui:repeat var="cant" value="#{reportesMB.totalesJCToDisplay}">
+                                <td style="text-align: right">#{cant}</td>
+                            </ui:repeat>
+                        </tr>
+
+                        <ui:repeat var="profe" value="#{reportesMB.profesoresPHDatos}" varStatus="status">
+                            <tr>
+                                <td>#{status.first ? 'PPH' : '' }</td>
+                                <td>#{profe.nombre}</td>
+                                <ui:repeat var="cant" value="#{profe.cantAlumnosPorPlan}">
+                                    <td style="text-align: right">#{cant}</td>
+                                </ui:repeat>
+                            </tr>
+                        </ui:repeat>
+                        <tr class="ui-widget-header">
+                            <td colspan="2">PPH Total</td>
+                            <ui:repeat var="cant" value="#{reportesMB.totalesPHToDisplay}">
+                                <td style="text-align: right">#{cant}</td>
+                            </ui:repeat>
+                        </tr>
+                        <tr class="ui-widget-header">
+                            <td colspan="2">Grand Total</td>
+                            <ui:repeat var="cant" value="#{reportesMB.totalesToDisplay}">
+                                <td style="text-align: right">#{cant}</td>
+                            </ui:repeat>
+                        </tr>
+                    </tbody>
+                </table>
                 <br/>
                 <p:button style="border: none;" href="/ReporteMemoristas" value="Descargar excel"/>
                 <br/>
@@ -84,6 +89,4 @@
             </h:form>
         </p:layoutUnit>
     </ui:define>
-
 </ui:composition>
-

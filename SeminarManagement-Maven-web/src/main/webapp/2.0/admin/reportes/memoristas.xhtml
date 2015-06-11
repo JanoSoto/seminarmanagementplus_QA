@@ -22,195 +22,71 @@
         </p:layoutUnit>
         <p:layoutUnit position="center" style="border:none;">
             <h:form>
-                <h3>Grouping</h3>
-                <p:panelGrid style="margin-top:20px">
-                    <f:facet name="header">
-                        <p:row>
-                            <p:column colspan="7">1995-96 NBA Playoffs</p:column>
-
-                        </p:row>
-
-
-
-                        <p:row>
-                            <p:column colspan="2">Conf. Semifinals</p:column>
-                            <p:column colspan="2">Conf. Finals</p:column>
-                            <p:column colspan="2">NBA Finals</p:column>
-                            <p:column>Champion</p:column>
-                        </p:row>
-
-                    </f:facet>
-                    <ui:repeat var="plan" value="#{reportesMB.planes}">
-                        <tr>
-                            <td>
-                                #{plan.codigo}
+                <table class="ui-panelgrid ui-widget" role="grid" style="margin: 0 auto;">
+                    <thead class="ui-panelgrid-header">
+                        <tr class="ui-widget-header" role="row">
+                            <td role="columnheader" colspan="#{reportesMB.planesToDisplay.size()+3}" class="ui-datatable-header ui-widget-header">
+                                Cantidad de Memoristas Vigentes (#{reportesMB.semestreActual.semestreActual})
                             </td>
                         </tr>
-                    </ui:repeat>
-                    <p:row>
-                        <p:column style="font-weight: bold;">Seattle</p:column>
-                        <p:column style="font-weight: bold;">4</p:column>
+                        <tr class="ui-widget-header" role="row">
+                            <td role="columnheader" rowspan="2" class="ui-datatable-header ui-widget-header">Tipo Contrato</td>
+                            <td role="columnheader" rowspan="2" class="ui-datatable-header ui-widget-header">Profesor</td>
+                            <td role="columnheader" colspan="#{reportesMB.planesToDisplay.size()}" class="ui-datatable-header ui-widget-header">Plan</td>
+                            <td role="columnheader" rowspan="2" class="ui-datatable-header ui-widget-header">Grand Total</td>
+                        </tr>
+                        <tr class="ui-widget-header" role="row">
+                            <ui:repeat var="plan" value="#{reportesMB.planesToDisplay}" varStatus="status">
+                                <td role="columnheader" class="ui-datatable-header ui-widget-header ">#{plan}</td>
+                            </ui:repeat>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ui:repeat var="profe" value="#{reportesMB.profesoresJCDatos}" varStatus="status">
+                            <tr>
+                                <td role="gridcell">#{status.first ? 'JC' : '' }</td>
+                                <td class="order-table-even-row">#{profe.nombre}</td>
+                                <ui:repeat var="cant" value="#{profe.cantAlumnosPorPlan}">
+                                    <td style="text-align: right">#{cant}</td>
+                                </ui:repeat>
+                            </tr>
+                        </ui:repeat>
+                        <tr class="ui-widget-header">
+                            <td colspan="2">JC Total</td>
+                            <ui:repeat var="cant" value="#{reportesMB.totalesJCToDisplay}">
+                                <td style="text-align: right">#{cant}</td>
+                            </ui:repeat>
+                        </tr>
 
-                        <p:column rowspan="2" style="font-weight: bold;">Seattle</p:column>
-                        <p:column rowspan="2" style="font-weight: bold;">4</p:column>
-
-                        <p:column rowspan="5">Seattle</p:column>
-                        <p:column rowspan="5">2</p:column>
-
-                        <p:column rowspan="11" style="font-weight: bold;">Chicago</p:column>
-                    </p:row>
-
-                    <p:row>
-                        <p:column>Houston</p:column>
-                        <p:column >0</p:column>
-                    </p:row>
-
-                    <p:row>
-                        <p:column colspan="4" styleClass="ui-widget-header">
-                            <p:spacer height="0"/>
-                        </p:column>
-                    </p:row>
-
-                    <p:row>
-                        <p:column style="font-weight: bold;">Utah</p:column>
-                        <p:column style="font-weight: bold;">4</p:column>
-
-                        <p:column rowspan="2">Utah</p:column>
-                        <p:column rowspan="2">3</p:column>
-                    </p:row>
-
-                    <p:row>
-                        <p:column>San Antonio</p:column>
-                        <p:column >2</p:column>
-                    </p:row>
-
-                    <p:row>
-                        <p:column colspan="6" styleClass="ui-widget-header">
-                            <p:spacer height="0"/>
-                        </p:column>
-                    </p:row>
-
-                    <p:row>
-                        <p:column style="font-weight: bold;">Chicago</p:column>
-                        <p:column style="font-weight: bold;">4</p:column>
-
-                        <p:column rowspan="2" style="font-weight: bold;">Chicago</p:column>
-                        <p:column rowspan="2" style="font-weight: bold;">4</p:column>
-
-                        <p:column rowspan="5" style="font-weight: bold;">Chicago</p:column>
-                        <p:column rowspan="5" style="font-weight: bold;">4</p:column>
-                    </p:row>
-
-                    <p:row>
-                        <p:column>New York</p:column>
-                        <p:column >1</p:column>
-                    </p:row>
-
-                    <p:row>
-                        <p:column colspan="4" styleClass="ui-widget-header">
-                            <p:spacer height="0"/>
-                        </p:column>
-                    </p:row>
-
-                    <p:row>
-                        <p:column>Atlanta</p:column>
-                        <p:column >1</p:column>
-
-                        <p:column rowspan="2">Orlando</p:column>
-                        <p:column rowspan="2">0</p:column>
-                    </p:row>
-
-                    <p:row>
-                        <p:column style="font-weight: bold;">Orlando</p:column>
-                        <p:column style="font-weight: bold;">4</p:column>
-                    </p:row>
-
-
-                    <f:facet name="footer">
-                        <p:row>
-                            <p:column  colspan="4" style="text-align: right">
-                                Finals MVP
-                            </p:column>
-                            <p:column  colspan="3" rowspan="3">
-                                Michael Jordan (Chicago)
-                            </p:column>
-                        </p:row>
-
-                        <p:row>
-                            <p:column  colspan="4" style="text-align: right">
-                                Season MVP
-                            </p:column>
-                        </p:row>
-                        <p:row>
-                            <p:column  colspan="4" style="text-align: right">
-                                Top Scorer
-                            </p:column>
-                        </p:row>
-                    </f:facet>
-                </p:panelGrid>
+                        <ui:repeat var="profe" value="#{reportesMB.profesoresPHDatos}" varStatus="status">
+                            <tr>
+                                <td>#{status.first ? 'PPH' : '' }</td>
+                                <td>#{profe.nombre}</td>
+                                <ui:repeat var="cant" value="#{profe.cantAlumnosPorPlan}">
+                                    <td style="text-align: right">#{cant}</td>
+                                </ui:repeat>
+                            </tr>
+                        </ui:repeat>
+                        <tr class="ui-widget-header">
+                            <td colspan="2">PPH Total</td>
+                            <ui:repeat var="cant" value="#{reportesMB.totalesPHToDisplay}">
+                                <td style="text-align: right">#{cant}</td>
+                            </ui:repeat>
+                        </tr>
+                        <tr class="ui-widget-header">
+                            <td colspan="2">Grand Total</td>
+                            <ui:repeat var="cant" value="#{reportesMB.totalesToDisplay}">
+                                <td style="text-align: right">#{cant}</td>
+                            </ui:repeat>
+                        </tr>
+                    </tbody>
+                </table>
                 <br/>
                 <p:button style="border: none;" href="/ReporteMemoristas" value="Descargar excel"/>
                 <br/>
                 <br/>
                 <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Volver a Reportes"/>
             </h:form>
-
-            <table class="ui-panelgrid ui-widget" role="grid" style="margin: 0 auto;">
-
-                <thead class="ui-panelgrid-header">
-                    <td role="columnheader" class="ui-datatable-header ui-widget-header"></td>
-                    <td role="columnheader"  class="ui-datatable-header ui-widget-header "></td>
-                    <ui:repeat var="plan" value="#{reportesMB.planesToDisplay}" varStatus="status">
-                        <td role="columnheader" class="ui-datatable-header ui-widget-header ">#{plan}</td>
-                    </ui:repeat>
-                    <td role="columnheader" class="ui-datatable-header ui-widget-header ">Total</td>
-
-                </thead>
-                <tbody>
-                    <ui:repeat var="profe" value="#{reportesMB.profesoresJCDatos}" varStatus="status">
-                        <tr>
-                            <td role="gridcell">#{status.first ? 'JC' : '' }</td>
-                            <td class="order-table-even-row">#{profe.nombre}</td>
-                            <ui:repeat var="cant" value="#{profe.cantAlumnosPorPlan}">
-                                <td>
-                                    #{cant}
-                                </td>
-                            </ui:repeat>
-                        </tr>
-                    </ui:repeat>
-                    <tr>
-                        <td colspan="2">JC Total</td>
-                        <ui:repeat var="cant" value="#{reportesMB.totalesJCToDisplay}">
-                            <td class="order-table-odd-row">#{cant}</td>
-                        </ui:repeat>
-                    </tr>
-
-                    <ui:repeat var="profe" value="#{reportesMB.profesoresPHDatos}" varStatus="status">
-                        <tr>
-                            <td>#{status.first ? 'PPH' : '' }</td>
-                            <td class="order-table-even-row">#{profe.nombre}</td>
-                            <ui:repeat var="cant" value="#{profe.cantAlumnosPorPlan}">
-                                <td>
-                                    #{cant}
-                                </td>
-                            </ui:repeat>
-                        </tr>
-                    </ui:repeat>
-                    <tr>
-                        <td colspan="2">PPH Total</td>
-
-                        <ui:repeat var="cant" value="#{reportesMB.totalesPHToDisplay}">
-                            <td class="order-table-odd-row">#{cant}</td>
-                        </ui:repeat>
-                    </tr>
-                    <tr>
-                        <td colspan="2">Grand Total</td>
-                        <ui:repeat var="cant" value="#{reportesMB.totalesToDisplay}">
-                            <td class="order-table-odd-row">#{cant}</td>
-                        </ui:repeat>
-                    </tr>
-                </tbody>
-            </table>
         </p:layoutUnit>
     </ui:define>
 </ui:composition>
