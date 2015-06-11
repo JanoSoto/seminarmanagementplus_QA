@@ -22,68 +22,195 @@
         </p:layoutUnit>
         <p:layoutUnit position="center" style="border:none;">
             <h:form>
-                <p:dataTable id="tablaSem" var="tema" value="#{reportesMB.temas}" filteredValue="" filterDelay="100" paginator="false"
-                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
-                             {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,30,40,50"
-                             emptyMessage="No se encontraron Temas" rowIndexVar="rowIndex">
-                    <f:facet name="header">  
-                        Seguimiento Revisión Borradores #{semestreActual.semestre}
+                <h3>Grouping</h3>
+                <p:panelGrid style="margin-top:20px">
+                    <f:facet name="header">
+                        <p:row>
+                            <p:column colspan="7">1995-96 NBA Playoffs</p:column>
+
+                        </p:row>
+
+
+
+                        <p:row>
+                            <p:column colspan="2">Conf. Semifinals</p:column>
+                            <p:column colspan="2">Conf. Finals</p:column>
+                            <p:column colspan="2">NBA Finals</p:column>
+                            <p:column>Champion</p:column>
+                        </p:row>
+
                     </f:facet>
-                    <p:column headerText="N°" filterBy="" filterMatchMode="contains" sortBy="">
-                        <h:outputText value="#{rowIndex+1}" />
-                    </p:column>
-                    <p:column headerText="Alumno" filterBy="#{tema.idRevisora.idPropuesta.rutAlumno.nombreAlumno} #{tema.idRevisora.idPropuesta.rutAlumno.apellidoAlumno}" filterMatchMode="contains" sortBy="#{tema.idRevisora.idPropuesta.rutAlumno.nombreAlumno}">
-                        <h:outputText value="#{tema.idRevisora.idPropuesta.rutAlumno.nombreAlumno} #{tema.idRevisora.idPropuesta.rutAlumno.apellidoAlumno}" />
-                    </p:column>
-                    <p:column headerText="Carrera" filterBy="#{tema.idRevisora.idPropuesta.rutAlumno.planActivo.codigo}" filterMatchMode="contains" sortBy="#{tema.idRevisora.idPropuesta.rutAlumno.planActivo.codigo}">
-                        <h:outputText value="#{tema.idRevisora.idPropuesta.rutAlumno.planActivo.codigo}" />
-                    </p:column>
-                    <p:column headerText="Título Propuesta" filterBy="#{tema.idRevisora.idPropuesta.nombrePropuesta}" filterMatchMode="contains" sortBy="#{tema.idRevisora.idPropuesta.nombrePropuesta}">
-                        <h:outputText value="#{tema.idRevisora.idPropuesta.nombrePropuesta}" />
-                    </p:column>
-                    <p:column headerText="Fecha&#10;Entrega" style="white-space:pre-line;" filterBy="#{tema.idRevisora.idPropuesta.fechaPropuesta}" filterMatchMode="contains" sortBy="#{tema.idRevisora.idPropuesta.fechaPropuesta}">
-                        <h:outputText value="#{tema.idRevisora.idPropuesta.fechaPropuesta}" />
-                    </p:column>
-                    <p:column headerText="Semestre" filterBy="#{tema.idSemestre.idSemestre}" filterMatchMode="contains" sortBy="#{tema.idSemestre.idSemestre}">
-                        <h:outputText value="#{tema.idSemestre.idSemestre}" />
-                    </p:column>
-                    <p:column headerText="Profesor Guía" filterBy="#{tema.idRevisora.guia.nombreProfesor} #{tema.idRevisora.guia.apellidoProfesor}" filterMatchMode="contains" sortBy="#{tema.idRevisora.guia.nombreProfesor} #{tema.idRevisora.guia.apellidoProfesor}">
-                        <h:outputText value="#{tema.idRevisora.guia.nombreProfesor} #{tema.idRevisora.guia.apellidoProfesor}" />
-                    </p:column>
-                    <p:column headerText="Integrante 1" filterBy="#{tema.idCorrectora.corrector1.nombreProfesor} #{tema.idCorrectora.corrector1.apellidoProfesor}" filterMatchMode="contains" sortBy="#{tema.idCorrectora.corrector1.nombreProfesor} #{tema.idCorrectora.corrector1.apellidoProfesor}">
-                        <h:outputText value="#{tema.idCorrectora.corrector1.nombreProfesor} #{tema.idCorrectora.corrector1.apellidoProfesor}" />
-                    </p:column>
-                    <p:column headerText="Fecha&#10;Entrega" style="white-space:pre-line;" filterBy="#{tema.idCorrectora.fechaCorreccion}" filterMatchMode="contains" sortBy="#{tema.idCorrectora.fechaCorreccion}">
-                        <h:outputText value="#{tema.idCorrectora.fechaCorreccion}" />
-                    </p:column>
-                    <p:column headerText="Fecha&#10;Devolución" style="white-space:pre-line;" filterBy="#{tema.idCorrectora.fechaEntCorreccion}" filterMatchMode="contains" sortBy="#{tema.idCorrectora.fechaEntCorreccion}">
-                        <h:outputText value="#{tema.idCorrectora.fechaEntCorreccion}" />
-                    </p:column>
-                    <p:column headerText="Integrante 2" filterBy="#{tema.idCorrectora.corrector2.nombreProfesor} #{tema.idCorrectora.corrector2.apellidoProfesor}" filterMatchMode="contains" sortBy="#{tema.idCorrectora.corrector2.nombreProfesor}">
-                        <h:outputText value="#{tema.idCorrectora.corrector2.nombreProfesor} #{tema.idCorrectora.corrector2.apellidoProfesor}" />
-                    </p:column>
-                    <p:column headerText="Fecha&#10;Entrega" style="white-space:pre-line;" filterBy="#{tema.idCorrectora.fechaCorreccion2}" filterMatchMode="contains" sortBy="#{tema.idCorrectora.fechaCorreccion2}">
-                        <h:outputText value="#{tema.idCorrectora.fechaCorreccion2}" />
-                    </p:column>
-                    <p:column footerText="asd" headerText="Fecha&#10;Devolución" style="white-space:pre-line;" filterBy="#{tema.idCorrectora.fechaEntCorreccion2}" filterMatchMode="contains" sortBy="#{tema.idCorrectora.fechaEntCorreccion2}">
-                        <h:outputText value="#{tema.idCorrectora.fechaEntCorreccion2}" />
-                        
-                    </p:column>
+                    <ui:repeat var="plan" value="#{reportesMB.planes}">
+                        <tr>
+                            <td>
+                                #{plan.codigo}
+                            </td>
+                        </tr>
+                    </ui:repeat>
+                    <p:row>
+                        <p:column style="font-weight: bold;">Seattle</p:column>
+                        <p:column style="font-weight: bold;">4</p:column>
+
+                        <p:column rowspan="2" style="font-weight: bold;">Seattle</p:column>
+                        <p:column rowspan="2" style="font-weight: bold;">4</p:column>
+
+                        <p:column rowspan="5">Seattle</p:column>
+                        <p:column rowspan="5">2</p:column>
+
+                        <p:column rowspan="11" style="font-weight: bold;">Chicago</p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>Houston</p:column>
+                        <p:column >0</p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column colspan="4" styleClass="ui-widget-header">
+                            <p:spacer height="0"/>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column style="font-weight: bold;">Utah</p:column>
+                        <p:column style="font-weight: bold;">4</p:column>
+
+                        <p:column rowspan="2">Utah</p:column>
+                        <p:column rowspan="2">3</p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>San Antonio</p:column>
+                        <p:column >2</p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column colspan="6" styleClass="ui-widget-header">
+                            <p:spacer height="0"/>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column style="font-weight: bold;">Chicago</p:column>
+                        <p:column style="font-weight: bold;">4</p:column>
+
+                        <p:column rowspan="2" style="font-weight: bold;">Chicago</p:column>
+                        <p:column rowspan="2" style="font-weight: bold;">4</p:column>
+
+                        <p:column rowspan="5" style="font-weight: bold;">Chicago</p:column>
+                        <p:column rowspan="5" style="font-weight: bold;">4</p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>New York</p:column>
+                        <p:column >1</p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column colspan="4" styleClass="ui-widget-header">
+                            <p:spacer height="0"/>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>Atlanta</p:column>
+                        <p:column >1</p:column>
+
+                        <p:column rowspan="2">Orlando</p:column>
+                        <p:column rowspan="2">0</p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column style="font-weight: bold;">Orlando</p:column>
+                        <p:column style="font-weight: bold;">4</p:column>
+                    </p:row>
+
+
                     <f:facet name="footer">
-                        asd
+                        <p:row>
+                            <p:column  colspan="4" style="text-align: right">
+                                Finals MVP
+                            </p:column>
+                            <p:column  colspan="3" rowspan="3">
+                                Michael Jordan (Chicago)
+                            </p:column>
+                        </p:row>
+
+                        <p:row>
+                            <p:column  colspan="4" style="text-align: right">
+                                Season MVP
+                            </p:column>
+                        </p:row>
+                        <p:row>
+                            <p:column  colspan="4" style="text-align: right">
+                                Top Scorer
+                            </p:column>
+                        </p:row>
                     </f:facet>
-                    <f:facet name="footer">
-                        dsa
-                    </f:facet>
-                </p:dataTable>
+                </p:panelGrid>
                 <br/>
                 <p:button style="border: none;" href="/ReporteMemoristas" value="Descargar excel"/>
                 <br/>
                 <br/>
                 <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Volver a Reportes"/>
             </h:form>
+
+            <table class="ui-panelgrid ui-widget" role="grid" style="margin: 0 auto;">
+
+                <thead class="ui-panelgrid-header">
+                    <td role="columnheader" class="ui-datatable-header ui-widget-header"></td>
+                    <td role="columnheader"  class="ui-datatable-header ui-widget-header "></td>
+                    <ui:repeat var="plan" value="#{reportesMB.planesToDisplay}" varStatus="status">
+                        <td role="columnheader" class="ui-datatable-header ui-widget-header ">#{plan}</td>
+                    </ui:repeat>
+                    <td role="columnheader" class="ui-datatable-header ui-widget-header ">Total</td>
+
+                </thead>
+                <tbody>
+                    <ui:repeat var="profe" value="#{reportesMB.profesoresJCDatos}" varStatus="status">
+                        <tr>
+                            <td role="gridcell">#{status.first ? 'JC' : '' }</td>
+                            <td class="order-table-even-row">#{profe.nombre}</td>
+                            <ui:repeat var="cant" value="#{profe.cantAlumnosPorPlan}">
+                                <td>
+                                    #{cant}
+                                </td>
+                            </ui:repeat>
+                        </tr>
+                    </ui:repeat>
+                    <tr>
+                        <td colspan="2">JC Total</td>
+                        <ui:repeat var="cant" value="#{reportesMB.totalesJCToDisplay}">
+                            <td class="order-table-odd-row">#{cant}</td>
+                        </ui:repeat>
+                    </tr>
+
+                    <ui:repeat var="profe" value="#{reportesMB.profesoresPHDatos}" varStatus="status">
+                        <tr>
+                            <td>#{status.first ? 'PPH' : '' }</td>
+                            <td class="order-table-even-row">#{profe.nombre}</td>
+                            <ui:repeat var="cant" value="#{profe.cantAlumnosPorPlan}">
+                                <td>
+                                    #{cant}
+                                </td>
+                            </ui:repeat>
+                        </tr>
+                    </ui:repeat>
+                    <tr>
+                        <td colspan="2">PPH Total</td>
+
+                        <ui:repeat var="cant" value="#{reportesMB.totalesPHToDisplay}">
+                            <td class="order-table-odd-row">#{cant}</td>
+                        </ui:repeat>
+                    </tr>
+                    <tr>
+                        <td colspan="2">Grand Total</td>
+                        <ui:repeat var="cant" value="#{reportesMB.totalesToDisplay}">
+                            <td class="order-table-odd-row">#{cant}</td>
+                        </ui:repeat>
+                    </tr>
+                </tbody>
+            </table>
         </p:layoutUnit>
     </ui:define>
-
 </ui:composition>
-

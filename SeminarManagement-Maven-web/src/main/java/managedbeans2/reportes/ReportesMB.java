@@ -62,7 +62,18 @@ public class ReportesMB implements Serializable {
     private ArrayList<ArrayList<Integer>> cuentaPorProfePH;
     private ArrayList<Integer> cuentaTotalPorProfeJC;
     private ArrayList<Integer> cuentaTotalPorProfePH;
+    private Integer nroProfJCmostrar;
+    private Integer nroProfPHmostrar;
+    private Integer nroPlanesMostrar;
+    private List<String> planesToDisplay;
+    private List<String> profesJCToDisplay;
+    private List<ProfeDatosTablaMemoristas> profesoresJCDatos;
+    private List<ProfeDatosTablaMemoristas> profesoresPHDatos;
 
+    private List<String> totalesJCToDisplay;
+    private List<String> totalesPHToDisplay;
+    private List<String> totalesToDisplay;
+    
     public ReportesMB() {
     }
     
@@ -109,6 +120,64 @@ public class ReportesMB implements Serializable {
         
         contarMemoristasProfesores(profesoresJC, cuentaPorProfeJC, 1);
         contarMemoristasProfesores(profesoresPH, cuentaPorProfePH, 0);
+        
+        totalesJCToDisplay = new ArrayList<>();
+        totalesPHToDisplay = new ArrayList<>();
+        totalesToDisplay = new ArrayList<>();
+        planesToDisplay = new ArrayList<>();
+        for( int i=0; i<planes.size(); i++){
+            if (cuentaPorPlanTotal.get(i) > 0){
+                planesToDisplay.add(planes.get(i).getCodigo().toString());
+                totalesJCToDisplay.add(cuentaPorPlanJC.get(i).toString());
+                totalesPHToDisplay.add(cuentaPorPlanPH.get(i).toString());
+                totalesToDisplay.add(cuentaPorPlanTotal.get(i).toString());
+            }
+        }
+        
+        totalesJCToDisplay.add(cuentaPorPlanJC.get(cuentaPorPlanJC.size()-1).toString());
+        totalesPHToDisplay.add(cuentaPorPlanPH.get(cuentaPorPlanPH.size()-1).toString());
+        totalesToDisplay.add(cuentaPorPlanTotal.get(cuentaPorPlanTotal.size()-1).toString());
+        
+        profesoresJCDatos = new ArrayList<>();
+
+        for (int i = 0; i < profesoresJC.size(); i++) {
+            if (cuentaTotalPorProfeJC.get(i) > 0){
+
+                ProfeDatosTablaMemoristas p = new ProfeDatosTablaMemoristas(
+                        profesoresJC.get(i).getNombreProfesor()+" "+profesoresJC.get(i).getApellidoProfesor(), 
+                        cuentaTotalPorProfeJC.get(i));
+                List<Integer> cantAluPorPlan = new ArrayList<>();
+                for (int j = 0; j < cuentaPorProfeJC.get(i).size(); j++) {
+                    if (cuentaPorPlanTotal.get(j) > 0){
+                        cantAluPorPlan.add(cuentaPorProfeJC.get(i).get(j));
+                    }
+                }
+                cantAluPorPlan.add(cuentaTotalPorProfeJC.get(i));
+                p.setCantAlumnosPorPlan(cantAluPorPlan);
+                profesoresJCDatos.add(p);
+            }
+        }
+        
+        profesoresPHDatos = new ArrayList<>();
+
+        for (int i = 0; i < profesoresPH.size(); i++) {
+            if (cuentaTotalPorProfePH.get(i) > 0){
+
+                ProfeDatosTablaMemoristas p = new ProfeDatosTablaMemoristas(
+                        profesoresPH.get(i).getNombreProfesor()+" "+profesoresPH.get(i).getApellidoProfesor(), 
+                        cuentaTotalPorProfePH.get(i));
+                List<Integer> cantAluPorPlan = new ArrayList<>();
+                for (int j = 0; j < cuentaPorProfePH.get(i).size(); j++) {
+                    if (cuentaPorPlanTotal.get(j) > 0){
+                        cantAluPorPlan.add(cuentaPorProfePH.get(i).get(j));
+                    }
+                }
+                cantAluPorPlan.add(cuentaTotalPorProfePH.get(i));
+                p.setCantAlumnosPorPlan(cantAluPorPlan);
+                profesoresPHDatos.add(p);
+            }
+        }
+        
     }
     
     private void contarMemoristasProfesores(List<Profesor> profesores, ArrayList<ArrayList<Integer>> contadoresProfesor, Integer tipoContrato) {
@@ -278,4 +347,101 @@ public class ReportesMB implements Serializable {
     public void setCuentaTotalPorProfePH(ArrayList<Integer> cuentaTotalPorProfePH) {
         this.cuentaTotalPorProfePH = cuentaTotalPorProfePH;
     }
+
+    public List<String> getPlanesToDisplay() {
+        return planesToDisplay;
+    }
+
+    public void setPlanesToDisplay(List<String> planesToDisplay) {
+        this.planesToDisplay = planesToDisplay;
+    }
+
+    public List<String> getProfesJCToDisplay() {
+        return profesJCToDisplay;
+    }
+
+    public void setProfesJCToDisplay(List<String> profesJCToDisplay) {
+        this.profesJCToDisplay = profesJCToDisplay;
+    }
+
+    public List<ProfeDatosTablaMemoristas> getProfesoresJCDatos() {
+        return profesoresJCDatos;
+    }
+
+    public void setProfesoresJCDatos(List<ProfeDatosTablaMemoristas> profesoresJCDatos) {
+        this.profesoresJCDatos = profesoresJCDatos;
+    }
+
+    public List<ProfeDatosTablaMemoristas> getProfesoresPHDatos() {
+        return profesoresPHDatos;
+    }
+
+    public void setProfesoresPHDatos(List<ProfeDatosTablaMemoristas> profesoresPHDatos) {
+        this.profesoresPHDatos = profesoresPHDatos;
+    }
+
+    public List<String> getTotalesJCToDisplay() {
+        return totalesJCToDisplay;
+    }
+
+    public void setTotalesJCToDisplay(List<String> totalesJCToDisplay) {
+        this.totalesJCToDisplay = totalesJCToDisplay;
+    }
+
+    public List<String> getTotalesPHToDisplay() {
+        return totalesPHToDisplay;
+    }
+
+    public void setTotalesPHToDisplay(List<String> totalesPHToDisplay) {
+        this.totalesPHToDisplay = totalesPHToDisplay;
+    }
+
+    public List<String> getTotalesToDisplay() {
+        return totalesToDisplay;
+    }
+
+    public void setTotalesToDisplay(List<String> totalesToDisplay) {
+        this.totalesToDisplay = totalesToDisplay;
+    }
+    
+    
+    
+    public class ProfeDatosTablaMemoristas {
+        private String nombre;
+        private List<Integer> cantAlumnosPorPlan;
+        private Integer totalAlumnosMemoristas;
+
+        public ProfeDatosTablaMemoristas(String nombre, Integer totalAlumnosMemoristas) {
+            this.nombre = nombre;
+            this.totalAlumnosMemoristas = totalAlumnosMemoristas;
+        }
+
+        public String getNombre() {
+            return nombre;
+        }
+
+        public void setNombre(String nombre) {
+            this.nombre = nombre;
+        }
+
+        public List<Integer> getCantAlumnosPorPlan() {
+            return cantAlumnosPorPlan;
+        }
+
+        public void setCantAlumnosPorPlan(List<Integer> cantAlumnosPorPlan) {
+            this.cantAlumnosPorPlan = cantAlumnosPorPlan;
+        }
+
+        public Integer getTotalAlumnosMemoristas() {
+            return totalAlumnosMemoristas;
+        }
+
+        public void setTotalAlumnosMemoristas(Integer totalAlumnosMemoristas) {
+            this.totalAlumnosMemoristas = totalAlumnosMemoristas;
+        }
+        
+        
+    }
+    
+    
 }
