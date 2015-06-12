@@ -195,10 +195,8 @@ public class ReportesMB implements Serializable {
                         Tema tema = comRev.getIdTema();
                         if ( tema.getEstadoTema() != null ){
                             if ( ( tema.getEstadoTema() == 0 ) ||     //vigente
-                                    ( tema.getEstadoTema() == 2 ) ||  // prorrogado
-                                    ( tema.getEstadoTema() == 4 ) ||  // en proceso de examen
-                                    ( tema.getEstadoTema() == 6 ) ){  // vigente con borrador final
-
+                                    ( tema.getEstadoTema() == 2 ) ){  // prorrogado
+                                    
                                 if ( propuesta.getRutAlumno() != null ){
                                     if ( propuesta.getRutAlumno().getPlanActivo() != null ){
                                         PlanEstudio planActivoAlumno = propuesta.getRutAlumno().getPlanActivo();
