@@ -109,7 +109,7 @@ public class ReporteBorradoresExcelServlet extends HttpServlet {
             Date date = new Date();
             String file_name = "Seguimiento Revision Borradores " + 
                     semestreActual.getSemestreActual().replace("/", "-") +
-                    " "+ dateFormat.format(date) + ".xlsx";
+                    " "+ dateFormat.format(date) + ".csv";
             response.setHeader("Content-Disposition", "attachment; filename=\"" + file_name + "\"");
             
         } catch(Exception ex){

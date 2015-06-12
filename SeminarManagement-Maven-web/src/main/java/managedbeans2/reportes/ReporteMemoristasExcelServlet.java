@@ -114,7 +114,7 @@ public class ReporteMemoristasExcelServlet extends HttpServlet {
             Date date = new Date();
             String file_name = "Cantidad de Memoristas por Profesor " + 
                     semestreActual.getSemestreActual().replace("/", "-") +
-                    " "+ dateFormat.format(date) + ".xlsx";
+                    " "+ dateFormat.format(date) + ".csv";
             response.setHeader("Content-Disposition", "attachment; filename=\"" + file_name + "\"");
             
         } catch(Exception ex){
