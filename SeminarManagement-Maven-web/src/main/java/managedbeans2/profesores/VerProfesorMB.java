@@ -312,7 +312,6 @@ public class VerProfesorMB {
         profTemp.setTelefonoProfesor(profesorEdit.getTelefonoProfesor());
         profTemp.setMailProfesor(profesorEdit.getMailProfesor());
         Integer maxGuiasOld = profTemp.getMaximoGuias();
-        profTemp.setTipoProfesor(profesorEdit.getTipoProfesor());
 
         if (profesorEdit.getContrato() == 0) {
             if (maxGuiasOld == null) {

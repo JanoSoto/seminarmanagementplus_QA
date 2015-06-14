@@ -57,12 +57,12 @@
                         <p:watermark for="nombreP" value="Ingresar Nombre"/>
 
                         <p:outputLabel for="calendP" value="Fecha Propuesta " />
-                        <p:calendar id="calendP" value="#{verPropuestaMB.fechaPropEdit}" mode="popup"/>
+                        <p:calendar disabled="true" id="calendP" value="#{verPropuestaMB.fechaPropEdit}" mode="popup"/>
                         <p:watermark for="calendP" value="Seleccionar Fecha"/>
 
-                        <p:outputLabel for="semestreP" value="Semestre Propuesta "  />
-                        <p:inputMask id="semestreP" value="#{verPropuestaMB.semestrePropEdit}" mask="9/9999"/>
-                        <p:watermark for="semestreP" value="Ingresar Semestre"/>
+                        <p:outputLabel for="semestreP" value="Semestre Propuesta " />
+                        <p:inputMask disabled="true" id="semestreP" value="#{verPropuestaMB.semestrePropEdit}" mask="9/9999"/>
+                        <p:watermark for="semestreP" value="Ingresar Semestre" />
                         
                         <h:inputHidden value="#{verPropuestaMB.idPropEdit}"/>
 
