@@ -162,7 +162,7 @@ public class ProfesoresIndexMB {
             profeDatosTemp.setRutFormateado(Util.formatearRut(rutP));
             profeDatosTemp.setRutProfConGuion(rutP.substring(0, rutP.length() - 1) + "-" + rutP.substring(rutP.length() - 1));
             if (profesores.get(i).getContrato() == 0) {
-                profeDatosTemp.setContrato("Por Hora");
+                profeDatosTemp.setContrato("Externo");
             } else {
                 profeDatosTemp.setContrato("Jornada Completa");
             }
