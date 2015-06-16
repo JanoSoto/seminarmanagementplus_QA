@@ -174,13 +174,13 @@ public class EditarAlumnoMB implements Serializable {
 
     }
 
-    public void setPlanActivoAlumno(String rutAlumno, Integer codigo_plan) {
+    public void setPlanActivoAlumno(String rutAlumno, Integer codigo_plan, Integer codigo, String nombre) {
         FacesContext context = FacesContext.getCurrentInstance();
         Alumno alumnoEdit = alumnoFacade.findByRut(rutAlumno).get(0);
         List<AsociacionPlanEstudioAlumno> asociacion = alumnoEdit.getAsociacionPlanEstudioAlumno();
         alumnoEdit.setIdPlanActivo(codigo_plan);
         alumnoFacade.edit(alumnoEdit);
-        context.addMessage(null, new FacesMessage("Se ha dejado el plan " + codigo_plan + " como activo."));
+        context.addMessage(null, new FacesMessage("Se ha dejado el plan " + codigo + " " + nombre + " como activo."));
     }
 
     public void eliminarPlan(String rutAlumno, Integer codigo_plan) {
