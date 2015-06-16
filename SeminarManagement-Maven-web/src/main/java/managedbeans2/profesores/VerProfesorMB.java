@@ -1,6 +1,6 @@
 package managedbeans2.profesores;
 
-import Util.Util;
+import util.Util;
 import clases.PropuestaDatos;
 import clases.TemaDatos;
 import entities.Alumno;
@@ -312,7 +312,6 @@ public class VerProfesorMB {
         profTemp.setTelefonoProfesor(profesorEdit.getTelefonoProfesor());
         profTemp.setMailProfesor(profesorEdit.getMailProfesor());
         Integer maxGuiasOld = profTemp.getMaximoGuias();
-        profTemp.setTipoProfesor(profesorEdit.getTipoProfesor());
 
         if (profesorEdit.getContrato() == 0) {
             if (maxGuiasOld == null) {
@@ -520,6 +519,4 @@ public List<TemaDatos> getTemaDatosCorrectora() {
     public void setPropuestaDatosRevisoraViejo(List<PropuestaDatos> propuestaDatosRevisoraViejo) {
         this.propuestaDatosRevisoraViejo = propuestaDatosRevisoraViejo;
     }
-    
-
 }

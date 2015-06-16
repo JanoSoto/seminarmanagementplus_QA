@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package sessionbeans;
 
 import entities.Propuesta;
@@ -63,5 +59,10 @@ public class PropuestaFacade extends AbstractFacade<Propuesta> implements Propue
        return query.getResultList();
     }
     
-    
+    @Override
+    public Propuesta findOneById( Integer id ){
+        Query q = em.createNamedQuery("Propuesta.findOneById")
+                .setParameter("id", id);
+        return (Propuesta) q.getSingleResult();
+    }
 }

@@ -22,13 +22,13 @@ import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import sessionbeans.SemestreActualFacadeLocal;
 import sessionbeans.SemestreFacadeLocal;
-import javax.faces.bean.ManagedBean;
+import javax.inject.Named;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
 import managedbeans.AuthMB;
 import sessionbeans.HistorialFacadeLocal;
 import sessionbeans.PropuestaFacadeLocal;
@@ -37,8 +37,8 @@ import sessionbeans.PropuestaFacadeLocal;
  *
  * @author Eduardo
  */
-@ManagedBean(name = "comisionRevisora2MB")
-@ViewScoped
+@RequestScoped
+@Named("comisionRevisora2MB")
 public class ComisionRevisora2MB implements Serializable {
 
     @EJB
@@ -57,7 +57,7 @@ public class ComisionRevisora2MB implements Serializable {
     private ProfeRevisionFacadeLocal profeRevisionFacade;
     @EJB
     private ComisionRevisoraFacadeLocal comisionRevisoraFacade;
-    private Integer idProp, tipoRevision, idPropEdit;
+    private Integer idProp, tipoRevision, idPropEdit, contratoGuia, tipoRevision2;
     private String nombrePropuesta, rutAlumno, fechaProp, semestreProp, nombreProp, rutProfeRev1, rutProfeRev2, fechaRev, fechaEntRev, fechaRev2,
             fechaEntRev2, semestreRev, nombrePropEdit, semestrePropEdit;
     private Propuesta propuesta;
@@ -157,19 +157,10 @@ public class ComisionRevisora2MB implements Serializable {
         Map<String, String> params = context.getExternalContext().getRequestParameterMap();
         String propuestaId = params.get("prop");
         if (propuestaId != null) {
-            List<Propuesta> props = propuestaFacade.findById(Integer.parseInt(propuestaId));
-            if (!props.isEmpty()) {
-                Propuesta p = props.get(0);
-                for (ProfePropuesta prof : p.getProfePropuestaList()) {
-                    if (prof.getRolGuia() == 0) {
-                        if (prof.getProfesor().getContrato() == 1) {
-                            tiposRevision.put("Acuerdo Consejo", 2);
-                        }
-                        if (prof.getProfesor().getContrato() == 0) {
-                            tiposRevision.put("Trabajo de Título (Secretaría)", 0);
-                        }
-                    }
-                }
+            propuesta = propuestaFacade.findOneById(Integer.parseInt(propuestaId));
+            if ( propuesta != null ) {
+                profGuia = propuesta.getProfesorGuia();
+                contratoGuia = profGuia.getContrato();
             }
         }
 
@@ -420,8 +411,10 @@ public class ComisionRevisora2MB implements Serializable {
 
     public void addComisionRevisora() {
         FacesContext context = FacesContext.getCurrentInstance();
+        Map<String, String> params = context.getExternalContext().getRequestParameterMap();
+        String propuestaId = params.get("prop");
 
-        if (idProp == null) {
+        if (idProp == null && propuestaId == null) {
             context.addMessage(null, new FacesMessage("Error", "No se ingresó Propuesta"));
             return;
         }
@@ -432,6 +425,9 @@ public class ComisionRevisora2MB implements Serializable {
             context.addMessage(null, new FacesMessage("Propuesta", "La propuesta seleccionada ya tiene una Comisión Revisora asignada"));
             return;
         }
+        
+        if (tipoRevision == null && tipoRevision2 != null)
+            tipoRevision = tipoRevision2;
 
         //Se valida el tipo de revisión seleccionada y los profesores
         if (tipoRevision == null) {
@@ -865,5 +861,20 @@ public class ComisionRevisora2MB implements Serializable {
         this.terminoPublicacionConsejo = terminoPublicacionConsejo;
     }
 
+    public Integer getContratoGuia() {
+        return contratoGuia;
+    }
+
+    public void setContratoGuia(Integer contratoGuia) {
+        this.contratoGuia = contratoGuia;
+    }
+
+    public Integer getTipoRevision2() {
+        return tipoRevision2;
+    }
+
+    public void setTipoRevision2(Integer tipoRevision2) {
+        this.tipoRevision2 = tipoRevision2;
+    }
     
 }

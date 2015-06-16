@@ -1,6 +1,6 @@
 package managedbeans2.alumnos;
 
-import Util.Util;
+import util.Util;
 import entities.Alumno;
 import entities.AsociacionPlanEstudioAlumno;
 import entities.PlanEstudio;
@@ -8,16 +8,12 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 import managedbeans.AuthMB;
 import sessionbeans.AlumnoFacadeLocal;
 import sessionbeans.HistorialFacadeLocal;
@@ -105,6 +101,8 @@ public class EditarAlumnoMB implements Serializable {
         alumnoEdit.setRutAlumno(alumno.getRutAlumno());
         alumnoEdit.setPropuestaList(alumno.getPropuestaList());
 
+        
+        this.planEstudioAlumno = null;
         if (this.planEstudioAlumno != null) {
 //        alumno.getPlanEstudioAlumno();
             List<AsociacionPlanEstudioAlumno> planesEstudioAlumno = alumno.getAsociacionPlanEstudioAlumno();
@@ -116,7 +114,7 @@ public class EditarAlumnoMB implements Serializable {
                     existe = true;
                 }
             }
-            
+
             List<AsociacionPlanEstudioAlumno> asociacion_antigua = alumno.getAsociacionPlanEstudioAlumno();
 
             PlanEstudio a = planEstudioFacade.findById(this.planEstudioAlumno);
@@ -174,13 +172,77 @@ public class EditarAlumnoMB implements Serializable {
 
     }
 
-    public void setPlanActivoAlumno(String rutAlumno, Integer codigo_plan) {
+    public void agregarPlanAlumno(Integer planEstudioAlumno) {
+        System.out.println("Plan: " + planEstudioAlumno);
+        this.planEstudioAlumno = planEstudioAlumno;
+        Alumno alumnoEdit = alumnoFacade.findByRut(alumno.getRutAlumno()).get(0);
+        List<AsociacionPlanEstudioAlumno> planesEstudioAlumno = alumno.getAsociacionPlanEstudioAlumno();
+
+        Boolean existe = false;
+        for (int i = 0; i < planesEstudioAlumno.size(); i++) {
+            Integer id = Integer.parseInt(planesEstudioAlumno.get(i).getPlanEstudio().getId() + "");
+            if (id == this.planEstudioAlumno) {
+                existe = true;
+            }
+        }
+
+        List<AsociacionPlanEstudioAlumno> asociacion_antigua = alumno.getAsociacionPlanEstudioAlumno();
+
+        PlanEstudio a = planEstudioFacade.findById(this.planEstudioAlumno);
+        if (!existe) {
+            AsociacionPlanEstudioAlumno nueva_asociacion = new AsociacionPlanEstudioAlumno();
+
+//            asociacion_antigua.get(0).setActivo(false);
+            nueva_asociacion.setActivo(true);
+
+            nueva_asociacion.setAlumno(alumnoEdit);
+            nueva_asociacion.setAlumnoId(alumnoEdit.getRutAlumno());
+            nueva_asociacion.setPlanEstudio(a);
+            nueva_asociacion.setPlanId(a.getId());
+//            nueva_asociacion.setPlanId(Long.parseLong(a.getCodigo()+""));
+
+            for (AsociacionPlanEstudioAlumno asociacion_antigua1 : asociacion_antigua) {
+                asociacion_antigua1.setActivo(false);
+            }
+
+            asociacion_antigua.add(nueva_asociacion);
+        }
+
+//        a.setAsociacionPlanEstudioAlumno(asociacion_antigua);
+//        alumnoEdit.setAsociacionPlanEstudioAlumno(asociacion_antigua);
+        List<AsociacionPlanEstudioAlumno> asociacion_final = new ArrayList<>();
+        for (int i = 0; i < asociacion_antigua.size(); i++) {
+            AsociacionPlanEstudioAlumno asd = asociacion_antigua.get(i);
+
+            if (Integer.parseInt(asd.getPlanId() + "") == this.planEstudioAlumno) {
+                asd.setActivo(true);
+            } else {
+                asd.setActivo(false);
+            }
+
+            asociacion_final.add(asd);
+        }
+
+        for (int i = 0; i < asociacion_antigua.size(); i++) {
+            AsociacionPlanEstudioAlumno asd = asociacion_antigua.get(i);
+            Alumno ab = asd.getAlumno();
+            ab.setAsociacionPlanEstudioAlumno(asociacion_final);
+            alumnoFacade.edit(ab);
+        }
+
+        alumnoEdit.setIdPlanActivo(Integer.parseInt(this.planEstudioAlumno + ""));
+
+        a.setAsociacionPlanEstudioAlumno(asociacion_final);
+        alumnoEdit.setAsociacionPlanEstudioAlumno(asociacion_final);
+    }
+
+    public void setPlanActivoAlumno(String rutAlumno, Integer codigo_plan, Integer codigo, String nombre) {
         FacesContext context = FacesContext.getCurrentInstance();
         Alumno alumnoEdit = alumnoFacade.findByRut(rutAlumno).get(0);
         List<AsociacionPlanEstudioAlumno> asociacion = alumnoEdit.getAsociacionPlanEstudioAlumno();
         alumnoEdit.setIdPlanActivo(codigo_plan);
         alumnoFacade.edit(alumnoEdit);
-        context.addMessage(null, new FacesMessage("Se ha dejado el plan " + codigo_plan + " como activo."));
+        context.addMessage(null, new FacesMessage("Se ha dejado el plan " + codigo + " " + nombre + " como activo."));
     }
 
     public void eliminarPlan(String rutAlumno, Integer codigo_plan) {

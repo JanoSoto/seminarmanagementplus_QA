@@ -1,5 +1,9 @@
 package util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  *
  * @author giovanni
@@ -42,5 +46,45 @@ public class Util {
             }
         }
         return nombre+" "+apellido;
+    }
+    
+    public static String jornadaToString(Integer jornada) {
+        return jornada == 0 ? "Diurno" : "Vespertino";
+    }
+    
+    public static String semestreAnterior(String semestreActual) {
+        String a = semestreActual.substring(0, 1);
+        String b = semestreActual.substring(2, 6);
+        String aux,aux2,semAnt;
+        Integer cont;
+        if ( "2".equals(a)){
+            aux = "1";
+            aux2 = b;
+            semAnt = aux+"/"+aux2;
+        }
+        else{
+            aux = "2";
+            cont = Integer.parseInt(b);
+            cont--;
+            aux2 = String.valueOf(cont);
+            semAnt = aux+"/"+aux2;
+        }
+        return semAnt;
+    }
+    
+    //Manejos de fechas
+    public static String dateToString(Date dateChoosen) {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        return format.format(dateChoosen);
+    }
+    
+    public static Date stringToDate(String dateChoosen) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Date date = formatter.parse(dateChoosen);
+            return date;
+        } catch (ParseException e) {
+            return null;
+        }
     }
 }
