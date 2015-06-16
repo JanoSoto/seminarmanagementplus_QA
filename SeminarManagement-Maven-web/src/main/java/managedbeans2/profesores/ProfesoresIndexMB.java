@@ -14,7 +14,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import sessionbeans.ProfesorFacadeLocal;
 import sessionbeans.SemestreActualFacadeLocal;
-import util.Util;
 import entities.Alumno;
 import entities.PlanEstudio;
 import sessionbeans.AlumnoFacadeLocal;
@@ -159,7 +158,7 @@ public class ProfesoresIndexMB {
             profeDatosTemp.setCorrSemActual(corrTemp);
             profeDatosTemp.setProfesor(profesores.get(i));
             String rutP = profesores.get(i).getRutProfesor();
-            profeDatosTemp.setRutFormateado(Util.formatearRut(rutP));
+            profeDatosTemp.setRutFormateado(profesores.get(i).getRutFormateadoProfesor());
             profeDatosTemp.setRutProfConGuion(rutP.substring(0, rutP.length() - 1) + "-" + rutP.substring(rutP.length() - 1));
             if (profesores.get(i).getContrato() == 0) {
                 profeDatosTemp.setContrato("Por Hora");

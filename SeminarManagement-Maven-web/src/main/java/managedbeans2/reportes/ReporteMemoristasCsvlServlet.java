@@ -21,7 +21,7 @@ import sessionbeans.TemaFacadeLocal;
  * @author stateless
  */
 @WebServlet(urlPatterns = {"/ReporteMemoristas"})
-public class ReporteMemoristasExcelServlet extends HttpServlet {
+public class ReporteMemoristasCsvlServlet extends HttpServlet {
     
     @EJB
     private SemestreActualFacadeLocal semActFacade;
@@ -45,7 +45,7 @@ public class ReporteMemoristasExcelServlet extends HttpServlet {
             reportesMB.findTemasMemoristas();
             
             
-            pw.print("\t\t");
+            pw.print(" \t");
             for (int i = 0; i < reportesMB.getPlanes().size(); i++) {
                 if ( reportesMB.getCuentaPorPlanTotal().get(i) > 0)
                     pw.print(reportesMB.getPlanes().get(i).getCodigo()+"\t");
@@ -70,7 +70,7 @@ public class ReporteMemoristasExcelServlet extends HttpServlet {
                 pw.print(reportesMB.getCuentaTotalPorProfeJC().get(j)+"\n");
             }
            
-            pw.print("JC Total\t\t");
+            pw.print("JC Total\t");
             for (int i = 0; i < reportesMB.getCuentaPorPlanJC().size()-1; i++) {
                 if ( reportesMB.getCuentaPorPlanTotal().get(i) > 0)
                     pw.print(reportesMB.getCuentaPorPlanJC().get(i) + "\t");
@@ -95,14 +95,14 @@ public class ReporteMemoristasExcelServlet extends HttpServlet {
                 pw.print(reportesMB.getCuentaTotalPorProfePH().get(j)+"\n");
             }
             
-            pw.print("PPH Total\t\t");
+            pw.print("PPH Total\t");
             for (int i = 0; i < reportesMB.getCuentaPorPlanPH().size()-1; i++) {
                 if ( reportesMB.getCuentaPorPlanTotal().get(i) > 0)
                     pw.print(reportesMB.getCuentaPorPlanPH().get(i) + "\t");
             }
             pw.print( reportesMB.getCuentaPorPlanPH().get( reportesMB.getCuentaPorPlanPH().size() - 1) + "\n");
             
-            pw.print("Grand Total\t\t");
+            pw.print("Grand Total\t");
             for (int i = 0; i < reportesMB.getCuentaPorPlanTotal().size()-1; i++) {
                 if ( reportesMB.getCuentaPorPlanTotal().get(i) > 0)
                     pw.print(reportesMB.getCuentaPorPlanTotal().get(i) + "\t");
