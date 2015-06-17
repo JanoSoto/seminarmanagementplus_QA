@@ -1,5 +1,9 @@
 package util;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  *
  * @author giovanni
@@ -66,5 +70,21 @@ public class Util {
             semAnt = aux+"/"+aux2;
         }
         return semAnt;
+    }
+    
+    //Manejos de fechas
+    public static String dateToString(Date dateChoosen) {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        return format.format(dateChoosen);
+    }
+    
+    public static Date stringToDate(String dateChoosen) {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Date date = formatter.parse(dateChoosen);
+            return date;
+        } catch (ParseException e) {
+            return null;
+        }
     }
 }

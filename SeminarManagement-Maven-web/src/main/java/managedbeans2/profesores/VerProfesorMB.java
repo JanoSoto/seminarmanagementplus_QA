@@ -1,6 +1,6 @@
 package managedbeans2.profesores;
 
-import Util.Util;
+import util.Util;
 import clases.PropuestaDatos;
 import clases.TemaDatos;
 import entities.Alumno;
@@ -519,6 +519,4 @@ public List<TemaDatos> getTemaDatosCorrectora() {
     public void setPropuestaDatosRevisoraViejo(List<PropuestaDatos> propuestaDatosRevisoraViejo) {
         this.propuestaDatosRevisoraViejo = propuestaDatosRevisoraViejo;
     }
-    
-
 }

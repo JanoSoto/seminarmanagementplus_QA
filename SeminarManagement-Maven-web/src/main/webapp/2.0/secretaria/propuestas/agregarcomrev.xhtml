@@ -14,22 +14,19 @@
             <f:viewParam name="prop" value="#{verPropuestaMB.idPropuesta}"/>
         </f:metadata>
     </ui:define>
-    
     <ui:define name="title"><title>Agregar Comisión Revisora | Seminar Management</title></ui:define>
-
     <ui:define name="content">
-        
         #{verPropuestaMB.buscarPropuesta()}
-        
+        <h:outputScript library="js" name="agregarComisionRevisora.js"  target="head"/> 
         <p:layoutUnit position="center" style="border:none;">
-            <h:form style="font-weight: bold;">
-                <p:panel style="border:none;">
+            <h:form id="formulario" style="font-weight: bold;" >
+                <h:inputHidden id="tipoContrato" value="#{comisionRevisora2MB.contratoGuia}" />
+                <p:panel style="border:none;" id="profesores" >
                     <h1>Agregar Comisión Revisora</h1>
                     <p:growl id="growl" showDetail="true" sticky="true" />
                     #{comisionRevisora2MB.setIdProp(verPropuestaMB.idPropuesta)}
-                    <h:panelGrid columns="3" cellpadding="4">
-
-                        <p:outputLabel style="color: #0052cc;font-weight: bold;" for="nombre" value="Nombre"/>
+                    <h:panelGrid columns="3" cellpadding="4" >
+                        <p:outputLabel style="color: #0052cc;font-weight: bold;" for="nombre" value="Nombre"><p:spacer width="294" height="10" /></p:outputLabel>
                         <h:outputText id="nombre" value="#{verPropuestaMB.nombreCorto}"/>
                         <br/>
 
@@ -40,15 +37,27 @@
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Guía"/>
                         <h:outputText style="font-weight: normal;" value="#{verPropuestaMB.guia.nombreProfesor} #{verPropuestaMB.guia.apellidoProfesor}"/>
                         <br/>
-                        
-                        <p:outputLabel for="tipo" value="Tipo Revisión *"/>
-                        <p:selectOneMenu id="tipo" value="#{comisionRevisora2MB.tipoRevision}" filter="true" filterMatchMode="contains">
+                    </h:panelGrid>
+                    <h:panelGrid id="optionsPPH" columns="2" cellpadding="4">
+                        <p:outputLabel for="tipo1" value="Tipo Revisión *"><p:spacer width="246" height="10" /></p:outputLabel>
+                        <p:selectOneMenu id="tipo1" value="#{comisionRevisora2MB.tipoRevision}" filter="true" filterMatchMode="contains" onchange="showPanel()">
                             <f:selectItem itemLabel="Seleccionar Tipo" itemValue=""/>
-                            <f:selectItems value="#{comisionRevisora2MB.tiposRevision}"></f:selectItems>
+                            <f:selectItem itemLabel="Seminario" itemValue="1"/>
+                            <f:selectItem itemLabel="Trabajo de Título (Secretaría)" itemValue="0"/>
                         </p:selectOneMenu>
-                        <br/>
+                    </h:panelGrid>
+                    <h:panelGrid id="optionsPJC" columns="2" cellpadding="4">
+                        <p:outputLabel for="tipo2" value="Tipo Revisión *"><p:spacer width="246" height="10" /></p:outputLabel>
+                        <p:selectOneMenu id="tipo2" value="#{comisionRevisora2MB.tipoRevision2}" filter="true" filterMatchMode="contains" onchange="showPanel()">
+                            <f:selectItem itemLabel="Seleccionar Tipo" itemValue=""/>
+                            <f:selectItem  itemLabel="Seminario" itemValue="1"/>
+                            <f:selectItem itemLabel="Acuerdo Consejo" itemValue="2"/>
+                        </p:selectOneMenu>
+                    </h:panelGrid>
+                    
+                    <h:panelGrid id="panelProfes" columns="3" cellpadding="4" >
                         
-                        <p:outputLabel for="profeR1P" value="Profesor Revisor 1 *"/>
+                        <p:outputLabel  id="profeR1Plabel" for="profeR1P" value="Profesor Revisor 1 *"><p:spacer width="212" height="10" /></p:outputLabel>
                         <p:selectOneMenu id="profeR1P" value="#{comisionRevisora2MB.rutProfeRev1}" filter="true" filterMatchMode="contains">
                             <f:selectItem itemLabel="Seleccionar Profesor" itemValue="-"/>
                             <f:selectItems value="#{comisionRevisora2MB.profeDatos}" var="prof" itemLabel="#{prof.profesor.rutProfesor} - #{prof.profesor.nombreProfesor} #{prof.profesor.apellidoProfesor} (#{prof.revSemActual})" itemValue="#{prof.profesor.rutProfesor}"/>  
@@ -58,6 +67,7 @@
                         <p:outputLabel for="calendP" value="Fecha de entrega al profesor " />
                         <p:calendar id="calendP" value="#{comisionRevisora2MB.date}" mode="popup"/>
                         <p:watermark for="calendP" value="Ingresar Fecha"/>
+                        
                         
                         <p:outputLabel for="calendP2" value="Fecha de devolución con correciones del profesor " />
                         <p:calendar id="calendP2" value="#{comisionRevisora2MB.date2}" mode="popup"/>
@@ -74,11 +84,26 @@
                         <p:calendar id="calendP3" value="#{comisionRevisora2MB.date3}" mode="popup"/>
                         <p:watermark for="calendP3" value="Ingresar Fecha"/>
                         
+                        
                         <p:outputLabel for="calendP4" value="Fecha de devolución con correciones del profesor " />
                         <p:calendar id="calendP4" value="#{comisionRevisora2MB.date4}" mode="popup"/>
                         <p:watermark for="calendP4" value="Ingresar Fecha"/>
 
-                        <p:outputLabel for="semestreP" value="Semestre Revisión *"  />
+                    </h:panelGrid>
+                    
+                    <h:panelGrid id="panelConsejo" columns="3" cellpadding="4" style="display: none;">
+                        <p:outputLabel for="calConsejoInicio" value="Fecha publicación"><p:spacer width="228" height="10" /></p:outputLabel>
+                        <p:calendar id="calConsejoInicio" value="#{comisionRevisora2MB.publicacionConsejo}" mode="popup"/>
+                        <p:watermark for="calConsejoInicio" value="Ingresar Fecha"/>
+                        
+                        <p:outputLabel for="calConsejoFin" value="Fecha término publicación" />
+                        <p:calendar id="calConsejoFin" value="#{comisionRevisora2MB.terminoPublicacionConsejo}" mode="popup"/>
+                        <p:watermark for="calConsejoFin" value="Ingresar Fecha"/>
+                    </h:panelGrid>
+                    
+                    <h:panelGrid columns="3" cellpadding="4" >
+
+                        <p:outputLabel for="semestreP" value="Semestre Revisión *"><p:spacer width="214" height="10" /></p:outputLabel>
                         <p:inputMask id="semestreP" value="#{comisionRevisora2MB.semestreRev}" mask="9/9999"/>
                         <p:watermark for="semestreP" value="Ingresar Semestre"/>
 
@@ -92,9 +117,5 @@
                 </p:panel>
             </h:form>
         </p:layoutUnit>
-        
-        
     </ui:define>
-
 </ui:composition>
-                    
