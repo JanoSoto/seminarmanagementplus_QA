@@ -155,11 +155,7 @@ public class AlumnoMB {
         
         //Ingresamos el alumno
         Alumno nuevoAlumno = new Alumno(rutAlumno);
-        nuevoAlumno.setNombreAlumno(nombreAlumno.toUpperCase());
-        nuevoAlumno.setApellidoAlumno(apellidoAlumno.toUpperCase());
-        nuevoAlumno.setMailAlumno(mailAlumno.toUpperCase());
-        nuevoAlumno.setTelefonoAlumno(celularAlumno);
-        nuevoAlumno.setDireccionAlumno(direccionAlumno);
+
         
         //nuevoAlumno.setJornada(jornadaAlumno); deprecado
         nuevoAlumno.setPlanes(planes); 

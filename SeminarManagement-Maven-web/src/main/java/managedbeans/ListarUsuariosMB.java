@@ -6,6 +6,7 @@
 package managedbeans;
 
 import clases.UsuarioDatos;
+import entities.Tipo;
 import entities.Usuario;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import sessionbeans.TipoFacadeLocal;
 import sessionbeans.UsuarioFacadeLocal;
 
 /**
@@ -25,6 +27,8 @@ import sessionbeans.UsuarioFacadeLocal;
 public class ListarUsuariosMB implements Serializable {
     @EJB
     private UsuarioFacadeLocal usuarioFacade;
+    @EJB
+    private TipoFacadeLocal tipoFacade;
     
     private List<Usuario> listaUsuarios;
     private List<UsuarioDatos> usuarios;
@@ -64,10 +68,12 @@ public class ListarUsuariosMB implements Serializable {
                 user.setActivo("Si");
             else
                 user.setActivo("No");
-            user.setRut(listaUsuarios.get(i).getUsername());
+            user.setRut(listaUsuarios.get(i).getUid());
             user.setNombre(listaUsuarios.get(i).getNombreUsuario());
-            user.setApellido(listaUsuarios.get(i).getApellidoUsuario());
-            user.setTipo(listaUsuarios.get(i).getUsuarioTipoList().get(0).getNombreTipo().getNombreTipo());
+            user.setApellido(listaUsuarios.get(i).getApellidoUsuarioPaterno());
+            user.setApellido(listaUsuarios.get(i).getApellidoUsuarioMaterno());
+            Tipo buscado = tipoFacade.find(listaUsuarios.get(i).getUsuarioTipoList().get(0).getUsuarioTipoPK().getIdTipo());
+            user.setTipo(buscado.getNombreTipo());
             usuarios.add(user);
             init();
         }

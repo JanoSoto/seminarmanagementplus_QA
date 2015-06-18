@@ -5,6 +5,7 @@ import entities.ComisionRevisora;
 import entities.Profesor;
 import entities.Propuesta;
 import entities.Semestre;
+import entities.Usuario;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -22,6 +23,7 @@ import sessionbeans.ComisionRevisoraFacadeLocal;
 import sessionbeans.ProfesorFacadeLocal;
 import sessionbeans.PropuestaFacadeLocal;
 import sessionbeans.SemestreFacadeLocal;
+import sessionbeans.UsuarioFacadeLocal;
 
 /**
  *
@@ -38,7 +40,8 @@ public class VerPropuestaMB implements Serializable {
     private ComisionRevisoraFacadeLocal comisionRevisoraFacade;
     @EJB
     private ProfesorFacadeLocal profesorFacade;
-    
+    @EJB 
+    private UsuarioFacadeLocal usuarioFacade;
     private Integer idPropuesta, idPropEdit;
     private String nombreCorto, semestrePropEdit, nombrePropEdit,fechaEntRev;
     private Profesor guia, coguia, revisor1, revisor2;
@@ -192,8 +195,8 @@ public class VerPropuestaMB implements Serializable {
     }
     
     public String funcion(String rut){
-        Profesor propTemp = profesorFacade.findByRut(rut).get(0);
-        return propTemp.getNombreProfesor();
+        Usuario prof = usuarioFacade.findByRut(rut).get(0);
+        return prof.getNombreUsuario();
     }
     
     //Manejos de fechas

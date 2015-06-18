@@ -32,18 +32,27 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
     
     
     @Override
-    public List<Usuario> findByUsername(String username) {
+    public List<Usuario> findByUsername(String uid) {
         Query query;
-        query = em.createNamedQuery("Usuario.findByUsername")
-                .setParameter("username", username);
+        query = em.createNamedQuery("Usuario.findByUid")
+                .setParameter("uid", uid);
+       return query.getResultList();
+    }
+    
+    @Override
+    public List<Usuario> findByRut(String rut) {
+        rut = rut.toUpperCase();
+        Query query;
+        query = em.createNamedQuery("Usuario.findByRutUsuario")
+                .setParameter("rutUsuario", "%"+rut+"%");
        return query.getResultList();
     }
     
     @Override
     public boolean existe(String username) {
         Query query;
-        query = em.createNamedQuery("Usuario.findByUsername")
-                .setParameter("username", username);
+        query = em.createNamedQuery("Usuario.findByRutUsuario")
+                .setParameter("rutUsuario", "%"+username+"%");
         return !query.getResultList().isEmpty();
     }
     

@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package entities;
 
 import java.io.Serializable;
@@ -17,61 +22,32 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import Util.Util;
+import java.math.BigInteger;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 /**
  *
- * @author Elagos
+ * @author miguel
  */
 @Entity
 @Table(name = "alumno")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Alumno.findAll", query = "SELECT a FROM Alumno a"),
-    //@NamedQuery(name = "Alumno.findByJornada", query = "SELECT a FROM Alumno a WHERE a.jornada = :jornada"),
-    @NamedQuery(name = "Alumno.findByNombreAlumno", query = "SELECT a FROM Alumno a WHERE a.nombreAlumno = :nombreAlumno"),
-    @NamedQuery(name = "Alumno.findByApellidoAlumno", query = "SELECT a FROM Alumno a WHERE a.apellidoAlumno = :apellidoAlumno"),
-    @NamedQuery(name = "Alumno.findByMailAlumno", query = "SELECT a FROM Alumno a WHERE a.mailAlumno = :mailAlumno"),
-    @NamedQuery(name = "Alumno.findByTelefonoAlumno", query = "SELECT a FROM Alumno a WHERE a.telefonoAlumno = :telefonoAlumno"),
-    //@NamedQuery(name = "Alumno.findByCarreraAlumno", query = "SELECT a FROM Alumno a WHERE a.carreraAlumno = :carreraAlumno"),
     @NamedQuery(name = "Alumno.findByRutAlumno", query = "SELECT a FROM Alumno a WHERE a.rutAlumno = :rutAlumno"),
-    @NamedQuery(name = "Alumno.findByDireccionAlumno", query = "SELECT a FROM Alumno a WHERE a.direccionAlumno = :direccionAlumno"),
-    @NamedQuery(name = "Alumno.findAlumno", query = "SELECT a FROM Alumno a WHERE a.nombreAlumno LIKE :nombreAlumno OR a.apellidoAlumno LIKE :apellidoAlumno OR a.rutAlumno LIKE :rutAlumno")})
+    @NamedQuery(name = "Alumno.findByIdPlanActivo", query = "SELECT a FROM Alumno a WHERE a.idPlanActivo = :idPlanActivo")})
 public class Alumno implements Serializable {
-
     private static final long serialVersionUID = 1L;
-
     @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
     @Column(name = "rut_alumno")
     private String rutAlumno;
-
-    @Size(max = 50)
-    @Column(name = "nombre_alumno")
-    private String nombreAlumno;
-
-    @Size(max = 50)
-    @Column(name = "apellido_alumno")
-    private String apellidoAlumno;
-
-    @Size(max = 100)
-    @Column(name = "mail_alumno")
-    private String mailAlumno;
-
-    @Size(max = 20)
-    @Column(name = "telefono_alumno")
-    private String telefonoAlumno;
-
-    @Size(max = 100)
-    @Column(name = "direccion_alumno")
-    private String direccionAlumno;
-    
-    @Column(name = "id_plan_activo")
-    Integer idPlanActivo;
+     @Column(name = "id_plan_activo")
+    private Integer idPlanActivo;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rutAlumno")
     private List<Propuesta> propuestaList;
@@ -111,43 +87,11 @@ public class Alumno implements Serializable {
         propuestaList = new ArrayList();
         this.rutAlumno = rutAlumno;
     }
-
+    
     public void add(Propuesta object) {
         propuestaList.add(object);
     }
-
-    public String getNombreAlumno() {
-        return nombreAlumno;
-    }
-
-    public void setNombreAlumno(String nombreAlumno) {
-        this.nombreAlumno = nombreAlumno;
-    }
-
-    public String getApellidoAlumno() {
-        return apellidoAlumno;
-    }
-
-    public void setApellidoAlumno(String apellidoAlumno) {
-        this.apellidoAlumno = apellidoAlumno;
-    }
-
-    public String getMailAlumno() {
-        return mailAlumno;
-    }
-
-    public void setMailAlumno(String mailAlumno) {
-        this.mailAlumno = mailAlumno;
-    }
-
-    public String getTelefonoAlumno() {
-        return telefonoAlumno;
-    }
-
-    public void setTelefonoAlumno(String telefonoAlumno) {
-        this.telefonoAlumno = telefonoAlumno;
-    }
-
+    
     public String getRutAlumno() {
         return rutAlumno;
     }
@@ -160,14 +104,14 @@ public class Alumno implements Serializable {
         this.rutAlumno = rutAlumno;
     }
 
-    public String getDireccionAlumno() {
-        return direccionAlumno;
+    public int getIdPlanActivo() {
+        return idPlanActivo;
     }
 
-    public void setDireccionAlumno(String direccionAlumno) {
-        this.direccionAlumno = direccionAlumno;
+    public void setIdPlanActivo(Integer idPlanActivo) {
+        this.idPlanActivo = idPlanActivo;
     }
-    
+
     public PlanEstudio getPlanActivo(){
         List<AsociacionPlanEstudioAlumno> alumnoPlanes = this.getAsociacionPlanEstudioAlumno();
         alumnoPlanes.size();
@@ -221,14 +165,6 @@ public class Alumno implements Serializable {
     @Override
     public String toString() {
         return "entities.Alumno[ rutAlumno=" + rutAlumno + " ]";
-    }
-
-    public Integer getIdPlanActivo() {
-        return idPlanActivo;
-    }
-
-    public void setIdPlanActivo(Integer idPlanActivo) {
-        this.idPlanActivo = idPlanActivo;
     }
 
 }

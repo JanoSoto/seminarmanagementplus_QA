@@ -9,14 +9,19 @@ import entities.ProfePropuesta;
 import entities.Profesor;
 import entities.Propuesta;
 import entities.Semestre;
+import entities.Usuario;
 import java.util.ArrayList;
 import java.util.List;
+import javax.ejb.EJB;
+import sessionbeans.UsuarioFacadeLocal;
 
 /**
  *
  * @author David
  */
 public class ProfeEstadistica {
+    @EJB
+    private UsuarioFacadeLocal usuarioFacade;
     private String rut,nombre,apellido;
     private float propuestas,propRevisadas,propAceptadas,temasCaducos,
             temasTitulados,temasConCorrectora,temasConNota,semestresEnCorregir,
@@ -24,8 +29,9 @@ public class ProfeEstadistica {
     
     public ProfeEstadistica(Profesor p, int semestres){
         rut = p.getRutProfesor();
-        nombre = p.getNombreProfesor();
-        apellido = p.getApellidoProfesor();
+        Usuario buscado = usuarioFacade.findByRut(rut).get(0);
+        nombre = buscado.getNombreUsuario();
+        apellido = buscado.getApellidoUsuarioPaterno();
         
         List<Propuesta> props = new ArrayList();
         for(int i=0;i<p.getProfePropuestaList().size();i++)

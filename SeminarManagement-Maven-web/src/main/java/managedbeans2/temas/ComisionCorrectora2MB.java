@@ -387,37 +387,7 @@ public class ComisionCorrectora2MB {
         //Seteamos estado "En proceso de examen"
         tema.setEstadoTema(4);
         temaFacade.edit(tema);
-        
-        //Añadimos al historial del alumno
-        Date temp = new Date();
-        String dateHist = dateToString(temp);
-        Historial histTemaAlum = new Historial();
-        histTemaAlum.setDescripcion("Se le asignó Comisión Correctora. Lo ingresó el usuario "+user.getFullNameUser());
-        LOGGER.info("Se asignó Comisión Correctora al tema" + tema.getNombreTema());
-        histTemaAlum.setFechaHistorial(dateHist);
-        histTemaAlum.setTipoHistorial(2);
-        histTemaAlum.setIdEntidad(tema.getIdRevisora().getIdPropuesta().getRutAlumno().getRutAlumno());
-        historialFacade.create(histTemaAlum);
-        
-        
-        //Añadimos al historial del usuario que creo la comisión revisora
-        Historial histComCorrecUser = new Historial();
-        histComCorrecUser.setDescripcion("Ingresó Comisión Correctora al alumno "+tema.getIdRevisora().getIdPropuesta().getRutAlumno().getNombreAlumno()+" "+tema.getIdRevisora().getIdPropuesta().getRutAlumno().getApellidoAlumno());
-        LOGGER.info("Ingresó Comisión Correctora al alumno "+tema.getIdRevisora().getIdPropuesta().getRutAlumno().getNombreAlumno()+" "+tema.getIdRevisora().getIdPropuesta().getRutAlumno().getApellidoAlumno());
-        histComCorrecUser.setFechaHistorial(dateHist);
-        histComCorrecUser.setTipoHistorial(3);
-        histComCorrecUser.setIdEntidad(user.getUsername());
-        historialFacade.create(histComCorrecUser);
-        
-        //Agregamos el historial de cambio de estado
-        Historial historial = new Historial();
-        historial.setDescripcion("Comision Correctora: El estado del tema cambió de 'Vigente con borrador final' a En proceso de examen");
-        LOGGER.info("Comision Correctora: El estado del tema cambió de Vigente con borrador final a En proceso de examen");
-        historial.setFechaHistorial(fechaCorr);
-        historial.setIdEntidad(String.valueOf(idTema));
-        historial.setTipoHistorial(1);
-        historialFacade.create(historial);
-        
+      
         //Mensaje de confirmación
         context.addMessage(null, new FacesMessage("Comisión Correctora", "Comisión ingresada al sistema, el estado del tema seleccionado se modificó a 'En proceso de examen'"));
         LOGGER.info("Comisión ingresada al sistema, el estado del tema seleccionado se modificó a En proceso de examen");

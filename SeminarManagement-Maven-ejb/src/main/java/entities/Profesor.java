@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package entities;
 
 import java.io.Serializable;
@@ -20,7 +25,7 @@ import Util.Util;
 
 /**
  *
- * @author Elagos
+ * @author miguel
  */
 @Entity
 @Table(name = "profesor")
@@ -28,32 +33,22 @@ import Util.Util;
 @NamedQueries({
     @NamedQuery(name = "Profesor.findAll", query = "SELECT p FROM Profesor p"),
     @NamedQuery(name = "Profesor.findByContrato", query = "SELECT p FROM Profesor p WHERE p.contrato = :contrato"),
-    @NamedQuery(name = "Profesor.findByNombreProfesor", query = "SELECT p FROM Profesor p WHERE p.nombreProfesor = :nombreProfesor"),
-    @NamedQuery(name = "Profesor.findByApellidoProfesor", query = "SELECT p FROM Profesor p WHERE p.apellidoProfesor = :apellidoProfesor"),
-    @NamedQuery(name = "Profesor.findByMailProfesor", query = "SELECT p FROM Profesor p WHERE p.mailProfesor = :mailProfesor"),
-    @NamedQuery(name = "Profesor.findByTelefonoProfesor", query = "SELECT p FROM Profesor p WHERE p.telefonoProfesor = :telefonoProfesor"),
     @NamedQuery(name = "Profesor.findByTipoProfesor", query = "SELECT p FROM Profesor p WHERE p.tipoProfesor = :tipoProfesor"),
+    @NamedQuery(name = "Profesor.findByJerarquiaCategoria", query = "SELECT p FROM Profesor p WHERE p.jerarquiaCategoria = :jerarquiaCategoria"),
     @NamedQuery(name = "Profesor.findByMaximoGuias", query = "SELECT p FROM Profesor p WHERE p.maximoGuias = :maximoGuias"),
     @NamedQuery(name = "Profesor.findByRutProfesor", query = "SELECT p FROM Profesor p WHERE p.rutProfesor = :rutProfesor"),
-    @NamedQuery(name = "Profesor.findProfesor", query = "SELECT p FROM Profesor p WHERE p.nombreProfesor LIKE :nombreProfesor OR p.apellidoProfesor LIKE :apellidoProfesor OR p.rutProfesor LIKE :rutProfesor")})
+    @NamedQuery(name = "Profesor.findByEstaSeminar", query = "SELECT p FROM Profesor p WHERE p.estaSeminar = :estaSeminar"),
+    @NamedQuery(name = "Profesor.findByPuedeGuiar", query = "SELECT p FROM Profesor p WHERE p.puedeGuiar = :puedeGuiar"),
+    @NamedQuery(name = "Profesor.findByPuedeCorregir", query = "SELECT p FROM Profesor p WHERE p.puedeCorregir = :puedeCorregir"),
+    @NamedQuery(name = "Profesor.findByAlias", query = "SELECT p FROM Profesor p WHERE p.alias = :alias")})
 public class Profesor implements Serializable {
     private static final long serialVersionUID = 1L;
     @Column(name = "contrato")
     private Integer contrato;
-    @Size(max = 50)
-    @Column(name = "nombre_profesor")
-    private String nombreProfesor;
-    @Size(max = 50)
-    @Column(name = "apellido_profesor")
-    private String apellidoProfesor;
-    @Size(max = 100)
-    @Column(name = "mail_profesor")
-    private String mailProfesor;
-    @Size(max = 20)
-    @Column(name = "telefono_profesor")
-    private String telefonoProfesor;
     @Column(name = "tipo_profesor")
     private Integer tipoProfesor;
+    @Column(name = "jerarquia_categoria")
+    private Integer jerarquiaCategoria;
     @Column(name = "maximo_guias")
     private Integer maximoGuias;
     @Id
@@ -62,6 +57,16 @@ public class Profesor implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "rut_profesor")
     private String rutProfesor;
+    @Column(name = "esta_seminar")
+    private Boolean estaSeminar;
+    @Column(name = "puede_guiar")
+    private Integer puedeGuiar;
+    @Column(name = "puede_corregir")
+    private Integer puedeCorregir;
+    @Size(max = 30)
+    @Column(name = "alias")
+    private String alias;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "profesor")
     private List<ProfePropuesta> profePropuestaList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "profesor")
@@ -81,7 +86,7 @@ public class Profesor implements Serializable {
         profeCorreccionList = new ArrayList();
         this.rutProfesor = rutProfesor;
     }
-    
+
     public void add(ProfePropuesta object){
         profePropuestaList.add(object);
     }
@@ -102,44 +107,20 @@ public class Profesor implements Serializable {
         this.contrato = contrato;
     }
 
-    public String getNombreProfesor() {
-        return nombreProfesor;
-    }
-
-    public void setNombreProfesor(String nombreProfesor) {
-        this.nombreProfesor = nombreProfesor;
-    }
-
-    public String getApellidoProfesor() {
-        return apellidoProfesor;
-    }
-
-    public void setApellidoProfesor(String apellidoProfesor) {
-        this.apellidoProfesor = apellidoProfesor;
-    }
-
-    public String getMailProfesor() {
-        return mailProfesor;
-    }
-
-    public void setMailProfesor(String mailProfesor) {
-        this.mailProfesor = mailProfesor;
-    }
-
-    public String getTelefonoProfesor() {
-        return telefonoProfesor;
-    }
-
-    public void setTelefonoProfesor(String telefonoProfesor) {
-        this.telefonoProfesor = telefonoProfesor;
-    }
-
     public Integer getTipoProfesor() {
         return tipoProfesor;
     }
 
     public void setTipoProfesor(Integer tipoProfesor) {
         this.tipoProfesor = tipoProfesor;
+    }
+
+    public Integer getJerarquiaCategoria() {
+        return jerarquiaCategoria;
+    }
+
+    public void setJerarquiaCategoria(Integer jerarquiaCategoria) {
+        this.jerarquiaCategoria = jerarquiaCategoria;
     }
 
     public Integer getMaximoGuias() {
@@ -153,7 +134,7 @@ public class Profesor implements Serializable {
     public String getRutProfesor() {
         return rutProfesor;
     }
-    
+
     public String getRutFormateadoProfesor() {
         return Util.formatearRut(rutProfesor);
     }
@@ -161,12 +142,12 @@ public class Profesor implements Serializable {
     public void setRutProfesor(String rutProfesor) {
         this.rutProfesor = rutProfesor;
     }
-
+    
     @XmlTransient
     public List<ProfePropuesta> getProfePropuestaList() {
         return profePropuestaList;
     }
-
+    
     public void setProfePropuestaList(List<ProfePropuesta> profePropuestaList) {
         this.profePropuestaList = profePropuestaList;
     }
@@ -175,7 +156,7 @@ public class Profesor implements Serializable {
     public List<ProfeRevision> getProfeRevisionList() {
         return profeRevisionList;
     }
-
+    
     public void setProfeRevisionList(List<ProfeRevision> profeRevisionList) {
         this.profeRevisionList = profeRevisionList;
     }
@@ -187,6 +168,38 @@ public class Profesor implements Serializable {
 
     public void setProfeCorreccionList(List<ProfeCorreccion> profeCorreccionList) {
         this.profeCorreccionList = profeCorreccionList;
+    }
+    
+    public Boolean getEstaSeminar() {
+        return estaSeminar;
+    }
+
+    public void setEstaSeminar(Boolean estaSeminar) {
+        this.estaSeminar = estaSeminar;
+    }
+
+    public Integer getPuedeGuiar() {
+        return puedeGuiar;
+    }
+
+    public void setPuedeGuiar(Integer puedeGuiar) {
+        this.puedeGuiar = puedeGuiar;
+    }
+
+    public Integer getPuedeCorregir() {
+        return puedeCorregir;
+    }
+
+    public void setPuedeCorregir(Integer puedeCorregir) {
+        this.puedeCorregir = puedeCorregir;
+    }
+
+    public String getAlias() {
+        return alias;
+    }
+
+    public void setAlias(String alias) {
+        this.alias = alias;
     }
 
     @Override

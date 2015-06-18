@@ -4,6 +4,7 @@ import util.Util;
 import entities.Alumno;
 import entities.AsociacionPlanEstudioAlumno;
 import entities.PlanEstudio;
+import entities.Usuario;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import managedbeans.AuthMB;
 import sessionbeans.AlumnoFacadeLocal;
 import sessionbeans.HistorialFacadeLocal;
 import sessionbeans.PlanestudioFacadeLocal;
+import sessionbeans.UsuarioFacadeLocal;
 import sessionbeans.asociacionFacadeLocal;
 
 /**
@@ -37,7 +39,8 @@ public class EditarAlumnoMB implements Serializable {
 
     @EJB
     private asociacionFacadeLocal asociacionFacade;
-
+    @EJB
+    private UsuarioFacadeLocal usuarioFacade;
     private Alumno alumno;
     private String rutAlumno;
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(EditarAlumnoMB.class);
@@ -93,11 +96,6 @@ public class EditarAlumnoMB implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         Alumno alumnoEdit = alumnoFacade.findByRut(alumno.getRutAlumno()).get(0);
 //        Alumno alumnoEdit = new Alumno();
-        alumnoEdit.setMailAlumno(alumno.getMailAlumno().toUpperCase());
-        alumnoEdit.setNombreAlumno(alumno.getNombreAlumno().toUpperCase());
-        alumnoEdit.setApellidoAlumno(alumno.getApellidoAlumno().toUpperCase());
-        alumnoEdit.setTelefonoAlumno(alumno.getTelefonoAlumno());
-        alumnoEdit.setDireccionAlumno(alumno.getDireccionAlumno().toUpperCase());
         alumnoEdit.setRutAlumno(alumno.getRutAlumno());
         alumnoEdit.setPropuestaList(alumno.getPropuestaList());
 
@@ -166,9 +164,10 @@ public class EditarAlumnoMB implements Serializable {
         }
 
         alumnoFacade.edit(alumnoEdit);
-
-        context.addMessage(null, new FacesMessage("Editar Alumno", alumnoEdit.getNombreAlumno() + " " + alumnoEdit.getApellidoAlumno() + " editado exitosamente"));
-        LOGGER.info("El alumno " + alumnoEdit.getNombreAlumno() + " " + alumnoEdit.getApellidoAlumno() + " ha sido editado exitosamente");
+        Usuario al = usuarioFacade.findByRut(alumnoEdit.getRutAlumno()).get(0);
+        
+        context.addMessage(null, new FacesMessage("Editar Alumno", al.getNombreUsuario() + " " + al.getApellidoUsuarioPaterno()+ " editado exitosamente"));
+        LOGGER.info("El alumno " + al.getNombreUsuario() + " " + al.getApellidoUsuarioPaterno()+ " ha sido editado exitosamente");
 
     }
 

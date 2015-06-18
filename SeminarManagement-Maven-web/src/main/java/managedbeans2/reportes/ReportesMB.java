@@ -8,6 +8,7 @@ import entities.Profesor;
 import entities.Propuesta;
 import entities.SemestreActual;
 import entities.Tema;
+import entities.Usuario;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
 import java.io.Serializable;
@@ -22,6 +23,7 @@ import sessionbeans.PlanestudioFacadeLocal;
 import sessionbeans.ProfesorFacadeLocal;
 import sessionbeans.SemestreActualFacadeLocal;
 import sessionbeans.TemaFacadeLocal;
+import sessionbeans.UsuarioFacadeLocal;
 
 /**
  *
@@ -47,7 +49,8 @@ public class ReportesMB implements Serializable {
     
     @EJB
     ProfesorFacadeLocal profesorFacade;
-    
+    @EJB
+    UsuarioFacadeLocal usuarioFacade;
     private SemestreActual semestreActual;
     private List<ComisionRevisora> revisoras;
     private List<ComisionCorrectora> correctoras;
@@ -142,9 +145,9 @@ public class ReportesMB implements Serializable {
 
         for (int i = 0; i < profesoresJC.size(); i++) {
             if (cuentaTotalPorProfeJC.get(i) > 0){
-
+                Usuario profeJC = usuarioFacade.findByRut(profesoresJC.get(i).getRutProfesor()).get(0);
                 ProfeDatosTablaMemoristas p = new ProfeDatosTablaMemoristas(
-                        profesoresJC.get(i).getNombreProfesor()+" "+profesoresJC.get(i).getApellidoProfesor(), 
+                        profeJC.getNombreUsuario()+" "+profeJC.getApellidoUsuarioPaterno(), 
                         cuentaTotalPorProfeJC.get(i));
                 List<Integer> cantAluPorPlan = new ArrayList<>();
                 for (int j = 0; j < cuentaPorProfeJC.get(i).size(); j++) {
@@ -162,9 +165,9 @@ public class ReportesMB implements Serializable {
 
         for (int i = 0; i < profesoresPH.size(); i++) {
             if (cuentaTotalPorProfePH.get(i) > 0){
-
+                Usuario profePH = usuarioFacade.findByRut(profesoresPH.get(i).getRutProfesor()).get(0);
                 ProfeDatosTablaMemoristas p = new ProfeDatosTablaMemoristas(
-                        profesoresPH.get(i).getNombreProfesor()+" "+profesoresPH.get(i).getApellidoProfesor(), 
+                        profePH.getNombreUsuario()+" "+profePH.getApellidoUsuarioPaterno(), 
                         cuentaTotalPorProfePH.get(i));
                 List<Integer> cantAluPorPlan = new ArrayList<>();
                 for (int j = 0; j < cuentaPorProfePH.get(i).size(); j++) {

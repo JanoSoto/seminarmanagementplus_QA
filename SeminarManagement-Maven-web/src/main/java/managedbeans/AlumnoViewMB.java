@@ -10,6 +10,7 @@ import entities.ComisionCorrectora;
 import entities.ComisionRevisora;
 import entities.Historial;
 import entities.Tema;
+import entities.Usuario;
 import java.io.IOException;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -29,6 +30,7 @@ import javax.servlet.http.HttpSession;
 import sessionbeans.AlumnoFacadeLocal;
 import sessionbeans.HistorialFacadeLocal;
 import sessionbeans.TemaFacadeLocal;
+import sessionbeans.UsuarioFacadeLocal;
 
 /**
  *
@@ -43,6 +45,9 @@ public class AlumnoViewMB implements Serializable {
     private AlumnoFacadeLocal alumnoFacade;
     @EJB
     private TemaFacadeLocal temaFacade;
+    @EJB
+    private UsuarioFacadeLocal usuarioFacade;
+    
     private boolean mostrarProfRevs;
     /**
      * Creates a new instance of AlumnoViewMB
@@ -168,6 +173,7 @@ public class AlumnoViewMB implements Serializable {
     public void viewSelectAlum() throws IOException {
         //Obtenemos el valor del rut por la URL
         rutAlum = FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap().get("alum");
+        Usuario buscado= usuarioFacade.findByRut(rutAlum).get(0);
         List<Alumno> alumno = alumnoFacade.findByRut(rutAlum);
         Tema temaVigente = null;
         if (!alumno.isEmpty()) {
@@ -192,10 +198,17 @@ public class AlumnoViewMB implements Serializable {
                             temaVigente = alumno.get(0).getPropuestaList().get(i).getIdRevisora().getIdTema();
                             alumnoSelected.setNombreTema(temaVigente.getNombreTema());
                             for(int k=0; k<alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().size(); k++){
-                                if(alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().get(k).getRolGuia() == 0)
-                                    alumnoSelected.setProfesorGuia(alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().get(k).getProfesor().getNombreProfesor()+" "+alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().get(k).getProfesor().getApellidoProfesor());
-                                else
-                                    alumnoSelected.setProfCoGuia(alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().get(k).getProfesor().getNombreProfesor()+" "+alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().get(k).getProfesor().getApellidoProfesor());
+                                if(alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().get(k).getRolGuia() == 0){
+                                    String rutProfe = alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().get(k).getProfesor().getRutProfesor();
+                                    Usuario profe = usuarioFacade.findByRut(rutProfe).get(0);
+                                    
+                                    alumnoSelected.setProfesorGuia(profe.getNombreUsuario()+" "+profe.getApellidoUsuarioPaterno());
+                                }else{
+                                    String rutProfe = alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().get(k).getProfesor().getRutProfesor();
+                                    Usuario profe = usuarioFacade.findByRut(rutProfe).get(0);
+                                    
+                                    alumnoSelected.setProfCoGuia(profe.getNombreUsuario()+" "+profe.getApellidoUsuarioPaterno());
+                                }
                             }
                         }
             //Si tiene temas, pero ninguno activo
@@ -204,14 +217,15 @@ public class AlumnoViewMB implements Serializable {
                 alumnoSelected.setProfesorGuia("No tiene tema activo");
             }
             alumnoSelected.setRutAlumno(rutAlum);
-            if (!alumno.get(0).getTelefonoAlumno().isEmpty())
-                alumnoSelected.setTelefonoAlumno(alumno.get(0).getTelefonoAlumno());
+            Usuario alum = usuarioFacade.findByRut(rutAlum).get(0);
+            if (!alum.getTelefonoUsuario().isEmpty())
+                alumnoSelected.setTelefonoAlumno(alum.getTelefonoUsuario());
             else
                 alumnoSelected.setTelefonoAlumno("No tiene teléfono registrado");
-            alumnoSelected.setNombreAlumno(alumno.get(0).getNombreAlumno());
-            alumnoSelected.setApellidoAlumno(alumno.get(0).getApellidoAlumno());
-            if(!alumno.get(0).getMailAlumno().isEmpty())
-                alumnoSelected.setMailAlumno(alumno.get(0).getMailAlumno());
+            alumnoSelected.setNombreAlumno(alum.getNombreUsuario());
+            alumnoSelected.setApellidoAlumno(alum.getApellidoUsuarioPaterno());
+            if(!alum.getMailUsuario().isEmpty())
+                alumnoSelected.setMailAlumno(alum.getMailUsuario());
             else
                 alumnoSelected.setMailAlumno("No tiene mail registrado");
             
@@ -263,33 +277,12 @@ public class AlumnoViewMB implements Serializable {
         try {
             Alumno alumno = new Alumno();
             //alumno.setJornada(Integer.valueOf(alumnoEdit.getJornadaAlumno()));
-            alumno.setMailAlumno(alumnoEdit.getMailAlumno());
-            alumno.setNombreAlumno(alumnoEdit.getNombreAlumno().toUpperCase());
-            alumno.setApellidoAlumno(alumnoEdit.getApellidoAlumno().toUpperCase());
+            
             //alumno.setCarreraAlumno(Integer.valueOf(alumnoEdit.getCarreraAlumno()));
-            alumno.setRutAlumno(alumnoEdit.getRutAlumno());
-            alumno.setTelefonoAlumno(alumnoEdit.getTelefonoAlumno());
+     
             alumnoFacade.edit(alumno);
             FacesContext context = FacesContext.getCurrentInstance();
             
-            //Añadimos al historial del alumno cuándo lo editaron
-            Date temp = new Date();
-            String dateHist = dateToString(temp);
-            Historial histEditAlum = new Historial();
-            histEditAlum.setDescripcion("Se editó el alumno. Lo editó el usuario "+user.getFullNameUser());
-            histEditAlum.setFechaHistorial(dateHist);
-            histEditAlum.setTipoHistorial(2);
-            histEditAlum.setIdEntidad(alumnoSelected.getRutAlumno());
-            historialFacade.create(histEditAlum);
-
-
-            //Añadimos al historial del usuario que editó al alumno
-            Historial histProfAgregadoUser = new Historial();
-            histProfAgregadoUser.setDescripcion("Editó al alumno "+alumno.getNombreAlumno()+" "+alumno.getApellidoAlumno());
-            histProfAgregadoUser.setFechaHistorial(dateHist);
-            histProfAgregadoUser.setTipoHistorial(3);
-            histProfAgregadoUser.setIdEntidad(user.getUsername());
-            historialFacade.create(histProfAgregadoUser);
             
             context.addMessage(null, new FacesMessage("Editar Alumno", alumnoEdit.getNombreAlumno()+" "+alumnoEdit.getApellidoAlumno()+" editado exitosamente"));
         } catch (NumberFormatException e){
@@ -302,17 +295,22 @@ public class AlumnoViewMB implements Serializable {
         try{
             propuestas = new ArrayList();
             Alumno alumno = alumnoFacade.findByRut(alumnoSelected.getRutAlumno()).get(0);
+            Usuario alum = usuarioFacade.findByRut(alumnoSelected.getRutAlumno()).get(0);
             for(int i=0; i<alumno.getPropuestaList().size(); i++){
                 PropuestaDatos propuesta = new PropuestaDatos();
                 propuesta.setFecha(alumno.getPropuestaList().get(i).getFechaPropuesta());
                 propuesta.setIdSemestre(alumno.getPropuestaList().get(i).getIdSemestre().getIdSemestre());
-                propuesta.setNombreAlumno(alumno.getNombreAlumno());
+                propuesta.setNombreAlumno(alum.getNombreUsuario());
                 propuesta.setNombrePropuesta(alumno.getPropuestaList().get(i).getNombrePropuesta());
                 for(int j=0; j<alumno.getPropuestaList().get(i).getProfePropuestaList().size(); j++){
-                    if(alumno.getPropuestaList().get(i).getProfePropuestaList().get(j).getRolGuia() == 0)
-                        propuesta.setProfGuia(alumno.getPropuestaList().get(i).getProfePropuestaList().get(j).getProfesor().getNombreProfesor()+" "+alumno.getPropuestaList().get(i).getProfePropuestaList().get(j).getProfesor().getApellidoProfesor());
-                    if(alumno.getPropuestaList().get(i).getProfePropuestaList().get(j).getRolGuia() == 1)
-                        propuesta.setProfCoGuia(alumno.getPropuestaList().get(i).getProfePropuestaList().get(j).getProfesor().getNombreProfesor()+" "+alumno.getPropuestaList().get(i).getProfePropuestaList().get(j).getProfesor().getApellidoProfesor());
+                    if(alumno.getPropuestaList().get(i).getProfePropuestaList().get(j).getRolGuia() == 0){
+                        Usuario profe = usuarioFacade.findByRut(alumno.getPropuestaList().get(i).getProfePropuestaList().get(j).getProfesor().getRutProfesor()).get(0);
+                        propuesta.setProfGuia(profe.getNombreUsuario()+" "+profe.getApellidoUsuarioPaterno());
+                    }
+                    if(alumno.getPropuestaList().get(i).getProfePropuestaList().get(j).getRolGuia() == 1){
+                        Usuario profe = usuarioFacade.findByRut(alumno.getPropuestaList().get(i).getProfePropuestaList().get(j).getProfesor().getRutProfesor()).get(0);
+                        propuesta.setProfCoGuia(profe.getNombreUsuario()+" "+profe.getApellidoUsuarioPaterno());
+                    }
                 }
                 if(propuesta.getProfCoGuia() == null)
                     propuesta.setProfCoGuia("No tiene");
@@ -376,13 +374,19 @@ public class AlumnoViewMB implements Serializable {
                     propuesta.setTipo(tipoRevision);
                     //Seteamos prof guía, revisores y co-guias
                     for(int j=0; j<alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().size();j++){
-                        if(alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().get(j).getRolGuia() == 0)
-                            propuesta.setProfGuia(alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().get(j).getProfesor().getNombreProfesor()+" "+alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().get(j).getProfesor().getApellidoProfesor());
-                        else
-                            propuesta.setProfCoGuia(alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().get(j).getProfesor().getNombreProfesor()+" "+alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().get(j).getProfesor().getApellidoProfesor());
+                        if(alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().get(j).getRolGuia() == 0){
+                            Usuario profeGuia = usuarioFacade.findByRut(alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().get(j).getProfesor().getRutProfesor()).get(0);
+                            propuesta.setProfGuia(profeGuia.getNombreUsuario()+" "+profeGuia.getApellidoUsuarioPaterno());
+                        }
+                        else{
+                            Usuario profeCoGuia = usuarioFacade.findByRut(alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().get(j).getProfesor().getRutProfesor()).get(0);
+                            propuesta.setProfCoGuia(profeCoGuia.getNombreUsuario()+" "+profeCoGuia.getApellidoUsuarioPaterno());
+                        }
                     }
-                    for(int j=0; j<comRevisora.getProfeRevisionList().size(); j++)
-                        propuesta.addProfRev(comRevisora.getProfeRevisionList().get(j).getProfesor().getNombreProfesor()+" "+comRevisora.getProfeRevisionList().get(j).getProfesor().getApellidoProfesor());
+                    for(int j=0; j<comRevisora.getProfeRevisionList().size(); j++){
+                        Usuario comRev = usuarioFacade.findByRut(comRevisora.getProfeRevisionList().get(j).getProfesor().getRutProfesor()).get(0);
+                        propuesta.addProfRev(comRev.getNombreUsuario()+" "+comRev.getApellidoUsuarioPaterno());
+                    }
                     propuesta.setTipo(tipoRevision);
                     comRevisoras.add(propuesta);
                 }
@@ -431,10 +435,14 @@ public class AlumnoViewMB implements Serializable {
                         tema.setNombreAlumno(alumnoSelected.getNombreAlumno()+" "+alumnoSelected.getApellidoAlumno());
                         tema.setIngresoTema(origenTema);
                         for (int j=0; j<alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().size(); j++){
-                            if (alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().get(j).getRolGuia() == 0)
-                                tema.setNombreProfesor(alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().get(j).getProfesor().getNombreProfesor()+" "+alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().get(j).getProfesor().getApellidoProfesor());
-                            else
-                                tema.setNombreProfCoGuia(alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().get(j).getProfesor().getNombreProfesor()+" "+alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().get(j).getProfesor().getApellidoProfesor());
+                            if (alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().get(j).getRolGuia() == 0){
+                                Usuario profeGuia = usuarioFacade.findByRut(alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().get(j).getProfesor().getRutProfesor()).get(0);
+                                tema.setNombreProfesor(profeGuia.getNombreUsuario()+" "+profeGuia.getNombreUsuario());
+                            }else{
+                                Usuario profeCoGuia = usuarioFacade.findByRut(alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().get(j).getProfesor().getRutProfesor()).get(0);
+                                tema.setNombreProfCoGuia(profeCoGuia.getNombreUsuario()+" "+profeCoGuia.getNombreUsuario());
+                        
+                            }
                         }
                         if(temaTemp.getNombreTema().length()>41)
                             tema.setNombreTema(temaTemp.getNombreTema().substring(0,42)+"...");
@@ -471,14 +479,17 @@ public class AlumnoViewMB implements Serializable {
                                 comisionCorrecDatos.setNombreTema(comCorrec.getIdTema().getNombreTema().substring(0,42)+"...");
                             else
                                 comisionCorrecDatos.setNombreTema(comCorrec.getIdTema().getNombreTema());
-                            for(int j=0; j<comCorrec.getProfeCorreccionList().size(); j++)
-                                comisionCorrecDatos.addProfCorrec(comCorrec.getProfeCorreccionList().get(j).getProfesor().getNombreProfesor()+" "+comCorrec.getProfeCorreccionList().get(j).getProfesor().getApellidoProfesor());
+                            for(int j=0; j<comCorrec.getProfeCorreccionList().size(); j++){
+                                Usuario profeCorrec = usuarioFacade.findByRut(comCorrec.getProfeCorreccionList().get(j).getProfesor().getRutProfesor()).get(0);
+                                comisionCorrecDatos.addProfCorrec(profeCorrec.getNombreUsuario()+" "+profeCorrec.getApellidoUsuarioPaterno());
+                            }
                             comisionCorrecDatos.setRutAlumno(alumno.get(0).getRutAlumno());
 
                             //Seteamos prof guía y sus notas
                             for (int k=0; k<alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().size();k++){
                                 if(alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().get(k).getRolGuia() == 0){
-                                    comisionCorrecDatos.setProfGuia(alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().get(k).getProfesor().getNombreProfesor()+" "+alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().get(k).getProfesor().getApellidoProfesor());
+                                    Usuario profeGuia = usuarioFacade.findByRut(alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().get(k).getProfesor().getRutFormateadoProfesor()).get(0);
+                                    comisionCorrecDatos.setProfGuia(profeGuia.getNombreUsuario()+" "+profeGuia.getApellidoUsuarioPaterno());
                                     //Se asignan las notas, si es que están puestas
                                     if (alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().get(k).getNotaGuiaDefensa()!= null){
                                         comisionCorrecDatos.setNotaGuiaDef(alumno.get(0).getPropuestaList().get(i).getProfePropuestaList().get(k).getNotaGuiaDefensa());

@@ -47,9 +47,7 @@ public class AlumnoFacade extends AbstractFacade<Alumno> implements AlumnoFacade
         q = q.toUpperCase();
         Query query;
         query = em.createNamedQuery("Alumno.findAlumno")
-                .setParameter("rutAlumno", "%"+q+"%")
-                .setParameter("nombreAlumno", "%"+q+"%")
-                .setParameter("apellidoAlumno", "%"+q+"%");
+                .setParameter("rutAlumno", "%"+q+"%");
        return query.getResultList();
     }
 }

@@ -31,6 +31,8 @@ public interface UsuarioFacadeLocal {
     int count();
 
     public List<Usuario> findByUsername(String username);
+    
+    public List<Usuario> findByRut(String rut);
 
     public boolean existe(String username);
     

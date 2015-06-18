@@ -12,6 +12,7 @@ import entities.ProfeRevision;
 import entities.Profesor;
 import entities.Propuesta;
 import entities.Semestre;
+import entities.Usuario;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -31,6 +32,7 @@ import sessionbeans.ProfesorFacadeLocal;
 import sessionbeans.PropuestaFacadeLocal;
 import sessionbeans.SemestreActualFacadeLocal;
 import sessionbeans.SemestreFacadeLocal;
+import sessionbeans.UsuarioFacadeLocal;
 
 /**
  *
@@ -53,6 +55,8 @@ public class PropuestaMB {
     private SemestreActualFacadeLocal semestreActualFacade;
     @EJB
     private AlumnoFacadeLocal alumnoFacade;
+    @EJB
+    private UsuarioFacadeLocal usuarioFacade;
     
     private String nombrePropuesta,rutAlumnoPropuesta, rutProfGuia, rutProfcoGuia, fecha, semestreProp;
     private List<Alumno> alumnos;
@@ -128,8 +132,9 @@ public class PropuestaMB {
                                 if(profProp.get(j).getPropuesta().getIdRevisora().getIdTema().getEstadoTema()==0)
                                     guiaTem++;
                 }
+            Usuario profe = usuarioFacade.findByRut(profes.get(i).getRutProfesor()).get(0);
             profeDatosTemp = new ProfeDatos(guiaProp,guiaTem,revisorTemp,-1,
-                    profes.get(i).getRutProfesor(),profes.get(i).getNombreProfesor(),profes.get(i).getApellidoProfesor());
+                    profes.get(i).getRutProfesor(),profe.getNombreUsuario(),profe.getApellidoUsuarioPaterno());
             profeDatosTemp.setRevProp(revProp);
             profeDatosTemp.setRevSem(revSem);
             if(profes.get(i).getTipoProfesor()==0)

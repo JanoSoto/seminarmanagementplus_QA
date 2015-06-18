@@ -149,10 +149,7 @@ public class ProfesorMB implements Serializable{
         //Ingresamos al profesor
         Profesor profesor;
         profesor = new Profesor(rutProfesor);
-        profesor.setNombreProfesor(nombreProfesor.toUpperCase());
-        profesor.setApellidoProfesor(apellidoProfesor.toUpperCase());
-        profesor.setMailProfesor(mailProfesor);
-        profesor.setTelefonoProfesor(celularProfesor);
+
         profesor.setContrato(contratoProfesor);
         
         

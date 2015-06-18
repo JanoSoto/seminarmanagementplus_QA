@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package sessionbeans;
 
 import entities.Profesor;
@@ -9,7 +14,7 @@ import javax.persistence.Query;
 
 /**
  *
- * @author Eduardo
+ * @author miguel
  */
 @Stateless
 public class ProfesorFacade extends AbstractFacade<Profesor> implements ProfesorFacadeLocal {
@@ -46,9 +51,7 @@ public class ProfesorFacade extends AbstractFacade<Profesor> implements Profesor
         q = q.toUpperCase();
         Query query;
         query = em.createNamedQuery("Profesor.findProfesor")
-                .setParameter("rutProfesor", "%"+q+"%")
-                .setParameter("nombreProfesor", "%"+q+"%")
-                .setParameter("apellidoProfesor", "%"+q+"%");
+                .setParameter("rutProfesor", "%"+q+"%");
        return query.getResultList();
     }
 
@@ -58,6 +61,4 @@ public class ProfesorFacade extends AbstractFacade<Profesor> implements Profesor
                 .setParameter("contrato", tipoContrato);
         return q.getResultList();
     }
-    
-    
 }

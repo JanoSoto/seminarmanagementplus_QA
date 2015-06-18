@@ -8,6 +8,7 @@ import entities.Tema;
 import sessionbeans.TemaFacadeLocal;
 import clases.TemaDatos;
 import entities.Semestre;
+import entities.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.model.SelectItem;
 import javax.inject.Named;
 import sessionbeans.SemestreFacadeLocal;
+import sessionbeans.UsuarioFacadeLocal;
 
 /**
  *
@@ -29,6 +31,8 @@ public class ListarTemasMB implements Serializable {
     private SemestreFacadeLocal semestreFacade;
     @EJB
     private TemaFacadeLocal temaFacade;
+    @EJB
+    private UsuarioFacadeLocal usuarioFacade;
     private List<TemaDatos> listTemas, temasFiltrados;
     private List<String> estadosTemas;
     String nombreTema, alumTema,profTema,semestreTema,estadoTemaString, origenTema;
@@ -201,10 +205,13 @@ public class ListarTemasMB implements Serializable {
             if(estadoTema == 6)
                 estadoTemaString = "Vigente con borrador final";
             semestreTema = temasReal.get(i).getIdSemestre().getIdSemestre();
-            alumTema = temasReal.get(i).getIdRevisora().getIdPropuesta().getRutAlumno().getNombreAlumno()+" "+temasReal.get(i).getIdRevisora().getIdPropuesta().getRutAlumno().getApellidoAlumno();
+            Usuario deTema = usuarioFacade.findByRut(temasReal.get(i).getIdRevisora().getIdPropuesta().getRutAlumno().getRutAlumno()).get(0);
+            alumTema = deTema.getNombreUsuario()+" "+deTema.getApellidoUsuarioPaterno();
             for(int j=0; j<temasReal.get(i).getIdRevisora().getIdPropuesta().getProfePropuestaList().size(); j++)
-                if(temasReal.get(i).getIdRevisora().getIdPropuesta().getProfePropuestaList().get(j).getRolGuia() == 0)
-                    profTema = temasReal.get(i).getIdRevisora().getIdPropuesta().getProfePropuestaList().get(j).getProfesor().getNombreProfesor()+" "+temasReal.get(i).getIdRevisora().getIdPropuesta().getProfePropuestaList().get(j).getProfesor().getApellidoProfesor();;
+                if(temasReal.get(i).getIdRevisora().getIdPropuesta().getProfePropuestaList().get(j).getRolGuia() == 0){
+                    Usuario temaReal = usuarioFacade.findByRut(temasReal.get(i).getIdRevisora().getIdPropuesta().getProfePropuestaList().get(j).getProfesor().getRutProfesor()).get(0);
+                    profTema = temaReal.getNombreUsuario()+" "+temaReal.getApellidoUsuarioPaterno();
+                }
             if (temasReal.get(i).getIdRevisora().getTipoRevision() == 0)
                 origenTema = "Propuesta por Trabajo de titulación (Prof por hora)";
             if (temasReal.get(i).getIdRevisora().getTipoRevision() == 1)

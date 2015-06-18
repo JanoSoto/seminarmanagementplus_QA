@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package sessionbeans;
 
 import entities.Profesor;
@@ -6,7 +11,7 @@ import javax.ejb.Local;
 
 /**
  *
- * @author Eduardo
+ * @author miguel
  */
 @Local
 public interface ProfesorFacadeLocal {
@@ -24,7 +29,7 @@ public interface ProfesorFacadeLocal {
     List<Profesor> findRange(int[] range);
 
     int count();
-
+    
     public List<Profesor> findByRut(String rutProfesor);
 
     public boolean existe(String rutProfesor);

@@ -53,7 +53,8 @@ public class UsuarioMB {
     @EJB
     private UsuarioTipoFacadeLocal usuarioTipoFacade;
 
-    private String username, nombreUsuario, apellidoUsuario, tipoUsuario;
+    private String username, nombreUsuario, apellidoUsuario;
+    private List<Tipo> tipoUsuarios;
     
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(UsuarioMB.class);
 
@@ -62,14 +63,14 @@ public class UsuarioMB {
         List<Tipo> tipos = tipoFacade.findAll();
     }
 
-    public String getTipoUsuario() {
-        return tipoUsuario;
+    public List<Tipo> getTipoUsuario() {
+        return tipoUsuarios;
     }
 
-    public void setTipoUsuario(String tipoUsuario) {
-        this.tipoUsuario = tipoUsuario;
+    public void setTipoUsuario(Tipo tipoUsuario, int i) {     
+        tipoUsuarios.set(i, tipoUsuario);
     }
-    
+
     public String getUsername() {
         return username;
     }
@@ -130,20 +131,29 @@ public class UsuarioMB {
         //Ingresamos al usuario
         Usuario nuevoUsuario = new Usuario(username);
         nuevoUsuario.setNombreUsuario(nombreUsuario);
-        nuevoUsuario.setPassword(sha256(username.substring(0, 5)));
-        nuevoUsuario.setApellidoUsuario(apellidoUsuario);
+        nuevoUsuario.setApellidoUsuarioPaterno(apellidoUsuario);
         nuevoUsuario.setActivo(true);
         usuarioFacade.create(nuevoUsuario);
         
         //Ingresamos el tipo usuario
-        Tipo tipo = tipoFacade.find(tipoUsuario);
-        UsuarioTipo usuarioTipo = new UsuarioTipo();
-        usuarioTipo.setNombreTipo(tipo);
-        usuarioTipo.setUsername(nuevoUsuario);
-        usuarioTipoFacade.create(usuarioTipo);
+        for(int i=0;i<tipoUsuarios.size();i++){
+            Long tipo = tipoUsuarios.get(i).getIdTipo();
+            UsuarioTipo usuarioTipo = new UsuarioTipo(tipo, nuevoUsuario.getRutUsuario());
+            usuarioTipoFacade.create(usuarioTipo);
+            nuevoUsuario.add(usuarioTipo);
+            //usuarioTipo.setUsuarioTipoPK(nuevoUsuario, tipo);
+            
+        }
+        //nuevoUsuario.get
+        //Tipo tipoEncontrado = tipoFacade.find(nuevoUsuario.getUsuarioTipoList());
+        //Tipo tipo = tipoFacade.find(tipoUsuarios);
+        //UsuarioTipo usuarioTipo = new UsuarioTipo();
+        //usuarioTipo.setNombreTipo(tipo);
+        //usuarioTipo.setUsername(nuevoUsuario);
+        
         
         //Asignamos el usuario_tipo al usuario
-        nuevoUsuario.add(usuarioTipo);
+        
         usuarioFacade.edit(nuevoUsuario);
         
         context.addMessage(null, new FacesMessage("Usuario", nombreUsuario+" "+apellidoUsuario+", ingresado al sistema"));
@@ -152,6 +162,6 @@ public class UsuarioMB {
         username = null;
         nombreUsuario = null;
         apellidoUsuario = null;
-        tipoUsuario = "";
+        //tipoUsuario = null;
     }
 }

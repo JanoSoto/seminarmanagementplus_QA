@@ -438,33 +438,6 @@ public class TemaOficialMB{
         comRev.setIdTema(tema);
         comisionRevisoraFacade.edit(comRev);        
         
-        //Añadimos al historial del alumno
-        Date temp = new Date();
-        String dateHist = dateToString(temp);
-        Historial histTemaAlum = new Historial();
-        histTemaAlum.setDescripcion("Se le asignó Tema. Lo ingresó el usuario "+user.getFullNameUser());
-        histTemaAlum.setFechaHistorial(dateHist);
-        histTemaAlum.setTipoHistorial(2);
-        histTemaAlum.setIdEntidad(tema.getIdRevisora().getIdPropuesta().getRutAlumno().getRutAlumno());
-        historialFacade.create(histTemaAlum);
-        
-        
-        //Añadimos al historial del usuario que creo la comisión revisora
-        Historial histComRevUser = new Historial();
-        histComRevUser.setDescripcion("Ingresó Tema al alumno "+tema.getIdRevisora().getIdPropuesta().getRutAlumno().getNombreAlumno()+" "+tema.getIdRevisora().getIdPropuesta().getRutAlumno().getApellidoAlumno());
-        histComRevUser.setFechaHistorial(dateHist);
-        histComRevUser.setTipoHistorial(3);
-        histComRevUser.setIdEntidad(user.getUsername());
-        historialFacade.create(histComRevUser);
-        
-        //Agregamos el historial de cambio de estado
-        Historial historial = new Historial();
-        historial.setDescripcion("Se creó el tema, con estado 'Vigente'");
-        historial.setFechaHistorial(fechaTema);
-        historial.setIdEntidad(String.valueOf(tema.getIdTema()));
-        historial.setTipoHistorial(1);
-        historialFacade.create(historial);
-        
         //Mensaje de confirmación  
         context.addMessage(null, new FacesMessage("Tema", tema.getNombreTema()+", ingresado al sistema"));
     }

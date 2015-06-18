@@ -5,6 +5,7 @@ import entities.Profesor;
 import entities.Tema;
 import entities.ProfeCorreccion;
 import entities.ProfePropuesta;
+import entities.Usuario;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -24,6 +25,7 @@ import sessionbeans.ProfesorFacadeLocal;
 import sessionbeans.SemestreActualFacadeLocal;
 import sessionbeans.SemestreFacadeLocal;
 import sessionbeans.TemaFacadeLocal;
+import sessionbeans.UsuarioFacadeLocal;
 
 /**
  *
@@ -49,7 +51,8 @@ public class CalificacionTema2MB {
     @EJB
     private SemestreActualFacadeLocal semestreActualFacade;
     
-    
+    @EJB
+    private UsuarioFacadeLocal usuarioFacade;
      @EJB
     private SemestreFacadeLocal semestreFacade;
     private Integer idTema, idTemaEdit;
@@ -74,29 +77,30 @@ public class CalificacionTema2MB {
         
         tema = temaFacade.findById(idTema).get(0);
         if(tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(0).getRolGuia()==0){
-            nombreprofe= tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(0).getProfesor().getNombreProfesor();
-            apellidoprofe=tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(0).getProfesor().getApellidoProfesor();
+            Usuario prof = usuarioFacade.findByRut(tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(0).getProfesor().getRutProfesor()).get(0);
+            nombreprofe= prof.getNombreUsuario();
+            apellidoprofe=prof.getApellidoUsuarioPaterno();
             if (!tema.getIdCorrectora().getProfeCorreccionList().isEmpty()){
                 notaProfeGuiaInf = String.valueOf(tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(0).getNotaGuiaInforme());
                 notaProfeGuiaDef = String.valueOf(tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(0).getNotaGuiaDefensa());
             }
         }
         else{
-            nombreprofe= tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(1).getProfesor().getNombreProfesor();
-            apellidoprofe=tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(1).getProfesor().getApellidoProfesor();
+            Usuario prof = usuarioFacade.findByRut(tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(1).getProfesor().getRutProfesor()).get(0);
+            nombreprofe= prof.getNombreUsuario();
+            apellidoprofe=prof.getApellidoUsuarioPaterno();
             if (!tema.getIdCorrectora().getProfeCorreccionList().isEmpty()){
                 notaProfeGuiaInf = String.valueOf(tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(1).getNotaGuiaInforme());
                 notaProfeGuiaDef = String.valueOf(tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(1).getNotaGuiaDefensa());
             }
         }
     
-        
-        
-        
-        nombrecorrector1 = tema.getIdCorrectora().getProfeCorreccionList().get(0).getProfesor().getNombreProfesor();
-        apellidocorrector1 = tema.getIdCorrectora().getProfeCorreccionList().get(0).getProfesor().getApellidoProfesor();
-        nombrecorrector2 = tema.getIdCorrectora().getProfeCorreccionList().get(1).getProfesor().getNombreProfesor();
-        apellidocorrector2 = tema.getIdCorrectora().getProfeCorreccionList().get(1).getProfesor().getApellidoProfesor();
+        Usuario correc = usuarioFacade.findByRut(tema.getIdCorrectora().getProfeCorreccionList().get(0).getProfesor().getRutProfesor()).get(0);
+        Usuario correc2 = usuarioFacade.findByRut(tema.getIdCorrectora().getProfeCorreccionList().get(1).getProfesor().getRutProfesor()).get(0);
+        nombrecorrector1 = correc.getNombreUsuario();
+        apellidocorrector1 = correc.getApellidoUsuarioMaterno();
+        nombrecorrector2 = correc2.getNombreUsuario();
+        apellidocorrector2 = correc2.getApellidoUsuarioPaterno();
         date=stringToDate(tema.getFechaRealTema());
         date2=stringToDate(tema.getFechaSiacTema());
         

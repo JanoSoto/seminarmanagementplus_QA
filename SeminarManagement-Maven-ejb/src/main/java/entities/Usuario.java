@@ -24,17 +24,22 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Elagos
+ * @author miguel
  */
 @Entity
 @Table(name = "usuario")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
-    @NamedQuery(name = "Usuario.findByUsername", query = "SELECT u FROM Usuario u WHERE u.username = :username"),
+    @NamedQuery(name = "Usuario.findByRutUsuario", query = "SELECT u FROM Usuario u WHERE u.rutUsuario = :rutUsuario"),
+    @NamedQuery(name = "Usuario.findByUid", query = "SELECT u FROM Usuario u WHERE u.uid = :uid"),
     @NamedQuery(name = "Usuario.findByNombreUsuario", query = "SELECT u FROM Usuario u WHERE u.nombreUsuario = :nombreUsuario"),
-    @NamedQuery(name = "Usuario.findByApellidoUsuario", query = "SELECT u FROM Usuario u WHERE u.apellidoUsuario = :apellidoUsuario"),
-    @NamedQuery(name = "Usuario.findByPassword", query = "SELECT u FROM Usuario u WHERE u.password = :password"),
+    @NamedQuery(name = "Usuario.findBySegundoNombreUsuario", query = "SELECT u FROM Usuario u WHERE u.segundoNombreUsuario = :segundoNombreUsuario"),
+    @NamedQuery(name = "Usuario.findByApellidoUsuarioPaterno", query = "SELECT u FROM Usuario u WHERE u.apellidoUsuarioPaterno = :apellidoUsuarioPaterno"),
+    @NamedQuery(name = "Usuario.findByApellidoUsuarioMaterno", query = "SELECT u FROM Usuario u WHERE u.apellidoUsuarioMaterno = :apellidoUsuarioMaterno"),
+    @NamedQuery(name = "Usuario.findByMailUsuario", query = "SELECT u FROM Usuario u WHERE u.mailUsuario = :mailUsuario"),
+    @NamedQuery(name = "Usuario.findByTelefonoUsuario", query = "SELECT u FROM Usuario u WHERE u.telefonoUsuario = :telefonoUsuario"),
+    @NamedQuery(name = "Usuario.findByDireccionUsuario", query = "SELECT u FROM Usuario u WHERE u.direccionUsuario = :direccionUsuario"),
     @NamedQuery(name = "Usuario.findByActivo", query = "SELECT u FROM Usuario u WHERE u.activo = :activo")})
 public class Usuario implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -42,42 +47,70 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
-    @Column(name = "username")
-    private String username;
+    @Column(name = "rut_usuario")
+    private String rutUsuario;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "uid")
+    private String uid;
     @Size(max = 50)
     @Column(name = "nombre_usuario")
     private String nombreUsuario;
     @Size(max = 50)
-    @Column(name = "apellido_usuario")
-    private String apellidoUsuario;
-    @Size(max = 200)
-    @Column(name = "password")
-    private String password;
+    @Column(name = "segundo_nombre_usuario")
+    private String segundoNombreUsuario;
+    @Size(max = 50)
+    @Column(name = "apellido_usuario_paterno")
+    private String apellidoUsuarioPaterno;
+    @Size(max = 50)
+    @Column(name = "apellido_usuario_materno")
+    private String apellidoUsuarioMaterno;
+    @Size(max = 100)
+    @Column(name = "mail_usuario")
+    private String mailUsuario;
+    @Size(max = 20)
+    @Column(name = "telefono_usuario")
+    private String telefonoUsuario;
+    @Size(max = 100)
+    @Column(name = "direccion_usuario")
+    private String direccionUsuario;
     @Column(name = "activo")
     private Boolean activo;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "username")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rut_usuario")
     private List<UsuarioTipo> usuarioTipoList;
 
     public Usuario() {
         usuarioTipoList = new ArrayList();
     }
 
-    public Usuario(String username) {
+    public Usuario(String rutUsuario) {
         usuarioTipoList = new ArrayList();
-        this.username = username;
+        this.rutUsuario = rutUsuario;
     }
-    
+
     public void add(UsuarioTipo object) {
         usuarioTipoList.add(object);
     }
 
-
-    public String getUsername() {
-        return username;
+    public String getRutUsuario() {
+        return rutUsuario;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setRutUsuario(String rutUsuario) {
+        this.rutUsuario = rutUsuario;
+    }
+
+    public String getMailUsuario() {
+        return mailUsuario;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getNombreUsuario() {
@@ -88,20 +121,53 @@ public class Usuario implements Serializable {
         this.nombreUsuario = nombreUsuario;
     }
 
-    public String getApellidoUsuario() {
-        return apellidoUsuario;
+    public String getSegundoNombreUsuario() {
+        return segundoNombreUsuario;
     }
 
-    public void setApellidoUsuario(String apellidoUsuario) {
-        this.apellidoUsuario = apellidoUsuario;
+    public void setSegundoNombreUsuario(String segundoNombreUsuario) {
+        this.segundoNombreUsuario = segundoNombreUsuario;
     }
 
-    public String getPassword() {
-        return password;
+    public String getApellidoUsuarioPaterno() {
+        return apellidoUsuarioPaterno;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void setApellidoUsuarioPaterno(String apellidoUsuarioPaterno) {
+        this.apellidoUsuarioPaterno = apellidoUsuarioPaterno;
+    }
+
+    public String getApellidoUsuarioMaterno() {
+        return apellidoUsuarioMaterno;
+    }
+
+    public void setApellidoUsuarioMaterno(String apellidoUsuarioMaterno) {
+        this.apellidoUsuarioMaterno = apellidoUsuarioMaterno;
+    }
+
+    @XmlTransient
+    public List<UsuarioTipo> getUsuarioTipoList() {
+        return usuarioTipoList;
+    }
+
+    public void setMailUsuario(String mailUsuario) {
+        this.mailUsuario = mailUsuario;
+    }
+
+    public String getTelefonoUsuario() {
+        return telefonoUsuario;
+    }
+
+    public void setTelefonoUsuario(String telefonoUsuario) {
+        this.telefonoUsuario = telefonoUsuario;
+    }
+
+    public String getDireccionUsuario() {
+        return direccionUsuario;
+    }
+
+    public void setDireccionUsuario(String direccionUsuario) {
+        this.direccionUsuario = direccionUsuario;
     }
 
     public Boolean getActivo() {
@@ -112,19 +178,10 @@ public class Usuario implements Serializable {
         this.activo = activo;
     }
 
-    @XmlTransient
-    public List<UsuarioTipo> getUsuarioTipoList() {
-        return usuarioTipoList;
-    }
-
-    public void setUsuarioTipoList(List<UsuarioTipo> usuarioTipoList) {
-        this.usuarioTipoList = usuarioTipoList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (username != null ? username.hashCode() : 0);
+        hash += (rutUsuario != null ? rutUsuario.hashCode() : 0);
         return hash;
     }
 
@@ -135,7 +192,7 @@ public class Usuario implements Serializable {
             return false;
         }
         Usuario other = (Usuario) object;
-        if ((this.username == null && other.username != null) || (this.username != null && !this.username.equals(other.username))) {
+        if ((this.rutUsuario == null && other.rutUsuario != null) || (this.rutUsuario != null && !this.rutUsuario.equals(other.rutUsuario))) {
             return false;
         }
         return true;
@@ -143,7 +200,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Usuario[ username=" + username + " ]";
+        return "entities.Usuario[ rutUsuario=" + rutUsuario + " ]";
     }
     
 }

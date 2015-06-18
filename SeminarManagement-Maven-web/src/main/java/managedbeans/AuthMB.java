@@ -1,5 +1,6 @@
 package managedbeans;
 
+import entities.Tipo;
 import entities.Usuario;
 import java.io.IOException;
 import java.io.Serializable;
@@ -31,6 +32,7 @@ import sessionbeans.UsuarioFacadeLocal;
 import org.apache.log4j.MDC;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import sessionbeans.TipoFacadeLocal;
 
 /**
  *
@@ -44,8 +46,10 @@ public class AuthMB implements Serializable {
     private HistorialFacadeLocal historialFacade;
     @EJB
     private UsuarioFacadeLocal usuarioFacade;
-
-    private String username = null, password = null, nombre = null, apellido = null, tipo = null;
+    @EJB
+    private TipoFacadeLocal tipoFacade;
+    private String uid = null, password=null, nombre = null, apellido = null;
+    private long tipo = 0;
 
     private static final String USERKEY = "user";
 
@@ -56,7 +60,7 @@ public class AuthMB implements Serializable {
 
     //Si el usuario ya inició sesión, e ingresa a la página de login
     //se redirige a la aplicación
-    public void redirectUserLogged() {
+    /*public void redirectUserLogged() {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
         if (!getLoggedUser().equals("")) {
@@ -71,7 +75,7 @@ public class AuthMB implements Serializable {
                 Logger.getLogger(AuthMB.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }
+    }*/
 
     public String MD5(String md5) {
         try {
@@ -92,14 +96,13 @@ public class AuthMB implements Serializable {
         ExternalContext externalContext = context.getExternalContext();
         HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
 
-        try {
 
             HttpClient httpclient = new DefaultHttpClient();
             HttpPost httppost = new HttpPost("http://inicio.diinf.usach.cl/webservice.php");
 
             // Add your data
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-            nameValuePairs.add(new BasicNameValuePair("user", username));
+            nameValuePairs.add(new BasicNameValuePair("user", uid));
             nameValuePairs.add(new BasicNameValuePair("pass", password));
             nameValuePairs.add(new BasicNameValuePair("keyapi", MD5("c55ecd5c60a5a5b2bea1c92bbc45f8ab")));
             httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
@@ -120,36 +123,48 @@ public class AuthMB implements Serializable {
             if(valido_response == null) {
                 valido_response = false;
             }
-            System.out.println("Datos Validos: " + valido_response);
+            //System.out.println("Datos Validos: " + valido_response);
 
             //MessageDigest md = MessageDigest.getInstance("SHA-256");
             //md.update(password.getBytes("UTF-8"));
-            request.login(username, password);
-
-            Usuario user = usuarioFacade.findByUsername(username).get(0); //Extraigo el user de la db           
-            nombre = user.getNombreUsuario();
-            apellido = user.getApellidoUsuario();
-            tipo = user.getUsuarioTipoList().get(0).getNombreTipo().getNombreTipo();
-            externalContext.getSessionMap().put("user", user);
-            MDC.put(USERKEY, nombre);
-            if (tipo.equals("ADMINISTRADOR")) {
-                externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/admin/index.xhtml");
+              //request.login(username, password);
+            if(valido_response==true){
+                Usuario user = usuarioFacade.findByUsername(uid).get(0); //Extraigo el user de la db           
+                nombre = user.getNombreUsuario();
+                apellido = user.getApellidoUsuarioPaterno();
+                tipo = user.getUsuarioTipoList().get(0).getUsuarioTipoPK().getIdTipo();
+                Tipo tipoUser;
+                tipoUser = tipoFacade.find(tipo);
+                externalContext.getSessionMap().put("user", user);
+                MDC.put(USERKEY, uid);
+                if (tipoUser.getNombreTipo().equals("ADMINISTRADOR")) {
+                    externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/admin/index.xhtml");
+                }
+                if (tipoUser.getNombreTipo().equals("SECRETARIA")) {
+                    externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/secretaria/index.xhtml");
+                }
+            }else{
+                //Logger.getLogger(AuthMB.class.getName()).log(Level.SEVERE, null, e);
+                context.addMessage(null, new FacesMessage("Ingreso Erróneo", "Los datos ingresados no son correctos."));
+                uid = null;
+                password = null;
+                nombre = null;
+                apellido = null;
+                tipo = 0;
+                //Logger.getLogger(AuthMB.class.getName()).log(Level.SEVERE, null, e);
+                context.addMessage(null, new FacesMessage("Ingreso Erróneo", "Los datos ingresados no son correctos."));
             }
-            if (tipo.equals("SECRETARIA")) {
-                externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/secretaria/index.xhtml");
-            }
-        } catch (IOException e) {
+        //} catch (IOException e) {
             //Logger.getLogger(AuthMB.class.getName()).log(Level.SEVERE, null, e);
-            context.addMessage(null, new FacesMessage("Ingreso Erróneo", "Los datos ingresados no son correctos."));
-        } catch (ServletException e) {
-            username = null;
-            password = null;
-            nombre = null;
-            apellido = null;
-            tipo = null;
+           // context.addMessage(null, new FacesMessage("Ingreso Erróneo", "Los datos ingresados no son correctos."));
+        ///  username = null;
+          //  password = null;
+          //  nombre = null;
+          //  apellido = null;
+           // tipo = null;
             //Logger.getLogger(AuthMB.class.getName()).log(Level.SEVERE, null, e);
-            context.addMessage(null, new FacesMessage("Ingreso Erróneo", "Los datos ingresados no son correctos."));
-        }
+           // context.addMessage(null, new FacesMessage("Ingreso Erróneo", "Los datos ingresados no son correctos."));
+        //}
     }
 
     public String getLoggedUser() {
@@ -179,26 +194,26 @@ public class AuthMB implements Serializable {
         nombre = null;
         apellido = null;
         password = null;
-        tipo = null;
+        tipo = 0;
         MDC.remove(USERKEY);
         externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/login.xhtml");
 
     }
 
-    public String getTipo() {
+    public long getTipo() {
         return tipo;
     }
 
-    public void setTipo(String tipo) {
+    public void setTipo(long tipo) {
         this.tipo = tipo;
     }
 
     public String getUsername() {
-        return username;
+        return uid;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUsername(String uid) {
+        this.uid = uid;
     }
 
     public String getPassword() {
