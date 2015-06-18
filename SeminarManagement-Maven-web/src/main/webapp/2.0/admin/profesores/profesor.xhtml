@@ -57,10 +57,9 @@
                     <h:panelGrid columns="1" cellpadding="4">
                         <p:button style="width:140px;" value="Editar Datos" icon="ui-icon-pencil" iconPos="right" href="/2.0/admin/profesores/editar.xhtml?prof=#{verProfesorMB.profesor.rutProfesor}"/>
                         <p:button style="width:140px;" rendered="#{verProfesorMB.profesor.contrato eq 0}" icon="ui-icon-pencil" iconPos="right" value="Editar Autorizaciones" href="/2.0/admin/profesores/editarGuias.xhtml?prof=#{verProfesorMB.profesor.rutProfesor}" />
-                        
                         <p:button style="width:140px;" href="/2.0/admin/profesores/propuestas.xhtml?prof=#{verProfesorMB.profesor.rutProfesor}" value="Ver Propuestas"/>
-                        
                         <p:button style="width:140px;" href="/2.0/admin/profesores/temas.xhtml?prof=#{verProfesorMB.profesor.rutProfesor}" value="Ver Temas"/>
+                        <p:button style="width:140px;" href="/Profesor?id=#{verProfesorMB.profesor.rutProfesor}" value="Descargar Informe"/>
                         
                         <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Volver a Profesores"/>
                         

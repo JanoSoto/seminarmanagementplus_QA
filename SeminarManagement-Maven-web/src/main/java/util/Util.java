@@ -1,8 +1,22 @@
 package util;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.StringReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import org.apache.commons.lang.WordUtils;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.docx4j.openpackaging.exceptions.Docx4JException;
+import org.docx4j.openpackaging.io3.Save;
+import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
+import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
+import org.docx4j.wml.ContentAccessor;
 
 /**
  *
@@ -86,5 +100,23 @@ public class Util {
         } catch (ParseException e) {
             return null;
         }
+    }
+    
+    public static XSSFWorkbook csvTextToExcel(String csvContent) throws IOException{
+        XSSFWorkbook workBook = new XSSFWorkbook();
+        XSSFSheet sheet = workBook.createSheet("Hoja 1");
+        String currentLine = null;
+        int RowNum = 0;
+        
+        BufferedReader br = new BufferedReader(new StringReader(csvContent));
+        while ( ( currentLine = br.readLine() ) != null) {
+            String str[] = currentLine.split("\t");
+            RowNum++;
+            XSSFRow currentRow = sheet.createRow(RowNum);
+            for(int i = 0; i < str.length; i++){
+                currentRow.createCell(i).setCellValue(str[i]);
+            }
+        }
+        return workBook;
     }
 }
