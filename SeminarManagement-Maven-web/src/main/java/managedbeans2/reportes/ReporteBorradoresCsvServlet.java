@@ -2,6 +2,7 @@ package managedbeans2.reportes;
 
 import entities.SemestreActual;
 import entities.Tema;
+import entities.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import sessionbeans.SemestreActualFacadeLocal;
 import sessionbeans.TemaFacadeLocal;
+import sessionbeans.UsuarioFacadeLocal;
 
 /**
  *
@@ -27,7 +29,10 @@ public class ReporteBorradoresCsvServlet extends HttpServlet {
     private SemestreActualFacadeLocal semActFacade;
     
     @EJB
-    TemaFacadeLocal temasFacade;
+    private TemaFacadeLocal temasFacade;
+    
+    @EJB
+    private UsuarioFacadeLocal usuarioFacade;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -42,19 +47,19 @@ public class ReporteBorradoresCsvServlet extends HttpServlet {
                     + "Fecha Entrega Borrador\tSemestre\tProfesor Revisor 1\tEntrega\t"
                     + "Devolución\tProfesor Revisor 2\tEntrega\tDevolución");
             for (Tema  tema : temasFacade.findByEstado(4)) {
-
+                Usuario us1 = usuarioFacade.findByRut(tema.getIdRevisora().getIdPropuesta().getRutAlumno().getRutAlumno()).get(0);
                 String salida =
-                        tema.getIdRevisora().getIdPropuesta().getRutAlumno().getNombreAlumno() + " "
-                        + tema.getIdRevisora().getIdPropuesta().getRutAlumno().getApellidoAlumno();
+                        us1.getNombreUsuario() + " "
+                        + us1.getApellidoUsuarioPaterno();
                 
                 if ( tema.getIdRevisora().getIdPropuesta().getRutAlumno().getPlanActivo() == null)
                     salida += "\t" ;
                 else 
                     salida += "\t" + tema.getIdRevisora().getIdPropuesta().getRutAlumno().getPlanActivo().getCodigo();
-                
+                Usuario us2 = usuarioFacade.findByRut(tema.getIdRevisora().getGuia().getRutProfesor()).get(0);
                 salida += "\t" + tema.getNombreTema();
-                salida += "\t" + tema.getIdRevisora().getGuia().getNombreProfesor() + " "
-                        + tema.getIdRevisora().getGuia().getApellidoProfesor();
+                salida += "\t" + us2.getNombreUsuario() + " "
+                        + us2.getNombreUsuario();
                 salida += "\t" + tema.getFechaTema();
                 
                 if (tema.getIdSemestre().getIdSemestre() != null)
@@ -64,8 +69,9 @@ public class ReporteBorradoresCsvServlet extends HttpServlet {
                 
                 if ( tema.getIdCorrectora() != null){
                     if ( tema.getIdCorrectora().getCorrector1() != null){
-                        salida += "\t" + tema.getIdCorrectora().getCorrector1().getNombreProfesor() + " "
-                            + tema.getIdCorrectora().getCorrector1().getApellidoProfesor();
+                        Usuario us3 = usuarioFacade.findByRut(tema.getIdCorrectora().getCorrector1().getRutProfesor()).get(0);
+                        salida += "\t" + us3.getNombreUsuario() + " "
+                            + us3.getApellidoUsuarioPaterno();
 
                         if ( tema.getIdCorrectora().getFechaCorreccion() != null )
                             salida += "\t" + tema.getIdCorrectora().getFechaCorreccion();
@@ -81,8 +87,9 @@ public class ReporteBorradoresCsvServlet extends HttpServlet {
                         salida += "\t\t\t";
 
                     if ( tema.getIdCorrectora().getCorrector2() != null){
-                        salida += "\t" + tema.getIdCorrectora().getCorrector2().getNombreProfesor() + " "
-                            + tema.getIdCorrectora().getCorrector2().getApellidoProfesor();
+                        Usuario us4 = usuarioFacade.findByRut(tema.getIdCorrectora().getCorrector2().getRutProfesor()).get(0);
+                        salida += "\t" + us4.getNombreUsuario() + " "
+                            + us4.getApellidoUsuarioPaterno();
 
                         if ( tema.getIdCorrectora().getFechaCorreccion2() != null )
                             salida += "\t" + tema.getIdCorrectora().getFechaCorreccion2();

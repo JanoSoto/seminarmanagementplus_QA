@@ -2,6 +2,7 @@ package managedbeans2.reportes;
 
 import entities.ComisionRevisora;
 import entities.SemestreActual;
+import entities.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import sessionbeans.ComisionRevisoraFacadeLocal;
 import sessionbeans.SemestreActualFacadeLocal;
+import sessionbeans.UsuarioFacadeLocal;
 
 /**
  *
@@ -28,6 +30,9 @@ public class ReportePropuestasCsvServlet extends HttpServlet {
     
     @EJB
     private ComisionRevisoraFacadeLocal revisoraFacade;
+    
+    @EJB
+    private UsuarioFacadeLocal usuarioFacade;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -44,10 +49,14 @@ public class ReportePropuestasCsvServlet extends HttpServlet {
             for (ComisionRevisora  com : revisoraFacade.findBySemestre(semestreActual.getSemestreActual())) {
                 if ( com.getTipoRevision() == 2)
                     continue;
-
+                
+                Usuario crev = usuarioFacade.findByRut(com.getIdPropuesta().getRutAlumno().getRutAlumno()).get(0);
+                Usuario profe = usuarioFacade.findByRut(com.getGuia().getRutProfesor()).get(0);
+                
+                
                 String salida =
-                        com.getIdPropuesta().getRutAlumno().getNombreAlumno() + " "
-                        + com.getIdPropuesta().getRutAlumno().getApellidoAlumno();
+                        crev.getNombreUsuario() + " "
+                        + crev.getApellidoUsuarioPaterno();
                 
                 if ( com.getIdPropuesta().getRutAlumno().getPlanActivo() == null)
                     salida += "\t" ;
@@ -55,13 +64,14 @@ public class ReportePropuestasCsvServlet extends HttpServlet {
                     salida += "\t" + com.getIdPropuesta().getRutAlumno().getPlanActivo().getCodigo();
                 
                 salida += "\t" + com.getIdPropuesta().getNombrePropuesta();
-                salida += "\t" + com.getGuia().getNombreProfesor() + " "
-                        + com.getGuia().getApellidoProfesor();
+                salida += "\t" + profe.getNombreUsuario() + " "
+                        + profe.getApellidoUsuarioPaterno();
                 salida += "\t" + com.getIdPropuesta().getFechaPropuesta();
                 
                 if ( com.getRevisor1() != null){
-                    salida += "\t" + com.getRevisor1().getNombreProfesor() + " "
-                        + com.getRevisor1().getApellidoProfesor();
+                    Usuario revisor = usuarioFacade.findByRut(com.getRevisor1().getRutProfesor()).get(0);
+                    salida += "\t" + revisor.getNombreUsuario()+ " "
+                        + revisor.getApellidoUsuarioPaterno();
                     
                     if ( com.getFechaRevision() != null )
                         salida += "\t" + com.getFechaRevision();
@@ -77,8 +87,9 @@ public class ReportePropuestasCsvServlet extends HttpServlet {
                     salida += "\t\t\t";
                 
                 if ( com.getRevisor2() != null){
-                    salida += "\t" + com.getRevisor2().getNombreProfesor() + " "
-                        + com.getRevisor2().getApellidoProfesor();
+                    Usuario revisor2 = usuarioFacade.findByRut(com.getRevisor2().getRutProfesor()).get(0);
+                    salida += "\t" + revisor2.getNombreUsuario() + " "
+                        + revisor2.getApellidoUsuarioPaterno();
                     
                     if ( com.getFechaRevision2() != null )
                         salida += "\t" + com.getFechaRevision2();

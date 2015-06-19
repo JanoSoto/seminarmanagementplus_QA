@@ -8,6 +8,7 @@ import entities.Profesor;
 import entities.Propuesta;
 import entities.SemestreActual;
 import entities.Tema;
+import entities.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
@@ -19,6 +20,7 @@ import sessionbeans.AlumnoFacadeLocal;
 import sessionbeans.ProfesorFacadeLocal;
 import sessionbeans.SemestreActualFacadeLocal;
 import sessionbeans.SemestreFacadeLocal;
+import sessionbeans.UsuarioFacadeLocal;
 
 /**
  *
@@ -36,6 +38,8 @@ public class VerProfesorMB {
     private ProfesorFacadeLocal profesorFacade;
     @EJB
     private AlumnoFacadeLocal alumnoFacade;
+    @EJB
+    private UsuarioFacadeLocal usuarioFacade;
 
     private int total, totalSemestre;
     private float promPorSemestre;
@@ -81,7 +85,9 @@ public class VerProfesorMB {
                             for (int m = 0; m < alumno.getPropuestaList().get(k).getComisionRevisoraList().size(); m++) {
                                 if (!alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getProfeRevisionList().isEmpty()) {
                                     for (int n = 0; n < alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getProfeRevisionList().size(); n++) {
-                                        if (profesorEdit.getNombreProfesor() == null ? alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getProfeRevisionList().get(n).getProfesor().getNombreProfesor() == null : profesorEdit.getNombreProfesor().equals(alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getProfeRevisionList().get(n).getProfesor().getNombreProfesor())) {
+                                        Usuario us1 = usuarioFacade.findByRut(profesorEdit.getRutProfesor()).get(0);
+                                        Usuario us2 = usuarioFacade.findByRut(alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getProfeRevisionList().get(n).getProfesor().getRutProfesor()).get(0);
+                                        if (us1.getNombreUsuario() == null ? us2.getNombreUsuario() == null : us1.getNombreUsuario().equals(us2.getNombreUsuario())) {
                                             if (alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getIdSemestre().getIdSemestre() == null ? semestre.get(0).getSemestreActual() == null : alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getIdSemestre().getIdSemestre().equals(semestreActual)) {
                                                 nombrePropuesta = alumno.getPropuestaList().get(k).getNombrePropuesta();
                                                 PropuestaDatos propDatos = new PropuestaDatos();
@@ -306,11 +312,7 @@ public class VerProfesorMB {
     public void editProfesor() {
         FacesContext context = FacesContext.getCurrentInstance();
         Profesor profTemp = profesorFacade.findByRut(rutProfeEdit).get(0);
-        profTemp.setApellidoProfesor(profesorEdit.getApellidoProfesor().toUpperCase());
-        profTemp.setNombreProfesor(profesorEdit.getNombreProfesor().toUpperCase());
         profTemp.setContrato(profesorEdit.getContrato());
-        profTemp.setTelefonoProfesor(profesorEdit.getTelefonoProfesor());
-        profTemp.setMailProfesor(profesorEdit.getMailProfesor());
         Integer maxGuiasOld = profTemp.getMaximoGuias();
 
         if (profesorEdit.getContrato() == 0) {
@@ -345,8 +347,9 @@ public class VerProfesorMB {
          histProfAgregadoUser.setIdEntidad(user.getUsername());
          historialFacade.create(histProfAgregadoUser);
          */
-        context.addMessage(null, new FacesMessage("Editar Profesor", profTemp.getNombreProfesor() + " " + profTemp.getApellidoProfesor() + " editado exitosamente"));
-        LOGGER.info("El profesor " + profTemp.getNombreProfesor() + " " + profTemp.getApellidoProfesor() + " ha sido editado exitosamente");
+        Usuario userLog = usuarioFacade.findByRut(profTemp.getRutProfesor()).get(0);
+        context.addMessage(null, new FacesMessage("Editar Profesor", userLog.getNombreUsuario() + " " + userLog.getApellidoUsuarioPaterno() + " editado exitosamente"));
+        LOGGER.info("El profesor " + userLog.getNombreUsuario() + " " + userLog.getApellidoUsuarioPaterno()  + " ha sido editado exitosamente");
 
     }
 

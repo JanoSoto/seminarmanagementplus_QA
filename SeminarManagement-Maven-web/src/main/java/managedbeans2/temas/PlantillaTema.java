@@ -6,6 +6,7 @@ import com.itextpdf.text.pdf.PdfStamper;
 import entities.Alumno;
 import entities.Profesor;
 import entities.Tema;
+import entities.Usuario;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -13,6 +14,7 @@ import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -21,6 +23,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import managedbeans2.SemestreMB;
+import sessionbeans.UsuarioFacadeLocal;
 import util.Util;
 
 /**
@@ -31,6 +34,8 @@ import util.Util;
 public class PlantillaTema extends HttpServlet {
 
     public String TEMPLATE_LOCATION = "/resources/plantillas/plantilla_tema.pdf";
+    @EJB
+    private UsuarioFacadeLocal usuarioFacade;
     
     @Inject
     VerTemaMB temaMB;
@@ -63,7 +68,7 @@ public class PlantillaTema extends HttpServlet {
 
             Tema tema = temaMB.getTema();
             Alumno alumno = temaMB.getAlumno();
-            
+            Usuario al = usuarioFacade.findByRut(alumno.getRutAlumno()).get(0);
             InputStream resourceUrl = getServletContext().getResourceAsStream(TEMPLATE_LOCATION);
 
             baosPDF = new ByteArrayOutputStream();
@@ -92,39 +97,42 @@ public class PlantillaTema extends HttpServlet {
             }
             stamper.getAcroFields().setField("doc_title", str.toString());
             stamper.getAcroFields().setField("title", tema.getNombreTema());
-            stamper.getAcroFields().setField("student_name", Util.reducirNombre(alumno.getNombreAlumno(), alumno.getApellidoAlumno(), 30));
+            stamper.getAcroFields().setField("student_name", Util.reducirNombre(al.getNombreUsuario(), al.getApellidoUsuarioPaterno(), 30));
             
             Profesor guia = temaMB.getGuia();
+            Usuario pguia = usuarioFacade.findByRut(guia.getRutProfesor()).get(0);
             str = new StringBuilder("");
             if (guia != null){
-                str.append(Util.reducirNombre( guia.getNombreProfesor(), guia.getApellidoProfesor(), 30));
+                str.append(Util.reducirNombre( pguia.getNombreUsuario(), pguia.getApellidoUsuarioPaterno(), 30));
             }
             stamper.getAcroFields().setField("guide_proffesor", str.toString());
             
             Profesor coGuia = temaMB.getCoguia();
+            Usuario pcoguia = usuarioFacade.findByRut(coGuia.getRutProfesor()).get(0);
             str = new StringBuilder("");
             if ( coGuia != null){
-                str.append(Util.reducirNombre( coGuia.getNombreProfesor(), coGuia.getApellidoProfesor(), 30));
+                str.append(Util.reducirNombre( pcoguia.getNombreUsuario(), pcoguia.getApellidoUsuarioPaterno(), 30));
             }
             stamper.getAcroFields().setField("co_guide_proffesor", str.toString());
             
             Profesor corrector1 = temaMB.getCorrector1(), 
                     corrector2 = temaMB.getCorrector2();
-
+            Usuario pcorre1 = usuarioFacade.findByRut(corrector1.getRutProfesor()).get(0);
+            Usuario pcorre2 = usuarioFacade.findByRut(corrector2.getRutProfesor()).get(0);
             if (corrector1 != null){
-                str = new StringBuilder(Util.reducirNombre( corrector1.getNombreProfesor(), corrector1.getApellidoProfesor(), 20));
+                str = new StringBuilder(Util.reducirNombre( pcorre1.getNombreUsuario(), pcorre1.getApellidoUsuarioPaterno(), 20));
                 stamper.getAcroFields().setField("commission_proffesor_1", str.toString());
             }
             
             if ( corrector2 != null ){
-                str = new StringBuilder(Util.reducirNombre( corrector2.getNombreProfesor(), corrector2.getApellidoProfesor(), 20));
+                str = new StringBuilder(Util.reducirNombre( pcorre2.getNombreUsuario(), pcorre2.getNombreUsuario(), 20));
                 stamper.getAcroFields().setField("commission_proffesor_2", str.toString());
             }
             
             stamper.getAcroFields().setField("student_rut", Util.formatearRut(alumno.getRutAlumno()));
-            stamper.getAcroFields().setField("student_phone", alumno.getTelefonoAlumno());
-            stamper.getAcroFields().setField("student_email", alumno.getMailAlumno());
-            stamper.getAcroFields().setField("student_address", alumno.getDireccionAlumno());
+            stamper.getAcroFields().setField("student_phone", al.getTelefonoUsuario());
+            stamper.getAcroFields().setField("student_email", al.getMailUsuario());
+            stamper.getAcroFields().setField("student_address", al.getDireccionUsuario());
             
             SimpleDateFormat formateador = new SimpleDateFormat("dd 'de' MMMM 'de' yyyy", new Locale("ES"));
             str = new StringBuilder("Santiago, ");
