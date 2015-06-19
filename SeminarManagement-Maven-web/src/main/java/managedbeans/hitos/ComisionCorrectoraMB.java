@@ -13,6 +13,7 @@ import entities.Profesor;
 import entities.Propuesta;
 import entities.Semestre;
 import entities.Tema;
+import entities.Usuario;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,6 +34,7 @@ import sessionbeans.HistorialFacadeLocal;
 import sessionbeans.ProfeCorreccionFacadeLocal;
 import sessionbeans.SemestreActualFacadeLocal;
 import sessionbeans.SemestreFacadeLocal;
+import sessionbeans.UsuarioFacadeLocal;
 
 /**
  *
@@ -57,7 +59,8 @@ public class ComisionCorrectoraMB {
     private ProfesorFacadeLocal profesorFacade;
     @EJB
     private ComisionCorrectoraFacadeLocal comisionCorrectoraFacade;
-    
+    @EJB
+    private UsuarioFacadeLocal usuarioFacade;
     private Integer idTema;
     private String rutAlumno,nombreTema, profesor1,profesor2,fechaTema,semestreTema,fechaCorr, semestreCorr;
     private Date date;
@@ -123,7 +126,8 @@ public class ComisionCorrectoraMB {
             for(int j=0;j<profCorr.size();j++)
                 if(profCorr.get(j).getComisionCorrectora().getIdSemestre().getIdSemestre().equals(semestreCorr))
                     corrTemp++;
-            profeDatosTemp = new ProfeDatos(-1,-1,-1,corrTemp,profes.get(i).getRutProfesor(),profes.get(i).getNombreProfesor(),profes.get(i).getApellidoProfesor());
+            Usuario prof = usuarioFacade.findByRut(profes.get(i).getRutProfesor()).get(0);
+            profeDatosTemp = new ProfeDatos(-1,-1,-1,corrTemp,profes.get(i).getRutProfesor(),prof.getNombreUsuario(),prof.getApellidoUsuarioPaterno());
             profesores.add(profeDatosTemp);
         }
     }
@@ -473,32 +477,7 @@ public class ComisionCorrectoraMB {
         tema.setEstadoTema(4);
         temaFacade.edit(tema);
         
-        //Añadimos al historial del alumno
-        Date temp = new Date();
-        String dateHist = dateToString(temp);
-        Historial histTemaAlum = new Historial();
-        histTemaAlum.setDescripcion("Se le asignó Comisión Correctora. Lo ingresó el usuario "+user.getFullNameUser());
-        histTemaAlum.setFechaHistorial(dateHist);
-        histTemaAlum.setTipoHistorial(2);
-        histTemaAlum.setIdEntidad(tema.getIdRevisora().getIdPropuesta().getRutAlumno().getRutAlumno());
-        historialFacade.create(histTemaAlum);
-        
-        
-        //Añadimos al historial del usuario que creo la comisión revisora
-        Historial histComCorrecUser = new Historial();
-        histComCorrecUser.setDescripcion("Ingresó Comisión Correctora al alumno "+tema.getIdRevisora().getIdPropuesta().getRutAlumno().getNombreAlumno()+" "+tema.getIdRevisora().getIdPropuesta().getRutAlumno().getApellidoAlumno());
-        histComCorrecUser.setFechaHistorial(dateHist);
-        histComCorrecUser.setTipoHistorial(3);
-        histComCorrecUser.setIdEntidad(user.getUsername());
-        historialFacade.create(histComCorrecUser);
-        
-        //Agregamos el historial de cambio de estado
-        Historial historial = new Historial();
-        historial.setDescripcion("Comision Correctora: El estado del tema cambió de 'Vigente con borrador final' a 'En proceso de examen'");
-        historial.setFechaHistorial(fechaCorr);
-        historial.setIdEntidad(String.valueOf(idTema));
-        historial.setTipoHistorial(1);
-        historialFacade.create(historial);
+
         
         //Mensaje de confirmación
         context.addMessage(null, new FacesMessage("Comisión Correctora", "Comisión ingresada al sistema, el estado del tema seleccionado se modificó a 'En proceso de examen'"));

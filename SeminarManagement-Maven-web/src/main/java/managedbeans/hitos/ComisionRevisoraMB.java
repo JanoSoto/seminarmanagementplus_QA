@@ -14,6 +14,7 @@ import entities.ProfeRevision;
 import entities.Profesor;
 import entities.Propuesta;
 import entities.Semestre;
+import entities.Usuario;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -34,6 +35,7 @@ import javax.faces.bean.ManagedProperty;
 import managedbeans.AuthMB;
 import sessionbeans.HistorialFacadeLocal;
 import sessionbeans.PropuestaFacadeLocal;
+import sessionbeans.UsuarioFacadeLocal;
 
 /**
  *
@@ -58,7 +60,8 @@ public class ComisionRevisoraMB {
     private ProfeRevisionFacadeLocal profeRevisionFacade;
     @EJB
     private ComisionRevisoraFacadeLocal comisionRevisoraFacade;
-
+    @EJB
+    private UsuarioFacadeLocal usuarioFacade;
     private Integer idProp,tipoRevision;
     private String nombrePropuesta,rutAlumno,fechaProp,semestreProp,nombreProp,rutProfeRev1, rutProfeRev2, fechaRev, semestreRev;
     private Propuesta propuesta;
@@ -175,8 +178,9 @@ public class ComisionRevisoraMB {
                             if(profProp.get(j).getPropuesta().getIdRevisora().getIdTema().getEstadoTema()==0)
                                 guiaTem++;
                 }
+            Usuario prof = usuarioFacade.findByRut(profes.get(i).getRutProfesor()).get(0);
             profeDatosTemp = new ProfeDatos(guiaProp,guiaTem,revisorTemp,-1,
-                    profes.get(i).getRutProfesor(),profes.get(i).getNombreProfesor(),profes.get(i).getApellidoProfesor());
+                    profes.get(i).getRutProfesor(),prof.getNombreUsuario(),prof.getApellidoUsuarioPaterno());
             profeDatosTemp.setRevProp(revProp);
             profeDatosTemp.setRevSem(revSem);
             profesores.add(profeDatosTemp);
@@ -619,24 +623,6 @@ public class ComisionRevisoraMB {
         propuesta.setIdRevisora(nuevaComision);
         propuestaFacade.edit(propuesta);
         
-        //Añadimos al historial 
-        Date temp = new Date();
-        String dateHist = dateToString(temp);
-        Historial histComRevAlum = new Historial();
-        histComRevAlum.setDescripcion("Se le asignó Comisión Revisora. La ingresó el usuario "+user.getFullNameUser());
-        histComRevAlum.setFechaHistorial(dateHist);
-        histComRevAlum.setTipoHistorial(2);
-        histComRevAlum.setIdEntidad(propuesta.getRutAlumno().getRutAlumno());
-        historialFacade.create(histComRevAlum);
-        
-        
-        //Añadimos al historial del usuario que creo la comisión revisora
-        Historial histComRevUser = new Historial();
-        histComRevUser.setDescripcion("Ingresó Comisión Revisora de la propuesta del alumno "+propuesta.getRutAlumno().getNombreAlumno()+" "+propuesta.getRutAlumno().getApellidoAlumno());
-        histComRevUser.setFechaHistorial(dateHist);
-        histComRevUser.setTipoHistorial(3);
-        histComRevUser.setIdEntidad(user.getUsername());
-        historialFacade.create(histComRevUser);
         
         //Mensaje de confirmación 
         context.addMessage(null, new FacesMessage("Comisión Revisora", "Revisión de "+propuesta.getNombrePropuesta()+", ingresada al sistema"));

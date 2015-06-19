@@ -13,6 +13,7 @@ import entities.ComisionCorrectora;
 import entities.ComisionRevisora;
 import entities.Historial;
 import entities.Tema;
+import entities.Usuario;
 import java.io.IOException;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -27,6 +28,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import sessionbeans.HistorialFacadeLocal;
 import sessionbeans.TemaFacadeLocal;
+import sessionbeans.UsuarioFacadeLocal;
 
 /**
  *
@@ -39,7 +41,8 @@ public class TemaViewMB implements Serializable {
     private HistorialFacadeLocal historialFacade;
     @EJB
     private TemaFacadeLocal temaFacade;
-
+    @EJB
+    private UsuarioFacadeLocal usuarioFacade;
     /**
      * Creates a new instance of TemaViewMB
      */
@@ -129,12 +132,17 @@ public class TemaViewMB implements Serializable {
                     temaSelected.setIngresoTema("Ramo de Seminario");
                 if (tema.getIdRevisora().getTipoRevision() == 2)
                     temaSelected.setIngresoTema("Acuerdo de Consejo");
-                temaSelected.setNombreAlumno(tema.getIdRevisora().getIdPropuesta().getRutAlumno().getNombreAlumno()+" "+tema.getIdRevisora().getIdPropuesta().getRutAlumno().getApellidoAlumno());
+                Usuario us = usuarioFacade.findByRut(tema.getIdRevisora().getIdPropuesta().getRutAlumno().getRutAlumno()).get(0);
+                temaSelected.setNombreAlumno(us.getNombreUsuario()+" "+us.getApellidoUsuarioPaterno());
                 for(int i=0; i<tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().size(); i++){
-                    if(tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(i).getRolGuia() == 0)
-                        temaSelected.setNombreProfesor(tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(i).getProfesor().getNombreProfesor()+" "+tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(i).getProfesor().getApellidoProfesor());
-                    if(tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(i).getRolGuia() == 1)
-                        temaSelected.setNombreProfCoGuia(tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(i).getProfesor().getNombreProfesor()+" "+tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(i).getProfesor().getApellidoProfesor());
+                    if(tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(i).getRolGuia() == 0){
+                        Usuario us2 = usuarioFacade.findByRut(tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(i).getProfesor().getRutProfesor()).get(0);
+                        temaSelected.setNombreProfesor(us2.getNombreUsuario()+" "+us2.getApellidoUsuarioPaterno());
+                    }
+                    if(tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(i).getRolGuia() == 1){
+                        Usuario us3 = usuarioFacade.findByRut(tema.getIdRevisora().getIdPropuesta().getProfePropuestaList().get(i).getProfesor().getRutProfesor()).get(0);
+                        temaSelected.setNombreProfCoGuia(us3.getNombreUsuario()+" "+us3.getApellidoUsuarioPaterno());
+                    }
                 }
                 temaSelected.setNombreTema(tema.getNombreTema());
                 temaSelected.setSemestreTema(tema.getIdSemestre().getIdSemestre());
@@ -156,19 +164,26 @@ public class TemaViewMB implements Serializable {
             comRevisoraTema.setFecha(comRevTema.getFechaRevision());
             comRevisoraTema.setIdRevisora(String.valueOf(comRevTema.getIdRevisora()));
             comRevisoraTema.setIdSemestre(comRevTema.getIdSemestre().getIdSemestre());
-            comRevisoraTema.setNombreAlumno(comRevTema.getIdPropuesta().getRutAlumno().getNombreAlumno());
+            Usuario us = usuarioFacade.findByRut(comRevTema.getIdPropuesta().getRutAlumno().getRutAlumno()).get(0);
+            comRevisoraTema.setNombreAlumno(us.getNombreUsuario());
             comRevisoraTema.setRutAlumno(comRevTema.getIdPropuesta().getRutAlumno().getRutAlumno());
-            for(int i=0; i<comRevTema.getProfeRevisionList().size();i++)
-                comRevisoraTema.addProfRev(comRevTema.getProfeRevisionList().get(i).getProfesor().getNombreProfesor());
+            for(int i=0; i<comRevTema.getProfeRevisionList().size();i++){
+                Usuario us2 = usuarioFacade.findByRut(comRevTema.getProfeRevisionList().get(i).getProfesor().getRutProfesor()).get(0);
+                comRevisoraTema.addProfRev(us2.getNombreUsuario());
+            }
             if(comRevTema.getIdPropuesta().getNombrePropuesta().length()>38)
                 comRevisoraTema.setNombrePropuesta(comRevTema.getIdPropuesta().getNombrePropuesta().substring(0,39)+"...");
             else
                 comRevisoraTema.setNombrePropuesta(comRevTema.getIdPropuesta().getNombrePropuesta());
             for(int i=0;i<comRevTema.getIdPropuesta().getProfePropuestaList().size();i++){
-                if(comRevTema.getIdPropuesta().getProfePropuestaList().get(i).getRolGuia()== 0)
-                    comRevisoraTema.setProfGuia(comRevTema.getIdPropuesta().getProfePropuestaList().get(i).getProfesor().getNombreProfesor()+" "+comRevTema.getIdPropuesta().getProfePropuestaList().get(i).getProfesor().getApellidoProfesor());
-                if(comRevTema.getIdPropuesta().getProfePropuestaList().get(i).getRolGuia() == 1)
-                    comRevisoraTema.setProfCoGuia(comRevTema.getIdPropuesta().getProfePropuestaList().get(i).getProfesor().getNombreProfesor()+" "+comRevTema.getIdPropuesta().getProfePropuestaList().get(i).getProfesor().getApellidoProfesor());
+                if(comRevTema.getIdPropuesta().getProfePropuestaList().get(i).getRolGuia()== 0){
+                    Usuario profg = usuarioFacade.findByRut(comRevTema.getIdPropuesta().getProfePropuestaList().get(i).getProfesor().getRutProfesor()).get(0);
+                    comRevisoraTema.setProfGuia(profg.getNombreUsuario()+" "+profg.getApellidoUsuarioPaterno());
+                }
+                if(comRevTema.getIdPropuesta().getProfePropuestaList().get(i).getRolGuia() == 1){
+                    Usuario profcg = usuarioFacade.findByRut(comRevTema.getIdPropuesta().getProfePropuestaList().get(i).getProfesor().getRutProfesor()).get(0);
+                    comRevisoraTema.setProfCoGuia(profcg.getNombreUsuario()+" "+profcg.getApellidoUsuarioPaterno());
+                }
             }
             
             //Seteamos tipo de revision
@@ -205,9 +220,12 @@ public class TemaViewMB implements Serializable {
             comCorrectoraTema.setFecha(comCorrecTema.getFechaCorreccion());
             comCorrectoraTema.setIdCorrectora(String.valueOf(comCorrecTema.getIdCorrectora()));
             comCorrectoraTema.setIdSemestre(comCorrecTema.getIdSemestre().getIdSemestre());
-            comCorrectoraTema.addProfCorrec(comCorrecTema.getProfeCorreccionList().get(0).getProfesor().getNombreProfesor()+" "+comCorrecTema.getProfeCorreccionList().get(0).getProfesor().getApellidoProfesor());
-            comCorrectoraTema.addProfCorrec(comCorrecTema.getProfeCorreccionList().get(1).getProfesor().getNombreProfesor()+" "+comCorrecTema.getProfeCorreccionList().get(1).getProfesor().getApellidoProfesor());
-            comCorrectoraTema.setNombreAlumno(comCorrecTema.getIdTema().getIdRevisora().getIdPropuesta().getRutAlumno().getNombreAlumno()+" "+comCorrecTema.getIdTema().getIdRevisora().getIdPropuesta().getRutAlumno().getApellidoAlumno());
+            Usuario profeC = usuarioFacade.findByRut(comCorrecTema.getProfeCorreccionList().get(0).getProfesor().getRutProfesor()).get(0);
+            Usuario profeC2 = usuarioFacade.findByRut(comCorrecTema.getProfeCorreccionList().get(1).getProfesor().getRutProfesor()).get(0);
+            comCorrectoraTema.addProfCorrec(profeC.getNombreUsuario()+" "+profeC.getApellidoUsuarioPaterno());
+            comCorrectoraTema.addProfCorrec(profeC2.getNombreUsuario()+" "+profeC2.getApellidoUsuarioPaterno());
+            Usuario alu = usuarioFacade.findByRut(comCorrecTema.getIdTema().getIdRevisora().getIdPropuesta().getRutAlumno().getRutAlumno()).get(0);
+            comCorrectoraTema.setNombreAlumno(alu.getNombreUsuario()+" "+alu.getApellidoUsuarioPaterno());
             comCorrectoraTema.setNombreAlumno(comCorrecTema.getIdTema().getIdRevisora().getIdPropuesta().getRutAlumno().getRutAlumno());
             comCorrectoraTema.setIdTema(String.valueOf(comCorrecTema.getIdTema().getIdTema()));
             if(comCorrecTema.getIdTema().getNombreTema().length()>41)
@@ -215,8 +233,10 @@ public class TemaViewMB implements Serializable {
             else
                 comCorrectoraTema.setNombreTema(comCorrecTema.getIdTema().getNombreTema());
             //Seteamos prof correctores y notas, si es que están puestas
-            comCorrectoraTema.addProfCorrec(comCorrecTema.getProfeCorreccionList().get(0).getProfesor().getNombreProfesor()+" "+comCorrecTema.getProfeCorreccionList().get(0).getProfesor().getApellidoProfesor());
-            comCorrectoraTema.addProfCorrec(comCorrecTema.getProfeCorreccionList().get(1).getProfesor().getNombreProfesor()+" "+comCorrecTema.getProfeCorreccionList().get(1).getProfesor().getApellidoProfesor());
+            Usuario profCc = usuarioFacade.findByRut(comCorrecTema.getProfeCorreccionList().get(0).getProfesor().getRutProfesor()).get(0);
+            Usuario profCc2 = usuarioFacade.findByRut(comCorrecTema.getProfeCorreccionList().get(1).getProfesor().getRutProfesor()).get(0);
+            comCorrectoraTema.addProfCorrec(profCc.getNombreUsuario()+" "+profCc.getApellidoUsuarioPaterno());
+            comCorrectoraTema.addProfCorrec(profCc2.getNombreUsuario()+" "+profCc2.getApellidoUsuarioPaterno());
             if(comCorrecTema.getProfeCorreccionList().get(0).getNotaCorreccionDefensa() != null){
                 comCorrectoraTema.setNotaCorrec1Def(comCorrecTema.getProfeCorreccionList().get(0).getNotaCorreccionDefensa());
                 comCorrectoraTema.setNotaCorrec1Inf(comCorrecTema.getProfeCorreccionList().get(0).getNotaCorreccionInforme());
@@ -227,14 +247,17 @@ public class TemaViewMB implements Serializable {
             //Seteamos prof guía, co-guía y notaGuía si está puesta
             for(int i=0; i<comCorrecTema.getIdTema().getIdRevisora().getIdPropuesta().getProfePropuestaList().size(); i++){
                 if(comCorrecTema.getIdTema().getIdRevisora().getIdPropuesta().getProfePropuestaList().get(i).getRolGuia() == 0){
-                   comCorrectoraTema.setProfGuia(comCorrecTema.getIdTema().getIdRevisora().getIdPropuesta().getProfePropuestaList().get(i).getProfesor().getNombreProfesor()+" "+comCorrecTema.getIdTema().getIdRevisora().getIdPropuesta().getProfePropuestaList().get(i).getProfesor().getApellidoProfesor());
+                    Usuario profguia = usuarioFacade.findByRut(comCorrecTema.getIdTema().getIdRevisora().getIdPropuesta().getProfePropuestaList().get(i).getProfesor().getRutProfesor()).get(0);
+                   comCorrectoraTema.setProfGuia(profguia.getNombreUsuario()+" "+profguia.getApellidoUsuarioPaterno());
                    if(comCorrecTema.getIdTema().getIdRevisora().getIdPropuesta().getProfePropuestaList().get(i).getNotaGuiaInforme() != null){
                       comCorrectoraTema.setNotaGuiaDef(comCorrecTema.getIdTema().getIdRevisora().getIdPropuesta().getProfePropuestaList().get(i).getNotaGuiaDefensa());
                       comCorrectoraTema.setNotaGuiaInf(comCorrecTema.getIdTema().getIdRevisora().getIdPropuesta().getProfePropuestaList().get(i).getNotaGuiaInforme());
                    }
                 }
-                if(comCorrecTema.getIdTema().getIdRevisora().getIdPropuesta().getProfePropuestaList().get(i).getRolGuia() == 1)
-                    comCorrectoraTema.setProfCoGuia(comCorrecTema.getIdTema().getIdRevisora().getIdPropuesta().getProfePropuestaList().get(i).getProfesor().getNombreProfesor()+" "+comCorrecTema.getIdTema().getIdRevisora().getIdPropuesta().getProfePropuestaList().get(i).getProfesor().getApellidoProfesor());
+                if(comCorrecTema.getIdTema().getIdRevisora().getIdPropuesta().getProfePropuestaList().get(i).getRolGuia() == 1){
+                    Usuario profcGuia = usuarioFacade.findByRut(comCorrecTema.getIdTema().getIdRevisora().getIdPropuesta().getProfePropuestaList().get(i).getProfesor().getRutProfesor()).get(0);
+                    comCorrectoraTema.setProfCoGuia(profcGuia.getNombreUsuario()+" "+profcGuia.getApellidoUsuarioPaterno());
+                }
             }
         } catch (Exception e){
             Logger.getLogger(TemaViewMB.class.getName()).log(Level.SEVERE, null, e);

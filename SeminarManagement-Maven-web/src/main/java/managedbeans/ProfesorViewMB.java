@@ -474,6 +474,7 @@ public class ProfesorViewMB implements Serializable {
                         for(int j=0; j<comRev.getProfeRevisionList().size(); j++){
                             Usuario proff = usuarioFacade.findByRut(comRev.getProfeRevisionList().get(j).getProfesor().getRutProfesor()).get(0);
                             propuesta.addProfRev(proff.getNombreUsuario()+" "+proff.getApellidoUsuarioPaterno());
+                        }
                         if(profesor.getProfePropuestaList().get(i).getRolGuia() == 0){
                             Usuario proff2 = usuarioFacade.findByRut(profesor.getProfePropuestaList().get(i).getProfesor().getRutProfesor()).get(0);
                             propuesta.setProfGuia(proff2.getNombreUsuario()+" "+proff2.getApellidoUsuarioPaterno());
@@ -488,7 +489,6 @@ public class ProfesorViewMB implements Serializable {
                         }
                     }
                 }
-            }
         } catch (Exception e){
             Logger.getLogger(ProfesorViewMB.class.getName()).log(Level.SEVERE, null, e);
             FacesContext.getCurrentInstance().getExternalContext().redirect("../../error.xhtml");

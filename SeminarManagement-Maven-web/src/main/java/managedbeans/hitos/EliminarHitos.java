@@ -17,6 +17,7 @@ import entities.ProfeRevision;
 import entities.Profesor;
 import entities.Propuesta;
 import entities.Tema;
+import entities.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -34,6 +35,7 @@ import sessionbeans.ProfeRevisionFacadeLocal;
 import sessionbeans.ProfesorFacadeLocal;
 import sessionbeans.PropuestaFacadeLocal;
 import sessionbeans.TemaFacadeLocal;
+import sessionbeans.UsuarioFacadeLocal;
 
 /**
  *
@@ -60,7 +62,8 @@ public class EliminarHitos {
     private TemaFacadeLocal temaFacade;
     @EJB
     private ProfeCorreccionFacadeLocal profeCorreccionFacade;
-    
+    @EJB
+    private UsuarioFacadeLocal usuarioFacade;
     private Integer idProp, idRev, idTem,idCorr;
     private String rutAlumno="", guiaProp, profRev1, profRev2, profCorr1, profCorr2;
     private List<Alumno> alumnos;
@@ -105,26 +108,35 @@ public class EliminarHitos {
             return;
         }
         Propuesta propTemp = propuestaFacade.findById(idProp).get(0);
-        guiaProp = propTemp.getProfePropuestaList().get(0).getProfesor().getNombreProfesor()+" "+propTemp.getProfePropuestaList().get(0).getProfesor().getApellidoProfesor();
+        Usuario us = usuarioFacade.findByRut(propTemp.getProfePropuestaList().get(0).getProfesor().getRutProfesor()).get(0);
+        guiaProp = us.getNombreUsuario()+" "+us.getApellidoUsuarioPaterno();
         rutAlumno = propTemp.getRutAlumno().getRutAlumno();
         updateByAlumno();
         if(propTemp.getIdRevisora()!=null){
             comRev = propTemp.getIdRevisora();
             for(int i=0;i<comRev.getProfeRevisionList().size();i++){
-                if(comRev.getProfeRevisionList().get(i).getRolRevision()==0)
-                    profRev1 = comRev.getProfeRevisionList().get(i).getProfesor().getNombreProfesor()+" "+comRev.getProfeRevisionList().get(i).getProfesor().getApellidoProfesor();
-                if(comRev.getProfeRevisionList().get(i).getRolRevision()==1)
-                    profRev2 = comRev.getProfeRevisionList().get(i).getProfesor().getNombreProfesor()+" "+comRev.getProfeRevisionList().get(i).getProfesor().getApellidoProfesor();
+                if(comRev.getProfeRevisionList().get(i).getRolRevision()==0){
+                    Usuario profR = usuarioFacade.findByRut(comRev.getProfeRevisionList().get(i).getProfesor().getRutProfesor()).get(0);
+                    profRev1 = profR.getNombreUsuario()+" "+profR.getApellidoUsuarioPaterno();
+                }
+                if(comRev.getProfeRevisionList().get(i).getRolRevision()==1){
+                    Usuario profR2 = usuarioFacade.findByRut(comRev.getProfeRevisionList().get(i).getProfesor().getRutProfesor()).get(0);
+                    profRev2 = profR2.getNombreUsuario()+" "+profR2.getApellidoUsuarioPaterno();
+                }
             }
             if(comRev.getIdTema()!=null){
                 tema = comRev.getIdTema();
                 if(tema.getIdCorrectora()!=null){
                     comCorr = tema.getIdCorrectora();
                     for(int i=0;i<comCorr.getProfeCorreccionList().size();i++){
-                        if(comCorr.getProfeCorreccionList().get(i).getRolCorreccion()==0)
-                            profCorr1 = comCorr.getProfeCorreccionList().get(i).getProfesor().getNombreProfesor()+" "+comCorr.getProfeCorreccionList().get(i).getProfesor().getApellidoProfesor();
-                        if(comCorr.getProfeCorreccionList().get(i).getRolCorreccion()==1)
-                            profCorr2 = comCorr.getProfeCorreccionList().get(i).getProfesor().getNombreProfesor()+" "+comCorr.getProfeCorreccionList().get(i).getProfesor().getApellidoProfesor();
+                        if(comCorr.getProfeCorreccionList().get(i).getRolCorreccion()==0){
+                            Usuario profCr = usuarioFacade.findByRut(comCorr.getProfeCorreccionList().get(i).getProfesor().getRutProfesor()).get(0);
+                            profCorr1 = profCr.getNombreUsuario()+" "+profCr.getApellidoUsuarioPaterno();
+                        }
+                        if(comCorr.getProfeCorreccionList().get(i).getRolCorreccion()==1){
+                            Usuario profCr2 = usuarioFacade.findByRut(comCorr.getProfeCorreccionList().get(i).getProfesor().getRutProfesor()).get(0);
+                            profCorr2 = profCr2.getNombreUsuario()+" "+profCr2.getApellidoUsuarioPaterno();
+                        }
                     }
                 }
             }
