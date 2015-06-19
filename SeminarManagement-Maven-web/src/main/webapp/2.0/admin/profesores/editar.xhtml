@@ -62,11 +62,10 @@
 
                         <p:outputLabel for="celular" value="Celular"/>
                         <p:inputText id="celular" value="#{verProfesorMB.profesorEdit.telefonoProfesor}">
-                            <f:validator validatorId="celularValidator" />
                         </p:inputText>
                         <p:watermark for="celular" value="Ingresar Celular"/>
 
-                        <p:outputLabel for="contrato" value="Contrato" />
+                        <p:outputLabel for="contrato" value="Vínculo DIINF" />
                         <p:selectOneMenu id="contrato" value="#{verProfesorMB.profesorEdit.contrato}">
                             <f:selectItem itemLabel="Externo" itemValue="0" />
                             <f:selectItem itemLabel="JC" itemValue="1" />
