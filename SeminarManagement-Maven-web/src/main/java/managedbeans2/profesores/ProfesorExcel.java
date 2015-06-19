@@ -18,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import sessionbeans.SemestreActualFacadeLocal;
 import sessionbeans.TemaFacadeLocal;
-import static util.Util.csvTextToExcel;
+import static util.SMUtil.csvTextToExcel;
 
 /**
  *

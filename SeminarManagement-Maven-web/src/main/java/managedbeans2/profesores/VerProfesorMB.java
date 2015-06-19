@@ -1,6 +1,6 @@
 package managedbeans2.profesores;
 
-import util.Util;
+import util.SMUtil;
 import clases.PropuestaDatos;
 import clases.TemaDatos;
 import entities.Alumno;
@@ -60,7 +60,7 @@ public class VerProfesorMB {
             profesor = profesorFacade.findByRut(rutProfesor).get(0);
             semestre = semestreActualFacade.findAll();
             semestreActual = semestre.get(0).getSemestreActual();
-            semestreAnterior= Util.semestreAnterior(semestreActual);
+            semestreAnterior= SMUtil.semestreAnterior(semestreActual);
             
             //Instanciamos para editar al profesor
             profesorEdit = profesor;

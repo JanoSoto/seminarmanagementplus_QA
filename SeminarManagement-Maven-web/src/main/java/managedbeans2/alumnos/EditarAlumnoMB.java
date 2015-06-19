@@ -1,6 +1,6 @@
 package managedbeans2.alumnos;
 
-import util.Util;
+import util.SMUtil;
 import entities.Alumno;
 import entities.AsociacionPlanEstudioAlumno;
 import entities.PlanEstudio;
@@ -271,11 +271,11 @@ public class EditarAlumnoMB implements Serializable {
     }
 
     public String jornadaToString(Integer jornada) {
-        return Util.jornadaToString(jornada);
+        return SMUtil.jornadaToString(jornada);
     }
 
     public String jornadaToStringUpperCase(Integer jornada) {
-        return Util.jornadaToString(jornada).toUpperCase();
+        return SMUtil.jornadaToString(jornada).toUpperCase();
     }
 
 }
