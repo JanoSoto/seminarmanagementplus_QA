@@ -18,7 +18,7 @@
         <p:layoutUnit position="west" size="180" style="border: none;">
             <p:panel style="border:none;">
                 <h:panelGrid columns="1" cellpadding="4">
-                    <p:button href="/2.0/secretaria/alumnos/agregar.xhtml" value="Agregar Alumno"/>
+                    <p:button href="/2.0/admin/alumnos/agregar.xhtml" value="Agregar Alumno"/>
                 </h:panelGrid>
             </p:panel>
         </p:layoutUnit>
@@ -33,18 +33,25 @@
                         Listado de Alumnos Memoristas
                     </f:facet>
                     <p:column headerText="Nombre" filterMatchMode="contains" filterBy="#{alum.nombreAlumno} #{alum.apellidoAlumno}" sortBy="#{alum.nombreAlumno}"> 
-                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/alumnos/alumno.xhtml?alum=#{alum.rutAlumno}">
+                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/alumnos/alumno.xhtml?alum=#{alum.rutAlumno}">
                             <h:outputText value="#{alum.nombreAlumno} #{alum.apellidoAlumno}" />
                         </a>
                     </p:column>
                     <p:column headerText="Rut" filterMatchMode="contains" filterBy="#{alum.rutAlumno}" sortBy="#{alum.rutAlumno}">
-                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/alumnos/alumno.xhtml?alum=#{alum.rutAlumno}">
+                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/alumnos/alumno.xhtml?alum=#{alum.rutAlumno}">
                         <h:outputText value="#{alum.rutAlumnoFormateado}" style="float: right;"/>
                     </a>
                     </p:column>
+<<<<<<< HEAD
+                    <p:column headerText="Carrera">
+                        <h:outputText rendered="#{false}" value="Diurno"/>
+                        <h:outputText rendered="#{false}" value="Vespertino"/> <!--vespertino-->
+                        <h:outputText value="#{alum.planActivo.codigo} #{alum.planActivo.carreraId.nombre} #{alum.versionPlanActivo}"/>
+=======
                     <p:column headerText="Jornada">
                         <h:outputText rendered="#{alum.planActivo.jornada eq 0}" value="Diurna"/>
                         <h:outputText rendered="#{alum.planActivo.jornada eq 1}" value="Vespertina"/>
+>>>>>>> 5deca9547b661be37fd3ced0ca744265a537416b
                     </p:column>
                 </p:dataTable>
             </h:form>
