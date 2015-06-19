@@ -34,8 +34,11 @@
                             <c:if test="#{authMB.tipo eq 'ADMINISTRADOR'}">
                                 <span><a href="/SeminarManagement-Maven-web/2.0/admin/index.xhtml"><p:graphicImage alt="Seminar Management" url="/resources/images/seminar.png"/></a></span>
                             </c:if>
-                            <c:if test="#{!authMB.tipo eq 'ADMINISTRADOR'}">
+                            <c:if test="#{authMB.tipo eq 'SECRETARIA'}">
                                 <span><a href="/SeminarManagement-Maven-web/2.0/secretaria/index.xhtml"><p:graphicImage alt="Seminar Management" url="/resources/images/seminar.png"/></a></span>
+                            </c:if>
+                            <c:if test="#{empty authMB.tipo}">
+                                <span><a href="/SeminarManagement-Maven-web/2.0/login.xhtml"><p:graphicImage alt="Seminar Management" url="/resources/images/seminar.png"/></a></span>
                             </c:if>
                         </p:layoutUnit>
                         <p:layoutUnit position="east" size="180" style="border: none;text-align : center;">

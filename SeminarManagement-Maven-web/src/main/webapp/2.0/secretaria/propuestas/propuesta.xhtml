@@ -40,6 +40,17 @@
                 <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Semestre propuesta:"/>
                 <h:outputText style="padding-left: 1em;" value="#{verPropuestaMB.propuesta.idSemestre.idSemestre}"/>
                 <br/>
+                <p:outputLabel rendered="#{not empty verPropuestaMB.propuesta.idRevisora
+                                           and not empty verPropuestaMB.propuesta.idRevisora.tipoRevision }" style="color: #0052cc;font-weight: bold;" value="Tipo Revisión:"/>
+                <h:outputText rendered="#{not empty verPropuestaMB.propuesta.idRevisora
+                                           and not empty verPropuestaMB.propuesta.idRevisora.tipoRevision
+                                           and verPropuestaMB.propuesta.idRevisora.tipoRevision eq 0 }" style="padding-left: 1em; white-space: pre-line;" value="Trabajo de Título (Secretaría) &#10;" escape="false"/>
+                <h:outputText rendered="#{not empty verPropuestaMB.propuesta.idRevisora
+                                           and not empty verPropuestaMB.propuesta.idRevisora.tipoRevision
+                                           and verPropuestaMB.propuesta.idRevisora.tipoRevision eq 1 }" style="padding-left: 1em; white-space: pre-line;" value="Seminario &#10;" escape="false"/>
+                <h:outputText rendered="#{not empty verPropuestaMB.propuesta.idRevisora
+                                           and not empty verPropuestaMB.propuesta.idRevisora.tipoRevision
+                                           and verPropuestaMB.propuesta.idRevisora.tipoRevision eq 2 }" style="padding-left: 1em; white-space: pre-line;" value="Acuerdo de Consejo &#10;" escape="false"/>
                 <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Tiene Comisión Revisora:"/>
                 <h:outputText rendered="#{not empty verPropuestaMB.propuesta.idRevisora}" style="padding-left: 1em;" value="SÍ"/>
                 <h:outputText rendered="#{empty verPropuestaMB.propuesta.idRevisora}" style="padding-left: 1em;" value="NO"/>
@@ -57,8 +68,16 @@
                     <h:panelGrid columns="1" cellpadding="4">
                         <p:button style="width:150px;" rendered="#{empty verPropuestaMB.propuesta.idRevisora}" href="/2.0/secretaria/propuestas/agregarcomrev.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Agregar Comisión Revisora"/>
                         <p:button style="width:150px;" rendered="#{ (not empty verPropuestaMB.propuesta.idRevisora) and (verPropuestaMB.propuesta.idRevisora.tipoRevision ne 2)}" href="/2.0/secretaria/propuestas/editarComRev.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Agregar Fechas Comisión"/>
-                        <p:button style="width:150px;" rendered="#{ (not empty verPropuestaMB.propuesta.idRevisora) and (verPropuestaMB.propuesta.idRevisora.tipoRevision eq 2)}" href="/2.0/secretaria/propuestas/editarComRevFechasConsejo.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Agregar/Editar Fechas Consejo"/>
-                        <p:button style="width:150px;" rendered="#{empty verPropuestaMB.propuesta.idRevisora.idTema and not empty verPropuestaMB.propuesta.idRevisora}" href="/2.0/secretaria/temas/agregar.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Agregar Tema"/>
+                        <p:button style="width:150px;" rendered="#{ (not empty verPropuestaMB.propuesta.idRevisora) and (verPropuestaMB.propuesta.idRevisora.tipoRevision eq 2)}" href="/2.0/secretaria/propuestas/editarComRevFechasConsejo.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Agregar/Editar Fechas"/>
+                        <h:panelGroup rendered="#{empty verPropuestaMB.propuesta.idRevisora.idTema
+                                                  and not empty verPropuestaMB.propuesta.idRevisora}" id="botonAgregarTema" layout="block" >
+                            <p:button style="width:150px;"
+                                      rendered="#{empty verPropuestaMB.propuesta.idRevisora.idTema
+                                                  and not empty verPropuestaMB.propuesta.idRevisora}" 
+                                                  disabled="#{not verPropuestaMB.puedeTenerTema}"
+                                                  href="/2.0/secretaria/temas/agregar.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}"
+                                    value="Agregar Tema"/>
+                        </h:panelGroup>
                         <p:button style="width:150px;" rendered="#{not empty verPropuestaMB.propuesta.idRevisora.idTema}" href="/2.0/secretaria/temas/tema.xhtml?tema=#{verPropuestaMB.propuesta.idRevisora.idTema.idTema}" value="Ver Tema"/>
                         <p:button style="width:150px;" href="/2.0/secretaria/propuestas/editarProp.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Editar Propuesta"/>
                         <h:form  rendered="#{verPropuestaMB.propuesta.idRevisora.tipoRevision != 2}" id="form66" style="" >
@@ -70,7 +89,9 @@
                         <p:button value="Descargar Doc. Acuerdo de Consejo" rendered="#{verPropuestaMB.propuesta.idRevisora.tipoRevision == 2}" style="width:150px" href="/PlantillaAcuerdo?id=#{verPropuestaMB.idPropuesta}"/>
                         <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Volver a Propuestas"/>
                     </h:panelGrid>
-
+                    <p:tooltip id="tooltipAgregarTema" rendered="#{not verPropuestaMB.puedeTenerTema}"
+                                   for="botonAgregarTema"
+                                   value="Debe ingresar las fechas entrega y devolución de los profesores antes de agregar tema"/>
                     <p:dialog modal="true" appendToBody="true" header="Confirmación" widgetVar="confirmation" width="350" closeOnEscape="true" closable="true" draggable="false" resizable="false" >
                         <strong>¿Está seguro? Esta acción generará los siguientes cambios dentro del sistema.</strong><br/>
                         <ul>

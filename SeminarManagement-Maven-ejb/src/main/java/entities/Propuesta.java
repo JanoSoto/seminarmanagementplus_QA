@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -20,7 +15,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -40,7 +34,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Propuesta.findByIdPropuesta", query = "SELECT p FROM Propuesta p WHERE p.idPropuesta = :idPropuesta"),
     @NamedQuery(name = "Propuesta.findByPet", query = "SELECT p FROM Propuesta p WHERE p.pet = :pet"),
     @NamedQuery(name = "Propuesta.findByIdSemestre", query = "SELECT p FROM Propuesta p WHERE p.idSemestre = :idSemestre"),
-    @NamedQuery(name = "Propuesta.findPropuesta", query = "SELECT p FROM Propuesta p WHERE p.nombrePropuesta LIKE :nombrePropuesta")})
+    @NamedQuery(name = "Propuesta.findPropuesta", query = "SELECT p FROM Propuesta p WHERE p.nombrePropuesta LIKE :nombrePropuesta"),
+    @NamedQuery(name = "Propuesta.findOneById", query = "SELECT p FROM Propuesta p WHERE p.idPropuesta = :id")})
 public class Propuesta implements Serializable {
     private static final long serialVersionUID = 1L;
     @Size(max = 400)
@@ -174,6 +169,32 @@ public class Propuesta implements Serializable {
         this.comisionRevisoraList = comisionRevisoraList;
     }
 
+    public Profesor getProfesorGuia(){
+        Profesor guia = null;
+        List<ProfePropuesta> listaProf =  getProfePropuestaList();
+        listaProf.size();
+        for (ProfePropuesta profeProp : listaProf) {
+            if ( profeProp.getRolGuia() == 0){
+                guia = profeProp.getProfesor();
+                break;
+            }
+        }
+        return guia;
+    }
+    
+    public Profesor getProfesorCoGuia(){
+        Profesor coGuia = null;
+        List<ProfePropuesta> listaProf =  getProfePropuestaList();
+        listaProf.size();
+        for (ProfePropuesta profeProp : listaProf) {
+            if ( profeProp.getRolGuia() == 1){
+                coGuia = profeProp.getProfesor();
+                break;
+            }
+        }
+        return coGuia;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

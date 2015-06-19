@@ -9,12 +9,15 @@ import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import sessionbeans.ComisionRevisoraFacadeLocal;
 import sessionbeans.SemestreActualFacadeLocal;
+import static util.SMUtil.csvTextToExcel;
 
 /**
  *
@@ -31,69 +34,72 @@ public class ReportePropuestasExcelServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        PrintWriter pw = response.getWriter();
+        StringBuilder sb = new StringBuilder();
         SemestreActual semestreActual = null;
         try  {
             List<SemestreActual> sems = semActFacade.findAll();
             if ( !sems.isEmpty() ){
                 semestreActual = sems.get(0);
             }
-            pw.println("Alumno\tCarrera\tTítulo Propuesta\tProfesor Guía\t"
-                    + "Fecha Entrega Propuesta\tProfesor Revisor 1\tEntrega\t"
-                    + "Devolución\tProfesor Revisor 2\tEntrega\tDevolución");
-            for (ComisionRevisora  com : revisoraFacade.findBySemestre(semestreActual.getSemestreActual())) {
-                if ( com.getTipoRevision() == 2)
-                    continue;
-
-                String salida =
-                        com.getIdPropuesta().getRutAlumno().getNombreAlumno() + " "
-                        + com.getIdPropuesta().getRutAlumno().getApellidoAlumno();
-                
-                if ( com.getIdPropuesta().getRutAlumno().getPlanActivo() == null)
-                    salida += "\t" ;
-                else 
-                    salida += "\t" + com.getIdPropuesta().getRutAlumno().getPlanActivo().getCodigo();
-                
-                salida += "\t" + com.getIdPropuesta().getNombrePropuesta();
-                salida += "\t" + com.getGuia().getNombreProfesor() + " "
-                        + com.getGuia().getApellidoProfesor();
-                salida += "\t" + com.getIdPropuesta().getFechaPropuesta();
-                
-                if ( com.getRevisor1() != null){
-                    salida += "\t" + com.getRevisor1().getNombreProfesor() + " "
-                        + com.getRevisor1().getApellidoProfesor();
+            sb.append("Alumno\tCarrera\tTítulo Propuesta\tProfesor Guía\t")
+                    .append("Fecha Entrega Propuesta\tProfesor Revisor 1\tEntrega\t")
+                    .append("Devolución\tProfesor Revisor 2\tEntrega\tDevolución\n");
+            if (semestreActual.getSemestreActual() != null) {
+                for (ComisionRevisora  com : revisoraFacade.findBySemestre(semestreActual.getSemestreActual())) {
+                    if ( com.getTipoRevision() == 2)
+                        continue;
                     
-                    if ( com.getFechaRevision() != null )
-                        salida += "\t" + com.getFechaRevision();
+                    String salida =
+                            com.getIdPropuesta().getRutAlumno().getNombreAlumno() + " "
+                            + com.getIdPropuesta().getRutAlumno().getApellidoAlumno();
+                    
+                    if ( com.getIdPropuesta().getRutAlumno().getPlanActivo() == null)
+                        salida += "\t" ;
                     else
-                        salida += "\t";
+                        salida += "\t" + com.getIdPropuesta().getRutAlumno().getPlanActivo().getCodigo();
                     
-                    if ( com.getFechaEntregaRevision() != null )
-                        salida += "\t" + com.getFechaEntregaRevision();
-                    else
-                        salida += "\t";
+                    salida += "\t" + com.getIdPropuesta().getNombrePropuesta();
+                    salida += "\t" + com.getGuia().getNombreProfesor() + " "
+                            + com.getGuia().getApellidoProfesor();
+                    salida += "\t" + com.getIdPropuesta().getFechaPropuesta();
                     
-                } else
-                    salida += "\t\t\t";
-                
-                if ( com.getRevisor2() != null){
-                    salida += "\t" + com.getRevisor2().getNombreProfesor() + " "
-                        + com.getRevisor2().getApellidoProfesor();
+                    if ( com.getRevisor1() != null){
+                        salida += "\t" + com.getRevisor1().getNombreProfesor() + " "
+                                + com.getRevisor1().getApellidoProfesor();
+                        
+                        if ( com.getFechaRevision() != null )
+                            salida += "\t" + com.getFechaRevision();
+                        else
+                            salida += "\t";
+                        
+                        if ( com.getFechaEntregaRevision() != null )
+                            salida += "\t" + com.getFechaEntregaRevision();
+                        else
+                            salida += "\t";
+                        
+                    } else
+                        salida += "\t\t\t";
                     
-                    if ( com.getFechaRevision2() != null )
-                        salida += "\t" + com.getFechaRevision2();
-                    else
-                        salida += "\t";
+                    if ( com.getRevisor2() != null){
+                        salida += "\t" + com.getRevisor2().getNombreProfesor() + " "
+                                + com.getRevisor2().getApellidoProfesor();
+                        
+                        if ( com.getFechaRevision2() != null )
+                            salida += "\t" + com.getFechaRevision2();
+                        else
+                            salida += "\t";
+                        
+                        if ( com.getFechaEntregaRevision2() != null )
+                            salida += "\t" + com.getFechaEntregaRevision2();
+                        else
+                            salida += "\t";
+                        
+                    } else
+                        salida += "\t\t\t";
                     
-                    if ( com.getFechaEntregaRevision2() != null )
-                        salida += "\t" + com.getFechaEntregaRevision2();
-                    else
-                        salida += "\t";
-                    
-                } else
-                    salida += "\t\t\t";
-                
-                pw.println(salida);
+                    sb.append(salida).append("\n");
+                }
+            } else {
             }
 
             response.setContentType("application/vnd.ms-excel");
@@ -101,8 +107,13 @@ public class ReportePropuestasExcelServlet extends HttpServlet {
             Date date = new Date();
             String file_name = "Seguimiento Revision Propuestas " + 
                     semestreActual.getSemestreActual().replace("/", "-") +
-                    " "+ dateFormat.format(date) + ".csv";
+                    " "+ dateFormat.format(date) + ".xlsx";
             response.setHeader("Content-Disposition", "attachment; filename=\"" + file_name + "\"");
+            
+            ServletOutputStream sos;
+            sos = response.getOutputStream();
+            XSSFWorkbook wb = csvTextToExcel(sb.toString());
+            wb.write(sos);
             
         } catch(Exception ex){
             ex.printStackTrace();
@@ -112,7 +123,6 @@ public class ReportePropuestasExcelServlet extends HttpServlet {
             writer.println("<pre>");
             writer.println("</pre>");
         } finally {
-            pw.close();
         }
     }
 

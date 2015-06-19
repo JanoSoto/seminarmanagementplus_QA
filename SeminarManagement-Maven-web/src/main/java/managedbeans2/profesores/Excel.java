@@ -16,6 +16,7 @@ import managedbeans2.SemestreMB;
  *
  * @author giovanni
  */
+// ya no se usa
 @WebServlet(urlPatterns = {"/excel"})
 public class Excel extends HttpServlet {
 
