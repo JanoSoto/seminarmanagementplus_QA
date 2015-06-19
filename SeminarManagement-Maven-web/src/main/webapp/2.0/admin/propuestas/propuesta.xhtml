@@ -40,9 +40,17 @@
                 <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Semestre propuesta:"/>
                 <h:outputText style="padding-left: 1em;" value="#{verPropuestaMB.propuesta.idSemestre.idSemestre}"/>
                 <br/>
-                <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Tipo Revisión:"/>
-                <h:outputText style="padding-left: 1em;" value="#{verPropuestaMB.propuesta.idRevisora.tipoRevision}"/>
-                <br/>
+                <p:outputLabel rendered="#{not empty verPropuestaMB.propuesta.idRevisora
+                                           and not empty verPropuestaMB.propuesta.idRevisora.tipoRevision }" style="color: #0052cc;font-weight: bold;" value="Tipo Revisión:"/>
+                <h:outputText rendered="#{not empty verPropuestaMB.propuesta.idRevisora
+                                           and not empty verPropuestaMB.propuesta.idRevisora.tipoRevision
+                                           and verPropuestaMB.propuesta.idRevisora.tipoRevision eq 0 }" style="padding-left: 1em; white-space: pre-line;" value="Trabajo de Título (Secretaría) &#10;" escape="false"/>
+                <h:outputText rendered="#{not empty verPropuestaMB.propuesta.idRevisora
+                                           and not empty verPropuestaMB.propuesta.idRevisora.tipoRevision
+                                           and verPropuestaMB.propuesta.idRevisora.tipoRevision eq 1 }" style="padding-left: 1em; white-space: pre-line;" value="Seminario &#10;" escape="false"/>
+                <h:outputText rendered="#{not empty verPropuestaMB.propuesta.idRevisora
+                                           and not empty verPropuestaMB.propuesta.idRevisora.tipoRevision
+                                           and verPropuestaMB.propuesta.idRevisora.tipoRevision eq 2 }" style="padding-left: 1em; white-space: pre-line;" value="Acuerdo de Consejo &#10;" escape="false"/>
                 <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Tiene Comisión Revisora:"/>
                 <h:outputText rendered="#{not empty verPropuestaMB.propuesta.idRevisora}" style="padding-left: 1em;" value="SÍ"/>
                 <h:outputText rendered="#{empty verPropuestaMB.propuesta.idRevisora}" style="padding-left: 1em;" value="NO"/>
