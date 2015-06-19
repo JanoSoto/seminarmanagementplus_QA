@@ -1,6 +1,6 @@
 package managedbeans2.profesores;
 
-import util.Util;
+import util.SMUtil;
 import clases.PropuestaDatos;
 import clases.TemaDatos;
 import entities.Alumno;
@@ -60,7 +60,7 @@ public class VerProfesorMB {
             profesor = profesorFacade.findByRut(rutProfesor).get(0);
             semestre = semestreActualFacade.findAll();
             semestreActual = semestre.get(0).getSemestreActual();
-            semestreAnterior= Util.semestreAnterior(semestreActual);
+            semestreAnterior= SMUtil.semestreAnterior(semestreActual);
             
             //Instanciamos para editar al profesor
             profesorEdit = profesor;
@@ -94,6 +94,7 @@ public class VerProfesorMB {
                                                 else{
                                                     propDatos.setNombreCorto(alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getIdPropuesta().getNombrePropuesta());
                                                 }
+                                                propDatos.setNombrePropuesta(alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getIdPropuesta().getNombrePropuesta());
                                                 propuestaDatosRevisora.add(propDatos);
                                                 
                                             }
@@ -110,6 +111,7 @@ public class VerProfesorMB {
                                                 else{
                                                     propDatos2.setNombreCorto(alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getIdPropuesta().getNombrePropuesta());
                                                 }
+                                                propDatos2.setNombrePropuesta(alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getIdPropuesta().getNombrePropuesta());
                                                 propuestaDatosRevisoraViejo.add(propDatos2);
                                             }
                                         }
@@ -137,6 +139,7 @@ public class VerProfesorMB {
                                 } else {
                                     temaDTemp2.setNombreCorto(profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getIdTema().getNombreTema());
                                 }
+                                temaDTemp2.setNombreTema(profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getIdTema().getNombreTema());
                                 temaDatosCorrectora.add(temaDTemp2);
                                 
                             }
@@ -153,6 +156,7 @@ public class VerProfesorMB {
                                 } else {
                                     temaDTemp3.setNombreCorto(profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getIdTema().getNombreTema());
                                 }
+                                temaDTemp3.setNombreTema(profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getIdTema().getNombreTema());
                                 temaDatosCorrectoraSemViejo.add(temaDTemp3);
                                 
                             }
@@ -174,6 +178,7 @@ public class VerProfesorMB {
                                 } else {
                                     temaDTemp.setNombreCorto(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getNombreTema());
                                 }
+                                temaDTemp.setNombreTema(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getNombreTema());
                                
                                 String semestre = profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getIdSemestre().getIdSemestre();
                                 if (semestre.equals(semestreActual)) {
@@ -191,6 +196,7 @@ public class VerProfesorMB {
                                 } else {
                                     temaDTemp.setNombreCorto(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getNombreTema());
                                 }
+                                temaDTemp.setNombreTema(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getNombreTema());
                                 temaDatosProrrogados.add(temaDTemp);
                                 temas.add(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema());
                             }
@@ -518,5 +524,21 @@ public List<TemaDatos> getTemaDatosCorrectora() {
 
     public void setPropuestaDatosRevisoraViejo(List<PropuestaDatos> propuestaDatosRevisoraViejo) {
         this.propuestaDatosRevisoraViejo = propuestaDatosRevisoraViejo;
+    }
+
+    public String getSemestreActual() {
+        return semestreActual;
+    }
+
+    public void setSemestreActual(String semestreActual) {
+        this.semestreActual = semestreActual;
+    }
+
+    public String getSemestreAnterior() {
+        return semestreAnterior;
+    }
+
+    public void setSemestreAnterior(String semestreAnterior) {
+        this.semestreAnterior = semestreAnterior;
     }
 }

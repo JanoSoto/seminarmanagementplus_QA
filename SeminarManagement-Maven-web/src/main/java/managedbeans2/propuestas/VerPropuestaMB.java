@@ -9,9 +9,7 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -49,7 +47,7 @@ public class VerPropuestaMB implements Serializable {
     private Date fechaPropEdit,date,date2;
     private Alumno alumno;
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(VerPropuestaMB.class);
-    private Map<String, Integer> tiposRevision = new HashMap<>();
+    private boolean puedeTenerTema = false;
     
     /**
      * Creates a new instance of VerPropuestaMB
@@ -70,14 +68,14 @@ public class VerPropuestaMB implements Serializable {
                 
                 if(propuesta.getPet()==null){
                     pet2 = "No hay Pet";
-                    
+                }else{
+                    pet = propuesta.getPet();
                 }
-                else{
-                    pet = propuesta.getPet();}
                 
                 if(pet == true){
                     pet2 = "Es Pet";
                 }
+                
                 if(pet == false){
                     pet2 = "No es Pet";
                 }
@@ -103,16 +101,27 @@ public class VerPropuestaMB implements Serializable {
                         coguia = propuesta.getProfePropuestaList().get(i).getProfesor();
                 }
 
-                if(propuesta.getIdRevisora()!=null)
+                if(propuesta.getIdRevisora()!=null){
                     for(int i=0;i<propuesta.getIdRevisora().getProfeRevisionList().size();i++){
                         if(propuesta.getIdRevisora().getProfeRevisionList().get(i).getRolRevision()==0)
                             revisor1 = propuesta.getIdRevisora().getProfeRevisionList().get(i).getProfesor();
                         if(propuesta.getIdRevisora().getProfeRevisionList().get(i).getRolRevision()==1)
                             revisor2 = propuesta.getIdRevisora().getProfeRevisionList().get(i).getProfesor();
                     }
+                    
+                    if (propuesta.getIdRevisora().getTipoRevision() == 2){
+                        //puedeTenerTema = propuesta.getIdRevisora().getFechaPublicacionConsejo() != null 
+                        //        && propuesta.getIdRevisora().getFechaTerminoPublicacionConsejo() != null;
+                        puedeTenerTema = true;
+                    } else {
+                        puedeTenerTema = propuesta.getIdRevisora().getFechaRevision() != null &&
+                                propuesta.getIdRevisora().getFechaRevision2() != null &&
+                                propuesta.getIdRevisora().getFechaEntregaRevision() != null &&
+                                propuesta.getIdRevisora().getFechaEntregaRevision2() != null;
+                    }
+                }
                 
-                alumno = propuesta.getRutAlumno();
-                
+                alumno = propuesta.getRutAlumno();               
             }
             
         
@@ -314,4 +323,13 @@ public class VerPropuestaMB implements Serializable {
     public void setAlumno(Alumno alumno) {
         this.alumno = alumno;
     }
+
+    public boolean isPuedeTenerTema() {
+        return puedeTenerTema;
+    }
+
+    public void setPuedeTenerTema(boolean puedeTenerTema) {
+        this.puedeTenerTema = puedeTenerTema;
+    }
+    
 }

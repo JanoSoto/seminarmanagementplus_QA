@@ -1,14 +1,20 @@
 package util;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 /**
  *
  * @author giovanni
  */
-public class Util {
+public class SMUtil {
     public static String formatearRut(String rut) {
 //        rut = rut.replaceAll("[^0-9]+", " ");
         int cont=0;
@@ -86,5 +92,24 @@ public class Util {
         } catch (ParseException e) {
             return null;
         }
+    }
+    
+    public static XSSFWorkbook csvTextToExcel(String csvContent) throws IOException{
+        XSSFWorkbook workBook = new XSSFWorkbook();
+        XSSFSheet sheet = workBook.createSheet("Hoja 1");
+        String currentLine;
+        int RowNum = 0;
+        
+        BufferedReader br = new BufferedReader(new StringReader(csvContent));
+        while ( ( currentLine = br.readLine() ) != null) {
+            String str[] = currentLine.split("\t");
+            XSSFRow currentRow = sheet.createRow(RowNum);
+            for(int i = 0; i < str.length; i++){
+                currentRow.createCell(i).setCellValue(str[i]);
+                sheet.autoSizeColumn(i);
+            }
+            RowNum++;
+        }
+        return workBook;
     }
 }

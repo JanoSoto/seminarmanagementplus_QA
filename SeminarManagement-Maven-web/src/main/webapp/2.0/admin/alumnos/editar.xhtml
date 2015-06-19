@@ -68,18 +68,24 @@
                     </h:panelGrid>
 
                     <h1>Planes alumno:</h1><br/>
+                    <c:if test="#{empty planEstudioMB.getAsociacionPlanesEstudioAlumno(editarAlumnoMB.rutAlumno)}">
+                        <strong>El alumno no tiene ningun plan asignado</strong>
+                    </c:if>
                     <table border="0">
-                        <c:forEach var="plan" items="#{planEstudioMB.getPlanesEstudioAlumno(editarAlumnoMB.rutAlumno)}">
+                        <c:forEach var="plan" items="#{planEstudioMB.getAsociacionPlanesEstudioAlumno(editarAlumnoMB.rutAlumno)}">
                             <tr>
                                 <td>
-                                    <c:if test="#{planEstudioMB.getIdPlanActivo(editarAlumnoMB.rutAlumno) == plan.id}"><strong>#{plan.codigo} #{plan.carreraId.nombre} (Activo)</strong></c:if>
-                                    <c:if test="#{planEstudioMB.getIdPlanActivo(editarAlumnoMB.rutAlumno) != plan.id}">#{plan.codigo} #{plan.carreraId.nombre}</c:if>
+                                    <c:if test="#{planEstudioMB.getIdPlanActivo(editarAlumnoMB.rutAlumno) == plan.planId and planEstudioMB.getVersionPlanActivo(editarAlumnoMB.rutAlumno)== plan.versionPlan}"><strong>#{plan.planEstudio.codigo} #{plan.planEstudio.carreraId.nombre} (Version #{plan.versionPlan}) (Activo)</strong></c:if>
+                                    <c:if test="#{planEstudioMB.getIdPlanActivo(editarAlumnoMB.rutAlumno) != plan.planId or planEstudioMB.getVersionPlanActivo(editarAlumnoMB.rutAlumno) != plan.versionPlan}">#{plan.planEstudio.codigo} #{plan.planEstudio.carreraId.nombre} (Version #{plan.versionPlan})</c:if>
                                 </td>
                                 <td>
-                                    <c:if test="#{planEstudioMB.getIdPlanActivo(editarAlumnoMB.rutAlumno) != plan.id}">
-                                        <p:commandButton id="boton_#{plan.codigo}" value="Activar" actionListener="#{editarAlumnoMB.setPlanActivoAlumno(editarAlumnoMB.rutAlumno, plan.id, plan.codigo, plan.carreraId.nombre)}"  update="growl @form" icon="ui-icon-star"/>
+                                    <!--id="boton_asd_#{plan.planEstudio.codigo}_#{plan.versionPlan}"-->
+                                    <!--id="eliminar_boton_asd_#{plan.planEstudio.codigo}_#{plan_version.version}"-->
+                                    <!--#{planEstudioMB.getIdPlanActivo(editarAlumnoMB.rutAlumno)} - #{planEstudioMB.getVersionPlanActivo(editarAlumnoMB.rutAlumno)}-->
+                                    <c:if test="#{planEstudioMB.getIdPlanActivo(editarAlumnoMB.rutAlumno) != plan.planId or planEstudioMB.getVersionPlanActivo(editarAlumnoMB.rutAlumno) != plan.versionPlan}">
+                                        <p:commandButton  value="Activar" actionListener="#{editarAlumnoMB.setPlanActivoAlumno(editarAlumnoMB.rutAlumno, plan.planId, plan.versionPlan, plan.planEstudio.codigo, plan.planEstudio.carreraId.nombre)}"  update="growl @form" icon="ui-icon-star"/>
                                     </c:if>
-                                    <p:commandButton id="eliminar_boton_#{plan.codigo}" value="Eliminar" actionListener="#{editarAlumnoMB.eliminarPlan(editarAlumnoMB.rutAlumno, plan.id)}"  update="growl @form" icon="ui-icon-trash"/>
+                                    <p:commandButton value="Eliminar" actionListener="#{editarAlumnoMB.eliminarPlan(editarAlumnoMB.rutAlumno, plan.planId, plan.versionPlan)}"  update="growl @form" icon="ui-icon-trash"/>
                                 </td>
                             </tr>
                             <!--</p:panel>-->
@@ -88,18 +94,18 @@
 
                     <h1>Planes disponibles:</h1><br/>
 
-                    <c:if test="#{not empty planEstudioMB.getPlanesEstudio(editarAlumnoMB.rutAlumno)}">
+                    <c:if test="#{not empty planEstudioMB.getAsociacionPlanesEstudio(editarAlumnoMB.rutAlumno)}">
                         <table border="0">
-                            <c:forEach items="#{planEstudioMB.getPlanesEstudio(editarAlumnoMB.rutAlumno)}" var="item">
+                            <c:forEach items="#{planEstudioMB.getAsociacionPlanesEstudio(editarAlumnoMB.rutAlumno)}" var="asociacion">
                                 <tr>
-                                    <td>#{item.codigo} #{item.carreraId.nombre}</td>
-                                    <td><p:commandButton value="Agregar Plan" icon="ui-icon-trash" actionListener="#{editarAlumnoMB.agregarPlanAlumno(item.id)}"/></td>
+                                    <td>#{asociacion.planEstudio.codigo} #{asociacion.planEstudio.carreraId.nombre} (Versión #{asociacion.versionPlan})</td>
+                                    <td><p:commandButton value="Agregar Plan" icon="ui-icon-trash" actionListener="#{editarAlumnoMB.agregarPlanAlumno(asociacion.planId, asociacion.versionPlan)}"/></td>
                                 </tr>
-                                <!--<p:selectOneListbox value="#{editarAlumnoMB.planEstudioAlumno}" style="width: 600px;">-->
-                                    <!--<f:selectItems var="planEstudio" itemLabel="#{item.codigo} #{item.carreraId.nombre} (#{editarAlumnoMB.jornadaToStringUpperCase(item.jornada)})" itemValue="#{item.id}" />-->
-                                <!--</p:selectOneListbox>-->
                             </c:forEach>
                         </table>
+                    </c:if>
+                    <c:if test="#{empty planEstudioMB.getAsociacionPlanesEstudio(editarAlumnoMB.rutAlumno)}">
+                        <strong>No existen carreras disponibles para seleccionar</strong>
                     </c:if>
                     <br/>
                     <p:commandButton id="bt1" value="Guardar" actionListener="#{editarAlumnoMB.editAlumno()}" update="growl @form"/>
@@ -107,11 +113,6 @@
                     <br/>
 
                     <br></br>
-
-                    <!--<p:outputLabel for="planEstudio" value="Plan de Estudio"/>-->
-                    <c:if test="#{empty planEstudioMB.getPlanesEstudio(editarAlumnoMB.rutAlumno)}">
-                        <strong>Error: No existen carreras disponibles para seleccionar</strong>
-                    </c:if>
                 </p:panel>
             </h:form>
         </p:layoutUnit>

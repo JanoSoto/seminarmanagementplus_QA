@@ -22,7 +22,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import util.Util;
+import util.SMUtil;
 
 /**
  *
@@ -87,36 +87,36 @@ public class PlantillaPropuesta extends HttpServlet {
             stamper.getAcroFields().setField("doc_title", str.toString());
             stamper.getAcroFields().setField("title", prop.getNombrePropuesta());
 
-            stamper.getAcroFields().setField("student_name", Util.reducirNombre(alumno.getNombreAlumno(), alumno.getApellidoAlumno(), 30));
+            stamper.getAcroFields().setField("student_name", SMUtil.reducirNombre(alumno.getNombreAlumno(), alumno.getApellidoAlumno(), 30));
             
             Profesor guia = propuestaMB.getGuia();
             str = new StringBuilder("");
             if (guia != null){
-                str.append(Util.reducirNombre( guia.getNombreProfesor(), guia.getApellidoProfesor(), 30));
+                str.append(SMUtil.reducirNombre( guia.getNombreProfesor(), guia.getApellidoProfesor(), 30));
             }
             stamper.getAcroFields().setField("guide_proffesor", str.toString());
             
             Profesor coguia = propuestaMB.getCoguia();
             str = new StringBuilder("");
             if (coguia != null){
-                str.append(Util.reducirNombre( coguia.getNombreProfesor(), coguia.getApellidoProfesor(), 30));
+                str.append(SMUtil.reducirNombre( coguia.getNombreProfesor(), coguia.getApellidoProfesor(), 30));
             }
             stamper.getAcroFields().setField("co_guide_proffesor", str.toString());
 
             Profesor profComision1 = propuestaMB.getRevisor1();
             str = new StringBuilder("");
             if (profComision1 != null){
-                str.append(Util.reducirNombre( profComision1.getNombreProfesor(), profComision1.getApellidoProfesor(), 20));
+                str.append(SMUtil.reducirNombre( profComision1.getNombreProfesor(), profComision1.getApellidoProfesor(), 20));
             }
             stamper.getAcroFields().setField("commission_proffesor_1", str.toString());
             
             Profesor profComision2 = propuestaMB.getRevisor2();
             str = new StringBuilder();
             if (profComision2 != null){
-                str.append(Util.reducirNombre( profComision2.getNombreProfesor(), profComision2.getApellidoProfesor(), 20));
+                str.append(SMUtil.reducirNombre( profComision2.getNombreProfesor(), profComision2.getApellidoProfesor(), 20));
             }       
             stamper.getAcroFields().setField("commission_proffesor_2", str.toString());           
-            stamper.getAcroFields().setField("student_rut", Util.formatearRut(alumno.getRutAlumno()));
+            stamper.getAcroFields().setField("student_rut", SMUtil.formatearRut(alumno.getRutAlumno()));
             stamper.getAcroFields().setField("student_phone", alumno.getTelefonoAlumno());
             stamper.getAcroFields().setField("student_email", alumno.getMailAlumno());
             stamper.getAcroFields().setField("student_address", alumno.getDireccionAlumno());
