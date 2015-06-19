@@ -3,6 +3,7 @@ package managedbeans2.propuestas;
 import entities.Alumno;
 import entities.PlanEstudio;
 import entities.Profesor;
+import entities.Usuario;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -10,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,6 +25,7 @@ import org.docx4j.openpackaging.io3.Save;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
 import org.docx4j.openpackaging.parts.WordprocessingML.MainDocumentPart;
 import org.docx4j.wml.ContentAccessor;
+import sessionbeans.UsuarioFacadeLocal;
 
 /**
  *
@@ -32,7 +35,10 @@ import org.docx4j.wml.ContentAccessor;
 public class PlantillaAcuerdo extends HttpServlet {
 
     public String TEMPLATE_LOCATION = "/resources/plantillas/plantilla_acuerdo_consejo.docx";
-
+    
+    @EJB
+    private UsuarioFacadeLocal usuarioFacade;
+            
     @Inject
     VerPropuestaMB propuestaMB;
 
@@ -63,10 +69,12 @@ public class PlantillaAcuerdo extends HttpServlet {
             }
 
             Alumno alumno = propuestaMB.getAlumno();
+            Usuario us1 = usuarioFacade.findByRut(alumno.getRutAlumno()).get(0);
             Profesor guia = propuestaMB.getGuia();
+            Usuario guia1 = usuarioFacade.findByRut(guia.getRutProfesor()).get(0);
             
             String fileName = ""+"AcuerdoConsejo_"+
-                    alumno.getApellidoAlumno().replace(" ", "-")+"_"+
+                    us1.getApellidoUsuarioPaterno().replace(" ", "-")+"_"+
                     alumno.getRutAlumno()+".docx";
             
             response.setContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document;charset=UTF-8");
@@ -74,11 +82,11 @@ public class PlantillaAcuerdo extends HttpServlet {
 
             StringBuilder str = new StringBuilder();
 
-            str.append(alumno.getNombreAlumno()).append(alumno.getApellidoAlumno());
+            str.append(us1.getNombreUsuario()).append(us1.getNombreUsuario());
             String nombreAlumno = WordUtils.capitalizeFully(
-                    "" + alumno.getNombreAlumno() + " " + alumno.getApellidoAlumno());
+                    "" + us1.getNombreUsuario() + " " + us1.getApellidoUsuarioPaterno());
             String profeGuia = WordUtils.capitalizeFully(
-                    "" + guia.getNombreProfesor() + " " + guia.getApellidoProfesor());
+                    "" + guia1.getNombreUsuario() + " " + guia1.getApellidoUsuarioPaterno());
             String carrera = "";
             String ubicacion = "El documento se encuentra en el casillero de Ingeniería ";
             List <PlanEstudio> planes = alumno.getPlanes();

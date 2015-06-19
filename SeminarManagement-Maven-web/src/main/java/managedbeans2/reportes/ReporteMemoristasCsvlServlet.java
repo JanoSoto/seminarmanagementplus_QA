@@ -1,6 +1,7 @@
 package managedbeans2.reportes;
 
 import entities.SemestreActual;
+import entities.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
@@ -15,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import sessionbeans.SemestreActualFacadeLocal;
 import sessionbeans.TemaFacadeLocal;
+import sessionbeans.UsuarioFacadeLocal;
 
 /**
  *
@@ -27,10 +29,13 @@ public class ReporteMemoristasCsvlServlet extends HttpServlet {
     private SemestreActualFacadeLocal semActFacade;
     
     @EJB
-    TemaFacadeLocal temasFacade;
+    private TemaFacadeLocal temasFacade;
     
+    @EJB
+    private UsuarioFacadeLocal usuarioFacade;
     @Inject
     ReportesMB reportesMB;
+    
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -61,8 +66,9 @@ public class ReporteMemoristasCsvlServlet extends HttpServlet {
                     continue;
 
                 pw.print("\t");
-
-                pw.print(reportesMB.getProfesoresJC().get(j).getNombreProfesor()+" "+reportesMB.getProfesoresJC().get(j).getApellidoProfesor()+"\t");
+                Usuario jc;
+                jc = usuarioFacade.findByRut(reportesMB.getProfesoresJC().get(j).getRutProfesor()).get(0);
+                pw.print(jc.getNombreUsuario()+" "+jc.getApellidoUsuarioPaterno()+"\t");
                 for (int i = 0; i < reportesMB.getPlanes().size(); i++) {
                     if ( reportesMB.getCuentaPorPlanTotal().get(i) > 0)
                         pw.print(reportesMB.getCuentaPorProfeJC().get(j).get(i)+"\t");
@@ -86,8 +92,10 @@ public class ReporteMemoristasCsvlServlet extends HttpServlet {
                     continue;
 
                 pw.print("\t");
-
-                pw.print(reportesMB.getProfesoresPH().get(j).getNombreProfesor()+" "+reportesMB.getProfesoresPH().get(j).getApellidoProfesor()+"\t");
+                
+                Usuario ph;
+                ph = usuarioFacade.findByRut(reportesMB.getProfesoresPH().get(j).getRutProfesor()).get(0);
+                pw.print(ph.getNombreUsuario()+" "+ph.getApellidoUsuarioPaterno()+"\t");
                 for (int i = 0; i < reportesMB.getPlanes().size(); i++) {
                     if ( reportesMB.getCuentaPorPlanTotal().get(i) > 0)
                         pw.print(reportesMB.getCuentaPorProfePH().get(j).get(i)+"\t");
