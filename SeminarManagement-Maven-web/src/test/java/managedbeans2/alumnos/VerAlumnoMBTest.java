@@ -52,14 +52,14 @@ public class VerAlumnoMBTest {
     @Test
     public void testVerDatosMemoristas(){
         Alumno alumno = new Alumno();
-        alumno.setApellidoAlumno("apellido");
+        //alumno.setApellidoAlumno("apellido");
         //alumno.setCarreras((List<CarreraAlumno>) new Carrera());
-        alumno.setDireccionAlumno("direccion");
+        //alumno.setDireccionAlumno("direccion");
         //alumno.setJornada(1);
-        alumno.setMailAlumno("mail");
-        alumno.setNombreAlumno("nombre");
+        //alumno.setMailAlumno("mail");
+        //alumno.setNombreAlumno("nombre");
         alumno.setRutAlumno("rut");
-        alumno.setTelefonoAlumno("telefono");
+        //alumno.setTelefonoAlumno("telefono");
         Propuesta propuesta = new Propuesta();
         ComisionRevisora revisora = new ComisionRevisora();
         revisora.setFechaRevision("fecha");
@@ -105,16 +105,16 @@ public class VerAlumnoMBTest {
         profePropuestaPK.setRutProfesor("rut");
         profePropuesta.setProfePropuestaPK(profePropuestaPK);
         Profesor profesor = new Profesor();
-        profesor.setApellidoProfesor("apellido");
+        //profesor.setApellidoProfesor("apellido");
         profesor.setContrato(1);
-        profesor.setMailProfesor("mail");
+        //profesor.setMailProfesor("mail");
         profesor.setMaximoGuias(1);
-        profesor.setNombreProfesor("nombre");
+        //profesor.setNombreProfesor("nombre");
         profesor.setProfeCorreccionList(null);
         profesor.setProfePropuestaList(null);
         profesor.setProfeRevisionList(null);
         profesor.setRutProfesor("rut");
-        profesor.setTelefonoProfesor("telefono");
+        //profesor.setTelefonoProfesor("telefono");
         profesor.setTipoProfesor(1);
         profePropuesta.setProfesor(profesor);
         profePropuesta.setPropuesta(propuesta);

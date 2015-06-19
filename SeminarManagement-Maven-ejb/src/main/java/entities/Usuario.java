@@ -77,9 +77,15 @@ public class Usuario implements Serializable {
     private String direccionUsuario;
     @Column(name = "activo")
     private Boolean activo;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rut_usuario")
-    private List<UsuarioTipo> usuarioTipoList;
 
+
+    @OneToMany(mappedBy = "usuario")
+    private List<UsuarioTipo> usuarioTipoList;
+    
+    public List<UsuarioTipo> getUsuarioTipoList(){
+        return this.usuarioTipoList;
+    }
+    
     public Usuario() {
         usuarioTipoList = new ArrayList();
     }
@@ -143,11 +149,6 @@ public class Usuario implements Serializable {
 
     public void setApellidoUsuarioMaterno(String apellidoUsuarioMaterno) {
         this.apellidoUsuarioMaterno = apellidoUsuarioMaterno;
-    }
-
-    @XmlTransient
-    public List<UsuarioTipo> getUsuarioTipoList() {
-        return usuarioTipoList;
     }
 
     public void setMailUsuario(String mailUsuario) {

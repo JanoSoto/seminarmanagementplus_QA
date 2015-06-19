@@ -65,15 +65,15 @@ public class VerProfesorMBTest {
         
         //Profesor
         Profesor profesor = new Profesor();
-        profesor.setApellidoProfesor("apellido");
+        //profesor.setApellidoProfesor("apellido");
         profesor.setContrato(1);
-        profesor.setMailProfesor("mail");
+        //profesor.setMailProfesor("mail");
         profesor.setMaximoGuias(1);
-        profesor.setNombreProfesor("nombre");
+        //profesor.setNombreProfesor("nombre");
         profesor.setProfeCorreccionList(null);
         profesor.setProfePropuestaList(null);
         profesor.setRutProfesor("rut");
-        profesor.setTelefonoProfesor("telefono");
+        //profesor.setTelefonoProfesor("telefono");
         profesor.setTipoProfesor(1);
        
         //Creamos un tema vigente
@@ -107,15 +107,15 @@ public class VerProfesorMBTest {
        propuesta.setNombrePropuesta("nombre");
        propuesta.setProfePropuestaList(null);
        Alumno alumno = new Alumno();
-       alumno.setApellidoAlumno("apellido");
+       //alumno.setApellidoAlumno("apellido");
        //alumno.setCarreraAlumno(1);
-       alumno.setDireccionAlumno("direccion");
+       // alumno.setDireccionAlumno("direccion");
        //alumno.setJornada(1);
-       alumno.setMailAlumno("mail");
-       alumno.setNombreAlumno("nombre");
+       //alumno.setMailAlumno("mail");
+       //alumno.setNombreAlumno("nombre");
        alumno.setPropuestaList(null);
        alumno.setRutAlumno("rut");
-       alumno.setTelefonoAlumno("telefono");
+       //alumno.setTelefonoAlumno("telefono");
        propuesta.setRutAlumno(alumno);
        revisora.setIdPropuesta(propuesta);
        revisora.setIdRevisora(1);
@@ -159,28 +159,28 @@ public class VerProfesorMBTest {
     
                //Profesor
         Profesor profesor = new Profesor();
-        profesor.setApellidoProfesor("apellido");
+        //profesor.setApellidoProfesor("apellido");
         profesor.setContrato(1);
-        profesor.setMailProfesor("mail");
+        //profesor.setMailProfesor("mail");
         profesor.setMaximoGuias(10);
-        profesor.setNombreProfesor("nombre");
+        //profesor.setNombreProfesor("nombre");
         profesor.setProfeCorreccionList(null);
         profesor.setProfePropuestaList(null);
         profesor.setRutProfesor("rut");
-        profesor.setTelefonoProfesor("telefono");
+        //profesor.setTelefonoProfesor("telefono");
         profesor.setTipoProfesor(1);
         
                //Profesor2
         Profesor profesor2 = new Profesor();
-        profesor2.setApellidoProfesor("apellido");
+        //profesor2.setApellidoProfesor("apellido");
         profesor2.setContrato(1);
-        profesor2.setMailProfesor("mail");
+        //profesor2.setMailProfesor("mail");
         profesor2.setMaximoGuias(7);
-        profesor2.setNombreProfesor("nombre");
+        //profesor2.setNombreProfesor("nombre");
         profesor2.setProfeCorreccionList(null);
         profesor2.setProfePropuestaList(null);
         profesor2.setRutProfesor("rut");
-        profesor2.setTelefonoProfesor("telefono");
+        //profesor2.setTelefonoProfesor("telefono");
         profesor2.setTipoProfesor(1);
         
         

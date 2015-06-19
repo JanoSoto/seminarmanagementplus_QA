@@ -56,14 +56,14 @@ public class ComisionCorrectora2MBTest {
         //Alumno 1
         
         Alumno a1 = new Alumno();
-        a1.setApellidoAlumno("apellido");
+        //a1.setApellidoAlumno("apellido");
         //a1.setCarreraAlumno(1);
-        a1.setDireccionAlumno("direccion");
+        //a1.setDireccionAlumno("direccion");
         //a1.setJornada(1);
-        a1.setMailAlumno("mail");
-        a1.setNombreAlumno("nombre");
+        //a1.setMailAlumno("mail");
+        //a1.setNombreAlumno("nombre");
         a1.setRutAlumno("rut");
-        a1.setTelefonoAlumno("telefono");
+        //a1.setTelefonoAlumno("telefono");
         
         //Propuesta 1 del alumno 1
         Propuesta p1 = new Propuesta();
@@ -97,13 +97,13 @@ public class ComisionCorrectora2MBTest {
         pppk.setRutProfesor("rutprofe");
         pp.setProfePropuestaPK(pppk);
         Profesor profe = new Profesor();
-        profe.setApellidoProfesor("apellidoprofe");
+        //profe.setApellidoProfesor("apellidoprofe");
         profe.setContrato(1);
-        profe.setMailProfesor("mailprofe");
+        //profe.setMailProfesor("mailprofe");
         profe.setMaximoGuias(1);
-        profe.setNombreProfesor("nombreprofe");
+        //profe.setNombreProfesor("nombreprofe");
         profe.setRutProfesor("rutprofe");
-        profe.setTelefonoProfesor("telefonoprofe");
+        //profe.setTelefonoProfesor("telefonoprofe");
         profe.setTipoProfesor(1);
         profe.setProfeCorreccionList(null);
         profe.setProfePropuestaList(null);
@@ -141,13 +141,13 @@ public class ComisionCorrectora2MBTest {
         pppk2.setRutProfesor("rutprofe");
         pp2.setProfePropuestaPK(pppk);
         Profesor profe2 = new Profesor();
-        profe2.setApellidoProfesor("apellidoprofe");
+        //profe2.setApellidoProfesor("apellidoprofe");
         profe2.setContrato(1);
-        profe2.setMailProfesor("mailprofe");
+        //profe2.setMailProfesor("mailprofe");
         profe2.setMaximoGuias(1);
-        profe2.setNombreProfesor("nombreprofe");
+        //profe2.setNombreProfesor("nombreprofe");
         profe2.setRutProfesor("rutprofe");
-        profe2.setTelefonoProfesor("telefonoprofe");
+        //profe2.setTelefonoProfesor("telefonoprofe");
         profe2.setTipoProfesor(1);
         profe2.setProfeCorreccionList(null);
         profe2.setProfePropuestaList(null);
@@ -185,13 +185,13 @@ public class ComisionCorrectora2MBTest {
         pppk3.setRutProfesor("rutprofe");
         pp3.setProfePropuestaPK(pppk);
         Profesor profe3 = new Profesor();
-        profe3.setApellidoProfesor("apellidoprofe");
+        //profe3.setApellidoProfesor("apellidoprofe");
         profe3.setContrato(1);
-        profe3.setMailProfesor("mailprofe");
+        //profe3.setMailProfesor("mailprofe");
         profe3.setMaximoGuias(1);
-        profe3.setNombreProfesor("nombreprofe");
+        //profe3.setNombreProfesor("nombreprofe");
         profe3.setRutProfesor("rutprofe");
-        profe3.setTelefonoProfesor("telefonoprofe");
+        //profe3.setTelefonoProfesor("telefonoprofe");
         profe3.setTipoProfesor(1);
         profe3.setProfeCorreccionList(null);
         profe3.setProfePropuestaList(null);

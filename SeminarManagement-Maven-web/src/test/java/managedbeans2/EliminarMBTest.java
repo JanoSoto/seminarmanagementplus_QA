@@ -117,31 +117,31 @@ public class EliminarMBTest {
         
         // Creo Profesor 1
         Profesor p = new Profesor();
-        p.setApellidoProfesor("apellido");
+        //p.setApellidoProfesor("apellido");
         p.setContrato(1);
-        p.setMailProfesor("mail");
+        //p.setMailProfesor("mail");
         p.setMaximoGuias(10);
-        p.setNombreProfesor("nombre");
+        //p.setNombreProfesor("nombre");
         p.setProfeCorreccionList(null);
         p.setProfePropuestaList(null);
         p.setProfeRevisionList(null);
         p.setRutProfesor("rut");
-        p.setTelefonoProfesor("telefono");
+        //p.setTelefonoProfesor("telefono");
         p.setTipoProfesor(1);
         
         // Creo Profesor 2
         
         Profesor p2 = new Profesor();
-        p2.setApellidoProfesor("apellido");
+        //p2.setApellidoProfesor("apellido");
         p2.setContrato(2);
-        p2.setMailProfesor("mail");
+        //p2.setMailProfesor("mail");
         p2.setMaximoGuias(10);
-        p2.setNombreProfesor("nombre");
+        //p2.setNombreProfesor("nombre");
         p2.setProfeCorreccionList(null);
         p2.setProfePropuestaList(null);
         p2.setProfeRevisionList(null);
         p2.setRutProfesor("rut");
-        p2.setTelefonoProfesor("telefono");
+        // p2.setTelefonoProfesor("telefono");
         p2.setTipoProfesor(1);
         
         pc.setProfesor(p);

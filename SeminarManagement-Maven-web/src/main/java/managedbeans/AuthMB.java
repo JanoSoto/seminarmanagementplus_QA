@@ -2,6 +2,7 @@ package managedbeans;
 
 import entities.Tipo;
 import entities.Usuario;
+import entities.UsuarioTipo;
 import java.io.IOException;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
@@ -48,9 +49,9 @@ public class AuthMB implements Serializable {
     private UsuarioFacadeLocal usuarioFacade;
     @EJB
     private TipoFacadeLocal tipoFacade;
-    private String uid = null, password=null, nombre = null, apellido = null;
+    private String uid = null, password = null, nombre = null, apellido = null;
     private long tipo = 0;
-
+    private Tipo tipoUser;
     private static final String USERKEY = "user";
 
     @PostConstruct
@@ -60,22 +61,28 @@ public class AuthMB implements Serializable {
 
     //Si el usuario ya inició sesión, e ingresa a la página de login
     //se redirige a la aplicación
-    /*public void redirectUserLogged() {
+    public void redirectUserLogged() {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
         if (!getLoggedUser().equals("")) {
             try {
-                if (tipo.equals("ADMINISTRADOR")) {
+                Usuario usuario = usuarioFacade.findByRut("175658173").get(0);
+                List<UsuarioTipo> tipos = usuario.getUsuarioTipoList();
+                System.out.println("Tipos");
+                for (int i = 0; i < tipos.size(); i++) {
+                    System.out.println("Pene: " + tipos.get(i).getTipo().getNombreTipo());
+                }
+                if (tipoUser.getNombreTipo().equals("ADMINISTRADOR")) {
                     externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/admin/index.xhtml");
                 }
-                if (tipo.equals("SECRETARIA")) {
+                if (tipoUser.getNombreTipo().equals("SECRETARIA")) {
                     externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/secretaria/index.xhtml");
                 }
             } catch (IOException ex) {
                 Logger.getLogger(AuthMB.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }*/
+    }
 
     public String MD5(String md5) {
         try {
@@ -96,74 +103,87 @@ public class AuthMB implements Serializable {
         ExternalContext externalContext = context.getExternalContext();
         HttpServletRequest request = (HttpServletRequest) externalContext.getRequest();
 
+        HttpClient httpclient = new DefaultHttpClient();
+        HttpPost httppost = new HttpPost("http://inicio.diinf.usach.cl/webservice.php");
 
-            HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost("http://inicio.diinf.usach.cl/webservice.php");
+        // Add your data
+        List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
+        nameValuePairs.add(new BasicNameValuePair("user", uid));
+        nameValuePairs.add(new BasicNameValuePair("pass", password));
+        nameValuePairs.add(new BasicNameValuePair("keyapi", MD5("c55ecd5c60a5a5b2bea1c92bbc45f8ab")));
+        httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
 
-            // Add your data
-            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
-            nameValuePairs.add(new BasicNameValuePair("user", uid));
-            nameValuePairs.add(new BasicNameValuePair("pass", password));
-            nameValuePairs.add(new BasicNameValuePair("keyapi", MD5("c55ecd5c60a5a5b2bea1c92bbc45f8ab")));
-            httppost.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+        // Execute HTTP Post Request
+        HttpResponse response = httpclient.execute(httppost);
 
-            // Execute HTTP Post Request
-            HttpResponse response = httpclient.execute(httppost);
-
-            String responseString = new BasicResponseHandler().handleResponse(response);
-            System.out.println(responseString);
-
-            JSONParser parser = new JSONParser();
-
-            Object obj = parser.parse(responseString);
-
-            JSONObject jsonObject = (JSONObject) obj;
-
-            Boolean valido_response = (Boolean) jsonObject.get("pass_ok");
-            if(valido_response == null) {
-                valido_response = false;
+        String responseString = new BasicResponseHandler().handleResponse(response);
+        System.out.println(responseString);
+        List<Usuario> todos = usuarioFacade.findAll();
+        for (int index = 0; index < todos.size(); index++) {
+            Usuario usuario = todos.get(index);
+            List<UsuarioTipo> tipos = usuario.getUsuarioTipoList();
+            System.out.println("Tipos");
+            if(esDeTipo("ADMINISTRADOR", tipos)) {
+                System.out.println("Es Admin");
+                externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/admin/index.xhtml");
             }
+            if(esDeTipo("SECRETARIA", tipos)){
+                System.out.println("Es secretaria");
+                externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/secretaria/index.xhtml");
+            }
+        }
+
+        JSONParser parser = new JSONParser();
+
+        Object obj = parser.parse(responseString);
+
+        JSONObject jsonObject = (JSONObject) obj;
+
+        Boolean valido_response = (Boolean) jsonObject.get("pass_ok");
+        if (valido_response == null) {
+            valido_response = false;
+        }
             //System.out.println("Datos Validos: " + valido_response);
 
-            //MessageDigest md = MessageDigest.getInstance("SHA-256");
-            //md.update(password.getBytes("UTF-8"));
-              //request.login(username, password);
-            if(valido_response==true){
-                Usuario user = usuarioFacade.findByUsername(uid).get(0); //Extraigo el user de la db           
-                nombre = user.getNombreUsuario();
-                apellido = user.getApellidoUsuarioPaterno();
-                tipo = user.getUsuarioTipoList().get(0).getUsuarioTipoPK().getIdTipo();
-                Tipo tipoUser;
-                tipoUser = tipoFacade.find(tipo);
-                externalContext.getSessionMap().put("user", user);
-                MDC.put(USERKEY, uid);
-                if (tipoUser.getNombreTipo().equals("ADMINISTRADOR")) {
-                    externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/admin/index.xhtml");
-                }
-                if (tipoUser.getNombreTipo().equals("SECRETARIA")) {
-                    externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/secretaria/index.xhtml");
-                }
-            }else{
-                //Logger.getLogger(AuthMB.class.getName()).log(Level.SEVERE, null, e);
-                context.addMessage(null, new FacesMessage("Ingreso Erróneo", "Los datos ingresados no son correctos."));
-                uid = null;
-                password = null;
-                nombre = null;
-                apellido = null;
-                tipo = 0;
-                //Logger.getLogger(AuthMB.class.getName()).log(Level.SEVERE, null, e);
-                context.addMessage(null, new FacesMessage("Ingreso Erróneo", "Los datos ingresados no son correctos."));
+        //MessageDigest md = MessageDigest.getInstance("SHA-256");
+        //md.update(password.getBytes("UTF-8"));
+        //request.login(username, password);
+        if (valido_response == true) {
+            Usuario user = usuarioFacade.findByUsername(uid).get(0); //Extraigo el user de la db           
+            nombre = user.getNombreUsuario();
+            apellido = user.getApellidoUsuarioPaterno();
+            tipo = user.getUsuarioTipoList().get(0).getUsuarioTipoPK().getIdTipo();
+            Tipo tipoUser;
+            tipoUser = tipoFacade.find(tipo);
+            externalContext.getSessionMap().put("user", user);
+            MDC.put(USERKEY, uid);
+            if (tipoUser.getNombreTipo().equals("ADMINISTRADOR")) {
+                externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/admin/index.xhtml");
             }
+            if (tipoUser.getNombreTipo().equals("SECRETARIA")) {
+                externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/secretaria/index.xhtml");
+            }
+        } else {
+            //Logger.getLogger(AuthMB.class.getName()).log(Level.SEVERE, null, e);
+            context.addMessage(null, new FacesMessage("Ingreso Erróneo", "Los datos ingresados no son correctos."));
+            uid = null;
+            password = null;
+            nombre = null;
+            apellido = null;
+            tipo = 0;
+            //Logger.getLogger(AuthMB.class.getName()).log(Level.SEVERE, null, e);
+            context.addMessage(null, new FacesMessage("Ingreso Erróneo", "Los datos ingresados no son correctos."));
+        }
         //} catch (IOException e) {
-            //Logger.getLogger(AuthMB.class.getName()).log(Level.SEVERE, null, e);
-           // context.addMessage(null, new FacesMessage("Ingreso Erróneo", "Los datos ingresados no son correctos."));
+        //Logger.getLogger(AuthMB.class.getName()).log(Level.SEVERE, null, e);
+        // context.addMessage(null, new FacesMessage("Ingreso Erróneo", "Los datos ingresados no son correctos."));
         ///  username = null;
-          //  password = null;
-          //  nombre = null;
-          //  apellido = null;
-           // tipo = null;
-            //Logger.getLogger(AuthMB.class.getName()).log(Level.SEVERE, null, e);
-           // context.addMessage(null, new FacesMessage("Ingreso Erróneo", "Los datos ingresados no son correctos."));
+        //  password = null;
+        //  nombre = null;
+        //  apellido = null;
+        // tipo = null;
+        //Logger.getLogger(AuthMB.class.getName()).log(Level.SEVERE, null, e);
+        // context.addMessage(null, new FacesMessage("Ingreso Erróneo", "Los datos ingresados no son correctos."));
         //}
     }
 
@@ -238,6 +258,15 @@ public class AuthMB implements Serializable {
 
     public void setApellido(String apellido) {
         this.apellido = apellido;
+    }
+
+    private Boolean esDeTipo(String administrador, List<UsuarioTipo> tipos) {
+        for (int i = 0; i < tipos.size(); i++) {
+            if(tipos.get(i).getTipo().getNombreTipo().equals(administrador)) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

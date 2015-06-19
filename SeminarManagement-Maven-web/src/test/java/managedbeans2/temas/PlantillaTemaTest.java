@@ -71,28 +71,28 @@ public class PlantillaTemaTest {
         tema.setIdSemestre(new Semestre("1/2015"));
 
         guia = new Profesor();
-        guia.setApellidoProfesor("PEREZ");
-        guia.setNombreProfesor("JUAN");
+        //guia.setApellidoProfesor("PEREZ");
+        //guia.setNombreProfesor("JUAN");
 
         coGuia = new Profesor();
-        coGuia.setApellidoProfesor("APELLIDO");
-        coGuia.setNombreProfesor("NOMBRE");
+        //coGuia.setApellidoProfesor("APELLIDO");
+        //coGuia.setNombreProfesor("NOMBRE");
 
         comision1 = new Profesor();
-        comision1.setApellidoProfesor("GONZALEZ");
-        comision1.setNombreProfesor("PEDRO");
+        //comision1.setApellidoProfesor("GONZALEZ");
+        //comision1.setNombreProfesor("PEDRO");
 
         comision2 = new Profesor();
-        comision2.setApellidoProfesor("GUTIERREZ");
-        comision2.setNombreProfesor("DAVID");
+        //comision2.setApellidoProfesor("GUTIERREZ");
+        //comision2.setNombreProfesor("DAVID");
 
         alumno = new Alumno("19");
-        alumno.setApellidoAlumno("GARCIA");
-        alumno.setNombreAlumno("DIEGO");
+        //alumno.setApellidoAlumno("GARCIA");
+        //alumno.setNombreAlumno("DIEGO");
         //alumno.setCarreraAlumno(0);
-        alumno.setTelefonoAlumno("89674523");
-        alumno.setMailAlumno("diego.garcia@usach.cl");
-        alumno.setDireccionAlumno("Ecuador 1809");
+        //alumno.setTelefonoAlumno("89674523");
+        //alumno.setMailAlumno("diego.garcia@usach.cl");
+        //alumno.setDireccionAlumno("Ecuador 1809");
     }
     
     @After

@@ -84,14 +84,14 @@ public class ComisionRevisora2MBTest {
         //Alumno 1
         
         Alumno a1 = new Alumno();
-        a1.setApellidoAlumno("apellido");
+        //a1.setApellidoAlumno("apellido");
         //a1.setCarreraAlumno(1);
-        a1.setDireccionAlumno("direccion");
+        //a1.setDireccionAlumno("direccion");
         //a1.setJornada(1);
-        a1.setMailAlumno("mail");
-        a1.setNombreAlumno("nombre");
+        //a1.setMailAlumno("mail");
+        //a1.setNombreAlumno("nombre");
         a1.setRutAlumno("rut");
-        a1.setTelefonoAlumno("telefono");
+        //a1.setTelefonoAlumno("telefono");
         
         //Propuesta 1 del alumno 1
         Propuesta p1 = new Propuesta();

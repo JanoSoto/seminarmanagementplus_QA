@@ -96,14 +96,14 @@ public class PlantillaAcuerdoTest {
         
 
         Alumno alumno = new Alumno("19");
-        alumno.setApellidoAlumno("GARCIA");
-        alumno.setNombreAlumno("DIEGO");
+        //alumno.setApellidoAlumno("GARCIA");
+        //alumno.setNombreAlumno("DIEGO");
         //alumno.setCarreraAlumno(0);
         //alumno.setJornada(0);
 
         Profesor guia = new Profesor();
-        guia.setApellidoProfesor("PEREZ");
-        guia.setNombreProfesor("JUAN");
+        //guia.setApellidoProfesor("PEREZ");
+        //guia.setNombreProfesor("JUAN");
 
         Propuesta prop = new Propuesta(1);
         prop.setIdSemestre(new Semestre("1/2015"));

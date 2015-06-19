@@ -8,8 +8,10 @@ package entities;
 import java.io.Serializable;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -29,7 +31,30 @@ public class UsuarioTipo implements Serializable {
     @EmbeddedId
     protected UsuarioTipoPK usuarioTipoPK;
 
+    @ManyToOne
+    @PrimaryKeyJoinColumn(name = "rut_usuario", referencedColumnName = "rut_usuario")
+    private Usuario usuario;
+
+    @ManyToOne
+    @PrimaryKeyJoinColumn(name = "id_tipo", referencedColumnName = "id_tipo")
+    private Tipo tipo;
     public UsuarioTipo() {
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Tipo getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(Tipo tipo) {
+        this.tipo = tipo;
     }
 
     public UsuarioTipo(UsuarioTipoPK usuarioTipoPK) {
