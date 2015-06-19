@@ -1,9 +1,11 @@
 package managedbeans2.profesores;
 
 import clases.TemaDatos;
+import entities.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import managedbeans2.SemestreMB;
+import sessionbeans.UsuarioFacadeLocal;
 
 /**
  *
@@ -23,6 +26,8 @@ public class Excel extends HttpServlet {
     VerProfesorMB profesorMB;
     @Inject
     SemestreMB semestreMB;
+    @EJB
+    UsuarioFacadeLocal usuarioFacade;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -52,7 +57,8 @@ public class Excel extends HttpServlet {
             for (TemaDatos b : a) {
                 if ("VIGENTE".equals(b.getEstadoTema())) {
                     String salida = b.getNombreCorto();
-                    salida += "\t" + b.getAlumno().getNombreAlumno() + " " + b.getAlumno().getApellidoAlumno();
+                    Usuario al = usuarioFacade.findByRut(b.getAlumno().getRutAlumno()).get(0);
+                    salida += "\t" + al.getNombreUsuario()+ " " + al.getApellidoUsuarioPaterno();
                     salida += "\t" + b.getEstadoTema();
                     salida += "\t" + b.getSemestreTema();
                     out.println(salida);
@@ -60,7 +66,8 @@ public class Excel extends HttpServlet {
             }
 
             response.setContentType("application/vnd.ms-excel");
-            String file_name = profesorMB.getProfesor().getApellidoProfesor() +" vigentes "+ semestreMB.getSemestre().replace("/", "-") +".csv";
+            Usuario prof = usuarioFacade.findByRut(profesorMB.getProfesor().getRutProfesor()).get(0);
+            String file_name = prof.getApellidoUsuarioPaterno() +" vigentes "+ semestreMB.getSemestre().replace("/", "-") +".csv";
             response.setHeader("Content-Disposition", "attachment; filename=\"" + file_name + "\"");
 
         } catch(Exception ex){
