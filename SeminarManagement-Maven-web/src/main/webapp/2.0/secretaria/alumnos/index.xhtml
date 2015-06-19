@@ -42,9 +42,8 @@
                         <h:outputText value="#{alum.rutAlumnoFormateado}" style="float: right;"/>
                     </a>
                     </p:column>
-                    <p:column headerText="Jornada">
-                        <h:outputText rendered="#{alum.planActivo.jornada eq 0}" value="Diurna"/>
-                        <h:outputText rendered="#{alum.planActivo.jornada eq 1}" value="Vespertina"/>
+                    <p:column headerText="Carrera">
+                        <h:outputText value="#{alum.planActivo.codigo} #{alum.planActivo.carreraId.nombre} #{alum.versionPlanActivo}"/>
                     </p:column>
                 </p:dataTable>
             </h:form>

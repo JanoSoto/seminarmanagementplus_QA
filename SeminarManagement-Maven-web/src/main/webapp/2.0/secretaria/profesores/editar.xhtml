@@ -11,7 +11,7 @@
     <ui:define name="metadata">
         #{accordionPanelMB.setIndex("0")}
         <f:metadata>
-            <f:viewParam name="prof" value="#{verProfesorMB.profesor.rutFormateadoProfesor}"/>
+            <f:viewParam name="prof" value="#{verProfesorMB.rutProfesor}"/>
         </f:metadata>
     </ui:define>
     
@@ -39,7 +39,7 @@
                     <h:panelGrid columns="6" cellpadding="4">
 
                         <p:outputLabel for="rut" value="Rut"/>
-                        <h:outputText id="rut" value="#{verProfesorMB.rutProfeEdit}"/>
+                        <h:outputText id="rut" value="#{verProfesorMB.profesor.rutFormateadoProfesor}"/>
                         <br/>
                         
                         <p:outputLabel></p:outputLabel>
@@ -72,7 +72,7 @@
                             <f:selectItem itemLabel="JC" itemValue="1" />
                         </p:selectOneMenu>
                         <br/>
-
+                        
                         <p:outputLabel for="jeraquia" value="Jerarquía o Categoría" />
                         <p:selectOneMenu id="jeraquia" required="false" value="#{verProfesorMB.profesorEdit.jerarquiaCategoria}" >
                             <f:selectItem itemLabel="Sin especificar" itemValue=""/>
@@ -84,15 +84,18 @@
                             <f:selectItem itemLabel="ADJ. CAT. II" itemValue="ADJ. CAT. II" />
                             <f:selectItem itemLabel="INST. CAT. I" itemValue="INST. CAT. I" />
                             <f:selectItem itemLabel="INST. CAT. II" itemValue="INST. CAT. II" />
+                            <f:selectItem itemLabel="INSTRUCTOR" itemValue="INSTRUCTOR" />
+                            <f:selectItem itemLabel="AYUDANTE" itemValue="AYUDANTE" />
                         </p:selectOneMenu>
                         <br/>
                         
-                        <!--<p:outputLabel for="guia" value="¿Puede ser guía?"  />
-                        <p:selectOneMenu id="guia" value="{verProfesorMB.profesorEdit.tipoProfesor}">
-                            <f:selectItem itemLabel="Si" itemValue="0" />
+                        <!-- <p:outputLabel for="guia" value="¿Puede ser guía?"/>
+                        <p:selectOneMenu id="guia" required="true"  value="#{profesorMB.isProfGuia}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue=""/> 
+                            <f:selectItem itemLabel="Si" itemValue="0" /> 
                             <f:selectItem itemLabel="No" itemValue="1" />
-                        </p:selectOneMenu>
-                        <br/>-->
+                        </p:selectOneMenu> -->
+
                         
                         <h:inputHidden value="#{verProfesorMB.rutProfeEdit}"/>
                     </h:panelGrid>

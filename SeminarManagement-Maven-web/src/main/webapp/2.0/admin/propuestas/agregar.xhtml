@@ -43,6 +43,9 @@
                         <p:outputLabel for="alumnoP" style="color: #0052cc;font-weight: bold;" value="Alumno" />
                         <h:outputText id="alumnoP" value="#{verAlumnoMB.alumno.nombreAlumno} #{verAlumnoMB.alumno.apellidoAlumno}"/>
                         <br/>
+                        <p:outputLabel for="alumnoP2" style="color: #0052cc;font-weight: bold;" value="Carrera" />
+                        <h:outputText id="alumnoP2" value="#{verAlumnoMB.alumno.planActivo.codigo} #{verAlumnoMB.alumno.planActivo.carreraId.nombre} #{verAlumnoMB.alumno.versionPlanActivo}"/>
+                        <br/>
 
                         <p:outputLabel for="profeGP" value="Profesor Guía" />
                         <p:selectOneMenu id="profeGP" value="#{agregarPropuestaMB.rutProfGuia}" filter="true" filterMatchMode="contains" >
