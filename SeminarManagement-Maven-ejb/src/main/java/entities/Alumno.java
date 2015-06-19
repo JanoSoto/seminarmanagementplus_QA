@@ -72,6 +72,17 @@ public class Alumno implements Serializable {
     
     @Column(name = "id_plan_activo")
     Integer idPlanActivo;
+    
+    @Column(name = "version_plan_activo")
+    Integer versionPlanActivo;
+
+    public Integer getVersionPlanActivo() {
+        return versionPlanActivo;
+    }
+
+    public void setVersionPlanActivo(Integer versionPlanActivo) {
+        this.versionPlanActivo = versionPlanActivo;
+    }
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rutAlumno")
     private List<Propuesta> propuestaList;
