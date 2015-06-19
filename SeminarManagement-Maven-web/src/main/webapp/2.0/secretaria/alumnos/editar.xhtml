@@ -58,15 +58,12 @@
 
                                 <p:outputLabel for="celular" value="Celular"/>
                                 <p:inputText id="celular" value="#{editarAlumnoMB.alumno.telefonoAlumno}">
-                                    <f:validator validatorId="celularValidator" />
                                 </p:inputText>
                                 <p:watermark for="celular" value="Ingresar Celular"/>
 
                                 <p:outputLabel for="direccion" value="Dirección"/>
                                 <p:inputText id="direccion" value="#{editarAlumnoMB.alumno.direccionAlumno}"/>
                                 <p:watermark for="direccion" value="Ingresar Dirección"/>
-
-                                
 
                             </h:panelGrid>
                         <p:commandButton id="bt1" value="Editar" actionListener="#{editarAlumnoMB.editAlumno()}" update="growl @form"/>

@@ -49,42 +49,25 @@
                         <p:watermark for="apellido" value="Ingresar Apellido"/>
 
                         <p:outputLabel for="mail" value="E-Mail"/>
-                        <p:inputText id="mail" required="true" value="#{alumnoMB.mailAlumno}">
+                        <p:inputText id="mail" value="#{alumnoMB.mailAlumno}">
                             <f:validator validatorId="emailValidator"/>
                         </p:inputText>
                         <p:watermark for="mail" value="Ingresar E-Mail"/>
 
                         <p:outputLabel for="celular" value="Celular"/>
-                        <p:inputText id="celular" required="true" value="#{alumnoMB.celularAlumno}">
-                            <f:validator validatorId="celularValidator" />
-                        </p:inputText>
+                        <p:inputText id="celular" value="#{alumnoMB.celularAlumno}"/>
                         <p:watermark for="celular" value="Ingresar Celular"/>
 
                         <p:outputLabel for="direccion" value="Dirección"/>
                         <p:inputText id="direccion" value="#{alumnoMB.direccionAlumno}"/>
                         <p:watermark for="direccion" value="Ingresar Dirección"/>
 
-                        <p:outputLabel for="carrera" value="Carrera"/>
-                        <p:selectOneMenu id="carrera" required="true" value="#{alumnoMB.carreraAlumno}">
-                            <f:selectItem itemLabel="Seleccionar" itemValue="" />
-                            <f:selectItem itemLabel="Civil Informática" itemValue="0"/>
-                            <f:selectItem itemLabel="Ejecución Informática" itemValue="1"/>
-                        </p:selectOneMenu>
-                        <br/>
 
                         <p:outputLabel for="magister" value="¿Magíster?"/>
                         <p:selectOneMenu id="magister" disabled="true">
                             <f:selectItem itemLabel="Seleccionar" itemValue=""/>
                             <f:selectItem itemLabel="Sí" itemValue="0"/>
                             <f:selectItem itemLabel="No" itemValue="1"/>
-                        </p:selectOneMenu>
-                        <br/>
-
-                        <p:outputLabel for="jornada" value="Jornada" />
-                        <p:selectOneMenu id="jornada" required="true" value="#{alumnoMB.jornadaAlumno}">
-                            <f:selectItem itemLabel="Seleccionar" itemValue="" />
-                            <f:selectItem itemLabel="Diurno" itemValue="0" />
-                            <f:selectItem itemLabel="Vespertino" itemValue="1" />
                         </p:selectOneMenu>
                         <br/>
 
