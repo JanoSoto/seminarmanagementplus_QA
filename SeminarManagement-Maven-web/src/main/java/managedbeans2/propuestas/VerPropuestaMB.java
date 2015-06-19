@@ -9,9 +9,7 @@ import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import javax.ejb.EJB;
 import javax.inject.Named;
@@ -49,7 +47,7 @@ public class VerPropuestaMB implements Serializable {
     private Date fechaPropEdit,date,date2;
     private Alumno alumno;
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(VerPropuestaMB.class);
-    private boolean puedeTenerTema;
+    private boolean puedeTenerTema = false;
     
     /**
      * Creates a new instance of VerPropuestaMB
@@ -112,8 +110,9 @@ public class VerPropuestaMB implements Serializable {
                     }
                     
                     if (propuesta.getIdRevisora().getTipoRevision() == 2){
-                        puedeTenerTema = propuesta.getIdRevisora().getFechaPublicacionConsejo() != null 
-                                && propuesta.getIdRevisora().getFechaTerminoPublicacionConsejo() != null;
+                        //puedeTenerTema = propuesta.getIdRevisora().getFechaPublicacionConsejo() != null 
+                        //        && propuesta.getIdRevisora().getFechaTerminoPublicacionConsejo() != null;
+                        puedeTenerTema = true;
                     } else {
                         puedeTenerTema = propuesta.getIdRevisora().getFechaRevision() != null &&
                                 propuesta.getIdRevisora().getFechaRevision2() != null &&
@@ -324,4 +323,13 @@ public class VerPropuestaMB implements Serializable {
     public void setAlumno(Alumno alumno) {
         this.alumno = alumno;
     }
+
+    public boolean isPuedeTenerTema() {
+        return puedeTenerTema;
+    }
+
+    public void setPuedeTenerTema(boolean puedeTenerTema) {
+        this.puedeTenerTema = puedeTenerTema;
+    }
+    
 }
