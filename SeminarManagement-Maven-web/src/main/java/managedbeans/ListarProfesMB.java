@@ -9,6 +9,7 @@ import entities.Profesor;
 import sessionbeans.ProfesorFacadeLocal;
 import clases.ProfeDatos;
 import entities.SemestreActual;
+import entities.Usuario;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +18,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import sessionbeans.SemestreActualFacadeLocal;
+import sessionbeans.UsuarioFacadeLocal;
 
 /**
  *
@@ -29,6 +31,8 @@ public class ListarProfesMB implements Serializable {
     private SemestreActualFacadeLocal semestreActualFacade;
     @EJB
     private ProfesorFacadeLocal profesorFacade;
+    @EJB
+    private UsuarioFacadeLocal usuarioFacade;
     private List<ProfeDatos> profesores;
 
     /**
@@ -73,8 +77,9 @@ public class ListarProfesMB implements Serializable {
                                     guiaTemp++;
                 }
             }
-            profeDatosTemp = new ProfeDatos(guiaP,guiaTemp,revisorTemp,profes.get(i).getProfeCorreccionList().size(),profes.get(i).getRutProfesor(),profes.get(i).getNombreProfesor()+" "+profes.get(i).getApellidoProfesor(),profes.get(i).getApellidoProfesor());
-            profeDatosTemp.setApellidoProfesor(profes.get(i).getApellidoProfesor());
+            Usuario prof = usuarioFacade.findByRut(profes.get(i).getRutProfesor()).get(0);
+            profeDatosTemp = new ProfeDatos(guiaP,guiaTemp,revisorTemp,profes.get(i).getProfeCorreccionList().size(),profes.get(i).getRutProfesor(),prof.getNombreUsuario()+" "+prof.getApellidoUsuarioPaterno(),prof.getApellidoUsuarioPaterno());
+            profeDatosTemp.setApellidoProfesor(prof.getApellidoUsuarioPaterno());
             //Seteamos algunos valores integer
             if(profes.get(i).getTipoProfesor() == 0)
                 profeDatosTemp.setIsGuia("Si");
@@ -84,12 +89,12 @@ public class ListarProfesMB implements Serializable {
                 profeDatosTemp.setContratoProfesor("Por Hora");
             if(profes.get(i).getContrato() == 1)
                 profeDatosTemp.setContratoProfesor("De Planta");
-            if(!profes.get(i).getMailProfesor().isEmpty())
-                profeDatosTemp.setMailProfesor(profes.get(i).getMailProfesor());
+            if(!prof.getMailUsuario().isEmpty())
+                profeDatosTemp.setMailProfesor(prof.getMailUsuario());
             else
                 profeDatosTemp.setMailProfesor("No tiene mail registrado");
-            if(!profes.get(i).getTelefonoProfesor().isEmpty())
-                profeDatosTemp.setTelefonoProfesor(profes.get(i).getTelefonoProfesor());
+            if(!prof.getTelefonoUsuario().isEmpty())
+                profeDatosTemp.setTelefonoProfesor(prof.getTelefonoUsuario());
             else
                 profeDatosTemp.setTelefonoProfesor("No tiene teléfono registrado");
             profesores.add(profeDatosTemp);

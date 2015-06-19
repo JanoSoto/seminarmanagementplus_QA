@@ -7,6 +7,7 @@ package managedbeans.estadotemas;
 import clases.TemaDatos;
 import entities.Historial;
 import entities.Tema;
+import entities.Usuario;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,6 +23,7 @@ import managedbeans.AuthMB;
 import org.primefaces.model.DualListModel;
 import sessionbeans.HistorialFacadeLocal;
 import sessionbeans.TemaFacadeLocal;
+import sessionbeans.UsuarioFacadeLocal;
 
 /**
  *
@@ -34,6 +36,8 @@ public class CambiosMasivosMB {
     private HistorialFacadeLocal historialFacade;
     @EJB
     private TemaFacadeLocal temaFacade;
+    @EJB
+    private UsuarioFacadeLocal usuarioFacade;
     
     private Integer opcionCaducar, opcionActivar;
     private String rutAlumno,nombreTema,fechaCaduco, fechaActivo, semestre;
@@ -64,9 +68,10 @@ public class CambiosMasivosMB {
         for(int i=0; i<temasTemp.size(); i++)
             if(temasTemp.get(i).getEstadoTema() == 0){
                 TemaDatos temaTemp = new TemaDatos();
-                temaTemp.setNombreAlumno(temasTemp.get(i).getIdRevisora().getIdPropuesta().getRutAlumno().getNombreAlumno());
+                Usuario alu = usuarioFacade.findByRut(temasTemp.get(i).getIdRevisora().getIdPropuesta().getRutAlumno().getRutAlumno()).get(0);
+                temaTemp.setNombreAlumno(alu.getNombreUsuario());
                 temaTemp.setRutAlumno(temasTemp.get(i).getIdRevisora().getIdPropuesta().getRutAlumno().getRutAlumno());
-                temaTemp.setApellidoAlumno(temasTemp.get(i).getIdRevisora().getIdPropuesta().getRutAlumno().getApellidoAlumno());
+                temaTemp.setApellidoAlumno(alu.getApellidoUsuarioPaterno());
                 temaTemp.setIdTema(temasTemp.get(i).getIdTema());
                 temaTemp.setSemestreTema(temasTemp.get(i).getIdSemestre().getIdSemestre());
                 temasVigentesSource.add(temaTemp);
@@ -77,8 +82,9 @@ public class CambiosMasivosMB {
         for (int i = 0; i < temasTemp.size(); i++)
             if(temasTemp.get(i).getEstadoTema() == 3){
                 TemaDatos temaTemp = new TemaDatos();
-                temaTemp.setNombreAlumno(temasTemp.get(i).getIdRevisora().getIdPropuesta().getRutAlumno().getNombreAlumno());
-                temaTemp.setApellidoAlumno(temasTemp.get(i).getIdRevisora().getIdPropuesta().getRutAlumno().getApellidoAlumno());
+                Usuario alu2 = usuarioFacade.findByRut(temasTemp.get(i).getIdRevisora().getIdPropuesta().getRutAlumno().getRutAlumno()).get(0);
+                temaTemp.setNombreAlumno(alu2.getNombreUsuario());
+                temaTemp.setApellidoAlumno(alu2.getApellidoUsuarioPaterno());
                 temaTemp.setRutAlumno(temasTemp.get(i).getIdRevisora().getIdPropuesta().getRutAlumno().getRutAlumno());
                 temaTemp.setIdTema(temasTemp.get(i).getIdTema());
                 temaTemp.setSemestreTema(temasTemp.get(i).getIdSemestre().getIdSemestre());
@@ -306,50 +312,7 @@ public class CambiosMasivosMB {
             temaTemp = temaFacade.findById(pickListTemasVigentes.getTarget().get(i).getIdTema()).get(0);
             temaTemp.setEstadoTema(3);
             temaFacade.edit(temaTemp);
-            
-            
-            //Seteamos historial
-            historial = new Historial();
-            historial.setIdEntidad(String.valueOf(temaTemp.getIdTema()));
-            historial.setTipoHistorial(1);
-            historial.setFechaHistorial(fechaCaduco);
-            String descHist = null;
-            if(opcionCaducar == -1){
-                descHist = "Motivo: No fue señalado";
-                historial.setDescripcion("Caducar tema: El estado del tema cambió de 'Vigente' a 'Caduco'. "+descHist);
-            }
-            if(opcionCaducar == 1){
-                descHist = "Motivo: Alumno no entrega borrador final";
-                historial.setDescripcion("Caducar tema: El estado del tema cambió de 'Vigente' a 'Caduco'. "+descHist);
-            }
-            if(opcionCaducar == 2){
-                descHist = "Motivo: Alumno no presenta informe de avance";
-                historial.setDescripcion("Caducar tema: El estado del tema cambió de 'Vigente' a 'Caduco'. "+descHist);
-            }
-            if(opcionCaducar == 3){
-                descHist = "Motivo: Otro";
-                historial.setDescripcion("Caducar tema: El estado del tema cambió de 'Vigente' a 'Caduco'. "+descHist);
-            }
-            historialFacade.create(historial);
-            
-            //Añadimos al historial del alumno
-            Date temp = new Date();
-            String dateHist = dateToString(temp);
-            Historial histCambioMasivoAlum = new Historial();
-            histCambioMasivoAlum.setDescripcion("Se cambió masivamente el estado de su tema de 'Vigente' a 'Caduco'. Lo realizó el usuario "+user.getFullNameUser()+". "+descHist);
-            histCambioMasivoAlum.setFechaHistorial(dateHist);
-            histCambioMasivoAlum.setTipoHistorial(2);
-            histCambioMasivoAlum.setIdEntidad(temaTemp.getIdRevisora().getIdPropuesta().getRutAlumno().getRutAlumno());
-            historialFacade.create(histCambioMasivoAlum);
-
-
-            //Añadimos al historial del usuario que generó el cambio masivo
-            Historial histCambioMasivoUser = new Historial();
-            histCambioMasivoUser.setDescripcion("Cambió masivamente el Tema de 'Vigente' a 'Caduco' del alumno "+temaTemp.getIdRevisora().getIdPropuesta().getRutAlumno().getNombreAlumno()+" "+temaTemp.getIdRevisora().getIdPropuesta().getRutAlumno().getApellidoAlumno()+". "+descHist);
-            histCambioMasivoUser.setFechaHistorial(dateHist);
-            histCambioMasivoUser.setTipoHistorial(3);
-            histCambioMasivoUser.setIdEntidad(user.getUsername());
-            historialFacade.create(histCambioMasivoUser);
+ 
         }
         init();
         context.addMessage(null, new FacesMessage("Caducar Temas", "Temas escogidos han pasado a estado 'Caduco'")); 
@@ -380,49 +343,6 @@ public class CambiosMasivosMB {
             temaTemp = temaFacade.findById(pickListTemasCaducos.getTarget().get(i).getIdTema()).get(0);
             temaTemp.setEstadoTema(0);
             temaFacade.edit(temaTemp);
-            
-            //Seteamos historial
-            historial = new Historial();
-            historial.setIdEntidad(String.valueOf(temaTemp.getIdTema()));
-            historial.setTipoHistorial(1);
-            historial.setFechaHistorial(fechaActivo);
-            String descHist = null;
-            if(opcionActivar == -1){
-                descHist = "Motivo: No fue señalado";
-                historial.setDescripcion("Activar tema: El estado del tema cambió de 'Caduco' a 'Vigente'. "+descHist);
-            }
-            if(opcionActivar == 1){
-                descHist = "Motivo: Alumno presentará informe de avance";
-                historial.setDescripcion("Activar tema: El estado del tema cambió de 'Caduco' a 'Vigente'. "+descHist);
-            }
-            if(opcionActivar == 2){
-                descHist = "Motivo: Alumno entregará borrador final";
-                historial.setDescripcion("Activar tema: El estado del tema cambió de 'Caduco' a 'Vigente'. "+descHist);
-            }
-            if(opcionActivar == 3){
-                descHist = "Motivo: Otro";
-                historial.setDescripcion("Activar tema: El estado del tema cambió de 'Caduco' a 'Vigente'. "+descHist);
-            }
-            historialFacade.create(historial);
-            
-            //Añadimos al historial del alumno
-            Date temp = new Date();
-            String dateHist = dateToString(temp);
-            Historial histCambioMasivoAlum = new Historial();
-            histCambioMasivoAlum.setDescripcion("Se cambió masivamente el estado de su tema de 'Caduco' a 'Vigente'. Lo realizó el usuario "+user.getFullNameUser()+". "+descHist);
-            histCambioMasivoAlum.setFechaHistorial(dateHist);
-            histCambioMasivoAlum.setTipoHistorial(2);
-            histCambioMasivoAlum.setIdEntidad(temaTemp.getIdRevisora().getIdPropuesta().getRutAlumno().getRutAlumno());
-            historialFacade.create(histCambioMasivoAlum);
-
-
-            //Añadimos al historial del usuario que generó el cambio masivo
-            Historial histCambioMasivoUser = new Historial();
-            histCambioMasivoUser.setDescripcion("Cambió masivamente el Tema de 'Caduco' a 'Vigente' del alumno "+temaTemp.getIdRevisora().getIdPropuesta().getRutAlumno().getNombreAlumno()+" "+temaTemp.getIdRevisora().getIdPropuesta().getRutAlumno().getApellidoAlumno()+". "+descHist);
-            histCambioMasivoUser.setFechaHistorial(dateHist);
-            histCambioMasivoUser.setTipoHistorial(3);
-            histCambioMasivoUser.setIdEntidad(user.getUsername());
-            historialFacade.create(histCambioMasivoUser);
         }
         opcionActivar = -1;
         date = null;

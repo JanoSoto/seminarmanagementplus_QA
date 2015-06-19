@@ -453,37 +453,5 @@ public class CalificacionTemaMB {
         }
         temaFacade.edit(tema);
         
-        //Añadimos al historial del alumno
-        Date temp = new Date();
-        String dateHist = dateToString(temp);
-        Historial histTemaAlum = new Historial();
-        histTemaAlum.setDescripcion("Se añadieron Notas de correción. Lo ingresó el usuario "+user.getFullNameUser());
-        histTemaAlum.setFechaHistorial(dateHist);
-        histTemaAlum.setTipoHistorial(2);
-        histTemaAlum.setIdEntidad(tema.getIdRevisora().getIdPropuesta().getRutAlumno().getRutAlumno());
-        historialFacade.create(histTemaAlum);
-        
-        
-        //Añadimos al historial del usuario que creo la comisión revisora
-        Historial histNotasUser = new Historial();
-        histNotasUser.setDescripcion("Ingresó Notas al alumno "+tema.getIdRevisora().getIdPropuesta().getRutAlumno().getNombreAlumno()+" "+tema.getIdRevisora().getIdPropuesta().getRutAlumno().getApellidoAlumno());
-        histNotasUser.setFechaHistorial(dateHist);
-        histNotasUser.setTipoHistorial(3);
-        histNotasUser.setIdEntidad(user.getUsername());
-        historialFacade.create(histNotasUser);
-        
-        //Agregamos el historial de cambio de estado y de agregar notas
-        Historial historial = new Historial();
-        String fecha = dateToString(date);
-        if(tema.getEstadoTema() == 1){
-            historial.setDescripcion("Calificación:  el estado de tema cambió de 'Vigente' a 'Titulado', promedio: "+promedio);
-        }
-        if(tema.getEstadoTema() == 3){
-            historial.setDescripcion("Calificación: el estado de tema cambió de 'Vigente' a 'Caduco', promedio: "+promedio);
-        }
-        historial.setFechaHistorial(fecha);
-        historial.setIdEntidad(String.valueOf(idTema));
-        historial.setTipoHistorial(1);
-        historialFacade.create(historial);
     }
 }

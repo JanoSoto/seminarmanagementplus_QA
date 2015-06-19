@@ -280,33 +280,6 @@ public class EntregaBorradorMB {
         tema.setEstadoTema(6);
         temaFacade.edit(tema);
         
-        //Añadimos al historial del alumno
-        Date temp = new Date();
-        String dateHist = dateToString(temp);
-        Historial histTemaAlum = new Historial();
-        histTemaAlum.setDescripcion("Alumno entregó Borrador Final. Lo ingresó el usuario "+user.getFullNameUser());
-        histTemaAlum.setFechaHistorial(dateHist);
-        histTemaAlum.setTipoHistorial(2);
-        histTemaAlum.setIdEntidad(tema.getIdRevisora().getIdPropuesta().getRutAlumno().getRutAlumno());
-        historialFacade.create(histTemaAlum);
-        
-        
-        //Añadimos al historial del usuario que ingresó el borrador
-        Historial histBorradorUser = new Historial();
-        histBorradorUser.setDescripcion("Ingresó Borrador Final del alumno "+tema.getIdRevisora().getIdPropuesta().getRutAlumno().getNombreAlumno()+" "+tema.getIdRevisora().getIdPropuesta().getRutAlumno().getApellidoAlumno());
-        histBorradorUser.setFechaHistorial(dateHist);
-        histBorradorUser.setTipoHistorial(3);
-        histBorradorUser.setIdEntidad(user.getUsername());
-        historialFacade.create(histBorradorUser);
-        
-        //Agregamos el historial de cambio de estado
-        Historial historial = new Historial();
-        String fecha = dateToString(date);
-        historial.setDescripcion("Borrador Final: El estado del tema cambió de 'Vigente' a 'Vigente con borrador final'");
-        historial.setFechaHistorial(fecha);
-        historial.setIdEntidad(String.valueOf(idTema));
-        historial.setTipoHistorial(1);
-        historialFacade.create(historial);
         
         //Mensaje de confirmación
         context.addMessage(null, new FacesMessage("Tema modificado", "El estado del tema seleccionado se modificó a 'Vigente con borrador final'")); 
