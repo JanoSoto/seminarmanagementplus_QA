@@ -6,6 +6,7 @@
 package managedbeans2.profesores;
 
 import entities.Profesor;
+import entities.Usuario;
 import java.io.IOException;
 import javax.inject.Named;
 import java.io.Serializable;
@@ -16,6 +17,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import sessionbeans.HistorialFacadeLocal;
 import sessionbeans.ProfesorFacadeLocal;
+import sessionbeans.UsuarioFacadeLocal;
 
 /**
  *
@@ -28,6 +30,8 @@ public class EditarProfesorMB implements Serializable {
     private HistorialFacadeLocal historialFacade;
     @EJB
     private ProfesorFacadeLocal profesorFacade;
+    @EJB
+    private UsuarioFacadeLocal usuarioFacade;
     
     private String rutProfesor, rutProfeEdit;
     private Profesor profesor;
@@ -75,10 +79,8 @@ public class EditarProfesorMB implements Serializable {
         Profesor datosAntiguos = profesorFacade.findByRut(rutProfeEdit).get(0);
         
         Profesor profTemp = datosAntiguos;
-        profTemp.setApellidoProfesor(profesorEdit.getApellidoProfesor().toUpperCase());
-        profTemp.setNombreProfesor(profesorEdit.getNombreProfesor().toUpperCase());
         profTemp.setContrato(profesorEdit.getContrato());
-        profTemp.setTelefonoProfesor(profesorEdit.getTelefonoProfesor());
+
         
         //Si el profesor es JC, se deja por defecto que SÍ puede ser prof guía
         if(profesorEdit.getContrato()==1){
@@ -138,9 +140,9 @@ public class EditarProfesorMB implements Serializable {
          histProfAgregadoUser.setIdEntidad(user.getUsername());
          historialFacade.create(histProfAgregadoUser);
          */
-        
-        context.addMessage(null, new FacesMessage("Editar Profesor", profesorEdit.getNombreProfesor()+" "+profesorEdit.getApellidoProfesor()+" editado exitosamente"));
-        LOGGER.info("El profesor '"+profesorEdit.getNombreProfesor()+" "+profesorEdit.getApellidoProfesor()+"' ha sido editado exitosamente");
+        Usuario us1 = usuarioFacade.findByRut(profesorEdit.getRutProfesor()).get(0);
+        context.addMessage(null, new FacesMessage("Editar Profesor", us1.getNombreUsuario()+" "+us1.getApellidoUsuarioPaterno()+" editado exitosamente"));
+        LOGGER.info("El profesor '"+us1.getNombreUsuario()+" "+us1.getApellidoUsuarioPaterno()+"' ha sido editado exitosamente");
 
     }
     
@@ -154,7 +156,8 @@ public class EditarProfesorMB implements Serializable {
         profEditGuias.setProfePropuestaList(datosAntiguos.getProfePropuestaList());
         profEditGuias.setProfeRevisionList(datosAntiguos.getProfeRevisionList());
         profEditGuias.setMaximoGuias(profesor.getMaximoGuias());
-        context.addMessage(null, new FacesMessage("Editar Máximo Guías", profEditGuias.getNombreProfesor()+" "+profEditGuias.getApellidoProfesor()+" pasó de "+datosAntiguos.getMaximoGuias()+" a poder guiar "+profEditGuias.getMaximoGuias()+"."));
-        LOGGER.info(profEditGuias.getNombreProfesor()+" "+profEditGuias.getApellidoProfesor()+" pasó de "+datosAntiguos.getMaximoGuias()+" a poder guiar "+profEditGuias.getMaximoGuias()+".");
+        Usuario us1 = usuarioFacade.findByRut(profEditGuias.getRutProfesor()).get(0);
+        context.addMessage(null, new FacesMessage("Editar Máximo Guías", us1.getNombreUsuario()+" "+us1.getApellidoUsuarioPaterno()+" pasó de "+datosAntiguos.getMaximoGuias()+" a poder guiar "+profEditGuias.getMaximoGuias()+"."));
+        LOGGER.info(us1.getNombreUsuario()+" "+us1.getApellidoUsuarioPaterno()+" pasó de "+datosAntiguos.getMaximoGuias()+" a poder guiar "+profEditGuias.getMaximoGuias()+".");
     }
 }
