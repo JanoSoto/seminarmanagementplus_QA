@@ -8,6 +8,7 @@ import entities.Profesor;
 import entities.Propuesta;
 import entities.Semestre;
 import entities.Tema;
+import entities.Usuario;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
@@ -31,6 +32,7 @@ import sessionbeans.ProfesorFacadeLocal;
 import sessionbeans.PropuestaFacadeLocal;
 import sessionbeans.SemestreFacadeLocal;
 import sessionbeans.TemaFacadeLocal;
+import sessionbeans.UsuarioFacadeLocal;
 
 /**
  *
@@ -55,6 +57,8 @@ public class ConsolidadoCSV {
     private AlumnoFacadeLocal alumnoFacade;
     @EJB
     private ProfesorFacadeLocal profesorFacade;
+    @EJB
+    private UsuarioFacadeLocal usuarioFacade;
     
     private String path;
 
@@ -116,13 +120,14 @@ public class ConsolidadoCSV {
             //Agregamos Profesor
             Profesor profeTemp;
             profeTemp = new Profesor(cCSV.rutProfe(fila.get(2)));//Debería ser el RUT
-            profeTemp.setNombreProfesor(cCSV.getNombreProfesor(fila.get(2)).toUpperCase());
-            profeTemp.setApellidoProfesor(cCSV.getApellidoProfesor(fila.get(2)).toUpperCase());
+            Usuario cs1 = usuarioFacade.findByRut(profeTemp.getRutProfesor()).get(0);
+            cs1.setNombreUsuario(cCSV.getNombreProfesor(fila.get(2)).toUpperCase());
+            cs1.setApellidoUsuarioPaterno(cCSV.getApellidoProfesor(fila.get(2)).toUpperCase());
             profeTemp.setContrato(1);
             profeTemp.setTipoProfesor(0);
             
             if(profesorFacade.findByRut(cCSV.rutProfe(fila.get(2))).isEmpty()){
-                System.out.println(i+": Profesor: "+profeTemp.getNombreProfesor()+" "+profeTemp.getApellidoProfesor()+" Agregado");
+                System.out.println(i+": Profesor: "+cs1.getNombreUsuario()+" "+cs1.getNombreUsuario()+" Agregado");
                 profesorFacade.create(profeTemp);
                 int aprofeTemp = profesorFacade.count();
             }
@@ -132,13 +137,14 @@ public class ConsolidadoCSV {
             //Agregamos Alumno
             Alumno alumTemp;
             alumTemp = new Alumno(cCSV.cleanRut(fila.get(6)));
-            alumTemp.setNombreAlumno(cCSV.getNombreAlumno(fila.get(4)).toUpperCase());
-            alumTemp.setApellidoAlumno(cCSV.getApellidoAlumno(fila.get(4)).toUpperCase());
+            Usuario cs2 = usuarioFacade.findByRut(alumTemp.getRutAlumno()).get(0);
+            cs2.setNombreUsuario(cCSV.getNombreAlumno(fila.get(4)).toUpperCase());
+            cs2.setNombreUsuario(cCSV.getApellidoAlumno(fila.get(4)).toUpperCase());
 
             //if(fila.get(21).length()>7)
             //alumTemp.setMailAlumno(fila.get(21).substring(0, 7));
             //else
-            alumTemp.setMailAlumno(fila.get(21).toUpperCase());
+            cs2.setMailUsuario(fila.get(21).toUpperCase());
             
             //Reemplazamos signos y sacamos los '0' que hayan al comienzo del teléfono
             //Algunos telefono estan así 09-82161813 / 02-7916425 o con (02)
@@ -160,7 +166,7 @@ public class ConsolidadoCSV {
                 }
             }
             else
-                alumTemp.setTelefonoAlumno("");
+                cs2.setTelefonoUsuario("");
             
 //            if(fila.get(5).equals("DIURNO"))
 //                alumTemp.setJornada(0);
@@ -172,7 +178,7 @@ public class ConsolidadoCSV {
             if(!alumnos.contains(alumTemp)){
                 alumnos.add(alumTemp);
                 if(!alumnoFacade.findAll().contains(alumTemp)){
-                    System.out.println(i+": Alumno: "+alumTemp.getNombreAlumno()+" "+alumTemp.getApellidoAlumno()+" Agregado");
+                    System.out.println(i+": Alumno: "+cs2.getNombreUsuario()+" "+cs2.getApellidoUsuarioPaterno()+" Agregado");
                     alumnoFacade.create(alumTemp);
                 }
             }
@@ -413,11 +419,12 @@ public class ConsolidadoCSV {
 	    writer.append('\n');
  
 	    for(int i=0;i<profesores.size();i++){
+                Usuario cs3 = usuarioFacade.findByRut(profesores.get(i).getRutProfesor()).get(0);
                 writer.append(profesores.get(i).getRutProfesor());
                 writer.append(',');
-                writer.append(profesores.get(i).getNombreProfesor());
+                writer.append(cs3.getNombreUsuario());
                 writer.append(',');
-                writer.append(profesores.get(i).getApellidoProfesor());
+                writer.append(cs3.getApellidoUsuarioPaterno());
                 writer.append(',');
                 writer.append(Integer.toString(profesores.get(i).getContrato()));
                 writer.append(',');
@@ -428,9 +435,9 @@ public class ConsolidadoCSV {
                 else
                     writer.append(Integer.toString(profesores.get(i).getMaximoGuias()));
                 writer.append(',');
-                writer.append(profesores.get(i).getMailProfesor());
+                writer.append(cs3.getMailUsuario());
                 writer.append(',');
-                writer.append(profesores.get(i).getTelefonoProfesor());
+                writer.append(cs3.getTelefonoUsuario());
                 writer.append('\n');
             }
 	    writer.flush();
@@ -480,14 +487,15 @@ public class ConsolidadoCSV {
             fila = cCSV.splitCSVLine(lines.get(i));
             
             Profesor profeTemp = new Profesor(fila.get(0)+Integer.toString(i));
-            profeTemp.setNombreProfesor(fila.get(1));
-            profeTemp.setApellidoProfesor(fila.get(2));
+            Usuario cs4 = usuarioFacade.findByRut(profeTemp.getRutProfesor()).get(0);
+            cs4.setNombreUsuario(fila.get(1));
+            cs4.setApellidoUsuarioPaterno(fila.get(2));
             profeTemp.setContrato(Integer.parseInt(fila.get(3)));
             profeTemp.setTipoProfesor(Integer.parseInt(fila.get(4)));
             if(!fila.get(5).equals(""))
                 profeTemp.setMaximoGuias(Integer.parseInt(fila.get(5)));
-            profeTemp.setMailProfesor(fila.get(6));
-            profeTemp.setTelefonoProfesor(fila.get(7));
+            cs4.setMailUsuario(fila.get(6));
+            cs4.setDireccionUsuario(fila.get(7));
             
             profesorFacade.create(profeTemp);
         }
@@ -531,14 +539,15 @@ public class ConsolidadoCSV {
             fila = cCSV.splitCSVLine(lines.get(i));
             
             Profesor profeTemp = new Profesor(fila.get(7));
-            profeTemp.setNombreProfesor(fila.get(1));
-            profeTemp.setApellidoProfesor(fila.get(2));
+            Usuario cs5 = usuarioFacade.findByRut(profeTemp.getRutProfesor()).get(0);
+            cs5.setNombreUsuario(fila.get(1));
+            cs5.setApellidoUsuarioPaterno(fila.get(2));
             profeTemp.setContrato(Integer.parseInt(fila.get(0)));
             profeTemp.setTipoProfesor(Integer.parseInt(fila.get(5)));
             if(!fila.get(6).equals(""))
                 profeTemp.setMaximoGuias(Integer.parseInt(fila.get(6)));
-            profeTemp.setMailProfesor(fila.get(3));
-            profeTemp.setTelefonoProfesor(fila.get(4));
+            cs5.setMailUsuario(fila.get(3));
+            cs5.setDireccionUsuario(fila.get(4));
             
             profesorFacade.create(profeTemp);
         }
