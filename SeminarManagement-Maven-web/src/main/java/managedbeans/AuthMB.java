@@ -129,15 +129,17 @@ public class AuthMB implements Serializable {
 
             //MessageDigest md = MessageDigest.getInstance("SHA-256");
             //md.update(password.getBytes("UTF-8"));
+            System.out.println("salida json: " + jsonObject.getString("pass_ok"));
             request.login(username, jsonObject.getString("pass_ok"));
             if(valido_response){
                 Usuario usuario = usuarioFacade.findByUid(username);
                 setRoles(usuario.getRoles());
-                System.out.println("nombre de usuario: "+ usuario.getUid() + "-Rol: "+ usuario.getRoles().get(0).getNombreTipo());
+                tipo=usuario.getRoles().get(0).getNombreTipo();
+                System.out.println("nombre de usuario: "+ usuario.getUid() + "- Rol: "+ usuario.getRoles().get(0).getNombreTipo());
                 if(usuario.getRoles().get(0).getNombreTipo().equals("ADMINISTRADOR")){
                     externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/admin/index.xhtml");
                 } else if(usuario.getRoles().get(0).getNombreTipo().equals("PROFESOR")){
-                    
+                    externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/profesor/index.xhtml");
                 }else if(usuario.getRoles().get(0).getNombreTipo().equals("SECRETARIA")){
                     externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/secretaria/index.xhtml");
                 }
