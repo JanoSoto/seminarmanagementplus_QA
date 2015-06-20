@@ -40,6 +40,9 @@
                             <f:selectItem itemLabel="Es PET" itemValue="1"/>
                         </p:selectOneMenu>
                        <br/>
+                       <p:outputLabel for="plan_version" value="Plan:" />
+                       <p:outputLabel id="plan_version" value="#{verAlumnoMB.planActivo.codigo} #{verAlumnoMB.alumno.versionPlanActivo} #{verAlumnoMB.planActivo.carreraId.nombre}"/>
+                       <br/>
                         <p:outputLabel for="alumnoP" style="color: #0052cc;font-weight: bold;" value="Alumno" />
                         <h:outputText id="alumnoP" value="#{verAlumnoMB.alumno.nombreAlumno} #{verAlumnoMB.alumno.apellidoAlumno}"/>
                         <br/>

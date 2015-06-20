@@ -178,6 +178,8 @@ public class AgregarPropuestaMB {
         nuevaPropuesta.setRutAlumno(alumnoPropuesta);
         nuevaPropuesta.setIdSemestre(semestrePropuesta);
         nuevaPropuesta.setMagister(magister);
+        nuevaPropuesta.setIdPlan(alumnoPropuesta.getIdPlanActivo());
+        nuevaPropuesta.setVersionPlan(alumnoPropuesta.getVersionPlanActivo());
         if (pet == 0){
             nuevaPropuesta.setPet(false);
         }

@@ -43,6 +43,9 @@
 
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Dirección:"/>
                         <h:outputText value="#{verAlumnoMB.alumno.direccionAlumno}"/>
+                        
+                        <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Plan Activo:"/>
+                        <h:outputText value="#{verAlumnoMB.alumno.planActivo.codigo} #{verAlumnoMB.alumno.versionPlanActivo} #{verAlumnoMB.alumno.planActivo.carreraId.nombre}"/>
                     </h:panelGrid>
                 </p:panel>
                 
@@ -75,6 +78,11 @@
                             <h:outputText value="#{prop.guia.nombreProfesor} #{prop.guia.apellidoProfesor}"/>
                         </a>
                     </p:column>
+                    <p:column headerText="Plan">
+                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/profesores/profesor.xhtml?prof=#{prop.guia.rutProfesor}">
+                            <h:outputText value="#{prop.propuesta.planActivo.codigo} #{prop.propuesta.versionPlan} #{prop.propuesta.planActivo.carreraId.nombre}"/>
+                        </a>
+                    </p:column>
                 </p:dataTable>
                 
                 <br/>
@@ -96,6 +104,11 @@
                     <p:column headerText="Estado">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/temas/tema.xhtml?tema=#{tema.idTema}">
                             <h:outputText value="#{tema.estadoTema}"/>
+                        </a>
+                    </p:column>
+                    <p:column headerText="Plan">
+                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/temas/tema.xhtml?tema=#{tema.idTema}">
+                            <h:outputText value="#{tema.planActivo.codigo} #{tema.versionPlanActivo} #{tema.planActivo.carreraId.nombre}"/>
                         </a>
                     </p:column>
                 </p:dataTable>
