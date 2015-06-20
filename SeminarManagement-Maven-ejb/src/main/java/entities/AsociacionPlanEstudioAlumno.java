@@ -6,12 +6,17 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 @Entity
 @Table(name = "planes_alumno")
 @IdClass(AsociacionPlanEstudioAlumnoId.class)
+@NamedQueries({
+    @NamedQuery(name = "AsociacionPlanEstudioAlumno.findAll", query = "SELECT a FROM AsociacionPlanEstudioAlumno a")
+})
 public class AsociacionPlanEstudioAlumno implements Serializable {
 
     @Id
@@ -19,7 +24,18 @@ public class AsociacionPlanEstudioAlumno implements Serializable {
 
     @Id
     private Long plan_id;
-    
+
+    @Column(name = "version_plan")
+    private Integer versionPlan;
+
+    public Integer getVersionPlan() {
+        return versionPlan;
+    }
+
+    public void setVersionPlan(Integer versionPlan) {
+        this.versionPlan = versionPlan;
+    }
+
     @Column(name = "activo")
     private Boolean activo;
 
