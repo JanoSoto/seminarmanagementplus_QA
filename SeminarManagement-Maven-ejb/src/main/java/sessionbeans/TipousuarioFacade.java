@@ -5,17 +5,17 @@
  */
 package sessionbeans;
 
-import entities.UsuarioTipo;
+import entities.Tipousuario;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Elagos
+ * @author miguel
  */
 @Stateless
-public class UsuarioTipoFacade extends AbstractFacade<UsuarioTipo> implements UsuarioTipoFacadeLocal {
+public class TipousuarioFacade extends AbstractFacade<Tipousuario> implements TipousuarioFacadeLocal {
     @PersistenceContext(unitName = "com.mycompany_SeminarManagement-Maven-ejb_ejb_1.0-SNAPSHOTPU")
     private EntityManager em;
 
@@ -24,8 +24,8 @@ public class UsuarioTipoFacade extends AbstractFacade<UsuarioTipo> implements Us
         return em;
     }
 
-    public UsuarioTipoFacade() {
-        super(UsuarioTipo.class);
+    public TipousuarioFacade() {
+        super(Tipousuario.class);
     }
     
 }

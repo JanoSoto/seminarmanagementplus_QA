@@ -11,7 +11,7 @@ import javax.ejb.Local;
 
 /**
  *
- * @author Elagos
+ * @author miguel
  */
 @Local
 public interface UsuarioFacadeLocal {
@@ -27,11 +27,12 @@ public interface UsuarioFacadeLocal {
     List<Usuario> findAll();
 
     List<Usuario> findRange(int[] range);
+    
+    public Usuario findByUid(String username);
+    
+    public boolean existe(String username);
+    
 
     int count();
-
-    public List<Usuario> findByUsername(String username);
-
-    public boolean existe(String username);
     
 }

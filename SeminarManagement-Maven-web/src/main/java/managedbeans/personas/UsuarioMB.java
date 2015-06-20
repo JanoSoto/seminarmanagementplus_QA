@@ -7,9 +7,8 @@ package managedbeans.personas;
 
 import entities.Historial;
 import entities.Profesor;
-import entities.Tipo;
+import entities.Tipousuario;
 import entities.Usuario;
-import entities.UsuarioTipo;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
@@ -29,9 +28,8 @@ import managedbeans.ProfesorViewMB;
 import sessionbeans.AlumnoFacadeLocal;
 import sessionbeans.HistorialFacadeLocal;
 import sessionbeans.ProfesorFacadeLocal;
-import sessionbeans.TipoFacadeLocal;
+import sessionbeans.TipousuarioFacadeLocal;
 import sessionbeans.UsuarioFacadeLocal;
-import sessionbeans.UsuarioTipoFacadeLocal;
 
 /**
  *
@@ -47,26 +45,26 @@ public class UsuarioMB {
     @EJB
     private AlumnoFacadeLocal alumnoFacade;
     @EJB
-    private TipoFacadeLocal tipoFacade;
+    private TipousuarioFacadeLocal tipoFacade;
     @EJB
     private UsuarioFacadeLocal usuarioFacade;
-    @EJB
-    private UsuarioTipoFacadeLocal usuarioTipoFacade;
 
-    private String username, nombreUsuario, apellidoUsuario, tipoUsuario;
+
+    private String username, nombreUsuario, apellidoUsuario;
+    private List<Tipousuario> tipoUsuario;
     
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(UsuarioMB.class);
 
     @PostConstruct
     public void init() {
-        List<Tipo> tipos = tipoFacade.findAll();
+        List<Tipousuario> tipos = tipoFacade.findAll();
     }
 
-    public String getTipoUsuario() {
+    public List<Tipousuario> getTipoUsuario() {
         return tipoUsuario;
     }
 
-    public void setTipoUsuario(String tipoUsuario) {
+    public void setTipoUsuario(List<Tipousuario> tipoUsuario) {
         this.tipoUsuario = tipoUsuario;
     }
     
@@ -122,7 +120,7 @@ public class UsuarioMB {
         apellidoUsuario = apellidoUsuario.toUpperCase();
 
         //Validamos que el rut no exista en el sistema
-        if(alumnoFacade.existe(username) || profesorFacade.existe(username) || usuarioFacade.existe(username)){
+        if(usuarioFacade.existe(username)){
             context.addMessage(null, new FacesMessage("ERROR: El Rut ingresado ya existe en el sistema.",""));
             return;
         }
@@ -130,20 +128,20 @@ public class UsuarioMB {
         //Ingresamos al usuario
         Usuario nuevoUsuario = new Usuario(username);
         nuevoUsuario.setNombreUsuario(nombreUsuario);
-        nuevoUsuario.setPassword(sha256(username.substring(0, 5)));
+        //nuevoUsuario.setPassword(sha256(username.substring(0, 5)));
         nuevoUsuario.setApellidoUsuario(apellidoUsuario);
         nuevoUsuario.setActivo(true);
         usuarioFacade.create(nuevoUsuario);
-        
+        List<Tipousuario> aux = new ArrayList();
         //Ingresamos el tipo usuario
-        Tipo tipo = tipoFacade.find(tipoUsuario);
-        UsuarioTipo usuarioTipo = new UsuarioTipo();
-        usuarioTipo.setNombreTipo(tipo);
-        usuarioTipo.setUsername(nuevoUsuario);
-        usuarioTipoFacade.create(usuarioTipo);
+        for (Tipousuario tipoUsuario1 : tipoUsuario) {
+            Tipousuario tipo = tipoFacade.find(tipoUsuario1);
+            aux.add(tipo);
+        }
+        
+        nuevoUsuario.setTipos(aux);
         
         //Asignamos el usuario_tipo al usuario
-        nuevoUsuario.add(usuarioTipo);
         usuarioFacade.edit(nuevoUsuario);
         
         context.addMessage(null, new FacesMessage("Usuario", nombreUsuario+" "+apellidoUsuario+", ingresado al sistema"));
@@ -152,6 +150,6 @@ public class UsuarioMB {
         username = null;
         nombreUsuario = null;
         apellidoUsuario = null;
-        tipoUsuario = "";
+        tipoUsuario = null;
     }
 }
