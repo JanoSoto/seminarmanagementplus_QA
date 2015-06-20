@@ -65,6 +65,16 @@ public class ProfesorExcel extends HttpServlet {
                 sb.append(profe.getRutFormateadoProfesor());
             sb.append("\n");
             
+            sb.append("E-mail\t");
+            if  ( profe.getMailProfesor() != null )
+                sb.append(profe.getMailProfesor());
+            sb.append("\n");
+            
+            sb.append("Fono\t");
+            if ( profe.getTelefonoProfesor() != null )
+                sb.append(profe.getTelefonoProfesor());
+            sb.append("\n");
+            
             sb.append("Contrato\t");
             if ( profe.getContrato() != null ){
                 if (profe.getContrato() == 1) {
@@ -77,14 +87,10 @@ public class ProfesorExcel extends HttpServlet {
             }
             sb.append("\n");
             
-            sb.append("E-mail\t");
-            if  ( profe.getMailProfesor() != null )
-                sb.append(profe.getMailProfesor());
-            sb.append("\n");
-            
-            sb.append("Fono\t");
-            if ( profe.getTelefonoProfesor() != null )
-                sb.append(profe.getTelefonoProfesor());
+            sb.append("Jerarquía o categoría\t");
+            if ( profe.getJerarquiaCategoria() != null ){
+                sb.append( profe.getJerarquiaCategoria() );
+            }
             sb.append("\n\n");
             
             sb.append("\t\tTemas Vigentes ").append(profesorMB.getSemestreActual()).append("\n");
