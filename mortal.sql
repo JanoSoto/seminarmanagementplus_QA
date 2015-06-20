@@ -512,7 +512,8 @@ ALTER TABLE public.paramsemestreano OWNER TO postgres;
 CREATE TABLE planes_alumno (
     alumno_id character varying(20),
     plan_id bigint,
-    activo boolean
+    activo boolean,
+    version_plan integer
 );
 
 
@@ -731,6 +732,17 @@ ALTER SEQUENCE tema_id_tema_seq OWNED BY tema.id_tema;
 
 
 --
+-- Name: tipo; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE tipo (
+    nombre_tipo character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.tipo OWNER TO postgres;
+
+--
 -- Name: tipoevento; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -769,6 +781,40 @@ CREATE TABLE usuario (
 
 
 ALTER TABLE public.usuario OWNER TO postgres;
+
+--
+-- Name: usuario_tipo; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE usuario_tipo (
+    id_usuario_tipo integer NOT NULL,
+    nombre_tipo character varying(255),
+    username character varying(255)
+);
+
+
+ALTER TABLE public.usuario_tipo OWNER TO postgres;
+
+--
+-- Name: usuario_tipo_id_usuario_tipo_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE usuario_tipo_id_usuario_tipo_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.usuario_tipo_id_usuario_tipo_seq OWNER TO postgres;
+
+--
+-- Name: usuario_tipo_id_usuario_tipo_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE usuario_tipo_id_usuario_tipo_seq OWNED BY usuario_tipo.id_usuario_tipo;
+
 
 --
 -- Name: usuario_tipousuario; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -869,6 +915,13 @@ ALTER TABLE ONLY propuesta ALTER COLUMN id_propuesta SET DEFAULT nextval('propue
 --
 
 ALTER TABLE ONLY tema ALTER COLUMN id_tema SET DEFAULT nextval('tema_id_tema_seq'::regclass);
+
+
+--
+-- Name: id_usuario_tipo; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY usuario_tipo ALTER COLUMN id_usuario_tipo SET DEFAULT nextval('usuario_tipo_id_usuario_tipo_seq'::regclass);
 
 
 --
@@ -2503,7 +2556,7 @@ COPY paramsemestreano (id, anoactual, semestreactual) FROM stdin;
 -- Data for Name: planes_alumno; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY planes_alumno (alumno_id, plan_id, activo) FROM stdin;
+COPY planes_alumno (alumno_id, plan_id, activo, version_plan) FROM stdin;
 \.
 
 
@@ -4563,6 +4616,14 @@ SELECT pg_catalog.setval('tema_id_tema_seq', 599, true);
 
 
 --
+-- Data for Name: tipo; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY tipo (nombre_tipo) FROM stdin;
+\.
+
+
+--
 -- Data for Name: tipoevento; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -4592,6 +4653,21 @@ COPY usuario (uid, rut_usuario, nombre_usuario, apellido_usuario, activo) FROM s
 mcarcamo	178338889	Miguel	Cárcamo	t
 nflores	176767901	Matias	Flores	t
 \.
+
+
+--
+-- Data for Name: usuario_tipo; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY usuario_tipo (id_usuario_tipo, nombre_tipo, username) FROM stdin;
+\.
+
+
+--
+-- Name: usuario_tipo_id_usuario_tipo_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('usuario_tipo_id_usuario_tipo_seq', 1, false);
 
 
 --
@@ -4911,6 +4987,14 @@ ALTER TABLE ONLY subtipo
 
 
 --
+-- Name: tipo_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY tipo
+    ADD CONSTRAINT tipo_pkey PRIMARY KEY (nombre_tipo);
+
+
+--
 -- Name: tipoevento_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -4924,6 +5008,14 @@ ALTER TABLE ONLY tipoevento
 
 ALTER TABLE ONLY tipousuario
     ADD CONSTRAINT tipousuario_pkey PRIMARY KEY (id_tipo);
+
+
+--
+-- Name: usuario_tipo_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY usuario_tipo
+    ADD CONSTRAINT usuario_tipo_pkey PRIMARY KEY (id_usuario_tipo);
 
 
 --

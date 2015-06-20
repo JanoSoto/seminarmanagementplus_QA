@@ -7,7 +7,10 @@ import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Level;
 //import org.json.simple.JSONObject;
 import java.util.logging.Logger;
@@ -134,13 +137,34 @@ public class AuthMB implements Serializable {
             if(valido_response){
                 Usuario usuario = usuarioFacade.findByUid(username);
                 setRoles(usuario.getRoles());
-                tipo=usuario.getRoles().get(0).getNombreTipo();
-                System.out.println("nombre de usuario: "+ usuario.getUid() + "- Rol: "+ usuario.getRoles().get(0).getNombreTipo());
-                if(usuario.getRoles().get(0).getNombreTipo().equals("ADMINISTRADOR")){
+                //List <Tipousuario> aux = new ArrayList();
+               // List<Map<Tipousuario, Integer>> aux = new ArrayList<>();
+                Map<Integer, Tipousuario> auxMap = new HashMap<Integer, Tipousuario>();
+                List<Integer> numeros= new ArrayList<Integer>();
+                for(int i=0; i< roles.size(); i++){
+                    if(roles.get(i).getNombreTipo().equals("ADMINISTRADOR")){
+                        //aux.add(roles.get(i));                       
+                        auxMap.put(10, roles.get(i));
+                        numeros.add(10);
+                    }else if(roles.get(i).getNombreTipo().equals("PROFESOR")){
+                        //aux.add(roles.get(i));
+                        auxMap.put(5, roles.get(i));
+                        numeros.add(5);
+                    }else if(roles.get(i).getNombreTipo().equals("SECRETARIA")){
+                        //aux.add(roles.get(i));
+                        auxMap.put(1, roles.get(i));
+                        numeros.add(1);
+                    }
+                }
+                int numeromax = Collections.max(numeros);
+                //tipo = aux.get(0).getNombreTipo();
+                tipo = auxMap.get(numeromax).getNombreTipo();
+                System.out.println("nombre de usuario: "+ usuario.getUid() + "- Rol: "+ tipo);
+                if(tipo.equals("ADMINISTRADOR")){
                     externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/admin/index.xhtml");
-                } else if(usuario.getRoles().get(0).getNombreTipo().equals("PROFESOR")){
+                } else if(tipo.equals("PROFESOR")){
                     externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/profesor/index.xhtml");
-                }else if(usuario.getRoles().get(0).getNombreTipo().equals("SECRETARIA")){
+                }else if(tipo.equals("SECRETARIA")){
                     externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/secretaria/index.xhtml");
                 }
             }
