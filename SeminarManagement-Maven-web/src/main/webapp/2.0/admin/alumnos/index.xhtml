@@ -47,9 +47,8 @@
                     </a>
                     </p:column>
                     <p:column headerText="Jornada">
-                        <h:outputText rendered="#{false}" value="Diurno"/>
-                        <h:outputText rendered="#{false}" value="Vespertino"/> <!--vespertino-->
-                        <h:outputText value="TO-DO jornada"/>
+                        <h:outputText rendered="#{alum.planActivo.jornada eq 0}" value="Diurna"/>
+                        <h:outputText rendered="#{alum.planActivo.jornada eq 1}" value="Vespertina"/>
                     </p:column>
                 </p:dataTable>
             </h:form>
