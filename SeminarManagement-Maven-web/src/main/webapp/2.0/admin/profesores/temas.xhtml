@@ -56,7 +56,7 @@
                     <f:facet name="header">
                         Listado histórico de temas
                     </f:facet>
-                    <p:column headerText="Nombre" sortBy="#{tema.nombreCorto}">
+                    <p:column headerText="Título" sortBy="#{tema.nombreCorto}">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/temas/tema.xhtml?tema=#{tema.idTema}">
                             <h:outputText value="#{tema.nombreCorto}"/>
                         </a>

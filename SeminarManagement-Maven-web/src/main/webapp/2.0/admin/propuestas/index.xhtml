@@ -27,7 +27,7 @@
                     <f:facet name="header">  
                         Listado de Propuestas presentadas al #{semestreActual.semestre}
                     </f:facet>
-                    <p:column headerText="Nombre Propuesta" filterBy="#{prop.nombreCorto}" filterMatchMode="contains" sortBy="#{prop.nombreCorto}">
+                    <p:column headerText="Título Propuesta" filterBy="#{prop.nombreCorto}" filterMatchMode="contains" sortBy="#{prop.nombreCorto}">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/propuestas/propuesta.xhtml?prop=#{prop.idPropuesta}">
                             <h:outputText value="#{prop.nombreCorto}" />
                         </a>

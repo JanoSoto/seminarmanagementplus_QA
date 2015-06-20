@@ -50,9 +50,14 @@
                     <h1>Acciones</h1>
                     <h:panelGrid columns="1" cellpadding="4">
                         <p:button style="width:140px;" value="Editar Datos" icon="ui-icon-pencil" iconPos="right" href="/2.0/admin/alumnos/editar.xhtml?alum=#{verAlumnoMB.alumno.rutAlumno}"/>
-                        <p:button style="width:140px;" href="/2.0/admin/propuestas/agregar.xhtml?alum=#{verAlumnoMB.alumno.rutAlumno}" value="Agregar Propuesta"/>
+                        <h:panelGroup id="botonAgregarProp" layout="block" >
+                            <p:button style="width:140px;" disabled="#{empty verAlumnoMB.alumno.idPlanActivo}" href="/2.0/admin/propuestas/agregar.xhtml?alum=#{verAlumnoMB.alumno.rutAlumno}" value="Agregar Propuesta"/>
+                        </h:panelGroup>
+                        
                         <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Volver a Alumnos"/>
                     </h:panelGrid>
+                    <p:tooltip id="tooltipAgregarProp" rendered="#{empty verAlumnoMB.alumno.idPlanActivo}"
+                                   for="botonAgregarProp" value="El alumno debe tener una carrera antes de agregar propuesta"/>
                 </p:panel>
             </p:layoutUnit>
             
@@ -65,7 +70,7 @@
                     <f:facet name="header">
                         Propuestas
                     </f:facet>
-                    <p:column headerText="Nombre">
+                    <p:column headerText="Título">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/propuestas/propuesta.xhtml?prop=#{prop.idPropuesta}">
                             <h:outputText value="#{prop.nombreCorto}"/>
                         </a>
@@ -83,7 +88,7 @@
                     <f:facet name="header">
                         Temas
                     </f:facet>
-                    <p:column headerText="Nombre">
+                    <p:column headerText="Título">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/temas/tema.xhtml?tema=#{tema.idTema}">
                             <h:outputText value="#{tema.nombreCorto}"/>
                         </a>
