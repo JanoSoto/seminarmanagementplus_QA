@@ -9,19 +9,22 @@ import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import sessionbeans.SemestreActualFacadeLocal;
 import sessionbeans.TemaFacadeLocal;
+import static util.SMUtil.csvTextToExcel;
 
 /**
  *
  * @author stateless
  */
 @WebServlet(urlPatterns = {"/ReporteBorradores"})
-public class ReporteBorradoresCsvServlet extends HttpServlet {
+public class ReporteBorradoresExcelServlet extends HttpServlet {
     
     @EJB
     private SemestreActualFacadeLocal semActFacade;
@@ -31,18 +34,17 @@ public class ReporteBorradoresCsvServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        PrintWriter pw = response.getWriter();
+        StringBuilder sb = new StringBuilder();
         SemestreActual semestreActual = null;
         try  {
             List<SemestreActual> sems = semActFacade.findAll();
             if ( !sems.isEmpty() ){
                 semestreActual = sems.get(0);
             }
-            pw.println("Alumno\tCarrera\tTítulo Tema\tProfesor Guía\t"
-                    + "Fecha Entrega Borrador\tSemestre\tProfesor Revisor 1\tEntrega\t"
-                    + "Devolución\tProfesor Revisor 2\tEntrega\tDevolución");
+            sb.append("Alumno\tCarrera\tTítulo Tema\tProfesor Guía\t")
+                .append("Fecha Entrega Borrador\tSemestre\tProfesor Revisor 1\tEntrega\t")
+                .append("Devolución\tProfesor Revisor 2\tEntrega\tDevolución\n");
             for (Tema  tema : temasFacade.findByEstado(4)) {
-
                 String salida =
                         tema.getIdRevisora().getIdPropuesta().getRutAlumno().getNombreAlumno() + " "
                         + tema.getIdRevisora().getIdPropuesta().getRutAlumno().getApellidoAlumno();
@@ -101,7 +103,7 @@ public class ReporteBorradoresCsvServlet extends HttpServlet {
                     salida += "\t\t\t\t\t\t";
                 }
                 
-                pw.println(salida);
+                sb.append(salida).append("\n");
             }
 
             response.setContentType("application/vnd.ms-excel");
@@ -109,8 +111,13 @@ public class ReporteBorradoresCsvServlet extends HttpServlet {
             Date date = new Date();
             String file_name = "Seguimiento Revision Borradores " + 
                     semestreActual.getSemestreActual().replace("/", "-") +
-                    " "+ dateFormat.format(date) + ".csv";
+                    " "+ dateFormat.format(date) + ".xlsx";
             response.setHeader("Content-Disposition", "attachment; filename=\"" + file_name + "\"");
+            
+            ServletOutputStream sos;
+            sos = response.getOutputStream();
+            XSSFWorkbook wb = csvTextToExcel(sb.toString());
+            wb.write(sos);
             
         } catch(Exception ex){
             ex.printStackTrace();
@@ -120,7 +127,7 @@ public class ReporteBorradoresCsvServlet extends HttpServlet {
             writer.println("<pre>");
             writer.println("</pre>");
         } finally {
-            pw.close();
+
         }
     }
 

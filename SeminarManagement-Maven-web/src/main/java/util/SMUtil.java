@@ -97,17 +97,18 @@ public class SMUtil {
     public static XSSFWorkbook csvTextToExcel(String csvContent) throws IOException{
         XSSFWorkbook workBook = new XSSFWorkbook();
         XSSFSheet sheet = workBook.createSheet("Hoja 1");
-        String currentLine = null;
+        String currentLine;
         int RowNum = 0;
         
         BufferedReader br = new BufferedReader(new StringReader(csvContent));
         while ( ( currentLine = br.readLine() ) != null) {
             String str[] = currentLine.split("\t");
-            RowNum++;
             XSSFRow currentRow = sheet.createRow(RowNum);
             for(int i = 0; i < str.length; i++){
                 currentRow.createCell(i).setCellValue(str[i]);
+                sheet.autoSizeColumn(i);
             }
+            RowNum++;
         }
         return workBook;
     }
