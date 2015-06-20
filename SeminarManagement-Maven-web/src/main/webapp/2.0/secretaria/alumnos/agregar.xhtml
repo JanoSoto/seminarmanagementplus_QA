@@ -17,14 +17,7 @@
     <ui:define name="content">
         
         <p:layoutUnit position="west" size="180" style="border: none;">
-            <p:panel style="border:none;">
-                <h:panelGrid columns="1" cellpadding="4">
-                    <form method="GET" action="/SeminarManagement-Maven-web/2.0/secretaria/alumnos/buscar.xhtml">
-                        <input type="text" placeholder="Búsqueda" value="#{buscarMB.query}" name="q"/>
-                        <button type="submit" value="search">Buscar Alumno</button>
-                    </form>
-                </h:panelGrid>
-            </p:panel>
+           
         </p:layoutUnit>
         
         <p:layoutUnit position="center" style="border:none;">
@@ -61,15 +54,7 @@
                         <p:outputLabel for="direccion" value="Dirección"/>
                         <p:inputText id="direccion" value="#{alumnoMB.direccionAlumno}"/>
                         <p:watermark for="direccion" value="Ingresar Dirección"/>
-                       
-                        <p:outputLabel for="magister" value="¿Magíster?"/>
-                        <p:selectOneMenu id="magister" disabled="true">
-                            <f:selectItem itemLabel="Seleccionar" itemValue=""/>
-                            <f:selectItem itemLabel="Sí" itemValue="0"/>
-                            <f:selectItem itemLabel="No" itemValue="1"/>
-                        </p:selectOneMenu>
-                        <br/>
-
+                      
                     </h:panelGrid>
 
                     <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="./index.xhtml" value="Volver a Alumnos"/>

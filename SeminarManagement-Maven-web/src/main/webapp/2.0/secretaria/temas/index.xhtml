@@ -22,7 +22,7 @@
                                  rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
                                  {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,30,40,50"
                                  emptyMessage="No se encontraron Temas">
-                    <p:column headerText="Nombre Tema" filterBy="#{tema.nombreCorto}" filterMatchMode="contains" sortBy="#{tema.nombreCorto}">
+                    <p:column headerText="Título Tema" filterBy="#{tema.nombreCorto}" filterMatchMode="contains" sortBy="#{tema.nombreCorto}">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/temas/tema.xhtml?tema=#{tema.idTema}">
                             <h:outputText value="#{tema.nombreCorto}" />
                         </a>
@@ -45,7 +45,7 @@
                             <h:outputText value="#{tema.guia.nombreProfesor} #{tema.guia.apellidoProfesor}" />
                         </a>
                     </p:column>
-                    <p:column headerText="Inicio Tema" filterBy="#{tema.semestreTema}" filterMatchMode="contains" sortBy="#{tema.semestreTema}" filterOptions="#{temasIndexMB.semestres}">
+                    <p:column headerText="Semestre Inicio Tema" filterBy="#{tema.semestreTema}" filterMatchMode="contains" sortBy="#{tema.semestreTema}" filterOptions="#{temasIndexMB.semestres}">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/temas/tema.xhtml?tema=#{tema.idTema}">
                             <h:outputText value="#{tema.semestreTema}"/>
                         </a>
