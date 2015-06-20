@@ -61,11 +61,10 @@
 
                         <p:outputLabel for="celular" value="Celular"/>
                         <p:inputText id="celular" value="#{profesorMB.celularProfesor}"  required="true">
-                            <f:validator validatorId="celularValidator" />
                         </p:inputText>
                         <p:watermark for="celular" value="Ingresar Celular"/>
 
-                        <p:outputLabel for="contrato" value="Tipo contrato" />
+                        <p:outputLabel for="contrato" value="Vínculo DIINF" />
                         <p:selectOneMenu id="contrato" required="true" value="#{profesorMB.contratoProfesor}">
                             <f:selectItem itemLabel="Seleccionar" itemValue=""/>
                             <f:selectItem itemLabel="Externo" itemValue="0" />
@@ -84,6 +83,8 @@
                             <f:selectItem itemLabel="ADJ. CAT. II" itemValue="ADJ. CAT. II" />
                             <f:selectItem itemLabel="INST. CAT. I" itemValue="INST. CAT. I" />
                             <f:selectItem itemLabel="INST. CAT. II" itemValue="INST. CAT. II" />
+                            <f:selectItem itemLabel="INSTRUCTOR" itemValue="INSTRUCTOR" />
+                            <f:selectItem itemLabel="AYUDANTE" itemValue="AYUDANTE" />
                         </p:selectOneMenu>
                         <br/>
 

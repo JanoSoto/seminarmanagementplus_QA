@@ -327,6 +327,7 @@ public class VerProfesorMB {
             profTemp.setTipoProfesor(0);
             profTemp.setMaximoGuias(null);
         }
+        profTemp.setJerarquiaCategoria(profesorEdit.getJerarquiaCategoria());
 
         profesorEdit = profTemp;
         profesorFacade.edit(profTemp);

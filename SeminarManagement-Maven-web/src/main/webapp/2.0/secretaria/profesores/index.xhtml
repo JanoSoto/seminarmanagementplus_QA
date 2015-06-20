@@ -19,10 +19,6 @@
         <p:layoutUnit position="west" size="180" style="border: none;">
             <p:panel style="border:none;">
                 <h:panelGrid columns="1" cellpadding="4">
-                    <form method="GET" action="/SeminarManagement-Maven-web/2.0/secretaria/profesores/buscar.xhtml">
-                        <input type="text" placeholder="Búsqueda" value="#{buscarMB.query}" name="q"/>
-                        <button type="submit" value="search">Buscar Profesor</button>
-                    </form>
                     <p:button href="/2.0/secretaria/profesores/agregar.xhtml" value="Agregar Profesor"/>
                 </h:panelGrid>
             </p:panel>
@@ -47,7 +43,7 @@
                             <h:outputText value="#{prof.rutFormateado}" />
                         </a>
                     </p:column>
-                    <p:column headerText="Contrato" filterMatchMode="contains"  filterBy="#{prof.contrato}" sortBy="#{prof.contrato}">
+                    <p:column headerText="Vínculo DIINF" filterMatchMode="contains"  filterBy="#{prof.contrato}" sortBy="#{prof.contrato}">
                         <h:outputText value="#{prof.contrato}" />
                     </p:column>
                     <p:column headerText="Temas vigentes" filterMatchMode="exact"  filterBy="#{prof.temasVigentes}" sortBy="#{prof.temasVigentes}">

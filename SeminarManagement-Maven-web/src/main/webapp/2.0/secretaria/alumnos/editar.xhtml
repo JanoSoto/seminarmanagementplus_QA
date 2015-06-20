@@ -7,80 +7,122 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
-    
+
     <ui:define name="metadata">
         #{accordionPanelMB.setIndex("1")}
         <f:metadata>
             <f:viewParam name="alum" value="#{editarAlumnoMB.rutAlumno}"/>
         </f:metadata>
     </ui:define>
-    
+
     <ui:define name="title"><title>Editar Alumno | Seminar Management</title></ui:define>
 
     <ui:define name="content">
-        
+
         <c:if test="#{not empty param.alum}">
             #{editarAlumnoMB.buscarAlumno()}
-            </c:if>
-            
-            <p:layoutUnit position="west" size="430" style="border: none;">
+        </c:if>
+
+        <p:layoutUnit position="west" size="430" style="border: none;">
+            <p:panel style="border:none;">
+                <h:panelGrid columns="1" cellpadding="4">
+                    <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="/2.0/secretaria/alumnos/alumno.xhtml?alum=#{editarAlumnoMB.alumno.rutAlumno}" value="Volver a Ver Alumno"/>
+                </h:panelGrid>
+            </p:panel>
+        </p:layoutUnit>
+
+        <p:layoutUnit position="center" style="border:none;">
+            <h:form style="font-weight: bold;">
                 <p:panel style="border:none;">
-                    <h:panelGrid columns="1" cellpadding="4">
-                        <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="/2.0/secretaria/alumnos/alumno.xhtml?alum=#{editarAlumnoMB.alumno.rutAlumno}" value="Volver a Ver Alumno"/>
+                    <h1>Editar Datos Alumno</h1>
+                    <p:growl id="growl" showDetail="true" sticky="true"/>
+                    <h:panelGrid columns="6" cellpadding="2">
+                        <p:outputLabel for="rut" value="Rut"/>
+                        <h:outputText id="rut" value="#{editarAlumnoMB.alumno.rutAlumnoFormateado}"/>
+                        <br/>
+
+                        <p:outputLabel for="mail" value="E-Mail"/>
+                        <p:inputText id="mail" value="#{editarAlumnoMB.alumno.mailAlumno}">
+                            <f:validator validatorId="emailValidator"/>
+                        </p:inputText>
+                        <p:watermark for="mail" value="Ingresar E-Mail"/>
+
+                        <p:outputLabel for="nombre" value="Nombre/s"/>
+                        <p:inputText required="true" id="nombre" value="#{editarAlumnoMB.alumno.nombreAlumno}"/>
+                        <p:watermark for="nombre" value="Ingresar Nombre"/>
+
+                        <p:outputLabel for="apellido" value="Apellido/s"/>
+                        <p:inputText required="true" id="apellido" value="#{editarAlumnoMB.alumno.apellidoAlumno}"/>
+                        <p:watermark for="apellido" value="Ingresar Apellido"/>
+
+                        <p:outputLabel for="celular" value="Celular"/>
+                        <p:inputText id="celular" value="#{editarAlumnoMB.alumno.telefonoAlumno}">
+                            <f:validator validatorId="celularValidator" />
+                        </p:inputText>
+                        <p:watermark for="celular" value="Ingresar Celular"/>
+
+                        <p:outputLabel for="direccion" value="Dirección"/>
+                        <p:inputText id="direccion" value="#{editarAlumnoMB.alumno.direccionAlumno}"/>
+                        <p:watermark for="direccion" value="Ingresar Dirección"/>
+
                     </h:panelGrid>
+
+                    <h1>Planes alumno:</h1><br/>
+                    <c:if test="#{empty planEstudioMB.getAsociacionPlanesEstudioAlumno(editarAlumnoMB.rutAlumno)}">
+                        <strong>El alumno no tiene ningun plan asignado</strong>
+                    </c:if>
+                    <table border="0">
+                        <c:forEach var="plan" items="#{planEstudioMB.getAsociacionPlanesEstudioAlumno(editarAlumnoMB.rutAlumno)}">
+                            <tr>
+                                <td>
+                                    <c:if test="#{planEstudioMB.getIdPlanActivo(editarAlumnoMB.rutAlumno) == plan.planId and planEstudioMB.getVersionPlanActivo(editarAlumnoMB.rutAlumno)== plan.versionPlan}"><strong>#{plan.planEstudio.codigo} #{plan.planEstudio.carreraId.nombre} (Version #{plan.versionPlan}) (Activo)</strong></c:if>
+                                    <c:if test="#{planEstudioMB.getIdPlanActivo(editarAlumnoMB.rutAlumno) != plan.planId or planEstudioMB.getVersionPlanActivo(editarAlumnoMB.rutAlumno) != plan.versionPlan}">#{plan.planEstudio.codigo} #{plan.planEstudio.carreraId.nombre} (Version #{plan.versionPlan})</c:if>
+                                </td>
+                                <td>
+                                    <!--id="boton_asd_#{plan.planEstudio.codigo}_#{plan.versionPlan}"-->
+                                    <!--id="eliminar_boton_asd_#{plan.planEstudio.codigo}_#{plan_version.version}"-->
+                                    <!--#{planEstudioMB.getIdPlanActivo(editarAlumnoMB.rutAlumno)} - #{planEstudioMB.getVersionPlanActivo(editarAlumnoMB.rutAlumno)}-->
+                                    <c:if test="#{planEstudioMB.getIdPlanActivo(editarAlumnoMB.rutAlumno) != plan.planId or planEstudioMB.getVersionPlanActivo(editarAlumnoMB.rutAlumno) != plan.versionPlan}">
+                                        <p:commandButton  value="Activar" actionListener="#{editarAlumnoMB.setPlanActivoAlumno(editarAlumnoMB.rutAlumno, plan.planId, plan.versionPlan, plan.planEstudio.codigo, plan.planEstudio.carreraId.nombre)}"  update="growl @form" icon="ui-icon-star"/>
+                                    </c:if>
+                                    <p:commandButton value="Eliminar" actionListener="#{editarAlumnoMB.eliminarPlan(editarAlumnoMB.rutAlumno, plan.planId, plan.versionPlan)}"  update="growl @form" icon="ui-icon-trash"/>
+                                </td>
+                            </tr>
+                            <!--</p:panel>-->
+                        </c:forEach>
+                    </table>
+
+                    <h1>Planes disponibles:</h1><br/>
+
+                    <c:if test="#{not empty planEstudioMB.getAsociacionPlanesEstudio(editarAlumnoMB.rutAlumno)}">
+                        <table border="0">
+                            <c:forEach items="#{planEstudioMB.getAsociacionPlanesEstudio(editarAlumnoMB.rutAlumno)}" var="asociacion">
+                                <tr>
+                                    <td>#{asociacion.planEstudio.codigo} #{asociacion.planEstudio.carreraId.nombre} (Versión #{asociacion.versionPlan})</td>
+                                    <td><p:commandButton value="Agregar Plan" icon="ui-icon-trash" actionListener="#{editarAlumnoMB.agregarPlanAlumno(asociacion.planId, asociacion.versionPlan)}"/></td>
+                                </tr>
+                            </c:forEach>
+                        </table>
+                    </c:if>
+                    <c:if test="#{empty planEstudioMB.getAsociacionPlanesEstudio(editarAlumnoMB.rutAlumno)}">
+                        <strong>No existen carreras disponibles para seleccionar</strong>
+                    </c:if>
+                    <br/>
+                    <p:commandButton id="bt1" value="Guardar" actionListener="#{editarAlumnoMB.editAlumno()}" update="growl @form"/>
+                    <p:defaultCommand target="bt1" />
+                    <br/>
+
+                    <br></br>
                 </p:panel>
-            </p:layoutUnit>
-            
-            <p:layoutUnit position="center" style="border:none;">
-                <h:form style="font-weight: bold;">
-                    <p:panel style="border:none;">
-                        <h1>Editar Datos Alumno</h1>
-                        <p:growl id="growl" showDetail="true" sticky="true"/>
-                            <h:panelGrid columns="6" cellpadding="2">
+            </h:form>
+        </p:layoutUnit>
 
-                                <p:outputLabel for="rut" value="Rut"/>
-                                <h:outputText id="rut" value="#{editarAlumnoMB.alumno.rutAlumno}"/>
-                                <br/>
-
-                                <p:outputLabel for="nombre" value="Nombre/s"/>
-                                <p:inputText required="true" id="nombre" value="#{editarAlumnoMB.alumno.nombreAlumno}"/>
-                                <p:watermark for="nombre" value="Ingresar Nombre"/>
-
-                                <p:outputLabel for="apellido" value="Apellido/s"/>
-                                <p:inputText required="true" id="apellido" value="#{editarAlumnoMB.alumno.apellidoAlumno}"/>
-                                <p:watermark for="apellido" value="Ingresar Apellido"/>
-
-                                <p:outputLabel for="mail" value="E-Mail"/>
-                                <p:inputText id="mail" value="#{editarAlumnoMB.alumno.mailAlumno}">
-                                    <f:validator validatorId="emailValidator"/>
-                                </p:inputText>
-                                <p:watermark for="mail" value="Ingresar E-Mail"/>
-
-                                <p:outputLabel for="celular" value="Celular"/>
-                                <p:inputText id="celular" value="#{editarAlumnoMB.alumno.telefonoAlumno}">
-                                    <f:validator validatorId="celularValidator" />
-                                </p:inputText>
-                                <p:watermark for="celular" value="Ingresar Celular"/>
-
-                                <p:outputLabel for="direccion" value="Dirección"/>
-                                <p:inputText id="direccion" value="#{editarAlumnoMB.alumno.direccionAlumno}"/>
-                                <p:watermark for="direccion" value="Ingresar Dirección"/>
-
-                                
-
-                            </h:panelGrid>
-                        <p:commandButton id="bt1" value="Editar" actionListener="#{editarAlumnoMB.editAlumno()}" update="growl @form"/>
-                        <p:defaultCommand target="bt1" />
-                   </p:panel>
-                </h:form>
-            </p:layoutUnit>
-        
         <c:if test="#{empty param.alum}">
             <p:layoutUnit position="center" style="border:none;">
                 No, no, no
             </p:layoutUnit>
         </c:if>
-        
+
     </ui:define>
 
 </ui:composition>

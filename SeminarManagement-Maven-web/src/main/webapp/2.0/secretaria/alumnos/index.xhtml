@@ -18,10 +18,6 @@
         <p:layoutUnit position="west" size="180" style="border: none;">
             <p:panel style="border:none;">
                 <h:panelGrid columns="1" cellpadding="4">
-                    <form method="GET" action="/SeminarManagement-Maven-web/2.0/secretaria/alumnos/buscar.xhtml">
-                        <input type="text" placeholder="Búsqueda" value="#{buscarMB.query}" name="q"/>
-                        <button type="submit" value="search">Buscar Alumno</button>
-                    </form>
                     <p:button href="/2.0/secretaria/alumnos/agregar.xhtml" value="Agregar Alumno"/>
                 </h:panelGrid>
             </p:panel>
@@ -46,9 +42,8 @@
                         <h:outputText value="#{alum.rutAlumnoFormateado}" style="float: right;"/>
                     </a>
                     </p:column>
-                    <p:column headerText="Jornada">
-                        <h:outputText rendered="#{alum.planActivo.jornada eq 0}" value="Diurna"/>
-                        <h:outputText rendered="#{alum.planActivo.jornada eq 1}" value="Vespertina"/>
+                    <p:column headerText="Carrera">
+                        <h:outputText value="#{alum.planActivo.codigo} #{alum.planActivo.carreraId.nombre} #{alum.versionPlanActivo}"/>
                     </p:column>
                 </p:dataTable>
             </h:form>

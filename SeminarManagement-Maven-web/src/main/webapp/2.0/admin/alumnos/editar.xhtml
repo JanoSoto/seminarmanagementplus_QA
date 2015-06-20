@@ -38,7 +38,7 @@
                     <p:growl id="growl" showDetail="true" sticky="true"/>
                     <h:panelGrid columns="6" cellpadding="2">
                         <p:outputLabel for="rut" value="Rut"/>
-                        <h:outputText id="rut" value="#{editarAlumnoMB.alumno.rutAlumno}"/>
+                        <h:outputText id="rut" value="#{editarAlumnoMB.alumno.rutAlumnoFormateado}"/>
                         <br/>
 
                         <p:outputLabel for="mail" value="E-Mail"/>
@@ -57,7 +57,6 @@
 
                         <p:outputLabel for="celular" value="Celular"/>
                         <p:inputText id="celular" value="#{editarAlumnoMB.alumno.telefonoAlumno}">
-                            <f:validator validatorId="celularValidator" />
                         </p:inputText>
                         <p:watermark for="celular" value="Ingresar Celular"/>
 
