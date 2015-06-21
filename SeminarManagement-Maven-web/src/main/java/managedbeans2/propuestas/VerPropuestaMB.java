@@ -362,4 +362,39 @@ public class VerPropuestaMB implements Serializable {
         }
         return plan.getCodigo() + " " + version_plan + " " + plan.getCarreraId().getNombre();
     }
+
+    public Date menorFechaEntregaComisionCorrectora() throws ParseException {
+        List<ComisionRevisora> comision_correctora = this.propuesta.getComisionRevisoraList();
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        String fecha_menor = "";
+        Date date_menor = null;
+        for (int i = 0; i < comision_correctora.size(); i++) {
+            ComisionRevisora comision = comision_correctora.get(i);
+            String fecha_1 = comision.getFechaEntregaRevision();
+            String fecha_2 = comision.getFechaEntregaRevision2();
+
+            Date date1 = fecha_1 == null ? null : format.parse(fecha_1);
+            Date date2 = fecha_2 == null ? null : format.parse(fecha_2);
+            if (date1 == null && date2 == null) {
+                continue;
+            }
+            Date date_min;
+            String fecha_min;
+            if (date1 == null) {
+                date_min = date2;
+                fecha_min = fecha_2;
+            } else if (date2 == null) {
+                date_min = date1;
+                fecha_min = fecha_1;
+            } else {
+                date_min = date1.compareTo(date2) <= 0 ? date1 : date2;
+                fecha_min = date1.compareTo(date2) <= 0 ? fecha_1 : fecha_2;
+            }
+            if (date_menor == null || date_menor.compareTo(date_min) <= 0) {
+                date_menor = date_min;
+                fecha_menor = fecha_min;
+            }
+        }
+        return date_menor;
+    }
 }
