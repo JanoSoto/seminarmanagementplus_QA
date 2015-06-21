@@ -208,8 +208,8 @@ public class AlumnoMB implements Serializable {
     public String create(){
         try {
             FacesContext context = FacesContext.getCurrentInstance();
-            List<Profesor> profesoresIngresados = profesorFacade.findByRut(rutAlumno);
-            List<Alumno> alumnosIngresados = alumnoFacade.findByRut(rutAlumno);
+            List<Profesor> profesoresIngresados = profesorFacade.findByRut(alumno.getRutAlumno());
+            List<Alumno> alumnosIngresados = alumnoFacade.findByRut(alumno.getRutAlumno());
 
             //Validamos que el rut no exista en el sistema
             if(!profesoresIngresados.isEmpty() || !alumnosIngresados.isEmpty() ){
@@ -222,7 +222,8 @@ public class AlumnoMB implements Serializable {
             alumno.setMailAlumno(alumno.getMailAlumno().toUpperCase());
             alumnoFacade.create(alumno);
             
-            context.addMessage(null, new FacesMessage("Alumno", alumno.getNombreAlumno()+" "+alumno.getApellidoAlumno()+", ingresado al sistema"));
+            context.addMessage(null, new FacesMessage("Alumno", alumno.getNombreAlumno()+
+                    " "+alumno.getApellidoAlumno()+", ingresado al sistema"));
             LOGGER.info("Se ha agregado el alumno "+alumno.getNombreAlumno()+" "+alumno.getApellidoAlumno());
             
             return prepareCreate();

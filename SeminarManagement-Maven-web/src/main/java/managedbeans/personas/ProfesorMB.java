@@ -10,8 +10,9 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
+import javax.inject.Named;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import managedbeans.AuthMB;
@@ -23,8 +24,8 @@ import sessionbeans.HistorialFacadeLocal;
  * @author Eduardo
  */
 
-@ManagedBean(name ="profesorMB")
-@RequestScoped
+@SessionScoped
+@Named("profesorMB")
 public class ProfesorMB implements Serializable{
     @EJB
     private HistorialFacadeLocal historialFacade;
@@ -36,6 +37,8 @@ public class ProfesorMB implements Serializable{
     private String nombreProfesor,apellidoProfesor,celularProfesor,rutProfesor,mailProfesor, jerarquia;
     private Integer contratoProfesor, jornadaProfesor, isProfGuia;
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ProfesorMB.class);
+    private Profesor profesor;
+    
     //Declaramos esto para poder acceder al managed bean de autenticación (para almecenar el usuario en el historial)
     @ManagedProperty(value="#{authMB}")
     private AuthMB user;
@@ -46,6 +49,47 @@ public class ProfesorMB implements Serializable{
     }
     
     public ProfesorMB() {
+    }
+    
+    public String prepareCreate(){
+        profesor = new Profesor();
+        return "agregar";
+    }
+    
+    public String create(){
+        try {
+            FacesContext context = FacesContext.getCurrentInstance();
+            List<Profesor> profesoresIngresados = profesorFacade.findByRut(profesor.getRutProfesor());
+            List<Alumno> alumnosIngresados = alumnoFacade.findByRut(profesor.getRutProfesor());
+            //Validamos que el rut no exista
+            if(!profesoresIngresados.isEmpty() || !alumnosIngresados.isEmpty() ){
+                context.addMessage(null, new FacesMessage("ERROR: El Rut ingresado ya existe.",""));
+                return null;
+            }
+            profesor.setNombreProfesor(profesor.getNombreProfesor().toUpperCase());
+            profesor.setApellidoProfesor(profesor.getApellidoProfesor().toUpperCase());
+            profesor.setMailProfesor(profesor.getMailProfesor().toUpperCase());
+            
+            //Si es JC, puede guiar siempre, si no, se setea la opción escogida
+            if ( profesor.getContrato() == 1 ){
+                profesor.setTipoProfesor(0);
+                profesor.setMaximoGuias(7);
+            } else if ( profesor.getContrato() == 0 ) {
+                profesor.setTipoProfesor(1);
+                profesor.setMaximoGuias(0);
+            }
+            profesorFacade.create(profesor);
+            
+            LOGGER.info("Se ha agregado el profesor "+
+                    profesor.getNombreProfesor()+" "+profesor.getApellidoProfesor());
+            context.addMessage(null, new FacesMessage("Agregar Profesor",
+                    profesor.getNombreProfesor()+" "+profesor.getApellidoProfesor()+", ingresado al sistema"));
+            
+            return prepareCreate();
+        } catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
     
     public void addProfesor() {
@@ -214,6 +258,14 @@ public class ProfesorMB implements Serializable{
 
     public void setJerarquia(String jerarquia) {
         this.jerarquia = jerarquia;
+    }
+
+    public Profesor getProfesor() {
+        return profesor;
+    }
+
+    public void setProfesor(Profesor profesor) {
+        this.profesor = profesor;
     }
     
 }
