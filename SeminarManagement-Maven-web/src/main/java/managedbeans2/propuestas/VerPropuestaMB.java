@@ -2,9 +2,11 @@ package managedbeans2.propuestas;
 
 import entities.Alumno;
 import entities.ComisionRevisora;
+import entities.PlanEstudio;
 import entities.Profesor;
 import entities.Propuesta;
 import entities.Semestre;
+import entities.Versionplan;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -17,6 +19,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import sessionbeans.ComisionRevisoraFacadeLocal;
+import sessionbeans.PlanestudioFacadeLocal;
 import sessionbeans.ProfesorFacadeLocal;
 import sessionbeans.PropuestaFacadeLocal;
 import sessionbeans.SemestreFacadeLocal;
@@ -28,6 +31,7 @@ import sessionbeans.SemestreFacadeLocal;
 @Named(value = "verPropuestaMB")
 @SessionScoped
 public class VerPropuestaMB implements Serializable {
+
     @EJB
     private SemestreFacadeLocal semestreFacade;
     @EJB
@@ -36,175 +40,178 @@ public class VerPropuestaMB implements Serializable {
     private ComisionRevisoraFacadeLocal comisionRevisoraFacade;
     @EJB
     private ProfesorFacadeLocal profesorFacade;
-    
+    @EJB
+    private PlanestudioFacadeLocal planFacade;
+
     private Integer idPropuesta, idPropEdit;
-    private String nombreCorto, semestrePropEdit, nombrePropEdit,fechaEntRev;
+    private String nombreCorto, semestrePropEdit, nombrePropEdit, fechaEntRev;
     private Profesor guia, coguia, revisor1, revisor2;
     private List<ComisionRevisora> comision;
     private Propuesta propuesta;
     private boolean pet;
     private String pet2;
-    private Date fechaPropEdit,date,date2;
+    private Date fechaPropEdit, date, date2;
     private Alumno alumno;
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(VerPropuestaMB.class);
     private boolean puedeTenerTema = false;
-    
+
     /**
      * Creates a new instance of VerPropuestaMB
      */
     public VerPropuestaMB() {
     }
-    
-    public void buscarPropuesta(){
-        if(idPropuesta!=null){
+
+    public void buscarPropuesta() {
+        if (idPropuesta != null) {
             List<Propuesta> result = propuestaFacade.findById(idPropuesta);
-            if( ! result.isEmpty() ){
+            if (!result.isEmpty()) {
                 propuesta = result.get(0);
                 //Inicializamos datos para editar
                 idPropEdit = propuesta.getIdPropuesta();
                 nombrePropEdit = propuesta.getNombrePropuesta();
                 fechaPropEdit = stringToDate(propuesta.getFechaPropuesta());
                 semestrePropEdit = propuesta.getIdSemestre().getIdSemestre();
-                
-                if(propuesta.getPet()==null){
+
+                if (propuesta.getPet() == null) {
                     pet2 = "No hay Pet";
-                }else{
+                } else {
                     pet = propuesta.getPet();
                 }
-                
-                if(pet == true){
+
+                if (pet == true) {
                     pet2 = "Es Pet";
                 }
-                
-                if(pet == false){
+
+                if (pet == false) {
                     pet2 = "No es Pet";
                 }
-                
+
                 if (date != null) {
                     date = stringToDate(propuesta.getIdRevisora().getFechaRevision());
                 }
-                
+
                 if (date2 != null) {
                     date2 = stringToDate(propuesta.getIdRevisora().getFechaEntregaRevision());
                 }
-                
-                
-                if(propuesta.getNombrePropuesta().length()>68)
-                    nombreCorto = propuesta.getNombrePropuesta().substring(0, 69)+"...";
-                else
-                    nombreCorto = propuesta.getNombrePropuesta();
 
-                for(int i=0;i<propuesta.getProfePropuestaList().size();i++){
-                    if(propuesta.getProfePropuestaList().get(i).getRolGuia()==0)
-                        guia = propuesta.getProfePropuestaList().get(i).getProfesor();
-                    if(propuesta.getProfePropuestaList().get(i).getRolGuia()==1)
-                        coguia = propuesta.getProfePropuestaList().get(i).getProfesor();
+                if (propuesta.getNombrePropuesta().length() > 68) {
+                    nombreCorto = propuesta.getNombrePropuesta().substring(0, 69) + "...";
+                } else {
+                    nombreCorto = propuesta.getNombrePropuesta();
                 }
 
-                if(propuesta.getIdRevisora()!=null){
-                    for(int i=0;i<propuesta.getIdRevisora().getProfeRevisionList().size();i++){
-                        if(propuesta.getIdRevisora().getProfeRevisionList().get(i).getRolRevision()==0)
-                            revisor1 = propuesta.getIdRevisora().getProfeRevisionList().get(i).getProfesor();
-                        if(propuesta.getIdRevisora().getProfeRevisionList().get(i).getRolRevision()==1)
-                            revisor2 = propuesta.getIdRevisora().getProfeRevisionList().get(i).getProfesor();
+                for (int i = 0; i < propuesta.getProfePropuestaList().size(); i++) {
+                    if (propuesta.getProfePropuestaList().get(i).getRolGuia() == 0) {
+                        guia = propuesta.getProfePropuestaList().get(i).getProfesor();
                     }
-                    
-                    if (propuesta.getIdRevisora().getTipoRevision() == 2){
+                    if (propuesta.getProfePropuestaList().get(i).getRolGuia() == 1) {
+                        coguia = propuesta.getProfePropuestaList().get(i).getProfesor();
+                    }
+                }
+
+                if (propuesta.getIdRevisora() != null) {
+                    for (int i = 0; i < propuesta.getIdRevisora().getProfeRevisionList().size(); i++) {
+                        if (propuesta.getIdRevisora().getProfeRevisionList().get(i).getRolRevision() == 0) {
+                            revisor1 = propuesta.getIdRevisora().getProfeRevisionList().get(i).getProfesor();
+                        }
+                        if (propuesta.getIdRevisora().getProfeRevisionList().get(i).getRolRevision() == 1) {
+                            revisor2 = propuesta.getIdRevisora().getProfeRevisionList().get(i).getProfesor();
+                        }
+                    }
+
+                    if (propuesta.getIdRevisora().getTipoRevision() == 2) {
                         //puedeTenerTema = propuesta.getIdRevisora().getFechaPublicacionConsejo() != null 
                         //        && propuesta.getIdRevisora().getFechaTerminoPublicacionConsejo() != null;
                         puedeTenerTema = true;
                     } else {
-                        puedeTenerTema = propuesta.getIdRevisora().getFechaRevision() != null &&
-                                propuesta.getIdRevisora().getFechaRevision2() != null &&
-                                propuesta.getIdRevisora().getFechaEntregaRevision() != null &&
-                                propuesta.getIdRevisora().getFechaEntregaRevision2() != null;
+                        puedeTenerTema = propuesta.getIdRevisora().getFechaRevision() != null
+                                && propuesta.getIdRevisora().getFechaRevision2() != null
+                                && propuesta.getIdRevisora().getFechaEntregaRevision() != null
+                                && propuesta.getIdRevisora().getFechaEntregaRevision2() != null;
                     }
                 }
-                
-                alumno = propuesta.getRutAlumno();               
+
+                alumno = propuesta.getRutAlumno();
             }
-            
-        
-        }
-        else{
+
+        } else {
             FacesContext context = FacesContext.getCurrentInstance();
-            context.addMessage(null, new FacesMessage("Error","No se ingresó Propuesta"));
+            context.addMessage(null, new FacesMessage("Error", "No se ingresó Propuesta"));
         }
     }
-    
-    public void editarPropuesta(){
+
+    public void editarPropuesta() {
         FacesContext context = FacesContext.getCurrentInstance();
         Propuesta propTemp = propuestaFacade.findById(idPropEdit).get(0);
-        
-        if(nombrePropEdit == null) {
-            context.addMessage(null, new FacesMessage("Nombre Propuesta","Debe ingresar nombre propuesta"));
+
+        if (nombrePropEdit == null) {
+            context.addMessage(null, new FacesMessage("Nombre Propuesta", "Debe ingresar nombre propuesta"));
             return;
         }
-        
-        if(semestrePropEdit == null || semestrePropEdit.equals("")) {
-            context.addMessage(null, new FacesMessage("Semestre Propuesta","Debe ingresar semestre propuesta"));
+
+        if (semestrePropEdit == null || semestrePropEdit.equals("")) {
+            context.addMessage(null, new FacesMessage("Semestre Propuesta", "Debe ingresar semestre propuesta"));
             return;
         }
-        
-        if(pet != true && pet != false){
-           context.addMessage(null, new FacesMessage("Semestre Propuesta","Debe ingresar pet propuesta"));
-           return; 
+
+        if (pet != true && pet != false) {
+            context.addMessage(null, new FacesMessage("Semestre Propuesta", "Debe ingresar pet propuesta"));
+            return;
         }
-        
+
         //Se valida que no exista otra propuesta con el mismo nombre
         List<Propuesta> propuestas = propuestaFacade.findByName(nombrePropEdit);
-        if(!propuestas.isEmpty() && !Objects.equals(propTemp.getIdPropuesta(), propuestas.get(0).getIdPropuesta())) {
-            context.addMessage(null, new FacesMessage("Nombre Propuesta","Ya existe una propuesta con ese nombre"));
+        if (!propuestas.isEmpty() && !Objects.equals(propTemp.getIdPropuesta(), propuestas.get(0).getIdPropuesta())) {
+            context.addMessage(null, new FacesMessage("Nombre Propuesta", "Ya existe una propuesta con ese nombre"));
             return;
         }
-        
+
         //Validamos errores de semestre
         if (Integer.valueOf(semestrePropEdit.substring(2, 6)) <= 1972) {
-            context.addMessage(null, new FacesMessage("Semestre","Año del semestre debe ser después de 1972"));
+            context.addMessage(null, new FacesMessage("Semestre", "Año del semestre debe ser después de 1972"));
             return;
         }
-        
-        if ((Integer.valueOf(semestrePropEdit.substring(0, 1)) != 1) && (Integer.valueOf(semestrePropEdit.substring(0, 1)) != 2)){
-            context.addMessage(null, new FacesMessage("Semestre Revisión","Semestre ingresado debe ser '1' o '2'"));
+
+        if ((Integer.valueOf(semestrePropEdit.substring(0, 1)) != 1) && (Integer.valueOf(semestrePropEdit.substring(0, 1)) != 2)) {
+            context.addMessage(null, new FacesMessage("Semestre Revisión", "Semestre ingresado debe ser '1' o '2'"));
             return;
         }
-        
+
         //Accedemos a la tabla semestre, e ingresamos semestre si no ha sido ingresado
         Semestre semTemp = new Semestre(semestrePropEdit);
         List<Semestre> semestres = semestreFacade.findAll();
         if (!semestres.contains(semTemp)) {
             semestreFacade.create(semTemp);
         }
-        
+
         nombrePropEdit = nombrePropEdit.toUpperCase();
         propTemp.setNombrePropuesta(nombrePropEdit);
         propTemp.setFechaPropuesta(dateToString(fechaPropEdit));
         propTemp.setIdSemestre(semTemp);
         propTemp.setPet(pet);
         propuestaFacade.edit(propTemp);
-        
+
         //Mensaje de confirmación
         context.addMessage(null, new FacesMessage("Propuesta", "La propuesta ha sido editada exitosamente"));
-        LOGGER.info("La el nombre de la propuesta ha sido editada exitosamente por "+nombrePropEdit);
-        
-        
+        LOGGER.info("La el nombre de la propuesta ha sido editada exitosamente por " + nombrePropEdit);
+
     }
-    
-    public Date stringToDate (String dateChoosen){
+
+    public Date stringToDate(String dateChoosen) {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-	try {
+        try {
             Date date = formatter.parse(dateChoosen);
             return date;
-	} catch (ParseException e) {
-                return null;
-	}
+        } catch (ParseException e) {
+            return null;
+        }
     }
-    
-    public String funcion(String rut){
+
+    public String funcion(String rut) {
         Profesor propTemp = profesorFacade.findByRut(rut).get(0);
         return propTemp.getNombreProfesor();
     }
-    
+
     //Manejos de fechas
     public String dateToString(Date dateChoosen) {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -242,7 +249,7 @@ public class VerPropuestaMB implements Serializable {
     public void setFechaPropEdit(Date fechaPropEdit) {
         this.fechaPropEdit = fechaPropEdit;
     }
-    
+
     public Propuesta getPropuesta() {
         return propuesta;
     }
@@ -318,7 +325,6 @@ public class VerPropuestaMB implements Serializable {
     public void setPet2(String pet2) {
         this.pet2 = pet2;
     }
-    
 
     public void setAlumno(Alumno alumno) {
         this.alumno = alumno;
@@ -331,5 +337,29 @@ public class VerPropuestaMB implements Serializable {
     public void setPuedeTenerTema(boolean puedeTenerTema) {
         this.puedeTenerTema = puedeTenerTema;
     }
-    
+
+    public String getNombrePlan(Integer id_plan, Integer version_plan) {
+        List<PlanEstudio> planes = alumno.getPlanes();
+        PlanEstudio plan = null;
+        System.out.println("Id: " + id_plan);
+        System.out.println("VE: " + version_plan);
+        for (int i = 0; i < planes.size(); i++) {
+            if (planes.get(i).getId().equals(Long.parseLong(id_plan + ""))) {
+                List<Versionplan> versiones = planes.get(i).getVersionplanList();
+                for (int j = 0; j < versiones.size(); j++) {
+                    Versionplan versionPlan = versiones.get(j);
+                    System.out.println("Comparando: " + versionPlan.getVersion() + " con " + Long.parseLong(version_plan + ""));
+                    if (versionPlan.getVersion() == Long.parseLong(version_plan + "")) {
+                        System.out.println("existeeeee");
+                        plan = planes.get(i);
+                    }
+                }
+            }
+        }
+        System.out.println("Plan: " + plan);
+        if (plan == null) {
+            return "";
+        }
+        return plan.getCodigo() + " " + version_plan + " " + plan.getCarreraId().getNombre();
+    }
 }

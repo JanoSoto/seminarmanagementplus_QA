@@ -42,7 +42,7 @@
                         <br/>
 
                         <p:outputLabel for="mail" value="E-Mail"/>
-                        <p:inputText id="mail" value="#{editarAlumnoMB.alumno.mailAlumno}">
+                        <p:inputText id="mail" value="#{editarAlumnoMB.alumno.mailAlumno}" style="width: 300px;">
                             <f:validator validatorId="emailValidator"/>
                         </p:inputText>
                         <p:watermark for="mail" value="Ingresar E-Mail"/>
@@ -52,16 +52,16 @@
                         <p:watermark for="nombre" value="Ingresar Nombre"/>
 
                         <p:outputLabel for="apellido" value="Apellido/s"/>
-                        <p:inputText required="true" id="apellido" value="#{editarAlumnoMB.alumno.apellidoAlumno}"/>
+                        <p:inputText required="true" id="apellido" value="#{editarAlumnoMB.alumno.apellidoAlumno}" style="width: 300px;"/>
                         <p:watermark for="apellido" value="Ingresar Apellido"/>
 
-                        <p:outputLabel for="celular" value="Celular"/>
+                        <p:outputLabel for="celular" value="Teléfono"/>
                         <p:inputText id="celular" value="#{editarAlumnoMB.alumno.telefonoAlumno}">
                         </p:inputText>
                         <p:watermark for="celular" value="Ingresar Celular"/>
 
                         <p:outputLabel for="direccion" value="Dirección"/>
-                        <p:inputText id="direccion" value="#{editarAlumnoMB.alumno.direccionAlumno}"/>
+                        <p:inputText id="direccion" value="#{editarAlumnoMB.alumno.direccionAlumno}"  style="width: 300px;"/>
                         <p:watermark for="direccion" value="Ingresar Dirección"/>
 
                     </h:panelGrid>
@@ -74,8 +74,8 @@
                         <c:forEach var="plan" items="#{planEstudioMB.getAsociacionPlanesEstudioAlumno(editarAlumnoMB.rutAlumno)}">
                             <tr>
                                 <td>
-                                    <c:if test="#{planEstudioMB.getIdPlanActivo(editarAlumnoMB.rutAlumno) == plan.planId and planEstudioMB.getVersionPlanActivo(editarAlumnoMB.rutAlumno)== plan.versionPlan}"><strong>#{plan.planEstudio.codigo} #{plan.planEstudio.carreraId.nombre} (Version #{plan.versionPlan}) (Activo)</strong></c:if>
-                                    <c:if test="#{planEstudioMB.getIdPlanActivo(editarAlumnoMB.rutAlumno) != plan.planId or planEstudioMB.getVersionPlanActivo(editarAlumnoMB.rutAlumno) != plan.versionPlan}">#{plan.planEstudio.codigo} #{plan.planEstudio.carreraId.nombre} (Version #{plan.versionPlan})</c:if>
+                                    <c:if test="#{planEstudioMB.getIdPlanActivo(editarAlumnoMB.rutAlumno) == plan.planId and planEstudioMB.getVersionPlanActivo(editarAlumnoMB.rutAlumno)== plan.versionPlan}"><strong>#{plan.planEstudio.codigo} #{plan.versionPlan} #{plan.planEstudio.carreraId.nombre} (Activo)</strong></c:if>
+                                    <c:if test="#{planEstudioMB.getIdPlanActivo(editarAlumnoMB.rutAlumno) != plan.planId or planEstudioMB.getVersionPlanActivo(editarAlumnoMB.rutAlumno) != plan.versionPlan}">#{plan.planEstudio.codigo} #{plan.versionPlan} #{plan.planEstudio.carreraId.nombre}</c:if>
                                 </td>
                                 <td>
                                     <!--id="boton_asd_#{plan.planEstudio.codigo}_#{plan.versionPlan}"-->
@@ -97,7 +97,7 @@
                         <table border="0">
                             <c:forEach items="#{planEstudioMB.getAsociacionPlanesEstudio(editarAlumnoMB.rutAlumno)}" var="asociacion">
                                 <tr>
-                                    <td>#{asociacion.planEstudio.codigo} #{asociacion.planEstudio.carreraId.nombre} (Versión #{asociacion.versionPlan})</td>
+                                    <td>#{asociacion.planEstudio.codigo} #{asociacion.versionPlan} #{asociacion.planEstudio.carreraId.nombre}</td>
                                     <td><p:commandButton value="Agregar Plan" icon="ui-icon-trash" actionListener="#{editarAlumnoMB.agregarPlanAlumno(asociacion.planId, asociacion.versionPlan)}"/></td>
                                 </tr>
                             </c:forEach>
