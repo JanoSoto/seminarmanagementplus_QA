@@ -58,8 +58,12 @@
                     </h:panelGrid>
 
                     <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="./index.xhtml" value="Volver a Alumnos"/>
-                    <p:commandButton id="bt1" value="Ingresar" actionListener="#{alumnoMB.addStudent()}" update="growl @form"/>
-                    <p:defaultCommand target="bt1" />
+                    <!--<p:commandButton id="bt1" value="Ingresar" actionListener="#{alumnoMB.addStudent()}" update="growl @form"/>
+                    <p:defaultCommand target="bt1" />-->
+                    <h:commandLink id="agregar" action="#{alumnoMB.create()}" styleClass="btn ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                        <span class="ui-button-text ui-c">Ingresar</span>
+                    </h:commandLink>
+                    <p:defaultCommand target="agregar" />
                 </p:panel>
             </h:form>
         </p:layoutUnit>

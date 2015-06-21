@@ -3,6 +3,7 @@ package managedbeans.personas;
 import entities.Alumno;
 import entities.PlanEstudio;
 import entities.Profesor;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import sessionbeans.AlumnoFacadeLocal;
@@ -10,8 +11,9 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
+import javax.inject.Named;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import managedbeans.AuthMB;
@@ -23,9 +25,9 @@ import sessionbeans.ProfesorFacadeLocal;
  *
  * @author Eduardo
  */
-@ManagedBean(name ="alumnoMB")
-@RequestScoped
-public class AlumnoMB {
+@SessionScoped
+@Named("alumnoMB")
+public class AlumnoMB implements Serializable {
     @EJB
     private HistorialFacadeLocal historialFacade;
     @EJB
@@ -42,6 +44,7 @@ public class AlumnoMB {
     //Declaramos esto para poder acceder al managed bean de autenticación (para almecenar el usuario en el historial)
     @ManagedProperty(value="#{authMB}")
     private AuthMB user;
+    private Alumno alumno;
     
     public AlumnoMB() {
     }
@@ -49,6 +52,11 @@ public class AlumnoMB {
     @PostConstruct
     public void init(){
         //Para inicializar el managed property, si no no se puede acceder a esos datos
+    }
+    
+    public String prepareCreate(){
+        alumno = new Alumno();
+        return "agregar";
     }
     
     public AuthMB getUser() {
@@ -197,4 +205,38 @@ public class AlumnoMB {
         jornadaAlumno = null;
         direccionAlumno = null;
     }
+    public String create(){
+        try {
+            FacesContext context = FacesContext.getCurrentInstance();
+            List<Profesor> profesoresIngresados = profesorFacade.findByRut(rutAlumno);
+            List<Alumno> alumnosIngresados = alumnoFacade.findByRut(rutAlumno);
+
+            //Validamos que el rut no exista en el sistema
+            if(!profesoresIngresados.isEmpty() || !alumnosIngresados.isEmpty() ){
+                context.addMessage(null, new FacesMessage("ERROR: El Rut ingresado ya existe en el sistema.",""));
+                return null;
+            }
+            
+            alumno.setNombreAlumno(alumno.getNombreAlumno().toUpperCase());
+            alumno.setApellidoAlumno(alumno.getApellidoAlumno().toUpperCase());
+            alumno.setMailAlumno(alumno.getMailAlumno().toUpperCase());
+            alumnoFacade.create(alumno);
+            
+            context.addMessage(null, new FacesMessage("Alumno", alumno.getNombreAlumno()+" "+alumno.getApellidoAlumno()+", ingresado al sistema"));
+            LOGGER.info("Se ha agregado el alumno "+alumno.getNombreAlumno()+" "+alumno.getApellidoAlumno());
+            
+            return prepareCreate();
+        } catch (Exception e){
+            return null;
+        }
+    }
+
+    public Alumno getAlumno() {
+        return alumno;
+    }
+
+    public void setAlumno(Alumno alumno) {
+        this.alumno = alumno;
+    }
+    
 }
