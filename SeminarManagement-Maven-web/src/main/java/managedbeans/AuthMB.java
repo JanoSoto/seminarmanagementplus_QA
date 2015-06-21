@@ -139,33 +139,41 @@ public class AuthMB implements Serializable {
                 setRoles(usuario.getRoles());
                 //List <Tipousuario> aux = new ArrayList();
                // List<Map<Tipousuario, Integer>> aux = new ArrayList<>();
-                Map<Integer, Tipousuario> auxMap = new HashMap<Integer, Tipousuario>();
-                List<Integer> numeros= new ArrayList<Integer>();
-                for(int i=0; i< roles.size(); i++){
-                    if(roles.get(i).getNombreTipo().equals("ADMINISTRADOR")){
-                        //aux.add(roles.get(i));                       
-                        auxMap.put(10, roles.get(i));
-                        numeros.add(10);
-                    }else if(roles.get(i).getNombreTipo().equals("PROFESOR")){
-                        //aux.add(roles.get(i));
-                        auxMap.put(5, roles.get(i));
-                        numeros.add(5);
-                    }else if(roles.get(i).getNombreTipo().equals("SECRETARIA")){
-                        //aux.add(roles.get(i));
-                        auxMap.put(1, roles.get(i));
-                        numeros.add(1);
+                Map<Integer, Tipousuario> auxMap = new HashMap<>();
+                List<Integer> numeros= new ArrayList<>();
+                for (Tipousuario role : roles) {
+                    switch (role.getNombreTipo()) {
+                        case "ADMINISTRADOR":
+                            //aux.add(roles.get(i));
+                            auxMap.put(10, role);
+                            numeros.add(10);
+                            break;
+                        case "PROFESOR":
+                            //aux.add(roles.get(i));
+                            auxMap.put(5, role);
+                            numeros.add(5);
+                            break;
+                        case "SECRETARIA":
+                            //aux.add(roles.get(i));
+                            auxMap.put(1, role);
+                            numeros.add(1);
+                            break;
                     }
                 }
                 int numeromax = Collections.max(numeros);
                 //tipo = aux.get(0).getNombreTipo();
                 tipo = auxMap.get(numeromax).getNombreTipo();
                 System.out.println("nombre de usuario: "+ usuario.getUid() + "- Rol: "+ tipo);
-                if(tipo.equals("ADMINISTRADOR")){
-                    externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/admin/index.xhtml");
-                } else if(tipo.equals("PROFESOR")){
-                    externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/profesor/index.xhtml");
-                }else if(tipo.equals("SECRETARIA")){
-                    externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/secretaria/index.xhtml");
+                switch (tipo) {
+                    case "ADMINISTRADOR":
+                        externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/admin/index.xhtml");
+                        break;
+                    case "PROFESOR":
+                        externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/profesor/index.xhtml");
+                        break;
+                    case "SECRETARIA":
+                        externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/secretaria/index.xhtml");
+                        break;
                 }
             }
             /*Usuario user = usuarioFacade.findByUsername(username).get(0); //Extraigo el user de la db           
