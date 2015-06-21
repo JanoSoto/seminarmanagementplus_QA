@@ -23,6 +23,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import managedbeans.AuthMB;
+import static managedbeans2.propuestas.ComisionRevisora2MB.fechaCorrecta;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.event.FileUploadEvent;
@@ -85,9 +86,17 @@ public class AvanceYCaducarMB {
             return;
         }
         tema = temaFacade.findById(idTema).get(0);
+        System.out.println(tema.getFechaTema());
+        System.out.println(dateToString(date));
+        if( fechaCorrecta(tema.getFechaTema(),dateToString(date)) == false){
+            return;
+        }
+        
         //Seteamos estado "Prolongado"
         tema.setEstadoTema(2);
         temaFacade.edit(tema);
+        
+        
 
         //Mensaje de confirmación
         context.addMessage(null, new FacesMessage("Tema modificado", "El estado del tema seleccionado se modificó a 'Prorrogado'"));
@@ -119,6 +128,11 @@ public class AvanceYCaducarMB {
         
         tema = temaFacade.findById(idTema).get(0);
         //Seteamos estado "Prolongado"
+        System.out.println(tema.getFechaTema());
+        System.out.println(dateToString(date));
+        if( fechaCorrecta(tema.getFechaTema(),dateToString(date)) == false){
+            return;
+        }
         tema.setEstadoTema(3);
         temaFacade.edit(tema);
         
@@ -171,6 +185,11 @@ public class AvanceYCaducarMB {
         
         tema = temaFacade.findById(idTema).get(0);
         //Seteamos estado "Caducado por renuncia"
+        System.out.println(tema.getFechaTema());
+        System.out.println(tema.getFechaTema());
+        if( fechaCorrecta(tema.getFechaTema(),dateToString(date)) == false){
+            return;
+        }
         tema.setEstadoTema(8);
         temaFacade.edit(tema);
         
