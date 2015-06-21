@@ -503,7 +503,6 @@ public class ComisionRevisora2MB implements Serializable {
         if (!semestres.contains(semestreRevision)) {
             semestreFacade.create(semestreRevision);
         }
-
         if (date != null) {
             fechaRev = dateToString(date);
         } else {
@@ -516,6 +515,13 @@ public class ComisionRevisora2MB implements Serializable {
             fechaEntRev = null;
         }
 
+        if (date != null && date2 != null) {
+
+            if (fechaCorrecta(fechaRev, fechaEntRev) == false) {
+                return;
+            }
+        }
+
         if (date3 != null) {
             fechaRev2 = dateToString(date3);
         } else {
@@ -526,6 +532,13 @@ public class ComisionRevisora2MB implements Serializable {
             fechaEntRev2 = dateToString(date4);
         } else {
             fechaEntRev2 = null;
+        }
+
+        if (date3 != null && date4 != null) {
+
+            if (fechaCorrecta(fechaRev2, fechaEntRev2) == false) {
+                return;
+            }
         }
 
         //Seteamos la nueva comision y la creamos
@@ -802,12 +815,14 @@ public class ComisionRevisora2MB implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
 
         int a, b, c, d, e, f;
-        a = Integer.parseInt(fecha.substring(6, 10));
-        b = Integer.parseInt(fecha2.substring(6, 10));
-        c = Integer.parseInt(fecha.substring(3, 5));
-        d = Integer.parseInt(fecha2.substring(3, 5));
-        e = Integer.parseInt(fecha.substring(0, 2));
-        f = Integer.parseInt(fecha2.substring(0, 2));
+        String fechas[] = fecha.split("/");
+        String fechas2[] = fecha2.split("/");
+        a = Integer.parseInt(fechas[2]);
+        b = Integer.parseInt(fechas2[2]);
+        c = Integer.parseInt(fechas[1]);
+        d = Integer.parseInt(fechas2[1]);
+        e = Integer.parseInt(fechas[0]);
+        f = Integer.parseInt(fechas2[0]);
 
         if (a > b) {
             context.addMessage(null, new FacesMessage("Año de la fecha", "Debe seleccionar una año mayor"));

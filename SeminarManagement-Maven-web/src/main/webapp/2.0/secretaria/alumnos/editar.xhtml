@@ -83,9 +83,9 @@
                                     <!--id="eliminar_boton_asd_#{plan.planEstudio.codigo}_#{plan_version.version}"-->
                                     <!--#{planEstudioMB.getIdPlanActivo(editarAlumnoMB.rutAlumno)} - #{planEstudioMB.getVersionPlanActivo(editarAlumnoMB.rutAlumno)}-->
                                     <c:if test="#{planEstudioMB.getIdPlanActivo(editarAlumnoMB.rutAlumno) != plan.planId or planEstudioMB.getVersionPlanActivo(editarAlumnoMB.rutAlumno) != plan.versionPlan}">
-                                        <p:commandButton  value="Activar" actionListener="#{editarAlumnoMB.setPlanActivoAlumno(editarAlumnoMB.rutAlumno, plan.planId, plan.versionPlan, plan.planEstudio.codigo, plan.planEstudio.carreraId.nombre)}"  update="growl @form" icon="ui-icon-star"/>
+                                        <p:commandButton  value="Activar" actionListener="#{editarAlumnoMB.setPlanActivoAlumnoSecre(editarAlumnoMB.rutAlumno, plan.planId, plan.versionPlan, plan.planEstudio.codigo, plan.planEstudio.carreraId.nombre)}"  update="growl @form" icon="ui-icon-star"/>
                                     </c:if>
-                                    <p:commandButton value="Eliminar" actionListener="#{editarAlumnoMB.eliminarPlan(editarAlumnoMB.rutAlumno, plan.planId, plan.versionPlan)}"  update="growl @form" icon="ui-icon-trash"/>
+                                    <p:commandButton value="Eliminar" actionListener="#{editarAlumnoMB.eliminarPlanSecre(editarAlumnoMB.rutAlumno, plan.planId, plan.versionPlan)}"  update="growl @form" icon="ui-icon-trash"/>
                                 </td>
                             </tr>
                             <!--</p:panel>-->
@@ -99,7 +99,7 @@
                             <c:forEach items="#{planEstudioMB.getAsociacionPlanesEstudio(editarAlumnoMB.rutAlumno)}" var="asociacion">
                                 <tr>
                                     <td>#{asociacion.planEstudio.codigo} #{asociacion.planEstudio.carreraId.nombre} (Versión #{asociacion.versionPlan})</td>
-                                    <td><p:commandButton value="Agregar Plan" icon="ui-icon-trash" actionListener="#{editarAlumnoMB.agregarPlanAlumno(asociacion.planId, asociacion.versionPlan)}"/></td>
+                                    <td><p:commandButton value="Agregar Plan" icon="ui-icon-trash" actionListener="#{editarAlumnoMB.agregarPlanAlumnoSecre(asociacion.planId, asociacion.versionPlan)}"/></td>
                                 </tr>
                             </c:forEach>
                         </table>

@@ -304,7 +304,7 @@ public class ComisionCorrectora2MB {
             return;
         }
         
-         if (date != null ) {
+        if (date != null ) {
             fechaCorr = dateToString(date);   
         }
         else{
@@ -318,6 +318,15 @@ public class ComisionCorrectora2MB {
             fechaRevCorr = null;
         }
         
+        if(date!= null && date2 != null){
+            
+            if(fechaCorrecta(fechaCorr, fechaRevCorr) == false){
+                return;
+            }
+        }
+        
+        
+        
         if (date3 != null) {
             fechaCorr2 = dateToString(date3);   
         }
@@ -330,6 +339,13 @@ public class ComisionCorrectora2MB {
         }
         else{
             fechaRevCorr2 = null;
+        }
+        
+        if(date3!= null && date4 != null){
+            
+            if(fechaCorrecta(fechaCorr2, fechaRevCorr2) == false){
+                return;
+            }
         }
 
         //Accedemos a la tabla semestre, e ingresamos semestre actual si no ha sido ingresado
