@@ -23,7 +23,7 @@
             <p:layoutUnit position="west" size="430" style="border: none;">
                 <p:panel style="border:none;">
                     <h1>Datos Tema</h1>
-                    <p:outputLabel style="color: #0052cc;font-weight: bold;" for="nombre" value="Nombre:"/>
+                    <p:outputLabel style="color: #0052cc;font-weight: bold;" for="nombre" value="Título:"/>
                     <h:outputText id="nombre" style="font-weight: bold;padding-left: 1em;" value="#{verTemaMB.tema.nombreTema}"/>
                     <br/>
 
@@ -85,7 +85,7 @@
                     <h1>Acciones</h1>
                     <h:panelGrid columns="1" cellpadding="2">
                         <p:button style="width:140px;" rendered="#{empty verTemaMB.tema.idCorrectora and verTemaMB.tema.estadoTema eq 6}" href="/2.0/admin/temas/agregarcomcorr.xhtml?tema=#{verTemaMB.tema.idTema}" value="Agregar Comisión Correctora"/>
-                        <p:button style="width:140px;" rendered="#{not empty verTemaMB.tema.idCorrectora}" href="/2.0/admin/temas/editarComCorr.xhtml?prop=#{verTemaMB.tema.idTema}" value="Agregar Fechas Comisión"/>
+                        <p:button style="width:140px;" rendered="#{not empty verTemaMB.tema.idCorrectora}" href="/2.0/admin/temas/editarComCorr.xhtml?prop=#{verTemaMB.tema.idTema}" value="Agregar/Editar Fechas Comisión"/>
                         <p:button style="width:140px;" rendered="#{empty verTemaMB.tema.idCorrectora and verTemaMB.tema.estadoTema eq 0}" href="/2.0/admin/temas/informe.xhtml?tema=#{verTemaMB.tema.idTema}" value="Agregar Informe de Avance"/>
                         <p:button style="width:140px;" rendered="#{empty verTemaMB.tema.idCorrectora and verTemaMB.tema.estadoTema eq 0}" href="/2.0/admin/temas/borrador.xhtml?tema=#{verTemaMB.tema.idTema}" value="Agregar Borrador Final"/>
                         <h:panelGroup rendered="#{verTemaMB.tema.estadoTema eq 4}" id="botonCalificar" layout="block" >

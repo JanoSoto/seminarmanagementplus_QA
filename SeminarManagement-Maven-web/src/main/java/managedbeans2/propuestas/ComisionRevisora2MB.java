@@ -350,6 +350,18 @@ public class ComisionRevisora2MB implements Serializable {
                 return;
             }
         }
+       
+        if(fechaRev != null ){
+            if( fechaCorrecta(propuesta.getFechaPropuesta(),fechaRev) == false){
+                return;
+            }
+        }
+        
+        if(fechaRev2 != null ){
+            if( fechaCorrecta(propuesta.getFechaPropuesta(),fechaRev2) == false){
+                return;
+            }
+        }
 
         //Seteamos la nueva comision y la creamos
         comision.get(0).setIdPropuesta(comision.get(0).getIdPropuesta());
@@ -503,7 +515,6 @@ public class ComisionRevisora2MB implements Serializable {
         if (!semestres.contains(semestreRevision)) {
             semestreFacade.create(semestreRevision);
         }
-
         if (date != null) {
             fechaRev = dateToString(date);
         } else {
@@ -514,6 +525,13 @@ public class ComisionRevisora2MB implements Serializable {
             fechaEntRev = dateToString(date2);
         } else {
             fechaEntRev = null;
+        }
+
+        if (date != null && date2 != null) {
+
+            if (fechaCorrecta(fechaRev, fechaEntRev) == false) {
+                return;
+            }
         }
 
         if (date3 != null) {
@@ -528,6 +546,25 @@ public class ComisionRevisora2MB implements Serializable {
             fechaEntRev2 = null;
         }
 
+        if (date3 != null && date4 != null) {
+
+            if (fechaCorrecta(fechaRev2, fechaEntRev2) == false) {
+                return;
+            }
+        }
+        
+        if( fechaRev != null){
+            if( fechaCorrecta(propuesta.getFechaPropuesta(),fechaRev) == false){
+                return;
+            }
+        }
+        
+        if( fechaRev2 != null){
+            if( fechaCorrecta(propuesta.getFechaPropuesta(),fechaRev2) == false){
+                return;
+            }
+        }
+        
         //Seteamos la nueva comision y la creamos
         nuevaComision.setIdPropuesta(propuesta);
         nuevaComision.setFechaRevision(fechaRev);
@@ -802,24 +839,26 @@ public class ComisionRevisora2MB implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
 
         int a, b, c, d, e, f;
-        a = Integer.parseInt(fecha.substring(6, 10));
-        b = Integer.parseInt(fecha2.substring(6, 10));
-        c = Integer.parseInt(fecha.substring(3, 5));
-        d = Integer.parseInt(fecha2.substring(3, 5));
-        e = Integer.parseInt(fecha.substring(0, 2));
-        f = Integer.parseInt(fecha2.substring(0, 2));
+        String fechas[] = fecha.split("/");
+        String fechas2[] = fecha2.split("/");
+        a = Integer.parseInt(fechas[2]);
+        b = Integer.parseInt(fechas2[2]);
+        c = Integer.parseInt(fechas[1]);
+        d = Integer.parseInt(fechas2[1]);
+        e = Integer.parseInt(fechas[0]);
+        f = Integer.parseInt(fechas2[0]);
 
         if (a > b) {
-            context.addMessage(null, new FacesMessage("Año de la fecha", "Debe seleccionar una año mayor"));
+            context.addMessage(null, new FacesMessage("Año de la fecha", "La fecha debe ser mayor a " + fecha));
             return false;
 
         } else {
             if (c > d) {
-                context.addMessage(null, new FacesMessage("Mes de la fecha", "Debe seleccionar un mes mayor"));
+                context.addMessage(null, new FacesMessage("Mes de la fecha", "La fecha debe ser mayor a " + fecha));
                 return false;
             } else {
                 if (e > f && c >= d){
-                        context.addMessage(null, new FacesMessage("Dia de la fecha", "Debe seleccionar un dia mayor"));
+                        context.addMessage(null, new FacesMessage("Dia de la fecha", "La fecha debe ser mayor a " + fecha));
                         return false;
                 }
             }

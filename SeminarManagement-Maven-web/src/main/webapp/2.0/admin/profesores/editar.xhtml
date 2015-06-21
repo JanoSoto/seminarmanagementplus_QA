@@ -39,7 +39,7 @@
                     <h:panelGrid columns="6" cellpadding="4">
 
                         <p:outputLabel for="rut" value="Rut"/>
-                        <h:outputText id="rut" value="#{verProfesorMB.rutProfeEdit}"/>
+                        <h:outputText id="rut" value="#{verProfesorMB.profesor.rutFormateadoProfesor}"/>
                         <br/>
                         
                         <p:outputLabel></p:outputLabel>
@@ -62,11 +62,10 @@
 
                         <p:outputLabel for="celular" value="Celular"/>
                         <p:inputText id="celular" value="#{verProfesorMB.profesorEdit.telefonoProfesor}">
-                            <f:validator validatorId="celularValidator" />
                         </p:inputText>
                         <p:watermark for="celular" value="Ingresar Celular"/>
 
-                        <p:outputLabel for="contrato" value="Contrato" />
+                        <p:outputLabel for="contrato" value="Vínculo DIINF" />
                         <p:selectOneMenu id="contrato" value="#{verProfesorMB.profesorEdit.contrato}">
                             <f:selectItem itemLabel="Externo" itemValue="0" />
                             <f:selectItem itemLabel="JC" itemValue="1" />
@@ -84,6 +83,8 @@
                             <f:selectItem itemLabel="ADJ. CAT. II" itemValue="ADJ. CAT. II" />
                             <f:selectItem itemLabel="INST. CAT. I" itemValue="INST. CAT. I" />
                             <f:selectItem itemLabel="INST. CAT. II" itemValue="INST. CAT. II" />
+                            <f:selectItem itemLabel="INSTRUCTOR" itemValue="INSTRUCTOR" />
+                            <f:selectItem itemLabel="AYUDANTE" itemValue="AYUDANTE" />
                         </p:selectOneMenu>
                         <br/>
                         

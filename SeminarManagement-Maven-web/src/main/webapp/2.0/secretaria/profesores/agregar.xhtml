@@ -17,14 +17,7 @@
     <ui:define name="content">
         
         <p:layoutUnit position="west" size="180" style="border: none;">
-            <p:panel style="border:none;">
-                <h:panelGrid columns="1" cellpadding="4">
-                    <form method="GET" action="/SeminarManagement-Maven-web/2.0/secretaria/profesores/buscar.xhtml">
-                        <input type="text" placeholder="Búsqueda" value="#{buscarMB.query}" name="q"/>
-                        <button type="submit" value="search">Buscar Profesor</button>
-                    </form>
-                </h:panelGrid>
-            </p:panel>
+         
         </p:layoutUnit>
         
         <p:layoutUnit position="center" style="border:none;">
@@ -35,7 +28,7 @@
                     <h:panelGrid columns="6" cellpadding="4">
 
                         <p:outputLabel for="rut" value="Rut"/>
-                        <p:inputText id="rut" required="true" value="#{profesorMB.rutProfesor}">
+                        <p:inputText id="rut" required="true" value="#{profesorMB.profesor.rutProfesor}">
                             <f:validator validatorId="rutValidator"/>
                         </p:inputText>
                         <p:watermark for="rut" value="Ingresar Rut"/>
@@ -45,27 +38,26 @@
                         <p:outputLabel></p:outputLabel>
                         
                         <p:outputLabel for="nombre" value="Nombre/s"/>
-                        <p:inputText id="nombre" required="true" value="#{profesorMB.nombreProfesor}"/>
+                        <p:inputText id="nombre" required="true" value="#{profesorMB.profesor.nombreProfesor}"/>
                         <p:watermark for="nombre" value="Ingresar Nombre"/>
 
                         <p:outputLabel for="apellido" value="Apellido/s"/>
-                        <p:inputText id="apellido" required="true" value="#{profesorMB.apellidoProfesor}"/>
+                        <p:inputText id="apellido" required="true" value="#{profesorMB.profesor.apellidoProfesor}"/>
                         <p:watermark for="apellido" value="Ingresar Apellido"/>
 
                         <p:outputLabel for="mail" value="E-Mail"/>
-                        <p:inputText id="mail" required="true" value="#{profesorMB.mailProfesor}">
+                        <p:inputText id="mail" value="#{profesorMB.profesor.mailProfesor}">
                             <f:validator validatorId="emailValidator"/>
                         </p:inputText>
                         <p:watermark for="mail" value="Ingresar E-Mail"/>
 
                         <p:outputLabel for="celular" value="Celular"/>
-                        <p:inputText id="celular" required="true" value="#{profesorMB.celularProfesor}">
-                            <f:validator validatorId="celularValidator" />
+                        <p:inputText id="celular" value="#{profesorMB.profesor.telefonoProfesor}">
                         </p:inputText>
                         <p:watermark for="celular" value="Ingresar Celular"/>
 
-                        <p:outputLabel for="contrato" value="Tipo contrato" />
-                        <p:selectOneMenu id="contrato" required="true" value="#{profesorMB.contratoProfesor}">
+                        <p:outputLabel for="contrato" value="Vínculo DIINF" />
+                        <p:selectOneMenu id="contrato" required="true" value="#{profesorMB.profesor.contrato}">
                             <f:selectItem itemLabel="Seleccionar" itemValue=""/>
                             <f:selectItem itemLabel="Externo" itemValue="0" />
                             <f:selectItem itemLabel="JC" itemValue="1" />
@@ -73,7 +65,7 @@
                         <br/>
                         
                         <p:outputLabel for="jeraquia" value="Jerarquía o Categoría" />
-                        <p:selectOneMenu id="jeraquia" required="false" value="#{profesorMB.jerarquia}" >
+                        <p:selectOneMenu id="jeraquia" required="false" value="#{profesorMB.profesor.jerarquiaCategoria}" >
                             <f:selectItem itemLabel="Sin especificar" itemValue=""/>
                             <f:selectItem itemLabel="TITULAR" itemValue="TITULAR" />
                             <f:selectItem itemLabel="ASOCIADO" itemValue="ASOCIADO" />
@@ -83,6 +75,8 @@
                             <f:selectItem itemLabel="ADJ. CAT. II" itemValue="ADJ. CAT. II" />
                             <f:selectItem itemLabel="INST. CAT. I" itemValue="INST. CAT. I" />
                             <f:selectItem itemLabel="INST. CAT. II" itemValue="INST. CAT. II" />
+                            <f:selectItem itemLabel="INSTRUCTOR" itemValue="INSTRUCTOR" />
+                            <f:selectItem itemLabel="AYUDANTE" itemValue="AYUDANTE" />
                         </p:selectOneMenu>
                         <br/>
 <!--
@@ -97,8 +91,10 @@
                     </h:panelGrid>
 
                     <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="./index.xhtml" value="Volver a Profesores"/>
-                    <p:commandButton id="bt1" value="Ingresar" actionListener="#{profesorMB.addProfesor()}" update="growl @form"/>
-                    <p:defaultCommand target="bt1" />
+                    <h:commandLink id="agregar" action="#{profesorMB.create()}" styleClass="btn ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                        <span class="ui-button-text ui-c">Ingresar</span>
+                    </h:commandLink>
+                    <p:defaultCommand target="agregar" />
                 </p:panel>
             </h:form>
         </p:layoutUnit>

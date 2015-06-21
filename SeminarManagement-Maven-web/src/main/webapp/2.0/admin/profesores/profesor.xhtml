@@ -33,7 +33,7 @@
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Rut:"/>
                         <h:outputText value="#{verProfesorMB.profesor.rutFormateadoProfesor}"/>
 
-                        <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Contrato:"/>
+                        <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Vínculo DIINF:"/>
                         <h:outputText rendered="#{verProfesorMB.profesor.contrato eq 0}" value="Externo"/>
                         <h:outputText rendered="#{verProfesorMB.profesor.contrato eq 1}" value="Jornada Completa"/>
                         
@@ -76,7 +76,7 @@
                     <f:facet name="header">
                         Temas Vigentes #{semestreActual.semestre}
                     </f:facet>
-                    <p:column headerText="Nombre" width="400px;">
+                    <p:column headerText="Título" width="400px;">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/temas/tema.xhtml?tema=#{tema.idTema}">
                             <h:outputText value="#{tema.nombreCorto}"/>
                         </a>
@@ -92,7 +92,7 @@
                     <f:facet name="header">
                         Temas Prorrogados #{semestreActual.semestre}
                     </f:facet>
-                    <p:column headerText="Nombre" width="400px;">
+                    <p:column headerText="Título" width="400px;">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/temas/tema.xhtml?tema=#{tema.idTema}">
                             <h:outputText value="#{tema.nombreCorto}"/>
                         </a>
@@ -107,7 +107,7 @@
                     <f:facet name="header">
                         Participación Comisión Correctora #{semestreActual.semestre}
                     </f:facet>
-                    <p:column headerText="Nombre" width="400px;">
+                    <p:column headerText="Título" width="400px;">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/temas/tema.xhtml?tema=#{tema.idTema}">
                             <h:outputText value="#{tema.nombreCorto}"/>
                         </a>
@@ -122,7 +122,7 @@
                     <f:facet name="header">
                         Participación Comisión Correctora #{semestreActual.semestreAnterior}
                     </f:facet>
-                    <p:column headerText="Nombre" width="400px;">
+                    <p:column headerText="Título" width="400px;">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/temas/tema.xhtml?tema=#{tema.idTema}">
                             <h:outputText value="#{tema.nombreCorto}"/>
                         </a>
@@ -137,7 +137,7 @@
                     <f:facet name="header">
                         Participación Comisión Revisora #{semestreActual.semestre}
                     </f:facet>
-                    <p:column headerText="Nombre" width="400px;">
+                    <p:column headerText="Título" width="400px;">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/propuestas/propuesta.xhtml?prop=#{propuesta.idPropuesta}">
                             <h:outputText value="#{propuesta.nombreCorto}"/>
                         </a>
@@ -152,7 +152,7 @@
                     <f:facet name="header">
                         Participación Comisión Revisora #{semestreActual.semestreAnterior}
                     </f:facet>
-                    <p:column headerText="Nombre" width="400px;">
+                    <p:column headerText="Título" width="400px;">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/propuestas/propuesta.xhtml?prop=#{propuesta.idPropuesta}">
                             <h:outputText value="#{propuesta.nombreCorto}"/>
                         </a>
