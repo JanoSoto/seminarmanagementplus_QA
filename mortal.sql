@@ -10,14 +10,14 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
@@ -30,7 +30,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: alumno; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: alumno; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE alumno (
@@ -48,7 +48,7 @@ CREATE TABLE alumno (
 ALTER TABLE public.alumno OWNER TO postgres;
 
 --
--- Name: asignatura; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: asignatura; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE asignatura (
@@ -67,7 +67,7 @@ CREATE TABLE asignatura (
 ALTER TABLE public.asignatura OWNER TO postgres;
 
 --
--- Name: asignatura_asignatura; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: asignatura_asignatura; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE asignatura_asignatura (
@@ -79,7 +79,7 @@ CREATE TABLE asignatura_asignatura (
 ALTER TABLE public.asignatura_asignatura OWNER TO postgres;
 
 --
--- Name: asignatura_profesor; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: asignatura_profesor; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE asignatura_profesor (
@@ -91,7 +91,7 @@ CREATE TABLE asignatura_profesor (
 ALTER TABLE public.asignatura_profesor OWNER TO postgres;
 
 --
--- Name: asociado; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: asociado; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE asociado (
@@ -104,7 +104,7 @@ CREATE TABLE asociado (
 ALTER TABLE public.asociado OWNER TO postgres;
 
 --
--- Name: carrera; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: carrera; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE carrera (
@@ -116,7 +116,7 @@ CREATE TABLE carrera (
 ALTER TABLE public.carrera OWNER TO postgres;
 
 --
--- Name: categoriaaevento; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: categoriaaevento; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE categoriaaevento (
@@ -128,7 +128,7 @@ CREATE TABLE categoriaaevento (
 ALTER TABLE public.categoriaaevento OWNER TO postgres;
 
 --
--- Name: checklist; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: checklist; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE checklist (
@@ -142,7 +142,7 @@ CREATE TABLE checklist (
 ALTER TABLE public.checklist OWNER TO postgres;
 
 --
--- Name: checklisteventos; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: checklisteventos; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE checklisteventos (
@@ -172,7 +172,7 @@ CREATE TABLE checklisteventos (
 ALTER TABLE public.checklisteventos OWNER TO postgres;
 
 --
--- Name: comision_correctora; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: comision_correctora; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE comision_correctora (
@@ -210,7 +210,7 @@ ALTER SEQUENCE comision_correctora_id_correctora_seq OWNED BY comision_corrector
 
 
 --
--- Name: comision_revisora; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: comision_revisora; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE comision_revisora (
@@ -252,7 +252,7 @@ ALTER SEQUENCE comision_revisora_id_revisora_seq OWNED BY comision_revisora.id_r
 
 
 --
--- Name: coordinacion; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: coordinacion; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE coordinacion (
@@ -269,7 +269,7 @@ CREATE TABLE coordinacion (
 ALTER TABLE public.coordinacion OWNER TO postgres;
 
 --
--- Name: encuesta; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: encuesta; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE encuesta (
@@ -284,7 +284,7 @@ CREATE TABLE encuesta (
 ALTER TABLE public.encuesta OWNER TO postgres;
 
 --
--- Name: evento; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: evento; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE evento (
@@ -324,7 +324,7 @@ CREATE TABLE evento (
 ALTER TABLE public.evento OWNER TO postgres;
 
 --
--- Name: evento_asociado; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: evento_asociado; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE evento_asociado (
@@ -337,7 +337,7 @@ CREATE TABLE evento_asociado (
 ALTER TABLE public.evento_asociado OWNER TO postgres;
 
 --
--- Name: evento_expositor; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: evento_expositor; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE evento_expositor (
@@ -350,7 +350,7 @@ CREATE TABLE evento_expositor (
 ALTER TABLE public.evento_expositor OWNER TO postgres;
 
 --
--- Name: expositor; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: expositor; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE expositor (
@@ -369,7 +369,7 @@ CREATE TABLE expositor (
 ALTER TABLE public.expositor OWNER TO postgres;
 
 --
--- Name: historial; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: historial; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE historial (
@@ -405,7 +405,7 @@ ALTER SEQUENCE historial_id_historial_seq OWNED BY historial.id_historial;
 
 
 --
--- Name: horario; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: horario; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE horario (
@@ -420,7 +420,7 @@ CREATE TABLE horario (
 ALTER TABLE public.horario OWNER TO postgres;
 
 --
--- Name: inscripcion; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: inscripcion; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE inscripcion (
@@ -438,7 +438,7 @@ CREATE TABLE inscripcion (
 ALTER TABLE public.inscripcion OWNER TO postgres;
 
 --
--- Name: inscripcionspam; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: inscripcionspam; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE inscripcionspam (
@@ -456,7 +456,7 @@ CREATE TABLE inscripcionspam (
 ALTER TABLE public.inscripcionspam OWNER TO postgres;
 
 --
--- Name: logs; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: logs; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE logs (
@@ -493,7 +493,7 @@ ALTER SEQUENCE logs_logs_id_seq OWNED BY logs.logs_id;
 
 
 --
--- Name: paramsemestreano; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: paramsemestreano; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE paramsemestreano (
@@ -506,7 +506,7 @@ CREATE TABLE paramsemestreano (
 ALTER TABLE public.paramsemestreano OWNER TO postgres;
 
 --
--- Name: planes_alumno; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: planes_alumno; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE planes_alumno (
@@ -520,7 +520,7 @@ CREATE TABLE planes_alumno (
 ALTER TABLE public.planes_alumno OWNER TO postgres;
 
 --
--- Name: planestudio; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: planestudio; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE planestudio (
@@ -534,7 +534,7 @@ CREATE TABLE planestudio (
 ALTER TABLE public.planestudio OWNER TO postgres;
 
 --
--- Name: profe_correccion; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: profe_correccion; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE profe_correccion (
@@ -549,7 +549,7 @@ CREATE TABLE profe_correccion (
 ALTER TABLE public.profe_correccion OWNER TO postgres;
 
 --
--- Name: profe_propuesta; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: profe_propuesta; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE profe_propuesta (
@@ -565,7 +565,7 @@ CREATE TABLE profe_propuesta (
 ALTER TABLE public.profe_propuesta OWNER TO postgres;
 
 --
--- Name: profe_revision; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: profe_revision; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE profe_revision (
@@ -579,7 +579,7 @@ CREATE TABLE profe_revision (
 ALTER TABLE public.profe_revision OWNER TO postgres;
 
 --
--- Name: profesor; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: profesor; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE profesor (
@@ -602,7 +602,7 @@ CREATE TABLE profesor (
 ALTER TABLE public.profesor OWNER TO postgres;
 
 --
--- Name: propuesta; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: propuesta; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE propuesta (
@@ -613,7 +613,9 @@ CREATE TABLE propuesta (
     id_revisora integer,
     rut_alumno character varying(20) NOT NULL,
     magister boolean,
-    pet boolean
+    pet boolean,
+    id_plan integer,
+    version_plan integer
 );
 
 
@@ -641,7 +643,7 @@ ALTER SEQUENCE propuesta_id_propuesta_seq OWNED BY propuesta.id_propuesta;
 
 
 --
--- Name: seccion; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: seccion; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE seccion (
@@ -654,7 +656,7 @@ CREATE TABLE seccion (
 ALTER TABLE public.seccion OWNER TO postgres;
 
 --
--- Name: semestre; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: semestre; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE semestre (
@@ -665,7 +667,7 @@ CREATE TABLE semestre (
 ALTER TABLE public.semestre OWNER TO postgres;
 
 --
--- Name: semestre_actual; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: semestre_actual; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE semestre_actual (
@@ -676,7 +678,7 @@ CREATE TABLE semestre_actual (
 ALTER TABLE public.semestre_actual OWNER TO postgres;
 
 --
--- Name: subtipo; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: subtipo; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE subtipo (
@@ -689,7 +691,7 @@ CREATE TABLE subtipo (
 ALTER TABLE public.subtipo OWNER TO postgres;
 
 --
--- Name: tema; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: tema; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE tema (
@@ -732,7 +734,7 @@ ALTER SEQUENCE tema_id_tema_seq OWNED BY tema.id_tema;
 
 
 --
--- Name: tipo; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: tipo; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE tipo (
@@ -743,7 +745,7 @@ CREATE TABLE tipo (
 ALTER TABLE public.tipo OWNER TO postgres;
 
 --
--- Name: tipoevento; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: tipoevento; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE tipoevento (
@@ -755,7 +757,7 @@ CREATE TABLE tipoevento (
 ALTER TABLE public.tipoevento OWNER TO postgres;
 
 --
--- Name: tipousuario; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: tipousuario; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE tipousuario (
@@ -768,7 +770,7 @@ CREATE TABLE tipousuario (
 ALTER TABLE public.tipousuario OWNER TO postgres;
 
 --
--- Name: usuario; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: usuario; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE usuario (
@@ -783,7 +785,7 @@ CREATE TABLE usuario (
 ALTER TABLE public.usuario OWNER TO postgres;
 
 --
--- Name: usuario_tipo; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: usuario_tipo; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE usuario_tipo (
@@ -817,7 +819,7 @@ ALTER SEQUENCE usuario_tipo_id_usuario_tipo_seq OWNED BY usuario_tipo.id_usuario
 
 
 --
--- Name: usuario_tipousuario; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: usuario_tipousuario; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE usuario_tipousuario (
@@ -845,7 +847,7 @@ CREATE VIEW usuariobytipo AS
 ALTER TABLE public.usuariobytipo OWNER TO postgres;
 
 --
--- Name: usuarioevento; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: usuarioevento; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE usuarioevento (
@@ -859,7 +861,7 @@ CREATE TABLE usuarioevento (
 ALTER TABLE public.usuarioevento OWNER TO postgres;
 
 --
--- Name: versionplan; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+-- Name: versionplan; Type: TABLE; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE TABLE versionplan (
@@ -4715,7 +4717,7 @@ COPY versionplan (id, version, anio, resolucion, anio_resolucion, planificado, p
 
 
 --
--- Name: asignatura_asignatura_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: asignatura_asignatura_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY asignatura_asignatura
@@ -4723,7 +4725,7 @@ ALTER TABLE ONLY asignatura_asignatura
 
 
 --
--- Name: asignatura_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: asignatura_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY asignatura
@@ -4731,7 +4733,7 @@ ALTER TABLE ONLY asignatura
 
 
 --
--- Name: asociado_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: asociado_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY asociado
@@ -4739,7 +4741,7 @@ ALTER TABLE ONLY asociado
 
 
 --
--- Name: carrera_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: carrera_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY carrera
@@ -4747,7 +4749,7 @@ ALTER TABLE ONLY carrera
 
 
 --
--- Name: categoriaaevento_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: categoriaaevento_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY categoriaaevento
@@ -4755,7 +4757,7 @@ ALTER TABLE ONLY categoriaaevento
 
 
 --
--- Name: checklist_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: checklist_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY checklist
@@ -4763,7 +4765,7 @@ ALTER TABLE ONLY checklist
 
 
 --
--- Name: checklisteventos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: checklisteventos_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY checklisteventos
@@ -4771,7 +4773,7 @@ ALTER TABLE ONLY checklisteventos
 
 
 --
--- Name: coordinacion_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: coordinacion_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY coordinacion
@@ -4779,7 +4781,7 @@ ALTER TABLE ONLY coordinacion
 
 
 --
--- Name: encuesta_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: encuesta_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY encuesta
@@ -4787,7 +4789,7 @@ ALTER TABLE ONLY encuesta
 
 
 --
--- Name: evento_asociado_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: evento_asociado_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY evento_asociado
@@ -4795,7 +4797,7 @@ ALTER TABLE ONLY evento_asociado
 
 
 --
--- Name: evento_expositor_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: evento_expositor_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY evento_expositor
@@ -4803,7 +4805,7 @@ ALTER TABLE ONLY evento_expositor
 
 
 --
--- Name: evento_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: evento_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY evento
@@ -4811,7 +4813,7 @@ ALTER TABLE ONLY evento
 
 
 --
--- Name: expositor_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: expositor_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY expositor
@@ -4819,7 +4821,7 @@ ALTER TABLE ONLY expositor
 
 
 --
--- Name: horario_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: horario_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY horario
@@ -4827,7 +4829,7 @@ ALTER TABLE ONLY horario
 
 
 --
--- Name: inscripcion_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: inscripcion_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY inscripcion
@@ -4835,7 +4837,7 @@ ALTER TABLE ONLY inscripcion
 
 
 --
--- Name: inscripcionspam_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: inscripcionspam_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY inscripcionspam
@@ -4843,7 +4845,7 @@ ALTER TABLE ONLY inscripcionspam
 
 
 --
--- Name: logs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: logs_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY logs
@@ -4851,7 +4853,7 @@ ALTER TABLE ONLY logs
 
 
 --
--- Name: paramsemestreano_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: paramsemestreano_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY paramsemestreano
@@ -4859,7 +4861,7 @@ ALTER TABLE ONLY paramsemestreano
 
 
 --
--- Name: pk_alumno; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: pk_alumno; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY alumno
@@ -4867,7 +4869,7 @@ ALTER TABLE ONLY alumno
 
 
 --
--- Name: pk_comision_correctora; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: pk_comision_correctora; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY comision_correctora
@@ -4875,7 +4877,7 @@ ALTER TABLE ONLY comision_correctora
 
 
 --
--- Name: pk_comision_revisora; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: pk_comision_revisora; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY comision_revisora
@@ -4883,7 +4885,7 @@ ALTER TABLE ONLY comision_revisora
 
 
 --
--- Name: pk_historial; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: pk_historial; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY historial
@@ -4891,7 +4893,7 @@ ALTER TABLE ONLY historial
 
 
 --
--- Name: pk_profe_correccion; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: pk_profe_correccion; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY profe_correccion
@@ -4899,7 +4901,7 @@ ALTER TABLE ONLY profe_correccion
 
 
 --
--- Name: pk_profe_propuesta; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: pk_profe_propuesta; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY profe_propuesta
@@ -4907,7 +4909,7 @@ ALTER TABLE ONLY profe_propuesta
 
 
 --
--- Name: pk_profe_revision; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: pk_profe_revision; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY profe_revision
@@ -4915,7 +4917,7 @@ ALTER TABLE ONLY profe_revision
 
 
 --
--- Name: pk_profesor; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: pk_profesor; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY profesor
@@ -4923,7 +4925,7 @@ ALTER TABLE ONLY profesor
 
 
 --
--- Name: pk_propuesta; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: pk_propuesta; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY propuesta
@@ -4931,7 +4933,7 @@ ALTER TABLE ONLY propuesta
 
 
 --
--- Name: pk_semestre; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: pk_semestre; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY semestre
@@ -4939,7 +4941,7 @@ ALTER TABLE ONLY semestre
 
 
 --
--- Name: pk_semestre_actual; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: pk_semestre_actual; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY semestre_actual
@@ -4947,7 +4949,7 @@ ALTER TABLE ONLY semestre_actual
 
 
 --
--- Name: pk_tema; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: pk_tema; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY tema
@@ -4955,7 +4957,7 @@ ALTER TABLE ONLY tema
 
 
 --
--- Name: pk_usuario; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: pk_usuario; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY usuario
@@ -4963,7 +4965,7 @@ ALTER TABLE ONLY usuario
 
 
 --
--- Name: planestudio_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: planestudio_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY planestudio
@@ -4971,7 +4973,7 @@ ALTER TABLE ONLY planestudio
 
 
 --
--- Name: seccion_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: seccion_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY seccion
@@ -4979,7 +4981,7 @@ ALTER TABLE ONLY seccion
 
 
 --
--- Name: subtipo_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: subtipo_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY subtipo
@@ -4987,7 +4989,7 @@ ALTER TABLE ONLY subtipo
 
 
 --
--- Name: tipo_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: tipo_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY tipo
@@ -4995,7 +4997,7 @@ ALTER TABLE ONLY tipo
 
 
 --
--- Name: tipoevento_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: tipoevento_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY tipoevento
@@ -5003,7 +5005,7 @@ ALTER TABLE ONLY tipoevento
 
 
 --
--- Name: tipousuario_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: tipousuario_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY tipousuario
@@ -5011,7 +5013,7 @@ ALTER TABLE ONLY tipousuario
 
 
 --
--- Name: usuario_tipo_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: usuario_tipo_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY usuario_tipo
@@ -5019,7 +5021,7 @@ ALTER TABLE ONLY usuario_tipo
 
 
 --
--- Name: usuario_tipousuario_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: usuario_tipousuario_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY usuario_tipousuario
@@ -5027,7 +5029,7 @@ ALTER TABLE ONLY usuario_tipousuario
 
 
 --
--- Name: usuarioevento_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: usuarioevento_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY usuarioevento
@@ -5035,7 +5037,7 @@ ALTER TABLE ONLY usuarioevento
 
 
 --
--- Name: versionplan_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: versionplan_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace:
 --
 
 ALTER TABLE ONLY versionplan
@@ -5043,210 +5045,210 @@ ALTER TABLE ONLY versionplan
 
 
 --
--- Name: alumno_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: alumno_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE UNIQUE INDEX alumno_pk ON alumno USING btree (rut_alumno);
 
 
 --
--- Name: comision_correctora_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: comision_correctora_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE UNIQUE INDEX comision_correctora_pk ON comision_correctora USING btree (id_correctora);
 
 
 --
--- Name: comision_revisora_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: comision_revisora_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE UNIQUE INDEX comision_revisora_pk ON comision_revisora USING btree (id_revisora);
 
 
 --
--- Name: historial_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: historial_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE UNIQUE INDEX historial_pk ON historial USING btree (id_historial);
 
 
 --
--- Name: profe_correccion_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: profe_correccion_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE UNIQUE INDEX profe_correccion_pk ON profe_correccion USING btree (id_correctora, rut_profesor);
 
 
 --
--- Name: profe_propuesta_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: profe_propuesta_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE UNIQUE INDEX profe_propuesta_pk ON profe_propuesta USING btree (id_propuesta, rut_profesor);
 
 
 --
--- Name: profe_revision_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: profe_revision_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE UNIQUE INDEX profe_revision_pk ON profe_revision USING btree (id_revisora, rut_profesor);
 
 
 --
--- Name: profesor_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: profesor_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE UNIQUE INDEX profesor_pk ON profesor USING btree (rut_profesor);
 
 
 --
--- Name: propuesta_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: propuesta_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE UNIQUE INDEX propuesta_pk ON propuesta USING btree (id_propuesta);
 
 
 --
--- Name: relationship_13_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: relationship_13_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE INDEX relationship_13_fk ON comision_revisora USING btree (id_semestre);
 
 
 --
--- Name: relationship_14_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: relationship_14_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE INDEX relationship_14_fk ON tema USING btree (id_semestre);
 
 
 --
--- Name: relationship_15_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: relationship_15_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE INDEX relationship_15_fk ON comision_correctora USING btree (id_semestre);
 
 
 --
--- Name: relationship_16_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: relationship_16_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE INDEX relationship_16_fk ON tema USING btree (id_correctora);
 
 
 --
--- Name: relationship_17_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: relationship_17_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE INDEX relationship_17_fk ON comision_correctora USING btree (id_tema);
 
 
 --
--- Name: relationship_18_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: relationship_18_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE INDEX relationship_18_fk ON propuesta USING btree (rut_alumno);
 
 
 --
--- Name: relationship_19_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: relationship_19_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE INDEX relationship_19_fk ON propuesta USING btree (id_revisora);
 
 
 --
--- Name: relationship_20_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: relationship_20_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE INDEX relationship_20_fk ON comision_revisora USING btree (id_propuesta);
 
 
 --
--- Name: relationship_21_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: relationship_21_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE INDEX relationship_21_fk ON comision_revisora USING btree (id_tema);
 
 
 --
--- Name: relationship_22_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: relationship_22_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE INDEX relationship_22_fk ON tema USING btree (id_revisora);
 
 
 --
--- Name: relationship_23_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: relationship_23_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE INDEX relationship_23_fk ON profe_propuesta USING btree (id_propuesta);
 
 
 --
--- Name: relationship_24_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: relationship_24_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE INDEX relationship_24_fk ON profe_propuesta USING btree (rut_profesor);
 
 
 --
--- Name: relationship_25_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: relationship_25_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE INDEX relationship_25_fk ON propuesta USING btree (id_semestre);
 
 
 --
--- Name: relationship_26_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: relationship_26_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE INDEX relationship_26_fk ON profe_correccion USING btree (id_correctora);
 
 
 --
--- Name: relationship_27_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: relationship_27_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE INDEX relationship_27_fk ON profe_correccion USING btree (rut_profesor);
 
 
 --
--- Name: relationship_2_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: relationship_2_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE INDEX relationship_2_fk ON profe_revision USING btree (id_revisora);
 
 
 --
--- Name: relationship_3_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: relationship_3_fk; Type: INDEX; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE INDEX relationship_3_fk ON profe_revision USING btree (rut_profesor);
 
 
 --
--- Name: semestre_actual_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: semestre_actual_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE UNIQUE INDEX semestre_actual_pk ON semestre_actual USING btree (semestre_actual);
 
 
 --
--- Name: semestre_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: semestre_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE UNIQUE INDEX semestre_pk ON semestre USING btree (id_semestre);
 
 
 --
--- Name: tema_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: tema_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE UNIQUE INDEX tema_pk ON tema USING btree (id_tema);
 
 
 --
--- Name: usuario_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- Name: usuario_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace:
 --
 
 CREATE UNIQUE INDEX usuario_pk ON usuario USING btree (rut_usuario);
@@ -5601,4 +5603,3 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 --
 -- PostgreSQL database dump complete
 --
-
