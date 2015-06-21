@@ -21,6 +21,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import managedbeans.AuthMB;
+import static managedbeans2.propuestas.ComisionRevisora2MB.fechaCorrecta;
 import sessionbeans.AlumnoFacadeLocal;
 import sessionbeans.ComisionCorrectoraFacadeLocal;
 import sessionbeans.HistorialFacadeLocal;
@@ -78,6 +79,11 @@ public class BorradorFinalMB {
         
         tema = temaFacade.findById(idTema).get(0);
         //Seteamos estado "Vigente con Borrador Final"
+        System.out.println(tema.getFechaTema());
+        System.out.println(date);
+        if( fechaCorrecta(tema.getFechaTema(),dateToString(date)) == false){
+            return;
+        }
         tema.setPrecerrado(false);
         tema.setEstadoTema(6);
         temaFacade.edit(tema);

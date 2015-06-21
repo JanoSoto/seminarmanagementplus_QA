@@ -26,13 +26,18 @@
                     <p:growl id="growl" showDetail="true" sticky="true" />
                     #{comisionRevisora2MB.setIdProp(verPropuestaMB.idPropuesta)}
                     <h:panelGrid columns="3" cellpadding="4" >
-                        <p:outputLabel style="color: #0052cc;font-weight: bold;" for="nombre" value="Nombre"><p:spacer width="294" height="10" /></p:outputLabel>
+                        <p:outputLabel style="color: #0052cc;font-weight: bold;" for="nombre" value="Título"><p:spacer width="310" height="10" /></p:outputLabel>
                         <h:outputText id="nombre" value="#{verPropuestaMB.nombreCorto}"/>
                         <br/>
 
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Alumno"/>
                         <h:outputText style="font-weight: normal;" value="#{verPropuestaMB.propuesta.rutAlumno.nombreAlumno} #{verPropuestaMB.propuesta.rutAlumno.apellidoAlumno}"/>
                         <br/>
+                        
+                        <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Fecha propuesta"/>
+                        <h:outputText style="font-weight: normal;" value="#{verPropuestaMB.propuesta.fechaPropuesta}"/>
+                        <br/>
+                        
                         
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Guía"/>
                         <h:outputText style="font-weight: normal;" value="#{verPropuestaMB.guia.nombreProfesor} #{verPropuestaMB.guia.apellidoProfesor}"/>

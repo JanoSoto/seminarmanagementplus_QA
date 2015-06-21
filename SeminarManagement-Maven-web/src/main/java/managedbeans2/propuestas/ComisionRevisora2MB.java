@@ -350,6 +350,18 @@ public class ComisionRevisora2MB implements Serializable {
                 return;
             }
         }
+       
+        if(fechaRev != null ){
+            if( fechaCorrecta(propuesta.getFechaPropuesta(),fechaRev) == false){
+                return;
+            }
+        }
+        
+        if(fechaRev2 != null ){
+            if( fechaCorrecta(propuesta.getFechaPropuesta(),fechaRev2) == false){
+                return;
+            }
+        }
 
         //Seteamos la nueva comision y la creamos
         comision.get(0).setIdPropuesta(comision.get(0).getIdPropuesta());
@@ -540,7 +552,19 @@ public class ComisionRevisora2MB implements Serializable {
                 return;
             }
         }
-
+        
+        if( fechaRev != null){
+            if( fechaCorrecta(propuesta.getFechaPropuesta(),fechaRev) == false){
+                return;
+            }
+        }
+        
+        if( fechaRev2 != null){
+            if( fechaCorrecta(propuesta.getFechaPropuesta(),fechaRev2) == false){
+                return;
+            }
+        }
+        
         //Seteamos la nueva comision y la creamos
         nuevaComision.setIdPropuesta(propuesta);
         nuevaComision.setFechaRevision(fechaRev);
@@ -825,16 +849,16 @@ public class ComisionRevisora2MB implements Serializable {
         f = Integer.parseInt(fechas2[0]);
 
         if (a > b) {
-            context.addMessage(null, new FacesMessage("Año de la fecha", "Debe seleccionar una año mayor"));
+            context.addMessage(null, new FacesMessage("Año de la fecha", "La fecha debe ser mayor a " + fecha));
             return false;
 
         } else {
             if (c > d) {
-                context.addMessage(null, new FacesMessage("Mes de la fecha", "Debe seleccionar un mes mayor"));
+                context.addMessage(null, new FacesMessage("Mes de la fecha", "La fecha debe ser mayor a " + fecha));
                 return false;
             } else {
                 if (e > f && c >= d){
-                        context.addMessage(null, new FacesMessage("Dia de la fecha", "Debe seleccionar un dia mayor"));
+                        context.addMessage(null, new FacesMessage("Dia de la fecha", "La fecha debe ser mayor a " + fecha));
                         return false;
                 }
             }
