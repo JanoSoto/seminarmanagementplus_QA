@@ -58,15 +58,6 @@ public class UsuarioMB {
     private List<String> tiposDelUsuario;
     private DualListModel<String> tiposDualList;
     private Boolean estaEditando = true;
-    private Boolean activo;
-
-    public Boolean getActivo() {
-        return activo;
-    }
-
-    public void setActivo(Boolean activo) {
-        this.activo = activo;
-    }
 
     private String uid;
 
@@ -98,8 +89,6 @@ public class UsuarioMB {
 
     @PostConstruct
     public void init() {
-        System.out.println("Init");
-        this.activo = true;
         this.estaEditando = false;
         if (this.uid != null && !this.uid.equals("")) {
             this.estaEditando = true;
@@ -168,21 +157,14 @@ public class UsuarioMB {
     }
 
     public void cargarUsuario(String uid) {
-        System.out.println("asdasd");
-        System.out.println("asdasd");
-        System.out.println("Buscando usuario");
         Usuario usuario = usuarioFacade.findByUid(uid);
         this.estaEditando = true;
         this.username = usuario.getRutUsuario();
         this.nombreUsuario = usuario.getNombreUsuario();
         this.apellidoUsuario = usuario.getApellidoUsuario();
         this.uid = uid.toUpperCase();
-        this.activo = usuario.getActivo();
-        System.out.println(usuario);
         this.estaEditando = true;
-        System.out.println(this.estaEditando);
         List<Tipousuario> tipos = usuario.getTipos();
-        System.out.println("Tipos: " + tipos.size());
 
         this.tiposDelUsuario = new ArrayList<>();
         List<Tipousuario> roles = usuario.getRoles();
@@ -194,12 +176,9 @@ public class UsuarioMB {
         roles_todos.removeAll(roles);
         this.tiposNoDelUsuario = new ArrayList<>();
         for (Tipousuario rol : roles_todos) {
-            System.out.println("Añadi: " + rol.getNombreTipo());
             this.tiposNoDelUsuario.add(rol.getNombreTipo());
         }
         this.tiposDualList = new DualListModel<>(tiposNoDelUsuario, tiposDelUsuario);
-        System.out.println("Editando final:");
-        System.out.println(this.estaEditando);
     }
 
     public void guardarUsuario() throws NoSuchAlgorithmException, UnsupportedEncodingException, IOException {
@@ -223,9 +202,6 @@ public class UsuarioMB {
 
         List<Tipousuario> aux = new ArrayList();
         //Ingresamos el tipo usuario
-        System.out.println("Tamaño: " + this.tiposDualList.getTarget().size());
-        System.out.println("Tamaño: " + this.tiposDelUsuario.size());
-        System.out.println("TIPOS:");
         for (int i = 0; i < tiposDualList.getSource().size(); i++) {
             Tipousuario tipo = tipoFacade.findByNombreTipo(tiposDualList.getSource().get(i));
             List<Usuario> usuarios_tipo = tipo.getUsuarios();
@@ -233,10 +209,7 @@ public class UsuarioMB {
             tipoFacade.edit(tipo);
         }
         for (int i = 0; i < tiposDualList.getTarget().size(); i++) {
-//            Long tipo_id = Long.parseLong(tiposDualList.getTarget().get(i));
-            System.out.println(tiposDualList.getTarget().get(i));
             Tipousuario tipo = tipoFacade.findByNombreTipo(tiposDualList.getTarget().get(i));
-//            Tipousuario tipo = tipoFacade.find(Long.parseLong("1"));
             List<Usuario> usuarios_tipo = tipo.getUsuarios();
             usuarios_tipo.add(usuario);
             tipo.setUsuarios(usuarios_tipo);
@@ -245,11 +218,8 @@ public class UsuarioMB {
             aux.add(tipo);
         }
         usuario.setTipos(aux);
-        System.out.println("KKKKK:");
-        System.out.println(this.activo);
         usuario.setNombreUsuario(this.nombreUsuario);
         usuario.setApellidoUsuario(this.apellidoUsuario);
-        usuario.setActivo(this.activo);
 //        nuevoUsuario.setTipos(tiposDualList.getTarget());
 
         usuarioFacade.edit(usuario);
@@ -273,8 +243,6 @@ public class UsuarioMB {
         }
 
         Usuario usuario = usuarioFacade.findByUid(this.uid.toLowerCase());
-        System.out.println("Editando:");
-        System.out.println(this.estaEditando);
         if (usuario != null && !this.estaEditando) {
             context.addMessage(null, new FacesMessage("ERROR: El UID ingresado ya se encuentra registrado en el sistema.", ""));
             return;
@@ -306,13 +274,9 @@ public class UsuarioMB {
         nuevoUsuario.setNombreUsuario(nombreUsuario);
         //nuevoUsuario.setPassword(sha256(username.substring(0, 5)));
         nuevoUsuario.setApellidoUsuario(apellidoUsuario);
-        nuevoUsuario.setActivo(true);
 
         List<Tipousuario> aux = new ArrayList();
         //Ingresamos el tipo usuario
-        System.out.println("Tamaño: " + this.tiposDualList.getTarget().size());
-        System.out.println("Tamaño: " + this.tiposDelUsuario.size());
-        System.out.println("TIPOS:");
         for (int i = 0; i < tiposDualList.getSource().size(); i++) {
             Tipousuario tipo = tipoFacade.findByNombreTipo(tiposDualList.getSource().get(i));
             List<Usuario> usuarios_tipo = tipo.getUsuarios();
@@ -321,7 +285,6 @@ public class UsuarioMB {
         }
         for (int i = 0; i < tiposDualList.getTarget().size(); i++) {
 //            Long tipo_id = Long.parseLong(tiposDualList.getTarget().get(i));
-            System.out.println(tiposDualList.getTarget().get(i));
             Tipousuario tipo = tipoFacade.findByNombreTipo(tiposDualList.getTarget().get(i));
 //            Tipousuario tipo = tipoFacade.find(Long.parseLong("1"));
             List<Usuario> usuarios_tipo = tipo.getUsuarios();
@@ -332,24 +295,27 @@ public class UsuarioMB {
             aux.add(tipo);
         }
         nuevoUsuario.setTipos(aux);
-        System.out.println("KKKKK:");
-        System.out.println(this.activo);
-        nuevoUsuario.setActivo(this.activo);
 //        nuevoUsuario.setTipos(tiposDualList.getTarget());
-
+        context.addMessage(null, new FacesMessage("Usuario " + this.uid + " creado correctamente."));
+        LOGGER.info("Se ha editado al usuario " + nombreUsuario + " " + apellidoUsuario);
         usuarioFacade.edit(nuevoUsuario);
 
-        if (this.estaEditando) {
-            context.addMessage(null, new FacesMessage("Usuario", nombreUsuario + " " + apellidoUsuario + ", editado correctamente"));
-            LOGGER.info("Se ha agregado al usuario " + nombreUsuario + " " + apellidoUsuario);
-        } else {
-            context.addMessage(null, new FacesMessage("Usuario", nombreUsuario + " " + apellidoUsuario + ", ingresado al sistema"));
-            LOGGER.info("Se ha editado al usuario " + nombreUsuario + " " + apellidoUsuario);
-        }
         //Vaciamos el formulario
 //        username = null;
 //        nombreUsuario = null;
 //        apellidoUsuario = null;
 //        tipoUsuario = null;
+    }
+
+    public void eliminarUsuario() {
+        Usuario usuario = usuarioFacade.findByUid(this.uid.toLowerCase());
+        List<Tipousuario> roles = usuario.getRoles();
+        for (Tipousuario rol : roles) {
+            rol.getUsuarios().remove(usuario);
+            tipoFacade.edit(rol);
+        }
+        usuarioFacade.remove(usuario);
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Usuario " + this.uid + " eliminado correctamente."));
     }
 }
