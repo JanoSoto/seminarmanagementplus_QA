@@ -48,6 +48,23 @@ public class Tema implements Serializable {
     @Column(name = "nombre_tema")
     private String nombreTema;
     @Size(max = 15)
+    
+    @Column(name = "fecha_borrador")
+    private String fechaBorrador;
+    @Size(max = 20)
+    
+    @Column(name = "fecha_renuncia")
+    private String fechaRenuncia;
+    @Size(max = 20)
+    
+    @Column(name = "fecha_caducado")
+    private String fechaCaducado;
+    @Size(max = 20)
+    
+    @Column(name = "fecha_informe_avance")
+    private String fechaInformeAvance;
+    @Size(max = 20)
+    
     @Column(name = "fecha_tema")
     private String fechaTema;
     @Size(max = 15)
@@ -188,6 +205,39 @@ public class Tema implements Serializable {
 
     public void setIdCorrectora(ComisionCorrectora idCorrectora) {
         this.idCorrectora = idCorrectora;
+    }
+    
+    
+    public String getFechaBorrador() {
+        return fechaBorrador;
+    }
+
+    public void setFechaBorrador(String fechaBorrador) {
+        this.fechaBorrador = fechaBorrador;
+    }
+
+    public String getFechaRenuncia() {
+        return fechaRenuncia;
+    }
+
+    public void setFechaRenuncia(String fechaRenuncia) {
+        this.fechaRenuncia = fechaRenuncia;
+    }
+
+    public String getFechaCaducado() {
+        return fechaCaducado;
+    }
+
+    public void setFechaCaducado(String fechaCaducado) {
+        this.fechaCaducado = fechaCaducado;
+    }
+
+    public String getFechaInformeAvance() {
+        return fechaInformeAvance;
+    }
+
+    public void setFechaInformeAvance(String fechaInformeAvance) {
+        this.fechaInformeAvance = fechaInformeAvance;
     }
 
     @XmlTransient
