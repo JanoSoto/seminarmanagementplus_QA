@@ -6,6 +6,7 @@ import entities.PlanEstudio;
 import entities.ProfePropuesta;
 import entities.Profesor;
 import entities.Propuesta;
+import entities.Semestre;
 import entities.SemestreActual;
 import entities.Tema;
 import javax.inject.Named;
@@ -20,7 +21,9 @@ import sessionbeans.ComisionCorrectoraFacadeLocal;
 import sessionbeans.ComisionRevisoraFacadeLocal;
 import sessionbeans.PlanestudioFacadeLocal;
 import sessionbeans.ProfesorFacadeLocal;
+import sessionbeans.PropuestaFacadeLocal;
 import sessionbeans.SemestreActualFacadeLocal;
+import sessionbeans.SemestreFacadeLocal;
 import sessionbeans.TemaFacadeLocal;
 
 /**
@@ -32,6 +35,9 @@ import sessionbeans.TemaFacadeLocal;
 public class ReportesMB implements Serializable {
     @EJB
     SemestreActualFacadeLocal semActFacade;
+    
+    @EJB
+    SemestreFacadeLocal semFacade;
     
     @EJB
     ComisionRevisoraFacadeLocal revisoraFacade;
@@ -48,8 +54,13 @@ public class ReportesMB implements Serializable {
     @EJB
     ProfesorFacadeLocal profesorFacade;
     
+    @EJB
+    PropuestaFacadeLocal propuestaFacade;
+    
     private SemestreActual semestreActual;
+    private Semestre semestre;
     private List<ComisionRevisora> revisoras;
+    private List<Propuesta> propuestas;
     private List<ComisionCorrectora> correctoras;
     private List<Tema> temas;
     private List<PlanEstudio> planes;
@@ -62,9 +73,6 @@ public class ReportesMB implements Serializable {
     private ArrayList<ArrayList<Integer>> cuentaPorProfePH;
     private ArrayList<Integer> cuentaTotalPorProfeJC;
     private ArrayList<Integer> cuentaTotalPorProfePH;
-    private Integer nroProfJCmostrar;
-    private Integer nroProfPHmostrar;
-    private Integer nroPlanesMostrar;
     private List<String> planesToDisplay;
     private List<String> profesJCToDisplay;
     private List<ProfeDatosTablaMemoristas> profesoresJCDatos;
@@ -82,11 +90,13 @@ public class ReportesMB implements Serializable {
         List<SemestreActual> sems = semActFacade.findAll();
         if ( !sems.isEmpty() ){
             semestreActual = sems.get(0);
+            semestre = semFacade.findOneById(semestreActual.getSemestreActual());
         }
     }
     
     public void findPropuestasSemestre() {
         // propuestas con comision, eliminando las por acuerdo de consejo
+        /* Descartado por cambio en los requerimientos (ahora se necesitan todas las propuestas)
         revisoras = revisoraFacade.findBySemestre(semestreActual.getSemestreActual());
         List<ComisionRevisora> porAcuerdo = new ArrayList<>();
         for (ComisionRevisora revisora : revisoras) {
@@ -94,6 +104,15 @@ public class ReportesMB implements Serializable {
                 porAcuerdo.add(revisora);
         }
         revisoras.removeAll(porAcuerdo);
+        */
+        if (semestre == null)
+            return;
+        
+        propuestas = semestre.getPropuestaList();
+        
+        //for (Propuesta propuesta : propuestas) {
+        //    revisoras.add(propuesta.getIdRevisora());
+        //}
     }
     
     public void findTemasSemestre() {
@@ -440,6 +459,13 @@ public class ReportesMB implements Serializable {
         
         
     }
-    
-    
+
+    public List<Propuesta> getPropuestas() {
+        return propuestas;
+    }
+
+    public void setPropuestas(List<Propuesta> propuestas) {
+        this.propuestas = propuestas;
+    }
+        
 }

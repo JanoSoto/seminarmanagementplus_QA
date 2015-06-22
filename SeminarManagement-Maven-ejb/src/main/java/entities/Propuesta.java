@@ -195,6 +195,34 @@ public class Propuesta implements Serializable {
         return coGuia;
     }
     
+    public Profesor getProfesorRevisor1(){
+        Profesor revisor = null;
+        ComisionRevisora cr = getIdRevisora();
+        if ( cr != null ) {
+            for (ProfeRevision profeRev : cr.getProfeRevisionList()) {
+                if ( profeRev.getRolRevision() == 0 ){
+                    revisor = profeRev.getProfesor();
+                    break;
+                }
+            }
+        }
+        return revisor;
+    }
+    
+    public Profesor getProfesorRevisor2(){
+        Profesor revisor = null;
+        ComisionRevisora cr = getIdRevisora();
+        if ( cr != null ) {
+            for (ProfeRevision profeRev : cr.getProfeRevisionList()) {
+                if ( profeRev.getRolRevision() == 1 ){
+                    revisor = profeRev.getProfesor();
+                    break;
+                }
+            }
+        }
+        return revisor;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
