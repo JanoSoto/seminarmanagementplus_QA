@@ -79,3 +79,7 @@ button.navActive {
 .ui-datatable-tablewrapper {
   overflow-x: auto;
 }
+
+.tabla-reporte-propuestas td,.tabla-reporte-propuestas span {
+    font-size: 13px;
+}

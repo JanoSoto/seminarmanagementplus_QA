@@ -53,6 +53,10 @@
                 <h1>Acciones</h1>
                 <h:panelGrid columns="1" cellpadding="4">
                     <p:button style="width:140px;" value="Editar Datos" icon="ui-icon-pencil" iconPos="right" href="/2.0/admin/alumnos/editar.xhtml?alum=#{verAlumnoMB.alumno.rutAlumno}"/>
+                        <h:panelGroup id="botonAgregarProp" layout="block" >
+                            <p:button style="width:140px;" disabled="#{empty verAlumnoMB.alumno.idPlanActivo}" href="/2.0/admin/propuestas/agregar.xhtml?alum=#{verAlumnoMB.alumno.rutAlumno}" value="Agregar Propuesta"/>
+                        </h:panelGroup>
+                        
                     <h:panelGroup id="botonAgregarProp" layout="block" >
                         <p:button style="width:140px;" disabled="#{empty verAlumnoMB.alumno.idPlanActivo}" href="/2.0/admin/propuestas/agregar.xhtml?alum=#{verAlumnoMB.alumno.rutAlumno}" value="Agregar Propuesta"/>
                     </h:panelGroup>
@@ -73,7 +77,7 @@
                 <f:facet name="header">
                     Propuestas
                 </f:facet>
-                <p:column headerText="Nombre">
+                    <p:column headerText="Título">
                     <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/propuestas/propuesta.xhtml?prop=#{prop.idPropuesta}">
                         <h:outputText value="#{prop.nombreCorto}"/>
                     </a>

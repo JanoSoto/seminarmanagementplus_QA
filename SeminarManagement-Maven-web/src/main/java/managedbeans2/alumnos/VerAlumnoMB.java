@@ -173,13 +173,15 @@ public class VerAlumnoMB {
         System.out.println("Planeeeees");
         List<PlanEstudio> planesasd = alumno.getPlanes();
 //        List<PlanEstudio> planesasd = Util.planFacade.findAll();
+        if (id_plan != null){
         System.out.println("Planeeeees");
-        for (int i = 0; i < planesasd.size(); i++) {
-            System.out.println(planesasd.get(i).getId() + " == " + Long.parseLong(id_plan + ""));
-            System.out.println(planesasd.get(i).getId() + " == " + Long.parseLong(id_plan + ""));
-            if (planesasd.get(i).getId() == Long.parseLong(id_plan + "")) {
-                System.out.println("asdasdasjfaofijaoisf");
-                return planesasd.get(i);
+            for (int i = 0; i < planesasd.size(); i++) {
+                System.out.println(planesasd.get(i).getId() + " == " + Long.parseLong(id_plan + ""));
+                System.out.println(planesasd.get(i).getId() + " == " + Long.parseLong(id_plan + ""));
+                if (planesasd.get(i).getId() == Long.parseLong(id_plan + "")) {
+                    System.out.println("asdasdasjfaofijaoisf");
+                    return planesasd.get(i);
+                }
             }
         }
         return null;

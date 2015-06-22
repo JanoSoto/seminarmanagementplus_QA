@@ -341,17 +341,19 @@ public class VerPropuestaMB implements Serializable {
     public String getNombrePlan(Integer id_plan, Integer version_plan) {
         List<PlanEstudio> planes = alumno.getPlanes();
         PlanEstudio plan = null;
-        System.out.println("Id: " + id_plan);
-        System.out.println("VE: " + version_plan);
-        for (int i = 0; i < planes.size(); i++) {
-            if (planes.get(i).getId().equals(Long.parseLong(id_plan + ""))) {
-                List<Versionplan> versiones = planes.get(i).getVersionplanList();
-                for (int j = 0; j < versiones.size(); j++) {
-                    Versionplan versionPlan = versiones.get(j);
-                    System.out.println("Comparando: " + versionPlan.getVersion() + " con " + Long.parseLong(version_plan + ""));
-                    if (versionPlan.getVersion() == Long.parseLong(version_plan + "")) {
-                        System.out.println("existeeeee");
-                        plan = planes.get(i);
+        //System.out.println("Id: " + id_plan);
+        //System.out.println("VE: " + version_plan);
+        if ( id_plan != null ){ 
+            for (int i = 0; i < planes.size(); i++) {
+                if (planes.get(i).getId().equals(Long.parseLong(id_plan + ""))) {
+                    List<Versionplan> versiones = planes.get(i).getVersionplanList();
+                    for (int j = 0; j < versiones.size(); j++) {
+                        Versionplan versionPlan = versiones.get(j);
+                        //System.out.println("Comparando: " + versionPlan.getVersion() + " con " + Long.parseLong(version_plan + ""));
+                        if ( versionPlan.getVersion() != null && version_plan != null && (versionPlan.getVersion() == Long.parseLong(version_plan + ""))) {
+                            //System.out.println("existeeeee");
+                            plan = planes.get(i);
+                        }
                     }
                 }
             }
@@ -387,10 +389,10 @@ public class VerPropuestaMB implements Serializable {
                 date_min = date1;
                 fecha_min = fecha_1;
             } else {
-                date_min = date1.compareTo(date2) <= 0 ? date1 : date2;
-                fecha_min = date1.compareTo(date2) <= 0 ? fecha_1 : fecha_2;
+                date_min = date1.compareTo(date2) >= 0 ? date1 : date2;
+                fecha_min = date1.compareTo(date2) >= 0 ? fecha_1 : fecha_2;
             }
-            if (date_menor == null || date_menor.compareTo(date_min) <= 0) {
+            if (date_menor == null || date_menor.compareTo(date_min) >= 0) {
                 date_menor = date_min;
                 fecha_menor = fecha_min;
             }

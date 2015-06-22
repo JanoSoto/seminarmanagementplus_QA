@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package sessionbeans;
 
 import entities.Semestre;
@@ -37,5 +31,16 @@ public class SemestreFacade extends AbstractFacade<Semestre> implements Semestre
         query = em.createNamedQuery("Semestre.findByIdSemestre")
                 .setParameter("idSemestre", idSemestre);
         return query.getResultList();
+    }
+    
+    @Override
+    public Semestre findOneById(String semestre){
+        Query q = em.createNamedQuery("Semestre.findOneById")
+                .setParameter("semestre", semestre);
+        List<Semestre> sems = q.getResultList();
+        if (sems.isEmpty())
+            return null;
+        else
+            return sems.get(0);
     }
 }
