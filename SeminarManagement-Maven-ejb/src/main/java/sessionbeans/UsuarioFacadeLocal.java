@@ -27,12 +27,15 @@ public interface UsuarioFacadeLocal {
     List<Usuario> findAll();
 
     List<Usuario> findRange(int[] range);
-    
+
     public Usuario findByUid(String username);
-    
+
     public boolean existe(String username);
+
+    public Boolean existeByRut(String rut);
     
+    public List<Usuario> findByRut(String rut);
 
     int count();
-    
+
 }

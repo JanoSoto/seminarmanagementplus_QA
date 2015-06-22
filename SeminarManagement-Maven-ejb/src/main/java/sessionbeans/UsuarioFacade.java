@@ -6,6 +6,7 @@
 package sessionbeans;
 
 import entities.Usuario;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -41,6 +42,29 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
             return null;
         }
     }
+    
+    @Override
+    public Boolean existeByRut(String rut) {
+        Query query = em.createNamedQuery("Usuario.findByRutUsuario").setParameter("rutUsuario", rut);
+        try{
+            return !query.getResultList().isEmpty();
+        }
+        catch(NoResultException e){
+            return null;
+        }
+    }
+    
+    @Override
+    public List<Usuario> findByRut(String rut) {
+        Query query = em.createNamedQuery("Usuario.findByRutUsuario").setParameter("rutUsuario", rut);
+        try{
+            return query.getResultList();
+        }
+        catch(NoResultException e){
+            return null;
+        }
+    }
+    
     
     @Override
     public boolean existe(String uid){
