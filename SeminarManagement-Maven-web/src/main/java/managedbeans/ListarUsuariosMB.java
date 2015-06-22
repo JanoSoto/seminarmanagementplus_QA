@@ -6,6 +6,7 @@
 package managedbeans;
 
 import clases.UsuarioDatos;
+import entities.Tipousuario;
 import entities.Usuario;
 import javax.inject.Named;
 import javax.enterprise.context.SessionScoped;
@@ -26,8 +27,10 @@ public class ListarUsuariosMB implements Serializable {
     @EJB
     private UsuarioFacadeLocal usuarioFacade;
     
-    private List<Usuario> listaUsuarios;
-    private List<UsuarioDatos> usuarios;
+    private List<Tipousuario> tipos;
+    
+    private List<Usuario> usuarios;
+    //private List<UsuarioDatos> usuarios;
     /**
      * Creates a new instance of ListarUsuariosMB
      */
@@ -40,34 +43,27 @@ public class ListarUsuariosMB implements Serializable {
     }
 
     public List<Usuario> getListaUsuarios() {
-        return listaUsuarios;
-    }
-
-    public void setListaUsuarios(List<Usuario> listaUsuarios) {
-        this.listaUsuarios = listaUsuarios;
-    }
-
-    public List<UsuarioDatos> getUsuarios() {
         return usuarios;
     }
 
-    public void setUsuarios(List<UsuarioDatos> usuarios) {
-        this.usuarios = usuarios;
+    public void setListaUsuarios(List<Usuario> listaUsuarios) {
+        this.usuarios = listaUsuarios;
     }
+
     
     public void updateUsuarios() {
-        listaUsuarios = usuarioFacade.findAll();
-        usuarios = new ArrayList();
-        for (int i = 0; i < listaUsuarios.size(); i++ ) {
-            UsuarioDatos user = new UsuarioDatos();
-            if(listaUsuarios.get(i).getActivo())
-                user.setActivo("Si");
+        usuarios = usuarioFacade.findAll();
+        List usuariosList = new ArrayList();
+        for (int i = 0; i < usuarios.size(); i++ ) {
+            Usuario user = new Usuario();
+            if(usuarios.get(i).getActivo())
+                user.setActivo(true);
             else
-                user.setActivo("No");
-            user.setRut(listaUsuarios.get(i).getUsername());
-            user.setNombre(listaUsuarios.get(i).getNombreUsuario());
-            user.setApellido(listaUsuarios.get(i).getApellidoUsuario());
-            user.setTipo(listaUsuarios.get(i).getUsuarioTipoList().get(0).getNombreTipo().getNombreTipo());
+                user.setActivo(false);
+            user.setRutUsuario(usuarios.get(i).getUid());
+            user.setNombreUsuario(usuarios.get(i).getNombreUsuario());
+            user.setApellidoUsuario(usuarios.get(i).getApellidoUsuario());
+            user.setTipos(usuarios.get(i).getTipos());
             usuarios.add(user);
             init();
         }

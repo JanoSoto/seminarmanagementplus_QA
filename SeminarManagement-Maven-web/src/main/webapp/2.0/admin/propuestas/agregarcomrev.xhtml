@@ -26,13 +26,18 @@
                     <p:growl id="growl" showDetail="true" sticky="true" />
                     #{comisionRevisora2MB.setIdProp(verPropuestaMB.idPropuesta)}
                     <h:panelGrid columns="3" cellpadding="4" >
-                        <p:outputLabel style="color: #0052cc;font-weight: bold;" for="nombre" value="Nombre"><p:spacer width="294" height="10" /></p:outputLabel>
+                        <p:outputLabel style="color: #0052cc;font-weight: bold;" for="nombre" value="Título"><p:spacer width="310" height="10" /></p:outputLabel>
                         <h:outputText id="nombre" value="#{verPropuestaMB.nombreCorto}"/>
                         <br/>
 
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Alumno"/>
                         <h:outputText style="font-weight: normal;" value="#{verPropuestaMB.propuesta.rutAlumno.nombreAlumno} #{verPropuestaMB.propuesta.rutAlumno.apellidoAlumno}"/>
                         <br/>
+                        
+                        <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Fecha propuesta"/>
+                        <h:outputText style="font-weight: normal;" value="#{verPropuestaMB.propuesta.fechaPropuesta}"/>
+                        <br/>
+                        
                         
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Guía"/>
                         <h:outputText style="font-weight: normal;" value="#{verPropuestaMB.guia.nombreProfesor} #{verPropuestaMB.guia.apellidoProfesor}"/>
@@ -65,12 +70,12 @@
                         <br/>
                         
                         <p:outputLabel for="calendP" value="Fecha de entrega al profesor " />
-                        <p:calendar id="calendP" value="#{comisionRevisora2MB.date}" mode="popup"/>
+                        <p:calendar id="calendP" value="#{comisionRevisora2MB.date}" mode="popup" mindate="#{verPropuestaMB.fechaPropEdit}"/>
                         <p:watermark for="calendP" value="Ingresar Fecha"/>
                         
                         
                         <p:outputLabel for="calendP2" value="Fecha de devolución con correciones del profesor " />
-                        <p:calendar id="calendP2" value="#{comisionRevisora2MB.date2}" mode="popup"/>
+                        <p:calendar id="calendP2" value="#{comisionRevisora2MB.date2}" mode="popup"  mindate="#{verPropuestaMB.fechaPropEdit}"/>
                         <p:watermark for="calendP2" value="Ingresar Fecha"/>
                         
                         <p:outputLabel for="profeR2P" value="Profesor Revisor 2 *" />
@@ -81,12 +86,12 @@
                         <br/>
                         
                         <p:outputLabel for="calendP3" value="Fecha de entrega al profesor " />
-                        <p:calendar id="calendP3" value="#{comisionRevisora2MB.date3}" mode="popup"/>
+                        <p:calendar id="calendP3" value="#{comisionRevisora2MB.date3}" mode="popup" mindate="#{verPropuestaMB.fechaPropEdit}"/>
                         <p:watermark for="calendP3" value="Ingresar Fecha"/>
                         
                         
                         <p:outputLabel for="calendP4" value="Fecha de devolución con correciones del profesor " />
-                        <p:calendar id="calendP4" value="#{comisionRevisora2MB.date4}" mode="popup"/>
+                        <p:calendar id="calendP4" value="#{comisionRevisora2MB.date4}" mode="popup"  mindate="#{verPropuestaMB.fechaPropEdit}"/>
                         <p:watermark for="calendP4" value="Ingresar Fecha"/>
 
                     </h:panelGrid>

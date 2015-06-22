@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package validators;
 
 import java.util.regex.Matcher;
@@ -26,19 +20,21 @@ public class EmailValidator implements Validator {
     @Override
     public void validate(FacesContext facesContext, UIComponent uIComponent, Object value) throws ValidatorException {
         Pattern pattern = Pattern.compile("^[a-zA-Z0-9.!#$ñ%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$*");
-        Matcher matcher = pattern.matcher((CharSequence) value);
-        HtmlInputText htmlInputText = (HtmlInputText) uIComponent;
-        String label;
-        
-        if (htmlInputText.getLabel() == null || htmlInputText.getLabel().trim().equals(""))
-            label = htmlInputText.getId();
-        else
-            label = htmlInputText.getLabel();
-        
-        if (value != ""){
-            if (!matcher.matches()) {
-                FacesMessage facesMessage = new FacesMessage(label+": La dirección no es válida");
-                throw new ValidatorException(facesMessage);
+        if ( value != null && !value.toString().isEmpty() ){
+            Matcher matcher = pattern.matcher((CharSequence) value);
+            HtmlInputText htmlInputText = (HtmlInputText) uIComponent;
+            String label;
+
+            if (htmlInputText.getLabel() == null || htmlInputText.getLabel().trim().equals(""))
+                label = htmlInputText.getId();
+            else
+                label = htmlInputText.getLabel();
+
+            if (value != ""){
+                if (!matcher.matches()) {
+                    FacesMessage facesMessage = new FacesMessage(label+": La dirección no es válida");
+                    throw new ValidatorException(facesMessage);
+                }
             }
         }
     }

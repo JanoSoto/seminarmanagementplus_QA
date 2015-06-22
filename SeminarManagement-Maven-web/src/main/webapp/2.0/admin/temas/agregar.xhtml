@@ -29,12 +29,15 @@
                     #{agregarTemaMB.setIdRev(verPropuestaMB.propuesta.idRevisora.idRevisora)}
                     <h:panelGrid columns="3" cellpadding="4">
 
-                        <p:outputLabel for="nombreP" style="color: #0052cc;font-weight: bold;" value="Nombre Propuesta" />
+                        <p:outputLabel for="nombreP" style="color: #0052cc;font-weight: bold;" value="Título Propuesta" />
                         <h:outputText id="nombreP" value="#{verPropuestaMB.propuesta.nombrePropuesta}"/>
                         <br/>
 
                         <p:outputLabel for="alumnoP" style="color: #0052cc;font-weight: bold;" value="Alumno" />
                         <h:outputText id="alumnoP" style="font-weight: normal;" value="#{verPropuestaMB.propuesta.rutAlumno.nombreAlumno} #{verPropuestaMB.propuesta.rutAlumno.apellidoAlumno}"/>
+                        <br/>
+                        <p:outputLabel for="alumnoP2" style="color: #0052cc;font-weight: bold;" value="Carrera" />
+                        <h:outputText id="alumnoP2" value="#{verPropuestaMB.propuesta.rutAlumno.planActivo.codigo} #{verPropuestaMB.propuesta.rutAlumno.planActivo.carreraId.nombre} #{verPropuestaMB.propuesta.rutAlumno.versionPlanActivo}"/>
                         <br/>
 
                         <p:outputLabel for="profP" style="color: #0052cc;font-weight: bold;" value="Guía" />
@@ -45,12 +48,12 @@
                         <h:outputText id="semP" style="font-weight: normal;" value="#{verPropuestaMB.propuesta.idSemestre.idSemestre}"/>
                         <br/>
 
-                        <p:outputLabel for="nombreT" value="Nombre Tema *"/>
+                        <p:outputLabel for="nombreT" value="Título Tema *"/>
                         <p:inputTextarea id="nombreT" value="#{agregarTemaMB.nombreTema}" cols="42" maxlength="200"/>
                         <p:watermark for="nombreT" value="Ingresar Nombre"/>
 
                         <p:outputLabel for="calendT" value="Fecha Tema *" />
-                        <p:calendar id="calendT" value="#{agregarTemaMB.date}" mode="popup"/>
+                        <p:calendar id="calendT" value="#{agregarTemaMB.date}" mode="popup" mindate="#{verPropuestaMB.menorFechaEntregaComisionCorrectora()}"/>
                         <p:watermark for="calendT" value="Seleccionar Fecha"/>
 
                         <p:outputLabel for="semestreT" value="Semestre Tema *"  />

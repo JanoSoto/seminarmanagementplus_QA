@@ -29,7 +29,7 @@
                     #{agregarPropuestaMB.setRutAlumnoPropuesta(verAlumnoMB.rutAlumno)}
                     <h:panelGrid columns="3" cellpadding="4">
 
-                        <p:outputLabel for="nombreP" value="Nombre Propuesta"/>
+                        <p:outputLabel for="nombreP" value="Título Propuesta"/>
                         <p:inputTextarea id="nombreP" required="true" value="#{agregarPropuestaMB.nombrePropuesta}" cols="42" maxlength="200"/>
                         <p:watermark for="nombreP" value="Ingresar Nombre"/>
 
@@ -40,8 +40,14 @@
                             <f:selectItem itemLabel="Es PET" itemValue="1"/>
                         </p:selectOneMenu>
                        <br/>
+                       <p:outputLabel for="plan_version" value="Plan:" />
+                       <p:outputLabel id="plan_version" value="#{verAlumnoMB.planActivo.codigo} #{verAlumnoMB.alumno.versionPlanActivo} #{verAlumnoMB.planActivo.carreraId.nombre}"/>
+                       <br/>
                         <p:outputLabel for="alumnoP" style="color: #0052cc;font-weight: bold;" value="Alumno" />
                         <h:outputText id="alumnoP" value="#{verAlumnoMB.alumno.nombreAlumno} #{verAlumnoMB.alumno.apellidoAlumno}"/>
+                        <br/>
+                        <p:outputLabel for="alumnoP2" style="color: #0052cc;font-weight: bold;" value="Carrera" />
+                        <h:outputText id="alumnoP2" value="#{verAlumnoMB.alumno.planActivo.codigo} #{verAlumnoMB.alumno.planActivo.carreraId.nombre} #{verAlumnoMB.alumno.versionPlanActivo}"/>
                         <br/>
 
                         <p:outputLabel for="profeGP" value="Profesor Guía" />

@@ -22,6 +22,7 @@
         <br/>
         <p>La página web no existe, u ocurrió un error al acceder a ella</p>
         <h:panelGroup rendered="#{authMB.tipo == 'ADMINISTRADOR'}"><p>Por favor, presione <a type="button" class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/index.xhtml">AQUÍ</a> para volver al menú principal, e intentarlo nuevamente. Gracias!</p></h:panelGroup>
+        <h:panelGroup rendered="#{authMB.tipo == 'PROFESOR'}"><p>Por favor, presione <a type="button" class="enlace" href="/SeminarManagement-Maven-web/2.0/profesor/index.xhtml">AQUÍ</a> para volver al menú principal, e intentarlo nuevamente. Gracias!</p></h:panelGroup>
         <h:panelGroup rendered="#{authMB.tipo == 'SECRETARIA'}"><p>Por favor, presione <a type="button" class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/index.xhtml">AQUÍ</a> para volver al menú principal, e intentarlo nuevamente. Gracias!</p></h:panelGroup>
         <h:panelGroup rendered="#{not authMB.logged}"><p>Por favor, presione <a type="button" class="enlace" href="/SeminarManagement-Maven-web/2.0/login.xhtml">AQUÍ</a> para volver al menú principal, e intentarlo nuevamente. Gracias!</p></h:panelGroup>
         </p:layoutUnit>

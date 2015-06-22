@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
@@ -100,6 +101,8 @@ public class AgregarPropuestaMB {
             return;
         }
         
+       
+        
         if(nombrePropuesta == null) {
             context.addMessage(null, new FacesMessage("Nombre Propuesta","Debe ingresar nombre propuesta"));
             return;
@@ -123,11 +126,14 @@ public class AgregarPropuestaMB {
         }
         
         //Se valida que no exista otra propuesta con el mismo nombre
-        List<Propuesta> propuestas = propuestaFacade.findByName(nombrePropuesta);
-        if(!propuestas.isEmpty()) {
-            context.addMessage(null, new FacesMessage("Nombre Propuesta","Escriba el nombre de la propuesta"));
+        
+        List<Propuesta> propuestas = propuestaFacade.findPropuesta(nombrePropuesta);
+        if(!propuestas.isEmpty() ) {
+            context.addMessage(null, new FacesMessage("Nombre Propuesta","Ya existe una propuesta con ese nombre"));
             return;
         }
+        else {
+            System.out.println("hola");}
         
         //Validamos errores de semestre
         if (Integer.valueOf(semestreProp.substring(2, 6)) <= 1972) {
@@ -178,6 +184,8 @@ public class AgregarPropuestaMB {
         nuevaPropuesta.setRutAlumno(alumnoPropuesta);
         nuevaPropuesta.setIdSemestre(semestrePropuesta);
         nuevaPropuesta.setMagister(magister);
+        nuevaPropuesta.setIdPlan(alumnoPropuesta.getIdPlanActivo());
+        nuevaPropuesta.setVersionPlan(alumnoPropuesta.getVersionPlanActivo());
         if (pet == 0){
             nuevaPropuesta.setPet(false);
         }

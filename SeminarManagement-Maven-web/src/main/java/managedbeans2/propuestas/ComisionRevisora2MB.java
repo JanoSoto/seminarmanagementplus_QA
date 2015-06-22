@@ -76,7 +76,7 @@ public class ComisionRevisora2MB implements Serializable {
     @PostConstruct
     public void init() {
         //Para inicializar el managed property, si no no se puede acceder a esos datos
-        
+
         FacesContext context = FacesContext.getCurrentInstance();
 
         //Seteamos el semestre a semestre actual
@@ -158,7 +158,7 @@ public class ComisionRevisora2MB implements Serializable {
         String propuestaId = params.get("prop");
         if (propuestaId != null) {
             propuesta = propuestaFacade.findOneById(Integer.parseInt(propuestaId));
-            if ( propuesta != null ) {
+            if (propuesta != null) {
                 profGuia = propuesta.getProfesorGuia();
                 contratoGuia = profGuia.getContrato();
             }
@@ -351,6 +351,18 @@ public class ComisionRevisora2MB implements Serializable {
             }
         }
 
+        if (fechaRev != null) {
+            if (fechaCorrecta(propuesta.getFechaPropuesta(), fechaRev) == false) {
+                return;
+            }
+        }
+
+        if (fechaRev2 != null) {
+            if (fechaCorrecta(propuesta.getFechaPropuesta(), fechaRev2) == false) {
+                return;
+            }
+        }
+
         //Seteamos la nueva comision y la creamos
         comision.get(0).setIdPropuesta(comision.get(0).getIdPropuesta());
         comision.get(0).setFechaRevision(fechaRev);
@@ -365,7 +377,7 @@ public class ComisionRevisora2MB implements Serializable {
         context.addMessage(null, new FacesMessage("Comisión Revisora editada en el sistema"));
         LOGGER.info("La comision revisora de la propuesta " + propuesta.getNombrePropuesta() + " ha sido modificada en el sistema");
     }
-    
+
     public void editarFechasComisionRevisoraAcuerdoConsejo() {
         FacesContext context = FacesContext.getCurrentInstance();
         String fechaPublicacion = null, fechaTerminoPublicacion = null;
@@ -375,7 +387,7 @@ public class ComisionRevisora2MB implements Serializable {
         }
 
         propuesta = propuestaFacade.findById(idProp).get(0);
-        comision  = comisionRevisoraFacade.findById(propuesta.getIdRevisora().getIdRevisora());
+        comision = comisionRevisoraFacade.findById(propuesta.getIdRevisora().getIdRevisora());
         ComisionRevisora com = comision.get(0);
 
         //Accedemos a la tabla semestre, e ingresamos semestre actual si no ha sido ingresado
@@ -385,14 +397,16 @@ public class ComisionRevisora2MB implements Serializable {
             semestreFacade.create(semestreRevision);
         }
 
-        if (publicacionConsejo != null)
+        if (publicacionConsejo != null) {
             fechaPublicacion = dateToString(publicacionConsejo);
-        
-        if (terminoPublicacionConsejo != null)
+        }
+
+        if (terminoPublicacionConsejo != null) {
             fechaTerminoPublicacion = dateToString(terminoPublicacionConsejo);
-            
+        }
+
         if (publicacionConsejo != null && terminoPublicacionConsejo != null) {
-            if ( !fechaCorrecta(fechaPublicacion, fechaTerminoPublicacion) ) {
+            if (!fechaCorrecta(fechaPublicacion, fechaTerminoPublicacion)) {
                 return;
             }
         }
@@ -414,6 +428,20 @@ public class ComisionRevisora2MB implements Serializable {
         Map<String, String> params = context.getExternalContext().getRequestParameterMap();
         String propuestaId = params.get("prop");
 
+        if (date != null && date2 != null) {
+            if (date.compareTo(date2) > 0) {
+                context.addMessage(null, new FacesMessage("Error", "Fecha de entrega al profesor revisor 1 no puede ser menor a su fecha de devolución con correcciones"));
+                return;
+            }
+        }
+
+        if (date3 != null && date4 != null) {
+            if (date3.compareTo(date4) > 0) {
+                context.addMessage(null, new FacesMessage("Error", "Fecha de entrega al profesor revisor 2 no puede ser menor a su fecha de devolución con correcciones"));
+                return;
+            }
+        }
+
         if (idProp == null && propuestaId == null) {
             context.addMessage(null, new FacesMessage("Error", "No se ingresó Propuesta"));
             return;
@@ -425,9 +453,10 @@ public class ComisionRevisora2MB implements Serializable {
             context.addMessage(null, new FacesMessage("Propuesta", "La propuesta seleccionada ya tiene una Comisión Revisora asignada"));
             return;
         }
-        
-        if (tipoRevision == null && tipoRevision2 != null)
+
+        if (tipoRevision == null && tipoRevision2 != null) {
             tipoRevision = tipoRevision2;
+        }
 
         //Se valida el tipo de revisión seleccionada y los profesores
         if (tipoRevision == null) {
@@ -487,13 +516,18 @@ public class ComisionRevisora2MB implements Serializable {
             context.addMessage(null, new FacesMessage("Semestre Revisión", "Semestre ingresado debe ser '1' o '2'"));
             return;
         }
-        
+
         String fechaPublicacion = null, fechaTerminoPublicacion = null;
-        if (publicacionConsejo != null) fechaPublicacion = dateToString(publicacionConsejo);
-        if (terminoPublicacionConsejo != null) fechaTerminoPublicacion = dateToString(terminoPublicacionConsejo);
-        if ( (fechaPublicacion != null) && (fechaTerminoPublicacion != null) 
-                && !fechaCorrecta(fechaPublicacion, fechaTerminoPublicacion))
+        if (publicacionConsejo != null) {
+            fechaPublicacion = dateToString(publicacionConsejo);
+        }
+        if (terminoPublicacionConsejo != null) {
+            fechaTerminoPublicacion = dateToString(terminoPublicacionConsejo);
+        }
+        if ((fechaPublicacion != null) && (fechaTerminoPublicacion != null)
+                && !fechaCorrecta(fechaPublicacion, fechaTerminoPublicacion)) {
             return;
+        }
 
         ComisionRevisora nuevaComision = new ComisionRevisora();
 
@@ -503,7 +537,6 @@ public class ComisionRevisora2MB implements Serializable {
         if (!semestres.contains(semestreRevision)) {
             semestreFacade.create(semestreRevision);
         }
-
         if (date != null) {
             fechaRev = dateToString(date);
         } else {
@@ -516,6 +549,13 @@ public class ComisionRevisora2MB implements Serializable {
             fechaEntRev = null;
         }
 
+        if (date != null && date2 != null) {
+
+            if (fechaCorrecta(fechaRev, fechaEntRev) == false) {
+                return;
+            }
+        }
+
         if (date3 != null) {
             fechaRev2 = dateToString(date3);
         } else {
@@ -526,6 +566,25 @@ public class ComisionRevisora2MB implements Serializable {
             fechaEntRev2 = dateToString(date4);
         } else {
             fechaEntRev2 = null;
+        }
+
+        if (date3 != null && date4 != null) {
+
+            if (fechaCorrecta(fechaRev2, fechaEntRev2) == false) {
+                return;
+            }
+        }
+
+        if (fechaRev != null) {
+            if (fechaCorrecta(propuesta.getFechaPropuesta(), fechaRev) == false) {
+                return;
+            }
+        }
+
+        if (fechaRev2 != null) {
+            if (fechaCorrecta(propuesta.getFechaPropuesta(), fechaRev2) == false) {
+                return;
+            }
         }
 
         //Seteamos la nueva comision y la creamos
@@ -802,25 +861,27 @@ public class ComisionRevisora2MB implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
 
         int a, b, c, d, e, f;
-        a = Integer.parseInt(fecha.substring(6, 10));
-        b = Integer.parseInt(fecha2.substring(6, 10));
-        c = Integer.parseInt(fecha.substring(3, 5));
-        d = Integer.parseInt(fecha2.substring(3, 5));
-        e = Integer.parseInt(fecha.substring(0, 2));
-        f = Integer.parseInt(fecha2.substring(0, 2));
+        String fechas[] = fecha.split("/");
+        String fechas2[] = fecha2.split("/");
+        a = Integer.parseInt(fechas[2]);
+        b = Integer.parseInt(fechas2[2]);
+        c = Integer.parseInt(fechas[1]);
+        d = Integer.parseInt(fechas2[1]);
+        e = Integer.parseInt(fechas[0]);
+        f = Integer.parseInt(fechas2[0]);
 
         if (a > b) {
-            context.addMessage(null, new FacesMessage("Año de la fecha", "Debe seleccionar una año mayor"));
+            context.addMessage(null, new FacesMessage("Año de la fecha", "La fecha debe ser mayor a " + fecha));
             return false;
 
         } else {
             if (c > d) {
-                context.addMessage(null, new FacesMessage("Mes de la fecha", "Debe seleccionar un mes mayor"));
+                context.addMessage(null, new FacesMessage("Mes de la fecha", "La fecha debe ser mayor a " + fecha));
                 return false;
             } else {
-                if (e > f && c >= d){
-                        context.addMessage(null, new FacesMessage("Dia de la fecha", "Debe seleccionar un dia mayor"));
-                        return false;
+                if (e > f && c >= d) {
+                    context.addMessage(null, new FacesMessage("Dia de la fecha", "La fecha debe ser mayor a " + fecha));
+                    return false;
                 }
             }
 
@@ -876,5 +937,5 @@ public class ComisionRevisora2MB implements Serializable {
     public void setTipoRevision2(Integer tipoRevision2) {
         this.tipoRevision2 = tipoRevision2;
     }
-    
+
 }

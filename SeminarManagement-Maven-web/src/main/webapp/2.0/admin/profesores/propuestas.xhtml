@@ -55,7 +55,7 @@
                     <f:facet name="header">
                         Propuestas
                     </f:facet>
-                    <p:column headerText="Nombre" filterBy="#{prop.nombreCorto}" filterMatchMode="contains" sortBy="#{prop.nombreCorto}">
+                    <p:column headerText="Título" filterBy="#{prop.nombreCorto}" filterMatchMode="contains" sortBy="#{prop.nombreCorto}">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/propuestas/propuesta.xhtml?prop=#{prop.idPropuesta}">
                             <h:outputText value="#{prop.nombreCorto}"/>
                         </a>

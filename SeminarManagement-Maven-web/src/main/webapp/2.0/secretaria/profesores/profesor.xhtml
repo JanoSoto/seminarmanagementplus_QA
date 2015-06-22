@@ -33,14 +33,18 @@
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Rut:"/>
                         <h:outputText value="#{verProfesorMB.profesor.rutFormateadoProfesor}"/>
 
-                        <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Contrato:"/>
+                        <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Vínculo DIINF:"/>
                         <h:outputText rendered="#{verProfesorMB.profesor.contrato eq 0}" value="Externo"/>
                         <h:outputText rendered="#{verProfesorMB.profesor.contrato eq 1}" value="Jornada Completa"/>
 
+                        <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Jerarquía o categoría:"/>
+                        <h:outputText rendered="#{empty verProfesorMB.profesor.jerarquiaCategoria}" value="Sin especificar"/>
+                        <h:outputText rendered="#{not empty verProfesorMB.profesor.jerarquiaCategoria}" value="#{verProfesorMB.profesor.jerarquiaCategoria}"/>
+                        
                         <p:outputLabel rendered="#{verProfesorMB.profesor.contrato eq 0}" style="color: #0052cc;font-weight: bold;" value="Puede guiar alumnos: "/>
                         <h:outputText rendered="#{verProfesorMB.profesor.tipoProfesor eq 0 and verProfesorMB.profesor.contrato eq 0}" value="Sí"/>
                         <h:outputText rendered="#{verProfesorMB.profesor.tipoProfesor eq 1 and verProfesorMB.profesor.contrato eq 0}" value="No"/>
-
+                        
                         <p:outputLabel rendered="#{verProfesorMB.profesor.tipoProfesor eq 0 and verProfesorMB.profesor.contrato eq 0 and verProfesorMB.profesor.maximoGuias != null}" style="color: #0052cc;font-weight: bold;" value="Cantidad máxima de guias: "/>
                         <h:outputText rendered="#{verProfesorMB.profesor.tipoProfesor eq 0 and verProfesorMB.profesor.contrato eq 0 and verProfesorMB.profesor.maximoGuias != null}" value="#{verProfesorMB.profesor.maximoGuias}"/>
 

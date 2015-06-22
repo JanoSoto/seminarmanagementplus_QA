@@ -22,7 +22,7 @@
             #{verPropuestaMB.buscarPropuesta()}
             <p:panel style="border:none;">
                 <h1>Datos Propuesta</h1>
-                <p:outputLabel style="color: #0052cc;font-weight: bold;" for="nombre" value="Nombre:"/>
+                <p:outputLabel style="color: #0052cc;font-weight: bold;" for="nombre" value="Título:"/>
                 <h:outputText id="nombre" style="font-weight: bold;padding-left: 1em;" value="#{verPropuestaMB.propuesta.nombrePropuesta}"/>
                 <br/>
                 <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Alumno:"/>
@@ -67,7 +67,7 @@
                     <p:growl id="growl" showDetail="true" sticky="true" />
                     <h:panelGrid columns="1" cellpadding="4">
                         <p:button style="width:150px;" rendered="#{empty verPropuestaMB.propuesta.idRevisora}" href="/2.0/secretaria/propuestas/agregarcomrev.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Agregar Comisión Revisora"/>
-                        <p:button style="width:150px;" rendered="#{ (not empty verPropuestaMB.propuesta.idRevisora) and (verPropuestaMB.propuesta.idRevisora.tipoRevision ne 2)}" href="/2.0/secretaria/propuestas/editarComRev.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Agregar Fechas Comisión"/>
+                        <p:button style="width:150px;" rendered="#{ (not empty verPropuestaMB.propuesta.idRevisora) and (verPropuestaMB.propuesta.idRevisora.tipoRevision ne 2)}" href="/2.0/secretaria/propuestas/editarComRev.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Agregar/Editar Fechas Comisión"/>
                         <p:button style="width:150px;" rendered="#{ (not empty verPropuestaMB.propuesta.idRevisora) and (verPropuestaMB.propuesta.idRevisora.tipoRevision eq 2)}" href="/2.0/secretaria/propuestas/editarComRevFechasConsejo.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Agregar/Editar Fechas"/>
                         <h:panelGroup rendered="#{empty verPropuestaMB.propuesta.idRevisora.idTema
                                                   and not empty verPropuestaMB.propuesta.idRevisora}" id="botonAgregarTema" layout="block" >

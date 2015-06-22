@@ -6,13 +6,14 @@
 package entities;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -20,64 +21,89 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Elagos
+ * @author miguel
  */
 @Entity
 @Table(name = "usuario")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
-    @NamedQuery(name = "Usuario.findByUsername", query = "SELECT u FROM Usuario u WHERE u.username = :username"),
+    @NamedQuery(name = "Usuario.findByUid", query = "SELECT u FROM Usuario u WHERE u.uid = :uid"),
+    @NamedQuery(name = "Usuario.findByRutUsuario", query = "SELECT u FROM Usuario u WHERE u.rutUsuario = :rutUsuario"),
     @NamedQuery(name = "Usuario.findByNombreUsuario", query = "SELECT u FROM Usuario u WHERE u.nombreUsuario = :nombreUsuario"),
     @NamedQuery(name = "Usuario.findByApellidoUsuario", query = "SELECT u FROM Usuario u WHERE u.apellidoUsuario = :apellidoUsuario"),
-    @NamedQuery(name = "Usuario.findByPassword", query = "SELECT u FROM Usuario u WHERE u.password = :password"),
     @NamedQuery(name = "Usuario.findByActivo", query = "SELECT u FROM Usuario u WHERE u.activo = :activo")})
 public class Usuario implements Serializable {
+
     private static final long serialVersionUID = 1L;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "uid")
+    private String uid;
     @Id
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 20)
-    @Column(name = "username")
-    private String username;
+    @Column(name = "rut_usuario")
+    private String rutUsuario;
     @Size(max = 50)
     @Column(name = "nombre_usuario")
     private String nombreUsuario;
     @Size(max = 50)
     @Column(name = "apellido_usuario")
     private String apellidoUsuario;
-    @Size(max = 200)
-    @Column(name = "password")
-    private String password;
     @Column(name = "activo")
     private Boolean activo;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "username")
-    private List<UsuarioTipo> usuarioTipoList;
+
+    @ManyToMany(mappedBy = "usuarios")
+    private List<Tipousuario> tipos;
+
+    public void setTipos(List<Tipousuario> tipos) {
+        this.tipos = tipos;
+    }
+
+    public List<Tipousuario> getTipos() {
+        return tipos;
+    }
+
+    public List<Tipousuario> getRoles() {
+        return tipos;
+    }
+
+    public void setRoles(List<Tipousuario> roles) {
+        this.tipos = roles;
+    }
 
     public Usuario() {
-        usuarioTipoList = new ArrayList();
     }
 
-    public Usuario(String username) {
-        usuarioTipoList = new ArrayList();
-        this.username = username;
-    }
-    
-    public void add(UsuarioTipo object) {
-        usuarioTipoList.add(object);
+    public Usuario(String rutUsuario) {
+        this.rutUsuario = rutUsuario;
     }
 
-
-    public String getUsername() {
-        return username;
+    public Usuario(String rutUsuario, String uid) {
+        this.rutUsuario = rutUsuario;
+        this.uid = uid;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
+    }
+
+    public String getRutUsuario() {
+        return rutUsuario;
+    }
+
+    public void setRutUsuario(String rutUsuario) {
+        this.rutUsuario = rutUsuario;
     }
 
     public String getNombreUsuario() {
@@ -96,14 +122,6 @@ public class Usuario implements Serializable {
         this.apellidoUsuario = apellidoUsuario;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public Boolean getActivo() {
         return activo;
     }
@@ -112,19 +130,10 @@ public class Usuario implements Serializable {
         this.activo = activo;
     }
 
-    @XmlTransient
-    public List<UsuarioTipo> getUsuarioTipoList() {
-        return usuarioTipoList;
-    }
-
-    public void setUsuarioTipoList(List<UsuarioTipo> usuarioTipoList) {
-        this.usuarioTipoList = usuarioTipoList;
-    }
-
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (username != null ? username.hashCode() : 0);
+        hash += (rutUsuario != null ? rutUsuario.hashCode() : 0);
         return hash;
     }
 
@@ -135,7 +144,7 @@ public class Usuario implements Serializable {
             return false;
         }
         Usuario other = (Usuario) object;
-        if ((this.username == null && other.username != null) || (this.username != null && !this.username.equals(other.username))) {
+        if ((this.rutUsuario == null && other.rutUsuario != null) || (this.rutUsuario != null && !this.rutUsuario.equals(other.rutUsuario))) {
             return false;
         }
         return true;
@@ -143,7 +152,7 @@ public class Usuario implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Usuario[ username=" + username + " ]";
+        return "entities.Usuario[ rutUsuario=" + rutUsuario + " ]";
     }
-    
+
 }
