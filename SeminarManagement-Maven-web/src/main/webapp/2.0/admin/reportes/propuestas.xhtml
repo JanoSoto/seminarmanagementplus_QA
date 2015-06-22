@@ -36,8 +36,9 @@
                               sortBy="#{prop.rutAlumno.nombreAlumno} #{prop.rutAlumno.apellidoAlumno}">
                         <h:outputText value="#{prop.rutAlumno.nombreAlumno} #{prop.rutAlumno.apellidoAlumno}" />
                     </p:column>
-                    <p:column headerText="Carrera" filterBy="" filterMatchMode="contains" sortBy="">
-                        <h:outputText value="{prop.}" />
+                    <p:column headerText="Carrera" filterBy="#{prop.planActivo.codigo}" filterMatchMode="contains"
+                              sortBy="#{prop.planActivo.codigo}">
+                        <h:outputText value="#{prop.planActivo.codigo}" />
                     </p:column>
                     <p:column headerText="Título Propuesta" filterBy="#{prop.nombrePropuesta}" filterMatchMode="contains" sortBy="#{prop.nombrePropuesta}">
                         <h:outputText value="#{prop.nombrePropuesta}" />
@@ -54,25 +55,25 @@
                               sortBy="#{prop.profesorRevisor1.apellidoProfesor} #{prop.profesorRevisor1.nombreProfesor}">
                         <h:outputText value="#{prop.profesorRevisor1.nombreProfesor} #{prop.profesorRevisor1.apellidoProfesor}" />
                     </p:column>
-                    <p:column headerText="Fecha&#10;Entrega" style="white-space:pre-line;" filterBy="{prop.fechaRevision}" filterMatchMode="contains"
-                              sortBy="{prop.fechaRevision}">
-                        <h:outputText value="{prop.fechaRevision}" />
+                    <p:column headerText="Fecha&#10;Entrega" style="white-space:pre-line;" filterBy="#{prop.idRevisora.fechaRevision}" filterMatchMode="contains"
+                              sortBy="#{prop.idRevisora.fechaRevision}">
+                        <h:outputText value="#{prop.idRevisora.fechaRevision}" />
                     </p:column>
-                    <p:column headerText="Fecha&#10;Devolución" style="white-space:pre-line;" filterBy="{prop.fechaEntregaRevision}" filterMatchMode="contains"
-                              sortBy="{prop.fechaEntregaRevision}">
+                    <p:column headerText="Fecha&#10;Devolución" style="white-space:pre-line;" filterBy="#{prop.idRevisora.fechaEntregaRevision}" filterMatchMode="contains"
+                              sortBy="#{prop.idRevisora.fechaEntregaRevision}">
                         <h:outputText value="{prop.fechaEntregaRevision}" />
                     </p:column>
                     <p:column headerText="Integrante 2" filterBy="#{prop.profesorRevisor2.nombreProfesor} #{prop.profesorRevisor2.apellidoProfesor}" filterMatchMode="contains"
                               sortBy="#{prop.profesorRevisor2.nombreProfesor} #{prop.profesorRevisor2.apellidoProfesor}">
                         <h:outputText value="#{prop.profesorRevisor2.nombreProfesor} #{prop.profesorRevisor2.apellidoProfesor}" />
                     </p:column>
-                    <p:column headerText="Fecha&#10;Entrega" style="white-space:pre-line;" filterBy="{prop.fechaRevision2}" filterMatchMode="contains"
-                              sortBy="{prop.fechaRevision2}">
-                        <h:outputText value="{prop.fechaRevision2}" />
+                    <p:column headerText="Fecha&#10;Entrega" style="white-space:pre-line;" filterBy="#{prop.idRevisora.fechaRevision2}" filterMatchMode="contains"
+                              sortBy="#{prop.idRevisora.fechaRevision2}">
+                        <h:outputText value="#{prop.idRevisora.fechaRevision2}" />
                     </p:column>
-                    <p:column headerText="Fecha&#10;Devolución" style="white-space:pre-line;" filterBy="{prop.fechaEntregaRevision2}" filterMatchMode="contains"
-                              sortBy="{prop.fechaEntregaRevision2}">
-                        <h:outputText value="{prop.fechaEntregaRevision2}" />
+                    <p:column headerText="Fecha&#10;Devolución" style="white-space:pre-line;" filterBy="#{prop.idRevisora.fechaEntregaRevision2}" filterMatchMode="contains"
+                              sortBy="#{prop.idRevisora.fechaEntregaRevision2}">
+                        <h:outputText value="#{prop.idRevisora.fechaEntregaRevision2}" />
                     </p:column>
                 </p:dataTable>
                 <br/>
