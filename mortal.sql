@@ -718,7 +718,11 @@ CREATE TABLE tema (
     fecha_real character varying(15),
     semestre_termino character varying(15),
     precierre character varying(15),
-    precerrado boolean
+    precerrado boolean,
+    fecha_borrador character varying(20),
+    fecha_renuncia character varying(20),
+    fecha_caducado character varying(20),
+    fecha_informe_avance character varying(20)
 );
 
 
@@ -944,7 +948,6 @@ ALTER TABLE ONLY usuario_tipo ALTER COLUMN id_usuario_tipo SET DEFAULT nextval('
 --
 
 COPY alumno (nombre_alumno, apellido_alumno, mail_alumno, telefono_alumno, rut_alumno, direccion_alumno, id_plan_activo, version_plan_activo) FROM stdin;
-MATIAS NICOLAS	FLORES SALAS	MATIAS.FLORES@USACH.CL	89307940	176767901	Vasco Nuñes de Balboa 4669	3	2
 \.
 
 
@@ -1045,7 +1048,6 @@ COPY checklisteventos (idchecklist, adm_expositor, agenda_institucional, confima
 --
 
 COPY comision_correctora (id_correctora, id_semestre, id_tema, fecha_correccion, fecha_entrega_correccion, fecha_entrega_correccion2, fecha_correccion2) FROM stdin;
-1	1/2016	1	25/06/2015	\N	\N	25/06/2015
 \.
 
 
@@ -1053,7 +1055,7 @@ COPY comision_correctora (id_correctora, id_semestre, id_tema, fecha_correccion,
 -- Name: comision_correctora_id_correctora_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('comision_correctora_id_correctora_seq', 1, true);
+SELECT pg_catalog.setval('comision_correctora_id_correctora_seq', 1, false);
 
 
 --
@@ -1061,7 +1063,6 @@ SELECT pg_catalog.setval('comision_correctora_id_correctora_seq', 1, true);
 --
 
 COPY comision_revisora (fecha_revision, tipo_revision, id_revisora, id_propuesta, id_semestre, id_tema, fecha_entrega_revision, fecha_revision2, fecha_entrega_revision2, fecha_publicacion_consejo, fecha_termino_publicacion_consejo) FROM stdin;
-24/06/2015	1	1	1	1/2016	1	24/06/2015	22/06/2015	25/06/2015	\N	\N
 \.
 
 
@@ -1069,7 +1070,7 @@ COPY comision_revisora (fecha_revision, tipo_revision, id_revisora, id_propuesta
 -- Name: comision_revisora_id_revisora_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('comision_revisora_id_revisora_seq', 1, true);
+SELECT pg_catalog.setval('comision_revisora_id_revisora_seq', 1, false);
 
 
 --
@@ -1168,33 +1169,7 @@ COPY inscripcionspam (idinscripcion, apellido, carrera, email, evento, nombre, o
 --
 
 COPY logs (logs_id, dated, level, logger, message, user_id) FROM stdin;
-177	2015-06-22 13:45:27.361971	INFO	managedbeans.personas.UsuarioMB	Se ha agregado al usuario LUIS CELEDÓN	nflores
-178	2015-06-22 13:46:17.377767	INFO	managedbeans.personas.AlumnoMB	Se ha agregado el alumno MATIAS NICOLAS FLORES SALAS	nflores
-179	2015-06-22 13:50:49.387317	INFO	managedbeans.personas.ProfesorMB	Se ha agregado el profesor SERGIO VELASTIN	
-180	2015-06-22 13:51:08.925283	INFO	managedbeans2.profesores.VerProfesorMB	El profesor SERGIO VELASTIN ha sido editado exitosamente	
-181	2015-06-22 13:54:49.772021	INFO	managedbeans.personas.ProfesorMB	Se ha agregado el profesor ANDRÉS RICE	
-182	2015-06-22 13:55:15.548518	INFO	managedbeans2.profesores.VerProfesorMB	El profesor ANDRÉS RICE ha sido editado exitosamente	
-183	2015-06-22 13:56:13.155173	INFO	managedbeans.personas.ProfesorMB	Se ha agregado el profesor FERNANDO RANNOU	
-184	2015-06-22 13:57:28.395332	INFO	managedbeans.personas.ProfesorMB	Se ha agregado el profesor ERIKA ROSAS	
-185	2015-06-22 13:58:28.156518	INFO	managedbeans.personas.ProfesorMB	Se ha agregado el profesor NICOLAS HIDALGO	
-186	2015-06-22 13:59:36.483696	INFO	managedbeans.personas.ProfesorMB	Se ha agregado el profesor CAROLINA BONACIC	nflores
-187	2015-06-22 14:00:17.114025	INFO	managedbeans.personas.ProfesorMB	Se ha agregado el profesor MAX CHACÓN	nflores
-188	2015-06-22 14:00:49.580135	INFO	managedbeans.personas.ProfesorMB	Se ha agregado el profesor MONICA VILLANUEVA	nflores
-189	2015-06-22 14:01:20.359344	INFO	managedbeans.personas.ProfesorMB	Se ha agregado el profesor VICTOR PARADA	
-190	2015-06-22 14:02:38.450126	INFO	managedbeans.personas.ProfesorMB	Se ha agregado el profesor JACQUELINE KOHLER	
-191	2015-06-22 14:03:16.262585	INFO	managedbeans2.propuestas.AgregarPropuestaMB	La propuesta Propuesta Velastin ha sido ingresada al sistema	nflores
-192	2015-06-22 14:04:50.832221	INFO	managedbeans2.propuestas.ComisionRevisora2MB	La propuesta PROPUESTA VELASTIN ha sido ingresada al sistema	
-193	2015-06-22 14:05:02.737293	INFO	managedbeans2.propuestas.ComisionRevisora2MB	La comision revisora de la propuesta PROPUESTA VELASTIN ha sido modificada en el sistema	
-194	2015-06-22 14:07:55.152629	INFO	managedbeans2.temas.AgregarTemaMB	El tema TEMA VELASTIN ha sido ingresado al sistema	
-195	2015-06-22 14:08:48.444965	INFO	managedbeans2.propuestas.VerPropuestaMB	La el nombre de la propuesta ha sido editada exitosamente por PROPUESTA VELASTIN	
-196	2015-06-22 14:08:52.605027	INFO	managedbeans2.propuestas.VerPropuestaMB	La el nombre de la propuesta ha sido editada exitosamente por PROPUESTA VELASTIN	
-197	2015-06-22 14:09:27.850848	INFO	managedbeans2.propuestas.VerPropuestaMB	La el nombre de la propuesta ha sido editada exitosamente por PROPUESTA VELASTIN	
-198	2015-06-22 14:09:39.344416	INFO	managedbeans2.propuestas.ComisionRevisora2MB	La comision revisora de la propuesta PROPUESTA VELASTIN ha sido modificada en el sistema	
-199	2015-06-22 14:09:50.063983	INFO	managedbeans2.propuestas.VerPropuestaMB	La el nombre de la propuesta ha sido editada exitosamente por PROPUESTA VELASTIN	
-200	2015-06-22 14:10:10.306754	INFO	managedbeans2.propuestas.VerPropuestaMB	La el nombre de la propuesta ha sido editada exitosamente por PROPUESTA VELASTIN	
-201	2015-06-22 14:11:23.844366	INFO	managedbeans2.temas.VerTemaMB	Tema TEMA VELASTIN editado exitosamente	
-202	2015-06-22 14:11:50.267013	INFO	managedbeans2.temas.BorradorFinalMB	El estado del tema seleccionado se modificó a Vigente con borrador final	
-203	2015-06-22 14:12:25.451032	INFO	managedbeans2.temas.ComisionCorrectora2MB	Comisión ingresada al sistema, el estado del tema seleccionado se modificó a En proceso de examen	
+177	2015-06-22 14:04:13.093449	INFO	managedbeans.personas.UsuarioMB	Se ha agregado al usuario PAMELA AGUIRRE	
 \.
 
 
@@ -1202,7 +1177,7 @@ COPY logs (logs_id, dated, level, logger, message, user_id) FROM stdin;
 -- Name: logs_logs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('logs_logs_id_seq', 203, true);
+SELECT pg_catalog.setval('logs_logs_id_seq', 177, true);
 
 
 --
@@ -1219,7 +1194,6 @@ COPY paramsemestreano (id, anoactual, semestreactual) FROM stdin;
 --
 
 COPY planes_alumno (alumno_id, plan_id, activo, version_plan) FROM stdin;
-176767901	3	t	2
 \.
 
 
@@ -1246,8 +1220,6 @@ COPY planestudio (id, codigo, jornada, carrera_id) FROM stdin;
 --
 
 COPY profe_correccion (id_correctora, rut_profesor, rol_correccion, nota_correccion_informe, nota_correccion_defensa) FROM stdin;
-1	155560002	0	\N	\N
-1	80796609	1	\N	\N
 \.
 
 
@@ -1256,7 +1228,6 @@ COPY profe_correccion (id_correctora, rut_profesor, rol_correccion, nota_correcc
 --
 
 COPY profe_propuesta (id_propuesta, rut_profesor, rol_guia, nota_guia_informe, nota_guia_defensa, fecha_revision) FROM stdin;
-1	70629054	0	\N	\N	\N
 \.
 
 
@@ -1265,8 +1236,6 @@ COPY profe_propuesta (id_propuesta, rut_profesor, rol_guia, nota_guia_informe, n
 --
 
 COPY profe_revision (id_revisora, rut_profesor, rol_revision, fecha_revision) FROM stdin;
-1	95794912	0	\N
-1	155898712	1	\N
 \.
 
 
@@ -1293,7 +1262,6 @@ COPY profesor (contrato, nombre_profesor, apellido_profesor, mail_profesor, tele
 --
 
 COPY propuesta (nombre_propuesta, fecha_propuesta, id_propuesta, id_semestre, id_revisora, rut_alumno, magister, pet, id_plan, version_plan) FROM stdin;
-PROPUESTA VELASTIN	22/06/2015	1	1/2016	1	176767901	f	f	3	2
 \.
 
 
@@ -1301,7 +1269,7 @@ PROPUESTA VELASTIN	22/06/2015	1	1/2016	1	176767901	f	f	3	2
 -- Name: propuesta_id_propuesta_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('propuesta_id_propuesta_seq', 1, true);
+SELECT pg_catalog.setval('propuesta_id_propuesta_seq', 1, false);
 
 
 --
@@ -1382,8 +1350,7 @@ COPY subtipo (idsubtipo, nombresubtipo, idtipoevento_idtipoevento) FROM stdin;
 -- Data for Name: tema; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY tema (nombre_tema, fecha_tema, estado_tema, id_tema, id_correctora, id_semestre, id_revisora, fecha_siac, fecha_real, semestre_termino, precierre, precerrado) FROM stdin;
-TEMA VELASTIN	25/06/2015	4	1	1	1/2016	1	\N	\N	\N	\N	f
+COPY tema (nombre_tema, fecha_tema, estado_tema, id_tema, id_correctora, id_semestre, id_revisora, fecha_siac, fecha_real, semestre_termino, precierre, precerrado, fecha_borrador, fecha_renuncia, fecha_caducado, fecha_informe_avance) FROM stdin;
 \.
 
 
@@ -1391,7 +1358,7 @@ TEMA VELASTIN	25/06/2015	4	1	1	1/2016	1	\N	\N	\N	\N	f
 -- Name: tema_id_tema_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('tema_id_tema_seq', 1, true);
+SELECT pg_catalog.setval('tema_id_tema_seq', 1, false);
 
 
 --
@@ -1433,8 +1400,7 @@ COPY usuario (uid, rut_usuario, nombre_usuario, apellido_usuario, activo) FROM s
 mcarcamo	178338889	Miguel	Cárcamo	t
 nflores	176767901	Matias	Flores	t
 bruiztagle	179594404	Benjamin	Ruiz-Tagle	t
-paguirre	118403096	Pamela	Aguirre	t
-lceledon	178608975	LUIS	CELEDÓN	t
+paguirre	118403096	PAMELA	AGUIRRE	t
 \.
 
 
@@ -1462,7 +1428,7 @@ COPY usuario_tipousuario (usuario_rut_usuario, tipos_id_tipo) FROM stdin;
 176767901	1
 179594404	4
 118403096	4
-178608975	1
+118403096	1
 \.
 
 

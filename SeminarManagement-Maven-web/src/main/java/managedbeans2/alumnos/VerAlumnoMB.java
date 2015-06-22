@@ -60,6 +60,8 @@ public class VerAlumnoMB {
                 propDTemp = new PropuestaDatos();
                 propDTemp.setIdPropuesta(Integer.toString(alumno.getPropuestaList().get(i).getIdPropuesta()));
                 propDTemp.setNombrePropuesta(alumno.getPropuestaList().get(i).getNombrePropuesta());
+                System.out.println("___");
+                System.out.println(alumno.getPropuestaList().get(i).getIdPlan());
                 propDTemp.setIdPlan(alumno.getPropuestaList().get(i).getIdPlan());
                 propDTemp.setVersionPlan(alumno.getPropuestaList().get(i).getVersionPlan());
                 propDTemp.setPropuesta(alumno.getPropuestaList().get(i));
