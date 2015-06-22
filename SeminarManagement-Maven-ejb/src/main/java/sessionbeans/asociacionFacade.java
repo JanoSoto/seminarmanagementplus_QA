@@ -39,8 +39,8 @@ public class asociacionFacade extends AbstractFacade<AsociacionPlanEstudioAlumno
 //        Query query;
 //        query = em.createNamedQuery("AsociacionPlanEstudioAlumno.findAll");
         Query query;
-        query = em.createNativeQuery("select * from planes_alumno ;", AsociacionPlanEstudioAlumno.class);
-        return (List<AsociacionPlanEstudioAlumno>) query.getResultList();
+        query = em.createNativeQuery("AsociacionPlanEstudioAlumno.findAll");
+        return query.getResultList();
     }
 
     @Override
