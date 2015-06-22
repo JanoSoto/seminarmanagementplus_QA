@@ -387,10 +387,10 @@ public class VerPropuestaMB implements Serializable {
                 date_min = date1;
                 fecha_min = fecha_1;
             } else {
-                date_min = date1.compareTo(date2) <= 0 ? date1 : date2;
-                fecha_min = date1.compareTo(date2) <= 0 ? fecha_1 : fecha_2;
+                date_min = date1.compareTo(date2) >= 0 ? date1 : date2;
+                fecha_min = date1.compareTo(date2) >= 0 ? fecha_1 : fecha_2;
             }
-            if (date_menor == null || date_menor.compareTo(date_min) <= 0) {
+            if (date_menor == null || date_menor.compareTo(date_min) >= 0) {
                 date_menor = date_min;
                 fecha_menor = fecha_min;
             }
