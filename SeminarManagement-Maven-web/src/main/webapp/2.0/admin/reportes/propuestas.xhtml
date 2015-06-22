@@ -40,7 +40,8 @@
                               sortBy="#{prop.planActivo.codigo}">
                         <h:outputText value="#{prop.planActivo.codigo}" />
                     </p:column>
-                    <p:column headerText="Título Propuesta" filterBy="#{prop.nombrePropuesta}" filterMatchMode="contains" sortBy="#{prop.nombrePropuesta}">
+                    <p:column headerText="Título Propuesta" filterBy="#{prop.nombrePropuesta}" filterMatchMode="contains"
+                              sortBy="#{prop.nombrePropuesta}">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/propuestas/propuesta.xhtml?prop=#{prop.idPropuesta}">
                             <h:outputText value="#{prop.nombrePropuesta}" />
                         </a>

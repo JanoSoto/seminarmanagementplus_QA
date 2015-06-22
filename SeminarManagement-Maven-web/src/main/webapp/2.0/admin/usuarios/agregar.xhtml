@@ -16,10 +16,8 @@
 
     <ui:define name="content">
 
-
         <p:layoutUnit position="center" style="border:none;">
             <c:if test="#{not empty param.uid}">
-                #{usuarioMB.init()}
                 #{usuarioMB.cargarUsuario(param.uid)}
             </c:if>
             <h1>Agregar Usuario</h1>
@@ -28,15 +26,29 @@
                     <p:growl id="growl" showDetail="true" sticky="true"/>
                     <h:panelGrid columns="3" cellpadding="4">
 
-                        <p:outputLabel for="rut" value="Username (Rut)"/>
-                        <p:inputText id="rut" required="true" value="#{usuarioMB.username}">
-                            <!--<f:validator validatorId="rutValidator"/>-->
-                        </p:inputText>
-                        <p:watermark for="rut" value="Ingrese Rut"/>
+                        <c:if test="#{empty param.uid}">
+                            <p:outputLabel for="rut" value="Rut"/>
+                            <p:inputText id="rut" required="true" value="#{usuarioMB.username}" disabled="#{not empty param.uid}">
+                                <f:validator validatorId="rutValidator"/>
+                            </p:inputText>
+                            <br/>
+                        </c:if>
+                        <c:if test="#{not empty param.uid}">
+                            <p:outputLabel for="rut" value="Rut"/>
+                            <p:inputText required="true" value="#{usuarioMB.username}" disabled="#{not empty param.uid}"/>
+                            <h:inputHidden id="rut" value="#{usuarioMB.username}" />
+                        </c:if>
 
-                        <p:outputLabel for="uid" value="uid"/>
-                        <p:inputText id="uid" required="true" value="#{usuarioMB.uid}"/>
-                        <p:watermark for="uid" value="Ingresar uid"/>
+                        <c:if test="#{empty param.uid}">
+                            <p:outputLabel for="uid" value="uid"/>
+                            <p:inputText id="uid" required="true" value="#{usuarioMB.uid}" disabled="#{not empty param.uid}"/>
+                            <br/>
+                        </c:if>
+                        <c:if test="#{not empty param.uid}">
+                            <p:outputLabel for="uid" value="uid"/>
+                            <p:inputText required="true" value="#{usuarioMB.uid}" disabled="#{not empty param.uid}"/>
+                            <h:inputHidden id="uid" value="#{usuarioMB.uid}" />
+                        </c:if>
 
                         <p:outputLabel for="nombre" value="Nombre/s"/>
                         <p:inputText id="nombre" required="true" value="#{usuarioMB.nombreUsuario}"/>
@@ -46,12 +58,22 @@
                         <p:inputText id="apellido" required="true" value="#{usuarioMB.apellidoUsuario}"/>
                         <p:watermark for="apellido" value="Ingresar Apellido"/>
 
+                        <p:outputLabel value="Activo"/>
+                        <p:selectBooleanCheckbox value="#{usuarioMB.activo}"></p:selectBooleanCheckbox>
+                        <br></br>
+
                         <p:outputLabel for="tipo" value="Tipo"/>
                         <p:pickList id="tipo" value="#{usuarioMB.tiposDualList}" var="tipos" itemValue="#{tipos}" itemLabel="#{tipos}"></p:pickList>
                         <br/>
                     </h:panelGrid>
                     <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Atrás"/>
-                    <p:commandButton id="bt1" value="Ingresar" actionListener="#{usuarioMB.agregarNuevoUsuario()}" update="growl"/>
+                    <c:if test="#{not empty param.uid}">
+                        <p:commandButton id="bt1" value="Ingresar" actionListener="#{usuarioMB.guardarUsuario()}" update="growl"/>
+                    </c:if>
+                    <c:if test="#{empty param.uid}">
+                        <p:commandButton id="bt1" value="Ingresar" actionListener="#{usuarioMB.agregarNuevoUsuario()}" update="growl"/>
+                    </c:if>
+
                     <p:defaultCommand target="bt1" />
                 </p:panel>
             </h:form>

@@ -23,6 +23,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import managedbeans.ProfesorViewMB;
 import org.primefaces.model.DualListModel;
@@ -57,6 +58,15 @@ public class UsuarioMB {
     private List<String> tiposDelUsuario;
     private DualListModel<String> tiposDualList;
     private Boolean estaEditando = true;
+    private Boolean activo;
+
+    public Boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
+    }
 
     private String uid;
 
@@ -88,6 +98,12 @@ public class UsuarioMB {
 
     @PostConstruct
     public void init() {
+        System.out.println("Init");
+        this.activo = true;
+        this.estaEditando = false;
+        if (this.uid != null && !this.uid.equals("")) {
+            this.estaEditando = true;
+        }
 //        List<Tipousuario> tipos = tipoFacade.findAll();
         if (this.uid == null) {
             tiposDelUsuario = new ArrayList<>();
@@ -152,13 +168,16 @@ public class UsuarioMB {
     }
 
     public void cargarUsuario(String uid) {
-        this.init();
+        System.out.println("asdasd");
+        System.out.println("asdasd");
         System.out.println("Buscando usuario");
         Usuario usuario = usuarioFacade.findByUid(uid);
+        this.estaEditando = true;
         this.username = usuario.getRutUsuario();
         this.nombreUsuario = usuario.getNombreUsuario();
         this.apellidoUsuario = usuario.getApellidoUsuario();
         this.uid = uid.toUpperCase();
+        this.activo = usuario.getActivo();
         System.out.println(usuario);
         this.estaEditando = true;
         System.out.println(this.estaEditando);
@@ -179,10 +198,13 @@ public class UsuarioMB {
             this.tiposNoDelUsuario.add(rol.getNombreTipo());
         }
         this.tiposDualList = new DualListModel<>(tiposNoDelUsuario, tiposDelUsuario);
+        System.out.println("Editando final:");
+        System.out.println(this.estaEditando);
     }
 
-    public void agregarNuevoUsuario() throws NoSuchAlgorithmException, UnsupportedEncodingException {
+    public void guardarUsuario() throws NoSuchAlgorithmException, UnsupportedEncodingException, IOException {
         FacesContext context = FacesContext.getCurrentInstance();
+        this.estaEditando = true;
 
         if (this.uid == null || "".equals(this.uid)) {
             context.addMessage(null, new FacesMessage("ERROR: Ingrese UID porfavor.", ""));
@@ -190,13 +212,76 @@ public class UsuarioMB {
         }
 
         Usuario usuario = usuarioFacade.findByUid(this.uid.toLowerCase());
+
+        //Seteamos algunos valores, como el nombre y apellido a mayúsculas
+        //Sacamos guión y puntos del rut, además de dejarlo en mayúsculas si tiene -k
+        username = username.toUpperCase();
+        username = username.replace(".", "");
+        username = username.replace("-", "");
+        nombreUsuario = nombreUsuario.toUpperCase();
+        apellidoUsuario = apellidoUsuario.toUpperCase();
+
+        List<Tipousuario> aux = new ArrayList();
+        //Ingresamos el tipo usuario
+        System.out.println("Tamaño: " + this.tiposDualList.getTarget().size());
+        System.out.println("Tamaño: " + this.tiposDelUsuario.size());
+        System.out.println("TIPOS:");
+        for (int i = 0; i < tiposDualList.getSource().size(); i++) {
+            Tipousuario tipo = tipoFacade.findByNombreTipo(tiposDualList.getSource().get(i));
+            List<Usuario> usuarios_tipo = tipo.getUsuarios();
+            usuarios_tipo.remove(usuario);
+            tipoFacade.edit(tipo);
+        }
+        for (int i = 0; i < tiposDualList.getTarget().size(); i++) {
+//            Long tipo_id = Long.parseLong(tiposDualList.getTarget().get(i));
+            System.out.println(tiposDualList.getTarget().get(i));
+            Tipousuario tipo = tipoFacade.findByNombreTipo(tiposDualList.getTarget().get(i));
+//            Tipousuario tipo = tipoFacade.find(Long.parseLong("1"));
+            List<Usuario> usuarios_tipo = tipo.getUsuarios();
+            usuarios_tipo.add(usuario);
+            tipo.setUsuarios(usuarios_tipo);
+
+            tipoFacade.edit(tipo);
+            aux.add(tipo);
+        }
+        usuario.setTipos(aux);
+        System.out.println("KKKKK:");
+        System.out.println(this.activo);
+        usuario.setNombreUsuario(this.nombreUsuario);
+        usuario.setApellidoUsuario(this.apellidoUsuario);
+        usuario.setActivo(this.activo);
+//        nuevoUsuario.setTipos(tiposDualList.getTarget());
+
+        usuarioFacade.edit(usuario);
+
+        context.addMessage(null, new FacesMessage("Usuario", nombreUsuario + " " + apellidoUsuario + ", editado correctamente"));
+        LOGGER.info("Se ha editado al usuario " + nombreUsuario + " " + apellidoUsuario);
+        //Vaciamos el formulario
+//        username = null;
+//        nombreUsuario = null;
+//        apellidoUsuario = null;
+//        tipoUsuario = null;
+    }
+
+    public void agregarNuevoUsuario() throws NoSuchAlgorithmException, UnsupportedEncodingException {
+        FacesContext context = FacesContext.getCurrentInstance();
+        this.estaEditando = false;
+
+        if (this.uid == null || "".equals(this.uid)) {
+            context.addMessage(null, new FacesMessage("ERROR: Ingrese UID porfavor.", ""));
+            return;
+        }
+
+        Usuario usuario = usuarioFacade.findByUid(this.uid.toLowerCase());
+        System.out.println("Editando:");
+        System.out.println(this.estaEditando);
         if (usuario != null && !this.estaEditando) {
             context.addMessage(null, new FacesMessage("ERROR: El UID ingresado ya se encuentra registrado en el sistema.", ""));
             return;
         }
 
         //Validamos que el rut no exista en el sistema
-        if (!this.estaEditando && usuarioFacade.existe(username)) {
+        if (usuarioFacade.existe(username)) {
             context.addMessage(null, new FacesMessage("ERROR: El Rut ingresado ya existe en el sistema.", ""));
             return;
         }
@@ -247,13 +332,12 @@ public class UsuarioMB {
             aux.add(tipo);
         }
         nuevoUsuario.setTipos(aux);
+        System.out.println("KKKKK:");
+        System.out.println(this.activo);
+        nuevoUsuario.setActivo(this.activo);
 //        nuevoUsuario.setTipos(tiposDualList.getTarget());
 
-        if (this.estaEditando) {
-            usuarioFacade.edit(nuevoUsuario);
-        } else {
-            usuarioFacade.create(nuevoUsuario);
-        }
+        usuarioFacade.edit(nuevoUsuario);
 
         if (this.estaEditando) {
             context.addMessage(null, new FacesMessage("Usuario", nombreUsuario + " " + apellidoUsuario + ", editado correctamente"));
