@@ -57,10 +57,14 @@
                             <p:button style="width:140px;" disabled="#{empty verAlumnoMB.alumno.idPlanActivo}" href="/2.0/admin/propuestas/agregar.xhtml?alum=#{verAlumnoMB.alumno.rutAlumno}" value="Agregar Propuesta"/>
                         </h:panelGroup>
                         
+                    <h:panelGroup id="botonAgregarProp" layout="block" >
+                        <p:button style="width:140px;" disabled="#{empty verAlumnoMB.alumno.idPlanActivo}" href="/2.0/admin/propuestas/agregar.xhtml?alum=#{verAlumnoMB.alumno.rutAlumno}" value="Agregar Propuesta"/>
+                    </h:panelGroup>
+
                     <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Volver a Alumnos"/>
                 </h:panelGrid>
-                    <p:tooltip id="tooltipAgregarProp" rendered="#{empty verAlumnoMB.alumno.idPlanActivo}"
-                                   for="botonAgregarProp" value="El alumno debe tener una carrera antes de agregar propuesta"/>
+                <p:tooltip id="tooltipAgregarProp" rendered="#{empty verAlumnoMB.alumno.idPlanActivo}"
+                           for="botonAgregarProp" value="El alumno debe tener una carrera antes de agregar propuesta"/>
             </p:panel>
         </p:layoutUnit>
 

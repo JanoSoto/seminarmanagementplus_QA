@@ -10,10 +10,12 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
 @Table(name = "planes_alumno")
 @IdClass(AsociacionPlanEstudioAlumnoId.class)
+@XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "AsociacionPlanEstudioAlumno.findAll", query = "SELECT a FROM AsociacionPlanEstudioAlumno a")
 })
