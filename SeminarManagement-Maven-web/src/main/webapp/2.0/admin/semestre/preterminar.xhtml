@@ -9,10 +9,10 @@
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
     
     <ui:define name="metadata">
-        #{accordionPanelMB.setIndex("4")}
+        #{accordionPanelMB.setIndex("7")}
     </ui:define>
     
-    <ui:define name="title"><title>Terminar Semestre | Seminar Management</title></ui:define>
+    <ui:define name="title"><title>Pre-cerrar Semestre | Seminar Management</title></ui:define>
 
     <ui:define name="content">
         
@@ -46,7 +46,7 @@
             <p:layoutUnit position="center" size="430" style="border: none;">
                 <h:form style="font-weight: bold;">
                     <p:panel style="border:none;">
-                        <h1>Terminar Semestre</h1>
+                        <h1>Pre-cerrar Semestre</h1>
                         <p:growl id="growl" showDetail="true" sticky="true" />
                         <h:panelGrid columns="3" cellpadding="4">
 
@@ -56,7 +56,7 @@
 
                         </h:panelGrid>
 
-                        <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="../index.xhtml" value="Atrás"/>
+                        <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="../semestre/index.xhtml" value="Atrás"/>
                         <p:commandButton id="bt1" value="Pre-cerrar" onclick="confirmation.show()" type="button"/>
                         <p:defaultCommand target="bt1" />
 
@@ -64,7 +64,11 @@
                             <strong>¿Está seguro? Esta acción generará los siguientes cambios dentro del sistema.</strong><br/>
                             <ul>
                                 <li>Los borradores finales pasan a pertenecer a este semestre que se pre-cerrará.</li>
-                                <li> Los que entreguen borradores finales después que se precerró el semestre quedarán para el semestre siguiente.</li>
+                                <li>Los temas en proceso de examen pasan a pertenecer a este semestre que se pre-cerrará.</li>
+                                <li>Aquellos borradores finales entregados después que se precerró el semestre actual quedarán para el semestre siguiente.</li>
+                                <li>Aquellos temas vigentes con borrador final que cambien a proceso de examen entre el pre-cierre y cierre quedarán para el semestre siguiente.</li>
+                                <li>Aquellos temas vigentes que cambien a prorrogados entre el pre-cierre y cierre quedarán para el semestre siguiente.</li>
+                                
                             </ul>
                             <hr/>
                             

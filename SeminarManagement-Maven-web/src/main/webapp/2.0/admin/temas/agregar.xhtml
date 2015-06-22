@@ -53,7 +53,7 @@
                         <p:watermark for="nombreT" value="Ingresar Nombre"/>
 
                         <p:outputLabel for="calendT" value="Fecha Tema *" />
-                        <p:calendar id="calendT" value="#{agregarTemaMB.date}" mode="popup"/>
+                        <p:calendar id="calendT" value="#{agregarTemaMB.date}" mode="popup" mindate="#{verPropuestaMB.menorFechaEntregaComisionCorrectora()}"/>
                         <p:watermark for="calendT" value="Seleccionar Fecha"/>
 
                         <p:outputLabel for="semestreT" value="Semestre Tema *"  />
