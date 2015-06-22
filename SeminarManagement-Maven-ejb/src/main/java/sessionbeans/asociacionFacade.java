@@ -39,7 +39,7 @@ public class asociacionFacade extends AbstractFacade<AsociacionPlanEstudioAlumno
 //        Query query;
 //        query = em.createNamedQuery("AsociacionPlanEstudioAlumno.findAll");
         Query query;
-        query = em.createNativeQuery("AsociacionPlanEstudioAlumno.findAll");
+        query = em.createNamedQuery("AsociacionPlanEstudioAlumno.findAll");
         return query.getResultList();
     }
 
