@@ -6,10 +6,15 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -44,6 +49,23 @@ public class Tipousuario implements Serializable {
     @Size(min = 1, max = 256)
     @Column(name = "pass")
     private String pass;
+    
+    @ManyToMany
+    @JoinTable(
+            name = "usuario_tipousuario",
+            joinColumns = {
+                @JoinColumn(name = "tipos_id_tipo", referencedColumnName = "id_tipo")},
+            inverseJoinColumns = {
+                @JoinColumn(name = "usuario_rut_usuario", referencedColumnName = "rut_usuario")})
+    private List<Usuario> usuarios;
+
+    public List<Usuario> getUsuarios() {
+        return usuarios;
+    }
+
+    public void setUsuarios(List<Usuario> usuarios) {
+        this.usuarios = usuarios;
+    }
 
     public Tipousuario() {
     }

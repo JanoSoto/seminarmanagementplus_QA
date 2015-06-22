@@ -30,4 +30,5 @@ public interface TipousuarioFacadeLocal {
 
     int count();
     
+    Tipousuario findByNombreTipo(String nombre_tipo);
 }

@@ -9,6 +9,7 @@ import entities.Tipousuario;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,6 +27,12 @@ public class TipousuarioFacade extends AbstractFacade<Tipousuario> implements Ti
 
     public TipousuarioFacade() {
         super(Tipousuario.class);
-    }
+    }    
     
+    public Tipousuario findByNombreTipo(String nombre_tipo){
+        Query query;
+        query = em.createNamedQuery("Tipousuario.findByNombreTipo")
+                .setParameter("nombreTipo", nombre_tipo);
+       return (Tipousuario) query.getSingleResult();
+    }
 }

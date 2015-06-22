@@ -11,6 +11,9 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -34,6 +37,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Usuario.findByApellidoUsuario", query = "SELECT u FROM Usuario u WHERE u.apellidoUsuario = :apellidoUsuario"),
     @NamedQuery(name = "Usuario.findByActivo", query = "SELECT u FROM Usuario u WHERE u.activo = :activo")})
 public class Usuario implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Basic(optional = false)
     @NotNull
@@ -54,9 +58,8 @@ public class Usuario implements Serializable {
     private String apellidoUsuario;
     @Column(name = "activo")
     private Boolean activo;
-    
-    
-    @OneToMany
+
+    @ManyToMany(mappedBy = "usuarios")
     private List<Tipousuario> tipos;
 
     public void setTipos(List<Tipousuario> tipos) {
@@ -151,5 +154,5 @@ public class Usuario implements Serializable {
     public String toString() {
         return "entities.Usuario[ rutUsuario=" + rutUsuario + " ]";
     }
-    
+
 }
