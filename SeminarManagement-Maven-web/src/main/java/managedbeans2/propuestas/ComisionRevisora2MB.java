@@ -371,6 +371,7 @@ public class ComisionRevisora2MB implements Serializable {
         comision.get(0).setFechaEntregaRevision2(fechaEntRev2);
         comision.get(0).setIdSemestre(comision.get(0).getIdSemestre());
         comision.get(0).setTipoRevision(comision.get(0).getTipoRevision());
+        comision.get(0).setFechaPublicacionConsejo(dateToString(publicacionConsejo));
         comisionRevisoraFacade.edit(comision.get(0));
 
         //Mensaje de confirmación 

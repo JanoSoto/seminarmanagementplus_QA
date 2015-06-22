@@ -31,6 +31,9 @@
                 </a>
                 <br/>
 
+                <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Plan:"/>
+                <h:outputText style="padding-left: 1em;" value="#{verPropuestaMB.getNombrePlan(verPropuestaMB.propuesta.idPlan, verPropuestaMB.propuesta.versionPlan)}"/>
+                <br/>
                 <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Pet:"/>
                 <h:outputText style="padding-left: 1em;" value="#{verPropuestaMB.pet2}"/>
                 <br/>
@@ -66,20 +69,22 @@
                 <h:form>
                     <p:growl id="growl" showDetail="true" sticky="true" />
                     <h:panelGrid columns="1" cellpadding="4">
+                        <!--<p:button href="/2.0/secretaria/propuestas/editarProp.xhtml?prop=" value="Editar Propuesta"/>-->
                         <p:button style="width:150px;" rendered="#{empty verPropuestaMB.propuesta.idRevisora}" href="/2.0/secretaria/propuestas/agregarcomrev.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Agregar Comisión Revisora"/>
-                        <p:button style="width:150px;" rendered="#{ (not empty verPropuestaMB.propuesta.idRevisora) and (verPropuestaMB.propuesta.idRevisora.tipoRevision ne 2)}" href="/2.0/secretaria/propuestas/editarComRev.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Agregar/Editar Fechas Comisión"/>
+                        <p:button style="width:150px;" rendered="#{ (not empty verPropuestaMB.propuesta.idRevisora) and (verPropuestaMB.propuesta.idRevisora.tipoRevision eq 0)}" href="/2.0/secretaria/propuestas/editarComRev.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Agregar/Editar Fechas Comisión"/>
                         <p:button style="width:150px;" rendered="#{ (not empty verPropuestaMB.propuesta.idRevisora) and (verPropuestaMB.propuesta.idRevisora.tipoRevision eq 2)}" href="/2.0/secretaria/propuestas/editarComRevFechasConsejo.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Agregar/Editar Fechas"/>
+                        <p:button style="width:150px;" rendered="#{ (not empty verPropuestaMB.propuesta.idRevisora) and (verPropuestaMB.propuesta.idRevisora.tipoRevision eq 1)}" href="/2.0/secretaria/propuestas/editarComRevFechasSeminario.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Agregar/Editar Fechas"/>
                         <h:panelGroup rendered="#{empty verPropuestaMB.propuesta.idRevisora.idTema
                                                   and not empty verPropuestaMB.propuesta.idRevisora}" id="botonAgregarTema" layout="block" >
                             <p:button style="width:150px;"
                                       rendered="#{empty verPropuestaMB.propuesta.idRevisora.idTema
-                                                  and not empty verPropuestaMB.propuesta.idRevisora}" 
-                                                  disabled="#{not verPropuestaMB.puedeTenerTema}"
-                                                  href="/2.0/secretaria/temas/agregar.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}"
-                                    value="Agregar Tema"/>
+                                                  and not empty verPropuestaMB.propuesta.idRevisora}"
+                                      disabled="#{not verPropuestaMB.puedeTenerTema}"
+                                      href="/2.0/secretaria/temas/agregar.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Agregar Tema"/>
                         </h:panelGroup>
                         <p:button style="width:150px;" rendered="#{not empty verPropuestaMB.propuesta.idRevisora.idTema}" href="/2.0/secretaria/temas/tema.xhtml?tema=#{verPropuestaMB.propuesta.idRevisora.idTema.idTema}" value="Ver Tema"/>
                         <p:button style="width:150px;" href="/2.0/secretaria/propuestas/editarProp.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Editar Propuesta"/>
+                        <p:commandButton style="width:150px;" value="Eliminar Propuesta" onclick="confirmation.show()" type="button"/>
                         <h:form  rendered="#{verPropuestaMB.propuesta.idRevisora.tipoRevision != 2}" id="form66" style="" >
                             <h:link value="" style="width: 148px" outcome="plantilla" target="_blank" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
                                 <span class="ui-button-text ui-c">Descargar Plantilla PDF</span>
@@ -90,8 +95,7 @@
                         <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Volver a Propuestas"/>
                     </h:panelGrid>
                     <p:tooltip id="tooltipAgregarTema" rendered="#{not verPropuestaMB.puedeTenerTema}"
-                                   for="botonAgregarTema"
-                                   value="Debe ingresar las fechas entrega y devolución de los profesores antes de agregar tema"/>
+                                   for="botonAgregarTema" value="Debe ingresar las fechas entrega y devolución de los profesores antes de agregar tema"/>
                     <p:dialog modal="true" appendToBody="true" header="Confirmación" widgetVar="confirmation" width="350" closeOnEscape="true" closable="true" draggable="false" resizable="false" >
                         <strong>¿Está seguro? Esta acción generará los siguientes cambios dentro del sistema.</strong><br/>
                         <ul>
@@ -161,7 +165,7 @@
                 </p:column>
             </p:dataTable>
 
-            <p:dataTable rendered="#{verPropuestaMB.propuesta.idRevisora.tipoRevision ne 2}" id="comRevTable2" var="comRev2" rows="1" value="#{verPropuestaMB.propuesta.idRevisora.profeRevisionList}" emptyMessage="La comision no tiene profesor 1">
+            <p:dataTable rendered="#{verPropuestaMB.propuesta.idRevisora.tipoRevision eq 0}" id="comRevTable2" var="comRev2" rows="1" value="#{verPropuestaMB.propuesta.idRevisora.profeRevisionList}" emptyMessage="La comision no tiene profesor 1">
                 <f:facet name="header">
                     Fechas Profesores
                 </f:facet>
@@ -175,7 +179,7 @@
                 </p:column>
             </p:dataTable>
 
-            <p:dataTable rendered="#{verPropuestaMB.propuesta.idRevisora.tipoRevision ne 2}" id="comRevTable3" var="comRev3" rows="1" value="#{comRev}" emptyMessage="La comisión no tiene profesor 2">
+            <p:dataTable rendered="#{verPropuestaMB.propuesta.idRevisora.tipoRevision eq 0}" id="comRevTable3" var="comRev3" rows="1" value="#{comRev}" emptyMessage="La comisión no tiene profesor 2">
                 <p:column headerText=" Fechas Profesor  #{verPropuestaMB.revisor2.nombreProfesor} #{verPropuestaMB.revisor2.apellidoProfesor}">
                     <h:outputText value="Fecha de entrega al profesor :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                   &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -185,16 +189,24 @@
                     <h:outputText  value="Fecha de devolución con correciones del profesor :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #{comRev3.comisionRevisora.fechaEntregaRevision2}" />
                 </p:column>
             </p:dataTable>
+            
+            <p:dataTable rendered="#{verPropuestaMB.propuesta.idRevisora.tipoRevision eq 1}" value="#{verPropuestaMB.propuesta.idRevisora}" var="com">
+                <p:column >
+                    <h:outputText value="Fecha de entrega en secretaría : #{com.fechaPublicacionConsejo}"></h:outputText>
+                </p:column>
+            </p:dataTable>
+
 
             <p:panel rendered="#{verPropuestaMB.propuesta.idRevisora.tipoRevision eq 2}" id="basic" header="Acuerdo de Consejo" style="margin-bottom:20px">
                 <h:panelGrid columns="2" cellpadding="10">
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" for="fechaPublicacion" value="Fecha de publicación"/>
                     <h:outputText id="fechaPublicacion"  value="#{verPropuestaMB.propuesta.idRevisora.fechaPublicacionConsejo}"/>
-
+                    
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" for="fechaTerminoPublicacion" value="Fecha de término publicación"/>
                     <h:outputText id="fechaTerminoPublicacion"  value="#{verPropuestaMB.propuesta.idRevisora.fechaTerminoPublicacionConsejo}"/>
                 </h:panelGrid>
             </p:panel>
+
 
         </p:layoutUnit>
 
