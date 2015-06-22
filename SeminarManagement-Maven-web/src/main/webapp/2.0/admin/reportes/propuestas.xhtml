@@ -41,7 +41,9 @@
                         <h:outputText value="#{prop.planActivo.codigo}" />
                     </p:column>
                     <p:column headerText="Título Propuesta" filterBy="#{prop.nombrePropuesta}" filterMatchMode="contains" sortBy="#{prop.nombrePropuesta}">
-                        <h:outputText value="#{prop.nombrePropuesta}" />
+                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/propuestas/propuesta.xhtml?prop=#{prop.idPropuesta}">
+                            <h:outputText value="#{prop.nombrePropuesta}" />
+                        </a>
                     </p:column>
                     <p:column headerText="Fecha&#10;Entrega" style="white-space:pre-line;" filterBy="#{prop.fechaPropuesta}" filterMatchMode="contains"
                               sortBy="#{prop.fechaPropuesta}">
@@ -61,7 +63,7 @@
                     </p:column>
                     <p:column headerText="Fecha&#10;Devolución" style="white-space:pre-line;" filterBy="#{prop.idRevisora.fechaEntregaRevision}" filterMatchMode="contains"
                               sortBy="#{prop.idRevisora.fechaEntregaRevision}">
-                        <h:outputText value="{prop.fechaEntregaRevision}" />
+                        <h:outputText value="#{prop.idRevisora.fechaEntregaRevision}" />
                     </p:column>
                     <p:column headerText="Integrante 2" filterBy="#{prop.profesorRevisor2.nombreProfesor} #{prop.profesorRevisor2.apellidoProfesor}" filterMatchMode="contains"
                               sortBy="#{prop.profesorRevisor2.nombreProfesor} #{prop.profesorRevisor2.apellidoProfesor}">

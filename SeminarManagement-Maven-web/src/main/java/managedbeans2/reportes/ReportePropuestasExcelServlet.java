@@ -1,6 +1,8 @@
 package managedbeans2.reportes;
 
 import entities.ComisionRevisora;
+import entities.Propuesta;
+import entities.Semestre;
 import entities.SemestreActual;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,7 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import sessionbeans.ComisionRevisoraFacadeLocal;
+import sessionbeans.PropuestaFacadeLocal;
 import sessionbeans.SemestreActualFacadeLocal;
+import sessionbeans.SemestreFacadeLocal;
 import static util.SMUtil.csvTextToExcel;
 
 /**
@@ -31,6 +35,12 @@ public class ReportePropuestasExcelServlet extends HttpServlet {
     
     @EJB
     private ComisionRevisoraFacadeLocal revisoraFacade;
+    
+    @EJB
+    private SemestreFacadeLocal semFacade;
+    
+    @EJB
+    private PropuestaFacadeLocal propFacade;
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -44,6 +54,7 @@ public class ReportePropuestasExcelServlet extends HttpServlet {
             sb.append("Alumno\tCarrera\tTítulo Propuesta\tProfesor Guía\t")
                     .append("Fecha Entrega Propuesta\tProfesor Revisor 1\tEntrega\t")
                     .append("Devolución\tProfesor Revisor 2\tEntrega\tDevolución\n");
+            /*
             if (semestreActual.getSemestreActual() != null) {
                 for (ComisionRevisora  com : revisoraFacade.findBySemestre(semestreActual.getSemestreActual())) {
                     if ( com.getTipoRevision() == 2)
@@ -100,6 +111,58 @@ public class ReportePropuestasExcelServlet extends HttpServlet {
                     sb.append(salida).append("\n");
                 }
             } else {
+            }*/
+            Semestre sem = semFacade.findOneById(semestreActual.getSemestreActual());
+            for (Propuesta prop : propFacade.findBySemestre(sem)) {
+                String salida =
+                            prop.getRutAlumno().getNombreAlumno() + " "
+                            + prop.getRutAlumno().getApellidoAlumno();
+                    
+                    if ( prop.getPlanActivo() == null)
+                        salida += "\t" ;
+                    else
+                        salida += "\t" + prop.getPlanActivo().getCodigo();
+                    
+                    salida += "\t" + prop.getNombrePropuesta();
+                    salida += "\t" + prop.getProfesorGuia().getNombreProfesor() + " "
+                            + prop.getProfesorGuia().getApellidoProfesor();
+                    salida += "\t" + prop.getFechaPropuesta();
+                    
+                    if ( prop.getProfesorRevisor1() != null){
+                        salida += "\t" + prop.getProfesorRevisor1().getNombreProfesor() + " "
+                                + prop.getProfesorRevisor1().getApellidoProfesor();
+                        
+                        if ( prop.getIdRevisora().getFechaRevision() != null )
+                            salida += "\t" + prop.getIdRevisora().getFechaRevision();
+                        else
+                            salida += "\t";
+                        
+                        if ( prop.getIdRevisora().getFechaEntregaRevision() != null )
+                            salida += "\t" + prop.getIdRevisora().getFechaEntregaRevision();
+                        else
+                            salida += "\t";
+                        
+                    } else
+                        salida += "\t\t\t";
+                    
+                    if ( prop.getProfesorRevisor2() != null){
+                        salida += "\t" + prop.getProfesorRevisor2().getNombreProfesor() + " "
+                                + prop.getProfesorRevisor2().getApellidoProfesor();
+                        
+                        if ( prop.getIdRevisora().getFechaRevision2() != null )
+                            salida += "\t" + prop.getIdRevisora().getFechaRevision2();
+                        else
+                            salida += "\t";
+                        
+                        if ( prop.getIdRevisora().getFechaEntregaRevision2() != null )
+                            salida += "\t" + prop.getIdRevisora().getFechaEntregaRevision2();
+                        else
+                            salida += "\t";
+                        
+                    } else
+                        salida += "\t\t\t";
+                    
+                    sb.append(salida).append("\n");
             }
 
             response.setContentType("application/vnd.ms-excel");
