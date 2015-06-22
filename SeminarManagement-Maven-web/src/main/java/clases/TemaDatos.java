@@ -1,6 +1,7 @@
 package clases;
 
 import entities.Alumno;
+import entities.PlanEstudio;
 import entities.Profesor;
 import java.io.Serializable;
 
@@ -14,6 +15,17 @@ public class TemaDatos implements Serializable {
     private int idTema, motivoCaducado;
     private Profesor guia,coGuia;
     private Alumno alumno;
+    PlanEstudio planActivo;
+    Integer versionPlan;
+
+    public PlanEstudio getPlanActivo() {
+        return planActivo;
+    }
+
+    public void setPlanActivo(PlanEstudio planActivo) {
+        this.planActivo = planActivo;
+    }
+    
     //motivo caducado es 1 por informe de avance o 2 por borrador final
 
     public TemaDatos(String estadoTema, String semestreTema, String nombreTema, String nombreAlumno, String nombreProfesor, String ingresoTema) {
@@ -164,5 +176,13 @@ public class TemaDatos implements Serializable {
 
     public void setNombreProfesor(String nombreProfesor) {
         this.nombreProfesor = nombreProfesor;
+    }
+
+    public void setVersionPlanActivo(Integer versionPlan) {
+        this.versionPlan = versionPlan;
+    }
+    
+    public Integer getVersionPlanActivo(){
+        return this.versionPlan;
     }
 }

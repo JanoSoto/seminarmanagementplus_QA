@@ -17,9 +17,11 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import Util.Util;
+import javax.ejb.EJB;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import sessionbeans.PlanestudioFacadeLocal;
 
 /**
  *
@@ -178,19 +180,6 @@ public class Alumno implements Serializable {
     public void setDireccionAlumno(String direccionAlumno) {
         this.direccionAlumno = direccionAlumno;
     }
-    
-    public PlanEstudio getPlanActivo(){
-        List<AsociacionPlanEstudioAlumno> alumnoPlanes = this.getAsociacionPlanEstudioAlumno();
-        alumnoPlanes.size();
-        AsociacionPlanEstudioAlumno activo = null;
-        for (AsociacionPlanEstudioAlumno aluPlan : alumnoPlanes) {
-            if ( aluPlan.isActivo() ){
-                activo = aluPlan;
-                break;
-            }
-        }
-        return activo == null ? null : activo.getPlanEstudio();
-    }
 
     @XmlTransient
     public List<Propuesta> getPropuestaList() {
@@ -240,6 +229,23 @@ public class Alumno implements Serializable {
 
     public void setIdPlanActivo(Integer idPlanActivo) {
         this.idPlanActivo = idPlanActivo;
+    }
+    
+    public PlanEstudio getPlanActivo() {
+        Integer id_plan = this.idPlanActivo;
+        //System.out.println("Planeeeees");
+        List<PlanEstudio> planesasd = this.getPlanes();
+        //System.out.println("Planeeeees");
+        if (id_plan != null){
+            for (int i = 0; i < planesasd.size(); i++) {
+                //System.out.println(planesasd.get(i).getId() + " == " + Long.parseLong(id_plan+""));
+                if(planesasd.get(i).getId() == Long.parseLong(id_plan+"")){
+                    //System.out.println("asdasdasjfaofijaoisf");
+                    return planesasd.get(i);
+                }
+            }
+        }
+        return null;
     }
 
 }

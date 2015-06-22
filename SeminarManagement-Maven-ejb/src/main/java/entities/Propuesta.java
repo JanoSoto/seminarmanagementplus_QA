@@ -1,5 +1,6 @@
 package entities;
 
+import Util.Util;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +67,28 @@ public class Propuesta implements Serializable {
     private List<ComisionRevisora> comisionRevisoraList;
     @Column(name = "magister")
     private Boolean magister;
+    
+    @Column(name = "id_plan")
+    private Integer idPlan;
+    
+    @Column(name = "version_plan")
+    private Integer versionPlan;
+
+    public Integer getIdPlan() {
+        return idPlan;
+    }
+
+    public void setIdPlan(Integer idPlan) {
+        this.idPlan = idPlan;
+    }
+
+    public Integer getVersionPlan() {
+        return versionPlan;
+    }
+
+    public void setVersionPlan(Integer versionPlan) {
+        this.versionPlan = versionPlan;
+    }
 
     public Propuesta() {
         profePropuestaList = new ArrayList();
@@ -195,6 +218,34 @@ public class Propuesta implements Serializable {
         return coGuia;
     }
     
+    public Profesor getProfesorRevisor1(){
+        Profesor revisor = null;
+        ComisionRevisora cr = getIdRevisora();
+        if ( cr != null ) {
+            for (ProfeRevision profeRev : cr.getProfeRevisionList()) {
+                if ( profeRev.getRolRevision() == 0 ){
+                    revisor = profeRev.getProfesor();
+                    break;
+                }
+            }
+        }
+        return revisor;
+    }
+    
+    public Profesor getProfesorRevisor2(){
+        Profesor revisor = null;
+        ComisionRevisora cr = getIdRevisora();
+        if ( cr != null ) {
+            for (ProfeRevision profeRev : cr.getProfeRevisionList()) {
+                if ( profeRev.getRolRevision() == 1 ){
+                    revisor = profeRev.getProfesor();
+                    break;
+                }
+            }
+        }
+        return revisor;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -214,10 +265,25 @@ public class Propuesta implements Serializable {
         }
         return true;
     }
-
+    
     @Override
     public String toString() {
         return "entities.Propuesta[ idPropuesta=" + idPropuesta + " ]";
+    }
+    
+    public PlanEstudio getPlanActivo() {
+        Integer id_plan = idPlan;
+        //System.out.println("Planeeeees");
+        List<PlanEstudio> planesasd = rutAlumno.getPlanes();
+        //System.out.println("Planeeeees");
+        for (int i = 0; i < planesasd.size(); i++) {
+            //System.out.println(planesasd.get(i).getId() + " == " + Long.parseLong(id_plan+""));
+            if(planesasd.get(i).getId() == Long.parseLong(id_plan+"")){
+                //System.out.println("asdasdasjfaofijaoisf");
+                return planesasd.get(i);
+            }
+        }
+        return null;
     }
     
 }

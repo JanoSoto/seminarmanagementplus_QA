@@ -14,6 +14,7 @@ import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import static managedbeans2.propuestas.ComisionRevisora2MB.fechaCorrecta;
 import sessionbeans.SemestreFacadeLocal;
 import sessionbeans.TemaFacadeLocal;
 
@@ -151,6 +152,19 @@ public class VerTemaMB {
             }
             
         }
+        System.out.println(temaTemp.getIdRevisora().getIdPropuesta().getFechaPropuesta());
+        System.out.println(dateToString(fechaEdit));
+        if( fechaCorrecta(temaTemp.getIdRevisora().getIdPropuesta().getFechaPropuesta(),dateToString(fechaEdit)) == false){
+            return;
+        }
+        
+        if( fechaCorrecta(temaTemp.getIdRevisora().getFechaEntregaRevision(),dateToString(fechaEdit)) == false){
+            return;
+        }
+        
+        if( fechaCorrecta(temaTemp.getIdRevisora().getFechaEntregaRevision2(),dateToString(fechaEdit)) == false){
+            return;
+        }
         
         //Validamos que no haya otro tema con el mismo nombre
         if(!temaFacade.findByName(nombreTemaEdit).isEmpty() && !temaTemp.getNombreTema().equals(nombreTemaEdit)) {
@@ -196,6 +210,8 @@ public class VerTemaMB {
             temaTemp.setFechaSiacTema(dateToString(fechaEdit3));
             temaTemp.setSemestreTermino(semestreTerminoEdit);
         }
+        
+        
       
         
         

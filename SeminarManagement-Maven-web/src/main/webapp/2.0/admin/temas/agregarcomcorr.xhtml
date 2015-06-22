@@ -29,12 +29,16 @@
                     #{comisionCorrectora2MB.setIdTema(verTemaMB.idTema)}
                     <h:panelGrid columns="3" cellpadding="4">
 
-                        <p:outputLabel style="color: #0052cc;font-weight: bold;" for="nombre" value="Nombre: "/>
+                        <p:outputLabel style="color: #0052cc;font-weight: bold;" for="nombre" value="Título"/>
                         <h:outputText id="nombre" value="#{verTemaMB.tema.nombreTema}"/>
                         <br/>
 
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Alumno"/>
                         <h:outputText style="font-weight: normal;" value="#{verTemaMB.tema.idRevisora.idPropuesta.rutAlumno.nombreAlumno} #{verTemaMB.tema.idRevisora.idPropuesta.rutAlumno.apellidoAlumno}"/>
+                        <br/>
+                        
+                        <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Fecha tema"/>
+                        <h:outputText style="font-weight: normal;" value="#{verTemaMB.tema.fechaTema}"/>
                         <br/>
 
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Profesor Guía"/>

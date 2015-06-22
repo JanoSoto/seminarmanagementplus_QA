@@ -9,12 +9,13 @@ import entities.Usuario;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 /**
  *
- * @author Elagos
+ * @author miguel
  */
 @Stateless
 public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFacadeLocal {
@@ -30,20 +31,46 @@ public class UsuarioFacade extends AbstractFacade<Usuario> implements UsuarioFac
         super(Usuario.class);
     }
     
-    
+  
     @Override
-    public List<Usuario> findByUsername(String username) {
-        Query query;
-        query = em.createNamedQuery("Usuario.findByUsername")
-                .setParameter("username", username);
-       return query.getResultList();
+    public Usuario findByUid(String uid) {
+        Query query = em.createNamedQuery("Usuario.findByUid").setParameter("uid", uid);
+        try{
+            return (Usuario) query.getSingleResult();
+        }
+        catch(NoResultException e){
+            return null;
+        }
     }
     
     @Override
-    public boolean existe(String username) {
+    public Boolean existeByRut(String rut) {
+        Query query = em.createNamedQuery("Usuario.findByRutUsuario").setParameter("rutUsuario", rut);
+        try{
+            return !query.getResultList().isEmpty();
+        }
+        catch(NoResultException e){
+            return null;
+        }
+    }
+    
+    @Override
+    public List<Usuario> findByRut(String rut) {
+        Query query = em.createNamedQuery("Usuario.findByRutUsuario").setParameter("rutUsuario", rut);
+        try{
+            return query.getResultList();
+        }
+        catch(NoResultException e){
+            return null;
+        }
+    }
+    
+    
+    @Override
+    public boolean existe(String uid){
         Query query;
-        query = em.createNamedQuery("Usuario.findByUsername")
-                .setParameter("username", username);
+        query = em.createNamedQuery("Usuario.findByUid")
+                .setParameter("uid", uid);
         return !query.getResultList().isEmpty();
     }
     

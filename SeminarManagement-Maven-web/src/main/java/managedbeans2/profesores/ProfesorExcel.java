@@ -65,6 +65,16 @@ public class ProfesorExcel extends HttpServlet {
                 sb.append(profe.getRutFormateadoProfesor());
             sb.append("\n");
             
+            sb.append("E-mail\t");
+            if  ( profe.getMailProfesor() != null )
+                sb.append(profe.getMailProfesor());
+            sb.append("\n");
+            
+            sb.append("Fono\t");
+            if ( profe.getTelefonoProfesor() != null )
+                sb.append(profe.getTelefonoProfesor());
+            sb.append("\n");
+            
             sb.append("Contrato\t");
             if ( profe.getContrato() != null ){
                 if (profe.getContrato() == 1) {
@@ -77,88 +87,84 @@ public class ProfesorExcel extends HttpServlet {
             }
             sb.append("\n");
             
-            sb.append("E-mail\t");
-            if  ( profe.getMailProfesor() != null )
-                sb.append(profe.getMailProfesor());
-            sb.append("\n");
-            
-            sb.append("Fono\t");
-            if ( profe.getTelefonoProfesor() != null )
-                sb.append(profe.getTelefonoProfesor());
+            sb.append("Jerarquía o categoría\t");
+            if ( profe.getJerarquiaCategoria() != null ){
+                sb.append( profe.getJerarquiaCategoria() );
+            }
             sb.append("\n\n");
             
-            sb.append("\t\tTemas Vigentes ").append(profesorMB.getSemestreActual()).append("\n");
+            sb.append("Temas Vigentes ").append(profesorMB.getSemestreActual()).append("\n");
             if ( profesorMB.getTemaDatos().isEmpty() ){
-                sb.append("\t\tNo se encontraron temas\n");
+                sb.append("No se encontraron temas\n");
             } else {
-                sb.append("\t\tTítulo\tAlumno\n");
+                sb.append("Título\tAlumno\n");
                 for (TemaDatos temaDato : profesorMB.getTemaDatos()) {
-                    sb.append("\t\t").append(temaDato.getNombreTema()).append("\t")
+                    sb.append(temaDato.getNombreTema()).append("\t")
                             .append(temaDato.getAlumno().getNombreAlumno()).append(" ")
                             .append(temaDato.getAlumno().getApellidoAlumno()).append("\n");
                 }
             }
             sb.append("\n");
             
-            sb.append("\t\tTemas Prorrogados ").append(profesorMB.getSemestreActual()).append("\n");
+            sb.append("Temas Prorrogados ").append(profesorMB.getSemestreActual()).append("\n");
             if ( profesorMB.getTemaDatosProrrogados().isEmpty() ){
-                sb.append("\t\tNo se encontraron temas\n");
+                sb.append("No se encontraron temas\n");
             } else {
-                sb.append("\t\tTítulo\tAlumno\n");
+                sb.append("Título\tAlumno\n");
                 for (TemaDatos temaDato : profesorMB.getTemaDatosProrrogados()) {
-                    sb.append("\t\t").append(temaDato.getNombreTema()).append("\t")
+                    sb.append(temaDato.getNombreTema()).append("\t")
                             .append(temaDato.getAlumno().getNombreAlumno()).append(" ")
                             .append(temaDato.getAlumno().getApellidoAlumno()).append("\n");
                 }
             }
             sb.append("\n");
             
-            sb.append("\t\tParticipación Comisión Correctora ").append(profesorMB.getSemestreActual()).append("\n");
+            sb.append("Participación Comisión Correctora ").append(profesorMB.getSemestreActual()).append("\n");
             if ( profesorMB.getTemaDatosCorrectora().isEmpty() ){
-                sb.append("\t\tNo se encontraron temas\n");
+                sb.append("No se encontraron temas\n");
             } else {
-                sb.append("\t\tTítulo\tAlumno\n");
+                sb.append("Título\tAlumno\n");
                 for (TemaDatos temaDato : profesorMB.getTemaDatosCorrectora()) {
-                    sb.append("\t\t").append(temaDato.getNombreTema()).append("\t")
+                    sb.append(temaDato.getNombreTema()).append("\t")
                             .append(temaDato.getAlumno().getNombreAlumno()).append(" ")
-                            .append(temaDato.getAlumno().getApellidoAlumno());
+                            .append(temaDato.getAlumno().getApellidoAlumno()).append("\n");
                 }
             }
             sb.append("\n");
             
-            sb.append("\t\tParticipación Comisión Correctora ").append(profesorMB.getSemestreAnterior()).append("\n");
+            sb.append("Participación Comisión Correctora ").append(profesorMB.getSemestreAnterior()).append("\n");
             if ( profesorMB.getTemaDatosCorrectoraSemViejo().isEmpty() ){
-                sb.append("\t\tNo se encontraron temas\n");
+                sb.append("No se encontraron temas\n");
             } else {
-                sb.append("\t\tTítulo\tAlumno\n");
+                sb.append("Título\tAlumno\n");
                 for (TemaDatos temaDato : profesorMB.getTemaDatosCorrectoraSemViejo()) {
-                    sb.append("\t\t").append(temaDato.getNombreTema())
+                    sb.append(temaDato.getNombreTema())
                             .append("\t").append(temaDato.getAlumno().getNombreAlumno()).append(" ")
                             .append(temaDato.getAlumno().getApellidoAlumno()).append("\n");
                 }
             }
             sb.append("\n");
             
-            sb.append("\t\tParticipación Comisión Revisora ").append(profesorMB.getSemestreActual()).append("\n");
+            sb.append("Participación Comisión Revisora ").append(profesorMB.getSemestreActual()).append("\n");
             if ( profesorMB.getPropuestaDatosRevisora().isEmpty() ){
-                sb.append("\t\tNo se encontraron propuestas\n");
+                sb.append("No se encontraron propuestas\n");
             } else {
-                sb.append("\t\tTítulo\tAlumno\n");
+                sb.append("Título\tAlumno\n");
                 for (PropuestaDatos propDato : profesorMB.getPropuestaDatosRevisora()) {
-                    sb.append("\t\t").append(propDato.getNombrePropuesta()).append("\t")
+                    sb.append(propDato.getNombrePropuesta()).append("\t")
                             .append(propDato.getAlumno().getNombreAlumno()).append(" ")
                             .append(propDato.getAlumno().getApellidoAlumno()).append("\n");
                 }
             }
             sb.append("\n");
             
-            sb.append("\t\tParticipación Comisión Revisora ").append(profesorMB.getSemestreAnterior()).append("\n");
+            sb.append("Participación Comisión Revisora ").append(profesorMB.getSemestreAnterior()).append("\n");
             if ( profesorMB.getPropuestaDatosRevisoraViejo().isEmpty() ){
-                sb.append("\t\tNo se encontraron propuestas\n");
+                sb.append("No se encontraron propuestas\n");
             } else {
-                sb.append("\t\tTítulo\tAlumno\n");
+                sb.append("Título\tAlumno\n");
                 for (PropuestaDatos temaDato : profesorMB.getPropuestaDatosRevisoraViejo()) {
-                    sb.append("\t\t").append(temaDato.getNombrePropuesta()).append("\t")
+                    sb.append(temaDato.getNombrePropuesta()).append("\t")
                             .append(temaDato.getAlumno().getNombreAlumno()).append(" ")
                             .append(temaDato.getAlumno().getApellidoAlumno()).append("\n");
                 }

@@ -30,14 +30,14 @@
                         Usuarios
                     </f:facet>
                     <p:column headerText="Nombre" sortBy="#{user.nombreUsuario} #{user.apellidoUsuario}" filterBy="#{user.nombreUsuario}">
-                        <a href="#">
+                        <a href="/SeminarManagement-Maven-web/2.0/admin/usuarios/agregar.xhtml?uid=#{user.uid}">
                             <h:outputText value="#{user.nombreUsuario} #{user.apellidoUsuario}" />
                         </a>
                     </p:column>
 
-                    <p:column headerText="Nombre de usuario" sortBy="#{user.username}" filterBy="#{user.username}">
-                        <a href="">
-                            <h:outputText value="#{user.username}" />
+                    <p:column headerText="UID" sortBy="#{user.username}" filterBy="#{user.username}">
+                        <a href="/SeminarManagement-Maven-web/2.0/admin/usuarios/agregar.xhtml?uid=#{user.uid}">
+                            <h:outputText value="#{user.uid}" />
                         </a>
                     </p:column>
                 </p:dataTable>

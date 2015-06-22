@@ -21,6 +21,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import managedbeans.AuthMB;
+import static managedbeans2.propuestas.ComisionRevisora2MB.fechaCorrecta;
 import sessionbeans.AlumnoFacadeLocal;
 import sessionbeans.ComisionRevisoraFacadeLocal;
 import sessionbeans.HistorialFacadeLocal;
@@ -129,6 +130,15 @@ public class AgregarTemaMB{
             context.addMessage(null, new FacesMessage("Semestre Tema","Semestre ingresado debe ser '1' o '2'"));
             return;
         }
+        
+        if( fechaCorrecta(comRev.getFechaEntregaRevision(),dateToString(date)) == false){
+            return;
+        }
+        
+        if( fechaCorrecta(comRev.getFechaEntregaRevision2(),dateToString(date)) == false){
+            return;
+        }
+        
         
         
         //Obtenemos el profesor guía
