@@ -7,6 +7,7 @@ import entities.SemestreActual;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
@@ -113,7 +114,22 @@ public class ReportePropuestasExcelServlet extends HttpServlet {
             } else {
             }*/
             Semestre sem = semFacade.findOneById(semestreActual.getSemestreActual());
-            for (Propuesta prop : propFacade.findBySemestre(sem)) {
+            List<Propuesta> propuestas = sem.getPropuestaList();
+            List<Propuesta> propASacar = new ArrayList<>();
+
+            for (Propuesta propuesta : propuestas) {
+                if ( propuesta.getIdRevisora() != null ){
+                    if ( propuesta.getIdRevisora().getTipoRevision() == 2 || // consejo
+                            propuesta.getIdRevisora().getTipoRevision() == 1 ){ // seminario
+                        propASacar.add(propuesta);
+                    }
+                }
+            }
+            
+            propuestas.removeAll(propASacar);
+            
+            for (Propuesta prop : propuestas) {
+                
                 String salida =
                             prop.getRutAlumno().getNombreAlumno() + " "
                             + prop.getRutAlumno().getApellidoAlumno();
