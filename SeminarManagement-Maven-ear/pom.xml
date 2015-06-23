@@ -24,7 +24,7 @@
         <plugin>
 			<groupId>org.codehaus.cargo</groupId>
 			<artifactId>cargo-maven2-plugin</artifactId>
-			<version>1.4.5</version>
+			<version>1.4.10</version>
 			<configuration>
 				<container>
 					<containerId>glassfish4x</containerId>
@@ -52,9 +52,9 @@
 			</configuration>
 			<dependencies>
 				<dependency>
-					<groupId>org.glassfish.main.deployment</groupId>
+					<groupId>org.glassfish.deployment</groupId>
 					<artifactId>deployment-client</artifactId>
-					<version>4.1</version>
+					<version>3.2-b06</version>
 				</dependency>
 			</dependencies>
 		</plugin>
