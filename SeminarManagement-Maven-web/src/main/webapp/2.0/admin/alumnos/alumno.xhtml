@@ -45,7 +45,7 @@
                     <h:outputText value="#{verAlumnoMB.alumno.direccionAlumno}"/>
 
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Plan Activo:"/>
-                    <h:outputText value=" #{verAlumnoMB.alumno.planActivo.codigo} #{verAlumnoMB.getAnioPlan(verAlumnoMB.alumno.idPlanActivo, verAlumnoMB.alumno.versionPlanActivo)}.#{verAlumnoMB.alumno.versionPlanActivo} #{verAlumnoMB.alumno.planActivo.carreraId.nombre}"/>
+                    <h:outputText value=" #{verAlumnoMB.alumno.planActivo.codigo} .#{verAlumnoMB.alumno.versionPlanActivo} #{verAlumnoMB.alumno.planActivo.carreraId.nombre}"/>
                 </h:panelGrid>
             </p:panel>
 
@@ -70,22 +70,22 @@
             <!-- Mensaje al eliminar hitos-->
             <p:growl id="growl" showDetail="true" sticky="true" autoUpdate="true" />
 
-            <p:dataTable id="propTable" var="prop" value="#{verAlumnoMB.propDatos}" emptyMessage="No se encontraron Propuestas">
+            <p:dataTable id="propTable" var="prop" value="#{verAlumnoMB.alumno.propuestaList}" emptyMessage="No se encontraron Propuestas">
                 <f:facet name="header">
                     Propuestas
                 </f:facet>
                     <p:column headerText="Título">
                     <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/propuestas/propuesta.xhtml?prop=#{prop.idPropuesta}">
-                        <h:outputText value="#{prop.nombreCorto}"/>
+                        <h:outputText value="#{prop.nombrePropuesta}"/>
                     </a>
                 </p:column>
                 <p:column headerText="Guía">
-                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/profesores/profesor.xhtml?prof=#{prop.guia.rutProfesor}">
-                        <h:outputText value="#{prop.guia.nombreProfesor} #{prop.guia.apellidoProfesor}"/>
+                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/profesores/profesor.xhtml?prof=#{prop.profesorGuia.rutProfesor}">
+                        <h:outputText value="#{prop.profesorGuia.nombreProfesor} #{prop.profesorGuia.apellidoProfesor}"/>
                     </a>
                 </p:column>
                 <p:column headerText="Plan">
-                    <h:outputText value="#{prop.propuesta.planActivo.codigo} #{verAlumnoMB.getAnioPlan(prop.propuesta.idPlan, prop.propuesta.versionPlan)}.#{prop.propuesta.versionPlan} #{prop.propuesta.planActivo.carreraId.nombre}" />
+                    <h:outputText value="#{verAlumnoMB.getAnioPlan(prop.idPlan, prop.versionPlan)}" />
                 </p:column>
             </p:dataTable>
 

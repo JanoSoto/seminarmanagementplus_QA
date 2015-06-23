@@ -24,6 +24,7 @@ import sessionbeans.PlanestudioFacadeLocal;
 import sessionbeans.ProfesorFacadeLocal;
 import sessionbeans.PropuestaFacadeLocal;
 import sessionbeans.SemestreFacadeLocal;
+import sessionbeans.VersionplanFacadeLocal;
 
 /**
  *
@@ -44,6 +45,9 @@ public class VerPropuestaMB implements Serializable {
     @EJB
     private PlanestudioFacadeLocal planFacade;
 
+    @EJB
+    private VersionplanFacadeLocal versionFacade;
+    
     private Integer idPropuesta, idPropEdit;
     private String nombreCorto, semestrePropEdit, nombrePropEdit, fechaEntRev;
     private Profesor guia, coguia, revisor1, revisor2;
@@ -370,19 +374,19 @@ public class VerPropuestaMB implements Serializable {
         return plan.getCodigo() + " " + version.getAnio() + "." + version_plan + " " + plan.getCarreraId().getNombre();
     }
     
-    public String getAnioPlan(Integer planId, Integer versionPlanId){
-        if ( planId == null || versionPlanId == null)
-            return "";
+    public String getAnioPlan(Integer id_plan, Integer version_plan) {
         
-        PlanEstudio plan =  planFacade.findById(planId);
-        Versionplan version = null;
+        if ( id_plan == null || version_plan == null) return null;
         
-        for (Versionplan versionTemp : plan.getVersionplanList()) {
-            if ( Objects.equals(new Long(versionPlanId), versionTemp.getId()) )
-                return ""+versionTemp.getAnio();
+        PlanEstudio plan = planFacade.findById(id_plan);
+        List<Versionplan> versiones = versionFacade.findByVersion(version_plan);
+        
+        for (Versionplan version : plan.getVersionplanList()) {
+            if (version.getVersion() == Long.parseLong(version_plan + ""))
+                return version.getAnio().toString();
         }
-        
-        return "";
+
+        return null;
     }
 
     public Date menorFechaEntregaComisionCorrectora() throws ParseException {
