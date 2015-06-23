@@ -22,9 +22,15 @@
   <build>
     <plugins>
         <plugin>
-			<groupId>org.codehaus.cargo</groupId>
-			<artifactId>cargo-maven2-plugin</artifactId>
-			<version>1.4.5</version>
+			<executions>
+                    		<execution>
+                	 		<id>glassfish-deploy</id>
+		                        <phase>pre-integration-test</phase>
+		                        <goals>
+                            			<goal>deploy</goal>
+                         		</goals>
+                     		</execution>
+               		</executions>
 
 			<configuration>
 				<container>
@@ -53,9 +59,9 @@
 			</configuration>
 			<dependencies>
 				<dependency>
-					<groupId>org.glassfish.deployment</groupId>
+					<groupId>org.glassfish.main.deployment</groupId>
 					<artifactId>deployment-client</artifactId>
-					<version>3.2-b06</version>
+					<version>4.1</version>
 				</dependency>
 			</dependencies>
 		</plugin>
