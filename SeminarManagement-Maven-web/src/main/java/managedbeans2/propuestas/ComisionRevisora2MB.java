@@ -362,6 +362,26 @@ public class ComisionRevisora2MB implements Serializable {
                 return;
             }
         }
+        
+        String fechaConsejoPub, fechaConsejoPubTermino;
+        if (publicacionConsejo != null) {
+            fechaConsejoPub = dateToString(publicacionConsejo);
+        } else {
+            fechaConsejoPub = null;
+        }
+
+        if (terminoPublicacionConsejo != null) {
+            fechaConsejoPubTermino = dateToString(terminoPublicacionConsejo);
+        } else {
+            fechaConsejoPubTermino = null;
+        }
+
+        if (date3 != null && date4 != null) {
+
+            if (fechaCorrecta(fechaRev2, fechaEntRev2) == false) {
+                return;
+            }
+        }
 
         //Seteamos la nueva comision y la creamos
         comision.get(0).setIdPropuesta(comision.get(0).getIdPropuesta());
@@ -371,7 +391,8 @@ public class ComisionRevisora2MB implements Serializable {
         comision.get(0).setFechaEntregaRevision2(fechaEntRev2);
         comision.get(0).setIdSemestre(comision.get(0).getIdSemestre());
         comision.get(0).setTipoRevision(comision.get(0).getTipoRevision());
-        comision.get(0).setFechaPublicacionConsejo(dateToString(publicacionConsejo));
+        comision.get(0).setFechaPublicacionConsejo(fechaConsejoPub);
+        comision.get(0).setFechaTerminoPublicacionConsejo(fechaConsejoPubTermino);
         comisionRevisoraFacade.edit(comision.get(0));
 
         //Mensaje de confirmación 
