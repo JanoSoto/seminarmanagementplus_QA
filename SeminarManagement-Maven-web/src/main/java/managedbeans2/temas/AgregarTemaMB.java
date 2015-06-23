@@ -142,14 +142,14 @@ public class AgregarTemaMB{
         }
         
         if (comRev.getTipoRevision() == 1){
-            if (fechaCorrecta(comRev.getFechaPublicacionConsejo(),dateToString(date)) == false){
+            if (fechaCorrecta(comRev.getFechaPublicacionConsejo(), dateToString(date)) == false){
                 return;
             }
             
         }
         
         if (comRev.getTipoRevision() == 2){
-            if (fechaCorrecta(comRev.getFechaTerminoPublicacionConsejo(), fechaRev) == false) {
+            if (fechaCorrecta(comRev.getFechaTerminoPublicacionConsejo(), dateToString(date)) == false) {
                 return;
             }
         }
