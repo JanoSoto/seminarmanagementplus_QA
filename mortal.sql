@@ -1439,7 +1439,6 @@ nflores	176767901	Matias	Flores	t
 bruiztagle	179594404	Benjamin	Ruiz-Tagle	t
 paguirre	118403096	Pamela	Aguirre	t
 lceledon	178608975	LUIS	CELEDÓN	t
-jgutierrez  173375522   Celso   Gutiérrez t
 \.
 
 
@@ -1468,7 +1467,6 @@ COPY usuario_tipousuario (usuario_rut_usuario, tipos_id_tipo) FROM stdin;
 179594404	4
 118403096	4
 178608975	1
-173375522   1
 \.
 
 
