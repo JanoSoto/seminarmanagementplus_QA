@@ -4,12 +4,12 @@
   <parent>
     <artifactId>SeminarManagement-Maven</artifactId>
     <groupId>com.mycompany</groupId>
-    <version>3.0</version>
+    <version>3.4.0</version>
   </parent>
 
   <groupId>com.mycompany</groupId>
   <artifactId>SeminarManagement-Maven-ear</artifactId>
-  <version>3.0</version>
+  <version>3.4.0</version>
   <packaging>ear</packaging>
 
   <name>SeminarManagement-Maven-ear</name>
@@ -77,13 +77,13 @@
         <dependency>
             <groupId>com.mycompany</groupId>
             <artifactId>SeminarManagement-Maven-ejb</artifactId>
-            <version>3.0</version>
+            <version>3.4.0</version>
             <type>ejb</type>
         </dependency>
         <dependency>
             <groupId>com.mycompany</groupId>
             <artifactId>SeminarManagement-Maven-web</artifactId>
-            <version>3.0</version>
+            <version>3.4.0</version>
             <type>war</type>
         </dependency>
     </dependencies>
