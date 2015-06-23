@@ -135,7 +135,7 @@ public class AvanceYCaducarMB {
             return;
         }
         tema.setEstadoTema(3);
-        tema.setFechaCaducado(fechaTema);
+        tema.setFechaCaducado(dateToString(date));
         temaFacade.edit(tema);
         
         /*
@@ -193,7 +193,7 @@ public class AvanceYCaducarMB {
             return;
         }
         tema.setEstadoTema(8);
-        tema.setFechaRenuncia(fechaTema);
+        tema.setFechaRenuncia(dateToString(date));
         temaFacade.edit(tema);
         
         /*  

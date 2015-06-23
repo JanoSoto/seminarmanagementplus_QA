@@ -46,7 +46,7 @@ public class VerProfesorMB {
     private List<PropuestaDatos> propuestaDatos, propuestasFiltradas,propuestaDatosRevisora,propuestaDatosRevisoraViejo;
     private List<Tema> temas; 
     private List<SemestreActual> semestre;
-    private List<TemaDatos> temaDatos, temaDatosProrrogados, temasFiltrados,temaDatosCorrectora,temaDatosCorrectoraSemViejo;
+    private List<TemaDatos> temaDatos, temaDatosTodosLosSemestres, temaDatosProrrogados, temasFiltrados,temaDatosCorrectora,temaDatosCorrectoraSemViejo;
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(VerProfesorMB.class);
 
     /**
@@ -66,6 +66,7 @@ public class VerProfesorMB {
             profesorEdit = profesor;
             rutProfeEdit = profesor.getRutProfesor();
             temaDatos = new ArrayList();
+            temaDatosTodosLosSemestres = new ArrayList();
             temaDatosProrrogados = new ArrayList();
             temaDatosCorrectora = new ArrayList();
             temaDatosCorrectoraSemViejo = new ArrayList();
@@ -184,6 +185,7 @@ public class VerProfesorMB {
                                 if (semestre.equals(semestreActual)) {
                                     temaDatos.add(temaDTemp);
                                 }
+                                temaDatosTodosLosSemestres.add(temaDTemp);
                                 temas.add(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema());
                             }
                             if (profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getEstadoTema() == 2) {
@@ -252,6 +254,7 @@ public class VerProfesorMB {
 
             temas = new ArrayList();
             temaDatos = new ArrayList();
+            temaDatosTodosLosSemestres = new ArrayList();
             for (int i = 0; i < profesor.getProfePropuestaList().size(); i++) {
                 if (profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora() != null) {
                     if (profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema() != null) {
@@ -288,6 +291,7 @@ public class VerProfesorMB {
                             }
                         }
                         temaDatos.add(temaDTemp);
+                        temaDatosTodosLosSemestres.add(temaDTemp);
                         temas.add(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema());
                     }
                 }
@@ -541,5 +545,13 @@ public List<TemaDatos> getTemaDatosCorrectora() {
 
     public void setSemestreAnterior(String semestreAnterior) {
         this.semestreAnterior = semestreAnterior;
+    }
+
+    public List<TemaDatos> getTemaDatosTodosLosSemestres() {
+        return temaDatosTodosLosSemestres;
+    }
+
+    public void setTemaDatosTodosLosSemestres(List<TemaDatos> temaDatosTodosLosSemestres) {
+        this.temaDatosTodosLosSemestres = temaDatosTodosLosSemestres;
     }
 }

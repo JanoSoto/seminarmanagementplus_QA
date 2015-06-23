@@ -361,13 +361,13 @@ public class ComisionCorrectora2MB {
         }
         
         if ( fechaCorr != null) {
-            if( fechaCorrecta(tema.getFechaTema(),fechaCorr) == false){
+            if( fechaCorrecta(tema.getFechaBorrador(),fechaCorr) == false){
                 return;
             }
         }
         
         if ( fechaCorr2 != null) {
-            if( fechaCorrecta(tema.getFechaTema(),fechaCorr2) == false){
+            if( fechaCorrecta(tema.getFechaBorrador(),fechaCorr2) == false){
                 return;
             }
         }

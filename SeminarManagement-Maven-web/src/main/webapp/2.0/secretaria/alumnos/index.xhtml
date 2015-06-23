@@ -18,9 +18,12 @@
         <h:form>
             <p:layoutUnit position="west" size="180" style="border: none;">
                 <p:panel style="border:none;">
-                    <h:commandLink action="#{alumnoMB.prepareCreate()}" styleClass="btn ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
-                        <span class="ui-button-text ui-c">Agregar Alumno</span>
-                    </h:commandLink>
+                    <h:panelGrid columns="1" cellpadding="4">
+                        <!--<p:button href="/2.0/secretaria/alumnos/agregar.xhtml" value="Agregar Alumno"/>-->
+                        <h:commandLink action="#{alumnoMB.prepareCreate()}" styleClass="btn ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                            <span class="ui-button-text ui-c">Agregar Alumno</span>
+                        </h:commandLink>
+                    </h:panelGrid>
                 </p:panel>
             </p:layoutUnit>
 
@@ -44,7 +47,7 @@
                         </a>
                     </p:column>
                     <p:column headerText="Carrera">
-                        <h:outputText value="#{alum.planActivo.codigo} #{alumnoMB.getAnioPlan(alum.idPlanActivo, alum.versionPlanActivo)}.#{alum.versionPlanActivo} #{alum.planActivo.carreraId.nombre}"/>
+                        <h:outputText value="#{alum.planActivo.codigo} #{alum.planActivo.carreraId.nombre} #{alum.versionPlanActivo}"/>
                     </p:column>
                 </p:dataTable>
 

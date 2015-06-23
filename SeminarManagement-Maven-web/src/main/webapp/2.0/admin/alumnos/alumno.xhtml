@@ -45,7 +45,9 @@
                     <h:outputText value="#{verAlumnoMB.alumno.direccionAlumno}"/>
 
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Plan Activo:"/>
-                    <h:outputText value=" #{verAlumnoMB.alumno.planActivo.codigo} .#{verAlumnoMB.alumno.versionPlanActivo} #{verAlumnoMB.alumno.planActivo.carreraId.nombre}"/>
+                    <c:if test="#{verAlumnoMB.alumno.planActivo != null}">
+                        <h:outputText value=" #{verAlumnoMB.getAnioPlan(verAlumnoMB.alumno.idPlanActivo, verAlumnoMB.alumno.versionPlanActivo)}"/>
+                    </c:if>
                 </h:panelGrid>
             </p:panel>
 
@@ -53,10 +55,10 @@
                 <h1>Acciones</h1>
                 <h:panelGrid columns="1" cellpadding="4">
                     <p:button style="width:140px;" value="Editar Datos" icon="ui-icon-pencil" iconPos="right" href="/2.0/admin/alumnos/editar.xhtml?alum=#{verAlumnoMB.alumno.rutAlumno}"/>
-                        <h:panelGroup id="botonAgregarProp" layout="block" >
-                            <p:button style="width:140px;" disabled="#{empty verAlumnoMB.alumno.idPlanActivo}" href="/2.0/admin/propuestas/agregar.xhtml?alum=#{verAlumnoMB.alumno.rutAlumno}" value="Agregar Propuesta"/>
-                        </h:panelGroup>
-                    
+                    <h:panelGroup id="botonAgregarProp" layout="block" >
+                        <p:button style="width:140px;" disabled="#{empty verAlumnoMB.alumno.idPlanActivo}" href="/2.0/admin/propuestas/agregar.xhtml?alum=#{verAlumnoMB.alumno.rutAlumno}" value="Agregar Propuesta"/>
+                    </h:panelGroup>
+
 
                     <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Volver a Alumnos"/>
                 </h:panelGrid>
@@ -74,7 +76,7 @@
                 <f:facet name="header">
                     Propuestas
                 </f:facet>
-                    <p:column headerText="Título">
+                <p:column headerText="Título">
                     <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/propuestas/propuesta.xhtml?prop=#{prop.idPropuesta}">
                         <h:outputText value="#{prop.nombrePropuesta}"/>
                     </a>
