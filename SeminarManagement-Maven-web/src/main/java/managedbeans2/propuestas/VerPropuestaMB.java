@@ -119,15 +119,16 @@ public class VerPropuestaMB implements Serializable {
                         }
                     }
 
-                    if (propuesta.getIdRevisora().getTipoRevision() == 2) {
-                        //puedeTenerTema = propuesta.getIdRevisora().getFechaPublicacionConsejo() != null 
-                        //        && propuesta.getIdRevisora().getFechaTerminoPublicacionConsejo() != null;
-                        puedeTenerTema = true;
-                    } else {
+                    if (propuesta.getIdRevisora().getTipoRevision() == 2) { // consejo
+                        puedeTenerTema = propuesta.getIdRevisora().getFechaPublicacionConsejo() != null 
+                                && propuesta.getIdRevisora().getFechaTerminoPublicacionConsejo() != null;
+                    } else if (propuesta.getIdRevisora().getTipoRevision() == 0){ // secre
                         puedeTenerTema = propuesta.getIdRevisora().getFechaRevision() != null
                                 && propuesta.getIdRevisora().getFechaRevision2() != null
                                 && propuesta.getIdRevisora().getFechaEntregaRevision() != null
                                 && propuesta.getIdRevisora().getFechaEntregaRevision2() != null;
+                    } else if (propuesta.getIdRevisora().getTipoRevision() == 1 ){ // semi
+                        puedeTenerTema = propuesta.getIdRevisora().getFechaPublicacionConsejo() != null;
                     }
                 }
 
