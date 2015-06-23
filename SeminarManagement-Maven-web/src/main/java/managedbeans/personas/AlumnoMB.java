@@ -1,163 +1,268 @@
-package util;
+package managedbeans.personas;
 
+import entities.Alumno;
 import entities.PlanEstudio;
+import entities.Profesor;
 import entities.Versionplan;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.StringReader;
-import java.text.ParseException;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import sessionbeans.AlumnoFacadeLocal;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
+import javax.faces.application.FacesMessage;
+import javax.inject.Named;
+import javax.faces.bean.ManagedProperty;
+import javax.faces.context.FacesContext;
+import managedbeans.AuthMB;
+import sessionbeans.HistorialFacadeLocal;
 import sessionbeans.PlanestudioFacadeLocal;
-import sessionbeans.VersionplanFacadeLocal;
+import sessionbeans.ProfesorFacadeLocal;
+
 
 /**
  *
- * @author giovanni
+ * @author Eduardo
  */
-public class SMUtil {
-
+@SessionScoped
+@Named("alumnoMB")
+public class AlumnoMB implements Serializable {
     @EJB
-    PlanestudioFacadeLocal planesFacade;
-
+    private HistorialFacadeLocal historialFacade;
     @EJB
-    VersionplanFacadeLocal versionFacade;
+    private ProfesorFacadeLocal profesorFacade;
+    @EJB
+    private AlumnoFacadeLocal alumnoFacade;
+    
+    @EJB
+    private PlanestudioFacadeLocal planesFacade;
 
-    public static String formatearRut(String rut) {
-//        rut = rut.replaceAll("[^0-9]+", " ");
-        int cont = 0;
-        String format;
-        rut = rut.replace(".", "");
-        rut = rut.replace("-", "");
-        format = "-" + rut.substring(rut.length() - 1);
-        for (int i = rut.length() - 2; i >= 0; i--) {
-            format = rut.substring(i, i + 1) + format;
-            cont++;
-            if (cont == 3 && i != 0) {
-                format = "." + format;
-                cont = 0;
-            }
-        }
-        return format;
+    private String nombreAlumno,apellidoAlumno, rutAlumno, mailAlumno, celularAlumno, direccionAlumno;
+    private Integer carreraAlumno, jornadaAlumno;
+    private List <PlanEstudio> planes;
+    private List <Alumno> alumnos;
+    
+    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(AlumnoMB.class);
+    //Declaramos esto para poder acceder al managed bean de autenticación (para almecenar el usuario en el historial)
+    @ManagedProperty(value="#{authMB}")
+    private AuthMB user;
+    private Alumno alumno;
+    
+    public AlumnoMB() {
+    }
+    
+    @PostConstruct
+    public void init(){
+        //Para inicializar el managed property, si no no se puede acceder a esos datos
+    }
+    
+    public String prepareCreate(){
+        alumno = new Alumno();
+        return "agregar";
+    }
+    
+    public AuthMB getUser() {
+        return user;
     }
 
-    public static String reducirNombre(String nombre, String apellido, Integer maxChars) {
-        while (nombre.length() + apellido.length() > maxChars) {
-            String nombres[] = nombre.split(" ");
-            String apellidos[] = apellido.split(" ");
-            if (nombres.length >= apellidos.length && !nombres[0].contentEquals("")) {
-                if (nombres.length > 1) {
-                    nombre = nombre.substring(0, nombre.lastIndexOf(" "));
-                } else {
-                    break;
-                }
-            } else {
-                if (apellidos.length > 1) {
-                    apellido = apellido.substring(0, apellido.lastIndexOf(" "));
-                } else {
-                    break;
-                }
-            }
-        }
-        return nombre + " " + apellido;
+    public void setUser(AuthMB user) {
+        this.user = user;
     }
 
-    public static String jornadaToString(Integer jornada) {
-        return jornada == 0 ? "Diurno" : "Vespertino";
+    public String getDireccionAlumno() {
+        return direccionAlumno;
     }
 
-    public static String semestreAnterior(String semestreActual) {
-        String a = semestreActual.substring(0, 1);
-        String b = semestreActual.substring(2, 6);
-        String aux, aux2, semAnt;
-        Integer cont;
-        if ("2".equals(a)) {
-            aux = "1";
-            aux2 = b;
-            semAnt = aux + "/" + aux2;
-        } else {
-            aux = "2";
-            cont = Integer.parseInt(b);
-            cont--;
-            aux2 = String.valueOf(cont);
-            semAnt = aux + "/" + aux2;
-        }
-        return semAnt;
+    public void setDireccionAlumno(String direccionAlumno) {
+        this.direccionAlumno = direccionAlumno;
+    }
+    
+
+    public Integer getJornadaAlumno() {
+        return jornadaAlumno;
     }
 
+    public void setJornadaAlumno(Integer jornadaAlumno) {
+        this.jornadaAlumno = jornadaAlumno;
+    }
+
+    public String getNombreAlumno() {
+        return nombreAlumno;
+    }
+
+    public void setNombreAlumno(String nombreAlumno) {
+        this.nombreAlumno = nombreAlumno;
+    }
+
+    public String getApellidoAlumno() {
+        return apellidoAlumno;
+    }
+
+    public void setApellidoAlumno(String apellidoAlumno) {
+        this.apellidoAlumno = apellidoAlumno;
+    }
+
+    public String getRutAlumno() {
+        return rutAlumno;
+    }
+
+    public void setRutAlumno(String rutAlumno) {
+        this.rutAlumno = rutAlumno;
+    }
+
+    public String getMailAlumno() {
+        return mailAlumno;
+    }
+
+    public void setMailAlumno(String mailAlumno) {
+        this.mailAlumno = mailAlumno;
+    }
+
+    public String getCelularAlumno() {
+        return celularAlumno;
+    }
+
+    public void setCelularAlumno(String celularAlumno) {
+        this.celularAlumno = celularAlumno;
+    }
+
+    public Integer getCarreraAlumno() {
+        return carreraAlumno;
+    }
+
+    public void setCarreraAlumno(Integer carreraAlumno) {
+        this.carreraAlumno = carreraAlumno;
+    }
+
+    public List<Alumno> getAlumnos() {
+        return alumnos;
+    }
+
+    public void setAlumnos(List<Alumno> alumnos) {
+        this.alumnos = alumnos;
+    }
+    
     //Manejos de fechas
-    public static String dateToString(Date dateChoosen) {
+    public String dateToString(Date dateChoosen) {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         return format.format(dateChoosen);
     }
 
-    public static Date stringToDate(String dateChoosen) {
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+    public void addStudent(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        //Sacamos guión y puntos del rut, además de dejarlo en mayúsculas si tiene -k
+        rutAlumno = rutAlumno.toUpperCase();
+        rutAlumno = rutAlumno.replace(".", "");
+        rutAlumno = rutAlumno.replace("-", "");
+        List<Profesor> profesoresIngresados = profesorFacade.findByRut(rutAlumno);
+        List<Alumno> alumnosIngresados = alumnoFacade.findByRut(rutAlumno);
+        
+        //Validamos que el rut no exista en el sistema
+        if(!profesoresIngresados.isEmpty() || !alumnosIngresados.isEmpty() ){
+            context.addMessage(null, new FacesMessage("ERROR: El Rut ingresado ya existe en el sistema.",""));
+            return;
+        }
+        
+        //Ingresamos el alumno
+        Alumno nuevoAlumno = new Alumno(rutAlumno);
+        nuevoAlumno.setNombreAlumno(nombreAlumno.toUpperCase());
+        nuevoAlumno.setApellidoAlumno(apellidoAlumno.toUpperCase());
+        nuevoAlumno.setMailAlumno(mailAlumno.toUpperCase());
+        nuevoAlumno.setTelefonoAlumno(celularAlumno);
+        nuevoAlumno.setDireccionAlumno(direccionAlumno);
+        
+        //nuevoAlumno.setJornada(jornadaAlumno); deprecado
+        nuevoAlumno.setPlanes(planes); 
+        alumnoFacade.create(nuevoAlumno);
+        
+        /*
+        //Añadimos al historial del alumno cuándo fue agregado
+        Date temp = new Date();
+        String dateHist = dateToString(temp);
+        Historial histAlumAgregado = new Historial();
+        histAlumAgregado.setDescripcion("Se ingresó alumno al sistema. Lo ingresó el usuario "+user.getFullNameUser());
+        histAlumAgregado.setFechaHistorial(dateHist);
+        histAlumAgregado.setTipoHistorial(2);
+        histAlumAgregado.setIdEntidad(rutAlumno);
+        historialFacade.create(histAlumAgregado);
+        
+        
+        //Añadimos al historial del usuario que lo ingresó
+        Historial histAlumAgregadoUser = new Historial();
+        histAlumAgregadoUser.setDescripcion("Ingresó al sistema al alumno "+nombreAlumno.toUpperCase()+" "+apellidoAlumno.toUpperCase());
+        histAlumAgregadoUser.setFechaHistorial(dateHist);
+        histAlumAgregadoUser.setTipoHistorial(3);
+        histAlumAgregadoUser.setIdEntidad(user.getUsername());
+        historialFacade.create(histAlumAgregadoUser);
+        */
+        context.addMessage(null, new FacesMessage("Alumno", nombreAlumno+" "+apellidoAlumno+", ingresado al sistema"));
+        LOGGER.info("Se ha agregado el alumno "+nombreAlumno+" "+apellidoAlumno);
+        //Vaciamos el formulario
+        nombreAlumno = null;
+        apellidoAlumno = null;
+        rutAlumno = null;
+        mailAlumno = null;
+        celularAlumno = null;
+        carreraAlumno = null;
+        jornadaAlumno = null;
+        direccionAlumno = null;
+    }
+    public String create(){
         try {
-            Date date = formatter.parse(dateChoosen);
-            return date;
-        } catch (ParseException e) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            List<Profesor> profesoresIngresados = profesorFacade.findByRut(alumno.getRutAlumno());
+            List<Alumno> alumnosIngresados = alumnoFacade.findByRut(alumno.getRutAlumno());
+
+            //Validamos que el rut no exista en el sistema
+            if(!profesoresIngresados.isEmpty() || !alumnosIngresados.isEmpty() ){
+                context.addMessage(null, new FacesMessage("ERROR: El Rut ingresado ya existe en el sistema.",""));
+                return null;
+            }
+            
+            alumno.setNombreAlumno(alumno.getNombreAlumno().toUpperCase());
+            alumno.setApellidoAlumno(alumno.getApellidoAlumno().toUpperCase());
+            alumno.setMailAlumno(alumno.getMailAlumno().toUpperCase());
+            alumnoFacade.create(alumno);
+            
+            context.addMessage(null, new FacesMessage("Alumno", alumno.getNombreAlumno()+
+                    " "+alumno.getApellidoAlumno()+", ingresado al sistema"));
+            LOGGER.info("Se ha agregado el alumno "+alumno.getNombreAlumno()+" "+alumno.getApellidoAlumno());
+            
+            return prepareCreate();
+        } catch (Exception e){
             return null;
         }
     }
 
-    public static XSSFWorkbook csvTextToExcel(String csvContent) throws IOException {
-        XSSFWorkbook workBook = new XSSFWorkbook();
-        XSSFSheet sheet = workBook.createSheet("Hoja 1");
-        String currentLine;
-        int RowNum = 0;
-
-        BufferedReader br = new BufferedReader(new StringReader(csvContent));
-        while ((currentLine = br.readLine()) != null) {
-            String str[] = currentLine.split("\t");
-            XSSFRow currentRow = sheet.createRow(RowNum);
-            for (int i = 0; i < str.length; i++) {
-                currentRow.createCell(i).setCellValue(str[i]);
-                sheet.autoSizeColumn(i);
-            }
-            RowNum++;
-        }
-        return workBook;
+    public Alumno getAlumno() {
+        return alumno;
     }
 
-    public String getAnioPlan(Integer id_plan, Integer version_plan) {
-        System.out.println("llllllllllllllllllllllllllllllllllll");
-        if (id_plan == null || version_plan == null) {
-            return "malo";
-        }
-
-        PlanEstudio plan = planesFacade.findById(id_plan);
-
-        for (Versionplan version : plan.getVersionplanList()) {
-            System.out.println(version.getVersion() + " == " + Long.parseLong(version_plan + ""));
-            if (version.getVersion() == Long.parseLong(version_plan + "")) {
-                return version.getAnio().toString();
-            }
-        }
-
-        return "";
+    public void setAlumno(Alumno alumno) {
+        this.alumno = alumno;
     }
-
-    public String getAnioPlanFormateado(Integer id_plan, Integer version_plan) {
-        System.out.println("ACAAAAA");
-        if (id_plan == null || version_plan == null) {
-            return null;
-        }
-
-        PlanEstudio plan = planesFacade.findById(id_plan);
-        System.out.println("ACAAAAA");
-        for (Versionplan version : plan.getVersionplanList()) {
-            if (version.getVersion() == Long.parseLong(version_plan + "")) {
-                System.out.println("ACAAAAA");
-                return plan.getCodigo() + " " + version.getAnio().toString() + "." + version_plan + " " + plan.getCarreraId().getNombre();
+    
+    public Integer getAnioPlan(Integer id_plan, Integer version_plan) {
+        List<PlanEstudio> planes = planesFacade.findAll();
+        PlanEstudio plan = null;
+        System.out.println("Id: " + id_plan);
+        System.out.println("VE: " + version_plan);
+        for (int i = 0; i < planes.size(); i++) {
+            if (planes.get(i).getId().equals(Long.parseLong(id_plan + ""))) {
+                List<Versionplan> versiones = planes.get(i).getVersionplanList();
+                for (int j = 0; j < versiones.size(); j++) {
+                    Versionplan versionPlan = versiones.get(j);
+                    System.out.println("Comparando: " + versionPlan.getVersion() + " con " + Long.parseLong(version_plan + ""));
+                    if (versionPlan.getVersion() == Long.parseLong(version_plan + "")) {
+                        System.out.println("existeeeee");
+                        return versionPlan.getAnio();
+                    }
+                }
             }
         }
-
-        return null;
+        return -1;
     }
 }
