@@ -3,6 +3,7 @@ package clases;
 import entities.Alumno;
 import entities.PlanEstudio;
 import entities.Profesor;
+import entities.Tema;
 import java.io.Serializable;
 
 /**
@@ -17,6 +18,7 @@ public class TemaDatos implements Serializable {
     private Alumno alumno;
     PlanEstudio planActivo;
     Integer versionPlan;
+    private Tema tema;
 
     public PlanEstudio getPlanActivo() {
         return planActivo;
@@ -184,5 +186,13 @@ public class TemaDatos implements Serializable {
     
     public Integer getVersionPlanActivo(){
         return this.versionPlan;
+    }
+
+    public void setTema(Tema idTema) {
+        this.tema = idTema;
+    }
+    
+    public Tema getTema(){
+        return tema;
     }
 }

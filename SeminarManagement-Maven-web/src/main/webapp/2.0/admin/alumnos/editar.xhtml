@@ -43,7 +43,7 @@
 
                         <p:outputLabel for="mail" value="E-Mail"/>
                         <p:inputText id="mail" value="#{editarAlumnoMB.alumno.mailAlumno}" style="width: 300px;">
-                            <f:validator validatorId="emailValidator"/>
+                            <f:validator validatorId="emailValidator" for="mail"/>
                         </p:inputText>
                         <p:watermark for="mail" value="Ingresar E-Mail"/>
 
@@ -107,7 +107,8 @@
                         <strong>No existen carreras disponibles para seleccionar</strong>
                     </c:if>
                     <br/>
-                    <p:commandButton id="bt1" value="Guardar" actionListener="#{editarAlumnoMB.editAlumno()}" update="growl @form"/>
+                    <p:commandButton id="bt1" value="Guardar" actionListener="#{editarAlumnoMB.editAlumno()}" update="growl"/>
+                    
                     <p:defaultCommand target="bt1" />
                     <br/>
 

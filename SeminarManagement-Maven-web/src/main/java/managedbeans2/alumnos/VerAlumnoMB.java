@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package managedbeans2.alumnos;
 
 import Util.Util;
@@ -94,6 +89,7 @@ public class VerAlumnoMB {
                 if (alumno.getPropuestaList().get(i).getIdRevisora() != null) {
                     if (alumno.getPropuestaList().get(i).getIdRevisora().getIdTema() != null) {
                         temaDTemp = new TemaDatos();
+                        temaDTemp.setTema(alumno.getPropuestaList().get(i).getIdRevisora().getIdTema());
                         temaDTemp.setIdTema(alumno.getPropuestaList().get(i).getIdRevisora().getIdTema().getIdTema());
                         temaDTemp.setNombreTema(alumno.getPropuestaList().get(i).getIdRevisora().getIdTema().getNombreTema());
                         System.out.println("plan activo:");
