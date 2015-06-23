@@ -59,7 +59,7 @@ public class ComisionRevisora2MB implements Serializable {
     private ComisionRevisoraFacadeLocal comisionRevisoraFacade;
     private Integer idProp, tipoRevision, idPropEdit, contratoGuia, tipoRevision2;
     private String nombrePropuesta, rutAlumno, fechaProp, semestreProp, nombreProp, rutProfeRev1, rutProfeRev2, fechaRev, fechaEntRev, fechaRev2,
-            fechaEntRev2, semestreRev, nombrePropEdit, semestrePropEdit;
+            fechaEntRev2, semestreRev, nombrePropEdit, semestrePropEdit, rutProfeRev1Sem, rutProfeRev2Sem;
     private Propuesta propuesta;
     private List<ComisionRevisora> comision;
     private List<Profesor> profesores;
@@ -362,6 +362,26 @@ public class ComisionRevisora2MB implements Serializable {
                 return;
             }
         }
+        
+        String fechaConsejoPub, fechaConsejoPubTermino;
+        if (publicacionConsejo != null) {
+            fechaConsejoPub = dateToString(publicacionConsejo);
+        } else {
+            fechaConsejoPub = null;
+        }
+
+        if (terminoPublicacionConsejo != null) {
+            fechaConsejoPubTermino = dateToString(terminoPublicacionConsejo);
+        } else {
+            fechaConsejoPubTermino = null;
+        }
+
+        if (date3 != null && date4 != null) {
+
+            if (fechaCorrecta(fechaRev2, fechaEntRev2) == false) {
+                return;
+            }
+        }
 
         //Seteamos la nueva comision y la creamos
         comision.get(0).setIdPropuesta(comision.get(0).getIdPropuesta());
@@ -371,7 +391,8 @@ public class ComisionRevisora2MB implements Serializable {
         comision.get(0).setFechaEntregaRevision2(fechaEntRev2);
         comision.get(0).setIdSemestre(comision.get(0).getIdSemestre());
         comision.get(0).setTipoRevision(comision.get(0).getTipoRevision());
-        comision.get(0).setFechaPublicacionConsejo(dateToString(publicacionConsejo));
+        comision.get(0).setFechaPublicacionConsejo(fechaConsejoPub);
+        comision.get(0).setFechaTerminoPublicacionConsejo(fechaConsejoPubTermino);
         comisionRevisoraFacade.edit(comision.get(0));
 
         //Mensaje de confirmación 
@@ -477,7 +498,7 @@ public class ComisionRevisora2MB implements Serializable {
             //    context.addMessage(null, new FacesMessage("Tipo Revisión", "Una Comisión por Acuerdo de Consejo no tiene profesores, deje estos espacios en blanco o cambie el Tipo de Revisión"));
             //    return;
             //}
-        } else {
+        } else if (tipoRevision == 0) { //secretaría
             //Se valida que se halla seleccionado profesor1
             if (rutProfeRev1.equals("-")) {
                 context.addMessage(null, new FacesMessage("Profesor Revisor 1", "Debe seleccionar Profesor"));
@@ -501,6 +522,33 @@ public class ComisionRevisora2MB implements Serializable {
             }
             //Se valida que se hallan seleccionado profesores revisores distintos entre si
             if (rutProfeRev1.equals(rutProfeRev2)) {
+                context.addMessage(null, new FacesMessage("Profesor Revisor", "Los Profesores revisores deben ser distintos"));
+                return;
+            }
+        } else if ( tipoRevision == 1 ){ // seminario
+        //Se valida que se halla seleccionado profesor1
+            if (rutProfeRev1Sem.equals("-")) {
+                context.addMessage(null, new FacesMessage("Profesor Revisor 1", "Debe seleccionar Profesor"));
+                return;
+            }
+
+            //Se valida que se halla seleccionado Profesor2
+            if (rutProfeRev2Sem.equals("-")) {
+                context.addMessage(null, new FacesMessage("Profesor Revisor 2", "Debe seleccionar Profesor"));
+                return;
+            }
+            //Se valida que se hallan seleccionado profesores revisores distintos al guia
+            for (int i = 0; i < propuesta.getProfePropuestaList().size(); i++) {
+                if (propuesta.getProfePropuestaList().get(i).getRolGuia() == 0) {
+                    profGuia = propuesta.getProfePropuestaList().get(i).getProfesor();
+                }
+            }
+            if (profGuia.getRutProfesor().equals(rutProfeRev1Sem) || profGuia.getRutProfesor().equals(rutProfeRev2Sem)) {
+                context.addMessage(null, new FacesMessage("Profesor Revisor", "El Profesor guía no puede ser seleccionado como Profesor Revisor"));
+                return;
+            }
+            //Se valida que se hallan seleccionado profesores revisores distintos entre si
+            if (rutProfeRev1Sem.equals(rutProfeRev2Sem)) {
                 context.addMessage(null, new FacesMessage("Profesor Revisor", "Los Profesores revisores deben ser distintos"));
                 return;
             }
@@ -604,7 +652,7 @@ public class ComisionRevisora2MB implements Serializable {
         semestreRevision.add(nuevaComision);
         semestreFacade.edit(semestreRevision);
 
-        if (tipoRevision != 2) {
+        if ( tipoRevision == 0 ) {
             //Profes
             Profesor profRev1 = profesorFacade.findByRut(rutProfeRev1).get(0);
             Profesor profRev2 = profesorFacade.findByRut(rutProfeRev2).get(0);
@@ -612,6 +660,37 @@ public class ComisionRevisora2MB implements Serializable {
             //Inicializamos las revisiones de los profesores
             ProfeRevision nuevoProfeRevision1 = new ProfeRevision(nuevaComision.getIdRevisora(), rutProfeRev1);
             ProfeRevision nuevoProfeRevision2 = new ProfeRevision(nuevaComision.getIdRevisora(), rutProfeRev2);
+
+            //Creamos las relaciones entre los profes y la comisión
+            //Profe 1
+            nuevoProfeRevision1.setRolRevision(0);
+            nuevoProfeRevision1.setProfesor(profRev1);
+            nuevoProfeRevision1.setComisionRevisora(nuevaComision);
+            profeRevisionFacade.create(nuevoProfeRevision1);
+            //Profe 2
+            nuevoProfeRevision2.setRolRevision(1);
+            nuevoProfeRevision2.setProfesor(profRev2);
+            nuevoProfeRevision2.setComisionRevisora(nuevaComision);
+            profeRevisionFacade.create(nuevoProfeRevision2);
+
+            //Asignamos revisiones a la comision
+            nuevaComision.add(nuevoProfeRevision1);
+            nuevaComision.add(nuevoProfeRevision2);
+            comisionRevisoraFacade.edit(nuevaComision);
+
+            //Asignamos las revisiones a los profesores
+            profRev1.add(nuevoProfeRevision1);
+            profesorFacade.edit(profRev1);
+            profRev2.add(nuevoProfeRevision2);
+            profesorFacade.edit(profRev2);
+        } else if ( tipoRevision == 1 ){
+            //Profes
+            Profesor profRev1 = profesorFacade.findByRut(rutProfeRev1Sem).get(0);
+            Profesor profRev2 = profesorFacade.findByRut(rutProfeRev2Sem).get(0);
+
+            //Inicializamos las revisiones de los profesores
+            ProfeRevision nuevoProfeRevision1 = new ProfeRevision(nuevaComision.getIdRevisora(), rutProfeRev1Sem);
+            ProfeRevision nuevoProfeRevision2 = new ProfeRevision(nuevaComision.getIdRevisora(), rutProfeRev2Sem);
 
             //Creamos las relaciones entre los profes y la comisión
             //Profe 1
@@ -650,6 +729,7 @@ public class ComisionRevisora2MB implements Serializable {
     @ManagedProperty(value = "#{authMB}")
     private AuthMB user;
 
+    
     public AuthMB getUser() {
         return user;
     }
@@ -938,5 +1018,23 @@ public class ComisionRevisora2MB implements Serializable {
     public void setTipoRevision2(Integer tipoRevision2) {
         this.tipoRevision2 = tipoRevision2;
     }
+
+    public String getRutProfeRev1Sem() {
+        return rutProfeRev1Sem;
+    }
+
+    public void setRutProfeRev1Sem(String rutProfeRev1Sem) {
+        this.rutProfeRev1Sem = rutProfeRev1Sem;
+    }
+
+    public String getRutProfeRev2Sem() {
+        return rutProfeRev2Sem;
+    }
+
+    public void setRutProfeRev2Sem(String rutProfeRev2Sem) {
+        this.rutProfeRev2Sem = rutProfeRev2Sem;
+    }
+    
+    
 
 }

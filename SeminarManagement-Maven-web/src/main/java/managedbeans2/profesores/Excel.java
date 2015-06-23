@@ -51,13 +51,26 @@ public class Excel extends HttpServlet {
             List<TemaDatos> a = profesorMB.getTemaDatos();
             out.println("Nombre\tAlumno\tEstado\tSemestre Inicio");
             for (TemaDatos b : a) {
-                if ("VIGENTE".equals(b.getEstadoTema())) {
-                    String salida = b.getNombreCorto();
-                    salida += "\t" + b.getAlumno().getNombreAlumno() + " " + b.getAlumno().getApellidoAlumno();
-                    salida += "\t" + b.getEstadoTema();
-                    salida += "\t" + b.getSemestreTema();
-                    out.println(salida);
+                String salida = "";
+                if (b.getNombreTema() != null){
+                    salida += b.getNombreTema();
                 }
+                salida += "\t";
+                if ( b.getAlumno() != null)
+                     salida += b.getAlumno().getNombreAlumno() + " " + b.getAlumno().getApellidoAlumno();
+                salida += "\t";
+                /*if ( b.getEstadoTema() != null){
+                    if ( b.getEstadoTema() == ) {
+                    } else if ( b.getEstadoTema() == ) {
+                    } else if ( b.getEstadoTema() == ) {
+                    } else if ( b.getEstadoTema() == ) {
+                    } else if ( b.getEstadoTema() == ) {
+                    }
+                }*/
+                salida += "\t" + b.getAlumno().getNombreAlumno() + " " + b.getAlumno().getApellidoAlumno();
+                salida += "\t" + b.getEstadoTema();
+                salida += "\t" + b.getSemestreTema();
+                out.println(salida);
             }
 
             response.setContentType("application/vnd.ms-excel");

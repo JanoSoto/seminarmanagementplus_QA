@@ -156,7 +156,7 @@ public class AuthMB implements Serializable {
             //md.update(password.getBytes("UTF-8"));
             System.out.println("salida json: " + jsonObject.getString("pass_ok"));
             request.login(username, jsonObject.getString("pass_ok"));
-            if(valido_response == true && usuarioFacade.findByUid(username)!= null && usuarioFacade.findByUid(username).getActivo()!=false){
+            if(valido_response == true && usuarioFacade.findByUid(username)!= null){
                 Usuario usuario = usuarioFacade.findByUid(username);
                 setRoles(usuario.getRoles());
                 //List <Tipousuario> aux = new ArrayList();

@@ -21,6 +21,8 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import sessionbeans.AlumnoFacadeLocal;
+import sessionbeans.PlanestudioFacade;
+import sessionbeans.PlanestudioFacadeLocal;
 
 /**
  *
@@ -37,6 +39,7 @@ public class VerAlumnoMB {
     private Alumno alumno;
     private List<PropuestaDatos> propDatos;
     private List<TemaDatos> temaDatos;
+    private PlanestudioFacadeLocal planFacade;
 
     /**
      * Creates a new instance of VerAlumnoMB
@@ -210,5 +213,26 @@ public class VerAlumnoMB {
             return "";
         }
         return plan.getCodigo() + " " + version_plan + " " + plan.getCarreraId().getNombre();
+    }
+    
+    public Integer getAnioPlan(Integer id_plan, Integer version_plan) {
+        List<PlanEstudio> planes = alumno.getPlanes();
+        PlanEstudio plan = null;
+        System.out.println("Id: " + id_plan);
+        System.out.println("VE: " + version_plan);
+        for (int i = 0; i < planes.size(); i++) {
+            if (planes.get(i).getId().equals(Long.parseLong(id_plan + ""))) {
+                List<Versionplan> versiones = planes.get(i).getVersionplanList();
+                for (int j = 0; j < versiones.size(); j++) {
+                    Versionplan versionPlan = versiones.get(j);
+                    System.out.println("Comparando: " + versionPlan.getVersion() + " con " + Long.parseLong(version_plan + ""));
+                    if (versionPlan.getVersion() == Long.parseLong(version_plan + "")) {
+                        System.out.println("existeeeee");
+                        return versionPlan.getAnio();
+                    }
+                }
+            }
+        }
+        return -1;
     }
 }

@@ -3,6 +3,7 @@ package managedbeans.personas;
 import entities.Alumno;
 import entities.PlanEstudio;
 import entities.Profesor;
+import entities.Versionplan;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,6 +19,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import managedbeans.AuthMB;
 import sessionbeans.HistorialFacadeLocal;
+import sessionbeans.PlanestudioFacadeLocal;
 import sessionbeans.ProfesorFacadeLocal;
 
 
@@ -34,6 +36,9 @@ public class AlumnoMB implements Serializable {
     private ProfesorFacadeLocal profesorFacade;
     @EJB
     private AlumnoFacadeLocal alumnoFacade;
+    
+    @EJB
+    private PlanestudioFacadeLocal planesFacade;
 
     private String nombreAlumno,apellidoAlumno, rutAlumno, mailAlumno, celularAlumno, direccionAlumno;
     private Integer carreraAlumno, jornadaAlumno;
@@ -240,4 +245,24 @@ public class AlumnoMB implements Serializable {
         this.alumno = alumno;
     }
     
+    public Integer getAnioPlan(Integer id_plan, Integer version_plan) {
+        List<PlanEstudio> planes = planesFacade.findAll();
+        PlanEstudio plan = null;
+        System.out.println("Id: " + id_plan);
+        System.out.println("VE: " + version_plan);
+        for (int i = 0; i < planes.size(); i++) {
+            if (planes.get(i).getId().equals(Long.parseLong(id_plan + ""))) {
+                List<Versionplan> versiones = planes.get(i).getVersionplanList();
+                for (int j = 0; j < versiones.size(); j++) {
+                    Versionplan versionPlan = versiones.get(j);
+                    System.out.println("Comparando: " + versionPlan.getVersion() + " con " + Long.parseLong(version_plan + ""));
+                    if (versionPlan.getVersion() == Long.parseLong(version_plan + "")) {
+                        System.out.println("existeeeee");
+                        return versionPlan.getAnio();
+                    }
+                }
+            }
+        }
+        return -1;
+    }
 }

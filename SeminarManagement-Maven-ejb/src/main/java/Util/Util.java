@@ -13,8 +13,6 @@ import sessionbeans.PlanestudioFacadeLocal;
  * @author giovanni
  */
 public class Util {
-    @EJB
-    public static PlanestudioFacadeLocal planFacade;
     public static String formatearRut(String rut) {
 //        rut = rut.replaceAll("[^0-9]+", " ");
         int cont=0;
