@@ -97,12 +97,12 @@ public class VerAlumnoMB {
                         temaDTemp.setIdTema(alumno.getPropuestaList().get(i).getIdRevisora().getIdTema().getIdTema());
                         temaDTemp.setNombreTema(alumno.getPropuestaList().get(i).getIdRevisora().getIdTema().getNombreTema());
                         System.out.println("plan activo:");
-                        System.out.println(alumno.getPropuestaList().get(i).getPlanActivo());
+//                        System.out.println(alumno.getPropuestaList().get(i).getPlanActivo());
                         
                         System.out.println("version plan activo:");
                         System.out.println(alumno.getPropuestaList().get(i).getVersionPlan());
                         
-                        temaDTemp.setPlanActivo(alumno.getPropuestaList().get(i).getPlanActivo());
+//                        temaDTemp.setPlanActivo(alumno.getPropuestaList().get(i).getPlanActivo());
                         temaDTemp.setVersionPlanActivo(alumno.getPropuestaList().get(i).getVersionPlan());
                         if (alumno.getPropuestaList().get(i).getIdRevisora().getIdTema().getNombreTema().length() > 64) {
                             temaDTemp.setNombreCorto(alumno.getPropuestaList().get(i).getIdRevisora().getIdTema().getNombreTema().substring(0, 65) + "...");

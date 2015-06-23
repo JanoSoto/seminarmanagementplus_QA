@@ -292,6 +292,5 @@ public class Tema implements Serializable {
 
     public void setPrecerrado(Boolean precerrado) {
         this.precerrado = precerrado;
-    }
-    
+    }    
 }
