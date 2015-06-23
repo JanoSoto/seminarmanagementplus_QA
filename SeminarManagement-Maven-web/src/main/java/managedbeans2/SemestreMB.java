@@ -298,14 +298,16 @@ public class SemestreMB {
     public void preterminarSemestreActual() {
         FacesContext context = FacesContext.getCurrentInstance();
         //Validamos que haya semestre actual
-        
+        SemestreActual semActual = semestreActualFacade.findAll().get(0);
         List<Tema> temas = temaFacade.findAll();
-        
+        Semestre semestrePretermino = semestreFacade.findById(semActual.getSemestreActual()).get(0);
+        semestrePretermino.setFechaPrecierre(dateToString(fechaprecierre));
         for (int i = 0; i < temas.size(); i++) {
             if (temas.get(i).getEstadoTema() != null) {
                 if (temas.get(i).getEstadoTema() == 6){
                     temas.get(i).setPrecerrado(true);
-                    temas.get(i).setPrecierre(dateToString(fechaprecierre));
+                    
+                    //temas.get(i).setPrecierre(dateToString(fechaprecierre));
                     temaFacade.edit(temas.get(i));
                 }
             }

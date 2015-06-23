@@ -37,6 +37,11 @@ public class Semestre implements Serializable {
     @Size(min = 1, max = 15)
     @Column(name = "id_semestre")
     private String idSemestre;
+    @Column(name = "fecha_precierre")
+    private String fechaPrecierre;
+
+    @Column(name = "fecha_cierre")
+    private String fechaCierre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSemestre")
     private List<ComisionCorrectora> comisionCorrectoraList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSemestre")
@@ -79,6 +84,22 @@ public class Semestre implements Serializable {
 
     public String getIdSemestre() {
         return idSemestre;
+    }
+    
+    public String getFechaPrecierre() {
+        return fechaPrecierre;
+    }
+
+    public void setFechaPrecierre(String fechaPrecierre) {
+        this.fechaPrecierre = fechaPrecierre;
+    }
+
+    public String getFechaCierre() {
+        return fechaCierre;
+    }
+
+    public void setFechaCierre(String fechaCierre) {
+        this.fechaCierre = fechaCierre;
     }
 
     public void setIdSemestre(String idSemestre) {
