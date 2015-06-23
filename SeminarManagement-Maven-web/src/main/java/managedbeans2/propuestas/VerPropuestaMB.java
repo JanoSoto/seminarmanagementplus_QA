@@ -19,6 +19,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import sessionbeans.ComisionRevisoraFacadeLocal;
+import sessionbeans.PlanestudioFacade;
 import sessionbeans.PlanestudioFacadeLocal;
 import sessionbeans.ProfesorFacadeLocal;
 import sessionbeans.PropuestaFacadeLocal;
@@ -343,8 +344,8 @@ public class VerPropuestaMB implements Serializable {
         List<PlanEstudio> planes = planFacade.findAll();
         PlanEstudio plan = null;
         Versionplan version = null;
-        System.out.println("Id: " + id_plan);
-        System.out.println("VE: " + version_plan);
+        //System.out.println("Id: " + id_plan);
+        //System.out.println("VE: " + version_plan);
         if ( id_plan != null ){ 
             for (int i = 0; i < planes.size(); i++) {
                 if (planes.get(i).getId().equals(Long.parseLong(id_plan + ""))) {
@@ -362,11 +363,26 @@ public class VerPropuestaMB implements Serializable {
                 }
             }
         }
-        System.out.println("Plan: " + plan);
+        //System.out.println("Plan: " + plan);
         if (plan == null) {
             return "";
         }
         return plan.getCodigo() + " " + version.getAnio() + "." + version_plan + " " + plan.getCarreraId().getNombre();
+    }
+    
+    public String getAnioPlan(Integer planId, Integer versionPlanId){
+        if ( planId == null || versionPlanId == null)
+            return "";
+        
+        PlanEstudio plan =  planFacade.findById(planId);
+        Versionplan version = null;
+        
+        for (Versionplan versionTemp : plan.getVersionplanList()) {
+            if ( Objects.equals(new Long(versionPlanId), versionTemp.getId()) )
+                return ""+versionTemp.getAnio();
+        }
+        
+        return "";
     }
 
     public Date menorFechaEntregaComisionCorrectora() throws ParseException {

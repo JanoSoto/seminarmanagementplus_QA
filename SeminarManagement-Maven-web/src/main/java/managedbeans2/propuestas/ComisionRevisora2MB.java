@@ -65,7 +65,7 @@ public class ComisionRevisora2MB implements Serializable {
     private List<Profesor> profesores;
     private Alumno alumno;
     private Profesor profGuia, profcoGuia, revisor1, revisor2;
-    private Date date, date2, date3, date4, fechaPropEdit, publicacionConsejo, terminoPublicacionConsejo;
+    private Date date, date2, date3, date4, fechaPropEdit, publicacionConsejo, terminoPublicacionConsejo, fechaSeminario;
     private List<ProfeDatos2> profeDatos;
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ComisionRevisora2MB.class);
     private HashMap<Object, Object> tiposRevision;
@@ -552,6 +552,8 @@ public class ComisionRevisora2MB implements Serializable {
                 context.addMessage(null, new FacesMessage("Profesor Revisor", "Los Profesores revisores deben ser distintos"));
                 return;
             }
+            
+            publicacionConsejo = fechaSeminario;
         }
         //fecha
 
@@ -567,6 +569,7 @@ public class ComisionRevisora2MB implements Serializable {
         }
 
         String fechaPublicacion = null, fechaTerminoPublicacion = null;
+        
         if (publicacionConsejo != null) {
             fechaPublicacion = dateToString(publicacionConsejo);
         }
@@ -1034,7 +1037,13 @@ public class ComisionRevisora2MB implements Serializable {
     public void setRutProfeRev2Sem(String rutProfeRev2Sem) {
         this.rutProfeRev2Sem = rutProfeRev2Sem;
     }
-    
-    
+
+    public Date getFechaSeminario() {
+        return fechaSeminario;
+    }
+
+    public void setFechaSeminario(Date secretaria) {
+        this.fechaSeminario = secretaria;
+    }
 
 }
