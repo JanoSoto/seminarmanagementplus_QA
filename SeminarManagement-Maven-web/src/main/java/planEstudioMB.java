@@ -187,16 +187,16 @@ public class planEstudioMB {
     public Integer getAnioPlan(Integer id_plan, Integer version_plan) {
         List<PlanEstudio> planes = planEstudioFacade.findAll();
         PlanEstudio plan = null;
-        System.out.println("Id: " + id_plan);
-        System.out.println("VE: " + version_plan);
+        //System.out.println("Id: " + id_plan);
+        //System.out.println("VE: " + version_plan);
         for (int i = 0; i < planes.size(); i++) {
             if (planes.get(i).getId().equals(Long.parseLong(id_plan + ""))) {
                 List<Versionplan> versiones = planes.get(i).getVersionplanList();
                 for (int j = 0; j < versiones.size(); j++) {
                     Versionplan versionPlan = versiones.get(j);
-                    System.out.println("Comparando: " + versionPlan.getVersion() + " con " + Long.parseLong(version_plan + ""));
+                    //System.out.println("Comparando: " + versionPlan.getVersion() + " con " + Long.parseLong(version_plan + ""));
                     if (versionPlan.getVersion() == Long.parseLong(version_plan + "")) {
-                        System.out.println("existeeeee");
+                        //System.out.println("existeeeee");
                         return versionPlan.getAnio();
                     }
                 }

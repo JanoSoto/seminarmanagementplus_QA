@@ -9,7 +9,6 @@ import entities.Historial;
 import entities.Profesor;
 import entities.Tema;
 import entities.Propuesta;
-import entities.SemestreActual;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -29,8 +28,6 @@ import sessionbeans.HistorialFacadeLocal;
 import sessionbeans.ProfeCorreccionFacadeLocal;
 import sessionbeans.ProfePropuestaFacadeLocal;
 import sessionbeans.ProfesorFacadeLocal;
-import sessionbeans.SemestreActualFacadeLocal;
-import sessionbeans.SemestreFacadeLocal;
 import sessionbeans.TemaFacadeLocal;
 
 /**
@@ -54,10 +51,6 @@ public class BorradorFinalMB {
     private ProfesorFacadeLocal profesorFacade;
     @EJB
     private TemaFacadeLocal temaFacade;
-    @EJB
-    private SemestreFacadeLocal semestreFacade;
-    @EJB
-    private SemestreActualFacadeLocal semestreActualFacade;
     
     private Integer idTema;
     private String rutAlumno,nombreTema,fechaTema,semestreTema;
@@ -91,14 +84,13 @@ public class BorradorFinalMB {
         if( fechaCorrecta(tema.getFechaTema(),dateToString(date)) == false){
             return;
         }
-        
-        SemestreActual semActual = semestreActualFacade.findAll().get(0);
-        
         tema.setPrecerrado(false);
         tema.setEstadoTema(6);
-        tema.setFechaBorrador(dateToString(date));
- 	
+<<<<<<< HEAD
         //tema.setSemestreTermino(semestre);
+=======
+        tema.setFechaBorrador(dateToString(date));
+>>>>>>> 6d301c998f5957712e6a24ed5b6660b6a6eef0d4
         temaFacade.edit(tema);
         
         /*

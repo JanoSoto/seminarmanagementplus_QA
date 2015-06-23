@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package managedbeans2.alumnos;
 
 import Util.Util;
@@ -23,6 +18,7 @@ import javax.faces.context.FacesContext;
 import sessionbeans.AlumnoFacadeLocal;
 import sessionbeans.PlanestudioFacade;
 import sessionbeans.PlanestudioFacadeLocal;
+import util.SMUtil;
 
 /**
  *
@@ -39,6 +35,8 @@ public class VerAlumnoMB {
     private Alumno alumno;
     private List<PropuestaDatos> propDatos;
     private List<TemaDatos> temaDatos;
+
+    @EJB
     private PlanestudioFacadeLocal planFacade;
 
     /**
@@ -91,9 +89,16 @@ public class VerAlumnoMB {
                 if (alumno.getPropuestaList().get(i).getIdRevisora() != null) {
                     if (alumno.getPropuestaList().get(i).getIdRevisora().getIdTema() != null) {
                         temaDTemp = new TemaDatos();
+                        temaDTemp.setTema(alumno.getPropuestaList().get(i).getIdRevisora().getIdTema());
                         temaDTemp.setIdTema(alumno.getPropuestaList().get(i).getIdRevisora().getIdTema().getIdTema());
                         temaDTemp.setNombreTema(alumno.getPropuestaList().get(i).getIdRevisora().getIdTema().getNombreTema());
-                        temaDTemp.setPlanActivo(alumno.getPropuestaList().get(i).getPlanActivo());
+                        System.out.println("plan activo:");
+//                        System.out.println(alumno.getPropuestaList().get(i).getPlanActivo());
+
+                        System.out.println("version plan activo:");
+                        System.out.println(alumno.getPropuestaList().get(i).getVersionPlan());
+
+//                        temaDTemp.setPlanActivo(alumno.getPropuestaList().get(i).getPlanActivo());
                         temaDTemp.setVersionPlanActivo(alumno.getPropuestaList().get(i).getVersionPlan());
                         if (alumno.getPropuestaList().get(i).getIdRevisora().getIdTema().getNombreTema().length() > 64) {
                             temaDTemp.setNombreCorto(alumno.getPropuestaList().get(i).getIdRevisora().getIdTema().getNombreTema().substring(0, 65) + "...");
@@ -176,8 +181,8 @@ public class VerAlumnoMB {
         System.out.println("Planeeeees");
         List<PlanEstudio> planesasd = alumno.getPlanes();
 //        List<PlanEstudio> planesasd = Util.planFacade.findAll();
-        if (id_plan != null){
-        System.out.println("Planeeeees");
+        if (id_plan != null) {
+            System.out.println("Planeeeees");
             for (int i = 0; i < planesasd.size(); i++) {
                 System.out.println(planesasd.get(i).getId() + " == " + Long.parseLong(id_plan + ""));
                 System.out.println(planesasd.get(i).getId() + " == " + Long.parseLong(id_plan + ""));
@@ -191,9 +196,10 @@ public class VerAlumnoMB {
     }
 
     public String getNombrePlan(Integer id_plan, Integer version_plan) {
-        List<PlanEstudio> planes = alumno.getPlanes();
+        List<PlanEstudio> planes = planFacade.findAll();
         PlanEstudio plan = null;
-        System.out.println("Id: " + id_plan);
+        Versionplan version = null;
+        System.out.println("_Id: " + id_plan);
         System.out.println("VE: " + version_plan);
         for (int i = 0; i < planes.size(); i++) {
             if (planes.get(i).getId().equals(Long.parseLong(id_plan + ""))) {
@@ -204,6 +210,7 @@ public class VerAlumnoMB {
                     if (versionPlan.getVersion() == Long.parseLong(version_plan + "")) {
                         System.out.println("existeeeee");
                         plan = planes.get(i);
+                        version = versionPlan;
                     }
                 }
             }
@@ -212,27 +219,50 @@ public class VerAlumnoMB {
         if (plan == null) {
             return "";
         }
-        return plan.getCodigo() + " " + version_plan + " " + plan.getCarreraId().getNombre();
+        return plan.getCodigo() + version.getAnio() + " " + version_plan + " " + plan.getCarreraId().getNombre();
     }
-    
-    public Integer getAnioPlan(Integer id_plan, Integer version_plan) {
-        List<PlanEstudio> planes = alumno.getPlanes();
-        PlanEstudio plan = null;
-        System.out.println("Id: " + id_plan);
-        System.out.println("VE: " + version_plan);
-        for (int i = 0; i < planes.size(); i++) {
-            if (planes.get(i).getId().equals(Long.parseLong(id_plan + ""))) {
-                List<Versionplan> versiones = planes.get(i).getVersionplanList();
-                for (int j = 0; j < versiones.size(); j++) {
-                    Versionplan versionPlan = versiones.get(j);
-                    System.out.println("Comparando: " + versionPlan.getVersion() + " con " + Long.parseLong(version_plan + ""));
-                    if (versionPlan.getVersion() == Long.parseLong(version_plan + "")) {
-                        System.out.println("existeeeee");
-                        return versionPlan.getAnio();
-                    }
+
+    public String getAnioPlan(Integer id_plan, Integer version_plan){
+        try {
+            SMUtil util = new SMUtil();
+            System.out.println("ID: ASDASDASDPAS");
+            System.out.println("ID: " + id_plan);
+            System.out.println("VERSION: " + version_plan);
+            PlanEstudio plan = planFacade.findById(id_plan);
+
+            for (Versionplan version : plan.getVersionplanList()) {
+                System.out.println(version.getVersion() + " == " + Long.parseLong(version_plan + ""));
+                if (version.getVersion() == Long.parseLong(version_plan + "")) {
+                    return plan.getCodigo() + " " + version.getAnio().toString() + "." + version.getVersion() + " " + plan.getCarreraId().getNombre();
                 }
             }
+        }catch(Exception e){
+            
         }
-        return -1;
+
+        return "Ninguno";
+//        List<PlanEstudio> planes = planFacade.findAll();
+//        PlanEstudio plan = null;
+//        System.out.println("Id: " + id_plan);   
+//        System.out.println("VE: " + version_plan);
+//        for (int i = 0; i < planes.size(); i++) {
+//            System.out.println("=======");
+//
+//            System.out.println(planes.get(i).getId());
+//            System.out.println(id_plan);
+//            System.out.println("=======");
+//            if (planes.get(i).getId().equals(Long.parseLong(id_plan + ""))) {
+//                List<Versionplan> versiones = planes.get(i).getVersionplanList();
+//                for (int j = 0; j < versiones.size(); j++) {
+//                    Versionplan versionPlan = versiones.get(j);
+//                    System.out.println("Comparando: " + versionPlan.getVersion() + " con " + Long.parseLong(version_plan + ""));
+//                    if (versionPlan.getVersion() == Long.parseLong(version_plan + "")) {
+//                        System.out.println("existeeeee");
+//                        return versionPlan.getAnio();
+//                    }
+//                }
+//            }
+//        }
+//        return -1;
     }
 }

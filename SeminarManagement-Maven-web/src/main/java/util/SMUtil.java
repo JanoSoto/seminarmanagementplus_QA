@@ -21,10 +21,10 @@ import sessionbeans.VersionplanFacadeLocal;
  * @author giovanni
  */
 public class SMUtil {
-    
+
     @EJB
     PlanestudioFacadeLocal planesFacade;
-    
+
     @EJB
     VersionplanFacadeLocal versionFacade;
 
@@ -126,15 +126,36 @@ public class SMUtil {
     }
 
     public String getAnioPlan(Integer id_plan, Integer version_plan) {
-        
-        if ( id_plan == null || version_plan == null) return null;
-        
+        System.out.println("llllllllllllllllllllllllllllllllllll");
+        if (id_plan == null || version_plan == null) {
+            return "malo";
+        }
+
         PlanEstudio plan = planesFacade.findById(id_plan);
-        List<Versionplan> versiones = versionFacade.findByVersion(version_plan);
-        
+
         for (Versionplan version : plan.getVersionplanList()) {
-            if (version.getVersion() == Long.parseLong(version_plan + ""))
+            System.out.println(version.getVersion() + " == " + Long.parseLong(version_plan + ""));
+            if (version.getVersion() == Long.parseLong(version_plan + "")) {
                 return version.getAnio().toString();
+            }
+        }
+
+        return "";
+    }
+
+    public String getAnioPlanFormateado(Integer id_plan, Integer version_plan) {
+        System.out.println("ACAAAAA");
+        if (id_plan == null || version_plan == null) {
+            return null;
+        }
+
+        PlanEstudio plan = planesFacade.findById(id_plan);
+        System.out.println("ACAAAAA");
+        for (Versionplan version : plan.getVersionplanList()) {
+            if (version.getVersion() == Long.parseLong(version_plan + "")) {
+                System.out.println("ACAAAAA");
+                return plan.getCodigo() + " " + version.getAnio().toString() + "." + version_plan + " " + plan.getCarreraId().getNombre();
+            }
         }
 
         return null;

@@ -661,7 +661,9 @@ ALTER TABLE public.seccion OWNER TO postgres;
 --
 
 CREATE TABLE semestre (
-    id_semestre character varying(15) NOT NULL
+    id_semestre character varying(15) NOT NULL,
+    fecha_precierre character varying(20),
+    fecha_cierre character varying(20)
 );
 
 
@@ -718,7 +720,6 @@ CREATE TABLE tema (
     fecha_siac character varying(15),
     fecha_real character varying(15),
     semestre_termino character varying(15),
-    precierre character varying(15),
     precerrado boolean,
     fecha_borrador character varying(20),
     fecha_renuncia character varying(20),
@@ -1321,19 +1322,19 @@ COPY seccion (id, codigo, coordinacion_id) FROM stdin;
 -- Data for Name: semestre; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY semestre (id_semestre) FROM stdin;
-default
-1/2015
-1/1990
-2/2015
-2/2014
-1/2011
-2/2012
-2/2013
-1/2012
-1/2010
-1/2016
-2/2011
+COPY semestre (id_semestre, fecha_precierre, fecha_cierre) FROM stdin;
+default	\N	\N
+1/2015	\N	\N
+1/1990	\N	\N
+2/2015	\N	\N
+2/2014	\N	\N
+1/2011	\N	\N
+2/2012	\N	\N
+2/2013	\N	\N
+1/2012	\N	\N
+1/2010	\N	\N
+1/2016	\N	\N
+2/2011	\N	\N
 \.
 
 
@@ -1387,8 +1388,8 @@ COPY subtipo (idsubtipo, nombresubtipo, idtipoevento_idtipoevento) FROM stdin;
 -- Data for Name: tema; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY tema (nombre_tema, fecha_tema, estado_tema, id_tema, id_correctora, id_semestre, id_revisora, fecha_siac, fecha_real, semestre_termino, precierre, precerrado) FROM stdin;
-TEMA VELASTIN	25/06/2015	4	1	1	1/2016	1	\N	\N	\N	\N	f
+COPY tema (nombre_tema, fecha_tema, estado_tema, id_tema, id_correctora, id_semestre, id_revisora, fecha_siac, fecha_real, semestre_termino, precerrado, fecha_borrador, fecha_renuncia, fecha_caducado, fecha_informe_avance) FROM stdin;
+TEMA VELASTIN	25/06/2015	4	1	1	1/2016	1	\N	\N	\N	f	\N	\N	\N	\N
 \.
 
 

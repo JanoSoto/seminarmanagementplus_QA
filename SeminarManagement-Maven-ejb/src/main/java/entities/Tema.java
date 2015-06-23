@@ -41,8 +41,6 @@ public class Tema implements Serializable {
     @Column(name = "precerrado")
     private Boolean precerrado;
     @Size(max = 15)
-    @Column(name = "precierre")
-    private String precierre;
     private static final long serialVersionUID = 1L;
     @Size(max = 400)
     @Column(name = "nombre_tema")
@@ -278,13 +276,6 @@ public class Tema implements Serializable {
         return "entities.Tema[ idTema=" + idTema + " ]";
     }
 
-    public String getPrecierre() {
-        return precierre;
-    }
-
-    public void setPrecierre(String precierre) {
-        this.precierre = precierre;
-    }
 
     public Boolean getPrecerrado() {
         return precerrado;
@@ -292,6 +283,5 @@ public class Tema implements Serializable {
 
     public void setPrecerrado(Boolean precerrado) {
         this.precerrado = precerrado;
-    }
-    
+    }    
 }

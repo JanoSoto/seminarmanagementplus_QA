@@ -3,6 +3,7 @@ package clases;
 import entities.Alumno;
 import entities.PlanEstudio;
 import entities.Profesor;
+import entities.Tema;
 import java.io.Serializable;
 
 /**
@@ -17,6 +18,24 @@ public class TemaDatos implements Serializable {
     private Alumno alumno;
     PlanEstudio planActivo;
     Integer versionPlan;
+    Long idPlan;
+
+    public Integer getVersionPlan() {
+        return versionPlan;
+    }
+
+    public void setVersionPlan(Integer versionPlan) {
+        this.versionPlan = versionPlan;
+    }
+
+    public Long getIdPlan() {
+        return idPlan;
+    }
+
+    public void setIdPlan(Long idPlan) {
+        this.idPlan = idPlan;
+    }
+    private Tema tema;
 
     public PlanEstudio getPlanActivo() {
         return planActivo;
@@ -24,6 +43,7 @@ public class TemaDatos implements Serializable {
 
     public void setPlanActivo(PlanEstudio planActivo) {
         this.planActivo = planActivo;
+        this.idPlan = planActivo.getId();
     }
     
     //motivo caducado es 1 por informe de avance o 2 por borrador final
@@ -184,5 +204,13 @@ public class TemaDatos implements Serializable {
     
     public Integer getVersionPlanActivo(){
         return this.versionPlan;
+    }
+
+    public void setTema(Tema idTema) {
+        this.tema = idTema;
+    }
+    
+    public Tema getTema(){
+        return tema;
     }
 }

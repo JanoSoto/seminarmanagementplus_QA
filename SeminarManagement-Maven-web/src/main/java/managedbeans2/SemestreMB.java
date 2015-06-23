@@ -23,6 +23,7 @@ import javax.enterprise.context.Dependent;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import static managedbeans2.propuestas.ComisionRevisora2MB.fechaCorrecta;
 import sessionbeans.HistorialFacadeLocal;
 import sessionbeans.PropuestaFacadeLocal;
 import sessionbeans.SemestreActualFacadeLocal;
@@ -52,9 +53,26 @@ public class SemestreMB {
     private Date date;
     private Date fechaprecierre;
 
+    public String getFechaprecierreString() {
+        if(semestreFacade.findById(this.semestre).isEmpty()){
+            return "";
+        }
+        return semestreFacade.findById(this.semestre).get(0).getFechaPrecierre();
+//        return semestreFacade.findAll().get(0).getFechaPrecierre();
+    }
+
     
     private Integer temasVSemActual = 0, temasCSemActual = 0, propSemActual = 0;
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(SemestreMB.class);
+    List<Semestre> semestresConPrecierre;
+
+    public List<Semestre> getSemestresConPrecierre() {
+        return semestresConPrecierre;
+    }
+
+    public void setSemestresConPrecierre(List<Semestre> semestresConPrecierreYCierre) {
+        this.semestresConPrecierre = semestresConPrecierreYCierre;
+    }
 
     /**
      * Creates a new instance of semestreMB
@@ -64,6 +82,14 @@ public class SemestreMB {
 
     @PostConstruct
     public void init() {
+        List<Semestre> semestresTodos = semestreFacade.findAll();
+        this.semestresConPrecierre = new ArrayList<>();
+        for (int i = 0; i < semestresTodos.size(); i++) {
+            if(semestresTodos.get(i).getFechaPrecierre() != null){
+                this.semestresConPrecierre.add(semestresTodos.get(i));
+            }
+        }
+        
         //Seteamos el semestre a semestre actual
         if (semestreActualFacade.findAll().isEmpty()) {
             semestre = "";
@@ -231,6 +257,14 @@ public class SemestreMB {
 
         //Eliminamos el semestre viejo
         SemestreActual semViejo = semestreActualFacade.findAll().get(0);
+        Semestre cerrado = semestreFacade.findById(semViejo.getSemestreActual()).get(0);
+        if (cerrado.getFechaPrecierre()!= null){
+            if( fechaCorrecta(cerrado.getFechaPrecierre(),dateToString(date)) == false){
+                return;
+            }
+        }
+        cerrado.setFechaCierre(dateToString(date));
+        semestreFacade.edit(cerrado);
 
         semestreActualFacade.remove(semViejo);
 
@@ -298,14 +332,18 @@ public class SemestreMB {
     public void preterminarSemestreActual() {
         FacesContext context = FacesContext.getCurrentInstance();
         //Validamos que haya semestre actual
-        
+        SemestreActual semActual = semestreActualFacade.findAll().get(0);
         List<Tema> temas = temaFacade.findAll();
-        
+        Semestre semestrePretermino = semestreFacade.findById(semActual.getSemestreActual()).get(0);
+        //semestrePretermino.setIdSemestre(semActual.getSemestreActual());
+        semestrePretermino.setFechaPrecierre(dateToString(fechaprecierre));
+        semestreFacade.edit(semestrePretermino);
         for (int i = 0; i < temas.size(); i++) {
             if (temas.get(i).getEstadoTema() != null) {
                 if (temas.get(i).getEstadoTema() == 6){
                     temas.get(i).setPrecerrado(true);
-                    temas.get(i).setPrecierre(dateToString(fechaprecierre));
+                    
+                    //temas.get(i).setPrecierre(dateToString(fechaprecierre));
                     temaFacade.edit(temas.get(i));
                 }
             }
@@ -327,6 +365,13 @@ public class SemestreMB {
         } else {
             return "2/" + b;
         }
+    }
+    
+    public Boolean hizoPrecierre() {
+        if(semestreFacade.findById(this.semestre).isEmpty()){
+            return false;
+        }
+        return semestreFacade.findById(this.semestre).get(0).getFechaPrecierre() != null;
     }
 
 }

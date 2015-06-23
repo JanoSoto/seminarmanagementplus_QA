@@ -152,18 +152,31 @@ public class VerTemaMB {
             }
             
         }
-        System.out.println(temaTemp.getIdRevisora().getIdPropuesta().getFechaPropuesta());
-        System.out.println(dateToString(fechaEdit));
+
         if( fechaCorrecta(temaTemp.getIdRevisora().getIdPropuesta().getFechaPropuesta(),dateToString(fechaEdit)) == false){
             return;
         }
         
-        if( fechaCorrecta(temaTemp.getIdRevisora().getFechaEntregaRevision(),dateToString(fechaEdit)) == false){
-            return;
+        if (temaTemp.getIdRevisora().getTipoRevision() == 0){
+            if( fechaCorrecta(temaTemp.getIdRevisora().getFechaEntregaRevision(),dateToString(fechaEdit)) == false){
+                return;
+            }
+
+            if( fechaCorrecta(temaTemp.getIdRevisora().getFechaEntregaRevision2(),dateToString(fechaEdit)) == false){
+                return;
+            }
         }
         
-        if( fechaCorrecta(temaTemp.getIdRevisora().getFechaEntregaRevision2(),dateToString(fechaEdit)) == false){
-            return;
+        if (temaTemp.getIdRevisora().getTipoRevision() == 1){
+            if ( fechaCorrecta(temaTemp.getIdRevisora().getFechaPublicacionConsejo(), dateToString(fechaEdit)) == false){
+                return;
+            }
+        }
+        
+        if (temaTemp.getIdRevisora().getTipoRevision() == 2){
+            if ( fechaCorrecta(temaTemp.getIdRevisora().getFechaTerminoPublicacionConsejo(), dateToString(fechaEdit)) == false){
+                return;
+            }
         }
         
         //Validamos que no haya otro tema con el mismo nombre
