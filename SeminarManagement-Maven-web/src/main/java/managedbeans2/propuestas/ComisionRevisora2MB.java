@@ -375,6 +375,19 @@ public class ComisionRevisora2MB implements Serializable {
         } else {
             fechaConsejoPubTermino = null;
         }
+        
+        if (terminoPublicacionConsejo != null){
+            if(!fechaCorrecta(propuesta.getFechaPropuesta(), fechaConsejoPubTermino) ){
+            return;
+            }
+        }
+        
+         if (publicacionConsejo != null){
+            if(!fechaCorrecta(propuesta.getFechaPropuesta(), fechaConsejoPub) ){
+            return;
+            }
+        }
+         
 
         if (date3 != null && date4 != null) {
 
@@ -432,6 +445,18 @@ public class ComisionRevisora2MB implements Serializable {
                 return;
             }
         }
+        if (fechaTerminoPublicacion != null){
+            if(!fechaCorrecta(propuesta.getFechaPropuesta(), fechaTerminoPublicacion) ){
+            return;
+            }
+        }
+        
+         if (fechaPublicacion != null){
+            if(!fechaCorrecta(propuesta.getFechaPropuesta(), fechaPublicacion) ){
+            return;
+            }
+        }
+         
 
         //Seteamos la nueva comision y la creamos
         com.setIdPropuesta(com.getIdPropuesta());
@@ -576,10 +601,30 @@ public class ComisionRevisora2MB implements Serializable {
         if (terminoPublicacionConsejo != null) {
             fechaTerminoPublicacion = dateToString(terminoPublicacionConsejo);
         }
+        System.out.println(propuesta.getFechaPropuesta());
+        System.out.println(fechaPublicacion);
         if ((fechaPublicacion != null) && (fechaTerminoPublicacion != null)
                 && !fechaCorrecta(fechaPublicacion, fechaTerminoPublicacion)) {
             return;
         }
+        
+        if (fechaTerminoPublicacion != null){
+            if(!fechaCorrecta(propuesta.getFechaPropuesta(), fechaTerminoPublicacion) ){
+            return;
+            }
+        }
+        
+         if (fechaPublicacion != null){
+            if(!fechaCorrecta(propuesta.getFechaPropuesta(), fechaPublicacion) ){
+            return;
+            }
+        }
+         
+            
+  
+        
+        
+        
 
         ComisionRevisora nuevaComision = new ComisionRevisora();
 
@@ -955,16 +1000,16 @@ public class ComisionRevisora2MB implements Serializable {
         f = Integer.parseInt(fechas2[0]);
 
         if (a > b) {
-            context.addMessage(null, new FacesMessage("Año de la fecha", "La fecha debe ser mayor a " + fecha));
+            context.addMessage(null, new FacesMessage("Año de la fecha", "La fecha debe ser mayor o igual a " + fecha));
             return false;
 
         } else {
             if (c > d) {
-                context.addMessage(null, new FacesMessage("Mes de la fecha", "La fecha debe ser mayor a " + fecha));
+                context.addMessage(null, new FacesMessage("Mes de la fecha", "La fecha debe ser mayor o igual a " + fecha));
                 return false;
             } else {
                 if (e > f && c >= d) {
-                    context.addMessage(null, new FacesMessage("Dia de la fecha", "La fecha debe ser mayor a " + fecha));
+                    context.addMessage(null, new FacesMessage("Dia de la fecha", "La fecha debe ser mayor o igual a " + fecha));
                     return false;
                 }
             }
