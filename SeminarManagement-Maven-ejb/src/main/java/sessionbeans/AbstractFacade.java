@@ -38,8 +38,8 @@ public abstract class AbstractFacade<T> {
             } 
         }else{ 
             getEntityManager().persist(entity); //Sólo este código va originalmente, el resto es para poner los problemas al ingresar algo a la DB
-            getEntityManager().flush();
-            getEntityManager().refresh(entity);
+            //getEntityManager().flush();
+            //getEntityManager().refresh(entity);
         } 
     }
 

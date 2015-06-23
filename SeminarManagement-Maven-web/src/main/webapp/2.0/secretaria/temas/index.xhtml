@@ -22,6 +22,9 @@
                                  rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
                                  {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,30,40,50"
                                  emptyMessage="No se encontraron Temas">
+                    <f:facet name="header">  
+                        Listado de temas de Trabajo de Titulación
+                    </f:facet>
                     <p:column headerText="Título Tema" filterBy="#{tema.nombreCorto}" filterMatchMode="contains" sortBy="#{tema.nombreCorto}">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/temas/tema.xhtml?tema=#{tema.idTema}">
                             <h:outputText value="#{tema.nombreCorto}" />

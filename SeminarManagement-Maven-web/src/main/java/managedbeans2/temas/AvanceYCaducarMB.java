@@ -94,6 +94,7 @@ public class AvanceYCaducarMB {
         
         //Seteamos estado "Prolongado"
         tema.setEstadoTema(2);
+        tema.setFechaInformeAvance(dateToString(date));
         temaFacade.edit(tema);
         
         
@@ -134,6 +135,7 @@ public class AvanceYCaducarMB {
             return;
         }
         tema.setEstadoTema(3);
+        tema.setFechaCaducado(dateToString(date));
         temaFacade.edit(tema);
         
         /*
@@ -191,6 +193,7 @@ public class AvanceYCaducarMB {
             return;
         }
         tema.setEstadoTema(8);
+        tema.setFechaRenuncia(dateToString(date));
         temaFacade.edit(tema);
         
         /*  

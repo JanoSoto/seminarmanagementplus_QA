@@ -1,14 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sessionbeans;
 
 import entities.Versionplan;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -26,6 +23,13 @@ public class VersionplanFacade extends AbstractFacade<Versionplan> implements Ve
 
     public VersionplanFacade() {
         super(Versionplan.class);
+    }
+
+    @Override
+    public List<Versionplan> findByVersion(Integer version) {
+        Query q = em.createNamedQuery("Versionplan.findByVersion")
+                .setParameter("version", version);
+        return q.getResultList();
     }
     
 }

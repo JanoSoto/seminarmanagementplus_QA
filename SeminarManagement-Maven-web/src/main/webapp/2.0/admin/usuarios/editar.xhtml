@@ -64,7 +64,8 @@
                     </h:panelGrid>
                     <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Atrás"/>
 
-                    <p:commandButton id="bt1" value="Ingresar" actionListener="#{usuarioMB.agregarNuevoUsuario()}" update="growl"/>
+                    <p:commandButton id="bt1_eliminar" value="Eliminar" actionListener="#{usuarioMB.eliminarUsuario}" update="growl"/>
+                    <p:commandButton id="bt1" value="Guardar" actionListener="#{usuarioMB.guardarUsuario()}" update="growl"/>
 
                     <p:defaultCommand target="bt1" />
                 </p:panel>
