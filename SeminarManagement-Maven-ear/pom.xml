@@ -14,18 +14,12 @@
 
   <name>SeminarManagement-Maven-ear</name>
 
-  <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-      <netbeans.hint.deploy.server>gfv3ee6</netbeans.hint.deploy.server>
-  </properties>
-
   <build>
     <plugins>
         <plugin>
 			<groupId>org.codehaus.cargo</groupId>
 			<artifactId>cargo-maven2-plugin</artifactId>
 			<version>1.4.10</version>
-
 			<configuration>
 				<container>
 					<containerId>glassfish4x</containerId>
