@@ -72,19 +72,13 @@ public class PlantillaTema extends HttpServlet {
             stamper.setFormFlattening(true);
             
             StringBuilder str = new StringBuilder();
+            String carrera = tema.getComisionRevisoraList().get(0).getIdPropuesta().getPlanActivo().getCarreraId().getNombre();
             str.append("INFORME DE REVISION DE MEMORIA PARA OPTAR AL TITULO  DE INGENIERO ");
-//            if (alumno.getCarreraAlumno() != null){
-//                if (alumno.getCarreraAlumno() == 0){
-//                    str.append("CIVIL EN INFORMATICA - ");
-//                } else if (alumno.getCarreraAlumno() == 1) {
-//                    str.append("DE EJECUCION EN COMPUTACION E INFORMATICA - ");
-//                } else {
-//                    str.append("                                                               - ");
-//                }
-//            } else {
-//                str.append("                                                                 - ");
-//            }
-
+            if (carrera.compareToIgnoreCase("CIVIL") == 0) {
+                str.append("CIVIL EN INFORMÁTICA");
+            } else if (carrera.compareToIgnoreCase("EJECUCIÓN") == 0){
+                str.append("DE EJECUCIÓN EN COMPUT. E INFORMÁTICA");
+            }
             if (semestreMB.getSemestre() != null){
                 str.append(semestreMB.getSemestre().replace("/", "° "));
             } else {
