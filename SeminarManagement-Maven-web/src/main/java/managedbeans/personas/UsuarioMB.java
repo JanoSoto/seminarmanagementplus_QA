@@ -184,7 +184,7 @@ public class UsuarioMB {
     public void guardarUsuario() throws NoSuchAlgorithmException, UnsupportedEncodingException, IOException {
         FacesContext context = FacesContext.getCurrentInstance();
         this.estaEditando = true;
-
+        System.out.println("entro");
         if (this.uid == null || "".equals(this.uid)) {
             context.addMessage(null, new FacesMessage("ERROR: Ingrese UID porfavor.", ""));
             return;

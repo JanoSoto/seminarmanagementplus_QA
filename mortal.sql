@@ -149,6 +149,7 @@ CREATE TABLE checklisteventos (
     idchecklist bigint NOT NULL,
     adm_expositor boolean,
     agenda_institucional boolean,
+    avisar_cancelacion boolean,
     confimacion_inscritos boolean,
     cupos boolean,
     diinf_medios boolean,
@@ -1040,7 +1041,7 @@ COPY checklist (id, aceptado, encuesta_id, asignatura_id) FROM stdin;
 -- Data for Name: checklisteventos; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY checklisteventos (idchecklist, adm_expositor, agenda_institucional, confimacion_inscritos, cupos, diinf_medios, evento_facebook, evento_twitter, facebook, linkedin, lugar, noticia_web_diinf, publicar_calendario, publicar_web, publico_objetivo, publico_usach, radio_usach, redes_usach, twitter, url_corta) FROM stdin;
+COPY checklisteventos (idchecklist, adm_expositor, agenda_institucional, avisar_cancelacion, confimacion_inscritos, cupos, diinf_medios, evento_facebook, evento_twitter, facebook, linkedin, lugar, noticia_web_diinf, publicar_calendario, publicar_web, publico_objetivo, publico_usach, radio_usach, redes_usach, twitter, url_corta) FROM stdin;
 \.
 
 

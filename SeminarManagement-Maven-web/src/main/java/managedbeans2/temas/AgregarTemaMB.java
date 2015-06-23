@@ -131,15 +131,28 @@ public class AgregarTemaMB{
             return;
         }
         
-        if( fechaCorrecta(comRev.getFechaEntregaRevision(),dateToString(date)) == false){
-            return;
+        if( comRev.getTipoRevision() == 0){
+            if( fechaCorrecta(comRev.getFechaEntregaRevision(),dateToString(date)) == false){
+                return;
+            }
+
+            if( fechaCorrecta(comRev.getFechaEntregaRevision2(),dateToString(date)) == false){
+                return;
+            }
         }
         
-        if( fechaCorrecta(comRev.getFechaEntregaRevision2(),dateToString(date)) == false){
-            return;
+        if (comRev.getTipoRevision() == 1){
+            if (fechaCorrecta(comRev.getFechaPublicacionConsejo(), dateToString(date)) == false){
+                return;
+            }
+            
         }
         
-        
+        if (comRev.getTipoRevision() == 2){
+            if (fechaCorrecta(comRev.getFechaTerminoPublicacionConsejo(), dateToString(date)) == false) {
+                return;
+            }
+        }
         
         //Obtenemos el profesor guía
         for(int i=0;i<comRev.getIdPropuesta().getProfePropuestaList().size();i++)

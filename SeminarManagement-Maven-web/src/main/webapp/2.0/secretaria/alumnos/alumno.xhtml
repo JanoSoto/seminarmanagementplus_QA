@@ -83,6 +83,9 @@
                         <h:outputText value="#{prop.guia.nombreProfesor} #{prop.guia.apellidoProfesor}"/>
                     </a>
                 </p:column>
+                <p:column headerText="Plan">
+                    <h:outputText value="#{prop.propuesta.planActivo.codigo} #{verAlumnoMB.getAnioPlan(prop.propuesta.idPlan, prop.propuesta.versionPlan)}.#{prop.propuesta.versionPlan} #{prop.propuesta.planActivo.carreraId.nombre}" />
+                </p:column>
             </p:dataTable>
 
             <br/>
@@ -105,6 +108,9 @@
                     <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/temas/tema.xhtml?tema=#{tema.idTema}">
                         <h:outputText value="#{tema.estadoTema}"/>
                     </a>
+                </p:column>
+                <p:column headerText="Plan">
+                    <h:outputText value="#{tema.planActivo.codigo} #{tema.versionPlanActivo} #{tema.planActivo.carreraId.nombre}"/>
                 </p:column>
             </p:dataTable>
         </p:layoutUnit>
