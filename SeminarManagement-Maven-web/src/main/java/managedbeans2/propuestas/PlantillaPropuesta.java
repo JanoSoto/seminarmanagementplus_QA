@@ -71,13 +71,15 @@ public class PlantillaPropuesta extends HttpServlet {
             stamper.setFormFlattening(true);
             
             StringBuilder str = new StringBuilder();
-            str.append("PROPUESTA DE TEMA DE INGENIERIA ");
-//            List <PlanEstudio> planes = alumno.getPlanes();
-//            if ( !planes.isEmpty() ){
-//                str.append(planes.get(0).getCarreraId().getNombre()).append(" - ");
-//            } else {
-//                str.append("                                                     - ");
-//            }
+            str.append("PROPUESTA DE TEMA DE ");
+
+            if (prop.getPlanActivo() != null){
+                str.append(prop.getPlanActivo().getCarreraId().getNombre()).append(" ");
+                str.append("(").append(prop.getPlanActivo().getCodigo()).append(" ");
+                str.append(propuestaMB.getAnioPlan(prop.getIdPlan(), prop.getVersionPlan()));
+                str.append(".").append(prop.getVersionPlan()).append(")");
+                str.append(" - ");
+            }
             
             if (prop.getIdSemestre() != null){
                 str.append(prop.getIdSemestre().getIdSemestre().replace("/", "° "));

@@ -109,6 +109,17 @@ public class ReportesMB implements Serializable {
             return;
         
         propuestas = semestre.getPropuestaList();
+        List<Propuesta> propASacar = new ArrayList<>();
+        
+        for (Propuesta propuesta : propuestas) {
+            if ( propuesta.getIdRevisora() != null ){
+                if ( propuesta.getIdRevisora().getTipoRevision() == 2 || // consejo
+                        propuesta.getIdRevisora().getTipoRevision() == 1 ){ // seminario
+                    propASacar.add(propuesta);
+                }
+            }
+        }
+        propuestas.removeAll(propASacar);
         
         //for (Propuesta propuesta : propuestas) {
         //    revisoras.add(propuesta.getIdRevisora());

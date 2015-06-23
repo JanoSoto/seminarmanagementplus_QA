@@ -74,8 +74,8 @@
                         <c:forEach var="plan" items="#{planEstudioMB.getAsociacionPlanesEstudioAlumno(editarAlumnoMB.rutAlumno)}">
                             <tr>
                                 <td>
-                                    <c:if test="#{planEstudioMB.getIdPlanActivo(editarAlumnoMB.rutAlumno) == plan.planId and planEstudioMB.getVersionPlanActivo(editarAlumnoMB.rutAlumno)== plan.versionPlan}"><strong>#{plan.planEstudio.codigo} #{plan.versionPlan} #{plan.planEstudio.carreraId.nombre} (Activo)</strong></c:if>
-                                    <c:if test="#{planEstudioMB.getIdPlanActivo(editarAlumnoMB.rutAlumno) != plan.planId or planEstudioMB.getVersionPlanActivo(editarAlumnoMB.rutAlumno) != plan.versionPlan}">#{plan.planEstudio.codigo} #{plan.versionPlan} #{plan.planEstudio.carreraId.nombre}</c:if>
+                                    <c:if test="#{planEstudioMB.getIdPlanActivo(editarAlumnoMB.rutAlumno) == plan.planId and planEstudioMB.getVersionPlanActivo(editarAlumnoMB.rutAlumno)== plan.versionPlan}"><strong>#{plan.planEstudio.codigo} #{planEstudioMB.getAnioPlan(plan.planId, plan.versionPlan)}.#{plan.versionPlan} #{plan.planEstudio.carreraId.nombre} (Activo)</strong></c:if>
+                                    <c:if test="#{planEstudioMB.getIdPlanActivo(editarAlumnoMB.rutAlumno) != plan.planId or planEstudioMB.getVersionPlanActivo(editarAlumnoMB.rutAlumno) != plan.versionPlan}">#{plan.planEstudio.codigo} #{planEstudioMB.getAnioPlan(plan.planId, plan.versionPlan)}.#{plan.versionPlan} #{plan.planEstudio.carreraId.nombre}</c:if>
                                 </td>
                                 <td>
                                     <!--id="boton_asd_#{plan.planEstudio.codigo}_#{plan.versionPlan}"-->
@@ -97,7 +97,7 @@
                         <table border="0">
                             <c:forEach items="#{planEstudioMB.getAsociacionPlanesEstudio(editarAlumnoMB.rutAlumno)}" var="asociacion">
                                 <tr>
-                                    <td>#{asociacion.planEstudio.codigo} #{asociacion.versionPlan} #{asociacion.planEstudio.carreraId.nombre}</td>
+                                    <td>#{asociacion.planEstudio.codigo} #{planEstudioMB.getAnioPlan(asociacion.planId, asociacion.versionPlan)}.#{asociacion.versionPlan} #{asociacion.planEstudio.carreraId.nombre}</td>
                                     <td><p:commandButton value="Agregar Plan" icon="ui-icon-trash" actionListener="#{editarAlumnoMB.agregarPlanAlumno(asociacion.planId, asociacion.versionPlan)}"/></td>
                                 </tr>
                             </c:forEach>

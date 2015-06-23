@@ -43,11 +43,11 @@
                         <br/>
                    
                         <p:outputLabel for="calendP" value="Fecha publicación" style="color: #0052cc;font-weight: bold;" />
-                        <p:calendar id="calendP" value="#{comisionRevisora2MB.publicacionConsejo}" mode="popup"/>
+                        <p:calendar id="calendP" value="#{comisionRevisora2MB.publicacionConsejo}" mode="popup" mindate="#{comisionRevisora2MB.propuesta.fechaPropuesta}/>
                         <p:watermark for="calendP" value="Ingresar Fecha"/>  
                         
                         <p:outputLabel for="calendP2" value="Fecha término publicación" style="color: #0052cc;font-weight: bold;"/>
-                        <p:calendar id="calendP2" value="#{comisionRevisora2MB.terminoPublicacionConsejo}" mode="popup"/>
+                        <p:calendar id="calendP2" value="#{comisionRevisora2MB.terminoPublicacionConsejo}" mode="popup" mindate="#{comisionRevisora2MB.propuesta.fechaPropuesta}/>
                         <p:watermark for="calendP2" value="Ingresar Fecha"/>
 
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Semestre Revisión "/>
