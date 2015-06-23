@@ -98,10 +98,10 @@ public class VerAlumnoMB {
                         temaDTemp.setNombreTema(alumno.getPropuestaList().get(i).getIdRevisora().getIdTema().getNombreTema());
                         System.out.println("plan activo:");
 //                        System.out.println(alumno.getPropuestaList().get(i).getPlanActivo());
-                        
+
                         System.out.println("version plan activo:");
                         System.out.println(alumno.getPropuestaList().get(i).getVersionPlan());
-                        
+
 //                        temaDTemp.setPlanActivo(alumno.getPropuestaList().get(i).getPlanActivo());
                         temaDTemp.setVersionPlanActivo(alumno.getPropuestaList().get(i).getVersionPlan());
                         if (alumno.getPropuestaList().get(i).getIdRevisora().getIdTema().getNombreTema().length() > 64) {
@@ -223,24 +223,28 @@ public class VerAlumnoMB {
         if (plan == null) {
             return "";
         }
-        return plan.getCodigo() + version.getAnio()  + " " + version_plan + " " + plan.getCarreraId().getNombre();
+        return plan.getCodigo() + version.getAnio() + " " + version_plan + " " + plan.getCarreraId().getNombre();
     }
 
-    public String getAnioPlan(Integer id_plan, Integer version_plan) {
-        SMUtil util = new SMUtil();
-        System.out.println("ID: ASDASDASDPAS");
-        System.out.println("ID: " + id_plan);
-        System.out.println("VERSION: " + version_plan);
-        PlanEstudio plan = planFacade.findById(id_plan);
+    public String getAnioPlan(Integer id_plan, Integer version_plan){
+        try {
+            SMUtil util = new SMUtil();
+            System.out.println("ID: ASDASDASDPAS");
+            System.out.println("ID: " + id_plan);
+            System.out.println("VERSION: " + version_plan);
+            PlanEstudio plan = planFacade.findById(id_plan);
 
-        for (Versionplan version : plan.getVersionplanList()) {
-            System.out.println(version.getVersion() + " == " + Long.parseLong(version_plan + ""));
-            if (version.getVersion() == Long.parseLong(version_plan + "")) {
-                return plan.getCodigo() + " " + version.getAnio().toString() + "." + version.getVersion() + " " + plan.getCarreraId().getNombre();
+            for (Versionplan version : plan.getVersionplanList()) {
+                System.out.println(version.getVersion() + " == " + Long.parseLong(version_plan + ""));
+                if (version.getVersion() == Long.parseLong(version_plan + "")) {
+                    return plan.getCodigo() + " " + version.getAnio().toString() + "." + version.getVersion() + " " + plan.getCarreraId().getNombre();
+                }
             }
+        }catch(Exception e){
+            
         }
 
-        return "";
+        return "Ninguno";
 //        List<PlanEstudio> planes = planFacade.findAll();
 //        PlanEstudio plan = null;
 //        System.out.println("Id: " + id_plan);   
