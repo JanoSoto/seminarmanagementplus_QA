@@ -182,7 +182,6 @@ public class UsuarioMB {
     }
 
     public void guardarUsuario() throws NoSuchAlgorithmException, UnsupportedEncodingException, IOException {
-        System.out.println("Guardando...");
         FacesContext context = FacesContext.getCurrentInstance();
         this.estaEditando = true;
 
