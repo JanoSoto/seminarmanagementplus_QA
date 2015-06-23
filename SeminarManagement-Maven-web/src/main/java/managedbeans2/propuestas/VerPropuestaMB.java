@@ -339,10 +339,11 @@ public class VerPropuestaMB implements Serializable {
     }
 
     public String getNombrePlan(Integer id_plan, Integer version_plan) {
-        List<PlanEstudio> planes = alumno.getPlanes();
+        List<PlanEstudio> planes = planFacade.findAll();
         PlanEstudio plan = null;
-        //System.out.println("Id: " + id_plan);
-        //System.out.println("VE: " + version_plan);
+        Versionplan version = null;
+        System.out.println("Id: " + id_plan);
+        System.out.println("VE: " + version_plan);
         if ( id_plan != null ){ 
             for (int i = 0; i < planes.size(); i++) {
                 if (planes.get(i).getId().equals(Long.parseLong(id_plan + ""))) {
@@ -350,9 +351,11 @@ public class VerPropuestaMB implements Serializable {
                     for (int j = 0; j < versiones.size(); j++) {
                         Versionplan versionPlan = versiones.get(j);
                         //System.out.println("Comparando: " + versionPlan.getVersion() + " con " + Long.parseLong(version_plan + ""));
-                        if ( versionPlan.getVersion() != null && version_plan != null && (versionPlan.getVersion() == Long.parseLong(version_plan + ""))) {
+                        if (versionPlan.getVersion() != null && version_plan != null && (versionPlan.getVersion() == Long.parseLong(version_plan + ""))) {
                             //System.out.println("existeeeee");
                             plan = planes.get(i);
+                            version = versionPlan;
+                            break;
                         }
                     }
                 }
@@ -362,7 +365,7 @@ public class VerPropuestaMB implements Serializable {
         if (plan == null) {
             return "";
         }
-        return plan.getCodigo() + " " + version_plan + " " + plan.getCarreraId().getNombre();
+        return plan.getCodigo() + " " + version.getAnio() + "." + version_plan + " " + plan.getCarreraId().getNombre();
     }
 
     public Date menorFechaEntregaComisionCorrectora() throws ParseException {

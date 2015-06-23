@@ -81,6 +81,10 @@
                                                   and not empty verPropuestaMB.propuesta.idRevisora}"
                                       disabled="#{not verPropuestaMB.puedeTenerTema}"
                                       href="/2.0/admin/temas/agregar.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Agregar Tema"/>
+                            <p:button style="width:150px;"
+                                      rendered="#{empty verPropuestaMB.propuesta.idRevisora.idTema
+                                                  and not empty verPropuestaMB.propuesta.idRevisora}"
+                                      href="/2.0/admin/temas/agregar.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Agregar Tema"/>
                         </h:panelGroup>
                         <p:button style="width:150px;" rendered="#{not empty verPropuestaMB.propuesta.idRevisora.idTema}" href="/2.0/admin/temas/tema.xhtml?tema=#{verPropuestaMB.propuesta.idRevisora.idTema.idTema}" value="Ver Tema"/>
                         <p:button style="width:150px;" href="/2.0/admin/propuestas/editarProp.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Editar Propuesta"/>
