@@ -86,6 +86,7 @@ public class BorradorFinalMB {
         }
         tema.setPrecerrado(false);
         tema.setEstadoTema(6);
+        tema.setFechaBorrador(fechaTema);
         temaFacade.edit(tema);
         
         /*
