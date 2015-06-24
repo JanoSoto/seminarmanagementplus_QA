@@ -27,7 +27,7 @@
 			<version>1.4.14</version>
 			<configuration>
 				<container>
-					<containerId>glassfish3x</containerId>
+					<containerId>glassfish4x</containerId>
 					<type>remote</type>
 				</container>
 				<configuration>
