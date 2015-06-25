@@ -35,9 +35,8 @@
 	                    </execution>
 	                </executions>
 			<configuration>
-				wait>false</wait>
 				<container>
-					<containerId>glassfish4x</containerId>
+					<containerId>glassfish-4x</containerId>
 					<type>remote</type>
 				</container>
 				<configuration>
