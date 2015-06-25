@@ -40,7 +40,7 @@ public class LogsTest {
      */
     @Test
     public void testGetLogsId() {
-        System.out.println("getLogsId");
+        
         Logs instance = new Logs(1);
         Integer expResult = 1;
         instance.setLogsId(expResult);

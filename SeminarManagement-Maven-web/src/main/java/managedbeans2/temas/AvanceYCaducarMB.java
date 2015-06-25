@@ -86,8 +86,7 @@ public class AvanceYCaducarMB {
             return;
         }
         tema = temaFacade.findById(idTema).get(0);
-        System.out.println(tema.getFechaTema());
-        System.out.println(dateToString(date));
+
         if( fechaCorrecta(tema.getFechaTema(),dateToString(date)) == false){
             return;
         }
@@ -129,8 +128,7 @@ public class AvanceYCaducarMB {
         
         tema = temaFacade.findById(idTema).get(0);
         //Seteamos estado "Prolongado"
-        System.out.println(tema.getFechaTema());
-        System.out.println(dateToString(date));
+
         if( fechaCorrecta(tema.getFechaTema(),dateToString(date)) == false){
             return;
         }
@@ -168,7 +166,7 @@ public class AvanceYCaducarMB {
         */
         //Mensaje de confirmación
         context.addMessage(null, new FacesMessage("Tema modificado", "El estado del tema seleccionado se modificó a 'Caduco'"));
-        LOGGER.info("El estado del tema seleccionado se modificó a 'Caduco'");
+        LOGGER.info("El estado del tema seleccionado se modificó a Caduco");
     }
     
     public void caducarRenunciaTema(){
@@ -187,8 +185,7 @@ public class AvanceYCaducarMB {
         
         tema = temaFacade.findById(idTema).get(0);
         //Seteamos estado "Caducado por renuncia"
-        System.out.println(tema.getFechaTema());
-        System.out.println(tema.getFechaTema());
+
         if( fechaCorrecta(tema.getFechaTema(),dateToString(date)) == false){
             return;
         }

@@ -132,8 +132,7 @@ public class AgregarPropuestaMB {
             context.addMessage(null, new FacesMessage("Nombre Propuesta","Ya existe una propuesta con ese nombre"));
             return;
         }
-        else {
-            System.out.println("hola");}
+        
         
         //Validamos errores de semestre
         if (Integer.valueOf(semestreProp.substring(2, 6)) <= 1972) {

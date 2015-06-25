@@ -9,6 +9,7 @@ import entities.Historial;
 import entities.Profesor;
 import entities.Tema;
 import entities.Propuesta;
+import entities.Semestre;
 import entities.SemestreActual;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -86,17 +87,31 @@ public class BorradorFinalMB {
         
         tema = temaFacade.findById(idTema).get(0);
         //Seteamos estado "Vigente con Borrador Final"
-        System.out.println(tema.getFechaTema());
-        System.out.println(date);
+        //System.out.println(tema.getFechaTema());
+        //System.out.println(date);
         if( fechaCorrecta(tema.getFechaTema(),dateToString(date)) == false){
             return;
         }
         
         SemestreActual semActual = semestreActualFacade.findAll().get(0);
-        
+        Semestre sem = semestreFacade.findById(semActual.getSemestreActual()).get(0);
         tema.setPrecerrado(false);
         tema.setEstadoTema(6);
         tema.setFechaBorrador(dateToString(date));
+        if (sem.getFechaPrecierre() == null) {
+            tema.setSemestreTermino(semActual.getSemestreActual());
+            System.out.println("entro aca !!!");
+        }
+        
+        else {
+            if (fechaCorrecta(sem.getFechaPrecierre(), tema.getFechaBorrador())){
+                tema.setSemestreTermino(semestreSiguiente(semActual.getSemestreActual()));
+            }
+            else{
+                tema.setSemestreTermino(semActual.getSemestreActual());
+            }
+        }
+        
  	
         //tema.setSemestreTermino(semestre);
         temaFacade.edit(tema);
@@ -215,5 +230,15 @@ public class BorradorFinalMB {
     public String dateToString(Date dateChoosen) {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         return format.format(dateChoosen);
+    }
+    
+    public static String semestreSiguiente(String semestreActual) {
+        String a = semestreActual.substring(0, 1);
+        String b = semestreActual.substring(2, 6);
+        if ("2".equals(a)) {
+            return "1/" + (Integer.parseInt(b) + 1);
+        } else {
+            return "2/" + b;
+        }
     }
 }

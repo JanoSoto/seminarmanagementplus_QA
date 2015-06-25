@@ -143,7 +143,7 @@ public class VerProfesorMBTest {
         
         when(querys.getResultList()).thenReturn(temaList);
         
-        //System.out.println(temaList.get(0).getEstadoTema());
+        
        
         assertEquals(temaListTest, temaList);
        
@@ -207,7 +207,7 @@ public class VerProfesorMBTest {
         Query querys2 = entityManager.createNamedQuery("SELECT t FROM Profesor t WHERE t.maxGuias = :maxGuias");
         
         when(querys2.getResultList()).thenReturn(profeList);
-        //System.out.println(temaList.get(0).getEstadoTema());
+        
        
         assertEquals(profeListTest, profeList);
        

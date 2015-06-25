@@ -281,42 +281,17 @@ public class SemestreMB {
             if (temas.get(i).getEstadoTema() != null) {
                 String semestre_tema = temas.get(i).getIdSemestre().getIdSemestre();
                 
-                if (temas.get(i).getEstadoTema() == 0 && !(proximo_semestre.equals(semestre_tema))) { // Vigente
+                if (temas.get(i).getEstadoTema() == 0 ) { // Vigente
                     temas.get(i).setEstadoTema(3);
-                    temas.get(i).setSemestreTermino(semActual.getSemestreActual());
                     temaFacade.edit(temas.get(i));
 
-                    /*
-                     //Agregamos el historial de cambio de estado
-                     Historial historial = new Historial();
-                     String fecha = dateToString(date);
-                     historial.setDescripcion("Fin de Semestre: El estado del tema cambió de 'Vigente' a 'Caduco'");
-                     historial.setFechaHistorial(fecha);
-                     historial.setIdEntidad(String.valueOf(temas.get(i).getIdTema()));
-                     historial.setTipoHistorial(1);
-                     historialFacade.create(historial);
-                     */
+             
                 } else if (temas.get(i).getEstadoTema() == 2) { // Prorrogado
                     temas.get(i).setEstadoTema(0);
                     temaFacade.edit(temas.get(i));
 
-                    /*
-                     //Agregamos el historial de cambio de estado
-                     Historial historial = new Historial();
-                     String fecha = dateToString(date);
-                     historial.setDescripcion("Fin de Semestre: El estado del tema cambió de 'Prorrogado' a 'Vigente'");
-                     historial.setFechaHistorial(fecha);
-                     historial.setIdEntidad(String.valueOf(temas.get(i).getIdTema()));
-                     historial.setTipoHistorial(1);
-                     historialFacade.create(historial);
-                     */
-                } else if (temas.get(i).getEstadoTema() == 6){
-                    Tema temaCerrado = temas.get(i);
-                    if(temaCerrado.getPrecerrado()==false){
-                        temaCerrado.setIdSemestre(semestreTemp);
-                        temaFacade.edit(temaCerrado);
-                    }
-                }
+           
+                } 
             }
         }
 
@@ -338,16 +313,6 @@ public class SemestreMB {
         //semestrePretermino.setIdSemestre(semActual.getSemestreActual());
         semestrePretermino.setFechaPrecierre(dateToString(fechaprecierre));
         semestreFacade.edit(semestrePretermino);
-        for (int i = 0; i < temas.size(); i++) {
-            if (temas.get(i).getEstadoTema() != null) {
-                if (temas.get(i).getEstadoTema() == 6){
-                    temas.get(i).setPrecerrado(true);
-                    
-                    //temas.get(i).setPrecierre(dateToString(fechaprecierre));
-                    temaFacade.edit(temas.get(i));
-                }
-            }
-        }
 
         context.addMessage(
                 null, new FacesMessage("Se ha precerrado el semestre", "borradores finales entregados luego de esta fecha pasarán a ser del próximo semestre"));
@@ -357,7 +322,7 @@ public class SemestreMB {
         LOGGER.info("Se ha precerrado el semestre, borradores finales entregados luego de esta fecha pasarán a ser del próximo semestre");
     }
 
-    private String semestreSiguiente(String semestreActual) {
+    public static String semestreSiguiente(String semestreActual) {
         String a = semestreActual.substring(0, 1);
         String b = semestreActual.substring(2, 6);
         if ("2".equals(a)) {
