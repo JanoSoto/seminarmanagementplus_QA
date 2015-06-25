@@ -48,6 +48,7 @@
 						<cargo.remote.password>admin</cargo.remote.password>
 						<cargo.glassfish.admin.port>4848</cargo.glassfish.admin.port>
 						<cargo.glassfish.domain.name>domain1</cargo.glassfish.domain.name>
+						<cargo.servlet.port>8080</cargo.servlet.port>
 					</properties>
 				</configuration>
 				<deployables>
