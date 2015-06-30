@@ -13,12 +13,12 @@
   <packaging>ear</packaging>
 
   <name>SeminarManagement-Maven-ear</name>
-
+  
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
       <netbeans.hint.deploy.server>gfv3ee6</netbeans.hint.deploy.server>
   </properties>
-
+	
   <build>
     <plugins>
         <plugin>
@@ -27,7 +27,7 @@
 			<version>1.4.14</version>
 			<executions>
 	                    <execution>
-	                        <id>deploy</id>
+	                        <id>redeploy</id>
 	                        <phase>integration-test</phase>
 	                        <goals>
 	                            <goal>redeploy</goal>
@@ -43,12 +43,12 @@
 					<type>runtime</type>
 					<properties>
 						<cargo.hostname>ruka.diinf.usach.cl</cargo.hostname>
+						<cargo.runtime.args>force=true</cargo.runtime.args>
 						<cargo.remote.username>admin</cargo.remote.username>
 						<cargo.remote.password>admin</cargo.remote.password>
 						<cargo.glassfish.admin.port>4848</cargo.glassfish.admin.port>
-						<cargo.runtime.args>force=true</cargo.runtime.args>
 						<cargo.glassfish.domain.name>domain1</cargo.glassfish.domain.name>
-                                                <cargo.servlet.port>8080</cargo.servlet.port>
+						<cargo.servlet.port>8080</cargo.servlet.port>
 					</properties>
 				</configuration>
 				<deployables>
