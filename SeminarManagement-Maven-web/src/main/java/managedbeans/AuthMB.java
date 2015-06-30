@@ -138,7 +138,7 @@ public class AuthMB implements Serializable {
             HttpResponse response = httpclient.execute(httppost);
 
             String responseString = new BasicResponseHandler().handleResponse(response);
-            System.out.println(responseString);
+            
 
             //JSONParser parser = new JSONParser();
 
@@ -150,11 +150,11 @@ public class AuthMB implements Serializable {
             if(valido_response == null) {
                 valido_response = false;
             }
-            System.out.println("Datos Validos: " + valido_response);
+            
 
             //MessageDigest md = MessageDigest.getInstance("SHA-256");
             //md.update(password.getBytes("UTF-8"));
-            System.out.println("salida json: " + jsonObject.getString("pass_ok"));
+            
             request.login(username, jsonObject.getString("pass_ok"));
             if(valido_response == true && usuarioFacade.findByUid(username)!= null){
                 Usuario usuario = usuarioFacade.findByUid(username);
@@ -185,7 +185,7 @@ public class AuthMB implements Serializable {
                 int numeromax = Collections.max(numeros);
                 //tipo = aux.get(0).getNombreTipo();
                 tipo = auxMap.get(numeromax).getNombreTipo();
-                System.out.println("nombre de usuario: "+ usuario.getUid() + "- Rol: "+ tipo);
+                
                 switch (tipo) {
                     case "ADMINISTRADOR":
                         externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/admin/index.xhtml");

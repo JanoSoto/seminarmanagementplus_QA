@@ -126,7 +126,7 @@ public class SMUtil {
     }
 
     public String getAnioPlan(Integer id_plan, Integer version_plan) {
-        System.out.println("llllllllllllllllllllllllllllllllllll");
+        
         if (id_plan == null || version_plan == null) {
             return "malo";
         }
@@ -134,7 +134,7 @@ public class SMUtil {
         PlanEstudio plan = planesFacade.findById(id_plan);
 
         for (Versionplan version : plan.getVersionplanList()) {
-            System.out.println(version.getVersion() + " == " + Long.parseLong(version_plan + ""));
+            
             if (version.getVersion() == Long.parseLong(version_plan + "")) {
                 return version.getAnio().toString();
             }
@@ -144,16 +144,16 @@ public class SMUtil {
     }
 
     public String getAnioPlanFormateado(Integer id_plan, Integer version_plan) {
-        System.out.println("ACAAAAA");
+        
         if (id_plan == null || version_plan == null) {
             return null;
         }
 
         PlanEstudio plan = planesFacade.findById(id_plan);
-        System.out.println("ACAAAAA");
+        
         for (Versionplan version : plan.getVersionplanList()) {
             if (version.getVersion() == Long.parseLong(version_plan + "")) {
-                System.out.println("ACAAAAA");
+                
                 return plan.getCodigo() + " " + version.getAnio().toString() + "." + version_plan + " " + plan.getCarreraId().getNombre();
             }
         }

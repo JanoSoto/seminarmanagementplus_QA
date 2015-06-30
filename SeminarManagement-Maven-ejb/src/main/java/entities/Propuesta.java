@@ -273,13 +273,13 @@ public class Propuesta implements Serializable {
     
     public PlanEstudio getPlanActivo() {
         Integer id_plan = idPlan;
-        //System.out.println("Planeeeees");
+        
         List<PlanEstudio> planesasd = rutAlumno.getPlanes();
-        //System.out.println("Planeeeees");
+        
         for (int i = 0; i < planesasd.size(); i++) {
-            //System.out.println(planesasd.get(i).getId() + " == " + Long.parseLong(id_plan+""));
+            
             if(planesasd.get(i).getId() == Long.parseLong(id_plan+"")){
-                //System.out.println("asdasdasjfaofijaoisf");
+                
                 return planesasd.get(i);
             }
         }

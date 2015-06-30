@@ -46,7 +46,10 @@
         </p:layoutUnit>
 
         <p:layoutUnit position="center" size="430" style="border: none;">
-            <p:dataTable value="#{semestreMB.semestresConPrecierre}" var="semestre">
+            <p:dataTable value="#{semestreMB.semestresConPrecierre}" var="semestre" emptyMessage="No existen Registros">
+                <f:facet name="header">
+                        Registro de Precierres y Cierres
+                    </f:facet>
                 <p:column headerText="Semestres">
                     <h:outputText value="#{semestre.idSemestre}"/>
                 </p:column>

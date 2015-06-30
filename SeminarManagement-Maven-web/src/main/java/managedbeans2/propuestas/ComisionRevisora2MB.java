@@ -601,8 +601,7 @@ public class ComisionRevisora2MB implements Serializable {
         if (terminoPublicacionConsejo != null) {
             fechaTerminoPublicacion = dateToString(terminoPublicacionConsejo);
         }
-        System.out.println(propuesta.getFechaPropuesta());
-        System.out.println(fechaPublicacion);
+
         if ((fechaPublicacion != null) && (fechaTerminoPublicacion != null)
                 && !fechaCorrecta(fechaPublicacion, fechaTerminoPublicacion)) {
             return;
@@ -988,7 +987,7 @@ public class ComisionRevisora2MB implements Serializable {
 
     public static boolean fechaCorrecta(String fecha, String fecha2) {
         FacesContext context = FacesContext.getCurrentInstance();
-        System.out.println("<"+fecha+"> <"+fecha2+">" );
+        
         int a, b, c, d, e, f;
         String fechas[] = fecha.split("/");
         String fechas2[] = fecha2.split("/");

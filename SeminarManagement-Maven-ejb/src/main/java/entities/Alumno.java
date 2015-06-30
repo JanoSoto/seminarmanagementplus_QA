@@ -233,14 +233,14 @@ public class Alumno implements Serializable {
     
     public PlanEstudio getPlanActivo() {
         Integer id_plan = this.idPlanActivo;
-        //System.out.println("Planeeeees");
+        
         List<PlanEstudio> planesasd = this.getPlanes();
-        //System.out.println("Planeeeees");
+        
         if (id_plan != null){
             for (int i = 0; i < planesasd.size(); i++) {
-                //System.out.println(planesasd.get(i).getId() + " == " + Long.parseLong(id_plan+""));
+                
                 if(planesasd.get(i).getId() == Long.parseLong(id_plan+"")){
-                    //System.out.println("asdasdasjfaofijaoisf");
+                    
                     return planesasd.get(i);
                 }
             }

@@ -175,7 +175,7 @@ public class ComisionCorrectora2MB {
         ComisionCorrectora nuevaComision;
         
         //Accedemos a la tabla semestre, e ingresamos semestre actual si no ha sido ingresado
-        Semestre semestreRevision = new Semestre(semestreCorr);
+        Semestre semestreRevision = new Semestre(tema.getSemestreTermino());
         List<Semestre> semestres = semestreFacade.findAll();
         if (!semestres.contains(semestreRevision))
             semestreFacade.create(semestreRevision);
@@ -372,12 +372,14 @@ public class ComisionCorrectora2MB {
             }
         }
 
-        //Accedemos a la tabla semestre, e ingresamos semestre actual si no ha sido ingresado
-        Semestre semestre = new Semestre(semestreCorr);
+        
+         //Accedemos a la tabla semestre, e ingresamos semestre actual si no ha sido ingresado
+        Semestre semestre = new Semestre(tema.getSemestreTermino());
         List<Semestre> semestres = semestreFacade.findAll();
         if (!semestres.contains(semestre)) {
             semestreFacade.create(semestre);
         }
+       
         
         //Seteamos y creamos la comisión correctora
         ComisionCorrectora comisionC = new ComisionCorrectora();
@@ -385,13 +387,15 @@ public class ComisionCorrectora2MB {
         comisionC.setFechaEntCorreccion(fechaRevCorr);
         comisionC.setFechaCorreccion2(fechaCorr2);
         comisionC.setFechaEntCorreccion2(fechaRevCorr2);
-        comisionC.setIdSemestre(semestre);
+        comisionC.setIdSemestre(semestres.get(0));
         comisionC.setIdTema(tema);
         comisionCorrectoraFacade.create(comisionC);
         
         //Agregamos el tema a lista de temas del semestre
-        semestre.add(comisionC);
-        semestreFacade.edit(semestre);
+        semestres.get(0).add(comisionC);
+        semestres.get(0).setFechaPrecierre(semestres.get(0).getFechaPrecierre());
+        semestres.get(0).setFechaCierre(semestres.get(0).getFechaCierre());
+        semestreFacade.edit(semestres.get(0));
         
         //Profes
         Profesor profe1 = profesorFacade.findByRut(profesor1).get(0);
