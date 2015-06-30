@@ -25,15 +25,6 @@
 			<groupId>org.codehaus.cargo</groupId>
 			<artifactId>cargo-maven2-plugin</artifactId>
 			<version>1.4.14</version>
-			<executions>
-	                    <execution>
-	                        <id>redeploy</id>
-	                        <phase>integration-test</phase>
-	                        <goals>
-	                            <goal>redeploy</goal>
-	                        </goals>
-	                    </execution>
-	                </executions>
 			<configuration>
 				<container>
 					<containerId>glassfish4x</containerId>
