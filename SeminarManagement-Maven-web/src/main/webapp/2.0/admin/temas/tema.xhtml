@@ -26,7 +26,11 @@
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" for="nombre" value="Título:"/>
                     <h:outputText id="nombre" style="font-weight: bold;padding-left: 1em;" value="#{verTemaMB.tema.nombreTema}"/>
                     <br/>
-
+                    
+                    <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Título propuesta:"/>
+                    <h:outputText id="nombrePropuesta" style="font-weight: bold;padding-left: 1em;" value="#{verTemaMB.buscarPropuestaDelTema(verTemaMB.idTema)}"/>
+                    <br/>
+                    
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Alumno:"/>
                     <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/alumnos/alumno.xhtml?alum=#{verTemaMB.tema.idRevisora.idPropuesta.rutAlumno.rutAlumno}">
                         <h:outputText style="padding-left: 1em;" value="#{verTemaMB.tema.idRevisora.idPropuesta.rutAlumno.nombreAlumno} #{verTemaMB.tema.idRevisora.idPropuesta.rutAlumno.apellidoAlumno}"/>
@@ -135,6 +139,7 @@
                                      actionListener="#{verTemaMB.descaducarTema(verTemaMB.idTema)}" process="@this" onsuccess="alert('El tema ha pasado a Vigente')"/>
                     <p:commandButton value="No" onclick="confirmationCaducar.hide()" type="button" />
                 </p:dialog>
+            </p:layoutUnit>
             
             <p:layoutUnit position="center" size="430" style="border: none;">
                 <p:dataTable id="guiaTable" var="guia" value="#{verTemaMB.tema.idRevisora.idPropuesta.profePropuestaList}" emptyMessage="No se encontró Comisión">

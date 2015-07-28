@@ -1,6 +1,7 @@
 package sessionbeans;
 
 import entities.ComisionRevisora;
+import entities.Tema;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -43,9 +44,9 @@ public class ComisionRevisoraFacade extends AbstractFacade<ComisionRevisora> imp
     }
     
     @Override
-    public List<ComisionRevisora> findByTema(Integer id_tema){
+    public List<ComisionRevisora> findByTema(Tema id_tema){
         Query q;
-        q = em.createNamedQuery("ComisionRevisora.findBySemestre")
+        q = em.createNamedQuery("ComisionRevisora.findByTema")
                 .setParameter("tema", id_tema);
         return q.getResultList();
     }

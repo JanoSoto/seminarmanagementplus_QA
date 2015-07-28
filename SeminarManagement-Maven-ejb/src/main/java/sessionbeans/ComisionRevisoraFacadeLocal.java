@@ -1,6 +1,7 @@
 package sessionbeans;
 
 import entities.ComisionRevisora;
+import entities.Tema;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -29,5 +30,5 @@ public interface ComisionRevisoraFacadeLocal {
     
     public List<ComisionRevisora> findBySemestre(String semestre);
     
-    public List<ComisionRevisora> findByTema(Integer id_tema);
+    public List<ComisionRevisora> findByTema(Tema id_tema);
 }
