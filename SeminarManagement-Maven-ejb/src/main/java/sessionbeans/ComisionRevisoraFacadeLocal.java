@@ -28,4 +28,6 @@ public interface ComisionRevisoraFacadeLocal {
     public List<ComisionRevisora> findById(Integer idRevisora);
     
     public List<ComisionRevisora> findBySemestre(String semestre);
+    
+    public List<ComisionRevisora> findByTema(Integer id_tema);
 }

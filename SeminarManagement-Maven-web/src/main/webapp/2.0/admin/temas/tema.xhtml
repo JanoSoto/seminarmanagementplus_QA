@@ -135,7 +135,6 @@
                                      actionListener="#{verTemaMB.descaducarTema(verTemaMB.idTema)}" process="@this" onsuccess="alert('El tema ha pasado a Vigente')"/>
                     <p:commandButton value="No" onclick="confirmationCaducar.hide()" type="button" />
                 </p:dialog>
-            </p:layoutUnit>
             
             <p:layoutUnit position="center" size="430" style="border: none;">
                 <p:dataTable id="guiaTable" var="guia" value="#{verTemaMB.tema.idRevisora.idPropuesta.profePropuestaList}" emptyMessage="No se encontró Comisión">

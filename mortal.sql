@@ -951,6 +951,7 @@ ALTER TABLE ONLY usuario_tipo ALTER COLUMN id_usuario_tipo SET DEFAULT nextval('
 
 COPY alumno (nombre_alumno, apellido_alumno, mail_alumno, telefono_alumno, rut_alumno, direccion_alumno, id_plan_activo, version_plan_activo) FROM stdin;
 MATIAS NICOLAS	FLORES SALAS	MATIAS.FLORES@USACH.CL	89307940	176767901	Vasco Nuñes de Balboa 4669	3	2
+LUIS	CELEDON	LUIS.CELEDON@USACH.CL	89307940	178608975		1	1
 \.
 
 
@@ -1051,7 +1052,8 @@ COPY checklisteventos (idchecklist, adm_expositor, agenda_institucional, avisar_
 --
 
 COPY comision_correctora (id_correctora, id_semestre, id_tema, fecha_correccion, fecha_entrega_correccion, fecha_entrega_correccion2, fecha_correccion2) FROM stdin;
-1	1/2016	1	25/06/2015	\N	\N	25/06/2015
+1	1/2016	1	25/06/2015	30/06/2015	29/06/2015	25/06/2015
+2	2/2017	2	29/06/2015	30/06/2015	30/06/2015	29/06/2015
 \.
 
 
@@ -1059,7 +1061,7 @@ COPY comision_correctora (id_correctora, id_semestre, id_tema, fecha_correccion,
 -- Name: comision_correctora_id_correctora_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('comision_correctora_id_correctora_seq', 1, false);
+SELECT pg_catalog.setval('comision_correctora_id_correctora_seq', 2, true);
 
 
 --
@@ -1068,6 +1070,7 @@ SELECT pg_catalog.setval('comision_correctora_id_correctora_seq', 1, false);
 
 COPY comision_revisora (fecha_revision, tipo_revision, id_revisora, id_propuesta, id_semestre, id_tema, fecha_entrega_revision, fecha_revision2, fecha_entrega_revision2, fecha_publicacion_consejo, fecha_termino_publicacion_consejo) FROM stdin;
 24/06/2015	1	1	1	1/2016	1	24/06/2015	22/06/2015	25/06/2015	\N	\N
+\N	1	2	2	2/2017	2	\N	\N	\N	25/06/2015	\N
 \.
 
 
@@ -1075,7 +1078,7 @@ COPY comision_revisora (fecha_revision, tipo_revision, id_revisora, id_propuesta
 -- Name: comision_revisora_id_revisora_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('comision_revisora_id_revisora_seq', 1, true);
+SELECT pg_catalog.setval('comision_revisora_id_revisora_seq', 2, true);
 
 
 --
@@ -1201,6 +1204,30 @@ COPY logs (logs_id, dated, level, logger, message, user_id) FROM stdin;
 201	2015-06-22 14:11:23.844366	INFO	managedbeans2.temas.VerTemaMB	Tema TEMA VELASTIN editado exitosamente	
 202	2015-06-22 14:11:50.267013	INFO	managedbeans2.temas.BorradorFinalMB	El estado del tema seleccionado se modificó a Vigente con borrador final	
 203	2015-06-22 14:12:25.451032	INFO	managedbeans2.temas.ComisionCorrectora2MB	Comisión ingresada al sistema, el estado del tema seleccionado se modificó a En proceso de examen	
+204	2015-06-23 13:56:08.318566	INFO	managedbeans2.SemestreMB	Se ha precerrado el semestre, borradores finales entregados luego de esta fecha pasarán a ser del próximo semestre	mcarcamo
+205	2015-06-23 13:56:08.482022	INFO	managedbeans2.SemestreMB	Se ha precerrado el semestre, borradores finales entregados luego de esta fecha pasarán a ser del próximo semestre	
+206	2015-06-23 14:07:00.358191	INFO	managedbeans2.SemestreMB	Estados y semestre modificados, el semestre actual es: 2/2016	
+207	2015-06-23 14:09:16.129981	INFO	managedbeans2.SemestreMB	Se ha precerrado el semestre, borradores finales entregados luego de esta fecha pasarán a ser del próximo semestre	
+208	2015-06-23 14:09:26.417506	INFO	managedbeans2.SemestreMB	Estados y semestre modificados, el semestre actual es: 1/2017	
+209	2015-06-23 14:11:17.996023	INFO	managedbeans2.SemestreMB	Se ha precerrado el semestre, borradores finales entregados luego de esta fecha pasarán a ser del próximo semestre	
+210	2015-06-23 14:32:44.038013	INFO	managedbeans2.SemestreMB	Estados y semestre modificados, el semestre actual es: 2/2017	
+211	2015-06-23 14:33:27.561607	INFO	managedbeans.personas.AlumnoMB	Se ha agregado el alumno LUIS CELEDON	
+212	2015-06-23 14:33:38.620297	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno LUIS CELEDON ha sido editado exitosamente	
+213	2015-06-23 14:33:42.09117	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno LUIS CELEDON ha sido editado exitosamente	
+214	2015-06-23 14:33:50.42891	INFO	managedbeans.personas.UsuarioMB	Se ha editado al usuario LUIS CELEDÓN	
+215	2015-06-23 14:33:52.46349	INFO	managedbeans.personas.UsuarioMB	Se ha editado al usuario LUIS CELEDÓN	
+216	2015-06-23 14:37:03.116621	INFO	managedbeans2.temas.ComisionCorrectora2MB	La comision correctora del tema TEMA VELASTIN ha sido modificada en el sistema	
+217	2015-06-23 14:37:20.295639	INFO	managedbeans2.temas.CalificacionTema2MB	Promedio: 5.3166666 Se agregaron las notas y el estado del tema seleccionado se modificó a Titulado	
+218	2015-06-23 14:37:43.517499	INFO	managedbeans2.temas.CalificacionTema2MB	Promedio: 5.3166666 Se agregaron las notas y el estado del tema seleccionado se modificó a Titulado	
+219	2015-06-23 14:37:49.081961	INFO	managedbeans2.temas.ComisionCorrectora2MB	La comision correctora del tema TEMA VELASTIN ha sido modificada en el sistema	
+220	2015-06-23 14:41:58.332191	INFO	managedbeans2.propuestas.AgregarPropuestaMB	La propuesta propuesta ejemplo ha sido ingresada al sistema	
+221	2015-06-23 14:42:52.213702	INFO	managedbeans2.propuestas.ComisionRevisora2MB	La propuesta PROPUESTA EJEMPLO ha sido ingresada al sistema	
+222	2015-06-23 14:43:12.970382	INFO	managedbeans2.temas.AgregarTemaMB	El tema TEMA EJEMPLO ha sido ingresado al sistema	
+223	2015-06-23 14:43:22.736915	INFO	managedbeans2.temas.VerTemaMB	Tema TEMA EJEMPLO editado exitosamente	
+224	2015-06-23 14:43:34.782734	INFO	managedbeans2.temas.BorradorFinalMB	El estado del tema seleccionado se modificó a Vigente con borrador final	
+225	2015-06-23 14:43:56.096854	INFO	managedbeans2.temas.ComisionCorrectora2MB	Comisión ingresada al sistema, el estado del tema seleccionado se modificó a En proceso de examen	
+226	2015-06-23 14:44:10.440245	INFO	managedbeans2.temas.CalificacionTema2MB	Promedio: 6.6 Se agregaron las notas y el estado del tema seleccionado se modificó a Titulado	
+227	2015-06-23 14:44:15.525544	INFO	managedbeans2.temas.VerTemaMB	Tema TEMA EJEMPLO editado exitosamente	
 \.
 
 
@@ -1208,7 +1235,7 @@ COPY logs (logs_id, dated, level, logger, message, user_id) FROM stdin;
 -- Name: logs_logs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('logs_logs_id_seq', 203, true);
+SELECT pg_catalog.setval('logs_logs_id_seq', 227, true);
 
 
 --
@@ -1226,6 +1253,7 @@ COPY paramsemestreano (id, anoactual, semestreactual) FROM stdin;
 
 COPY planes_alumno (alumno_id, plan_id, activo, version_plan) FROM stdin;
 176767901	3	t	2
+178608975	1	t	1
 \.
 
 
@@ -1252,8 +1280,10 @@ COPY planestudio (id, codigo, jornada, carrera_id) FROM stdin;
 --
 
 COPY profe_correccion (id_correctora, rut_profesor, rol_correccion, nota_correccion_informe, nota_correccion_defensa) FROM stdin;
-1	155560002	0	\N	\N
-1	80796609	1	\N	\N
+1	155560002	0	5.5	5.5
+1	80796609	1	5.5	4.4000001
+2	70629054	0	6.5999999	6.5999999
+2	70549123	1	6.5999999	6.5999999
 \.
 
 
@@ -1262,7 +1292,8 @@ COPY profe_correccion (id_correctora, rut_profesor, rol_correccion, nota_correcc
 --
 
 COPY profe_propuesta (id_propuesta, rut_profesor, rol_guia, nota_guia_informe, nota_guia_defensa, fecha_revision) FROM stdin;
-1	70629054	0	\N	\N	\N
+1	70629054	0	5.5	5.5	\N
+2	120188615	0	6.5999999	6.5999999	\N
 \.
 
 
@@ -1273,6 +1304,8 @@ COPY profe_propuesta (id_propuesta, rut_profesor, rol_guia, nota_guia_informe, n
 COPY profe_revision (id_revisora, rut_profesor, rol_revision, fecha_revision) FROM stdin;
 1	95794912	0	\N
 1	155898712	1	\N
+2	155898712	0	\N
+2	80796609	1	\N
 \.
 
 
@@ -1300,6 +1333,7 @@ COPY profesor (contrato, nombre_profesor, apellido_profesor, mail_profesor, tele
 
 COPY propuesta (nombre_propuesta, fecha_propuesta, id_propuesta, id_semestre, id_revisora, rut_alumno, magister, pet, id_plan, version_plan) FROM stdin;
 PROPUESTA VELASTIN	22/06/2015	1	1/2016	1	176767901	f	f	3	2
+PROPUESTA EJEMPLO	23/06/2015	2	2/2017	2	176767901	f	f	3	2
 \.
 
 
@@ -1307,7 +1341,7 @@ PROPUESTA VELASTIN	22/06/2015	1	1/2016	1	176767901	f	f	3	2
 -- Name: propuesta_id_propuesta_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('propuesta_id_propuesta_seq', 1, true);
+SELECT pg_catalog.setval('propuesta_id_propuesta_seq', 2, true);
 
 
 --
@@ -1333,8 +1367,11 @@ default	\N	\N
 2/2013	\N	\N
 1/2012	\N	\N
 1/2010	\N	\N
-1/2016	\N	\N
 2/2011	\N	\N
+1/2016	26/06/2015	30/06/2015
+2/2016	30/06/2015	30/06/2015
+2/2017	\N	\N
+1/2017	30/06/2015	30/06/2015
 \.
 
 
@@ -1343,7 +1380,7 @@ default	\N	\N
 --
 
 COPY semestre_actual (semestre_actual) FROM stdin;
-1/2016
+2/2017
 \.
 
 
@@ -1389,7 +1426,8 @@ COPY subtipo (idsubtipo, nombresubtipo, idtipoevento_idtipoevento) FROM stdin;
 --
 
 COPY tema (nombre_tema, fecha_tema, estado_tema, id_tema, id_correctora, id_semestre, id_revisora, fecha_siac, fecha_real, semestre_termino, precerrado, fecha_borrador, fecha_renuncia, fecha_caducado, fecha_informe_avance) FROM stdin;
-TEMA VELASTIN	25/06/2015	4	1	1	1/2016	1	\N	\N	\N	f	\N	\N	\N	\N
+TEMA VELASTIN	25/06/2015	1	1	1	1/2016	1	30/06/2015	30/06/2015	2/2017	f	\N	\N	\N	\N
+TEMA EJEMPLO	26/06/2015	1	2	2	2/2017	2	30/06/2015	30/06/2015	2/2017	f	29/06/2015	\N	\N	\N
 \.
 
 
@@ -1397,7 +1435,7 @@ TEMA VELASTIN	25/06/2015	4	1	1	1/2016	1	\N	\N	\N	f	\N	\N	\N	\N
 -- Name: tema_id_tema_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('tema_id_tema_seq', 1, true);
+SELECT pg_catalog.setval('tema_id_tema_seq', 2, true);
 
 
 --
@@ -1441,6 +1479,7 @@ nflores	176767901	Matias	Flores	t
 bruiztagle	179594404	Benjamin	Ruiz-Tagle	t
 paguirre	118403096	Pamela	Aguirre	t
 lceledon	178608975	LUIS	CELEDÓN	t
+cperezr	181181486	CARLOS 	PÉREZ	\N
 \.
 
 
@@ -1469,6 +1508,10 @@ COPY usuario_tipousuario (usuario_rut_usuario, tipos_id_tipo) FROM stdin;
 179594404	4
 118403096	4
 178608975	1
+178608975	3
+181181486	1
+181181486	3
+181181486	2
 \.
 
 

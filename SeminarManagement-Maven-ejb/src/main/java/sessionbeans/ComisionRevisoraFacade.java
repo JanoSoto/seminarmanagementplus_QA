@@ -41,4 +41,12 @@ public class ComisionRevisoraFacade extends AbstractFacade<ComisionRevisora> imp
                 .setParameter("semestre", semestre);
         return q.getResultList();
     }
+    
+    @Override
+    public List<ComisionRevisora> findByTema(Integer id_tema){
+        Query q;
+        q = em.createNamedQuery("ComisionRevisora.findBySemestre")
+                .setParameter("tema", id_tema);
+        return q.getResultList();
+    }
 }

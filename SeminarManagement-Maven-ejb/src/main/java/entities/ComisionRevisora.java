@@ -35,7 +35,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "ComisionRevisora.findByFechaEntregaRevision2", query = "SELECT c FROM ComisionRevisora c WHERE c.fechaEntregaRevision2 = :fechaEntregaRevision2"),
     @NamedQuery(name = "ComisionRevisora.findByTipoRevision", query = "SELECT c FROM ComisionRevisora c WHERE c.tipoRevision = :tipoRevision"),
     @NamedQuery(name = "ComisionRevisora.findByIdRevisora", query = "SELECT c FROM ComisionRevisora c WHERE c.idRevisora = :idRevisora"),
-    @NamedQuery(name = "ComisionRevisora.findBySemestre", query = "SELECT c FROM ComisionRevisora c WHERE c.idSemestre.idSemestre = :semestre")})
+    @NamedQuery(name = "ComisionRevisora.findBySemestre", query = "SELECT c FROM ComisionRevisora c WHERE c.idSemestre.idSemestre = :semestre"),
+    @NamedQuery(name = "ComisionRevisora.findByTema", query = "SELECT c FROM ComisionRevisora c WHERE c.idTema = :tema")})
 public class ComisionRevisora implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id

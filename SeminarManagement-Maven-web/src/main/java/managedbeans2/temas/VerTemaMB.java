@@ -4,6 +4,8 @@ import entities.Alumno;
 import entities.Profesor;
 import entities.Semestre;
 import entities.Tema;
+import entities.ComisionRevisora;
+import entities.Propuesta;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,8 +17,10 @@ import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import static managedbeans2.propuestas.ComisionRevisora2MB.fechaCorrecta;
+import sessionbeans.ComisionRevisoraFacadeLocal;
 import sessionbeans.SemestreFacadeLocal;
 import sessionbeans.TemaFacadeLocal;
+import sessionbeans.PropuestaFacadeLocal;
 
 /**
  *
@@ -29,13 +33,18 @@ public class VerTemaMB {
     private SemestreFacadeLocal semestreFacade;
     @EJB
     private TemaFacadeLocal temaFacade;
+    @EJB
+    private ComisionRevisoraFacadeLocal revisoraFacade;
+    @EJB
+    private PropuestaFacadeLocal propuestaFacade;
     
-    private Integer idTema, idTemaEdit;
+    private Integer idTema, idTemaEdit, idProp;
+
     private Profesor guia,coguia,corrector1,corrector2;
     private Tema tema;
     private Date fechaEdit,fechaEdit2,fechaEdit3;
     
-    private String semestreEdit, nombreTemaEdit,semestreTerminoEdit;
+    private String semestreEdit, nombreTemaEdit,semestreTerminoEdit, nombreProp;
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(VerTemaMB.class);
     private Alumno alumno;
     
@@ -44,7 +53,21 @@ public class VerTemaMB {
      */
     public VerTemaMB() {
     }
-    
+    public void buscarPropuestaDelTema(){
+        List<Tema> result = temaFacade.findById(idTema);
+        if( result != null ){
+            tema = result.get(0);
+            List<ComisionRevisora> result1 = revisoraFacade.findByTema(tema.getIdTema());
+            int idpropuesta = result1.get(0).getIdPropuesta().getIdPropuesta();
+            List<Propuesta> resultProp = propuestaFacade.findById(idpropuesta);
+            setIdProp(resultProp.get(0).getIdPropuesta());
+            setNombreProp(resultProp.get(0).getNombrePropuesta());
+            //System.out.println(nombreProp);
+        }else{
+            FacesContext context = FacesContext.getCurrentInstance();
+            context.addMessage(null, new FacesMessage("Error","No se ingresó Propuesta"));
+        }
+    }
     public void buscarTema(){
         List<Tema> result = temaFacade.findById(idTema);
         if( result != null ){
@@ -364,6 +387,22 @@ public class VerTemaMB {
     
     public void setAlumno(Alumno alumno) {
         this.alumno = alumno;
+    }
+    
+    public Integer getIdProp() {
+        return idProp;
+    }
+
+    public void setIdProp(Integer idProp) {
+        this.idProp = idProp;
+    }
+
+    public String getNombreProp() {
+        return nombreProp;
+    }
+
+    public void setNombreProp(String nombreProp) {
+        this.nombreProp = nombreProp;
     }
     
     
