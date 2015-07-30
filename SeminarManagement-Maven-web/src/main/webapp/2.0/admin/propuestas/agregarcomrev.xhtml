@@ -63,7 +63,7 @@
                     <h:panelGrid id="panelSecretaria" columns="3" cellpadding="4" style="display: none;">
                         
                         <p:outputLabel  id="profeR1Plabel" for="profeR1P" value="Profesor Revisor 1 *"><p:spacer width="212" height="10" /></p:outputLabel>
-                        <p:selectOneMenu id="profeR1P" value="#{comisionRevisora2MB.rutProfeRev1}" filter="true" filterMatchMode="contains" style="width:200px">
+                        <p:selectOneMenu id="profeR1P" value="#{comisionRevisora2MB.rutProfeRev1}" filter="true" filterMatchMode="contains" style="width:350px">
                             <f:selectItem itemLabel="Seleccionar Profesor" itemValue="-"/>
                             <f:selectItems value="#{comisionRevisora2MB.profeDatos}" var="prof" itemLabel="#{prof.profesor.rutProfesor} - #{prof.profesor.nombreProfesor} #{prof.profesor.apellidoProfesor} (#{prof.revSemActual})" itemValue="#{prof.profesor.rutProfesor}"/>  
                         </p:selectOneMenu>
@@ -79,7 +79,7 @@
                         <p:watermark for="calendP2" value="Ingresar Fecha"/>
                         
                         <p:outputLabel for="profeR2P" value="Profesor Revisor 2 *" />
-                        <p:selectOneMenu id="profeR2P" value="#{comisionRevisora2MB.rutProfeRev2}" filter="true" filterMatchMode="contains" style="width:200px">
+                        <p:selectOneMenu id="profeR2P" value="#{comisionRevisora2MB.rutProfeRev2}" filter="true" filterMatchMode="contains" style="width:350px">
                             <f:selectItem itemLabel="Seleccionar Profesor" itemValue="-"/>
                             <f:selectItems value="#{comisionRevisora2MB.profeDatos}" var="prof" itemLabel="#{prof.profesor.rutProfesor} - #{prof.profesor.nombreProfesor} #{prof.profesor.apellidoProfesor} (#{prof.revSemActual})" itemValue="#{prof.profesor.rutProfesor}"/>
                         </p:selectOneMenu>
@@ -99,14 +99,14 @@
                     <h:panelGrid id="panelSeminario" columns="3" cellpadding="4" style="display: none;">
                         
                         <p:outputLabel  id="profeR1label" for="profeR1" value="Profesor Revisor 1 *"><p:spacer width="212" height="10" /></p:outputLabel>
-                        <p:selectOneMenu  id="profeR1" value="#{comisionRevisora2MB.rutProfeRev1Sem}" filter="true" filterMatchMode="contains" style="width:200px">
+                        <p:selectOneMenu  id="profeR1" value="#{comisionRevisora2MB.rutProfeRev1Sem}" filter="true" filterMatchMode="contains" style="width:350px">
                             <f:selectItem itemLabel="Seleccionar Profesor" itemValue="-"/>
                             <f:selectItems value="#{comisionRevisora2MB.profeDatos}" var="prof" itemLabel="#{prof.profesor.rutProfesor} - #{prof.profesor.nombreProfesor} #{prof.profesor.apellidoProfesor} (#{prof.revSemActual})" itemValue="#{prof.profesor.rutProfesor}"/>  
                         </p:selectOneMenu>
                         <br/>
                         
                         <p:outputLabel for="profeR2" value="Profesor Revisor 2 *" />
-                        <p:selectOneMenu id="profeR2" value="#{comisionRevisora2MB.rutProfeRev2Sem}" filter="true" filterMatchMode="contains" style="width:200px">
+                        <p:selectOneMenu id="profeR2" value="#{comisionRevisora2MB.rutProfeRev2Sem}" filter="true" filterMatchMode="contains" style="width:350px">
                             <f:selectItem itemLabel="Seleccionar Profesor" itemValue="-"/>
                             <f:selectItems value="#{comisionRevisora2MB.profeDatos}" var="prof" itemLabel="#{prof.profesor.rutProfesor} - #{prof.profesor.nombreProfesor} #{prof.profesor.apellidoProfesor} (#{prof.revSemActual})" itemValue="#{prof.profesor.rutProfesor}"/>
                         </p:selectOneMenu>
