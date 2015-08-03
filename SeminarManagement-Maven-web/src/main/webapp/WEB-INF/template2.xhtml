@@ -46,12 +46,12 @@
                             <span><a href="http://www.usach.cl/"><p:graphicImage alt="Seminar Management" url="/resources/images/usach.png"/></a></span>
                         </p:layoutUnit>
                         <p:layoutUnit position="center" style="border: none;text-align : center;">
-                        <h:form id = "formTema">
+                            <h:form rendered = "#{authMB.logged == true}" id = "formTema">
                                     <h:panelGrid columns="2" cellpadding="0">
-                                            <p:themeSwitcher effectSpeed="normal" effect="fade" style="width:165px" id="statefulSwitcher" value="#{themeService.theme}">
+                                            <p:themeSwitcher effectSpeed="normal" effect="fade" style="width:165px" id="statefulSwitcher" value="#{usuarioMB.theme}">
                                                 <f:selectItem itemLabel="Elija un tema" itemValue="" />
-                                                <f:selectItems value="#{themeService.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme.name}"/>
-                                                <p:ajax global="false" listener="#{themeService.saveTheme}" />
+                                                <f:selectItems value="#{usuarioMB.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme.name}"/>
+                                                <p:ajax global="false" listener="#{usuarioMB.saveTheme}" />
                                             </p:themeSwitcher>
                                     </h:panelGrid>
                         </h:form>

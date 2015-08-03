@@ -5,8 +5,7 @@
  */
 package managedbeans.personas;
 
-import entities.Historial;
-import entities.Profesor;
+
 import entities.Tipousuario;
 import entities.Usuario;
 import java.io.IOException;
@@ -14,18 +13,18 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Map;
+import java.util.TreeMap;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import managedbeans.ProfesorViewMB;
+import javax.faces.event.AjaxBehaviorEvent;
+import javax.servlet.http.HttpServletRequest;
+import org.primefaces.component.themeswitcher.ThemeSwitcher;
 import org.primefaces.model.DualListModel;
 import sessionbeans.AlumnoFacadeLocal;
 import sessionbeans.HistorialFacadeLocal;
@@ -58,6 +57,17 @@ public class UsuarioMB {
     private List<String> tiposDelUsuario;
     private DualListModel<String> tiposDualList;
     private Boolean estaEditando = true;
+    private Map<String, String> themes;
+
+    public Map<String, String> getThemes() {
+        return themes;
+    }
+
+    public void setThemes(Map<String, String> themes) {
+        this.themes = themes;
+    }
+    
+    private String theme = "usachborde";
 
     private String uid;
 
@@ -89,6 +99,46 @@ public class UsuarioMB {
 
     @PostConstruct
     public void init() {
+        themes = new TreeMap<String, String>();
+        themes.put("Afterdark", "afterdark");
+        themes.put("Afternoon", "afternoon");
+        themes.put("Afterwork", "afterwork");
+        themes.put("Aristo", "aristo");
+        themes.put("Black-Tie", "black-tie");
+        themes.put("Blitzer", "blitzer");
+        themes.put("Bluesky", "bluesky");
+        themes.put("Bootstrap", "bootstrap");
+        themes.put("Casablanca", "casablanca");
+        themes.put("Cupertino", "cupertino");
+        themes.put("Cruze", "cruze");
+        themes.put("Dark-Hive", "dark-hive");
+        themes.put("Delta", "delta");
+        themes.put("Dot-Luv", "dot-luv");
+        themes.put("Eggplant", "eggplant");
+        themes.put("Excite-Bike", "excite-bike");
+        themes.put("Flick", "flick");
+        themes.put("Glass-X", "glass-x");
+        themes.put("Home", "home");
+        themes.put("Hot-Sneaks", "hot-sneaks");
+        themes.put("Humanity", "humanity");
+        themes.put("Le-Frog", "le-frog");
+        themes.put("Midnight", "midnight");
+        themes.put("Mint-Choc", "mint-choc");
+        themes.put("Overcast", "overcast");
+        themes.put("Pepper-Grinder", "pepper-grinder");
+        themes.put("Redmond", "redmond");
+        themes.put("Rocket", "rocket");
+        themes.put("Sam", "sam");
+        themes.put("Smoothness", "smoothness");
+        themes.put("South-Street", "south-street");
+        themes.put("Start", "start");
+        themes.put("Sunny", "sunny");
+        themes.put("Swanky-Purse", "swanky-purse");
+        themes.put("Trontastic", "trontastic");
+        themes.put("UI-Darkness", "ui-darkness");
+        themes.put("UI-Lightness", "ui-lightness");
+        themes.put("USACH", "usachborde");
+        themes.put("Vader", "vader");
         this.estaEditando = false;
         if (this.uid != null && !this.uid.equals("")) {
             this.estaEditando = true;
@@ -317,5 +367,43 @@ public class UsuarioMB {
         usuarioFacade.remove(usuario);
         FacesContext context = FacesContext.getCurrentInstance();
         context.addMessage(null, new FacesMessage("Usuario " + this.uid + " eliminado correctamente."));
+    }
+    
+    public String getTheme() {
+       HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+       //this.theme = "usachborde";
+       if (request.getUserPrincipal() != null) {
+           Usuario user = usuarioFacade.findByUid(request.getUserPrincipal().toString());
+           if(user.getTema()!=null){             
+            this.theme = user.getTema();
+           }
+       }
+       
+       return this.theme; 
+    }
+
+    public void setTheme(String theme) {
+        this.theme = theme;
+    }
+    
+    public void saveTheme(AjaxBehaviorEvent ajax) {
+       //System.out.println("Tema anterior: " + this.theme);
+       String tema=this.theme;
+       //String tema = (String) ((ThemeSwitcher)ajax.getSource()).getValue();
+       //System.out.println("Tema: " + tema);
+       //System.out.println("Tema this.theme: " + this.theme);
+       HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
+       Usuario user = usuarioFacade.findByUid(request.getUserPrincipal().toString());
+       //System.out.println("UID:" + request.getUserPrincipal().toString());
+       //System.out.println("Tema this.theme: " + this.theme);
+       user.setTema(tema);
+       
+       Usuario usuarioEditado = user;
+       //System.out.println("Cambio de tema a: "+ tema);
+       usuarioFacade.edit(usuarioEditado);
+        
+       setTheme(tema);
+       //System.out.println("Cambio de tema a: "+ this.theme);
+       
     }
 }

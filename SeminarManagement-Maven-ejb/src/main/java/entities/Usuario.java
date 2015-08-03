@@ -58,6 +58,9 @@ public class Usuario implements Serializable {
     private String apellidoUsuario;
     @Column(name = "activo")
     private Boolean activo;
+    @Column(name = "tema")
+    private String tema;
+
 
     @ManyToMany(mappedBy = "usuarios")
     private List<Tipousuario> tipos;
@@ -128,6 +131,14 @@ public class Usuario implements Serializable {
 
     public void setActivo(Boolean activo) {
         this.activo = activo;
+    }
+    
+    public String getTema() {
+        return tema;
+    }
+
+    public void setTema(String tema) {
+        this.tema = tema;
     }
 
     @Override
