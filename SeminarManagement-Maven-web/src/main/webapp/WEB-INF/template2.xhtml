@@ -20,6 +20,7 @@
             </f:facet>
             <f:facet name="last">
                 <link href="/SeminarManagement-Maven-web/resources/css/style.css" rel="stylesheet" type="text/css"/>
+                
             </f:facet>
         </h:head>
 
@@ -40,9 +41,20 @@
                             <c:if test="#{empty authMB.tipo}">
                                 <span><a href="/SeminarManagement-Maven-web/2.0/login.xhtml"><p:graphicImage alt="Seminar Management" url="/resources/images/seminar.png"/></a></span>
                             </c:if>
-                        </p:layoutUnit>
+                        </p:layoutUnit>   
                         <p:layoutUnit position="east" size="180" style="border: none;text-align : center;">
                             <span><a href="http://www.usach.cl/"><p:graphicImage alt="Seminar Management" url="/resources/images/usach.png"/></a></span>
+                        </p:layoutUnit>
+                        <p:layoutUnit position="center" style="border: none;text-align : center;">
+                        <h:form id = "formTema">
+                                    <h:panelGrid columns="2" cellpadding="0">
+                                            <p:themeSwitcher effectSpeed="normal" effect="fade" style="width:165px" id="statefulSwitcher" value="#{themeService.theme}">
+                                                <f:selectItem itemLabel="Elija un tema" itemValue="" />
+                                                <f:selectItems value="#{themeService.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme.name}"/>
+                                                <p:ajax global="false" listener="#{themeService.saveTheme}" />
+                                            </p:themeSwitcher>
+                                    </h:panelGrid>
+                        </h:form>
                         </p:layoutUnit>
                     </p:layout>
                 </p:layoutUnit>
@@ -74,7 +86,7 @@
                                 </p:tabMenu>
                             </h:form>
                         </p:layoutUnit>
-
+                        
                         <ui:insert name="content"><h1>Aqui va el Contenido</h1></ui:insert>
                     </p:layout>
                 </p:layoutUnit>
