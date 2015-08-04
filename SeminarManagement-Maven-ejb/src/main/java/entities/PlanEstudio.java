@@ -105,6 +105,14 @@ public class PlanEstudio implements Serializable {
     public void setCarreraId(Carrera carreraId) {
         this.carreraId = carreraId;
     }
+    
+    public Carrera getCarrera() {
+        return carreraId;
+    }
+
+    public void setCarrera(Carrera carreraId) {
+        this.carreraId = carreraId;
+    }
 
     @XmlTransient
     public List<Versionplan> getVersionplanList() {

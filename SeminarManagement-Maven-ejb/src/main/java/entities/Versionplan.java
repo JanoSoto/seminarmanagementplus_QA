@@ -26,6 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Versionplan.findByVersion", query = "SELECT v FROM Versionplan v WHERE v.version = :version"),
     @NamedQuery(name = "Versionplan.findByAnio", query = "SELECT v FROM Versionplan v WHERE v.anio = :anio")})
 public class Versionplan implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
@@ -39,6 +40,43 @@ public class Versionplan implements Serializable {
     @JoinColumn(name = "planestudio_id", referencedColumnName = "id")
     @ManyToOne
     private PlanEstudio planestudioId;
+
+    private int resolucion;
+    private int anio_resolucion;
+    private boolean planificado;
+    private int correlativo;
+
+    public int getCorrelativo() {
+        return correlativo;
+    }
+
+    public void setCorrelativo(int correlativo) {
+        this.correlativo = correlativo;
+    }
+
+    public int getResolucion() {
+        return resolucion;
+    }
+
+    public void setResolucion(int resolucion) {
+        this.resolucion = resolucion;
+    }
+
+    public int getAnio_resolucion() {
+        return anio_resolucion;
+    }
+
+    public void setAnio_resolucion(int anio_resolucion) {
+        this.anio_resolucion = anio_resolucion;
+    }
+
+    public boolean isPlanificado() {
+        return planificado;
+    }
+
+    public void setPlanificado(boolean planificado) {
+        this.planificado = planificado;
+    }
 
     public Versionplan() {
     }
@@ -75,7 +113,15 @@ public class Versionplan implements Serializable {
         return planestudioId;
     }
 
+    public PlanEstudio getPlanestudio() {
+        return planestudioId;
+    }
+
     public void setPlanestudioId(PlanEstudio planestudioId) {
+        this.planestudioId = planestudioId;
+    }
+
+    public void setPlanestudio(PlanEstudio planestudioId) {
         this.planestudioId = planestudioId;
     }
 
@@ -103,5 +149,5 @@ public class Versionplan implements Serializable {
     public String toString() {
         return "entities.Versionplan[ id=" + id + " ]";
     }
-    
+
 }
