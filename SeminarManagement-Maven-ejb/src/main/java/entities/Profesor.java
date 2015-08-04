@@ -37,6 +37,7 @@ import Util.Util;
     @NamedQuery(name = "Profesor.findByRutProfesor", query = "SELECT p FROM Profesor p WHERE p.rutProfesor = :rutProfesor"),
     @NamedQuery(name = "Profesor.findProfesor", query = "SELECT p FROM Profesor p WHERE p.nombreProfesor LIKE :nombreProfesor OR p.apellidoProfesor LIKE :apellidoProfesor OR p.rutProfesor LIKE :rutProfesor")})
 public class Profesor implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -45,44 +46,63 @@ public class Profesor implements Serializable {
     @Size(min = 1, max = 20)
     @Column(name = "rut_profesor")
     private String rutProfesor;
-    
+
     @Column(name = "contrato")
     private Integer contrato;
-    
+
     @Size(max = 50)
     @Column(name = "nombre_profesor")
     private String nombreProfesor;
-    
+
     @Size(max = 50)
     @Column(name = "apellido_profesor")
     private String apellidoProfesor;
-    
+
     @Size(max = 100)
     @Column(name = "mail_profesor")
     private String mailProfesor;
-    
+
     @Size(max = 20)
     @Column(name = "telefono_profesor")
     private String telefonoProfesor;
-    
+
     @Column(name = "tipo_profesor")
     private Integer tipoProfesor;
-    
+
     @Column(name = "maximo_guias")
     private Integer maximoGuias;
-    
+
     @Size(max = 30)
     @Column(name = "jerarquia_categoria")
     private String jerarquiaCategoria;
-    
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "profesor")
     private List<ProfePropuesta> profePropuestaList;
-    
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "profesor")
     private List<ProfeRevision> profeRevisionList;
-    
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "profesor")
     private List<ProfeCorreccion> profeCorreccionList;
+    
+    @Column(name = "alias")
+    private String alias_profesor;
+    
+    public String getAlias() {
+        return alias_profesor;
+    }
+
+    public void setAlias(String alias) {
+        this.alias_profesor = alias;
+    }
+
+    public String getApellido() {
+        return apellidoProfesor;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellidoProfesor = apellido;
+    }
 
     public Profesor() {
         profePropuestaList = new ArrayList();
@@ -96,16 +116,16 @@ public class Profesor implements Serializable {
         profeCorreccionList = new ArrayList();
         this.rutProfesor = rutProfesor;
     }
-    
-    public void add(ProfePropuesta object){
+
+    public void add(ProfePropuesta object) {
         profePropuestaList.add(object);
     }
-    
-    public void add(ProfeRevision object){
+
+    public void add(ProfeRevision object) {
         profeRevisionList.add(object);
     }
-    
-    public void add(ProfeCorreccion object){
+
+    public void add(ProfeCorreccion object) {
         profeCorreccionList.add(object);
     }
 
@@ -168,7 +188,7 @@ public class Profesor implements Serializable {
     public String getRutProfesor() {
         return rutProfesor;
     }
-    
+
     public String getRutFormateadoProfesor() {
         return Util.formatearRut(rutProfesor);
     }
@@ -236,5 +256,13 @@ public class Profesor implements Serializable {
     public String toString() {
         return "entities.Profesor[ rutProfesor=" + rutProfesor + " ]";
     }
-    
+
+    public String getNombre() {
+        return nombreProfesor;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombreProfesor = nombre;
+    }
+
 }

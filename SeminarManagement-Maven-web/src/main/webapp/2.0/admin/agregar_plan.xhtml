@@ -39,7 +39,7 @@
                             <p:selectOneButton id="opcion" value="#{cargarPlanDeEstudios.opcion}" immediate="true">
                                 <f:selectItem itemLabel="Agregar Versión" itemValue="false" />
                                 <f:selectItem itemLabel="Agregar nuevo Plan" itemValue="true" itemDisabled="#{cargarPlanDeEstudios.agregaPlan()}"/>
-                                <p:ajax process="@this" update="nuevo-plan, confirmar, planes" />
+                                <p:ajax process="@this" update="nuevo-plan, planes" />
                             </p:selectOneButton>
                             <hr/>
                             <c:if test="#{cargarPlanDeEstudios.opcion}">
