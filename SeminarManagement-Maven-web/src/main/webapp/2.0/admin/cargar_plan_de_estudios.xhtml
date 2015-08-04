@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template2.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="metadata">
+    </ui:define>
+
+    <ui:define name="title"><title>Inicio | Seminar Management</title></ui:define>
+
+    <ui:define name="content">
+
+        <p:layoutUnit position="center" style="border:none;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-10">
+                        <ol class="breadcrumb">
+                            <li><a href="/easy-planning-web/faces/coordinador_docente/index.xhtml">Inicio</a></li>
+                            <li><a href="#">Carreras</a></li>
+                            <li class="active">Cargar Malla</li>
+                        </ol>
+                    </div> 
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-6 col-md-offset-3 well">
+                                <p:panel styleClass="panel-no-border" id="cargaPlan">
+                                    <h:form enctype='multipart/form-data'>
+                                        <div class="form-group">
+                                            <p:selectOneMenu id="planes" value="#{cargarPlanDeEstudios.idVersion}" required="true" requiredMessage="Debe seleccionar un plan de estudios" immediate="true">
+                                                <f:selectItems value="#{cargarPlanDeEstudios.versiones}" var="vers" itemLabel="#{vers.planEstudio.carrera.nombre}-#{vers.planEstudio.codigo}.#{vers.anio}.#{vers.version} (#{cargarPlanDeEstudios.getJornada(vers.planEstudio.jornada)})" itemValue="#{vers.id}" />
+                                            </p:selectOneMenu>
+                                            <br/>
+                                            <h:inputFile styleClass="ui-button-text ui-c ui-state-default ui-widget-content ui-widget-header" label="Seleccionar archivo" value="#{cargarPlanDeEstudios.ruta}" required="true" requiredMessage="Debe seleccionar un archivo"></h:inputFile>
+                                            <br/>
+                                            <h:commandButton id="action" styleClass="ui-button-text ui-c ui-state-default ui-widget-content ui-widget-header button-padding" value="Cargar" actionListener="#{cargarPlanDeEstudios.cargarArchivo()}" onclick="submit();" />
+                                        </div>
+                                    </h:form>
+                                </p:panel>
+                                <p>
+                                    <h:outputText value="#{cargarPlanDeEstudios.aux}"></h:outputText>
+                                </p>
+                            </div>
+
+                        </div>
+                        <p:panel id="tablaPlan" header="Plan de Estudios #{cargarPlanDeEstudios.nombrePlan} registrado" rendered="#{cargarPlanDeEstudios.cargados}" >
+                            <p:dataTable id="tablaAsignaturas" value="#{cargarPlanDeEstudios.asignaturasAñadidas}" var="item"
+                                         selectionMode="single"
+                                         selection="#{asignaturaController.selected}"
+                                         rowKey="#{item.codigo}">
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Código"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.codigo}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Asignatura"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.nombre}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Nivel"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.nivel}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="T"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.teoria}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="E"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.ejercicios}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="L"/>
+                                    </f:facet>
+                                    <h:outputText value="#{item.laboratorio}"/>
+                                </p:column>
+                                <p:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="Prerequisitos"/>
+                                    </f:facet>
+                                    <ul>
+                                        <h:outputText value="Ingreso" rendered="#{item.nivel == 1}">Ingreso</h:outputText>
+                                    </ul>
+                                    <ul>
+                                        <ui:repeat value="#{item.prerequisitos}" var="prerequisito">
+                                            <li>
+                                                <h:outputText value="#{prerequisito.codigo} - #{prerequisito.nombre}"></h:outputText>
+                                            </li>
+                                        </ui:repeat>
+                                    </ul>
+                                </p:column>
+                            </p:dataTable>
+                        </p:panel>        
+                    </div>
+                </div>
+
+            </div>
+        </p:layoutUnit>
+    </ui:define>
+</ui:composition>
