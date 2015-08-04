@@ -8,6 +8,7 @@ package entities;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -17,6 +18,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -33,14 +35,15 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Usuario.findAll", query = "SELECT u FROM Usuario u"),
     @NamedQuery(name = "Usuario.findByUid", query = "SELECT u FROM Usuario u WHERE u.uid = :uid"),
     @NamedQuery(name = "Usuario.findByRutUsuario", query = "SELECT u FROM Usuario u WHERE u.rutUsuario = :rutUsuario"),
+    @NamedQuery(name = "Usuario.findByMailUsuario", query = "SELECT u FROM Usuario u WHERE u.mailUsuario = :mailUsuario"),
+    @NamedQuery(name = "Usuario.findByTelefonoUsuario", query = "SELECT u FROM Usuario u WHERE u.telefonoUsuario = :telefonoUsuario"),
+    @NamedQuery(name = "Usuario.findByDireccionUsuario", query = "SELECT u FROM Usuario u WHERE u.direccionUsuario = :direccionUsuario"),
     @NamedQuery(name = "Usuario.findByNombreUsuario", query = "SELECT u FROM Usuario u WHERE u.nombreUsuario = :nombreUsuario"),
     @NamedQuery(name = "Usuario.findByApellidoUsuario", query = "SELECT u FROM Usuario u WHERE u.apellidoUsuario = :apellidoUsuario"),
     @NamedQuery(name = "Usuario.findByActivo", query = "SELECT u FROM Usuario u WHERE u.activo = :activo")})
 public class Usuario implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 20)
     @Column(name = "uid")
     private String uid;
@@ -58,7 +61,23 @@ public class Usuario implements Serializable {
     private String apellidoUsuario;
     @Column(name = "activo")
     private Boolean activo;
-
+    @Size(max = 100)
+    @Column(name = "mail_usuario")
+    private String mailUsuario;
+    @Size(max = 15)
+    @Column(name = "telefono_usuario")
+    private String telefonoUsuario;
+    @Size(max = 100)
+    @Column(name = "direccion_usuario")
+    private String direccionUsuario;
+    @Size(max = 50)
+    @Column(name = "tema_usuario")
+    private String temaUsuario;
+    
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
+    private Alumno alumno;
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
+    private Profesor profesor;
     @ManyToMany(mappedBy = "usuarios")
     private List<Tipousuario> tipos;
 
@@ -128,6 +147,54 @@ public class Usuario implements Serializable {
 
     public void setActivo(Boolean activo) {
         this.activo = activo;
+    }
+
+    public String getMailUsuario() {
+        return mailUsuario;
+    }
+
+    public void setMailUsuario(String mailUsuario) {
+        this.mailUsuario = mailUsuario;
+    }
+
+    public String getTelefonoUsuario() {
+        return telefonoUsuario;
+    }
+
+    public void setTelefonoUsuario(String telefonoUsuario) {
+        this.telefonoUsuario = telefonoUsuario;
+    }
+
+    public String getDireccionUsuario() {
+        return direccionUsuario;
+    }
+
+    public void setDireccionUsuario(String direccionUsuario) {
+        this.direccionUsuario = direccionUsuario;
+    }
+
+    public Alumno getAlumno() {
+        return alumno;
+    }
+
+    public void setAlumno(Alumno alumno) {
+        this.alumno = alumno;
+    }
+
+    public Profesor getProfesor() {
+        return profesor;
+    }
+
+    public void setProfesor(Profesor profesor) {
+        this.profesor = profesor;
+    }
+
+    public String getTemaUsuario() {
+        return temaUsuario;
+    }
+
+    public void setTemaUsuario(String temaUsuario) {
+        this.temaUsuario = temaUsuario;
     }
 
     @Override

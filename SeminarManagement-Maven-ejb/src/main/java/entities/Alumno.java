@@ -18,9 +18,12 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import Util.Util;
 import javax.ejb.EJB;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToOne;
 import sessionbeans.PlanestudioFacadeLocal;
 
 /**
@@ -33,44 +36,24 @@ import sessionbeans.PlanestudioFacadeLocal;
 @NamedQueries({
     @NamedQuery(name = "Alumno.findAll", query = "SELECT a FROM Alumno a"),
     //@NamedQuery(name = "Alumno.findByJornada", query = "SELECT a FROM Alumno a WHERE a.jornada = :jornada"),
-    @NamedQuery(name = "Alumno.findByNombreAlumno", query = "SELECT a FROM Alumno a WHERE a.nombreAlumno = :nombreAlumno"),
-    @NamedQuery(name = "Alumno.findByApellidoAlumno", query = "SELECT a FROM Alumno a WHERE a.apellidoAlumno = :apellidoAlumno"),
-    @NamedQuery(name = "Alumno.findByMailAlumno", query = "SELECT a FROM Alumno a WHERE a.mailAlumno = :mailAlumno"),
-    @NamedQuery(name = "Alumno.findByTelefonoAlumno", query = "SELECT a FROM Alumno a WHERE a.telefonoAlumno = :telefonoAlumno"),
     //@NamedQuery(name = "Alumno.findByCarreraAlumno", query = "SELECT a FROM Alumno a WHERE a.carreraAlumno = :carreraAlumno"),
-    @NamedQuery(name = "Alumno.findByRutAlumno", query = "SELECT a FROM Alumno a WHERE a.rutAlumno = :rutAlumno"),
-    @NamedQuery(name = "Alumno.findByDireccionAlumno", query = "SELECT a FROM Alumno a WHERE a.direccionAlumno = :direccionAlumno"),
-    @NamedQuery(name = "Alumno.findAlumno", query = "SELECT a FROM Alumno a WHERE a.nombreAlumno LIKE :nombreAlumno OR a.apellidoAlumno LIKE :apellidoAlumno OR a.rutAlumno LIKE :rutAlumno")})
+    @NamedQuery(name = "Alumno.findByRutAlumno", query = "SELECT a FROM Alumno a WHERE a.usuario.rutUsuario = :rutAlumno"),
+    @NamedQuery(name = "Alumno.findByDireccionAlumno", query = "SELECT a FROM Alumno a WHERE a.usuario.direccionUsuario = :direccionAlumno"),
+    @NamedQuery(name = "Alumno.findByNombreAlumno", query = "SELECT a FROM Alumno a WHERE a.usuario.nombreUsuario = :nombreAlumno"),
+    @NamedQuery(name = "Alumno.findByApellidoAlumno", query = "SELECT a FROM Alumno a WHERE a.usuario.apellidoUsuario = :apellidoAlumno"),
+    @NamedQuery(name = "Alumno.findByTelefonoAlumno", query = "SELECT a FROM Alumno a WHERE a.usuario.telefonoUsuario = :telefonoAlumno"),
+    @NamedQuery(name = "Alumno.findByMailAlumno", query = "SELECT a FROM Alumno a WHERE a.usuario.mailUsuario = :mailAlumno"),
+    @NamedQuery(name = "Alumno.findAlumno", query = "SELECT a FROM Alumno a WHERE a.usuario.nombreUsuario LIKE :nombreAlumno OR a.usuario.apellidoUsuario LIKE :apellidoAlumno OR a.usuario.rutUsuario LIKE :rutAlumno")})
 public class Alumno implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    
     @Id
     @Basic(optional = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "rut_alumno")
-    private String rutAlumno;
-
-    @Size(max = 50)
-    @Column(name = "nombre_alumno")
-    private String nombreAlumno;
-
-    @Size(max = 50)
-    @Column(name = "apellido_alumno")
-    private String apellidoAlumno;
-
-    @Size(max = 100)
-    @Column(name = "mail_alumno")
-    private String mailAlumno;
-
-    @Size(max = 20)
-    @Column(name = "telefono_alumno")
-    private String telefonoAlumno;
-
-    @Size(max = 100)
-    @Column(name = "direccion_alumno")
-    private String direccionAlumno;
+    @Column(name = "id_alumno")
+    private String idAlumno;
     
     @Column(name = "id_plan_activo")
     Integer idPlanActivo;
@@ -78,6 +61,10 @@ public class Alumno implements Serializable {
     @Column(name = "version_plan_activo")
     Integer versionPlanActivo;
 
+    @JoinColumn(name = "rut_usuario", referencedColumnName = "rut_usuario", updatable = false)
+    @OneToOne(optional = false)
+    private Usuario usuario;
+    
     public Integer getVersionPlanActivo() {
         return versionPlanActivo;
     }
@@ -118,72 +105,29 @@ public class Alumno implements Serializable {
 
     public Alumno() {
         propuestaList = new ArrayList();
+        usuario = new Usuario();
     }
-
-    public Alumno(String rutAlumno) {
-        propuestaList = new ArrayList();
-        this.rutAlumno = rutAlumno;
+    
+    public Alumno (String rutUsuario){
+        propuestaList = new ArrayList();       
+        this.usuario = new Usuario(rutUsuario);
     }
 
     public void add(Propuesta object) {
         propuestaList.add(object);
     }
 
-    public String getNombreAlumno() {
-        return nombreAlumno;
-    }
-
-    public void setNombreAlumno(String nombreAlumno) {
-        this.nombreAlumno = nombreAlumno;
-    }
-
-    public String getApellidoAlumno() {
-        return apellidoAlumno;
-    }
-
-    public void setApellidoAlumno(String apellidoAlumno) {
-        this.apellidoAlumno = apellidoAlumno;
-    }
-
-    public String getMailAlumno() {
-        return mailAlumno;
-    }
-
-    public void setMailAlumno(String mailAlumno) {
-        this.mailAlumno = mailAlumno;
-    }
-
-    public String getTelefonoAlumno() {
-        return telefonoAlumno;
-    }
-
-    public void setTelefonoAlumno(String telefonoAlumno) {
-        this.telefonoAlumno = telefonoAlumno;
-    }
-
-    public String getRutAlumno() {
-        return rutAlumno;
-    }
-
-    public String getRutAlumnoFormateado() {
-        return Util.formatearRut(rutAlumno);
-    }
-
-    public void setRutAlumno(String rutAlumno) {
-        this.rutAlumno = rutAlumno;
-    }
-
-    public String getDireccionAlumno() {
-        return direccionAlumno;
-    }
-
-    public void setDireccionAlumno(String direccionAlumno) {
-        this.direccionAlumno = direccionAlumno;
-    }
-
     @XmlTransient
     public List<Propuesta> getPropuestaList() {
         return propuestaList;
+    }
+
+    public String getIdAlumno() {
+        return idAlumno;
+    }
+
+    public void setIdAlumno(String idAlumno) {
+        this.idAlumno = idAlumno;
     }
 
     public void setPropuestaList(List<Propuesta> propuestaList) {
@@ -198,10 +142,66 @@ public class Alumno implements Serializable {
         this.planes = planes;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getMailAlumno() {
+        return usuario.getMailUsuario();
+    }
+
+    public void setMailAlumno(String mailAlumno) {
+        this.usuario.setMailUsuario(mailAlumno);
+    }
+
+    public String getTelefonoAlumno() {
+        return usuario.getTelefonoUsuario();
+    }
+
+    public void setTelefonoAlumno(String telefonoAlumno) {
+        this.usuario.setTelefonoUsuario(telefonoAlumno);
+    }
+
+    public String getDireccionAlumno() {
+        return usuario.getDireccionUsuario();
+    }
+
+    public void setDireccionAlumno(String direccionAlumno) {
+        this.usuario.setDireccionUsuario(direccionAlumno);
+    }
+
+    public String getRutAlumno() {
+        return usuario.getRutUsuario();
+    }
+
+    public void setRutAlumno(String rutAlumno) {
+        this.usuario.setRutUsuario(rutAlumno);
+    }
+
+    public String getNombreAlumno() {
+        return usuario.getNombreUsuario();
+    }
+
+    public void setNombreAlumno(String nombreAlumno) {
+        this.usuario.setNombreUsuario(nombreAlumno);
+    }
+
+    public String getApellidoAlumno() {
+        return usuario.getApellidoUsuario();
+    }
+
+    public void setApellidoAlumno(String apellidoAlumno) {
+        this.usuario.setApellidoUsuario(apellidoAlumno);
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (rutAlumno != null ? rutAlumno.hashCode() : 0);
+        hash += (usuario.getRutUsuario() != null ? usuario.getRutUsuario().hashCode() : 0);
         return hash;
     }
 
@@ -212,7 +212,7 @@ public class Alumno implements Serializable {
             return false;
         }
         Alumno other = (Alumno) object;
-        if ((this.rutAlumno == null && other.rutAlumno != null) || (this.rutAlumno != null && !this.rutAlumno.equals(other.rutAlumno))) {
+        if ((this.usuario.getRutUsuario() == null && other.usuario.getRutUsuario() != null) || (this.usuario.getRutUsuario() != null && !this.usuario.getRutUsuario().equals(other.usuario.getRutUsuario()))) {
             return false;
         }
         return true;
@@ -220,7 +220,7 @@ public class Alumno implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Alumno[ rutAlumno=" + rutAlumno + " ]";
+        return "entities.Alumno[ rutAlumno=" + usuario.getRutUsuario() + " ]";
     }
 
     public Integer getIdPlanActivo() {
