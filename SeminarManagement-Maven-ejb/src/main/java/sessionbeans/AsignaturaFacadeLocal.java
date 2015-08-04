@@ -5,7 +5,7 @@
  */
 package sessionbeans;
 
-import entities.Asignatura;
+import otros.Asignatura;
 import java.util.List;
 import javax.ejb.Local;
 

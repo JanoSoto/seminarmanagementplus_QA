@@ -1,5 +1,8 @@
-package entities;
+package otros;
 
+import entities.Coordinacion;
+import entities.Profesor;
+import entities.Versionplan;
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.CascadeType;

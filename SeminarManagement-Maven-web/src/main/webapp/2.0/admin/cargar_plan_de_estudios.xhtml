@@ -33,7 +33,7 @@
                                     <h:form enctype='multipart/form-data'>
                                         <div class="form-group">
                                             <p:selectOneMenu id="planes" value="#{cargarPlanDeEstudios.idVersion}" required="true" requiredMessage="Debe seleccionar un plan de estudios" immediate="true">
-                                                <f:selectItems value="#{cargarPlanDeEstudios.versiones}" var="vers" itemLabel="#{vers.planEstudio.carrera.nombre}-#{vers.planEstudio.codigo}.#{vers.anio}.#{vers.version} (#{cargarPlanDeEstudios.getJornada(vers.planEstudio.jornada)})" itemValue="#{vers.id}" />
+                                                <f:selectItems value="#{cargarPlanDeEstudios.versionesHola}" var="vers" itemLabel="#{vers.planestudioId.carrera.nombre}-#{vers.planestudioId.codigo}.#{vers.anio}.#{vers.version} (#{cargarPlanDeEstudios.getJornada(vers.planestudioId.jornada)})" itemValue="#{vers.id}" />
                                             </p:selectOneMenu>
                                             <br/>
                                             <h:inputFile styleClass="ui-button-text ui-c ui-state-default ui-widget-content ui-widget-header" label="Seleccionar archivo" value="#{cargarPlanDeEstudios.ruta}" required="true" requiredMessage="Debe seleccionar un archivo"></h:inputFile>

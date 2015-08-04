@@ -1,5 +1,5 @@
 
-import entities.Asignatura;
+import otros.Asignatura;
 import entities.ParamSemestreAno;
 import entities.PlanEstudio;
 import entities.Versionplan;
@@ -299,6 +299,7 @@ public class CargarPlanDeEstudios implements Serializable {
     }
     
     public List<Versionplan> getVersiones(){
+        System.out.println("Buscando versiones...");
         return version.findAll();
     }
     
