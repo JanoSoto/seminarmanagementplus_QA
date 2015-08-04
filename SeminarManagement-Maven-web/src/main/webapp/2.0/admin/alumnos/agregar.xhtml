@@ -32,6 +32,10 @@
                             <f:validator validatorId="rutValidator"/>
                         </p:inputText>
                         <p:watermark for="rut" value="Ingresar Rut"/>
+                        
+                        <p:outputLabel for="uid" value="Nombre de Usuario (LDAP)"/>
+                        <p:inputText id="uid" value="#{alumnoMB.alumno.usuario.uid}"/>
+                        <p:watermark for="uid" value="Nombre de Usuario"/>
 
                         <p:outputLabel for="nombre" value="Nombre/s"/>
                         <p:inputText id="nombre" required="true" value="#{alumnoMB.alumno.usuario.nombreUsuario}"/>

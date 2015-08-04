@@ -47,7 +47,7 @@
                         </a>
                     </p:column>
                     <p:column headerText="Carrera">
-                        <h:outputText value="#{alum.planActivo.codigo} #{alum.planActivo.carreraId.nombre} #{alum.versionPlanActivo}"/>
+                        <h:outputText value="#{verAlumnoMB.getAnioPlan(alum.planActivo.id, alum.versionPlanActivo)}"/>
                     </p:column>
                 </p:dataTable>
 

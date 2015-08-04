@@ -45,9 +45,7 @@
                     <h:outputText value="#{verAlumnoMB.alumno.usuario.direccionUsuario}"/>
 
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Plan Activo:"/>
-                    <c:if test="#{verAlumnoMB.alumno.planActivo != null}">
                         <h:outputText value=" #{verAlumnoMB.getAnioPlan(verAlumnoMB.alumno.idPlanActivo, verAlumnoMB.alumno.versionPlanActivo)}"/>
-                    </c:if>
                 </h:panelGrid>
             </p:panel>
 

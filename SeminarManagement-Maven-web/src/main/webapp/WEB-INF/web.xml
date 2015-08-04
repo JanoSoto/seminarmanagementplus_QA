@@ -36,7 +36,7 @@
     </welcome-file-list>
     <context-param>
         <param-name>primefaces.THEME</param-name>
-        <param-value>usachborde</param-value>
+        <param-value>#{usuarioMB.theme}</param-value>
     </context-param>
     <security-constraint>
         <web-resource-collection>

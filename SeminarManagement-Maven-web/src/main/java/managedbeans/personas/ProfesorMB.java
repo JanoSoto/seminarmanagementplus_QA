@@ -2,6 +2,7 @@ package managedbeans.personas;
 
 import entities.Alumno;
 import entities.Profesor;
+import entities.Usuario;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -18,80 +19,119 @@ import javax.faces.context.FacesContext;
 import managedbeans.AuthMB;
 import sessionbeans.AlumnoFacadeLocal;
 import sessionbeans.HistorialFacadeLocal;
+import sessionbeans.UsuarioFacade;
+import sessionbeans.UsuarioFacadeLocal;
 
 /**
  *
  * @author Eduardo
  */
-
 @SessionScoped
 @Named("profesorMB")
-public class ProfesorMB implements Serializable{
+public class ProfesorMB implements Serializable {
+
     @EJB
     private HistorialFacadeLocal historialFacade;
     @EJB
     private AlumnoFacadeLocal alumnoFacade;
     @EJB
     private ProfesorFacadeLocal profesorFacade;
+    @EJB
+    private UsuarioFacadeLocal usuarioFacade;
 
-    private String nombreProfesor,apellidoProfesor,celularProfesor,rutProfesor,mailProfesor, jerarquia;
+    private String nombreProfesor, apellidoProfesor, celularProfesor, rutProfesor, mailProfesor, jerarquia;
     private Integer contratoProfesor, jornadaProfesor, isProfGuia;
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ProfesorMB.class);
     private Profesor profesor;
-    
+
     //Declaramos esto para poder acceder al managed bean de autenticación (para almecenar el usuario en el historial)
-    @ManagedProperty(value="#{authMB}")
+    @ManagedProperty(value = "#{authMB}")
     private AuthMB user;
-    
+
     @PostConstruct
-    public void init(){
+    public void init() {
         //Para inicializar el managed property, si no no se puede acceder a esos datos
     }
-    
+
     public ProfesorMB() {
     }
-    
-    public String prepareCreate(){
+
+    public String prepareCreate() {
         profesor = new Profesor();
         return "agregar";
     }
-    
-    public String create(){
+
+    public String create() {
         try {
             FacesContext context = FacesContext.getCurrentInstance();
             List<Profesor> profesoresIngresados = profesorFacade.findByRut(profesor.getRutProfesor());
             List<Alumno> alumnosIngresados = alumnoFacade.findByRut(profesor.getRutProfesor());
+            List<Usuario> usuariosIngresados = usuarioFacade.findByRut(profesor.getRutProfesor());
             //Validamos que el rut no exista
-            if(!profesoresIngresados.isEmpty() || !alumnosIngresados.isEmpty() ){
-                context.addMessage(null, new FacesMessage("ERROR: El Rut ingresado ya existe.",""));
+            if (!profesoresIngresados.isEmpty()) {
+                context.addMessage(null, new FacesMessage("ERROR: El Rut ingresado ya existe.", ""));
                 return null;
+            } else if (!alumnosIngresados.isEmpty()) {
+                profesor.setUsuario(alumnosIngresados.get(0).getUsuario());
+                System.out.println("Profe: "+alumnosIngresados.get(0).getUsuario());
+                //Si es JC, puede guiar siempre, si no, se setea la opción escogida
+                if (profesor.getContrato() == 1) {
+                    profesor.setTipoProfesor(0);
+                    profesor.setMaximoGuias(7);
+                } else if (profesor.getContrato() == 0) {
+                    profesor.setTipoProfesor(1);
+                    profesor.setMaximoGuias(0);
+                }
+                profesorFacade.create(profesor);
+//                LOGGER.info("Se ha agregado el profesor "
+//                        + profesor.getNombreProfesor() + " " + profesor.getApellidoProfesor());
+                context.addMessage(null, new FacesMessage("Agregar Profesor",
+                        profesor.getNombreProfesor() + " " + profesor.getApellidoProfesor() + ", ingresado al sistema"));
+                return prepareCreate();
+            } else if (!usuariosIngresados.isEmpty()) {
+                profesor.setUsuario(usuariosIngresados.get(0));
+                //Si es JC, puede guiar siempre, si no, se setea la opción escogida
+                if (profesor.getContrato() == 1) {
+                    profesor.setTipoProfesor(0);
+                    profesor.setMaximoGuias(7);
+                } else if (profesor.getContrato() == 0) {
+                    profesor.setTipoProfesor(1);
+                    profesor.setMaximoGuias(0);
+                }
+                profesorFacade.create(profesor);
+//                LOGGER.info("Se ha agregado el profesor "
+//                        + profesor.getNombreProfesor() + " " + profesor.getApellidoProfesor());
+                context.addMessage(null, new FacesMessage("Agregar Profesor",
+                        profesor.getNombreProfesor() + " " + profesor.getApellidoProfesor() + ", ingresado al sistema"));
+                return prepareCreate();
             }
             profesor.setNombreProfesor(profesor.getNombreProfesor().toUpperCase());
             profesor.setApellidoProfesor(profesor.getApellidoProfesor().toUpperCase());
             profesor.setMailProfesor(profesor.getMailProfesor().toUpperCase());
-            
+
             //Si es JC, puede guiar siempre, si no, se setea la opción escogida
-            if ( profesor.getContrato() == 1 ){
+            if (profesor.getContrato() == 1) {
                 profesor.setTipoProfesor(0);
                 profesor.setMaximoGuias(7);
-            } else if ( profesor.getContrato() == 0 ) {
+            } else if (profesor.getContrato() == 0) {
                 profesor.setTipoProfesor(1);
                 profesor.setMaximoGuias(0);
             }
+            usuarioFacade.edit(profesor.getUsuario());
             profesorFacade.create(profesor);
-            
-            LOGGER.info("Se ha agregado el profesor "+
-                    profesor.getNombreProfesor()+" "+profesor.getApellidoProfesor());
+            System.out.println("CREATE");
+//            LOGGER.info("Se ha agregado el profesor "
+//                    + profesor.getNombreProfesor() + " " + profesor.getApellidoProfesor());
             context.addMessage(null, new FacesMessage("Agregar Profesor",
-                    profesor.getNombreProfesor()+" "+profesor.getApellidoProfesor()+", ingresado al sistema"));
-            
+                    profesor.getNombreProfesor() + " " + profesor.getApellidoProfesor() + ", ingresado al sistema"));
+            System.out.println("MENSAJE");
             return prepareCreate();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
     }
-    
+
     public void addProfesor() {
         FacesContext context = FacesContext.getCurrentInstance();
         rutProfesor = rutProfesor.toUpperCase();
@@ -99,13 +139,13 @@ public class ProfesorMB implements Serializable{
         rutProfesor = rutProfesor.replace("-", "");
         List<Profesor> profesoresIngresados = profesorFacade.findByRut(rutProfesor);
         List<Alumno> alumnosIngresados = alumnoFacade.findByRut(rutProfesor);
-        
+
         //Validamos que el rut no exista
-        if(!profesoresIngresados.isEmpty() || !alumnosIngresados.isEmpty() ){
-            context.addMessage(null, new FacesMessage("ERROR: El Rut ingresado ya existe.",""));
+        if (!profesoresIngresados.isEmpty() || !alumnosIngresados.isEmpty()) {
+            context.addMessage(null, new FacesMessage("ERROR: El Rut ingresado ya existe.", ""));
             return;
         }
-        
+
         //Ingresamos al profesor
         Profesor profesor;
         profesor = new Profesor(rutProfesor);
@@ -115,55 +155,56 @@ public class ProfesorMB implements Serializable{
         profesor.setTelefonoProfesor(celularProfesor);
         profesor.setContrato(contratoProfesor);
         profesor.setJerarquiaCategoria(jerarquia);
-        
-        
+
         //Si es JC, puede guiar siempre, si no, se setea la opción escogida
-        if(contratoProfesor==1)
+        if (contratoProfesor == 1) {
             profesor.setTipoProfesor(0);
-            profesor.setMaximoGuias(7);
-        if(contratoProfesor==0)
+        }
+        profesor.setMaximoGuias(7);
+        if (contratoProfesor == 0) {
             profesor.setTipoProfesor(1);
-            profesor.setMaximoGuias(0);
-        
+        }
+        profesor.setMaximoGuias(0);
+
         profesorFacade.create(profesor);
-       
+
         /*
-        //Agregar registro al historial
-        Historial historialAddProf = new Historial();
-        Date date = new Date();
-        String fechaGuia = dateToString(date);
-        if(isProfGuia == 0)
-            historialAddProf.setDescripcion("Permiso guía: Se le permitió ser profesor guía al ingresar al sistema");
-        else
-            historialAddProf.setDescripcion("Permiso guía: No se le permitió ser profesor guía al ingresar al sistema");
-        historialAddProf.setFechaHistorial(fechaGuia);
-        historialAddProf.setIdEntidad(rutProfesor);
-        historialAddProf.setTipoHistorial(0);
-        historialFacade.create(historialAddProf);
+         //Agregar registro al historial
+         Historial historialAddProf = new Historial();
+         Date date = new Date();
+         String fechaGuia = dateToString(date);
+         if(isProfGuia == 0)
+         historialAddProf.setDescripcion("Permiso guía: Se le permitió ser profesor guía al ingresar al sistema");
+         else
+         historialAddProf.setDescripcion("Permiso guía: No se le permitió ser profesor guía al ingresar al sistema");
+         historialAddProf.setFechaHistorial(fechaGuia);
+         historialAddProf.setIdEntidad(rutProfesor);
+         historialAddProf.setTipoHistorial(0);
+         historialFacade.create(historialAddProf);
         
-        //Añadimos al historial del profesor de cuándo fue agregado
-        Date temp = new Date();
-        String dateHist = dateToString(temp);
-        Historial histProfeAgregado = new Historial();
-        histProfeAgregado.setDescripcion("Se ingresó profesor al sistema. Lo ingresó el usuario "+user.getFullNameUser());
-        histProfeAgregado.setFechaHistorial(dateHist);
-        histProfeAgregado.setTipoHistorial(2);
-        histProfeAgregado.setIdEntidad(rutProfesor);
-        historialFacade.create(histProfeAgregado);
+         //Añadimos al historial del profesor de cuándo fue agregado
+         Date temp = new Date();
+         String dateHist = dateToString(temp);
+         Historial histProfeAgregado = new Historial();
+         histProfeAgregado.setDescripcion("Se ingresó profesor al sistema. Lo ingresó el usuario "+user.getFullNameUser());
+         histProfeAgregado.setFechaHistorial(dateHist);
+         histProfeAgregado.setTipoHistorial(2);
+         histProfeAgregado.setIdEntidad(rutProfesor);
+         historialFacade.create(histProfeAgregado);
         
         
-        //Añadimos al historial del usuario que lo ingresó
-        Historial histProfEditadoUser = new Historial();
-        histProfEditadoUser.setDescripcion("Ingresó al sistema al profesor "+nombreProfesor.toUpperCase()+" "+apellidoProfesor.toUpperCase());
-        histProfEditadoUser.setFechaHistorial(dateHist);
-        histProfEditadoUser.setTipoHistorial(3);
-        histProfEditadoUser.setIdEntidad(user.getUsername());
-        historialFacade.create(histProfEditadoUser);
-        */
+         //Añadimos al historial del usuario que lo ingresó
+         Historial histProfEditadoUser = new Historial();
+         histProfEditadoUser.setDescripcion("Ingresó al sistema al profesor "+nombreProfesor.toUpperCase()+" "+apellidoProfesor.toUpperCase());
+         histProfEditadoUser.setFechaHistorial(dateHist);
+         histProfEditadoUser.setTipoHistorial(3);
+         histProfEditadoUser.setIdEntidad(user.getUsername());
+         historialFacade.create(histProfEditadoUser);
+         */
         //Mensaje de confirmación 
-        LOGGER.info("Se ha agregado el profesor "+ nombreProfesor.toUpperCase()+" "+apellidoProfesor.toUpperCase() );
-        context.addMessage(null, new FacesMessage("Agregar Profesor",nombreProfesor.toUpperCase()+" "+apellidoProfesor.toUpperCase()+", ingresado al sistema"));
-        
+        LOGGER.info("Se ha agregado el profesor " + nombreProfesor.toUpperCase() + " " + apellidoProfesor.toUpperCase());
+        context.addMessage(null, new FacesMessage("Agregar Profesor", nombreProfesor.toUpperCase() + " " + apellidoProfesor.toUpperCase() + ", ingresado al sistema"));
+
         //Vaciamos el formulario
         rutProfesor = null;
         nombreProfesor = null;
@@ -174,7 +215,7 @@ public class ProfesorMB implements Serializable{
         isProfGuia = null;
         jerarquia = null;
     }
-    
+
     public AuthMB getUser() {
         return user;
     }
@@ -182,7 +223,7 @@ public class ProfesorMB implements Serializable{
     public void setUser(AuthMB user) {
         this.user = user;
     }
-    
+
     public Integer getIsProfGuia() {
         return isProfGuia;
     }
@@ -190,7 +231,7 @@ public class ProfesorMB implements Serializable{
     public void setIsProfGuia(Integer isProfGuia) {
         this.isProfGuia = isProfGuia;
     }
-    
+
     public String getNombreProfesor() {
         return nombreProfesor;
     }
@@ -238,7 +279,7 @@ public class ProfesorMB implements Serializable{
     public void setContratoProfesor(Integer contratoProfesor) {
         this.contratoProfesor = contratoProfesor;
     }
-    
+
     public Integer getJornadaProfesor() {
         return jornadaProfesor;
     }
@@ -246,12 +287,12 @@ public class ProfesorMB implements Serializable{
     public void setJornadaProfesor(Integer jornadaProfesor) {
         this.jornadaProfesor = jornadaProfesor;
     }
-    
+
     public String dateToString(Date dateChoosen) {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         return format.format(dateChoosen);
     }
-    
+
     public String getJerarquia() {
         return jerarquia;
     }
@@ -267,5 +308,5 @@ public class ProfesorMB implements Serializable{
     public void setProfesor(Profesor profesor) {
         this.profesor = profesor;
     }
-    
+
 }

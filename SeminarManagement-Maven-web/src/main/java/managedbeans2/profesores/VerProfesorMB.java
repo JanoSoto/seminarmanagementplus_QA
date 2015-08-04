@@ -1,6 +1,5 @@
 package managedbeans2.profesores;
 
-import util.SMUtil;
 import clases.PropuestaDatos;
 import clases.TemaDatos;
 import entities.Alumno;
@@ -11,14 +10,17 @@ import entities.Tema;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
-import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import sessionbeans.AlumnoFacadeLocal;
 import sessionbeans.ProfesorFacadeLocal;
 import sessionbeans.SemestreActualFacadeLocal;
 import sessionbeans.SemestreFacadeLocal;
+import sessionbeans.UsuarioFacade;
+import sessionbeans.UsuarioFacadeLocal;
+import util.SMUtil;
 
 /**
  *
@@ -36,6 +38,8 @@ public class VerProfesorMB {
     private ProfesorFacadeLocal profesorFacade;
     @EJB
     private AlumnoFacadeLocal alumnoFacade;
+    @EJB
+    private UsuarioFacadeLocal usuarioFacade;
 
     private int total, totalSemestre;
     private float promPorSemestre;
@@ -334,6 +338,7 @@ public class VerProfesorMB {
         profTemp.setJerarquiaCategoria(profesorEdit.getJerarquiaCategoria());
 
         profesorEdit = profTemp;
+        usuarioFacade.edit(profTemp.getUsuario());
         profesorFacade.edit(profTemp);
 
         //Añadimos al historial del alumno cuándo lo editaron
