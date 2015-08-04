@@ -60,7 +60,7 @@ public class Propuesta implements Serializable {
     @JoinColumn(name = "id_revisora", referencedColumnName = "id_revisora")
     @ManyToOne
     private ComisionRevisora idRevisora;
-    @JoinColumn(name = "rut_alumno", referencedColumnName = "rut_alumno")
+    @JoinColumn(name = "rut_alumno", referencedColumnName = "rut_usuario")
     @ManyToOne(optional = false)
     private Alumno rutAlumno;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPropuesta")

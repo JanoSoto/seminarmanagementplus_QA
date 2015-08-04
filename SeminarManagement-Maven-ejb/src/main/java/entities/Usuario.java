@@ -77,7 +77,9 @@ public class Usuario implements Serializable {
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
     private Alumno alumno;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
-    private Profesor profesor;
+    private Profesor profesor;    
+
+
     @ManyToMany(mappedBy = "usuarios")
     private List<Tipousuario> tipos;
 

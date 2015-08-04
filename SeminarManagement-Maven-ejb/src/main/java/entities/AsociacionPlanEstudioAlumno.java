@@ -46,7 +46,7 @@ public class AsociacionPlanEstudioAlumno implements Serializable {
     private PlanEstudio planEstudio;
 
     @ManyToOne
-    @PrimaryKeyJoinColumn(name = "alumno_id", referencedColumnName = "rut_alumno")
+    @PrimaryKeyJoinColumn(name = "alumno_id", referencedColumnName = "rut_usuario")
     private Alumno alumno;
 
     public String getAlumnoId() {

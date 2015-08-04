@@ -45,10 +45,10 @@ public class Profesor implements Serializable {
 
     @Id
     @Basic(optional = false)
-    @NotNull
+    //@NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_profesor")
-    private String idProfesor;
+    private Integer idProfesor;
     
     @Column(name = "contrato")
     private Integer contrato;
@@ -102,11 +102,11 @@ public class Profesor implements Serializable {
         profeCorreccionList.add(object);
     }
 
-    public String getIdProfesor() {
+    public Integer getIdProfesor() {
         return idProfesor;
     }
 
-    public void setIdProfesor(String idProfesor) {
+    public void setIdProfesor(Integer idProfesor) {
         this.idProfesor = idProfesor;
     }
 

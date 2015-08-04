@@ -51,9 +51,9 @@ public class Alumno implements Serializable {
     @Id
     @Basic(optional = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @NotNull
+    //@NotNull
     @Column(name = "id_alumno")
-    private String idAlumno;
+    private Integer idAlumno;
     
     @Column(name = "id_plan_activo")
     Integer idPlanActivo;
@@ -80,7 +80,7 @@ public class Alumno implements Serializable {
     @JoinTable(
             name = "planes_alumno",
             joinColumns = {
-                @JoinColumn(name = "alumno_id", referencedColumnName = "rut_alumno")},
+                @JoinColumn(name = "alumno_id", referencedColumnName = "rut_usuario")},
             inverseJoinColumns = {
                 @JoinColumn(name = "plan_id", referencedColumnName = "id")})
     private List<PlanEstudio> planes;
@@ -122,11 +122,11 @@ public class Alumno implements Serializable {
         return propuestaList;
     }
 
-    public String getIdAlumno() {
+    public Integer getIdAlumno() {
         return idAlumno;
     }
 
-    public void setIdAlumno(String idAlumno) {
+    public void setIdAlumno(Integer idAlumno) {
         this.idAlumno = idAlumno;
     }
 
@@ -178,6 +178,10 @@ public class Alumno implements Serializable {
         return usuario.getRutUsuario();
     }
 
+    public String getRutAlumnoFormateado() {
+        return Util.formatearRut(usuario.getRutUsuario());
+    }
+    
     public void setRutAlumno(String rutAlumno) {
         this.usuario.setRutUsuario(rutAlumno);
     }

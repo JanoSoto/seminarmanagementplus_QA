@@ -38,7 +38,7 @@ public class ProfeCorreccion implements Serializable {
     private Float notaCorreccionInforme;
     @Column(name = "nota_correccion_defensa")
     private Float notaCorreccionDefensa;
-    @JoinColumn(name = "rut_profesor", referencedColumnName = "rut_profesor", insertable = false, updatable = false)
+    @JoinColumn(name = "rut_profesor", referencedColumnName = "rut_usuario", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Profesor profesor;
     @JoinColumn(name = "id_correctora", referencedColumnName = "id_correctora", insertable = false, updatable = false)
