@@ -379,8 +379,8 @@ public class UsuarioMB {
        //this.theme = "usachborde";
        if (request.getUserPrincipal() != null) {
            Usuario user = usuarioFacade.findByUid(request.getUserPrincipal().toString());
-           if(user.getTema()!=null){             
-            this.theme = user.getTema();
+           if(user.getTemaUsuario()!=null){             
+            this.theme = user.getTemaUsuario();
            }
        }
        
@@ -401,7 +401,7 @@ public class UsuarioMB {
        Usuario user = usuarioFacade.findByUid(request.getUserPrincipal().toString());
        //System.out.println("UID:" + request.getUserPrincipal().toString());
        //System.out.println("Tema this.theme: " + this.theme);
-       user.setTema(tema);
+       user.setTemaUsuario(tema);
        
        Usuario usuarioEditado = user;
        //System.out.println("Cambio de tema a: "+ tema);
