@@ -34,18 +34,35 @@ SET default_with_oids = false;
 --
 
 CREATE TABLE alumno (
-    nombre_alumno character varying(50),
-    apellido_alumno character varying(50),
-    mail_alumno character varying(100),
-    telefono_alumno character varying(20),
-    rut_alumno character varying(20) NOT NULL,
-    direccion_alumno character varying(100),
-    id_plan_activo bigint,
-    version_plan_activo integer
+    id_alumno integer NOT NULL,
+    id_plan_activo integer,
+    version_plan_activo integer,
+    rut_usuario character varying(255)
 );
 
 
-ALTER TABLE public.alumno OWNER TO postgres;
+ALTER TABLE alumno OWNER TO postgres;
+
+--
+-- Name: alumno_id_alumno_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE alumno_id_alumno_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE alumno_id_alumno_seq OWNER TO postgres;
+
+--
+-- Name: alumno_id_alumno_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE alumno_id_alumno_seq OWNED BY alumno.id_alumno;
+
 
 --
 -- Name: asignatura; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -64,7 +81,7 @@ CREATE TABLE asignatura (
 );
 
 
-ALTER TABLE public.asignatura OWNER TO postgres;
+ALTER TABLE asignatura OWNER TO postgres;
 
 --
 -- Name: asignatura_asignatura; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -76,7 +93,7 @@ CREATE TABLE asignatura_asignatura (
 );
 
 
-ALTER TABLE public.asignatura_asignatura OWNER TO postgres;
+ALTER TABLE asignatura_asignatura OWNER TO postgres;
 
 --
 -- Name: asignatura_profesor; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -88,7 +105,7 @@ CREATE TABLE asignatura_profesor (
 );
 
 
-ALTER TABLE public.asignatura_profesor OWNER TO postgres;
+ALTER TABLE asignatura_profesor OWNER TO postgres;
 
 --
 -- Name: asociado; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -101,7 +118,7 @@ CREATE TABLE asociado (
 );
 
 
-ALTER TABLE public.asociado OWNER TO postgres;
+ALTER TABLE asociado OWNER TO postgres;
 
 --
 -- Name: carrera; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -113,7 +130,7 @@ CREATE TABLE carrera (
 );
 
 
-ALTER TABLE public.carrera OWNER TO postgres;
+ALTER TABLE carrera OWNER TO postgres;
 
 --
 -- Name: categoriaaevento; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -125,7 +142,7 @@ CREATE TABLE categoriaaevento (
 );
 
 
-ALTER TABLE public.categoriaaevento OWNER TO postgres;
+ALTER TABLE categoriaaevento OWNER TO postgres;
 
 --
 -- Name: checklist; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -139,7 +156,7 @@ CREATE TABLE checklist (
 );
 
 
-ALTER TABLE public.checklist OWNER TO postgres;
+ALTER TABLE checklist OWNER TO postgres;
 
 --
 -- Name: checklisteventos; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -149,6 +166,7 @@ CREATE TABLE checklisteventos (
     idchecklist bigint NOT NULL,
     adm_expositor boolean,
     agenda_institucional boolean,
+    avisar_cancelacion boolean,
     confimacion_inscritos boolean,
     cupos boolean,
     diinf_medios boolean,
@@ -169,7 +187,7 @@ CREATE TABLE checklisteventos (
 );
 
 
-ALTER TABLE public.checklisteventos OWNER TO postgres;
+ALTER TABLE checklisteventos OWNER TO postgres;
 
 --
 -- Name: comision_correctora; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -177,16 +195,16 @@ ALTER TABLE public.checklisteventos OWNER TO postgres;
 
 CREATE TABLE comision_correctora (
     id_correctora integer NOT NULL,
-    id_semestre character varying(15) NOT NULL,
-    id_tema integer NOT NULL,
-    fecha_correccion character varying(15),
-    fecha_entrega_correccion character varying(15),
-    fecha_entrega_correccion2 character varying(15),
-    fecha_correccion2 character varying(15)
+    fecha_correccion character varying(255),
+    fecha_correccion2 character varying(255),
+    fecha_entrega_correccion character varying(255),
+    fecha_entrega_correccion2 character varying(255),
+    id_semestre character varying(255),
+    id_tema integer
 );
 
 
-ALTER TABLE public.comision_correctora OWNER TO postgres;
+ALTER TABLE comision_correctora OWNER TO postgres;
 
 --
 -- Name: comision_correctora_id_correctora_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -200,7 +218,7 @@ CREATE SEQUENCE comision_correctora_id_correctora_seq
     CACHE 1;
 
 
-ALTER TABLE public.comision_correctora_id_correctora_seq OWNER TO postgres;
+ALTER TABLE comision_correctora_id_correctora_seq OWNER TO postgres;
 
 --
 -- Name: comision_correctora_id_correctora_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -214,21 +232,21 @@ ALTER SEQUENCE comision_correctora_id_correctora_seq OWNED BY comision_corrector
 --
 
 CREATE TABLE comision_revisora (
-    fecha_revision character varying(15),
-    tipo_revision integer,
     id_revisora integer NOT NULL,
-    id_propuesta integer NOT NULL,
-    id_semestre character varying(15) NOT NULL,
-    id_tema integer,
-    fecha_entrega_revision character varying(15),
-    fecha_revision2 character varying(15),
-    fecha_entrega_revision2 character varying(15),
-    fecha_publicacion_consejo character varying(15),
-    fecha_termino_publicacion_consejo character varying(15)
+    fecha_entrega_revision character varying(255),
+    fecha_entrega_revision2 character varying(255),
+    fecha_publicacion_consejo character varying(255),
+    fecha_revision character varying(255),
+    fecha_revision2 character varying(255),
+    fecha_termino_publicacion_consejo character varying(255),
+    tipo_revision integer,
+    id_propuesta integer,
+    id_semestre character varying(255),
+    id_tema integer
 );
 
 
-ALTER TABLE public.comision_revisora OWNER TO postgres;
+ALTER TABLE comision_revisora OWNER TO postgres;
 
 --
 -- Name: comision_revisora_id_revisora_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -242,7 +260,7 @@ CREATE SEQUENCE comision_revisora_id_revisora_seq
     CACHE 1;
 
 
-ALTER TABLE public.comision_revisora_id_revisora_seq OWNER TO postgres;
+ALTER TABLE comision_revisora_id_revisora_seq OWNER TO postgres;
 
 --
 -- Name: comision_revisora_id_revisora_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -266,7 +284,7 @@ CREATE TABLE coordinacion (
 );
 
 
-ALTER TABLE public.coordinacion OWNER TO postgres;
+ALTER TABLE coordinacion OWNER TO postgres;
 
 --
 -- Name: encuesta; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -281,7 +299,7 @@ CREATE TABLE encuesta (
 );
 
 
-ALTER TABLE public.encuesta OWNER TO postgres;
+ALTER TABLE encuesta OWNER TO postgres;
 
 --
 -- Name: evento; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -321,7 +339,7 @@ CREATE TABLE evento (
 );
 
 
-ALTER TABLE public.evento OWNER TO postgres;
+ALTER TABLE evento OWNER TO postgres;
 
 --
 -- Name: evento_asociado; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -334,7 +352,7 @@ CREATE TABLE evento_asociado (
 );
 
 
-ALTER TABLE public.evento_asociado OWNER TO postgres;
+ALTER TABLE evento_asociado OWNER TO postgres;
 
 --
 -- Name: evento_expositor; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -347,7 +365,7 @@ CREATE TABLE evento_expositor (
 );
 
 
-ALTER TABLE public.evento_expositor OWNER TO postgres;
+ALTER TABLE evento_expositor OWNER TO postgres;
 
 --
 -- Name: expositor; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -366,22 +384,22 @@ CREATE TABLE expositor (
 );
 
 
-ALTER TABLE public.expositor OWNER TO postgres;
+ALTER TABLE expositor OWNER TO postgres;
 
 --
 -- Name: historial; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE historial (
-    descripcion character varying(200),
-    fecha_historial character varying(15),
-    id_entidad character varying(20),
-    tipo_historial integer,
-    id_historial integer NOT NULL
+    id_historial integer NOT NULL,
+    descripcion character varying(255),
+    fecha_historial character varying(255),
+    id_entidad character varying(255),
+    tipo_historial integer
 );
 
 
-ALTER TABLE public.historial OWNER TO postgres;
+ALTER TABLE historial OWNER TO postgres;
 
 --
 -- Name: historial_id_historial_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -395,7 +413,7 @@ CREATE SEQUENCE historial_id_historial_seq
     CACHE 1;
 
 
-ALTER TABLE public.historial_id_historial_seq OWNER TO postgres;
+ALTER TABLE historial_id_historial_seq OWNER TO postgres;
 
 --
 -- Name: historial_id_historial_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -417,7 +435,7 @@ CREATE TABLE horario (
 );
 
 
-ALTER TABLE public.horario OWNER TO postgres;
+ALTER TABLE horario OWNER TO postgres;
 
 --
 -- Name: inscripcion; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -435,7 +453,7 @@ CREATE TABLE inscripcion (
 );
 
 
-ALTER TABLE public.inscripcion OWNER TO postgres;
+ALTER TABLE inscripcion OWNER TO postgres;
 
 --
 -- Name: inscripcionspam; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -453,7 +471,7 @@ CREATE TABLE inscripcionspam (
 );
 
 
-ALTER TABLE public.inscripcionspam OWNER TO postgres;
+ALTER TABLE inscripcionspam OWNER TO postgres;
 
 --
 -- Name: logs; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -469,7 +487,7 @@ CREATE TABLE logs (
 );
 
 
-ALTER TABLE public.logs OWNER TO postgres;
+ALTER TABLE logs OWNER TO postgres;
 
 --
 -- Name: logs_logs_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -483,7 +501,7 @@ CREATE SEQUENCE logs_logs_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.logs_logs_id_seq OWNER TO postgres;
+ALTER TABLE logs_logs_id_seq OWNER TO postgres;
 
 --
 -- Name: logs_logs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -503,21 +521,21 @@ CREATE TABLE paramsemestreano (
 );
 
 
-ALTER TABLE public.paramsemestreano OWNER TO postgres;
+ALTER TABLE paramsemestreano OWNER TO postgres;
 
 --
 -- Name: planes_alumno; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE planes_alumno (
-    alumno_id character varying(20),
-    plan_id bigint,
+    alumno_id character varying(255) NOT NULL,
+    plan_id bigint NOT NULL,
     activo boolean,
     version_plan integer
 );
 
 
-ALTER TABLE public.planes_alumno OWNER TO postgres;
+ALTER TABLE planes_alumno OWNER TO postgres;
 
 --
 -- Name: planestudio; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -531,95 +549,109 @@ CREATE TABLE planestudio (
 );
 
 
-ALTER TABLE public.planestudio OWNER TO postgres;
+ALTER TABLE planestudio OWNER TO postgres;
 
 --
 -- Name: profe_correccion; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE profe_correccion (
-    id_correctora integer NOT NULL,
-    rut_profesor character varying(20) NOT NULL,
+    nota_correccion_defensa double precision,
+    nota_correccion_informe double precision,
     rol_correccion integer,
-    nota_correccion_informe real,
-    nota_correccion_defensa real
+    rut_profesor character varying(255) NOT NULL,
+    id_correctora integer NOT NULL
 );
 
 
-ALTER TABLE public.profe_correccion OWNER TO postgres;
+ALTER TABLE profe_correccion OWNER TO postgres;
 
 --
 -- Name: profe_propuesta; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE profe_propuesta (
-    id_propuesta integer NOT NULL,
-    rut_profesor character varying(20) NOT NULL,
+    fecha_revision character varying(255),
+    nota_guia_defensa double precision,
+    nota_guia_informe double precision,
     rol_guia integer,
-    nota_guia_informe real,
-    nota_guia_defensa real,
-    fecha_revision character varying(15)
+    rut_profesor character varying(255) NOT NULL,
+    id_propuesta integer NOT NULL
 );
 
 
-ALTER TABLE public.profe_propuesta OWNER TO postgres;
+ALTER TABLE profe_propuesta OWNER TO postgres;
 
 --
 -- Name: profe_revision; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE profe_revision (
-    id_revisora integer NOT NULL,
-    rut_profesor character varying(20) NOT NULL,
+    fecha_revision character varying(255),
     rol_revision integer,
-    fecha_revision character varying(15)
+    rut_profesor character varying(255) NOT NULL,
+    id_revisora integer NOT NULL
 );
 
 
-ALTER TABLE public.profe_revision OWNER TO postgres;
+ALTER TABLE profe_revision OWNER TO postgres;
 
 --
 -- Name: profesor; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE profesor (
+    id_profesor integer NOT NULL,
     contrato integer,
-    nombre_profesor character varying(50),
-    apellido_profesor character varying(50),
-    mail_profesor character varying(100),
-    telefono_profesor character varying(20),
-    tipo_profesor integer,
+    jerarquia_categoria character varying(255),
     maximo_guias integer,
-    rut_profesor character varying(20) NOT NULL,
-    jerarquia_categoria character varying(30),
-    esta_seminar boolean,
-    puede_guiar boolean,
-    puede_corregir boolean,
-    alias character varying(30)
+    tipo_profesor integer,
+    rut_usuario character varying(255)
 );
 
 
-ALTER TABLE public.profesor OWNER TO postgres;
+ALTER TABLE profesor OWNER TO postgres;
+
+--
+-- Name: profesor_id_profesor_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE profesor_id_profesor_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE profesor_id_profesor_seq OWNER TO postgres;
+
+--
+-- Name: profesor_id_profesor_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE profesor_id_profesor_seq OWNED BY profesor.id_profesor;
+
 
 --
 -- Name: propuesta; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE propuesta (
-    nombre_propuesta character varying(400),
-    fecha_propuesta character varying(15),
     id_propuesta integer NOT NULL,
-    id_semestre character varying(15) NOT NULL,
-    id_revisora integer,
-    rut_alumno character varying(20) NOT NULL,
-    magister boolean,
-    pet boolean,
+    fecha_propuesta character varying(255),
     id_plan integer,
-    version_plan integer
+    magister boolean,
+    nombre_propuesta character varying(255),
+    pet boolean,
+    version_plan integer,
+    id_revisora integer,
+    id_semestre character varying(255),
+    rut_alumno character varying(255)
 );
 
 
-ALTER TABLE public.propuesta OWNER TO postgres;
+ALTER TABLE propuesta OWNER TO postgres;
 
 --
 -- Name: propuesta_id_propuesta_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -633,7 +665,7 @@ CREATE SEQUENCE propuesta_id_propuesta_seq
     CACHE 1;
 
 
-ALTER TABLE public.propuesta_id_propuesta_seq OWNER TO postgres;
+ALTER TABLE propuesta_id_propuesta_seq OWNER TO postgres;
 
 --
 -- Name: propuesta_id_propuesta_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -653,29 +685,31 @@ CREATE TABLE seccion (
 );
 
 
-ALTER TABLE public.seccion OWNER TO postgres;
+ALTER TABLE seccion OWNER TO postgres;
 
 --
 -- Name: semestre; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE semestre (
-    id_semestre character varying(15) NOT NULL
+    id_semestre character varying(255) NOT NULL,
+    fecha_cierre character varying(255),
+    fecha_precierre character varying(255)
 );
 
 
-ALTER TABLE public.semestre OWNER TO postgres;
+ALTER TABLE semestre OWNER TO postgres;
 
 --
 -- Name: semestre_actual; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE semestre_actual (
-    semestre_actual character varying(15) NOT NULL
+    semestre_actual character varying(255) NOT NULL
 );
 
 
-ALTER TABLE public.semestre_actual OWNER TO postgres;
+ALTER TABLE semestre_actual OWNER TO postgres;
 
 --
 -- Name: sequence; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -687,7 +721,7 @@ CREATE TABLE sequence (
 );
 
 
-ALTER TABLE public.sequence OWNER TO postgres;
+ALTER TABLE sequence OWNER TO postgres;
 
 --
 -- Name: subtipo; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -700,33 +734,32 @@ CREATE TABLE subtipo (
 );
 
 
-ALTER TABLE public.subtipo OWNER TO postgres;
+ALTER TABLE subtipo OWNER TO postgres;
 
 --
 -- Name: tema; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE tema (
-    nombre_tema character varying(400),
-    fecha_tema character varying(15),
-    estado_tema integer,
     id_tema integer NOT NULL,
-    id_correctora integer,
-    id_semestre character varying(15) NOT NULL,
-    id_revisora integer NOT NULL,
-    fecha_siac character varying(15),
-    fecha_real character varying(15),
-    semestre_termino character varying(15),
-    precierre character varying(15),
+    estado_tema integer,
+    fecha_borrador character varying(255),
+    fecha_caducado character varying(255),
+    fecha_informe_avance character varying(255),
+    fecha_real character varying(255),
+    fecha_renuncia character varying(255),
+    fecha_siac character varying(255),
+    fecha_tema character varying(255),
+    nombre_tema character varying(255),
     precerrado boolean,
-    fecha_borrador character varying(20),
-    fecha_renuncia character varying(20),
-    fecha_caducado character varying(20),
-    fecha_informe_avance character varying(20)
+    semestre_termino character varying(255),
+    id_correctora integer,
+    id_revisora integer,
+    id_semestre character varying(255)
 );
 
 
-ALTER TABLE public.tema OWNER TO postgres;
+ALTER TABLE tema OWNER TO postgres;
 
 --
 -- Name: tema_id_tema_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -740,7 +773,7 @@ CREATE SEQUENCE tema_id_tema_seq
     CACHE 1;
 
 
-ALTER TABLE public.tema_id_tema_seq OWNER TO postgres;
+ALTER TABLE tema_id_tema_seq OWNER TO postgres;
 
 --
 -- Name: tema_id_tema_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -758,7 +791,7 @@ CREATE TABLE tipo (
 );
 
 
-ALTER TABLE public.tipo OWNER TO postgres;
+ALTER TABLE tipo OWNER TO postgres;
 
 --
 -- Name: tipoevento; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -770,7 +803,7 @@ CREATE TABLE tipoevento (
 );
 
 
-ALTER TABLE public.tipoevento OWNER TO postgres;
+ALTER TABLE tipoevento OWNER TO postgres;
 
 --
 -- Name: tipousuario; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -779,26 +812,30 @@ ALTER TABLE public.tipoevento OWNER TO postgres;
 CREATE TABLE tipousuario (
     id_tipo bigint NOT NULL,
     nombre_tipo character varying(255),
-    pass character varying(256) NOT NULL
+    pass character varying(255)
 );
 
 
-ALTER TABLE public.tipousuario OWNER TO postgres;
+ALTER TABLE tipousuario OWNER TO postgres;
 
 --
 -- Name: usuario; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
 CREATE TABLE usuario (
-    uid character varying(20) NOT NULL,
-    rut_usuario character varying(20) NOT NULL,
-    nombre_usuario character varying(50),
-    apellido_usuario character varying(50),
-    activo boolean
+    rut_usuario character varying(255) NOT NULL,
+    activo boolean,
+    apellido_usuario character varying(255),
+    direccion_usuario character varying(255),
+    mail_usuario character varying(255),
+    nombre_usuario character varying(255),
+    telefono_usuario character varying(255),
+    tema_usuario character varying(255),
+    uid character varying(255)
 );
 
 
-ALTER TABLE public.usuario OWNER TO postgres;
+ALTER TABLE usuario OWNER TO postgres;
 
 --
 -- Name: usuario_tipo; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -811,7 +848,7 @@ CREATE TABLE usuario_tipo (
 );
 
 
-ALTER TABLE public.usuario_tipo OWNER TO postgres;
+ALTER TABLE usuario_tipo OWNER TO postgres;
 
 --
 -- Name: usuario_tipo_id_usuario_tipo_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -825,7 +862,7 @@ CREATE SEQUENCE usuario_tipo_id_usuario_tipo_seq
     CACHE 1;
 
 
-ALTER TABLE public.usuario_tipo_id_usuario_tipo_seq OWNER TO postgres;
+ALTER TABLE usuario_tipo_id_usuario_tipo_seq OWNER TO postgres;
 
 --
 -- Name: usuario_tipo_id_usuario_tipo_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -844,7 +881,7 @@ CREATE TABLE usuario_tipousuario (
 );
 
 
-ALTER TABLE public.usuario_tipousuario OWNER TO postgres;
+ALTER TABLE usuario_tipousuario OWNER TO postgres;
 
 --
 -- Name: usuariobytipo; Type: VIEW; Schema: public; Owner: postgres
@@ -860,7 +897,7 @@ CREATE VIEW usuariobytipo AS
   WHERE (((u.rut_usuario)::text = (ut.usuario_rut_usuario)::text) AND (ut.tipos_id_tipo = t.id_tipo));
 
 
-ALTER TABLE public.usuariobytipo OWNER TO postgres;
+ALTER TABLE usuariobytipo OWNER TO postgres;
 
 --
 -- Name: usuarioevento; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -874,7 +911,7 @@ CREATE TABLE usuarioevento (
 );
 
 
-ALTER TABLE public.usuarioevento OWNER TO postgres;
+ALTER TABLE usuarioevento OWNER TO postgres;
 
 --
 -- Name: versionplan; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -882,17 +919,24 @@ ALTER TABLE public.usuarioevento OWNER TO postgres;
 
 CREATE TABLE versionplan (
     id bigint NOT NULL,
-    version integer,
     anio integer,
-    resolucion integer,
+    version integer,
+    planestudio_id bigint,
     anio_resolucion integer,
     correlativo integer,
     planificado boolean,
-    planestudio_id bigint
+    resolucion integer
 );
 
 
-ALTER TABLE public.versionplan OWNER TO postgres;
+ALTER TABLE versionplan OWNER TO postgres;
+
+--
+-- Name: id_alumno; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY alumno ALTER COLUMN id_alumno SET DEFAULT nextval('alumno_id_alumno_seq'::regclass);
+
 
 --
 -- Name: id_correctora; Type: DEFAULT; Schema: public; Owner: postgres
@@ -923,6 +967,13 @@ ALTER TABLE ONLY logs ALTER COLUMN logs_id SET DEFAULT nextval('logs_logs_id_seq
 
 
 --
+-- Name: id_profesor; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY profesor ALTER COLUMN id_profesor SET DEFAULT nextval('profesor_id_profesor_seq'::regclass);
+
+
+--
 -- Name: id_propuesta; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -947,9 +998,19 @@ ALTER TABLE ONLY usuario_tipo ALTER COLUMN id_usuario_tipo SET DEFAULT nextval('
 -- Data for Name: alumno; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY alumno (nombre_alumno, apellido_alumno, mail_alumno, telefono_alumno, rut_alumno, direccion_alumno, id_plan_activo, version_plan_activo) FROM stdin;
-MATIAS NICOLAS	FLORES SALAS	MATIAS.FLORES@USACH.CL	89307940	176767901	Vasco Nuñes de Balboa 4669	3	2
+COPY alumno (id_alumno, id_plan_activo, version_plan_activo, rut_usuario) FROM stdin;
+1	3	2	176767901
+2	1	1	178608975
+9	\N	\N	70629054
+10	\N	\N	176785969
 \.
+
+
+--
+-- Name: alumno_id_alumno_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('alumno_id_alumno_seq', 10, true);
 
 
 --
@@ -1040,7 +1101,7 @@ COPY checklist (id, aceptado, encuesta_id, asignatura_id) FROM stdin;
 -- Data for Name: checklisteventos; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY checklisteventos (idchecklist, adm_expositor, agenda_institucional, confimacion_inscritos, cupos, diinf_medios, evento_facebook, evento_twitter, facebook, linkedin, lugar, noticia_web_diinf, publicar_calendario, publicar_web, publico_objetivo, publico_usach, radio_usach, redes_usach, twitter, url_corta) FROM stdin;
+COPY checklisteventos (idchecklist, adm_expositor, agenda_institucional, avisar_cancelacion, confimacion_inscritos, cupos, diinf_medios, evento_facebook, evento_twitter, facebook, linkedin, lugar, noticia_web_diinf, publicar_calendario, publicar_web, publico_objetivo, publico_usach, radio_usach, redes_usach, twitter, url_corta) FROM stdin;
 \.
 
 
@@ -1048,8 +1109,7 @@ COPY checklisteventos (idchecklist, adm_expositor, agenda_institucional, confima
 -- Data for Name: comision_correctora; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY comision_correctora (id_correctora, id_semestre, id_tema, fecha_correccion, fecha_entrega_correccion, fecha_entrega_correccion2, fecha_correccion2) FROM stdin;
-1	1/2016	1	25/06/2015	\N	\N	25/06/2015
+COPY comision_correctora (id_correctora, fecha_correccion, fecha_correccion2, fecha_entrega_correccion, fecha_entrega_correccion2, id_semestre, id_tema) FROM stdin;
 \.
 
 
@@ -1057,15 +1117,14 @@ COPY comision_correctora (id_correctora, id_semestre, id_tema, fecha_correccion,
 -- Name: comision_correctora_id_correctora_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('comision_correctora_id_correctora_seq', 1, false);
+SELECT pg_catalog.setval('comision_correctora_id_correctora_seq', 2, true);
 
 
 --
 -- Data for Name: comision_revisora; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY comision_revisora (fecha_revision, tipo_revision, id_revisora, id_propuesta, id_semestre, id_tema, fecha_entrega_revision, fecha_revision2, fecha_entrega_revision2, fecha_publicacion_consejo, fecha_termino_publicacion_consejo) FROM stdin;
-24/06/2015	1	1	1	1/2016	1	24/06/2015	22/06/2015	25/06/2015	\N	\N
+COPY comision_revisora (id_revisora, fecha_entrega_revision, fecha_entrega_revision2, fecha_publicacion_consejo, fecha_revision, fecha_revision2, fecha_termino_publicacion_consejo, tipo_revision, id_propuesta, id_semestre, id_tema) FROM stdin;
 \.
 
 
@@ -1073,7 +1132,7 @@ COPY comision_revisora (fecha_revision, tipo_revision, id_revisora, id_propuesta
 -- Name: comision_revisora_id_revisora_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('comision_revisora_id_revisora_seq', 1, true);
+SELECT pg_catalog.setval('comision_revisora_id_revisora_seq', 2, true);
 
 
 --
@@ -1132,7 +1191,7 @@ COPY expositor (idexpositor, apellido, correo, grado, institucionorigen, nombre,
 -- Data for Name: historial; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY historial (descripcion, fecha_historial, id_entidad, tipo_historial, id_historial) FROM stdin;
+COPY historial (id_historial, descripcion, fecha_historial, id_entidad, tipo_historial) FROM stdin;
 \.
 
 
@@ -1199,6 +1258,30 @@ COPY logs (logs_id, dated, level, logger, message, user_id) FROM stdin;
 201	2015-06-22 14:11:23.844366	INFO	managedbeans2.temas.VerTemaMB	Tema TEMA VELASTIN editado exitosamente	
 202	2015-06-22 14:11:50.267013	INFO	managedbeans2.temas.BorradorFinalMB	El estado del tema seleccionado se modificó a Vigente con borrador final	
 203	2015-06-22 14:12:25.451032	INFO	managedbeans2.temas.ComisionCorrectora2MB	Comisión ingresada al sistema, el estado del tema seleccionado se modificó a En proceso de examen	
+204	2015-06-23 13:56:08.318566	INFO	managedbeans2.SemestreMB	Se ha precerrado el semestre, borradores finales entregados luego de esta fecha pasarán a ser del próximo semestre	mcarcamo
+205	2015-06-23 13:56:08.482022	INFO	managedbeans2.SemestreMB	Se ha precerrado el semestre, borradores finales entregados luego de esta fecha pasarán a ser del próximo semestre	
+206	2015-06-23 14:07:00.358191	INFO	managedbeans2.SemestreMB	Estados y semestre modificados, el semestre actual es: 2/2016	
+207	2015-06-23 14:09:16.129981	INFO	managedbeans2.SemestreMB	Se ha precerrado el semestre, borradores finales entregados luego de esta fecha pasarán a ser del próximo semestre	
+208	2015-06-23 14:09:26.417506	INFO	managedbeans2.SemestreMB	Estados y semestre modificados, el semestre actual es: 1/2017	
+209	2015-06-23 14:11:17.996023	INFO	managedbeans2.SemestreMB	Se ha precerrado el semestre, borradores finales entregados luego de esta fecha pasarán a ser del próximo semestre	
+210	2015-06-23 14:32:44.038013	INFO	managedbeans2.SemestreMB	Estados y semestre modificados, el semestre actual es: 2/2017	
+211	2015-06-23 14:33:27.561607	INFO	managedbeans.personas.AlumnoMB	Se ha agregado el alumno LUIS CELEDON	
+212	2015-06-23 14:33:38.620297	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno LUIS CELEDON ha sido editado exitosamente	
+213	2015-06-23 14:33:42.09117	INFO	managedbeans2.alumnos.EditarAlumnoMB	El alumno LUIS CELEDON ha sido editado exitosamente	
+214	2015-06-23 14:33:50.42891	INFO	managedbeans.personas.UsuarioMB	Se ha editado al usuario LUIS CELEDÓN	
+215	2015-06-23 14:33:52.46349	INFO	managedbeans.personas.UsuarioMB	Se ha editado al usuario LUIS CELEDÓN	
+216	2015-06-23 14:37:03.116621	INFO	managedbeans2.temas.ComisionCorrectora2MB	La comision correctora del tema TEMA VELASTIN ha sido modificada en el sistema	
+217	2015-06-23 14:37:20.295639	INFO	managedbeans2.temas.CalificacionTema2MB	Promedio: 5.3166666 Se agregaron las notas y el estado del tema seleccionado se modificó a Titulado	
+218	2015-06-23 14:37:43.517499	INFO	managedbeans2.temas.CalificacionTema2MB	Promedio: 5.3166666 Se agregaron las notas y el estado del tema seleccionado se modificó a Titulado	
+219	2015-06-23 14:37:49.081961	INFO	managedbeans2.temas.ComisionCorrectora2MB	La comision correctora del tema TEMA VELASTIN ha sido modificada en el sistema	
+220	2015-06-23 14:41:58.332191	INFO	managedbeans2.propuestas.AgregarPropuestaMB	La propuesta propuesta ejemplo ha sido ingresada al sistema	
+221	2015-06-23 14:42:52.213702	INFO	managedbeans2.propuestas.ComisionRevisora2MB	La propuesta PROPUESTA EJEMPLO ha sido ingresada al sistema	
+222	2015-06-23 14:43:12.970382	INFO	managedbeans2.temas.AgregarTemaMB	El tema TEMA EJEMPLO ha sido ingresado al sistema	
+223	2015-06-23 14:43:22.736915	INFO	managedbeans2.temas.VerTemaMB	Tema TEMA EJEMPLO editado exitosamente	
+224	2015-06-23 14:43:34.782734	INFO	managedbeans2.temas.BorradorFinalMB	El estado del tema seleccionado se modificó a Vigente con borrador final	
+225	2015-06-23 14:43:56.096854	INFO	managedbeans2.temas.ComisionCorrectora2MB	Comisión ingresada al sistema, el estado del tema seleccionado se modificó a En proceso de examen	
+226	2015-06-23 14:44:10.440245	INFO	managedbeans2.temas.CalificacionTema2MB	Promedio: 6.6 Se agregaron las notas y el estado del tema seleccionado se modificó a Titulado	
+227	2015-06-23 14:44:15.525544	INFO	managedbeans2.temas.VerTemaMB	Tema TEMA EJEMPLO editado exitosamente	
 \.
 
 
@@ -1206,7 +1289,7 @@ COPY logs (logs_id, dated, level, logger, message, user_id) FROM stdin;
 -- Name: logs_logs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('logs_logs_id_seq', 203, true);
+SELECT pg_catalog.setval('logs_logs_id_seq', 227, true);
 
 
 --
@@ -1224,6 +1307,8 @@ COPY paramsemestreano (id, anoactual, semestreactual) FROM stdin;
 
 COPY planes_alumno (alumno_id, plan_id, activo, version_plan) FROM stdin;
 176767901	3	t	2
+178608975	1	t	1
+176785969	1	t	3
 \.
 
 
@@ -1242,6 +1327,10 @@ COPY planestudio (id, codigo, jornada, carrera_id) FROM stdin;
 8	1983	1	2
 9	1053	0	1
 10	1063	0	2
+101	666	0	1
+251	333	0	1
+256	333	0	1
+301	666	0	1
 \.
 
 
@@ -1249,9 +1338,7 @@ COPY planestudio (id, codigo, jornada, carrera_id) FROM stdin;
 -- Data for Name: profe_correccion; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY profe_correccion (id_correctora, rut_profesor, rol_correccion, nota_correccion_informe, nota_correccion_defensa) FROM stdin;
-1	155560002	0	\N	\N
-1	80796609	1	\N	\N
+COPY profe_correccion (nota_correccion_defensa, nota_correccion_informe, rol_correccion, rut_profesor, id_correctora) FROM stdin;
 \.
 
 
@@ -1259,8 +1346,7 @@ COPY profe_correccion (id_correctora, rut_profesor, rol_correccion, nota_correcc
 -- Data for Name: profe_propuesta; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY profe_propuesta (id_propuesta, rut_profesor, rol_guia, nota_guia_informe, nota_guia_defensa, fecha_revision) FROM stdin;
-1	70629054	0	\N	\N	\N
+COPY profe_propuesta (fecha_revision, nota_guia_defensa, nota_guia_informe, rol_guia, rut_profesor, id_propuesta) FROM stdin;
 \.
 
 
@@ -1268,9 +1354,11 @@ COPY profe_propuesta (id_propuesta, rut_profesor, rol_guia, nota_guia_informe, n
 -- Data for Name: profe_revision; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY profe_revision (id_revisora, rut_profesor, rol_revision, fecha_revision) FROM stdin;
-1	95794912	0	\N
-1	155898712	1	\N
+COPY profe_revision (fecha_revision, rol_revision, rut_profesor, id_revisora) FROM stdin;
+\N	0	95794912	1
+\N	1	155898712	1
+\N	0	155898712	2
+\N	1	80796609	2
 \.
 
 
@@ -1278,26 +1366,28 @@ COPY profe_revision (id_revisora, rut_profesor, rol_revision, fecha_revision) FR
 -- Data for Name: profesor; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY profesor (contrato, nombre_profesor, apellido_profesor, mail_profesor, telefono_profesor, tipo_profesor, maximo_guias, rut_profesor, jerarquia_categoria, esta_seminar, puede_guiar, puede_corregir, alias) FROM stdin;
-1	SERGIO	VELASTIN			0	\N	70629054	TITULAR	\N	\N	\N	\N
-0	ANDRÉS	RICE			1	0	70549123	ADJ. CAT. II	\N	\N	\N	\N
-1	FERNANDO	RANNOU	FERNANDO.RANNOU@USACH.CL		0	7	95794912	TITULAR	\N	\N	\N	\N
-1	ERIKA	ROSAS	ERIKA.ROSAS@USACH.CL		0	7	155560002	ASISTENTE	\N	\N	\N	\N
-1	NICOLAS	HIDALGO	NICOLAS.HIDALGO@USACH.CL		0	7	155898712	ASISTENTE	\N	\N	\N	\N
-1	CAROLINA	BONACIC	CAROLINA.BONACIC@USACH.CL		0	7	120188615	ASISTENTE	\N	\N	\N	\N
-1	MAX	CHACÓN	MAX.CHACON@USACH.CL		0	7	80796609	TITULAR	\N	\N	\N	\N
-1	MONICA	VILLANUEVA	MONICA.VILLANUEVA@USACH.CL		0	7	51668316	TITULAR	\N	\N	\N	\N
-1	VICTOR	PARADA	VICTOR.PARADA@USACH.CL		0	7	82230971	TITULAR	\N	\N	\N	\N
-0	JACQUELINE	KOHLER	JACQUELINE.KOHLER@USACH.CL		1	0	136725092	ADJ. CAT. II	\N	\N	\N	\N
+COPY profesor (id_profesor, contrato, jerarquia_categoria, maximo_guias, tipo_profesor, rut_usuario) FROM stdin;
+3	1	ASOCIADO	7	0	178338889
+9	0	TITULAR	0	1	178608975
+10	1	ASOCIADO	7	0	181181486
+13	1	TITULAR	7	0	70629054
+15	0	TITULAR	0	1	176785969
+16	1	ASISTENTE	7	0	120188615
 \.
+
+
+--
+-- Name: profesor_id_profesor_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('profesor_id_profesor_seq', 16, true);
 
 
 --
 -- Data for Name: propuesta; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY propuesta (nombre_propuesta, fecha_propuesta, id_propuesta, id_semestre, id_revisora, rut_alumno, magister, pet, id_plan, version_plan) FROM stdin;
-PROPUESTA VELASTIN	22/06/2015	1	1/2016	1	176767901	f	f	3	2
+COPY propuesta (id_propuesta, fecha_propuesta, id_plan, magister, nombre_propuesta, pet, version_plan, id_revisora, id_semestre, rut_alumno) FROM stdin;
 \.
 
 
@@ -1305,7 +1395,7 @@ PROPUESTA VELASTIN	22/06/2015	1	1/2016	1	176767901	f	f	3	2
 -- Name: propuesta_id_propuesta_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('propuesta_id_propuesta_seq', 1, true);
+SELECT pg_catalog.setval('propuesta_id_propuesta_seq', 1, false);
 
 
 --
@@ -1320,19 +1410,22 @@ COPY seccion (id, codigo, coordinacion_id) FROM stdin;
 -- Data for Name: semestre; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY semestre (id_semestre) FROM stdin;
-default
-1/2015
-1/1990
-2/2015
-2/2014
-1/2011
-2/2012
-2/2013
-1/2012
-1/2010
-1/2016
-2/2011
+COPY semestre (id_semestre, fecha_cierre, fecha_precierre) FROM stdin;
+default	\N	\N
+1/2015	\N	\N
+1/1990	\N	\N
+2/2015	\N	\N
+2/2014	\N	\N
+1/2011	\N	\N
+2/2012	\N	\N
+2/2013	\N	\N
+1/2012	\N	\N
+1/2010	\N	\N
+2/2011	\N	\N
+1/2016	30/06/2015	26/06/2015
+2/2016	30/06/2015	30/06/2015
+2/2017	\N	\N
+1/2017	30/06/2015	30/06/2015
 \.
 
 
@@ -1341,7 +1434,7 @@ default
 --
 
 COPY semestre_actual (semestre_actual) FROM stdin;
-1/2016
+2/2017
 \.
 
 
@@ -1350,7 +1443,7 @@ COPY semestre_actual (semestre_actual) FROM stdin;
 --
 
 COPY sequence (seq_name, seq_count) FROM stdin;
-SEQ_GEN	100
+SEQ_GEN	400
 \.
 
 
@@ -1386,8 +1479,7 @@ COPY subtipo (idsubtipo, nombresubtipo, idtipoevento_idtipoevento) FROM stdin;
 -- Data for Name: tema; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY tema (nombre_tema, fecha_tema, estado_tema, id_tema, id_correctora, id_semestre, id_revisora, fecha_siac, fecha_real, semestre_termino, precierre, precerrado) FROM stdin;
-TEMA VELASTIN	25/06/2015	4	1	1	1/2016	1	\N	\N	\N	\N	f
+COPY tema (id_tema, estado_tema, fecha_borrador, fecha_caducado, fecha_informe_avance, fecha_real, fecha_renuncia, fecha_siac, fecha_tema, nombre_tema, precerrado, semestre_termino, id_correctora, id_revisora, id_semestre) FROM stdin;
 \.
 
 
@@ -1395,7 +1487,7 @@ TEMA VELASTIN	25/06/2015	4	1	1	1/2016	1	\N	\N	\N	\N	f
 -- Name: tema_id_tema_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('tema_id_tema_seq', 1, true);
+SELECT pg_catalog.setval('tema_id_tema_seq', 2, true);
 
 
 --
@@ -1433,13 +1525,16 @@ COPY tipousuario (id_tipo, nombre_tipo, pass) FROM stdin;
 -- Data for Name: usuario; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY usuario (uid, rut_usuario, nombre_usuario, apellido_usuario, activo) FROM stdin;
-mcarcamo	178338889	Miguel	Cárcamo	t
-nflores	176767901	Matias	Flores	t
-bruiztagle	179594404	Benjamin	Ruiz-Tagle	t
-paguirre	118403096	Pamela	Aguirre	t
-lceledon	178608975	LUIS	CELEDÓN	t
-jgutierrez  173375522   Celso   Gutiérrez t
+COPY usuario (rut_usuario, activo, apellido_usuario, direccion_usuario, mail_usuario, nombre_usuario, telefono_usuario, tema_usuario, uid) FROM stdin;
+178338889	t	Cárcamo	\N	\N	Miguel	\N	\N	mcarcamo
+179594404	t	Ruiz-Tagle	\N	\N	Benjamin	\N	\N	bruiztagle
+118403096	t	Aguirre	\N	\N	Pamela	\N	\N	paguirre
+176767901	t	FLORES	\N	\N	MATIAS	\N	\N	nflores
+70629054	\N	VELASTÍN			SERGIO 		\N	svelastin
+181181486	\N	PEREZ	\N		CARLOS	\N	afterdark	cperezr
+176785969	\N	BELLO	\N		FELIPE 	\N	\N	fbello
+120188615	\N	BONACIC	\N	\N	CAROLINA	\N	\N	cbonacic
+178608975	t	CELEDÓN	\N		LUIS	32165487	\N	lceledon
 \.
 
 
@@ -1468,7 +1563,10 @@ COPY usuario_tipousuario (usuario_rut_usuario, tipos_id_tipo) FROM stdin;
 179594404	4
 118403096	4
 178608975	1
-173375522   1
+178608975	3
+181181486	1
+181181486	3
+181181486	2
 \.
 
 
@@ -1484,26 +1582,21 @@ COPY usuarioevento (id, clave, nombre, rol) FROM stdin;
 -- Data for Name: versionplan; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY versionplan (id, version, anio, resolucion, anio_resolucion, correlativo, planificado, planestudio_id) FROM stdin;
-1	3	2012	1632	2014	\N	t	1
-2	1	2003	2476	2003	\N	t	2
-3	2	2001	2389	2001	\N	t	3
-4	2	1990	998	1990	\N	t	4
-5	3	2012	1638	2014	\N	t	5
-6	1	2002	2989	2001	\N	t	6
-7	2	1990	6129	2000	\N	t	7
-8	1	1990	192	1992	\N	t	8
-11	1	1990	1662	1993	\N	f	2
-12	1	2001	2389	2001	\N	f	3
-13	1	1990	6129	2000	\N	f	4
-14	1	2012	8558	2011	\N	f	5
-9	1	2012	8552	2011	\N	f	1
-10	2	2012	8552	2011	\N	f	1
-15	2	2012	8558	2011	\N	f	5
-16	1	1990	998	1990	\N	f	7
-17	1	1980	2324	1983	\N	f	9
-18	1	1980	2324	1983	\N	f	10
+COPY versionplan (id, anio, version, planestudio_id, anio_resolucion, correlativo, planificado, resolucion) FROM stdin;
+257	2015	1	256	2015	1	f	1
+258	2015	2	256	0	2	f	0
+302	2015	1	301	2015	3	f	1
+303	2015	2	301	2022	4	f	55
+351	2015	3	301	2025	5	f	44
 \.
+
+
+--
+-- Name: alumno_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY alumno
+    ADD CONSTRAINT alumno_pkey PRIMARY KEY (id_alumno);
 
 
 --
@@ -1563,6 +1656,22 @@ ALTER TABLE ONLY checklisteventos
 
 
 --
+-- Name: comision_correctora_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY comision_correctora
+    ADD CONSTRAINT comision_correctora_pkey PRIMARY KEY (id_correctora);
+
+
+--
+-- Name: comision_revisora_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY comision_revisora
+    ADD CONSTRAINT comision_revisora_pkey PRIMARY KEY (id_revisora);
+
+
+--
 -- Name: coordinacion_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1611,6 +1720,14 @@ ALTER TABLE ONLY expositor
 
 
 --
+-- Name: historial_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY historial
+    ADD CONSTRAINT historial_pkey PRIMARY KEY (id_historial);
+
+
+--
 -- Name: horario_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1651,107 +1768,11 @@ ALTER TABLE ONLY paramsemestreano
 
 
 --
--- Name: pk_alumno; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+-- Name: planes_alumno_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
-ALTER TABLE ONLY alumno
-    ADD CONSTRAINT pk_alumno PRIMARY KEY (rut_alumno);
-
-
---
--- Name: pk_comision_correctora; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY comision_correctora
-    ADD CONSTRAINT pk_comision_correctora PRIMARY KEY (id_correctora);
-
-
---
--- Name: pk_comision_revisora; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY comision_revisora
-    ADD CONSTRAINT pk_comision_revisora PRIMARY KEY (id_revisora);
-
-
---
--- Name: pk_historial; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY historial
-    ADD CONSTRAINT pk_historial PRIMARY KEY (id_historial);
-
-
---
--- Name: pk_profe_correccion; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY profe_correccion
-    ADD CONSTRAINT pk_profe_correccion PRIMARY KEY (id_correctora, rut_profesor);
-
-
---
--- Name: pk_profe_propuesta; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY profe_propuesta
-    ADD CONSTRAINT pk_profe_propuesta PRIMARY KEY (id_propuesta, rut_profesor);
-
-
---
--- Name: pk_profe_revision; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY profe_revision
-    ADD CONSTRAINT pk_profe_revision PRIMARY KEY (id_revisora, rut_profesor);
-
-
---
--- Name: pk_profesor; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY profesor
-    ADD CONSTRAINT pk_profesor PRIMARY KEY (rut_profesor);
-
-
---
--- Name: pk_propuesta; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY propuesta
-    ADD CONSTRAINT pk_propuesta PRIMARY KEY (id_propuesta);
-
-
---
--- Name: pk_semestre; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY semestre
-    ADD CONSTRAINT pk_semestre PRIMARY KEY (id_semestre);
-
-
---
--- Name: pk_semestre_actual; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY semestre_actual
-    ADD CONSTRAINT pk_semestre_actual PRIMARY KEY (semestre_actual);
-
-
---
--- Name: pk_tema; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY tema
-    ADD CONSTRAINT pk_tema PRIMARY KEY (id_tema);
-
-
---
--- Name: pk_usuario; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
---
-
-ALTER TABLE ONLY usuario
-    ADD CONSTRAINT pk_usuario PRIMARY KEY (rut_usuario);
+ALTER TABLE ONLY planes_alumno
+    ADD CONSTRAINT planes_alumno_pkey PRIMARY KEY (alumno_id, plan_id);
 
 
 --
@@ -1763,11 +1784,67 @@ ALTER TABLE ONLY planestudio
 
 
 --
+-- Name: profe_correccion_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY profe_correccion
+    ADD CONSTRAINT profe_correccion_pkey PRIMARY KEY (rut_profesor, id_correctora);
+
+
+--
+-- Name: profe_propuesta_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY profe_propuesta
+    ADD CONSTRAINT profe_propuesta_pkey PRIMARY KEY (rut_profesor, id_propuesta);
+
+
+--
+-- Name: profe_revision_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY profe_revision
+    ADD CONSTRAINT profe_revision_pkey PRIMARY KEY (rut_profesor, id_revisora);
+
+
+--
+-- Name: profesor_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY profesor
+    ADD CONSTRAINT profesor_pkey PRIMARY KEY (id_profesor);
+
+
+--
+-- Name: propuesta_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY propuesta
+    ADD CONSTRAINT propuesta_pkey PRIMARY KEY (id_propuesta);
+
+
+--
 -- Name: seccion_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
 ALTER TABLE ONLY seccion
     ADD CONSTRAINT seccion_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: semestre_actual_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY semestre_actual
+    ADD CONSTRAINT semestre_actual_pkey PRIMARY KEY (semestre_actual);
+
+
+--
+-- Name: semestre_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY semestre
+    ADD CONSTRAINT semestre_pkey PRIMARY KEY (id_semestre);
 
 
 --
@@ -1784,6 +1861,14 @@ ALTER TABLE ONLY sequence
 
 ALTER TABLE ONLY subtipo
     ADD CONSTRAINT subtipo_pkey PRIMARY KEY (idsubtipo);
+
+
+--
+-- Name: tema_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY tema
+    ADD CONSTRAINT tema_pkey PRIMARY KEY (id_tema);
 
 
 --
@@ -1808,6 +1893,14 @@ ALTER TABLE ONLY tipoevento
 
 ALTER TABLE ONLY tipousuario
     ADD CONSTRAINT tipousuario_pkey PRIMARY KEY (id_tipo);
+
+
+--
+-- Name: usuario_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY usuario
+    ADD CONSTRAINT usuario_pkey PRIMARY KEY (rut_usuario);
 
 
 --
@@ -1840,13 +1933,6 @@ ALTER TABLE ONLY usuarioevento
 
 ALTER TABLE ONLY versionplan
     ADD CONSTRAINT versionplan_pkey PRIMARY KEY (id);
-
-
---
--- Name: alumno_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE UNIQUE INDEX alumno_pk ON alumno USING btree (rut_alumno);
 
 
 --
@@ -1889,13 +1975,6 @@ CREATE UNIQUE INDEX profe_propuesta_pk ON profe_propuesta USING btree (id_propue
 --
 
 CREATE UNIQUE INDEX profe_revision_pk ON profe_revision USING btree (id_revisora, rut_profesor);
-
-
---
--- Name: profesor_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
---
-
-CREATE UNIQUE INDEX profesor_pk ON profesor USING btree (rut_profesor);
 
 
 --
@@ -2053,6 +2132,14 @@ CREATE UNIQUE INDEX usuario_pk ON usuario USING btree (rut_usuario);
 
 
 --
+-- Name: fk_alumno_rut_usuario; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY alumno
+    ADD CONSTRAINT fk_alumno_rut_usuario FOREIGN KEY (rut_usuario) REFERENCES usuario(rut_usuario);
+
+
+--
 -- Name: fk_asignatura_asignatura_asignatura_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2074,14 +2161,6 @@ ALTER TABLE ONLY asignatura_asignatura
 
 ALTER TABLE ONLY asignatura_profesor
     ADD CONSTRAINT fk_asignatura_profesor_asignaturas_id FOREIGN KEY (asignaturas_id) REFERENCES asignatura(id);
-
-
---
--- Name: fk_asignatura_profesor_profesores_rut_profesor; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY asignatura_profesor
-    ADD CONSTRAINT fk_asignatura_profesor_profesores_rut_profesor FOREIGN KEY (profesores_rut_profesor) REFERENCES profesor(rut_profesor);
 
 
 --
@@ -2114,6 +2193,22 @@ ALTER TABLE ONLY checklist
 
 ALTER TABLE ONLY checklist
     ADD CONSTRAINT fk_checklist_encuesta_id FOREIGN KEY (encuesta_id) REFERENCES encuesta(id);
+
+
+--
+-- Name: fk_comision_correctora_id_semestre; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY comision_correctora
+    ADD CONSTRAINT fk_comision_correctora_id_semestre FOREIGN KEY (id_semestre) REFERENCES semestre(id_semestre);
+
+
+--
+-- Name: fk_comision_correctora_id_tema; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY comision_correctora
+    ADD CONSTRAINT fk_comision_correctora_id_tema FOREIGN KEY (id_tema) REFERENCES tema(id_tema);
 
 
 --
@@ -2157,19 +2252,35 @@ ALTER TABLE ONLY comision_revisora
 
 
 --
+-- Name: fk_comision_revisora_id_propuesta; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY comision_revisora
+    ADD CONSTRAINT fk_comision_revisora_id_propuesta FOREIGN KEY (id_propuesta) REFERENCES propuesta(id_propuesta);
+
+
+--
+-- Name: fk_comision_revisora_id_semestre; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY comision_revisora
+    ADD CONSTRAINT fk_comision_revisora_id_semestre FOREIGN KEY (id_semestre) REFERENCES semestre(id_semestre);
+
+
+--
+-- Name: fk_comision_revisora_id_tema; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY comision_revisora
+    ADD CONSTRAINT fk_comision_revisora_id_tema FOREIGN KEY (id_tema) REFERENCES tema(id_tema);
+
+
+--
 -- Name: fk_coordinacion_asignatura_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY coordinacion
     ADD CONSTRAINT fk_coordinacion_asignatura_id FOREIGN KEY (asignatura_id) REFERENCES asignatura(id);
-
-
---
--- Name: fk_encuesta_rut_profesor; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY encuesta
-    ADD CONSTRAINT fk_encuesta_rut_profesor FOREIGN KEY (profesor_rut_profesor) REFERENCES profesor(rut_profesor);
 
 
 --
@@ -2221,14 +2332,6 @@ ALTER TABLE ONLY evento
 
 
 --
--- Name: fk_horario_rut_profesor; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY horario
-    ADD CONSTRAINT fk_horario_rut_profesor FOREIGN KEY (profesor_rut_profesor) REFERENCES profesor(rut_profesor);
-
-
---
 -- Name: fk_horario_seccion_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2242,6 +2345,14 @@ ALTER TABLE ONLY horario
 
 ALTER TABLE ONLY inscripcion
     ADD CONSTRAINT fk_inscripcion_idevento_idevento FOREIGN KEY (idevento_idevento) REFERENCES evento(idevento);
+
+
+--
+-- Name: fk_planes_alumno_plan_id; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY planes_alumno
+    ADD CONSTRAINT fk_planes_alumno_plan_id FOREIGN KEY (plan_id) REFERENCES planestudio(id);
 
 
 --
@@ -2261,19 +2372,11 @@ ALTER TABLE ONLY profe_correccion
 
 
 --
--- Name: fk_profe_co_relations_profesor; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: fk_profe_correccion_id_correctora; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY profe_correccion
-    ADD CONSTRAINT fk_profe_co_relations_profesor FOREIGN KEY (rut_profesor) REFERENCES profesor(rut_profesor) ON UPDATE RESTRICT ON DELETE RESTRICT;
-
-
---
--- Name: fk_profe_pr_relations_profesor; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY profe_propuesta
-    ADD CONSTRAINT fk_profe_pr_relations_profesor FOREIGN KEY (rut_profesor) REFERENCES profesor(rut_profesor) ON UPDATE RESTRICT ON DELETE RESTRICT;
+    ADD CONSTRAINT fk_profe_correccion_id_correctora FOREIGN KEY (id_correctora) REFERENCES comision_correctora(id_correctora);
 
 
 --
@@ -2285,27 +2388,19 @@ ALTER TABLE ONLY profe_propuesta
 
 
 --
--- Name: fk_profe_re_relations_comision; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: fk_profe_propuesta_id_propuesta; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY profe_revision
-    ADD CONSTRAINT fk_profe_re_relations_comision FOREIGN KEY (id_revisora) REFERENCES comision_revisora(id_revisora) ON UPDATE RESTRICT ON DELETE RESTRICT;
-
-
---
--- Name: fk_profe_re_relations_profesor; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY profe_revision
-    ADD CONSTRAINT fk_profe_re_relations_profesor FOREIGN KEY (rut_profesor) REFERENCES profesor(rut_profesor) ON UPDATE RESTRICT ON DELETE RESTRICT;
+ALTER TABLE ONLY profe_propuesta
+    ADD CONSTRAINT fk_profe_propuesta_id_propuesta FOREIGN KEY (id_propuesta) REFERENCES propuesta(id_propuesta);
 
 
 --
--- Name: fk_propuest_relations_alumno; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+-- Name: fk_profesor_rut_usuario; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY propuesta
-    ADD CONSTRAINT fk_propuest_relations_alumno FOREIGN KEY (rut_alumno) REFERENCES alumno(rut_alumno) ON UPDATE RESTRICT ON DELETE RESTRICT;
+ALTER TABLE ONLY profesor
+    ADD CONSTRAINT fk_profesor_rut_usuario FOREIGN KEY (rut_usuario) REFERENCES usuario(rut_usuario);
 
 
 --
@@ -2338,6 +2433,30 @@ ALTER TABLE ONLY seccion
 
 ALTER TABLE ONLY subtipo
     ADD CONSTRAINT fk_subtipo_idtipoevento_idtipoevento FOREIGN KEY (idtipoevento_idtipoevento) REFERENCES tipoevento(idtipoevento);
+
+
+--
+-- Name: fk_tema_id_correctora; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY tema
+    ADD CONSTRAINT fk_tema_id_correctora FOREIGN KEY (id_correctora) REFERENCES comision_correctora(id_correctora);
+
+
+--
+-- Name: fk_tema_id_revisora; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY tema
+    ADD CONSTRAINT fk_tema_id_revisora FOREIGN KEY (id_revisora) REFERENCES comision_revisora(id_revisora);
+
+
+--
+-- Name: fk_tema_id_semestre; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY tema
+    ADD CONSTRAINT fk_tema_id_semestre FOREIGN KEY (id_semestre) REFERENCES semestre(id_semestre);
 
 
 --
@@ -2389,14 +2508,6 @@ ALTER TABLE ONLY versionplan
 
 
 --
--- Name: planes_alumno_alumno_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY planes_alumno
-    ADD CONSTRAINT planes_alumno_alumno_id_fkey FOREIGN KEY (alumno_id) REFERENCES alumno(rut_alumno);
-
-
---
 -- Name: planes_alumno_plan_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2405,11 +2516,12 @@ ALTER TABLE ONLY planes_alumno
 
 
 --
--- Name: public; Type: ACL; Schema: -; Owner: postgres
+-- Name: public; Type: ACL; Schema: -; Owner: giovanni
 --
 
 REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM postgres;
+REVOKE ALL ON SCHEMA public FROM giovanni;
+GRANT ALL ON SCHEMA public TO giovanni;
 GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
