@@ -24,7 +24,7 @@ import otros.Asignatura;
 @NamedQueries({
     @NamedQuery(
             name = "Checklist.findProfesoresByAsgAnioAndSemestre",
-            query = "SELECT DISTINCT c.encuesta.profesor.rutProfesor FROM Checklist c WHERE c.asignatura.id = :asg AND c.encuesta.anio = :anio AND c.encuesta.semestre = :semestre AND c.aceptado = 'true'"
+            query = "SELECT DISTINCT c.encuesta.profesor.usuario.rutUsuario FROM Checklist c WHERE c.asignatura.id = :asg AND c.encuesta.anio = :anio AND c.encuesta.semestre = :semestre AND c.aceptado = 'true'"
     ),
     @NamedQuery(
             name="Checklist.findAsignaturaByEncuestaId",

@@ -61,6 +61,7 @@ public class Usuario implements Serializable {
     private String apellidoUsuario;
     @Column(name = "activo")
     private Boolean activo;
+<<<<<<< HEAD
     @Size(max = 100)
     @Column(name = "mail_usuario")
     private String mailUsuario;
@@ -78,6 +79,10 @@ public class Usuario implements Serializable {
     private Alumno alumno;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
     private Profesor profesor;    
+=======
+    @Column(name = "tema")
+    private String tema;
+>>>>>>> a9c4bc05dd60517f705d97bf6282fd5c93df4157
 
 
     @ManyToMany(mappedBy = "usuarios")
@@ -149,6 +154,14 @@ public class Usuario implements Serializable {
 
     public void setActivo(Boolean activo) {
         this.activo = activo;
+    }
+    
+    public String getTema() {
+        return tema;
+    }
+
+    public void setTema(String tema) {
+        this.tema = tema;
     }
 
     public String getMailUsuario() {

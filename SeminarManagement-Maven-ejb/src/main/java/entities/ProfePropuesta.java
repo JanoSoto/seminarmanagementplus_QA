@@ -50,7 +50,7 @@ public class ProfePropuesta implements Serializable {
     @JoinColumn(name = "id_propuesta", referencedColumnName = "id_propuesta", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Propuesta propuesta;
-    @JoinColumn(name = "rut_profesor", referencedColumnName = "rut_profesor", insertable = false, updatable = false)
+    @JoinColumn(name = "rut_profesor", referencedColumnName = "rut_usuario", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Profesor profesor;
 

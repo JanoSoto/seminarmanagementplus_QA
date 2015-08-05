@@ -13,10 +13,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.Map;
 import java.util.TreeMap;
 import javax.annotation.PostConstruct;
@@ -24,9 +21,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import managedbeans.ProfesorViewMB;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.servlet.http.HttpServletRequest;
 import org.primefaces.component.themeswitcher.ThemeSwitcher;
@@ -280,7 +275,7 @@ public class UsuarioMB {
         usuarioFacade.edit(usuario);
 
         context.addMessage(null, new FacesMessage("Usuario", nombreUsuario + " " + apellidoUsuario + ", editado correctamente"));
-        LOGGER.info("Se ha editado al usuario " + nombreUsuario + " " + apellidoUsuario);
+        //LOGGER.info("Se ha editado al usuario " + nombreUsuario + " " + apellidoUsuario);
         //Vaciamos el formulario
 //        username = null;
 //        nombreUsuario = null;
@@ -379,8 +374,13 @@ public class UsuarioMB {
        //this.theme = "usachborde";
        if (request.getUserPrincipal() != null) {
            Usuario user = usuarioFacade.findByUid(request.getUserPrincipal().toString());
+<<<<<<< HEAD
            if(user.getTemaUsuario()!=null){             
             this.theme = user.getTemaUsuario();
+=======
+           if(user.getTema()!=null){             
+            this.theme = user.getTema();
+>>>>>>> a9c4bc05dd60517f705d97bf6282fd5c93df4157
            }
        }
        
@@ -390,6 +390,33 @@ public class UsuarioMB {
     public void setTheme(String theme) {
         this.theme = theme;
     }
+<<<<<<< HEAD
+
+    public String getMailUsuario() {
+        return mailUsuario;
+    }
+
+    public void setMailUsuario(String mailUsuario) {
+        this.mailUsuario = mailUsuario;
+    }
+
+    public String getDireccionUsuario() {
+        return direccionUsuario;
+    }
+
+    public void setDireccionUsuario(String direccionUsuario) {
+        this.direccionUsuario = direccionUsuario;
+    }
+
+    public String getTelefonoUsuario() {
+        return telefonoUsuario;
+    }
+
+    public void setTelefonoUsuario(String telefonoUsuario) {
+        this.telefonoUsuario = telefonoUsuario;
+    }
+=======
+>>>>>>> a9c4bc05dd60517f705d97bf6282fd5c93df4157
     
     public void saveTheme(AjaxBehaviorEvent ajax) {
        //System.out.println("Tema anterior: " + this.theme);
@@ -401,7 +428,11 @@ public class UsuarioMB {
        Usuario user = usuarioFacade.findByUid(request.getUserPrincipal().toString());
        //System.out.println("UID:" + request.getUserPrincipal().toString());
        //System.out.println("Tema this.theme: " + this.theme);
+<<<<<<< HEAD
        user.setTemaUsuario(tema);
+=======
+       user.setTema(tema);
+>>>>>>> a9c4bc05dd60517f705d97bf6282fd5c93df4157
        
        Usuario usuarioEditado = user;
        //System.out.println("Cambio de tema a: "+ tema);

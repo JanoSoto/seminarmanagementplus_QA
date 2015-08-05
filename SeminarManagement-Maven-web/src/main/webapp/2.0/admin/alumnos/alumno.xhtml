@@ -26,7 +26,7 @@
                 <h1>Datos Alumno</h1>
                 <h:panelGrid columns="2" cellpadding="4">
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" for="nombre" value="Nombre:"/>
-                    <h:outputText id="nombre" style="font-weight: bold" value="#{verAlumnoMB.alumno.nombreAlumno} #{verAlumnoMB.alumno.apellidoAlumno}"/>
+                    <h:outputText id="nombre" style="font-weight: bold" value="#{verAlumnoMB.alumno.usuario.nombreUsuario} #{verAlumnoMB.alumno.usuario.apellidoUsuario}"/>
 
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Rut:"/>
                     <h:outputText value="#{verAlumnoMB.alumno.rutAlumnoFormateado}"/>
@@ -36,13 +36,13 @@
                     <h:outputText rendered="#{verAlumnoMB.alumno.jornadaParcial eq 1}" value="Vespertino"/>
 
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" value="E-Mail:"/>
-                    <h:outputText value="#{verAlumnoMB.alumno.mailAlumno}"/>
+                    <h:outputText value="#{verAlumnoMB.alumno.usuario.mailUsuario}"/>
 
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Fono:"/>
-                    <h:outputText value="#{verAlumnoMB.alumno.telefonoAlumno}"/>
+                    <h:outputText value="#{verAlumnoMB.alumno.usuario.telefonoUsuario}"/>
 
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Dirección:"/>
-                    <h:outputText value="#{verAlumnoMB.alumno.direccionAlumno}"/>
+                    <h:outputText value="#{verAlumnoMB.alumno.usuario.direccionUsuario}"/>
 
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Plan Activo:"/>
                         <h:outputText value=" #{verAlumnoMB.getAnioPlan(verAlumnoMB.alumno.idPlanActivo, verAlumnoMB.alumno.versionPlanActivo)}"/>
@@ -80,8 +80,8 @@
                     </a>
                 </p:column>
                 <p:column headerText="Guía">
-                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/profesores/profesor.xhtml?prof=#{prop.profesorGuia.rutProfesor}">
-                        <h:outputText value="#{prop.profesorGuia.nombreProfesor} #{prop.profesorGuia.apellidoProfesor}"/>
+                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/profesores/profesor.xhtml?prof=#{prop.profesorGuia.usuario.rutUsuario}">
+                        <h:outputText value="#{prop.profesorGuia.usuario.nombreUsuario} #{prop.profesorGuia.usuario.apellidoUsuario}"/>
                     </a>
                 </p:column>
                 <p:column headerText="Plan">
@@ -101,8 +101,8 @@
                     </a>
                 </p:column>
                 <p:column headerText="Guía">
-                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/profesores/profesor.xhtml?prof=#{tema.guia.rutProfesor}">
-                        <h:outputText value="#{tema.guia.nombreProfesor} #{tema.guia.apellidoProfesor}"/>
+                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/profesores/profesor.xhtml?prof=#{tema.guia.usuario.rutUsuario}">
+                        <h:outputText value="#{tema.guia.usuario.nombreUsuario} #{tema.guia.usuario.apellidoUsuario}"/>
                     </a>
                 </p:column>
                 <p:column headerText="Estado">

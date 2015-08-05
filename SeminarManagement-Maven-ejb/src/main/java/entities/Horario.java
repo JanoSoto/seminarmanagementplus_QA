@@ -21,25 +21,25 @@ import javax.persistence.NamedQuery;
 @Entity
 @NamedQueries({
     @NamedQuery(name="Horario.findByBloqueAndProfesor",
-            query = "SELECT h FROM Horario h WHERE h.bloque = :bloque AND h.profesor.rutProfesor = :rutProfesor"),
+            query = "SELECT h FROM Horario h WHERE h.bloque = :bloque AND h.profesor.usuario.rutUsuario = :rutProfesor"),
     @NamedQuery(name = "Horario.findDisponibleByBloqueAndProfesor",
-            query = "SELECT h FROM Horario h WHERE h.bloque = :bloque AND h.profesor.rutProfesor = :rutProfesor AND h.seccion = :seccion"),
+            query = "SELECT h FROM Horario h WHERE h.bloque = :bloque AND h.profesor.usuario.rutUsuario = :rutProfesor AND h.seccion = :seccion"),
     @NamedQuery(name = "Horario.findHorariosDisponiblesByProfesor",
-            query = "SELECT h FROM Horario h WHERE h.profesor.rutProfesor = :rutProfesor AND h.seccion IS NULL"),
+            query = "SELECT h FROM Horario h WHERE h.profesor.usuario.rutUsuario = :rutProfesor AND h.seccion IS NULL"),
     @NamedQuery(name = "Horario.findHorariosAsignadosByProfesor",
-            query = "SELECT h FROM Horario h WHERE h.profesor.rutProfesor = :rutProfesor AND h.seccion IS NOT NULL"),
+            query = "SELECT h FROM Horario h WHERE h.profesor.usuario.rutUsuario = :rutProfesor AND h.seccion IS NOT NULL"),
     @NamedQuery(name="Horario.findByHorariosNoDisponibles",
             query="SELECT h FROM Horario h WHERE h.seccion IS NOT NULL"),
     @NamedQuery(name="Horario.findBySeleccionados",//esta query hay que sacarla
-            query="SELECT h FROM Horario h WHERE h.profesor.rutProfesor = :rutProfesor"),
+            query="SELECT h FROM Horario h WHERE h.profesor.usuario.rutUsuario = :rutProfesor"),
     @NamedQuery(name = "Horario.findByversionPlanAndSemestreAndAnioAndBloque",
             query = "SELECT h FROM Horario h WHERE h.seccion.coordinacion.asignatura.versionplan.id = :idPlan AND h.seccion.coordinacion.semestre = :semestre AND h.seccion.coordinacion.anio = :anio AND h.seccion.coordinacion.asignatura.nivel = :nivel AND h.bloque = :bloque"),
     @NamedQuery(name = "Horario.findByVersionPlanAndSemestreAndAnio",
             query = "SELECT h FROM Horario h WHERE h.seccion.coordinacion.asignatura.versionplan.id = :idPlan AND h.seccion.coordinacion.semestre = :semestre AND h.seccion.coordinacion.anio = :anio AND h.seccion.coordinacion.asignatura.nivel = :nivel"),
     @NamedQuery(name = "Horario.findAsignadoByBloqueAndProfesor",
-            query = "SELECT h FROM Horario h WHERE h.bloque = :bloque AND h.profesor.rutProfesor = :rutProfesor AND h.seccion IS NOT NULL"),
+            query = "SELECT h FROM Horario h WHERE h.bloque = :bloque AND h.profesor.usuario.rutUsuario = :rutProfesor AND h.seccion IS NOT NULL"),
     @NamedQuery(name = "Horario.findHorariosAsignadosByProfesorAndSemestre",
-            query = "SELECT h FROM Horario h WHERE h.profesor.rutProfesor = :rutProfesor AND h.seccion.coordinacion.anio = :anio AND h.seccion.coordinacion.semestre = :semestre"),
+            query = "SELECT h FROM Horario h WHERE h.profesor.usuario.rutUsuario = :rutProfesor AND h.seccion.coordinacion.anio = :anio AND h.seccion.coordinacion.semestre = :semestre"),
     @NamedQuery(name = "Horario.finall",
             query = "SELECT h FROM Horario h")
 })

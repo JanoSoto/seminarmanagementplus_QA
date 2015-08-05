@@ -34,7 +34,10 @@ public class PlanestudioFacade extends AbstractFacade<PlanEstudio> implements Pl
         Query query;
         query = em.createNamedQuery("PlanEstudio.findById")
                 .setParameter("id", id);
-       return (PlanEstudio) query.getSingleResult();
+        if (query.getResultList().isEmpty()) {
+            return null;
+        }
+        return (PlanEstudio) query.getSingleResult();
     }
     
     @Override

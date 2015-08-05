@@ -24,6 +24,7 @@ import managedbeans.AuthMB;
 import sessionbeans.AlumnoFacadeLocal;
 import sessionbeans.HistorialFacadeLocal;
 import sessionbeans.PlanestudioFacadeLocal;
+import sessionbeans.UsuarioFacadeLocal;
 import sessionbeans.asociacionFacadeLocal;
 
 /**
@@ -40,6 +41,8 @@ public class EditarAlumnoMB implements Serializable {
     private AlumnoFacadeLocal alumnoFacade;
     @EJB
     private PlanestudioFacadeLocal planEstudioFacade;
+    @EJB
+    private UsuarioFacadeLocal usuarioFacade;
 
     @EJB
     private asociacionFacadeLocal asociacionFacade;
@@ -169,7 +172,7 @@ public class EditarAlumnoMB implements Serializable {
             a.setAsociacionPlanEstudioAlumno(asociacion_final);
             alumnoEdit.setAsociacionPlanEstudioAlumno(asociacion_final);
         }
-
+        usuarioFacade.edit(alumnoEdit.getUsuario());
         alumnoFacade.edit(alumnoEdit);
 
         context.addMessage(null, new FacesMessage("Editar Alumno", alumnoEdit.getNombreAlumno() + " " + alumnoEdit.getApellidoAlumno() + " editado exitosamente"));

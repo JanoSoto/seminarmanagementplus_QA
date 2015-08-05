@@ -39,7 +39,7 @@ public class ProfeRevision implements Serializable {
     @Size(max = 15)
     @Column(name = "fecha_revision")
     private String fechaRevision;
-    @JoinColumn(name = "rut_profesor", referencedColumnName = "rut_profesor", insertable = false, updatable = false)
+    @JoinColumn(name = "rut_profesor", referencedColumnName = "rut_usuario", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Profesor profesor;
     @JoinColumn(name = "id_revisora", referencedColumnName = "id_revisora", insertable = false, updatable = false)

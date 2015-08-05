@@ -626,9 +626,10 @@ public class CargarPlanDeEstudios implements Serializable {
                 newVp.setPlanificado(false);
                 newVp.setVersion(vp.getVersion()+1);
                 newVp.setCorrelativo(versionesBusiness.findMaxCorrelativo()+1);
+                newVp.setAnio_resolucion(anio_resolucion);
+                newVp.setResolucion(resolucion);
                 System.out.println(newVp);
                 version.create(newVp);
-                System.out.println("Hola");
                 carreraSelected = 0;
                 idPlan = 0L;
                 codigo = 0;
