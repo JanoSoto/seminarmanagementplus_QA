@@ -10,6 +10,8 @@ import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -36,19 +38,17 @@ import javax.xml.bind.annotation.XmlTransient;
 public class PlanEstudio implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     @Column(name = "codigo")
     private Integer codigo;
-    
+
     @Column(name = "jornada")
     private Integer jornada;
-    
+
     @JoinColumn(name = "carrera_id", referencedColumnName = "id")
     @ManyToOne
     private Carrera carreraId;
@@ -105,7 +105,7 @@ public class PlanEstudio implements Serializable {
     public void setCarreraId(Carrera carreraId) {
         this.carreraId = carreraId;
     }
-    
+
     public Carrera getCarrera() {
         return carreraId;
     }

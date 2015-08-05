@@ -2,8 +2,11 @@ package entities;
 
 import java.io.Serializable;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -24,15 +27,18 @@ import javax.xml.bind.annotation.XmlRootElement;
     @NamedQuery(name = "Versionplan.findAll", query = "SELECT v FROM Versionplan v"),
     @NamedQuery(name = "Versionplan.findById", query = "SELECT v FROM Versionplan v WHERE v.id = :id"),
     @NamedQuery(name = "Versionplan.findByVersion", query = "SELECT v FROM Versionplan v WHERE v.version = :version"),
-    @NamedQuery(name = "Versionplan.findByAnio", query = "SELECT v FROM Versionplan v WHERE v.anio = :anio")})
+    @NamedQuery(name = "Versionplan.findByAnio", query = "SELECT v FROM Versionplan v WHERE v.anio = :anio"),
+    @NamedQuery(name = "Versionplan.findByIdPlan", query = "SELECT vp FROM Versionplan vp WHERE vp.id = :idPlan"),
+    @NamedQuery(name = "Versionplan.findByPlanificado", query = "SELECT vp FROM Versionplan vp WHERE vp.planificado = :planificado"),
+    @NamedQuery(name = "Versionplan.findMaxCorrelativo", query = "SELECT MAX(vp.correlativo) FROM Versionplan vp"),})
 public class Versionplan implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
-    @Basic(optional = false)
-    @NotNull
-    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     @Column(name = "version")
     private Integer version;
     @Column(name = "anio")

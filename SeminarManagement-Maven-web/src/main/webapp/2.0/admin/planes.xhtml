@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template2.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="metadata">
+    </ui:define>
+
+    <ui:define name="title"><title>Inicio | Seminar Management</title></ui:define>
+
+    <ui:define name="content">
+
+        <p:layoutUnit position="center" style="border:none;">
+            <h1>Bienvenido #{authMB.loggedUser} a Seminar Management!</h1>
+            <div class="row">
+                <div class="col-md-10">
+                    <ol class="breadcrumb">
+                        <!--<li><a href="/SeminarManagement-Maven-web/2.0/admin/planes.xhtml">Inicio</a></li>-->
+                        <li><a href="/SeminarManagement-Maven-web/2.0/admin/agregar_plan.xhtml">Crear Plan</a></li>
+                    </ol>
+                </div>                 
+            </div>
+        </p:layoutUnit>
+    </ui:define>
+
+</ui:composition>
