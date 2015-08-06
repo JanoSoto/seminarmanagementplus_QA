@@ -13,10 +13,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.Map;
 import java.util.TreeMap;
 import javax.annotation.PostConstruct;
@@ -24,9 +21,7 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
-import managedbeans.ProfesorViewMB;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.servlet.http.HttpServletRequest;
 import org.primefaces.component.themeswitcher.ThemeSwitcher;
@@ -56,7 +51,7 @@ public class UsuarioMB {
     @EJB
     private UsuarioFacadeLocal usuarioFacade;
 
-    private String username, nombreUsuario, apellidoUsuario, mailUsuario, direccionUsuario, telefonoUsuario;
+    private String username, nombreUsuario, apellidoUsuario;
     private List<String> tipoUsuario;
     private List<String> tiposNoDelUsuario;
     private List<String> tiposDelUsuario;
@@ -352,7 +347,7 @@ public class UsuarioMB {
         nuevoUsuario.setTipos(aux);
 //        nuevoUsuario.setTipos(tiposDualList.getTarget());
         context.addMessage(null, new FacesMessage("Usuario " + this.uid + " creado correctamente."));
-//        LOGGER.info("Se ha editado al usuario " + nombreUsuario + " " + apellidoUsuario);
+        LOGGER.info("Se ha editado al usuario " + nombreUsuario + " " + apellidoUsuario);
         usuarioFacade.edit(nuevoUsuario);
 
         //Vaciamos el formulario
@@ -379,8 +374,8 @@ public class UsuarioMB {
        //this.theme = "usachborde";
        if (request.getUserPrincipal() != null) {
            Usuario user = usuarioFacade.findByUid(request.getUserPrincipal().toString());
-           if(user.getTemaUsuario()!=null){             
-            this.theme = user.getTemaUsuario();
+           if(user.getTema()!=null){             
+            this.theme = user.getTema();
            }
        }
        
@@ -401,7 +396,7 @@ public class UsuarioMB {
        Usuario user = usuarioFacade.findByUid(request.getUserPrincipal().toString());
        //System.out.println("UID:" + request.getUserPrincipal().toString());
        //System.out.println("Tema this.theme: " + this.theme);
-       user.setTemaUsuario(tema);
+       user.setTema(tema);
        
        Usuario usuarioEditado = user;
        //System.out.println("Cambio de tema a: "+ tema);
