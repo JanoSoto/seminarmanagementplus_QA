@@ -83,15 +83,12 @@ public class Usuario implements Serializable {
     @ManyToMany(mappedBy = "usuarios")
     private List<Tipousuario> tipos;
     
-    @Column(name = "tema")
-    private String tema;
-    
     public String getTema() {
-        return tema;
+        return temaUsuario;
     }
 
     public void setTema(String tema) {
-        this.tema = tema;
+        this.temaUsuario = tema;
     }
 
     public void setTipos(List<Tipousuario> tipos) {
