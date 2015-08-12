@@ -3,7 +3,6 @@ package managedbeans;
 import entities.Carrera;
 import java.io.Serializable;
 import java.util.List;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -31,13 +30,13 @@ public class CarreraController implements Serializable {
     public CarreraController() {
     }
 
-    public List<Carrera> getAllCarreras(){
+    public List<Carrera> getAllCarreras() {
         return getFacade().findAll();
     }
-    
+
     public List<String> getCarreras() {
         List<Carrera> lista = ejbFacade.findAll();
-        for(Carrera carrera : lista){
+        for (Carrera carrera : lista) {
             carreras.add(carrera.getNombre());
         }
         return carreras;
@@ -54,7 +53,7 @@ public class CarreraController implements Serializable {
     public void setSelected(Carrera selected) {
         this.selected = selected;
     }
-    
+
     protected void setEmbeddableKeys() {
     }
 
@@ -72,18 +71,18 @@ public class CarreraController implements Serializable {
     }
 
     public void create() {
-        persist(PersistAction.CREATE, ResourceBundle.getBundle("/Bundle").getString("CarreraCreated"));
+        persist(PersistAction.CREATE, "Carrera creada correctamente.");
         if (!JsfUtil.isValidationFailed()) {
             items = null;    // Invalidate list of items to trigger re-query.
         }
     }
 
     public void update() {
-        persist(PersistAction.UPDATE, ResourceBundle.getBundle("/Bundle").getString("CarreraUpdated"));
+        persist(PersistAction.UPDATE, "Carrera actualizada correctamente.");
     }
 
     public void destroy() {
-        persist(PersistAction.DELETE, ResourceBundle.getBundle("/Bundle").getString("CarreraDeleted"));
+        persist(PersistAction.DELETE, "Carrera eliminada correctamente.");
         if (!JsfUtil.isValidationFailed()) {
             selected = null; // Remove selection
             items = null;    // Invalidate list of items to trigger re-query.
@@ -102,18 +101,17 @@ public class CarreraController implements Serializable {
             setEmbeddableKeys();
             try {
                 if (persistAction != PersistAction.DELETE) {
-                    if(!selected.getNombre().trim().isEmpty()){
+                    if (!selected.getNombre().trim().isEmpty()) {
                         getFacade().edit(selected);
                         JsfUtil.addSuccessMessage(successMessage);
-                    }
-                    else{
+                    } else {
                         JsfUtil.addErrorMessage("Nombre de la carrera no debe estar vacio");
                         items = getFacade().findAll();
                     }
                 } else {
                     getFacade().remove(selected);
                     JsfUtil.addSuccessMessage(successMessage);
-                }                
+                }
             } catch (EJBException ex) {
                 String msg = "";
                 Throwable cause = ex.getCause();
@@ -123,11 +121,11 @@ public class CarreraController implements Serializable {
                 if (msg.length() > 0) {
                     JsfUtil.addErrorMessage("No se puede realizar tal acción.");
                 } else {
-                    JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                    JsfUtil.addErrorMessage(ex, "Error de persistencia.");
                 }
             } catch (Exception ex) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, null, ex);
-                JsfUtil.addErrorMessage(ex, ResourceBundle.getBundle("/Bundle").getString("PersistenceErrorOccured"));
+                JsfUtil.addErrorMessage(ex, "Error de persistencia 2.");
             }
         }
     }

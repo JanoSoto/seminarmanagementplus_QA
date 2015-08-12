@@ -14,11 +14,11 @@
                     <p:panelGrid columns="2" rendered="#{carreraController.selected != null}">
                         <p:outputLabel value="Nombre" for="nombre" />
                         <p:inputText id="nombre" value="#{carreraController.selected.nombre}" title="Nombre" />
-                        
-                       
+
+
                     </p:panelGrid>
                     <p:commandButton actionListener="#{carreraController.create}" value="Guardar" update="display,:CarreraListForm:datalist" oncomplete="handleSubmit(args,'CarreraCreateDialog');"/>
-                    <p:commandButton value="Cancelar" onclick="PF('CarreraCreateDialog').hide()"/>
+                    <p:commandButton value="Cerrar" onclick="CarreraCreateDialog.hide()"/>
                 </h:panelGroup>
             </h:form>
         </p:dialog>
