@@ -36,7 +36,7 @@
                             <c:if test="#{cargarPlanDeEstudios.opcion}">
                                 <p:panel id="nuevo-plan" styleClass="panel-no-border">
                                     <div class="hidden">
-                                        <p:selectOneMenu id="planes" value="#{cargarPlanDeEstudios.idPlan}" style="width: 100%" immediate="true">
+                                        <p:selectOneMenu id="planes" value="#{cargarPlanDeEstudios.idPlan}" style="width: 100%" immediate="true" rendered="false">
                                         </p:selectOneMenu>
                                     </div>
                                     <h:outputLabel value="Código Plan"/>

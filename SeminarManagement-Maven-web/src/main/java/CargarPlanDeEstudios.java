@@ -1,4 +1,5 @@
 
+import entities.AsociacionPlanEstudioAlumno;
 import otros.Asignatura;
 import entities.ParamSemestreAno;
 import entities.PlanEstudio;
@@ -77,6 +78,9 @@ public class CargarPlanDeEstudios implements Serializable {
     
     @EJB
     private ParamSemestreAnioFacadeLocal paramFacade;
+    
+    @EJB
+    asociacionFacadeLocal asociacionFacade;
     
     private int codigoPlan;
     private int versionPlan;
@@ -183,6 +187,19 @@ public class CargarPlanDeEstudios implements Serializable {
     
     public String getNombrePlan() {
         return nombrePlan;
+    }
+    
+    public List<PlanEstudio> getAllPlanEstudio() {
+        return plan.findAll();
+    }
+    
+    public List<AsociacionPlanEstudioAlumno> getAllAsociacionPlanEstudio() {
+        List<AsociacionPlanEstudioAlumno> asociaciones = asociacionFacade.findAll();
+        List<AsociacionPlanEstudioAlumno> salida = new ArrayList<>();
+        for (AsociacionPlanEstudioAlumno asociacion : asociaciones) {
+            salida.add(asociacion);
+        }
+        return salida;
     }
 
     public boolean isCargados() {
@@ -620,16 +637,20 @@ public class CargarPlanDeEstudios implements Serializable {
         if(!opcion){
             if(idPlan != 0L){
                 Versionplan vp = version.find(idPlan);
+                PlanEstudio planAntiguo = vp.getPlanestudio();
                 Versionplan newVp = new Versionplan();
                 newVp.setAnio(vp.getAnio());
-                newVp.setPlanestudio(vp.getPlanestudio());
+                newVp.setPlanestudio(planAntiguo);
                 newVp.setPlanificado(false);
                 newVp.setVersion(vp.getVersion()+1);
                 newVp.setCorrelativo(versionesBusiness.findMaxCorrelativo()+1);
                 newVp.setAnio_resolucion(anio_resolucion);
                 newVp.setResolucion(resolucion);
                 System.out.println(newVp);
-                version.create(newVp);
+//                version.create(newVp);
+                planAntiguo.addVersion(newVp);
+                plan.edit(planAntiguo);
+                
                 carreraSelected = 0;
                 idPlan = 0L;
                 codigo = 0;
@@ -638,7 +659,7 @@ public class CargarPlanDeEstudios implements Serializable {
                 anio_resolucion = Calendar.getInstance().get(Calendar.YEAR);
                 jornada = null;
                 JsfUtil.addSuccessMessage("Nueva versión del plan "+vp.getPlanestudio().getCodigo()+" creada con éxito");
-                recargaPagina();
+                FacesContext.getCurrentInstance().getExternalContext().redirect("/SeminarManagement-Maven-web/2.0/admin/ver_planes.xhtml");
             }
             else{
                 JsfUtil.addErrorMessage("Debe seleccionar un Plan de Estudios");
@@ -663,8 +684,9 @@ public class CargarPlanDeEstudios implements Serializable {
                 vp.setResolucion(resolucion);
                 vp.setAnio_resolucion(anio_resolucion);
                 vp.setCorrelativo(versionesBusiness.findMaxCorrelativo()+1);
+                newPlan.addVersion(vp);
                 plan.create(newPlan);
-                version.create(vp);
+//                version.create(vp);
                 carreraSelected = 0;
                 idPlan = 0L;
                 codigo = 0;

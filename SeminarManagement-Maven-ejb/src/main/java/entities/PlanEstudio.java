@@ -6,8 +6,10 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -53,8 +55,15 @@ public class PlanEstudio implements Serializable {
     @ManyToOne
     private Carrera carreraId;
 
-    @OneToMany(mappedBy = "planestudioId")
+    @OneToMany(mappedBy = "planestudioId", cascade = CascadeType.PERSIST)
     private List<Versionplan> versionplanList;
+
+    public void addVersion(Versionplan version) {
+        if (versionplanList == null) {
+            versionplanList = new ArrayList<>();
+        }
+        versionplanList.add(version);
+    }
 
     @OneToMany(mappedBy = "planEstudio")
     private List<AsociacionPlanEstudioAlumno> asociacionPlanEstudioAlumno;
@@ -114,13 +123,20 @@ public class PlanEstudio implements Serializable {
         this.carreraId = carreraId;
     }
 
-    @XmlTransient
     public List<Versionplan> getVersionplanList() {
         return versionplanList;
     }
 
     public void setVersionplanList(List<Versionplan> versionplanList) {
         this.versionplanList = versionplanList;
+    }
+
+    public String versionesAsString() {
+        String salida = "";
+        for (Versionplan versionplan : versionplanList) {
+            salida += versionplan.getId() + " ";
+        }
+        return salida;
     }
 
     @Override
@@ -146,6 +162,10 @@ public class PlanEstudio implements Serializable {
     @Override
     public String toString() {
         return "entities.Planestudio[ id=" + id + " ]";
+    }
+
+    public String getJornadaAsString() {
+        return this.jornada == 0 ? "Diurno" : "Vespertino";
     }
 
 }
