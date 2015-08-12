@@ -50,7 +50,7 @@
                                     <h:panelGrid columns="2" cellpadding="0">
                                             <p:themeSwitcher effectSpeed="normal" effect="fade" style="width:165px" id="statefulSwitcher" value="#{usuarioMB.theme}">
                                                 <f:selectItem itemLabel="Elija un tema" itemValue="" />
-                                                <f:selectItems value="#{usuarioMB.themes}" var="theme" itemLabel="#{theme}" itemValue="#{theme}"/>
+                                                <f:selectItems value="#{usuarioMB.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme.name}"/>
                                                 <p:ajax global="false" listener="#{usuarioMB.saveTheme}" />
                                             </p:themeSwitcher>
                                     </h:panelGrid>
