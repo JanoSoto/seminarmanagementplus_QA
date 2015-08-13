@@ -6,6 +6,7 @@
 package managedbeans.personas;
 
 
+import entities.Theme;
 import entities.Tipousuario;
 import entities.Usuario;
 import java.io.IOException;
@@ -57,15 +58,8 @@ public class UsuarioMB {
     private List<String> tiposDelUsuario;
     private DualListModel<String> tiposDualList;
     private Boolean estaEditando = true;
-    private Map<String, String> themes;
-
-    public Map<String, String> getThemes() {
-        return themes;
-    }
-
-    public void setThemes(Map<String, String> themes) {
-        this.themes = themes;
-    }
+    private List<Theme> themes;
+    
     
     private String theme = "usachborde";
 
@@ -99,46 +93,46 @@ public class UsuarioMB {
 
     @PostConstruct
     public void init() {
-        themes = new TreeMap<String, String>();
-        themes.put("Afterdark", "afterdark");
-        themes.put("Afternoon", "afternoon");
-        themes.put("Afterwork", "afterwork");
-        themes.put("Aristo", "aristo");
-        themes.put("Black-Tie", "black-tie");
-        themes.put("Blitzer", "blitzer");
-        themes.put("Bluesky", "bluesky");
-        themes.put("Bootstrap", "bootstrap");
-        themes.put("Casablanca", "casablanca");
-        themes.put("Cupertino", "cupertino");
-        themes.put("Cruze", "cruze");
-        themes.put("Dark-Hive", "dark-hive");
-        themes.put("Delta", "delta");
-        themes.put("Dot-Luv", "dot-luv");
-        themes.put("Eggplant", "eggplant");
-        themes.put("Excite-Bike", "excite-bike");
-        themes.put("Flick", "flick");
-        themes.put("Glass-X", "glass-x");
-        themes.put("Home", "home");
-        themes.put("Hot-Sneaks", "hot-sneaks");
-        themes.put("Humanity", "humanity");
-        themes.put("Le-Frog", "le-frog");
-        themes.put("Midnight", "midnight");
-        themes.put("Mint-Choc", "mint-choc");
-        themes.put("Overcast", "overcast");
-        themes.put("Pepper-Grinder", "pepper-grinder");
-        themes.put("Redmond", "redmond");
-        themes.put("Rocket", "rocket");
-        themes.put("Sam", "sam");
-        themes.put("Smoothness", "smoothness");
-        themes.put("South-Street", "south-street");
-        themes.put("Start", "start");
-        themes.put("Sunny", "sunny");
-        themes.put("Swanky-Purse", "swanky-purse");
-        themes.put("Trontastic", "trontastic");
-        themes.put("UI-Darkness", "ui-darkness");
-        themes.put("UI-Lightness", "ui-lightness");
-        themes.put("USACH", "usachborde");
-        themes.put("Vader", "vader");
+        themes = new ArrayList<Theme>();
+        themes.add(new Theme(0, "Afterdark", "afterdark"));
+        themes.add(new Theme(1, "Afternoon", "afternoon"));
+        themes.add(new Theme(2, "Afterwork", "afterwork"));
+        themes.add(new Theme(3, "Aristo", "aristo"));
+        themes.add(new Theme(4, "Black-Tie", "black-tie"));
+        themes.add(new Theme(5, "Blitzer", "blitzer"));
+        themes.add(new Theme(6, "Bluesky", "bluesky"));
+        themes.add(new Theme(7, "Bootstrap", "bootstrap"));
+        themes.add(new Theme(8, "Casablanca", "casablanca"));
+        themes.add(new Theme(9, "Cupertino", "cupertino"));
+        themes.add(new Theme(10, "Cruze", "cruze"));
+        themes.add(new Theme(11, "Dark-Hive", "dark-hive"));
+        themes.add(new Theme(12, "Delta", "delta"));
+        themes.add(new Theme(13, "Dot-Luv", "dot-luv"));
+        themes.add(new Theme(14, "Eggplant", "eggplant"));
+        themes.add(new Theme(15, "Excite-Bike", "excite-bike"));
+        themes.add(new Theme(16, "Flick", "flick"));
+        themes.add(new Theme(17, "Glass-X", "glass-x"));
+        themes.add(new Theme(18, "Home", "home"));
+        themes.add(new Theme(19, "Hot-Sneaks", "hot-sneaks"));
+        themes.add(new Theme(20, "Humanity", "humanity"));
+        themes.add(new Theme(21, "Le-Frog", "le-frog"));
+        themes.add(new Theme(22, "Midnight", "midnight"));
+        themes.add(new Theme(23, "Mint-Choc", "mint-choc"));
+        themes.add(new Theme(24, "Overcast", "overcast"));
+        themes.add(new Theme(25, "Pepper-Grinder", "pepper-grinder"));
+        themes.add(new Theme(26, "Redmond", "redmond"));
+        themes.add(new Theme(27, "Rocket", "rocket"));
+        themes.add(new Theme(28, "Sam", "sam"));
+        themes.add(new Theme(29, "Smoothness", "smoothness"));
+        themes.add(new Theme(30, "South-Street", "south-street"));
+        themes.add(new Theme(31, "Start", "start"));
+        themes.add(new Theme(32, "Sunny", "sunny"));
+        themes.add(new Theme(33, "Swanky-Purse", "swanky-purse"));
+        themes.add(new Theme(34, "Trontastic", "trontastic"));
+        themes.add(new Theme(35, "UI-Darkness", "ui-darkness"));
+        themes.add(new Theme(36, "UI-Lightness", "ui-lightness"));
+        themes.add(new Theme(35, "USACH", "usachborde"));
+        themes.add(new Theme(37, "Vader", "vader"));
         this.estaEditando = false;
         if (this.uid != null && !this.uid.equals("")) {
             this.estaEditando = true;
@@ -384,6 +378,14 @@ public class UsuarioMB {
 
     public void setTheme(String theme) {
         this.theme = theme;
+    }
+    
+        public List<Theme> getThemes() {
+        return themes;
+    }
+
+    public void setThemes(List<Theme> themes) {
+        this.themes = themes;
     }
     
     public void saveTheme(AjaxBehaviorEvent ajax) {
