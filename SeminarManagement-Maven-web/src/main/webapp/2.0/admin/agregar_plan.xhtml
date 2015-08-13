@@ -13,13 +13,24 @@
     <ui:define name="title"><title>Agregar Plan | Seminar Management</title></ui:define>
 
     <ui:define name="content">
-        
+        <p:layoutUnit position="west" size="180" style="border: none;">
+            <p:panel style="border:none;">
+                <h1>Acciones</h1>
+                <h:panelGrid columns="1" cellpadding="4">
+                    <!--<p:button href="/2.0/admin/alumnos/agregar.xhtml" value="Agregar Alumno"/>-->
+                    <p:button style="width:140px;" value="Ver Planes" icon="fa fa-code-fork" iconPos="right" href="planes.xhtml"/>
+                    <p:button style="width:140px;" value="Carreras" icon="fa fa-flag" iconPos="right" href="list_carrera.xhtml"/>
+                </h:panelGrid>
+            </p:panel>
+        </p:layoutUnit>
+
         <p:layoutUnit position="center" style="border:none;">
             <p:growl id="message" showDetail="true" />
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-md-4 col-md-offset-4">
                         <h:form enctype='multipart/form-data'>                            
+                            <h1>Crear plan</h1><br/>
                             <h:outputLabel>Seleccionar Carrera:</h:outputLabel>
                             <p:selectOneMenu id="carrera" value="#{cargarPlanDeEstudios.carreraSelected}" style="width: 100%" immediate="true" required="true" requiredMessage="Debe seleccionar una Carrera">
                                 <f:selectItem itemLabel="Carrera" noSelectionOption="true" />

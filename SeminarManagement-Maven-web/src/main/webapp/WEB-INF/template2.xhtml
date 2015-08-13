@@ -15,13 +15,19 @@
             <f:facet name="first">
                 <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
                 <link href="/SeminarManagement-Maven-web/resources/images/favicon.png" rel="shortcut icon" type="image/x-icon"/>
-                
+
                 <ui:insert name="title"><title>Template</title></ui:insert>
             </f:facet>
             <f:facet name="last">
                 <link href="/SeminarManagement-Maven-web/resources/css/style.css" rel="stylesheet" type="text/css"/>
-                
+
             </f:facet>
+            <style>
+                .ui-icon.fa {
+                    text-indent:0px;
+                    background-image:none;
+                }
+            </style>
         </h:head>
 
         <h:body>
@@ -47,14 +53,14 @@
                         </p:layoutUnit>
                         <p:layoutUnit position="center" style="border: none;text-align : center;">
                             <h:form rendered = "#{authMB.logged == true}" id = "formTema">
-                                    <h:panelGrid columns="2" cellpadding="0">
-                                            <p:themeSwitcher effectSpeed="normal" effect="fade" style="width:165px" id="statefulSwitcher" value="#{usuarioMB.theme}">
-                                                <f:selectItem itemLabel="Elija un tema" itemValue="" />
-                                                <f:selectItems value="#{usuarioMB.themes}" var="theme" itemLabel="#{theme}" itemValue="#{theme}"/>
-                                                <p:ajax global="false" listener="#{usuarioMB.saveTheme}" />
-                                            </p:themeSwitcher>
-                                    </h:panelGrid>
-                        </h:form>
+                                <h:panelGrid columns="2" cellpadding="0">
+                                    <p:themeSwitcher effectSpeed="normal" effect="fade" style="width:165px" id="statefulSwitcher" value="#{usuarioMB.theme}">
+                                        <f:selectItem itemLabel="Elija un tema" itemValue="" />
+                                        <f:selectItems value="#{usuarioMB.themes}" var="theme" itemLabel="#{theme}" itemValue="#{theme}"/>
+                                        <p:ajax global="false" listener="#{usuarioMB.saveTheme}" />
+                                    </p:themeSwitcher>
+                                </h:panelGrid>
+                            </h:form>
                         </p:layoutUnit>
                     </p:layout>
                 </p:layoutUnit>
@@ -87,7 +93,7 @@
                                 </p:tabMenu>
                             </h:form>
                         </p:layoutUnit>
-                        
+
                         <ui:insert name="content"><h1>Aqui va el Contenido</h1></ui:insert>
                     </p:layout>
                 </p:layoutUnit>

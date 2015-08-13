@@ -98,7 +98,7 @@ public class CargarPlanDeEstudios implements Serializable {
     private long nuevoPlan = 0L;
     private String jornada;
     private int codigo;
-    private int resolucion;
+    private int resolucion = 1;
     private int anio_resolucion = Calendar.getInstance().get(Calendar.YEAR);
     private boolean iniciado = false;
     private boolean opcion = false;
@@ -655,11 +655,11 @@ public class CargarPlanDeEstudios implements Serializable {
                 idPlan = 0L;
                 codigo = 0;
                 anioPlan = Calendar.getInstance().get(Calendar.YEAR);
-                resolucion = 0;
+                resolucion = 1;
                 anio_resolucion = Calendar.getInstance().get(Calendar.YEAR);
                 jornada = null;
                 JsfUtil.addSuccessMessage("Nueva versión del plan "+vp.getPlanestudio().getCodigo()+" creada con éxito");
-                FacesContext.getCurrentInstance().getExternalContext().redirect("/SeminarManagement-Maven-web/2.0/admin/ver_planes.xhtml");
+//                FacesContext.getCurrentInstance().getExternalContext().redirect("/SeminarManagement-Maven-web/2.0/admin/planes.xhtml");
             }
             else{
                 JsfUtil.addErrorMessage("Debe seleccionar un Plan de Estudios");
@@ -691,11 +691,11 @@ public class CargarPlanDeEstudios implements Serializable {
                 idPlan = 0L;
                 codigo = 0;
                 anioPlan = Calendar.getInstance().get(Calendar.YEAR);
-                resolucion=0;
+                resolucion=1;
                 anio_resolucion = Calendar.getInstance().get(Calendar.YEAR);
                 jornada = null;
                 JsfUtil.addSuccessMessage("Nuevo plan agregado correctamente");
-                recargaPagina();
+//                recargaPagina();
             }
             else{
                 JsfUtil.addErrorMessage("Alguno de los parámetros indicados no es correcto");
