@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template2.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="metadata">
+    </ui:define>
+
+    <ui:define name="title"><title>Carreras | Seminar Management</title></ui:define>
+
+    <ui:define name="content">
+        <p:layoutUnit position="west" size="180" style="border: none;">
+            <p:panel style="border:none;">
+                <h1>Acciones</h1>
+                <h:panelGrid columns="1" cellpadding="4">
+                    <!--<p:button href="/2.0/admin/alumnos/agregar.xhtml" value="Agregar Alumno"/>-->
+                    <p:button style="width:140px;" value="Ver Planes" icon="fa fa-code-fork" iconPos="right" href="planes.xhtml"/>
+                </h:panelGrid>
+            </p:panel>
+        </p:layoutUnit>
+
+        <p:layoutUnit position="center" style="border:none;">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-8 col-md-offset-2">
+                        <h:form id="CarreraListForm">
+                            <br />
+                            <p:dataTable id="datalist" value="#{carreraController.items}" var="item"
+                                         selectionMode="single" selection="#{carreraController.selected}"
+                                         paginator="true"
+                                         rowKey="#{item.id}"
+                                         rows="10"
+                                         rowsPerPageTemplate="10,20,30,40,50"
+                                         emptyMessage="No hay carreras registradas en el sistema."
+                                         >
+
+                                <p:ajax event="rowSelect"   update="createButton editButton"/>
+                                <p:ajax event="rowUnselect" update="createButton editButton"/>
+
+                                <f:facet name="header">  
+                                    Listado de Carreras
+                                </f:facet>
+                                <p:column headerText="Nombre">
+                                    <h:outputText value="#{item.nombre}"/>
+                                </p:column>
+
+                                <f:facet name="footer">
+                                    <p:commandButton id="createButton" icon="ui-icon-plus"   value="Nueva Carrera" actionListener="#{carreraController.prepareCreate}" update=":CarreraCreateForm" oncomplete="PF('CarreraCreateDialog').show()"/>
+                                    <p:commandButton id="editButton"   icon="ui-icon-pencil" value="Editar" update=":CarreraEditForm" oncomplete="PF('CarreraEditDialog').show()" disabled="#{empty carreraController.selected}"/>
+                                </f:facet>
+                            </p:dataTable>
+                        </h:form>
+
+                        <ui:include src="create_carrera.xhtml"/>
+                        <ui:include src="edit_carrera.xhtml"/>
+                        <ui:include src="view_carrera.xhtml"/>            
+                    </div>
+                </div>
+            </div>
+        </p:layoutUnit>
+    </ui:define>
+
+</ui:composition>

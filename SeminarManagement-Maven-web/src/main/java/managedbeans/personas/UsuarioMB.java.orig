@@ -6,6 +6,7 @@
 package managedbeans.personas;
 
 
+import entities.Theme;
 import entities.Tipousuario;
 import entities.Usuario;
 import java.io.IOException;
@@ -51,22 +52,19 @@ public class UsuarioMB {
     @EJB
     private UsuarioFacadeLocal usuarioFacade;
 
-    private String username, nombreUsuario, apellidoUsuario, mailUsuario, direccionUsuario, telefonoUsuario;
+    private String username, nombreUsuario, apellidoUsuario;
     private List<String> tipoUsuario;
     private List<String> tiposNoDelUsuario;
     private List<String> tiposDelUsuario;
     private DualListModel<String> tiposDualList;
     private Boolean estaEditando = true;
-    private Map<String, String> themes;
+    private List<Theme> themes;
+<<<<<<< HEAD
 
-    public Map<String, String> getThemes() {
-        return themes;
-    }
-
-    public void setThemes(Map<String, String> themes) {
-        this.themes = themes;
-    }
+=======
     
+    
+>>>>>>> f7060b988572d8458492590fa422b50371ef4df4
     private String theme = "usachborde";
 
     private String uid;
@@ -99,46 +97,50 @@ public class UsuarioMB {
 
     @PostConstruct
     public void init() {
-        themes = new TreeMap<String, String>();
-        themes.put("Afterdark", "afterdark");
-        themes.put("Afternoon", "afternoon");
-        themes.put("Afterwork", "afterwork");
-        themes.put("Aristo", "aristo");
-        themes.put("Black-Tie", "black-tie");
-        themes.put("Blitzer", "blitzer");
-        themes.put("Bluesky", "bluesky");
-        themes.put("Bootstrap", "bootstrap");
-        themes.put("Casablanca", "casablanca");
-        themes.put("Cupertino", "cupertino");
-        themes.put("Cruze", "cruze");
-        themes.put("Dark-Hive", "dark-hive");
-        themes.put("Delta", "delta");
-        themes.put("Dot-Luv", "dot-luv");
-        themes.put("Eggplant", "eggplant");
-        themes.put("Excite-Bike", "excite-bike");
-        themes.put("Flick", "flick");
-        themes.put("Glass-X", "glass-x");
-        themes.put("Home", "home");
-        themes.put("Hot-Sneaks", "hot-sneaks");
-        themes.put("Humanity", "humanity");
-        themes.put("Le-Frog", "le-frog");
-        themes.put("Midnight", "midnight");
-        themes.put("Mint-Choc", "mint-choc");
-        themes.put("Overcast", "overcast");
-        themes.put("Pepper-Grinder", "pepper-grinder");
-        themes.put("Redmond", "redmond");
-        themes.put("Rocket", "rocket");
-        themes.put("Sam", "sam");
-        themes.put("Smoothness", "smoothness");
-        themes.put("South-Street", "south-street");
-        themes.put("Start", "start");
-        themes.put("Sunny", "sunny");
-        themes.put("Swanky-Purse", "swanky-purse");
-        themes.put("Trontastic", "trontastic");
-        themes.put("UI-Darkness", "ui-darkness");
-        themes.put("UI-Lightness", "ui-lightness");
-        themes.put("USACH", "usachborde");
-        themes.put("Vader", "vader");
+        themes = new ArrayList<Theme>();
+        themes.add(new Theme(0, "Afterdark", "afterdark"));
+        themes.add(new Theme(1, "Afternoon", "afternoon"));
+        themes.add(new Theme(2, "Afterwork", "afterwork"));
+        themes.add(new Theme(3, "Aristo", "aristo"));
+        themes.add(new Theme(4, "Black-Tie", "black-tie"));
+        themes.add(new Theme(5, "Blitzer", "blitzer"));
+        themes.add(new Theme(6, "Bluesky", "bluesky"));
+        themes.add(new Theme(7, "Bootstrap", "bootstrap"));
+        themes.add(new Theme(8, "Casablanca", "casablanca"));
+        themes.add(new Theme(9, "Cupertino", "cupertino"));
+        themes.add(new Theme(10, "Cruze", "cruze"));
+        themes.add(new Theme(11, "Dark-Hive", "dark-hive"));
+        themes.add(new Theme(12, "Delta", "delta"));
+        themes.add(new Theme(13, "Dot-Luv", "dot-luv"));
+        themes.add(new Theme(14, "Eggplant", "eggplant"));
+        themes.add(new Theme(15, "Excite-Bike", "excite-bike"));
+        themes.add(new Theme(16, "Flick", "flick"));
+        themes.add(new Theme(17, "Glass-X", "glass-x"));
+        themes.add(new Theme(18, "Home", "home"));
+        themes.add(new Theme(19, "Hot-Sneaks", "hot-sneaks"));
+        themes.add(new Theme(20, "Humanity", "humanity"));
+        themes.add(new Theme(21, "Le-Frog", "le-frog"));
+        themes.add(new Theme(22, "Midnight", "midnight"));
+        themes.add(new Theme(23, "Mint-Choc", "mint-choc"));
+        themes.add(new Theme(24, "Overcast", "overcast"));
+        themes.add(new Theme(25, "Pepper-Grinder", "pepper-grinder"));
+        themes.add(new Theme(26, "Redmond", "redmond"));
+        themes.add(new Theme(27, "Rocket", "rocket"));
+        themes.add(new Theme(28, "Sam", "sam"));
+        themes.add(new Theme(29, "Smoothness", "smoothness"));
+        themes.add(new Theme(30, "South-Street", "south-street"));
+        themes.add(new Theme(31, "Start", "start"));
+        themes.add(new Theme(32, "Sunny", "sunny"));
+        themes.add(new Theme(33, "Swanky-Purse", "swanky-purse"));
+        themes.add(new Theme(34, "Trontastic", "trontastic"));
+        themes.add(new Theme(35, "UI-Darkness", "ui-darkness"));
+        themes.add(new Theme(36, "UI-Lightness", "ui-lightness"));
+<<<<<<< HEAD
+        themes.add(new Theme(36, "USACH", "usachborde"));
+=======
+        themes.add(new Theme(35, "USACH", "usachborde"));
+>>>>>>> f7060b988572d8458492590fa422b50371ef4df4
+        themes.add(new Theme(37, "Vader", "vader"));
         this.estaEditando = false;
         if (this.uid != null && !this.uid.equals("")) {
             this.estaEditando = true;
@@ -275,7 +277,7 @@ public class UsuarioMB {
         usuarioFacade.edit(usuario);
 
         context.addMessage(null, new FacesMessage("Usuario", nombreUsuario + " " + apellidoUsuario + ", editado correctamente"));
-        //LOGGER.info("Se ha editado al usuario " + nombreUsuario + " " + apellidoUsuario);
+        LOGGER.info("Se ha editado al usuario " + nombreUsuario + " " + apellidoUsuario);
         //Vaciamos el formulario
 //        username = null;
 //        nombreUsuario = null;
@@ -347,7 +349,7 @@ public class UsuarioMB {
         nuevoUsuario.setTipos(aux);
 //        nuevoUsuario.setTipos(tiposDualList.getTarget());
         context.addMessage(null, new FacesMessage("Usuario " + this.uid + " creado correctamente."));
-//        LOGGER.info("Se ha editado al usuario " + nombreUsuario + " " + apellidoUsuario);
+        LOGGER.info("Se ha editado al usuario " + nombreUsuario + " " + apellidoUsuario);
         usuarioFacade.edit(nuevoUsuario);
 
         //Vaciamos el formulario
@@ -374,13 +376,8 @@ public class UsuarioMB {
        //this.theme = "usachborde";
        if (request.getUserPrincipal() != null) {
            Usuario user = usuarioFacade.findByUid(request.getUserPrincipal().toString());
-<<<<<<< HEAD
-           if(user.getTemaUsuario()!=null){             
-            this.theme = user.getTemaUsuario();
-=======
            if(user.getTema()!=null){             
             this.theme = user.getTema();
->>>>>>> a9c4bc05dd60517f705d97bf6282fd5c93df4157
            }
        }
        
@@ -390,33 +387,18 @@ public class UsuarioMB {
     public void setTheme(String theme) {
         this.theme = theme;
     }
+    
 <<<<<<< HEAD
-
-    public String getMailUsuario() {
-        return mailUsuario;
-    }
-
-    public void setMailUsuario(String mailUsuario) {
-        this.mailUsuario = mailUsuario;
-    }
-
-    public String getDireccionUsuario() {
-        return direccionUsuario;
-    }
-
-    public void setDireccionUsuario(String direccionUsuario) {
-        this.direccionUsuario = direccionUsuario;
-    }
-
-    public String getTelefonoUsuario() {
-        return telefonoUsuario;
-    }
-
-    public void setTelefonoUsuario(String telefonoUsuario) {
-        this.telefonoUsuario = telefonoUsuario;
-    }
+     public List<Theme> getThemes() {
 =======
->>>>>>> a9c4bc05dd60517f705d97bf6282fd5c93df4157
+        public List<Theme> getThemes() {
+>>>>>>> f7060b988572d8458492590fa422b50371ef4df4
+        return themes;
+    }
+
+    public void setThemes(List<Theme> themes) {
+        this.themes = themes;
+    }
     
     public void saveTheme(AjaxBehaviorEvent ajax) {
        //System.out.println("Tema anterior: " + this.theme);
@@ -428,11 +410,7 @@ public class UsuarioMB {
        Usuario user = usuarioFacade.findByUid(request.getUserPrincipal().toString());
        //System.out.println("UID:" + request.getUserPrincipal().toString());
        //System.out.println("Tema this.theme: " + this.theme);
-<<<<<<< HEAD
-       user.setTemaUsuario(tema);
-=======
        user.setTema(tema);
->>>>>>> a9c4bc05dd60517f705d97bf6282fd5c93df4157
        
        Usuario usuarioEditado = user;
        //System.out.println("Cambio de tema a: "+ tema);

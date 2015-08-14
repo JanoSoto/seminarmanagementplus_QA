@@ -130,8 +130,8 @@ public class UsuarioMB {
         themes.add(new Theme(34, "Trontastic", "trontastic"));
         themes.add(new Theme(35, "UI-Darkness", "ui-darkness"));
         themes.add(new Theme(36, "UI-Lightness", "ui-lightness"));
-        themes.add(new Theme(36, "USACH", "usachborde"));
-        themes.add(new Theme(37, "Vader", "vader"));
+        themes.add(new Theme(37, "USACH", "usachborde"));
+        themes.add(new Theme(38, "Vader", "vader"));
         this.estaEditando = false;
         if (this.uid != null && !this.uid.equals("")) {
             this.estaEditando = true;
@@ -379,7 +379,7 @@ public class UsuarioMB {
         this.theme = theme;
     }
     
-     public List<Theme> getThemes() {
+        public List<Theme> getThemes() {
         return themes;
     }
 

@@ -13,17 +13,26 @@
     <ui:define name="title"><title>Inicio | Seminar Management</title></ui:define>
 
     <ui:define name="content">
+        <p:layoutUnit position="west" size="180" style="border: none;">
+            <p:panel style="border:none;">  
+                <h1>Acciones</h1>
+                <h:panelGrid columns="1" cellpadding="4">
+                    <!--<p:button href="/2.0/admin/alumnos/agregar.xhtml" value="Agregar Alumno"/>-->
+                    <p:button style="width:140px;" value="Crear Plan" icon="fa fa-code-fork" iconPos="right" href="agregar_plan.xhtml"/>
+                    <p:button style="width:140px;" value="Carreras" icon="fa fa-flag" iconPos="right" href="list_carrera.xhtml"/>
+                </h:panelGrid>
+            </p:panel>
+        </p:layoutUnit>
 
         <p:layoutUnit position="center" style="border:none;">
-            <h1>Bienvenido #{authMB.loggedUser} a Seminar Management!</h1>
-            <div class="row">
-                <div class="col-md-10">
-                    <ol class="breadcrumb">
-                        <!--<li><a href="/SeminarManagement-Maven-web/2.0/admin/planes.xhtml">Inicio</a></li>-->
-                        <li><a href="/SeminarManagement-Maven-web/2.0/admin/agregar_plan.xhtml">Crear Plan</a></li>
-                    </ol>
-                </div>                 
-            </div>
+            <p:dataTable var="plan" value="#{cargarPlanDeEstudios.getAllPlanEstudio()}" emptyMessage="No hay planes registrados en el sistema.">
+                <f:facet name="header">  
+                    Listado de Planes
+                </f:facet>
+                <p:column headerText="Nombre">
+                    <h:outputText value="#{plan.codigo} - #{plan.carrera.nombre} (#{plan.getJornadaAsString()})" />
+                </p:column>
+            </p:dataTable>
         </p:layoutUnit>
     </ui:define>
 

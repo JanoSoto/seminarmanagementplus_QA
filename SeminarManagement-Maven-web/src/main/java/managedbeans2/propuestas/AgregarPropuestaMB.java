@@ -258,7 +258,7 @@ public class AgregarPropuestaMB {
         */
         //Mensaje de confirmación 
         context.addMessage(null, new FacesMessage("Propuesta",nombrePropuesta+", ingresada al sistema"));
-        LOGGER.info("La propuesta "+nombrePropuesta+" ha sido ingresada al sistema");
+        //LOGGER.info("La propuesta "+nombrePropuesta+" ha sido ingresada al sistema");
     }
     
     //Declaramos esto para poder acceder al managed bean de autenticación (para almecenar el usuario en el historial)

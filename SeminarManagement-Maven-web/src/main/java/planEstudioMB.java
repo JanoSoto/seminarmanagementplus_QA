@@ -3,11 +3,13 @@ import entities.Alumno;
 import entities.AsociacionPlanEstudioAlumno;
 import entities.PlanEstudio;
 import entities.Versionplan;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import sessionbeans.AlumnoFacadeLocal;
 import sessionbeans.PlanestudioFacadeLocal;
 import sessionbeans.asociacionFacadeLocal;
@@ -17,8 +19,8 @@ import sessionbeans.asociacionFacadeLocal;
  * @author giovanni
  */
 @Named(value = "planEstudioMB")
-@RequestScoped
-public class planEstudioMB {
+@SessionScoped
+public class planEstudioMB  implements Serializable {
 
     @EJB
     PlanestudioFacadeLocal planEstudioFacade;
@@ -96,6 +98,7 @@ public class planEstudioMB {
         for (int i = 0; i < todos.size(); i++) {
             PlanEstudio plan = todos.get(i);
             List<Versionplan> versiones = plan.getVersionplanList();
+//            System.out.println("Plan ID: " + plan.getId());
             for (int j = 0; j < versiones.size(); j++) {
                 Boolean existe = false;
                 Versionplan version = versiones.get(j);
@@ -126,16 +129,16 @@ public class planEstudioMB {
     }
 
     public List<AsociacionPlanEstudioAlumno> getAsociacionPlanesEstudio(String rut) {
-        if (this.asociacionPlanes == null) {
+//        if (this.asociacionPlanes == null) {
             cargarAsociacionPlanes(rut);
-        }
+//        }
         return this.asociacionPlanes;
     }
 
     public List<AsociacionPlanEstudioAlumno> getAsociacionPlanesEstudioAlumno(String rut) {
-        if (this.asociacionPlanesAlumno == null) {
+//        if (this.asociacionPlanesAlumno == null) {
             cargarAsociacionPlanes(rut);
-        }
+//        }
         return this.asociacionPlanesAlumno;
     }
 
