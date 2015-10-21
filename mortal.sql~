@@ -41,7 +41,7 @@ CREATE TABLE alumno (
 );
 
 
-ALTER TABLE alumno OWNER TO postgres;
+ALTER TABLE public.alumno OWNER TO postgres;
 
 --
 -- Name: alumno_id_alumno_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -55,7 +55,7 @@ CREATE SEQUENCE alumno_id_alumno_seq
     CACHE 1;
 
 
-ALTER TABLE alumno_id_alumno_seq OWNER TO postgres;
+ALTER TABLE public.alumno_id_alumno_seq OWNER TO postgres;
 
 --
 -- Name: alumno_id_alumno_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -81,7 +81,7 @@ CREATE TABLE asignatura (
 );
 
 
-ALTER TABLE asignatura OWNER TO postgres;
+ALTER TABLE public.asignatura OWNER TO postgres;
 
 --
 -- Name: asignatura_asignatura; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -93,7 +93,7 @@ CREATE TABLE asignatura_asignatura (
 );
 
 
-ALTER TABLE asignatura_asignatura OWNER TO postgres;
+ALTER TABLE public.asignatura_asignatura OWNER TO postgres;
 
 --
 -- Name: asignatura_profesor; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -105,7 +105,7 @@ CREATE TABLE asignatura_profesor (
 );
 
 
-ALTER TABLE asignatura_profesor OWNER TO postgres;
+ALTER TABLE public.asignatura_profesor OWNER TO postgres;
 
 --
 -- Name: asociado; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -118,7 +118,7 @@ CREATE TABLE asociado (
 );
 
 
-ALTER TABLE asociado OWNER TO postgres;
+ALTER TABLE public.asociado OWNER TO postgres;
 
 --
 -- Name: carrera; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -130,7 +130,7 @@ CREATE TABLE carrera (
 );
 
 
-ALTER TABLE carrera OWNER TO postgres;
+ALTER TABLE public.carrera OWNER TO postgres;
 
 --
 -- Name: categoriaaevento; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -142,7 +142,7 @@ CREATE TABLE categoriaaevento (
 );
 
 
-ALTER TABLE categoriaaevento OWNER TO postgres;
+ALTER TABLE public.categoriaaevento OWNER TO postgres;
 
 --
 -- Name: checklist; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -156,7 +156,7 @@ CREATE TABLE checklist (
 );
 
 
-ALTER TABLE checklist OWNER TO postgres;
+ALTER TABLE public.checklist OWNER TO postgres;
 
 --
 -- Name: checklisteventos; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -187,7 +187,7 @@ CREATE TABLE checklisteventos (
 );
 
 
-ALTER TABLE checklisteventos OWNER TO postgres;
+ALTER TABLE public.checklisteventos OWNER TO postgres;
 
 --
 -- Name: comision_correctora; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -204,7 +204,7 @@ CREATE TABLE comision_correctora (
 );
 
 
-ALTER TABLE comision_correctora OWNER TO postgres;
+ALTER TABLE public.comision_correctora OWNER TO postgres;
 
 --
 -- Name: comision_correctora_id_correctora_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -218,7 +218,7 @@ CREATE SEQUENCE comision_correctora_id_correctora_seq
     CACHE 1;
 
 
-ALTER TABLE comision_correctora_id_correctora_seq OWNER TO postgres;
+ALTER TABLE public.comision_correctora_id_correctora_seq OWNER TO postgres;
 
 --
 -- Name: comision_correctora_id_correctora_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -246,7 +246,7 @@ CREATE TABLE comision_revisora (
 );
 
 
-ALTER TABLE comision_revisora OWNER TO postgres;
+ALTER TABLE public.comision_revisora OWNER TO postgres;
 
 --
 -- Name: comision_revisora_id_revisora_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -260,7 +260,7 @@ CREATE SEQUENCE comision_revisora_id_revisora_seq
     CACHE 1;
 
 
-ALTER TABLE comision_revisora_id_revisora_seq OWNER TO postgres;
+ALTER TABLE public.comision_revisora_id_revisora_seq OWNER TO postgres;
 
 --
 -- Name: comision_revisora_id_revisora_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -284,7 +284,7 @@ CREATE TABLE coordinacion (
 );
 
 
-ALTER TABLE coordinacion OWNER TO postgres;
+ALTER TABLE public.coordinacion OWNER TO postgres;
 
 --
 -- Name: encuesta; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -299,7 +299,7 @@ CREATE TABLE encuesta (
 );
 
 
-ALTER TABLE encuesta OWNER TO postgres;
+ALTER TABLE public.encuesta OWNER TO postgres;
 
 --
 -- Name: evento; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -339,7 +339,7 @@ CREATE TABLE evento (
 );
 
 
-ALTER TABLE evento OWNER TO postgres;
+ALTER TABLE public.evento OWNER TO postgres;
 
 --
 -- Name: evento_asociado; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -352,7 +352,7 @@ CREATE TABLE evento_asociado (
 );
 
 
-ALTER TABLE evento_asociado OWNER TO postgres;
+ALTER TABLE public.evento_asociado OWNER TO postgres;
 
 --
 -- Name: evento_expositor; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -365,7 +365,7 @@ CREATE TABLE evento_expositor (
 );
 
 
-ALTER TABLE evento_expositor OWNER TO postgres;
+ALTER TABLE public.evento_expositor OWNER TO postgres;
 
 --
 -- Name: expositor; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -384,7 +384,7 @@ CREATE TABLE expositor (
 );
 
 
-ALTER TABLE expositor OWNER TO postgres;
+ALTER TABLE public.expositor OWNER TO postgres;
 
 --
 -- Name: historial; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -399,7 +399,7 @@ CREATE TABLE historial (
 );
 
 
-ALTER TABLE historial OWNER TO postgres;
+ALTER TABLE public.historial OWNER TO postgres;
 
 --
 -- Name: historial_id_historial_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -413,7 +413,7 @@ CREATE SEQUENCE historial_id_historial_seq
     CACHE 1;
 
 
-ALTER TABLE historial_id_historial_seq OWNER TO postgres;
+ALTER TABLE public.historial_id_historial_seq OWNER TO postgres;
 
 --
 -- Name: historial_id_historial_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -435,7 +435,7 @@ CREATE TABLE horario (
 );
 
 
-ALTER TABLE horario OWNER TO postgres;
+ALTER TABLE public.horario OWNER TO postgres;
 
 --
 -- Name: inscripcion; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -453,7 +453,7 @@ CREATE TABLE inscripcion (
 );
 
 
-ALTER TABLE inscripcion OWNER TO postgres;
+ALTER TABLE public.inscripcion OWNER TO postgres;
 
 --
 -- Name: inscripcionspam; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -471,7 +471,7 @@ CREATE TABLE inscripcionspam (
 );
 
 
-ALTER TABLE inscripcionspam OWNER TO postgres;
+ALTER TABLE public.inscripcionspam OWNER TO postgres;
 
 --
 -- Name: logs; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -487,7 +487,7 @@ CREATE TABLE logs (
 );
 
 
-ALTER TABLE logs OWNER TO postgres;
+ALTER TABLE public.logs OWNER TO postgres;
 
 --
 -- Name: logs_logs_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -501,7 +501,7 @@ CREATE SEQUENCE logs_logs_id_seq
     CACHE 1;
 
 
-ALTER TABLE logs_logs_id_seq OWNER TO postgres;
+ALTER TABLE public.logs_logs_id_seq OWNER TO postgres;
 
 --
 -- Name: logs_logs_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -521,7 +521,7 @@ CREATE TABLE paramsemestreano (
 );
 
 
-ALTER TABLE paramsemestreano OWNER TO postgres;
+ALTER TABLE public.paramsemestreano OWNER TO postgres;
 
 --
 -- Name: planes_alumno; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -535,7 +535,7 @@ CREATE TABLE planes_alumno (
 );
 
 
-ALTER TABLE planes_alumno OWNER TO postgres;
+ALTER TABLE public.planes_alumno OWNER TO postgres;
 
 --
 -- Name: planestudio; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -549,7 +549,7 @@ CREATE TABLE planestudio (
 );
 
 
-ALTER TABLE planestudio OWNER TO postgres;
+ALTER TABLE public.planestudio OWNER TO postgres;
 
 --
 -- Name: profe_correccion; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -564,7 +564,7 @@ CREATE TABLE profe_correccion (
 );
 
 
-ALTER TABLE profe_correccion OWNER TO postgres;
+ALTER TABLE public.profe_correccion OWNER TO postgres;
 
 --
 -- Name: profe_propuesta; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -580,7 +580,7 @@ CREATE TABLE profe_propuesta (
 );
 
 
-ALTER TABLE profe_propuesta OWNER TO postgres;
+ALTER TABLE public.profe_propuesta OWNER TO postgres;
 
 --
 -- Name: profe_revision; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -594,7 +594,7 @@ CREATE TABLE profe_revision (
 );
 
 
-ALTER TABLE profe_revision OWNER TO postgres;
+ALTER TABLE public.profe_revision OWNER TO postgres;
 
 --
 -- Name: profesor; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -610,7 +610,7 @@ CREATE TABLE profesor (
 );
 
 
-ALTER TABLE profesor OWNER TO postgres;
+ALTER TABLE public.profesor OWNER TO postgres;
 
 --
 -- Name: profesor_id_profesor_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -624,7 +624,7 @@ CREATE SEQUENCE profesor_id_profesor_seq
     CACHE 1;
 
 
-ALTER TABLE profesor_id_profesor_seq OWNER TO postgres;
+ALTER TABLE public.profesor_id_profesor_seq OWNER TO postgres;
 
 --
 -- Name: profesor_id_profesor_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -651,7 +651,7 @@ CREATE TABLE propuesta (
 );
 
 
-ALTER TABLE propuesta OWNER TO postgres;
+ALTER TABLE public.propuesta OWNER TO postgres;
 
 --
 -- Name: propuesta_id_propuesta_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -665,7 +665,7 @@ CREATE SEQUENCE propuesta_id_propuesta_seq
     CACHE 1;
 
 
-ALTER TABLE propuesta_id_propuesta_seq OWNER TO postgres;
+ALTER TABLE public.propuesta_id_propuesta_seq OWNER TO postgres;
 
 --
 -- Name: propuesta_id_propuesta_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -685,7 +685,7 @@ CREATE TABLE seccion (
 );
 
 
-ALTER TABLE seccion OWNER TO postgres;
+ALTER TABLE public.seccion OWNER TO postgres;
 
 --
 -- Name: semestre; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -698,7 +698,7 @@ CREATE TABLE semestre (
 );
 
 
-ALTER TABLE semestre OWNER TO postgres;
+ALTER TABLE public.semestre OWNER TO postgres;
 
 --
 -- Name: semestre_actual; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -709,7 +709,7 @@ CREATE TABLE semestre_actual (
 );
 
 
-ALTER TABLE semestre_actual OWNER TO postgres;
+ALTER TABLE public.semestre_actual OWNER TO postgres;
 
 --
 -- Name: sequence; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -721,7 +721,7 @@ CREATE TABLE sequence (
 );
 
 
-ALTER TABLE sequence OWNER TO postgres;
+ALTER TABLE public.sequence OWNER TO postgres;
 
 --
 -- Name: subtipo; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -734,7 +734,7 @@ CREATE TABLE subtipo (
 );
 
 
-ALTER TABLE subtipo OWNER TO postgres;
+ALTER TABLE public.subtipo OWNER TO postgres;
 
 --
 -- Name: tema; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -759,7 +759,7 @@ CREATE TABLE tema (
 );
 
 
-ALTER TABLE tema OWNER TO postgres;
+ALTER TABLE public.tema OWNER TO postgres;
 
 --
 -- Name: tema_id_tema_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -773,7 +773,7 @@ CREATE SEQUENCE tema_id_tema_seq
     CACHE 1;
 
 
-ALTER TABLE tema_id_tema_seq OWNER TO postgres;
+ALTER TABLE public.tema_id_tema_seq OWNER TO postgres;
 
 --
 -- Name: tema_id_tema_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -791,7 +791,7 @@ CREATE TABLE tipo (
 );
 
 
-ALTER TABLE tipo OWNER TO postgres;
+ALTER TABLE public.tipo OWNER TO postgres;
 
 --
 -- Name: tipoevento; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -803,7 +803,7 @@ CREATE TABLE tipoevento (
 );
 
 
-ALTER TABLE tipoevento OWNER TO postgres;
+ALTER TABLE public.tipoevento OWNER TO postgres;
 
 --
 -- Name: tipousuario; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -816,7 +816,7 @@ CREATE TABLE tipousuario (
 );
 
 
-ALTER TABLE tipousuario OWNER TO postgres;
+ALTER TABLE public.tipousuario OWNER TO postgres;
 
 --
 -- Name: usuario; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -835,7 +835,7 @@ CREATE TABLE usuario (
 );
 
 
-ALTER TABLE usuario OWNER TO postgres;
+ALTER TABLE public.usuario OWNER TO postgres;
 
 --
 -- Name: usuario_tipo; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -848,7 +848,7 @@ CREATE TABLE usuario_tipo (
 );
 
 
-ALTER TABLE usuario_tipo OWNER TO postgres;
+ALTER TABLE public.usuario_tipo OWNER TO postgres;
 
 --
 -- Name: usuario_tipo_id_usuario_tipo_seq; Type: SEQUENCE; Schema: public; Owner: postgres
@@ -862,7 +862,7 @@ CREATE SEQUENCE usuario_tipo_id_usuario_tipo_seq
     CACHE 1;
 
 
-ALTER TABLE usuario_tipo_id_usuario_tipo_seq OWNER TO postgres;
+ALTER TABLE public.usuario_tipo_id_usuario_tipo_seq OWNER TO postgres;
 
 --
 -- Name: usuario_tipo_id_usuario_tipo_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -881,7 +881,7 @@ CREATE TABLE usuario_tipousuario (
 );
 
 
-ALTER TABLE usuario_tipousuario OWNER TO postgres;
+ALTER TABLE public.usuario_tipousuario OWNER TO postgres;
 
 --
 -- Name: usuariobytipo; Type: VIEW; Schema: public; Owner: postgres
@@ -897,7 +897,7 @@ CREATE VIEW usuariobytipo AS
   WHERE (((u.rut_usuario)::text = (ut.usuario_rut_usuario)::text) AND (ut.tipos_id_tipo = t.id_tipo));
 
 
-ALTER TABLE usuariobytipo OWNER TO postgres;
+ALTER TABLE public.usuariobytipo OWNER TO postgres;
 
 --
 -- Name: usuarioevento; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -911,7 +911,7 @@ CREATE TABLE usuarioevento (
 );
 
 
-ALTER TABLE usuarioevento OWNER TO postgres;
+ALTER TABLE public.usuarioevento OWNER TO postgres;
 
 --
 -- Name: versionplan; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -929,7 +929,7 @@ CREATE TABLE versionplan (
 );
 
 
-ALTER TABLE versionplan OWNER TO postgres;
+ALTER TABLE public.versionplan OWNER TO postgres;
 
 --
 -- Name: id_alumno; Type: DEFAULT; Schema: public; Owner: postgres
@@ -1347,6 +1347,8 @@ COPY profe_correccion (nota_correccion_defensa, nota_correccion_informe, rol_cor
 --
 
 COPY profe_propuesta (fecha_revision, nota_guia_defensa, nota_guia_informe, rol_guia, rut_profesor, id_propuesta) FROM stdin;
+\N	\N	\N	0	181181486	1
+\N	\N	\N	1	70629054	1
 \.
 
 
@@ -1388,6 +1390,7 @@ SELECT pg_catalog.setval('profesor_id_profesor_seq', 16, true);
 --
 
 COPY propuesta (id_propuesta, fecha_propuesta, id_plan, magister, nombre_propuesta, pet, version_plan, id_revisora, id_semestre, rut_alumno) FROM stdin;
+1	20/08/2015	1	f	PROPUESTA TEST	f	1	\N	2/2017	178608975
 \.
 
 
@@ -1395,7 +1398,7 @@ COPY propuesta (id_propuesta, fecha_propuesta, id_plan, magister, nombre_propues
 -- Name: propuesta_id_propuesta_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('propuesta_id_propuesta_seq', 1, false);
+SELECT pg_catalog.setval('propuesta_id_propuesta_seq', 1, true);
 
 
 --
@@ -1526,7 +1529,6 @@ COPY tipousuario (id_tipo, nombre_tipo, pass) FROM stdin;
 --
 
 COPY usuario (rut_usuario, activo, apellido_usuario, direccion_usuario, mail_usuario, nombre_usuario, telefono_usuario, tema_usuario, uid) FROM stdin;
-178338889	t	Cárcamo	\N	\N	Miguel	\N	\N	mcarcamo
 179594404	t	Ruiz-Tagle	\N	\N	Benjamin	\N	\N	bruiztagle
 118403096	t	Aguirre	\N	\N	Pamela	\N	\N	paguirre
 176767901	t	FLORES	\N	\N	MATIAS	\N	\N	nflores
@@ -1535,6 +1537,7 @@ COPY usuario (rut_usuario, activo, apellido_usuario, direccion_usuario, mail_usu
 176785969	\N	BELLO	\N		FELIPE 	\N	\N	fbello
 120188615	\N	BONACIC	\N	\N	CAROLINA	\N	\N	cbonacic
 178608975	t	CELEDÓN	\N		LUIS	32165487	\N	lceledon
+178338889	t	Cárcamo	\N	\N	Miguel	\N	redmond	mcarcamo
 \.
 
 
@@ -2516,12 +2519,11 @@ ALTER TABLE ONLY planes_alumno
 
 
 --
--- Name: public; Type: ACL; Schema: -; Owner: giovanni
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
 --
 
 REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM giovanni;
-GRANT ALL ON SCHEMA public TO giovanni;
+REVOKE ALL ON SCHEMA public FROM postgres;
 GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 

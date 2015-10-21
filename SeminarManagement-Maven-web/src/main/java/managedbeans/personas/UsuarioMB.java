@@ -317,6 +317,7 @@ public class UsuarioMB {
         nuevoUsuario.setNombreUsuario(nombreUsuario);
         //nuevoUsuario.setPassword(sha256(username.substring(0, 5)));
         nuevoUsuario.setApellidoUsuario(apellidoUsuario);
+        nuevoUsuario.setTema("usachborde");
 
         List<Tipousuario> aux = new ArrayList();
         //Ingresamos el tipo usuario
