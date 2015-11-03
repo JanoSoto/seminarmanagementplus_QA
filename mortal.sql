@@ -3,25 +3,10 @@
 --
 
 SET statement_timeout = 0;
-SET lock_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
-
---
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
---
-
-CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
-
-
---
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
---
-
-COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
-
 
 SET search_path = public, pg_catalog;
 
@@ -1347,6 +1332,8 @@ COPY profe_correccion (nota_correccion_defensa, nota_correccion_informe, rol_cor
 --
 
 COPY profe_propuesta (fecha_revision, nota_guia_defensa, nota_guia_informe, rol_guia, rut_profesor, id_propuesta) FROM stdin;
+\N	\N	\N	0	181181486	1
+\N	\N	\N	1	70629054	1
 \.
 
 
@@ -1388,6 +1375,7 @@ SELECT pg_catalog.setval('profesor_id_profesor_seq', 16, true);
 --
 
 COPY propuesta (id_propuesta, fecha_propuesta, id_plan, magister, nombre_propuesta, pet, version_plan, id_revisora, id_semestre, rut_alumno) FROM stdin;
+1	20/08/2015	1	f	PROPUESTA TEST	f	1	\N	2/2017	178608975
 \.
 
 
@@ -1395,7 +1383,7 @@ COPY propuesta (id_propuesta, fecha_propuesta, id_plan, magister, nombre_propues
 -- Name: propuesta_id_propuesta_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('propuesta_id_propuesta_seq', 1, false);
+SELECT pg_catalog.setval('propuesta_id_propuesta_seq', 1, true);
 
 
 --
@@ -1526,7 +1514,6 @@ COPY tipousuario (id_tipo, nombre_tipo, pass) FROM stdin;
 --
 
 COPY usuario (rut_usuario, activo, apellido_usuario, direccion_usuario, mail_usuario, nombre_usuario, telefono_usuario, tema_usuario, uid) FROM stdin;
-178338889	t	Cárcamo	\N	\N	Miguel	\N	\N	mcarcamo
 179594404	t	Ruiz-Tagle	\N	\N	Benjamin	\N	\N	bruiztagle
 118403096	t	Aguirre	\N	\N	Pamela	\N	\N	paguirre
 176767901	t	FLORES	\N	\N	MATIAS	\N	\N	nflores
@@ -1535,6 +1522,7 @@ COPY usuario (rut_usuario, activo, apellido_usuario, direccion_usuario, mail_usu
 176785969	\N	BELLO	\N		FELIPE 	\N	\N	fbello
 120188615	\N	BONACIC	\N	\N	CAROLINA	\N	\N	cbonacic
 178608975	t	CELEDÓN	\N		LUIS	32165487	\N	lceledon
+178338889	t	Cárcamo	\N	\N	Miguel	\N	redmond	mcarcamo
 \.
 
 

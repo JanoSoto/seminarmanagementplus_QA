@@ -73,7 +73,7 @@ public class UsuarioMB {
     private DualListModel<String> tiposDualList;
     private Boolean estaEditando = true;
     private List<Theme> themes;
-    
+
     private String theme = "usachborde";
 
     private String uid;
@@ -81,7 +81,7 @@ public class UsuarioMB {
     public List<String> getTiposNoDelUsuario() {
         return tiposNoDelUsuario;
     }
-    
+
     public void setTiposNoDelUsuario(List<String> tiposNoDelUsuario) {
         this.tiposNoDelUsuario = tiposNoDelUsuario;
     }
@@ -177,8 +177,8 @@ public class UsuarioMB {
         themes.add(new Theme(34, "Trontastic", "trontastic"));
         themes.add(new Theme(35, "UI-Darkness", "ui-darkness"));
         themes.add(new Theme(36, "UI-Lightness", "ui-lightness"));
-        themes.add(new Theme(35, "USACH", "usachborde"));
-        themes.add(new Theme(37, "Vader", "vader"));
+        themes.add(new Theme(37, "USACH", "usachborde"));
+        themes.add(new Theme(38, "Vader", "vader"));
         this.estaEditando = false;
         if (this.uid != null && !this.uid.equals("")) {
             this.estaEditando = true;
@@ -370,6 +370,7 @@ public class UsuarioMB {
         nuevoUsuario.setNombreUsuario(nombreUsuario);
         //nuevoUsuario.setPassword(sha256(username.substring(0, 5)));
         nuevoUsuario.setApellidoUsuario(apellidoUsuario);
+        nuevoUsuario.setTema("usachborde");
         nuevoUsuario.setComuna(new Comuna(comuna));
         nuevoUsuario.setDireccionUsuario(direccionUsuario);
         nuevoUsuario.setMailUsuario(mailUsuario);

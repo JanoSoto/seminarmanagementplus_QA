@@ -51,7 +51,6 @@
                         <p:layoutUnit position="east" size="180" style="border: none;text-align : center;">
                             <span><a href="http://www.usach.cl/"><p:graphicImage alt="Seminar Management" url="/resources/images/usach.png"/></a></span>
                         </p:layoutUnit>
-                        
                     </p:layout>
                 </p:layoutUnit>
 
@@ -77,25 +76,22 @@
                                     <p:menuitem rendered="#{authMB.tipo eq 'SECRETARIA'}" value="Temas" url="/2.0/secretaria/temas/index.xhtml" icon="ui-icon-script"/>
                                     <p:menuitem rendered="#{authMB.tipo eq 'SECRETARIA'}" value="Reportes" url="/2.0/secretaria/reportes/index.xhtml" icon="ui-icon-calendar"/>
 
-                                    <p:menuitem style="border: none;">
+                                    <p:menuitem rendered = "#{authMB.logged == true}" style="border: none;">
                                         <p:commandButton rendered="#{authMB.logged}" value="Cerrar Sesión" icon="ui-icon-closethick" action="#{authMB.logout()}" />
                                     </p:menuitem>
-                                    
-                                    <p:menuitem rendered = "#{authMB.logged == true}" style="border: none;">                                                         
-                                            <h:panelGrid columns="2" cellpadding="0">
-                                                <p:themeSwitcher effectSpeed="normal" effect="fade" style="width:165px" id="statefulSwitcher" value="#{usuarioMB.theme}">
-                                                    <f:selectItem itemLabel="Elija un tema" itemValue="" />
-                                                    <f:selectItems value="#{usuarioMB.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme.name}"/>
-                                                    <p:ajax global="false" listener="#{usuarioMB.saveTheme}" />
-                                                </p:themeSwitcher>
-                                            </h:panelGrid>                                                      
+                                    <p:menuitem rendered = "#{authMB.logged == true}" style="border: none;">
+                                        <h:panelGrid columns="2" cellpadding="0">
+                                            <p:themeSwitcher effectSpeed="normal" effect="fade" style="width:165px" id="statefulSwitcher" value="#{usuarioMB.theme}">
+                                                <f:selectItem itemLabel="Elija un tema" itemValue="" />
+                                                <f:selectItems value="#{usuarioMB.themes}" var="theme" itemLabel="#{theme.displayName}" itemValue="#{theme.name}"/>
+                                                <p:ajax global="false" listener="#{usuarioMB.saveTheme}" />
+                                            </p:themeSwitcher>
+                                        </h:panelGrid>
                                     </p:menuitem>
-                                    
                                 </p:tabMenu>
                             </h:form>
                         </p:layoutUnit>
                         
-
                         <ui:insert name="content"><h1>Aqui va el Contenido</h1></ui:insert>
                     </p:layout>
                 </p:layoutUnit>

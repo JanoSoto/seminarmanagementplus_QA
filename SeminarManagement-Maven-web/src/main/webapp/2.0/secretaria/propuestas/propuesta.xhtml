@@ -54,6 +54,9 @@
                 <h:outputText rendered="#{not empty verPropuestaMB.propuesta.idRevisora
                                            and not empty verPropuestaMB.propuesta.idRevisora.tipoRevision
                                            and verPropuestaMB.propuesta.idRevisora.tipoRevision eq 2 }" style="padding-left: 1em; white-space: pre-line;" value="Acuerdo de Consejo &#10;" escape="false"/>
+                <h:outputText rendered="#{not empty verPropuestaMB.propuesta.idRevisora
+                                           and not empty verPropuestaMB.propuesta.idRevisora.tipoRevision
+                                           and verPropuestaMB.propuesta.idRevisora.tipoRevision eq 3 }" style="padding-left: 1em; white-space: pre-line;" value="Magister &#10;" escape="false"/>
                 <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Tiene Comisión Revisora:"/>
                 <h:outputText rendered="#{not empty verPropuestaMB.propuesta.idRevisora}" style="padding-left: 1em;" value="SÍ"/>
                 <h:outputText rendered="#{empty verPropuestaMB.propuesta.idRevisora}" style="padding-left: 1em;" value="NO"/>
@@ -96,7 +99,7 @@
                     </h:panelGrid>
                     <p:tooltip id="tooltipAgregarTema" rendered="#{not verPropuestaMB.puedeTenerTema}"
                                    for="botonAgregarTema" value="Debe ingresar las fechas correspondientes al tipo de revisión antes de agregar tema"/>
-                    <p:dialog modal="true" appendToBody="true" header="Confirmación" widgetVar="confirmation" width="350" closeOnEscape="true" closable="true" draggable="false" resizable="false" >
+                    <p:dialog modal="true"  header="Confirmación" widgetVar="confirmation" width="350" closeOnEscape="true" closable="true" draggable="false" resizable="false" >
                         <strong>¿Está seguro? Esta acción generará los siguientes cambios dentro del sistema.</strong><br/>
                         <ul>
                             <li>Se eliminará la <strong>Comisión Correctora</strong> del tema de la propuesta.</li>
@@ -113,7 +116,7 @@
 
                     </p:dialog>
 
-                    <p:dialog modal="true" appendToBody="true" header="Mensaje éxito" widgetVar="exito" width="350" closeOnEscape="true" closable="true" draggable="false" resizable="false" >
+                    <p:dialog modal="true" header="Mensaje éxito" widgetVar="exito" width="350" closeOnEscape="true" closable="true" draggable="false" resizable="false" >
                         <strong>¿Está seguro? Esta acción generará los siguientes cambios dentro del sistema.</strong><br/>
                         <ul>
                             <li>Se eliminará la <strong>Comisión Correctora</strong> del tema de la propuesta</li>
