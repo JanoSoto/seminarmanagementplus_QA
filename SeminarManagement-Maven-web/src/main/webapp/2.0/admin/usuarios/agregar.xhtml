@@ -61,14 +61,29 @@
                         <p:outputLabel for="correo" value="Email"/>
                         <p:inputText id="correo" value="#{usuarioMB.mailUsuario}"/>
                         <p:watermark for="correo" value="Ingresar Email"/>
+
+                        <p:outputLabel for="telefono" value="Teléfono"/>
+                        <p:inputText id="telefono" value="#{usuarioMB.telefonoUsuario}"/>
+                        <p:watermark for="telefono" value="Ingresar Teléfono"/>
+                        
+                        <p:outputLabel for="region" value="Región"/>
+                        <p:selectOneMenu id="region" value="#{regionesMB.regionElegida}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue=""/>
+                            <f:selectItems value="#{regionesMB.regiones}" var="region" itemLabel="#{region.regionNombre}" itemValue="#{region.regionId}"/>
+                            <p:ajax listener="#{regionesMB.buscaComunas()}" update="comuna" />
+                        </p:selectOneMenu>
+                        <br/>                       
+
+                        <p:outputLabel for="comuna" value="Comuna" />
+                        <p:selectOneMenu id="comuna" value="#{usuarioMB.comuna}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue=""/>
+                            <f:selectItems value="#{regionesMB.comunas}" var="comuna" itemLabel="#{comuna.comunaNombre}" itemValue="#{comuna.comunaId}"/>
+                        </p:selectOneMenu>
+                        <br/>
                         
                         <p:outputLabel for="direccion" value="Dirección"/>
                         <p:inputText id="direccion" value="#{usuarioMB.direccionUsuario}"/>
                         <p:watermark for="direccion" value="Ingresar Dirección"/>
-                        
-                        <p:outputLabel for="telefono" value="Teléfono"/>
-                        <p:inputText id="telefono" value="#{usuarioMB.telefonoUsuario}"/>
-                        <p:watermark for="telefono" value="Ingresar Teléfono"/>
                         
                         <p:outputLabel/>
                         <p:outputLabel/>

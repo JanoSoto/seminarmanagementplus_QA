@@ -21,7 +21,7 @@
         </p:layoutUnit>
 
         <p:layoutUnit position="center" style="border:none;">
-            <h:form style="font-weight: bold;">
+            <h:form style="font-weight: bold;" id="addForm">
                 <p:panel style="border: none;">
                     <h1>Agregar Profesor</h1>
                     <p:growl id="growl" showDetail="true" sticky="true" />
@@ -34,17 +34,13 @@
                         </p:inputText>
                         <p:watermark for="rut" value="Ingresar Rut"/>
 
-                        <p:outputLabel></p:outputLabel>
-                        <p:outputLabel></p:outputLabel>
-                        <p:outputLabel></p:outputLabel>
+                        <p:outputLabel for="uid" value="Nombre de Usuario (LDAP)"/>
+                        <p:inputText id="uid" required="true" value="#{profesorMB.profesor.usuario.uid}"/>
+                        <p:watermark for="uid" value="Nombre de usuario"/>
 
                         <p:outputLabel for="nombre" value="Nombre/s"/>
                         <p:inputText id="nombre" required="true" value="#{profesorMB.profesor.usuario.nombreUsuario}"/>
                         <p:watermark for="nombre" value="Ingresar Nombre"/>
-
-                        <p:outputLabel for="uid" value="Nombre de Usuario (LDAP)"/>
-                        <p:inputText id="uid" required="true" value="#{profesorMB.profesor.usuario.uid}"/>
-                        <p:watermark for="uid" value="Nombre de usuario"/>
 
                         <p:outputLabel for="apellido" value="Apellido/s"/>
                         <p:inputText id="apellido" required="true" value="#{profesorMB.profesor.usuario.apellidoUsuario}"/>
@@ -60,6 +56,29 @@
                         <p:inputText id="celular" value="#{profesorMB.profesor.usuario.mailUsuario}">
                         </p:inputText>
                         <p:watermark for="celular" value="Ingresar Celular"/>
+
+                        <p:outputLabel for="region" value="Región"/>
+                        <p:selectOneMenu id="region" value="#{regionesMB.regionElegida}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue=""/>
+                            <f:selectItems value="#{regionesMB.regiones}" var="region" itemLabel="#{region.regionNombre}" itemValue="#{region.regionId}"/>
+                            <p:ajax listener="#{regionesMB.buscaComunas()}" update="comuna" />
+                        </p:selectOneMenu>
+                        <br/>                       
+
+                        <p:outputLabel for="comuna" value="Comuna" />
+                        <p:selectOneMenu id="comuna" value="#{profesorMB.comuna}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue=""/>
+                            <f:selectItems value="#{regionesMB.comunas}" var="comuna" itemLabel="#{comuna.comunaNombre}" itemValue="#{comuna.comunaId}"/>
+                        </p:selectOneMenu>
+                        <br/>
+                        
+                        <p:outputLabel for="direccion" value="Dirección"/>
+                        <p:inputText id="direccion" value="#{profesorMB.profesor.usuario.direccionUsuario}"/>
+                        <p:watermark for="direccion" value="Ingresar Dirección"/>
+
+                        <p:outputLabel/>
+                        <p:outputLabel/>
+                        <p:outputLabel/>
 
                         <p:outputLabel for="contrato" value="Vínculo DIINF" />
                         <p:selectOneMenu id="contrato" required="true" value="#{profesorMB.profesor.contrato}">

@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -78,7 +79,10 @@ public class Usuario implements Serializable {
     private Alumno alumno;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "usuario")
     private Profesor profesor;    
-
+    @JoinColumn(name = "comuna", referencedColumnName = "COMUNA_ID")
+    @ManyToOne
+    private Comuna comuna;
+    
 
     @ManyToMany(mappedBy = "usuarios")
     private List<Tipousuario> tipos;
@@ -205,6 +209,14 @@ public class Usuario implements Serializable {
 
     public void setTemaUsuario(String temaUsuario) {
         this.temaUsuario = temaUsuario;
+    }
+
+    public Comuna getComuna() {
+        return comuna;
+    }
+
+    public void setComuna(Comuna comuna) {
+        this.comuna = comuna;
     }
 
     @Override

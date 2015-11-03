@@ -1,24 +1,30 @@
 package managedbeans.personas;
 
 import entities.Alumno;
+import entities.Comuna;
 import entities.Profesor;
+import entities.Provincia;
+import entities.Region;
 import entities.Usuario;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import sessionbeans.ProfesorFacadeLocal;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.inject.Named;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import managedbeans.AuthMB;
 import sessionbeans.AlumnoFacadeLocal;
+import sessionbeans.ComunaFacadeLocal;
 import sessionbeans.HistorialFacadeLocal;
+import sessionbeans.ProfesorFacadeLocal;
+import sessionbeans.ProvinciaFacadeLocal;
+import sessionbeans.RegionFacadeLocal;
 import sessionbeans.UsuarioFacade;
 import sessionbeans.UsuarioFacadeLocal;
 
@@ -38,11 +44,22 @@ public class ProfesorMB implements Serializable {
     private ProfesorFacadeLocal profesorFacade;
     @EJB
     private UsuarioFacadeLocal usuarioFacade;
+    @EJB
+    private ComunaFacadeLocal comunaFacade;
+    @EJB
+    private ProvinciaFacadeLocal provinciaFacade;
+    @EJB
+    private RegionFacadeLocal regionFacade;
 
     private String nombreProfesor, apellidoProfesor, celularProfesor, rutProfesor, mailProfesor, jerarquia;
     private Integer contratoProfesor, jornadaProfesor, isProfGuia;
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(ProfesorMB.class);
     private Profesor profesor;
+    private Region regionElegida;
+    private Integer comuna;
+    private List<Comuna> comunas;
+    private List<Provincia> provincias;
+    private List<Region> regiones;
 
     //Declaramos esto para poder acceder al managed bean de autenticación (para almecenar el usuario en el historial)
     @ManagedProperty(value = "#{authMB}")
@@ -58,6 +75,7 @@ public class ProfesorMB implements Serializable {
 
     public String prepareCreate() {
         profesor = new Profesor();
+        regiones = regionFacade.findAll();
         return "agregar";
     }
 
@@ -108,6 +126,8 @@ public class ProfesorMB implements Serializable {
             profesor.setNombreProfesor(profesor.getNombreProfesor().toUpperCase());
             profesor.setApellidoProfesor(profesor.getApellidoProfesor().toUpperCase());
             profesor.setMailProfesor(profesor.getMailProfesor().toUpperCase());
+            profesor.getUsuario().setUid(profesor.getUsuario().getUid().toLowerCase());
+            profesor.getUsuario().setComuna(new Comuna(comuna));
 
             //Si es JC, puede guiar siempre, si no, se setea la opción escogida
             if (profesor.getContrato() == 1) {
@@ -216,6 +236,14 @@ public class ProfesorMB implements Serializable {
         jerarquia = null;
     }
 
+    public Integer getComuna() {
+        return comuna;
+    }
+
+    public void setComuna(Integer comuna) {
+        this.comuna = comuna;
+    }
+
     public AuthMB getUser() {
         return user;
     }
@@ -307,6 +335,38 @@ public class ProfesorMB implements Serializable {
 
     public void setProfesor(Profesor profesor) {
         this.profesor = profesor;
+    }
+
+    public List<Comuna> getComunas() {
+        return comunas;
+    }
+
+    public void setComunas(List<Comuna> comunas) {
+        this.comunas = comunas;
+    }
+
+    public List<Provincia> getProvincias() {
+        return provincias;
+    }
+
+    public void setProvincias(List<Provincia> provincias) {
+        this.provincias = provincias;
+    }
+
+    public List<Region> getRegiones() {
+        return regiones;
+    }
+
+    public void setRegiones(List<Region> regiones) {
+        this.regiones = regiones;
+    }
+
+    public Region getRegionElegida() {
+        return regionElegida;
+    }
+
+    public void setRegionElegida(Region regionElegida) {
+        this.regionElegida = regionElegida;
     }
 
 }

@@ -6,6 +6,8 @@
 package managedbeans.personas;
 
 
+import entities.Comuna;
+import entities.Region;
 import entities.Theme;
 import entities.Tipousuario;
 import entities.Usuario;
@@ -22,14 +24,18 @@ import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.faces.event.AjaxBehaviorEvent;
 import javax.servlet.http.HttpServletRequest;
+import managedbeans.RegionesMB;
 import org.primefaces.component.themeswitcher.ThemeSwitcher;
 import org.primefaces.model.DualListModel;
 import sessionbeans.AlumnoFacadeLocal;
+import sessionbeans.ComunaFacadeLocal;
 import sessionbeans.HistorialFacadeLocal;
 import sessionbeans.ProfesorFacadeLocal;
+import sessionbeans.RegionFacadeLocal;
 import sessionbeans.TipousuarioFacadeLocal;
 import sessionbeans.UsuarioFacadeLocal;
 
@@ -51,8 +57,16 @@ public class UsuarioMB {
     private TipousuarioFacadeLocal tipoFacade;
     @EJB
     private UsuarioFacadeLocal usuarioFacade;
+    @EJB
+    private ComunaFacadeLocal comunaFacade;
+    @EJB
+    private RegionFacadeLocal regionFacade;
 
-    private String username, nombreUsuario, apellidoUsuario;
+    private String username, nombreUsuario, apellidoUsuario, telefonoUsuario, mailUsuario, direccionUsuario;
+    private Integer comuna;
+    private List<Region> regiones;
+    private List<Comuna> comunas;
+    private Integer regionElegida;
     private List<String> tipoUsuario;
     private List<String> tiposNoDelUsuario;
     private List<String> tiposDelUsuario;
@@ -60,15 +74,14 @@ public class UsuarioMB {
     private Boolean estaEditando = true;
     private List<Theme> themes;
     
-    
     private String theme = "usachborde";
 
     private String uid;
-
+    
     public List<String> getTiposNoDelUsuario() {
         return tiposNoDelUsuario;
     }
-
+    
     public void setTiposNoDelUsuario(List<String> tiposNoDelUsuario) {
         this.tiposNoDelUsuario = tiposNoDelUsuario;
     }
@@ -89,10 +102,43 @@ public class UsuarioMB {
         this.tiposDualList = tiposDualList;
     }
 
+    public String getTelefonoUsuario() {
+        return telefonoUsuario;
+    }
+
+    public void setTelefonoUsuario(String telefonoUsuario) {
+        this.telefonoUsuario = telefonoUsuario;
+    }
+
+    public String getMailUsuario() {
+        return mailUsuario;
+    }
+
+    public void setMailUsuario(String mailUsuario) {
+        this.mailUsuario = mailUsuario;
+    }
+
+    public String getDireccionUsuario() {
+        return direccionUsuario;
+    }
+
+    public void setDireccionUsuario(String direccionUsuario) {
+        this.direccionUsuario = direccionUsuario;
+    }
+
+    public Integer getComuna() {
+        return comuna;
+    }
+
+    public void setComuna(Integer comuna) {
+        this.comuna = comuna;
+    }
+
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(UsuarioMB.class);
 
     @PostConstruct
     public void init() {
+        regiones = regionFacade.findAll();
         themes = new ArrayList<Theme>();
         themes.add(new Theme(0, "Afterdark", "afterdark"));
         themes.add(new Theme(1, "Afternoon", "afternoon"));
@@ -205,7 +251,11 @@ public class UsuarioMB {
         this.estaEditando = true;
         this.username = usuario.getRutUsuario();
         this.nombreUsuario = usuario.getNombreUsuario();
+        this.regionElegida = usuario.getComuna().getComunaProvinciaId().getProvinciaRegionId().getRegionId();
+        this.comuna = usuario.getComuna().getComunaId();
+        this.buscaComunas();
         this.apellidoUsuario = usuario.getApellidoUsuario();
+        this.comuna = usuario.getComuna().getComunaId();
         this.uid = uid.toUpperCase();
         this.estaEditando = true;
         List<Tipousuario> tipos = usuario.getTipos();
@@ -261,6 +311,7 @@ public class UsuarioMB {
             tipoFacade.edit(tipo);
             aux.add(tipo);
         }
+        usuario.setComuna(new Comuna(comuna));
         usuario.setTipos(aux);
         usuario.setNombreUsuario(this.nombreUsuario);
         usuario.setApellidoUsuario(this.apellidoUsuario);
@@ -305,6 +356,7 @@ public class UsuarioMB {
         username = username.replace("-", "");
         nombreUsuario = nombreUsuario.toUpperCase();
         apellidoUsuario = apellidoUsuario.toUpperCase();
+        uid = uid.toLowerCase();
 
         //Ingresamos al usuario
         Usuario nuevoUsuario = null;
@@ -318,7 +370,10 @@ public class UsuarioMB {
         nuevoUsuario.setNombreUsuario(nombreUsuario);
         //nuevoUsuario.setPassword(sha256(username.substring(0, 5)));
         nuevoUsuario.setApellidoUsuario(apellidoUsuario);
-
+        nuevoUsuario.setComuna(new Comuna(comuna));
+        nuevoUsuario.setDireccionUsuario(direccionUsuario);
+        nuevoUsuario.setMailUsuario(mailUsuario);
+        nuevoUsuario.setTelefonoUsuario(telefonoUsuario);
         List<Tipousuario> aux = new ArrayList();
         //Ingresamos el tipo usuario
         for (int i = 0; i < tiposDualList.getSource().size(); i++) {
@@ -341,7 +396,7 @@ public class UsuarioMB {
         nuevoUsuario.setTipos(aux);
 //        nuevoUsuario.setTipos(tiposDualList.getTarget());
         context.addMessage(null, new FacesMessage("Usuario " + this.uid + " creado correctamente."));
-        LOGGER.info("Se ha editado al usuario " + nombreUsuario + " " + apellidoUsuario);
+        //LOGGER.info("Se ha editado al usuario " + nombreUsuario + " " + apellidoUsuario);
         usuarioFacade.edit(nuevoUsuario);
 
         //Vaciamos el formulario
@@ -407,5 +462,37 @@ public class UsuarioMB {
        setTheme(tema);
        //System.out.println("Cambio de tema a: "+ this.theme);
        
+    }
+    
+    public void buscaComunas(){
+        comunas = comunaFacade.findByRegion(new Region(regionElegida));
+    }
+    
+    public void buscaComunas(Region region){
+        comunas = comunaFacade.findByRegion(region);
+    }
+    
+    public List<Region> getRegiones() {
+        return regiones;
+    }
+
+    public void setRegiones(List<Region> regiones) {
+        this.regiones = regiones;
+    }
+
+    public List<Comuna> getComunas() {
+        return comunas;
+    }
+
+    public void setComunas(List<Comuna> comunas) {
+        this.comunas = comunas;
+    }
+
+    public Integer getRegionElegida() {
+        return regionElegida;
+    }
+
+    public void setRegionElegida(Integer regionElegida) {
+        this.regionElegida = regionElegida;
     }
 }

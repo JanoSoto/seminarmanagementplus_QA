@@ -64,6 +64,20 @@
                         <p:inputText id="direccion" value="#{editarAlumnoMB.alumno.direccionAlumno}"  style="width: 300px;"/>
                         <p:watermark for="direccion" value="Ingresar Dirección"/>
 
+                        <p:outputLabel for="region" value="Región"/>
+                        <p:selectOneMenu id="region" value="#{editarAlumnoMB.regionElegida}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue=""/>
+                            <f:selectItems value="#{editarAlumnoMB.regiones}" var="region" itemLabel="#{region.regionNombre}" itemValue="#{region.regionId}"/>
+                            <p:ajax listener="#{editarAlumnoMB.buscaComunas()}" update="comuna" />
+                        </p:selectOneMenu>
+                        <br/>                       
+
+                        <p:outputLabel for="comuna" value="Comuna" />
+                        <p:selectOneMenu id="comuna" value="#{editarAlumnoMB.comuna}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue=""/>
+                            <f:selectItems value="#{editarAlumnoMB.comunas}" var="comuna" itemLabel="#{comuna.comunaNombre}" itemValue="#{comuna.comunaId}"/>
+                        </p:selectOneMenu>
+                        <br/>
                     </h:panelGrid>
 
                     <h1>Planes alumno:</h1><br/>
@@ -108,7 +122,7 @@
                     </c:if>
                     <br/>
                     <p:commandButton id="bt1" value="Guardar" actionListener="#{editarAlumnoMB.editAlumno()}" update="growl"/>
-                    
+
                     <p:defaultCommand target="bt1" />
                     <br/>
 

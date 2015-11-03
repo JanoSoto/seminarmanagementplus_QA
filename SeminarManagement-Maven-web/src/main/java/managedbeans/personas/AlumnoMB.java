@@ -1,6 +1,7 @@
 package managedbeans.personas;
 
 import entities.Alumno;
+import entities.Comuna;
 import entities.PlanEstudio;
 import entities.Profesor;
 import entities.Usuario;
@@ -45,7 +46,7 @@ public class AlumnoMB implements Serializable {
     private PlanestudioFacadeLocal planesFacade;
 
     private String nombreAlumno, apellidoAlumno, rutAlumno, mailAlumno, celularAlumno, direccionAlumno;
-    private Integer carreraAlumno, jornadaAlumno;
+    private Integer carreraAlumno, jornadaAlumno, comuna;
     private List<PlanEstudio> planes;
     private List<Alumno> alumnos;
 
@@ -150,6 +151,14 @@ public class AlumnoMB implements Serializable {
         this.alumnos = alumnos;
     }
 
+    public Integer getComuna() {
+        return comuna;
+    }
+
+    public void setComuna(Integer comuna) {
+        this.comuna = comuna;
+    }
+
     //Manejos de fechas
     public String dateToString(Date dateChoosen) {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -237,6 +246,7 @@ public class AlumnoMB implements Serializable {
                 return prepareCreate();
             }
             else if (!usuariosIngresados.isEmpty()) {
+                System.out.println(usuariosIngresados);
                 alumno.setUsuario(usuariosIngresados.get(0));
                 alumnoFacade.create(alumno);
                 context.addMessage(null, new FacesMessage("Alumno", alumno.getNombreAlumno()
@@ -248,6 +258,8 @@ public class AlumnoMB implements Serializable {
             alumno.setNombreAlumno(alumno.getNombreAlumno().toUpperCase());
             alumno.setApellidoAlumno(alumno.getApellidoAlumno().toUpperCase());
             alumno.setMailAlumno(alumno.getMailAlumno().toUpperCase());
+            alumno.getUsuario().setUid(alumno.getUsuario().getUid().toLowerCase());
+            alumno.getUsuario().setComuna(new Comuna(comuna));
             usuarioFacade.create(alumno.getUsuario());
             alumnoFacade.create(alumno);
 

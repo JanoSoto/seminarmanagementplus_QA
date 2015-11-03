@@ -41,12 +41,12 @@
 
                         <c:if test="#{empty param.uid}">
                             <p:outputLabel for="uid" value="uid"/>
-                            <p:inputText id="uid" required="true" value="#{usuarioMB.uid}" disabled="#{not empty param.uid}"/>
+                            <p:inputText id="uid" required="true" value="#{usuarioMB.uid}"/>
                             <br/>
                         </c:if>
                         <c:if test="#{not empty param.uid}">
                             <p:outputLabel for="uid" value="uid"/>
-                            <p:inputText required="true" value="#{usuarioMB.uid}" disabled="#{not empty param.uid}"/>
+                            <p:inputText required="true" value="#{usuarioMB.uid}"/>
                             <h:inputHidden id="uid" value="#{usuarioMB.uid}" />
                         </c:if>
 
@@ -57,6 +57,21 @@
                         <p:outputLabel for="apellido" value="Apellido/s"/>
                         <p:inputText id="apellido" required="true" value="#{usuarioMB.apellidoUsuario}"/>
                         <p:watermark for="apellido" value="Ingresar Apellido"/>
+                        
+                        <p:outputLabel for="region" value="Región"/>
+                        <p:selectOneMenu id="region" value="#{usuarioMB.regionElegida}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue=""/>
+                            <f:selectItems value="#{usuarioMB.regiones}" var="region" itemLabel="#{region.regionNombre}" itemValue="#{region.regionId}"/>
+                            <p:ajax listener="#{usuarioMB.buscaComunas()}" update="comuna" />
+                        </p:selectOneMenu>
+                        <br/>
+                        
+                        <p:outputLabel for="comuna" value="Comuna" />
+                        <p:selectOneMenu id="comuna" value="#{usuarioMB.comuna}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue=""/>
+                            <f:selectItems value="#{usuarioMB.comunas}" var="comuna" itemLabel="#{comuna.comunaNombre}" itemValue="#{comuna.comunaId}"/>
+                        </p:selectOneMenu>
+                        <br/>
 
                         <p:outputLabel for="tipo" value="Tipo"/>
                         <p:pickList id="tipo" value="#{usuarioMB.tiposDualList}" var="tipos" itemValue="#{tipos}" itemLabel="#{tipos}"></p:pickList>

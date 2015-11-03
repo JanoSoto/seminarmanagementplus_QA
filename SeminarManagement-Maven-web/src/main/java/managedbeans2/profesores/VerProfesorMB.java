@@ -3,19 +3,24 @@ package managedbeans2.profesores;
 import clases.PropuestaDatos;
 import clases.TemaDatos;
 import entities.Alumno;
+import entities.Comuna;
 import entities.Profesor;
 import entities.Propuesta;
+import entities.Region;
 import entities.SemestreActual;
 import entities.Tema;
 import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import sessionbeans.AlumnoFacadeLocal;
+import sessionbeans.ComunaFacadeLocal;
 import sessionbeans.ProfesorFacadeLocal;
+import sessionbeans.RegionFacadeLocal;
 import sessionbeans.SemestreActualFacadeLocal;
 import sessionbeans.SemestreFacadeLocal;
 import sessionbeans.UsuarioFacade;
@@ -40,17 +45,25 @@ public class VerProfesorMB {
     private AlumnoFacadeLocal alumnoFacade;
     @EJB
     private UsuarioFacadeLocal usuarioFacade;
+    @EJB
+    private ComunaFacadeLocal comunaFacade;
+    @EJB
+    private RegionFacadeLocal regionFacade;
 
     private int total, totalSemestre;
     private float promPorSemestre;
     private String rutProfesor, rutProfeEdit, semestreActual, semestreAnterior, nombrePropuesta, nombreTemaAlumno;
+    private Integer comuna;
+    private List<Region> regiones;
+    private List<Comuna> comunas;
+    private Integer regionElegida;
     private Profesor profesor, profesorEdit = new Profesor();
     private List<Alumno> alumnos;
     private List<Propuesta> propuestas;
-    private List<PropuestaDatos> propuestaDatos, propuestasFiltradas,propuestaDatosRevisora,propuestaDatosRevisoraViejo;
-    private List<Tema> temas; 
+    private List<PropuestaDatos> propuestaDatos, propuestasFiltradas, propuestaDatosRevisora, propuestaDatosRevisoraViejo;
+    private List<Tema> temas;
     private List<SemestreActual> semestre;
-    private List<TemaDatos> temaDatos, temaDatosTodosLosSemestres, temaDatosProrrogados, temasFiltrados,temaDatosCorrectora,temaDatosCorrectoraSemViejo;
+    private List<TemaDatos> temaDatos, temaDatosTodosLosSemestres, temaDatosProrrogados, temasFiltrados, temaDatosCorrectora, temaDatosCorrectoraSemViejo;
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(VerProfesorMB.class);
 
     /**
@@ -59,16 +72,24 @@ public class VerProfesorMB {
     public VerProfesorMB() {
     }
 
+    @PostConstruct
+    public void init() {
+        regiones = regionFacade.findAll();
+    }
+
     public void buscarProfesor() {
         if (rutProfesor != null) {
             profesor = profesorFacade.findByRut(rutProfesor).get(0);
             semestre = semestreActualFacade.findAll();
             semestreActual = semestre.get(0).getSemestreActual();
-            semestreAnterior= SMUtil.semestreAnterior(semestreActual);
-            
+            semestreAnterior = SMUtil.semestreAnterior(semestreActual);
+
             //Instanciamos para editar al profesor
             profesorEdit = profesor;
             rutProfeEdit = profesor.getRutProfesor();
+            regionElegida = profesor.getUsuario().getComuna().getComunaProvinciaId().getProvinciaRegionId().getRegionId();
+            comuna = profesor.getUsuario().getComuna().getComunaId();
+            this.buscaComunas();
             temaDatos = new ArrayList();
             temaDatosTodosLosSemestres = new ArrayList();
             temaDatosProrrogados = new ArrayList();
@@ -78,7 +99,6 @@ public class VerProfesorMB {
             propuestaDatosRevisoraViejo = new ArrayList();
             alumnos = alumnoFacade.findAll();
 
-            
             for (Alumno alumno : alumnos) {
                 if (!alumno.getPropuestaList().isEmpty()) {
                     for (int k = 0; k < alumno.getPropuestaList().size(); k++) {
@@ -90,30 +110,28 @@ public class VerProfesorMB {
                                             if (alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getIdSemestre().getIdSemestre() == null ? semestre.get(0).getSemestreActual() == null : alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getIdSemestre().getIdSemestre().equals(semestreActual)) {
                                                 nombrePropuesta = alumno.getPropuestaList().get(k).getNombrePropuesta();
                                                 PropuestaDatos propDatos = new PropuestaDatos();
-                                                
+
                                                 propDatos.setAlumno(alumno);
                                                 propDatos.setIdPropuesta(String.valueOf(alumno.getPropuestaList().get(k).getIdPropuesta()));
-                                                if(alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getIdPropuesta().getNombrePropuesta().length() > 64){
+                                                if (alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getIdPropuesta().getNombrePropuesta().length() > 64) {
                                                     propDatos.setNombreCorto(alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getIdPropuesta().getNombrePropuesta().substring(0, 65) + "...");
-                                                }
-                                                else{
+                                                } else {
                                                     propDatos.setNombreCorto(alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getIdPropuesta().getNombrePropuesta());
                                                 }
                                                 propDatos.setNombrePropuesta(alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getIdPropuesta().getNombrePropuesta());
                                                 propuestaDatosRevisora.add(propDatos);
-                                                
+
                                             }
-                                            
+
                                             if (alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getIdSemestre().getIdSemestre() == null ? semestre.get(0).getSemestreActual() == null : alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getIdSemestre().getIdSemestre().equals(semestreAnterior)) {
                                                 nombrePropuesta = alumno.getPropuestaList().get(k).getNombrePropuesta();
                                                 PropuestaDatos propDatos2 = new PropuestaDatos();
-                                                
+
                                                 propDatos2.setAlumno(alumno);
                                                 propDatos2.setIdPropuesta(String.valueOf(alumno.getPropuestaList().get(k).getIdPropuesta()));
-                                                if(alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getIdPropuesta().getNombrePropuesta().length() > 64){
+                                                if (alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getIdPropuesta().getNombrePropuesta().length() > 64) {
                                                     propDatos2.setNombreCorto(alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getIdPropuesta().getNombrePropuesta().substring(0, 65) + "...");
-                                                }
-                                                else{
+                                                } else {
                                                     propDatos2.setNombreCorto(alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getIdPropuesta().getNombrePropuesta());
                                                 }
                                                 propDatos2.setNombrePropuesta(alumno.getPropuestaList().get(k).getComisionRevisoraList().get(m).getIdPropuesta().getNombrePropuesta());
@@ -127,13 +145,13 @@ public class VerProfesorMB {
                     }
                 }
             }
-            
+
             //alumnos.get(0).getPropuestaList().get(0).getIdRevisora().getIdTema().getIdCorrectora().getProfeCorreccionList().get(0).getProfesor().getNombreProfesor();
-            if(!profesor.getProfeCorreccionList().isEmpty()){
+            if (!profesor.getProfeCorreccionList().isEmpty()) {
                 for (int n = 0; n < profesor.getProfeCorreccionList().size(); n++) {
-                    if(!profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().isEmpty()){
+                    if (!profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().isEmpty()) {
                         for (int o = 0; o < profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().size(); o++) {
-                            if( profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().get(o).getIdSemestre().getIdSemestre() == null ? semestreActual == null : profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().get(o).getIdSemestre().getIdSemestre().equals(semestreActual)){
+                            if (profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().get(o).getIdSemestre().getIdSemestre() == null ? semestreActual == null : profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().get(o).getIdSemestre().getIdSemestre().equals(semestreActual)) {
                                 nombreTemaAlumno = profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().get(o).getNombreTema();
                                 TemaDatos temaDTemp2 = new TemaDatos();
                                 temaDTemp2.setAlumno(profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getIdTema().getIdRevisora().getIdPropuesta().getRutAlumno());
@@ -146,11 +164,11 @@ public class VerProfesorMB {
                                 }
                                 temaDTemp2.setNombreTema(profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getIdTema().getNombreTema());
                                 temaDatosCorrectora.add(temaDTemp2);
-                                
+
                             }
-                            
-                            if( profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().get(o).getIdSemestre().getIdSemestre() == null ? semestreAnterior == null : profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().get(o).getIdSemestre().getIdSemestre().equals(semestreAnterior)){
-                                
+
+                            if (profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().get(o).getIdSemestre().getIdSemestre() == null ? semestreAnterior == null : profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().get(o).getIdSemestre().getIdSemestre().equals(semestreAnterior)) {
+
                                 nombreTemaAlumno = profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getTemaList().get(o).getNombreTema();
                                 TemaDatos temaDTemp3 = new TemaDatos();
                                 temaDTemp3.setAlumno(profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getIdTema().getIdRevisora().getIdPropuesta().getRutAlumno());
@@ -163,11 +181,11 @@ public class VerProfesorMB {
                                 }
                                 temaDTemp3.setNombreTema(profesor.getProfeCorreccionList().get(n).getComisionCorrectora().getIdTema().getNombreTema());
                                 temaDatosCorrectoraSemViejo.add(temaDTemp3);
-                                
+
                             }
                         }
                     }
-                }        
+                }
             }
             temas = new ArrayList();
             for (int i = 0; i < profesor.getProfePropuestaList().size(); i++) {
@@ -184,7 +202,7 @@ public class VerProfesorMB {
                                     temaDTemp.setNombreCorto(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getNombreTema());
                                 }
                                 temaDTemp.setNombreTema(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getNombreTema());
-                               
+
                                 String semestre = profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getIdSemestre().getIdSemestre();
                                 if (semestre.equals(semestreActual)) {
                                     temaDatos.add(temaDTemp);
@@ -194,7 +212,7 @@ public class VerProfesorMB {
                             }
                             if (profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getEstadoTema() == 2) {
                                 TemaDatos temaDTemp = new TemaDatos();
-                               
+
                                 temaDTemp.setIdTema(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getIdTema());
                                 temaDTemp.setAlumno(profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getIdRevisora().getIdPropuesta().getRutAlumno());
                                 if (profesor.getProfePropuestaList().get(i).getPropuesta().getIdRevisora().getIdTema().getNombreTema().length() > 64) {
@@ -338,6 +356,7 @@ public class VerProfesorMB {
         profTemp.setJerarquiaCategoria(profesorEdit.getJerarquiaCategoria());
 
         profesorEdit = profTemp;
+        profTemp.getUsuario().setComuna(new Comuna(comuna));
         usuarioFacade.edit(profTemp.getUsuario());
         profesorFacade.edit(profTemp);
 
@@ -421,6 +440,14 @@ public class VerProfesorMB {
         this.rutProfesor = rutProfesor;
     }
 
+    public Integer getComuna() {
+        return comuna;
+    }
+
+    public void setComuna(Integer comuna) {
+        this.comuna = comuna;
+    }
+
     public Profesor getProfesor() {
         return profesor;
     }
@@ -493,8 +520,6 @@ public class VerProfesorMB {
         this.temaDatosProrrogados = temaDatosProrrogados;
     }
 
-    
-
     public List<TemaDatos> getTemaDatosCorrectoraSemViejo() {
         return temaDatosCorrectoraSemViejo;
     }
@@ -502,7 +527,7 @@ public class VerProfesorMB {
     public void setTemaDatosCorrectoraSemViejo(List<TemaDatos> temaDatosCorrectoraSemViejo) {
         this.temaDatosCorrectoraSemViejo = temaDatosCorrectoraSemViejo;
     }
-    
+
     private String semestreSiguiente(String semestreActual) {
         String a = semestreActual.substring(0, 1);
         String b = semestreActual.substring(2, 6);
@@ -512,7 +537,8 @@ public class VerProfesorMB {
             return "2/" + b;
         }
     }
-public List<TemaDatos> getTemaDatosCorrectora() {
+
+    public List<TemaDatos> getTemaDatosCorrectora() {
         return temaDatosCorrectora;
     }
 
@@ -558,5 +584,37 @@ public List<TemaDatos> getTemaDatosCorrectora() {
 
     public void setTemaDatosTodosLosSemestres(List<TemaDatos> temaDatosTodosLosSemestres) {
         this.temaDatosTodosLosSemestres = temaDatosTodosLosSemestres;
+    }
+    
+    public void buscaComunas(){
+        comunas = comunaFacade.findByRegion(new Region(regionElegida));
+    }
+    
+    public void buscaComunas(Region region){
+        comunas = comunaFacade.findByRegion(region);
+    }
+    
+    public List<Region> getRegiones() {
+        return regiones;
+    }
+
+    public void setRegiones(List<Region> regiones) {
+        this.regiones = regiones;
+    }
+
+    public List<Comuna> getComunas() {
+        return comunas;
+    }
+
+    public void setComunas(List<Comuna> comunas) {
+        this.comunas = comunas;
+    }
+
+    public Integer getRegionElegida() {
+        return regionElegida;
+    }
+
+    public void setRegionElegida(Integer regionElegida) {
+        this.regionElegida = regionElegida;
     }
 }
