@@ -73,8 +73,7 @@ public class UsuarioMB {
     private DualListModel<String> tiposDualList;
     private Boolean estaEditando = true;
     private List<Theme> themes;
-    
-    
+
     private String theme = "usachborde";
 
     private String uid;
