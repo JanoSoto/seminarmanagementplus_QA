@@ -73,19 +73,15 @@ public class UsuarioMB {
     private DualListModel<String> tiposDualList;
     private Boolean estaEditando = true;
     private List<Theme> themes;
-<<<<<<< HEAD
-    
-=======
 
->>>>>>> ce7727c5f232d6df5e10a9f8401205a101b1ea3e
     private String theme = "usachborde";
 
     private String uid;
-    
+
     public List<String> getTiposNoDelUsuario() {
         return tiposNoDelUsuario;
     }
-    
+
     public void setTiposNoDelUsuario(List<String> tiposNoDelUsuario) {
         this.tiposNoDelUsuario = tiposNoDelUsuario;
     }
@@ -324,7 +320,7 @@ public class UsuarioMB {
         usuarioFacade.edit(usuario);
 
         context.addMessage(null, new FacesMessage("Usuario", nombreUsuario + " " + apellidoUsuario + ", editado correctamente"));
-        LOGGER.info("Se ha editado al usuario " + nombreUsuario + " " + apellidoUsuario);
+        //LOGGER.info("Se ha editado al usuario " + nombreUsuario + " " + apellidoUsuario);
         //Vaciamos el formulario
 //        username = null;
 //        nombreUsuario = null;
@@ -374,15 +370,11 @@ public class UsuarioMB {
         nuevoUsuario.setNombreUsuario(nombreUsuario);
         //nuevoUsuario.setPassword(sha256(username.substring(0, 5)));
         nuevoUsuario.setApellidoUsuario(apellidoUsuario);
-<<<<<<< HEAD
         nuevoUsuario.setComuna(new Comuna(comuna));
         nuevoUsuario.setDireccionUsuario(direccionUsuario);
         nuevoUsuario.setMailUsuario(mailUsuario);
         nuevoUsuario.setTelefonoUsuario(telefonoUsuario);
-=======
         nuevoUsuario.setTema("usachborde");
-
->>>>>>> ce7727c5f232d6df5e10a9f8401205a101b1ea3e
         List<Tipousuario> aux = new ArrayList();
         //Ingresamos el tipo usuario
         for (int i = 0; i < tiposDualList.getSource().size(); i++) {
@@ -405,7 +397,7 @@ public class UsuarioMB {
         nuevoUsuario.setTipos(aux);
 //        nuevoUsuario.setTipos(tiposDualList.getTarget());
         context.addMessage(null, new FacesMessage("Usuario " + this.uid + " creado correctamente."));
-        //LOGGER.info("Se ha editado al usuario " + nombreUsuario + " " + apellidoUsuario);
+//        LOGGER.info("Se ha editado al usuario " + nombreUsuario + " " + apellidoUsuario);
         usuarioFacade.edit(nuevoUsuario);
 
         //Vaciamos el formulario

@@ -73,12 +73,11 @@ public class UsuarioMB {
     private DualListModel<String> tiposDualList;
     private Boolean estaEditando = true;
     private List<Theme> themes;
-    
-    
+
     private String theme = "usachborde";
 
     private String uid;
-
+    
     public List<String> getTiposNoDelUsuario() {
         return tiposNoDelUsuario;
     }
@@ -372,10 +371,14 @@ public class UsuarioMB {
         //nuevoUsuario.setPassword(sha256(username.substring(0, 5)));
         nuevoUsuario.setApellidoUsuario(apellidoUsuario);
         nuevoUsuario.setTema("usachborde");
+<<<<<<< HEAD
         nuevoUsuario.setComuna(new Comuna(comuna));
         nuevoUsuario.setDireccionUsuario(direccionUsuario);
         nuevoUsuario.setMailUsuario(mailUsuario);
         nuevoUsuario.setTelefonoUsuario(telefonoUsuario);
+=======
+
+>>>>>>> ce7727c5f232d6df5e10a9f8401205a101b1ea3e
         List<Tipousuario> aux = new ArrayList();
         //Ingresamos el tipo usuario
         for (int i = 0; i < tiposDualList.getSource().size(); i++) {
