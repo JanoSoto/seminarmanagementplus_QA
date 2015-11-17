@@ -9,11 +9,13 @@ import entities.Propuesta;
 import entities.Region;
 import entities.SemestreActual;
 import entities.Tema;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -32,8 +34,8 @@ import util.SMUtil;
  * @author David
  */
 @Named(value = "verProfesorMB")
-@RequestScoped
-public class VerProfesorMB {
+@SessionScoped
+public class VerProfesorMB implements Serializable{
 
     @EJB
     private SemestreFacadeLocal semestreFacade;
