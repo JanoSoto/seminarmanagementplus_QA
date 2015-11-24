@@ -56,9 +56,8 @@
                     <h:panelGroup id="botonAgregarProp" layout="block" >
                         <p:button style="width:140px;" disabled="#{empty verAlumnoMB.alumno.idPlanActivo}" href="/2.0/secretaria/propuestas/agregar.xhtml?alum=#{verAlumnoMB.alumno.rutAlumno}" value="Agregar Propuesta"/>
                     </h:panelGroup>
-                    <p:button value="Descargar Comprobante de pago" 
-                                  style="width:150px" 
-                                  href="/DocComprobante?id=#{verAlumnoMB.rutAlumno}"/>
+                    <p:button value="Descargar Comprobante de pago" style="width:150px" href="/DocComprobante?id=#{verAlumnoMB.rutAlumno}"/>
+                    <p:button value="Descargar Solicitud de genero" style="width:150px" href="/DocGenero?id=#{verAlumnoMB.rutAlumno}"/>
                     
                     <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Volver a Alumnos"/>
                 </h:panelGrid>
