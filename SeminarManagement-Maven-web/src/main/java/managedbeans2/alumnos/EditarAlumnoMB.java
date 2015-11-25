@@ -193,6 +193,7 @@ public class EditarAlumnoMB implements Serializable {
             a.setAsociacionPlanEstudioAlumno(asociacion_final);
             alumnoEdit.setAsociacionPlanEstudioAlumno(asociacion_final);
         }
+        alumnoEdit.getUsuario().setComuna(new Comuna(comuna));
         usuarioFacade.edit(alumnoEdit.getUsuario());
         alumnoFacade.edit(alumnoEdit);
 

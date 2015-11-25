@@ -12,13 +12,13 @@
         #{accordionPanelMB.setIndex("5")}
     </ui:define>
 
-    <ui:define name="title"><title>Agregar Usuario | Seminar Management</title></ui:define>
+    <ui:define name="title"><title>Editar Usuario | Seminar Management</title></ui:define>
 
     <ui:define name="content">
 
         <p:layoutUnit position="center" style="border:none;">
             <c:if test="#{not empty param.uid}">
-                #{usuarioMB.cargarUsuario(param.uid)}
+                #{verUsuarioMB.cargarUsuario(param.uid)}
             </c:if>
             <h1>Agregar Usuario</h1>
             <h:form style="font-weight: bold;">
@@ -28,59 +28,59 @@
 
                         <c:if test="#{empty param.uid}">
                             <p:outputLabel for="rut" value="Rut"/>
-                            <p:inputText id="rut" required="true" value="#{usuarioMB.username}" disabled="#{not empty param.uid}">
+                            <p:inputText id="rut" required="true" value="#{verUsuarioMB.username}" disabled="#{not empty param.uid}">
                                 <f:validator validatorId="rutValidator"/>
                             </p:inputText>
                             <br/>
                         </c:if>
                         <c:if test="#{not empty param.uid}">
                             <p:outputLabel for="rut" value="Rut"/>
-                            <p:inputText required="true" value="#{usuarioMB.username}" disabled="#{not empty param.uid}"/>
-                            <h:inputHidden id="rut" value="#{usuarioMB.username}" />
+                            <p:inputText required="true" value="#{verUsuarioMB.username}" disabled="#{not empty param.uid}"/>
+                            <h:inputHidden id="rut" value="#{verUsuarioMB.username}" />
                         </c:if>
 
                         <c:if test="#{empty param.uid}">
                             <p:outputLabel for="uid" value="uid"/>
-                            <p:inputText id="uid" required="true" value="#{usuarioMB.uid}"/>
+                            <p:inputText id="uid" required="true" value="#{verUsuarioMB.uid}"/>
                             <br/>
                         </c:if>
                         <c:if test="#{not empty param.uid}">
                             <p:outputLabel for="uid" value="uid"/>
-                            <p:inputText required="true" value="#{usuarioMB.uid}"/>
-                            <h:inputHidden id="uid" value="#{usuarioMB.uid}" />
+                            <p:inputText required="true" value="#{verUsuarioMB.uid}"/>
+                            <h:inputHidden id="uid" value="#{verUsuarioMB.uid}" />
                         </c:if>
 
                         <p:outputLabel for="nombre" value="Nombre/s"/>
-                        <p:inputText id="nombre" required="true" value="#{usuarioMB.nombreUsuario}"/>
+                        <p:inputText id="nombre" required="true" value="#{verUsuarioMB.nombreUsuario}"/>
                         <p:watermark for="nombre" value="Ingresar Nombre"/>
 
                         <p:outputLabel for="apellido" value="Apellido/s"/>
-                        <p:inputText id="apellido" required="true" value="#{usuarioMB.apellidoUsuario}"/>
+                        <p:inputText id="apellido" required="true" value="#{verUsuarioMB.apellidoUsuario}"/>
                         <p:watermark for="apellido" value="Ingresar Apellido"/>
                         
                         <p:outputLabel for="region" value="Región"/>
-                        <p:selectOneMenu id="region" value="#{usuarioMB.regionElegida}">
+                        <p:selectOneMenu id="region" value="#{verUsuarioMB.regionElegida}">
                             <f:selectItem itemLabel="Seleccionar" itemValue=""/>
-                            <f:selectItems value="#{usuarioMB.regiones}" var="region" itemLabel="#{region.regionNombre}" itemValue="#{region.regionId}"/>
-                            <p:ajax listener="#{usuarioMB.buscaComunas()}" update="comuna" />
+                            <f:selectItems value="#{verUsuarioMB.regiones}" var="region" itemLabel="#{region.regionNombre}" itemValue="#{region.regionId}"/>
+                            <p:ajax listener="#{verUsuarioMB.buscaComunas()}" update="comuna" />
                         </p:selectOneMenu>
                         <br/>
                         
                         <p:outputLabel for="comuna" value="Comuna" />
-                        <p:selectOneMenu id="comuna" value="#{usuarioMB.comuna}">
+                        <p:selectOneMenu id="comuna" value="#{verUsuarioMB.comuna}">
                             <f:selectItem itemLabel="Seleccionar" itemValue=""/>
-                            <f:selectItems value="#{usuarioMB.comunas}" var="comuna" itemLabel="#{comuna.comunaNombre}" itemValue="#{comuna.comunaId}"/>
+                            <f:selectItems value="#{verUsuarioMB.comunas}" var="comuna" itemLabel="#{comuna.comunaNombre}" itemValue="#{comuna.comunaId}"/>
                         </p:selectOneMenu>
                         <br/>
 
                         <p:outputLabel for="tipo" value="Tipo"/>
-                        <p:pickList id="tipo" value="#{usuarioMB.tiposDualList}" var="tipos" itemValue="#{tipos}" itemLabel="#{tipos}"></p:pickList>
+                        <p:pickList id="tipo" value="#{verUsuarioMB.tiposDualList}" var="tipos" itemValue="#{tipos}" itemLabel="#{tipos}"></p:pickList>
                         <br/>
                     </h:panelGrid>
                     <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Atrás"/>
 
-                    <p:commandButton id="bt1_eliminar" value="Eliminar" actionListener="#{usuarioMB.eliminarUsuario}" update="growl"/>
-                    <p:commandButton id="bt1" value="Guardar" actionListener="#{usuarioMB.guardarUsuario()}" update="growl"/>
+                    <p:commandButton id="bt1_eliminar" value="Eliminar" actionListener="#{verUsuarioMB.eliminarUsuario}" update="growl"/>
+                    <p:commandButton id="bt1" value="Guardar" actionListener="#{verUsuarioMB.guardarUsuario()}" update="growl"/>
 
                     <p:defaultCommand target="bt1" />
                 </p:panel>
