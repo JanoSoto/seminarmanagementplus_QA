@@ -116,7 +116,8 @@ public class ReportesMB implements Serializable {
         for (Propuesta propuesta : propuestas) {
             if ( propuesta.getIdRevisora() != null ){
                 if ( propuesta.getIdRevisora().getTipoRevision() == 2 || // consejo
-                        propuesta.getIdRevisora().getTipoRevision() == 1 ){ // seminario
+                        propuesta.getIdRevisora().getTipoRevision() == 1 ||
+                            propuesta.getIdRevisora().getTipoRevision() == 3){ // seminario
                     propASacar.add(propuesta);
                 }
             }
