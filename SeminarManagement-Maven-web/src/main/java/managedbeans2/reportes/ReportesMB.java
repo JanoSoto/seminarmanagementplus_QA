@@ -61,6 +61,7 @@ public class ReportesMB implements Serializable {
     private Semestre semestre;
     private List<ComisionRevisora> revisoras;
     private List<Propuesta> propuestas;
+    private List<Propuesta> propuestas_totales;
     private List<ComisionCorrectora> correctoras;
     private List<Tema> temas;
     private List<Tema> temasVigentes;
@@ -126,6 +127,38 @@ public class ReportesMB implements Serializable {
         //    revisoras.add(propuesta.getIdRevisora());
         //}
     }
+    
+    public void findPropuestasTotalesSemestre() {
+        // propuestas con comision, eliminando las por acuerdo de consejo
+        /* Descartado por cambio en los requerimientos (ahora se necesitan todas las propuestas)
+        revisoras = revisoraFacade.findBySemestre(semestreActual.getSemestreActual());
+        List<ComisionRevisora> porAcuerdo = new ArrayList<>();
+        for (ComisionRevisora revisora : revisoras) {
+            if ( revisora.getTipoRevision() == 2)
+                porAcuerdo.add(revisora);
+        }
+        revisoras.removeAll(porAcuerdo);
+        */
+        if (semestre == null)
+            return;
+        
+        propuestas_totales = semestre.getPropuestaList();
+        List<Propuesta> propASacar = new ArrayList<>();
+        
+        for (Propuesta propuesta : propuestas_totales) {
+            if ( propuesta.getIdRevisora() != null ){
+                    propASacar.add(propuesta);
+            }
+        }
+        
+        propuestas_totales = propASacar;
+        
+        //for (Propuesta propuesta : propuestas) {
+        //    revisoras.add(propuesta.getIdRevisora());
+        //}
+    }
+    
+    
     
     public void findTemasSemestre() {
         temas = temasFacade.findByEstado(4);
@@ -495,6 +528,15 @@ public class ReportesMB implements Serializable {
 
     public void setPropuestas(List<Propuesta> propuestas) {
         this.propuestas = propuestas;
+    }
+    
+    
+    public List<Propuesta> getPropuestas_totales() {
+        return propuestas_totales;
+    }
+
+    public void setPropuestas_totales(List<Propuesta> propuestas_totales) {
+        this.propuestas_totales = propuestas_totales;
     }
     
     
