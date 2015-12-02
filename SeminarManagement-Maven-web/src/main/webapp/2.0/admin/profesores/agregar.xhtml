@@ -31,6 +31,7 @@
                         <p:outputLabel for="rut" value="Rut"/>
                         <p:inputText id="rut" required="true" value="#{profesorMB.profesor.usuario.rutUsuario}">
                             <f:validator validatorId="rutValidator"/>
+                            <p:ajax event="blur" listener="#{profesorMB.buscarProfesor(actionEvent)}" update="addForm"/>
                         </p:inputText>
                         <p:watermark for="rut" value="Ingresar Rut"/>
 
