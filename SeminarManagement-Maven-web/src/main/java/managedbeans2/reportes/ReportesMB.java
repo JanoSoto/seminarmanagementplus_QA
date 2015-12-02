@@ -63,6 +63,7 @@ public class ReportesMB implements Serializable {
     private List<Propuesta> propuestas;
     private List<ComisionCorrectora> correctoras;
     private List<Tema> temas;
+    private List<Tema> temasVigentes;
     private List<PlanEstudio> planes;
     private List<Profesor> profesoresJC;
     private List<Profesor> profesoresPH;
@@ -128,6 +129,15 @@ public class ReportesMB implements Serializable {
     
     public void findTemasSemestre() {
         temas = temasFacade.findByEstado(4);
+    }
+    
+    public void findTemasSemestreVigente() {
+        List<Tema> vigentes = temasFacade.findByEstado(0);
+        List<Tema> prorrogados = temasFacade.findByEstado(2);
+        List<Tema> vigentesCBF = temasFacade.findByEstado(6);
+        vigentes.addAll(prorrogados);
+        vigentes.addAll(vigentesCBF);
+        temasVigentes = vigentes;
     }
     
     // todos los contadores están en arraylist de enteros
@@ -294,6 +304,14 @@ public class ReportesMB implements Serializable {
 
     public void setTemas(List<Tema> temas) {
         this.temas = temas;
+    }
+    
+    public List<Tema> getTemasVigentes() {
+        return temasVigentes;
+    }
+
+    public void setTemasVigentes(List<Tema> temasVigentes) {
+        this.temasVigentes = temasVigentes;
     }
 
     public List<PlanEstudio> getPlanes() {
@@ -478,5 +496,7 @@ public class ReportesMB implements Serializable {
     public void setPropuestas(List<Propuesta> propuestas) {
         this.propuestas = propuestas;
     }
+    
+    
         
 }
