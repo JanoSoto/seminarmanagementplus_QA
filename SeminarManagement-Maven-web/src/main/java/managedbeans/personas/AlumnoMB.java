@@ -17,6 +17,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import managedbeans.AuthMB;
 import sessionbeans.AlumnoFacadeLocal;
@@ -234,7 +235,7 @@ public class AlumnoMB implements Serializable {
 
             //Validamos que el rut no exista en el sistema
             if (!alumnosIngresados.isEmpty()) {
-                context.addMessage(null, new FacesMessage("ERROR: El Rut ingresado ya existe en el sistema.", ""));
+                context.addMessage(null, new FacesMessage("ERROR: El alumno ingresado ya existe en el sistema.", ""));
                 return null;
             } else if (!profesoresIngresados.isEmpty()) {
                 alumno.setUsuario(profesoresIngresados.get(0).getUsuario());
@@ -273,6 +274,20 @@ public class AlumnoMB implements Serializable {
         }
     }
 
+    public void buscarAlumno(ActionEvent actionEvent){
+        try {
+            FacesContext context = FacesContext.getCurrentInstance();
+            if (!alumnoFacade.findByRut(alumno.getUsuario().getRutUsuario()).isEmpty()) {
+                context.addMessage(null, new FacesMessage("ADVERTENCIA: El rut ingresado ya existe se encuentra registrado como alumno.", ""));
+            }
+            else{
+                usuario = usuarioFacade.findByRut(alumno.getUsuario().getRutUsuario()).get(0);
+                alumno.setUsuario(usuario);
+            }
+        } catch (Exception e) {
+        }
+    }
+    
     public Alumno getAlumno() {
         return alumno;
     }

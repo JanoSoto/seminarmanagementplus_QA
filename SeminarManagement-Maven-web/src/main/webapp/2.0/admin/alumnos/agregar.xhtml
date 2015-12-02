@@ -21,7 +21,7 @@
         </p:layoutUnit>
 
         <p:layoutUnit position="center" style="border:none;">
-            <h:form style="font-weight: bold;">
+            <h:form style="font-weight: bold;" id="agregarAlumno">
                 <p:panel style="border:none;">
                     <h1>Agregar Alumno</h1>
                     <p:growl id="growl" showDetail="true" sticky="true"/>
@@ -30,6 +30,7 @@
                         <p:outputLabel for="rut" value="Rut"/>
                         <p:inputText id="rut" required="true" value="#{alumnoMB.alumno.usuario.rutUsuario}">
                             <f:validator validatorId="rutValidator"/>
+                            <p:ajax event="blur" listener="#{alumnoMB.buscarAlumno(actionEvent)}" update="agregarAlumno"/>
                         </p:inputText>
                         <p:watermark for="rut" value="Ingresar Rut"/>
 
