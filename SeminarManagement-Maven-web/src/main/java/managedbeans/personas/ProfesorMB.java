@@ -17,6 +17,7 @@ import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
+import javax.faces.event.ActionEvent;
 import javax.inject.Named;
 import managedbeans.AuthMB;
 import sessionbeans.AlumnoFacadeLocal;
@@ -236,6 +237,20 @@ public class ProfesorMB implements Serializable {
         jerarquia = null;
     }
 
+    public void buscarProfesor(ActionEvent actionEvent){
+        try {
+            FacesContext context = FacesContext.getCurrentInstance();
+            if (!profesorFacade.findByRut(profesor.getUsuario().getRutUsuario()).isEmpty()) {
+                context.addMessage(null, new FacesMessage("ADVERTENCIA: El rut ingresado ya existe y se encuentra registrado como profesor.", ""));
+            }
+            else{
+                Usuario usuario = usuarioFacade.findByRut(profesor.getUsuario().getRutUsuario()).get(0);
+                profesor.setUsuario(usuario);
+            }
+        } catch (Exception e) {
+        }
+    }
+    
     public Integer getComuna() {
         return comuna;
     }

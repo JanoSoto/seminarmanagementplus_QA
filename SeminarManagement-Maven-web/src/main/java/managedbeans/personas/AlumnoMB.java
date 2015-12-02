@@ -278,7 +278,7 @@ public class AlumnoMB implements Serializable {
         try {
             FacesContext context = FacesContext.getCurrentInstance();
             if (!alumnoFacade.findByRut(alumno.getUsuario().getRutUsuario()).isEmpty()) {
-                context.addMessage(null, new FacesMessage("ADVERTENCIA: El rut ingresado ya existe se encuentra registrado como alumno.", ""));
+                context.addMessage(null, new FacesMessage("ADVERTENCIA: El rut ingresado ya existe y se encuentra registrado como alumno.", ""));
             }
             else{
                 usuario = usuarioFacade.findByRut(alumno.getUsuario().getRutUsuario()).get(0);
