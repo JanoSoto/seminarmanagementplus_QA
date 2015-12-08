@@ -7,32 +7,32 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
-    
+
     <ui:define name="metadata">
         #{accordionPanelMB.setIndex("0")}
         <f:metadata>
             <f:viewParam name="prof" value="#{verProfesorMB.rutProfesor}"/>
         </f:metadata>
     </ui:define>
-    
+
     <ui:define name="title"><title>Editar Profesor | Seminar Management</title></ui:define>
 
     <ui:define name="content">
-        
+
         <c:if test="#{not empty param.prof}">
             #{verProfesorMB.buscarProfesor()}
         </c:if>
-            
-            <p:layoutUnit position="west" size="430" style="border: none;">
-                <p:panel style="border:none;">
-                    <h:panelGrid columns="1" cellpadding="4">
-                        <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Volver a Profesores"/>
-                    </h:panelGrid>
-                </p:panel>
-            </p:layoutUnit>
-            
-            <p:layoutUnit position="center" style="border:none;">
-                <h:form style="font-weight: bold;">
+
+        <p:layoutUnit position="west" size="430" style="border: none;">
+            <p:panel style="border:none;">
+                <h:panelGrid columns="1" cellpadding="4">
+                    <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Volver a Profesores"/>
+                </h:panelGrid>
+            </p:panel>
+        </p:layoutUnit>
+
+        <p:layoutUnit position="center" style="border:none;">
+            <h:form style="font-weight: bold;">
                 <p:panel style="border: none;">
                     <h1>Editar Datos Profesor</h1>
                     <p:growl id="growl" showDetail="true" sticky="true" />
@@ -41,18 +41,6 @@
                         <p:outputLabel for="rut" value="Rut"/>
                         <h:outputText id="rut" value="#{verProfesorMB.profesor.rutFormateadoProfesor}"/>
                         <br/>
-                        
-                        <p:outputLabel></p:outputLabel>
-                        <p:outputLabel></p:outputLabel>
-                        <p:outputLabel></p:outputLabel>
-
-                        <p:outputLabel for="nombre" value="Nombre/s"/>
-                        <p:inputText id="nombre" required="true" value="#{verProfesorMB.profesorEdit.nombreProfesor}"/>
-                        <p:watermark for="nombre" value="Ingresar Nombre"/>
-
-                        <p:outputLabel for="apellido" value="Apellido/s"/>
-                        <p:inputText id="apellido" required="true" value="#{verProfesorMB.profesorEdit.apellidoProfesor}"/>
-                        <p:watermark for="apellido" value="Ingresar Apellido"/>
 
                         <p:outputLabel for="mail" value="E-Mail"/>
                         <p:inputText id="mail" value="#{verProfesorMB.profesorEdit.mailProfesor}">
@@ -60,10 +48,37 @@
                         </p:inputText>
                         <p:watermark for="mail" value="Ingresar E-Mail"/>
 
-                        <p:outputLabel for="celular" value="Celular"/>
+                        <p:outputLabel for="nombre" value="Nombre/s"/>
+                        <p:inputText id="nombre" required="true" value="#{verProfesorMB.profesorEdit.nombreProfesor}"/>
+                        <p:watermark for="nombre" value="Ingresar Nombre"/>
+
+                        <p:outputLabel for="apellido" value="Apellido/s"/>
+                        <p:inputText id="apellido" required="true" value="#{verProfesorMB.profesorEdit.apellidoProfesor}"/>
+                        <p:watermark for="apellido" value="Ingresar Apellido"/>                       
+
+                        <p:outputLabel for="celular" value="Teléfono"/>
                         <p:inputText id="celular" value="#{verProfesorMB.profesorEdit.telefonoProfesor}">
                         </p:inputText>
                         <p:watermark for="celular" value="Ingresar Celular"/>
+
+                        <p:outputLabel for="direccion" value="Dirección"/>
+                        <p:inputText id="direccion" value="#{verProfesorMB.profesorEdit.direccionProfesor}"  style="width: 300px;"/>
+                        <p:watermark for="direccion" value="Ingresar Dirección"/>
+
+                        <p:outputLabel for="region" value="Región"/>
+                        <p:selectOneMenu id="region" value="#{verProfesorMB.regionElegida}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue=""/>
+                            <f:selectItems value="#{verProfesorMB.regiones}" var="region" itemLabel="#{region.regionNombre}" itemValue="#{region.regionId}"/>
+                            <p:ajax listener="#{verProfesorMB.buscaComunas()}" update="comuna" />
+                        </p:selectOneMenu>
+                        <br/>                       
+
+                        <p:outputLabel for="comuna" value="Comuna" />
+                        <p:selectOneMenu id="comuna" value="#{verProfesorMB.comuna}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue=""/>
+                            <f:selectItems value="#{verProfesorMB.comunas}" var="comuna" itemLabel="#{comuna.comunaNombre}" itemValue="#{comuna.comunaId}"/>
+                        </p:selectOneMenu>
+                        <br/>
 
                         <p:outputLabel for="contrato" value="Vínculo DIINF" />
                         <p:selectOneMenu id="contrato" value="#{verProfesorMB.profesorEdit.contrato}">
@@ -71,7 +86,7 @@
                             <f:selectItem itemLabel="JC" itemValue="1" />
                         </p:selectOneMenu>
                         <br/>
-                        
+
                         <p:outputLabel for="jeraquia" value="Jerarquía o Categoría" />
                         <p:selectOneMenu id="jeraquia" required="false" value="#{verProfesorMB.profesorEdit.jerarquiaCategoria}" >
                             <f:selectItem itemLabel="Sin especificar" itemValue=""/>
@@ -83,11 +98,11 @@
                             <f:selectItem itemLabel="ADJ. CAT. I" itemValue="ADJ. CAT. I" />
                             <f:selectItem itemLabel="ADJ. CAT. II" itemValue="ADJ. CAT. II" />
                             <f:selectItem itemLabel="INST. CAT. I" itemValue="INST. CAT. I" />
-                            <f:selectItem itemLabel="INST. CAT. II" itemValue="INST. CAT. II" />                        
+                            <f:selectItem itemLabel="INST. CAT. II" itemValue="INST. CAT. II" />
                             <f:selectItem itemLabel="AYUDANTE" itemValue="AYUDANTE" />
                         </p:selectOneMenu>
                         <br/>
-                        
+
                         <!-- <p:outputLabel for="guia" value="¿Puede ser guía?"/>
                         <p:selectOneMenu id="guia" required="true"  value="#{profesorMB.isProfGuia}">
                             <f:selectItem itemLabel="Seleccionar" itemValue=""/> 
@@ -95,23 +110,23 @@
                             <f:selectItem itemLabel="No" itemValue="1" />
                         </p:selectOneMenu> -->
 
-                        
+
                         <h:inputHidden value="#{verProfesorMB.rutProfeEdit}"/>
                     </h:panelGrid>
 
                     <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="/2.0/secretaria/profesores/profesor.xhtml?prof=#{verProfesorMB.profesor.rutProfesor}" value="Volver a 'Ver Profesor'"/>
                     <p:commandButton id="bt1" value="Editar" actionListener="#{verProfesorMB.editProfesor()}" update="growl"/>
                     <p:defaultCommand target="bt1"/>
-                    </p:panel>
-                </h:form>
-            </p:layoutUnit>
+                </p:panel>
+            </h:form>
+        </p:layoutUnit>
 
         <c:if test="#{empty param.prof}">
             <p:layoutUnit position="center" style="border:none;">
                 Ha ocurrido un error al ingresar a la página. Intente ingresar nuevamente.
             </p:layoutUnit>
         </c:if>
-        
+
     </ui:define>
 
 </ui:composition>

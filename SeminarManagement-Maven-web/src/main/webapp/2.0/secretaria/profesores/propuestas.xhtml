@@ -35,7 +35,7 @@
                         
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Propuestas en total:"/>
                         <h:outputText value="#{verProfesorMB.total}"/>
-                  
+                        
                     </h:panelGrid>
                 </p:panel>
                 
@@ -48,7 +48,9 @@
             </p:layoutUnit>
             
             <p:layoutUnit position="center" style="border:none;">
-                <p:dataTable id="guiasTable" var="prop" value="#{verProfesorMB.propuestaDatos}" filteredValue="#{verProfesorMB.propuestasFiltradas}" filterDelay="100"
+                <p:dataTable id="guiasTable" var="prop" value="#{verProfesorMB.propuestaDatos}" filteredValue="#{verProfesorMB.propuestasFiltradas}" filterDelay="100" paginator="true"
+                             rows="50" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+                             {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
                              emptyMessage="No se encontraron Propuestas">
                     <f:facet name="header">
                         Propuestas
@@ -58,12 +60,12 @@
                             <h:outputText value="#{prop.nombreCorto}"/>
                         </a>
                     </p:column>
-                    <p:column headerText="Alumno" filterBy="#{prop.alumno.nombreAlumno} #{prop.alumno.apellidoAlumno}" filterMatchMode="contains" sortBy="#{tema.nombreCorto}">
+                    <p:column headerText="Alumno" filterBy="#{prop.alumno.nombreAlumno} #{prop.alumno.apellidoAlumno}" filterMatchMode="contains" sortBy="#{prop.alumno.nombreAlumno} #{prop.alumno.apellidoAlumno}">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/alumnos/alumno.xhtml?alum=#{prop.alumno.rutAlumno}">
                             <h:outputText value="#{prop.alumno.nombreAlumno} #{prop.alumno.apellidoAlumno}"/>
                         </a>
                     </p:column>
-                    <p:column headerText="Semestre Inicio">
+                    <p:column headerText="Semestre Inicio" sortBy="#{prop.idSemestre}" filterMatchMode="contains"  filterBy="#{prop.idSemestre}" >
                         <h:outputText value="#{prop.idSemestre}"/>
                     </p:column>
                 </p:dataTable>

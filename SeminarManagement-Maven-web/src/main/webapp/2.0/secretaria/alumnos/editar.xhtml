@@ -42,8 +42,8 @@
                         <br/>
 
                         <p:outputLabel for="mail" value="E-Mail"/>
-                        <p:inputText id="mail" value="#{editarAlumnoMB.alumno.mailAlumno}">
-                            <f:validator validatorId="emailValidator"/>
+                        <p:inputText id="mail" value="#{editarAlumnoMB.alumno.mailAlumno}" style="width: 300px;">
+                            <f:validator validatorId="emailValidator" for="mail"/>
                         </p:inputText>
                         <p:watermark for="mail" value="Ingresar E-Mail"/>
 
@@ -52,19 +52,32 @@
                         <p:watermark for="nombre" value="Ingresar Nombre"/>
 
                         <p:outputLabel for="apellido" value="Apellido/s"/>
-                        <p:inputText required="true" id="apellido" value="#{editarAlumnoMB.alumno.apellidoAlumno}"/>
+                        <p:inputText required="true" id="apellido" value="#{editarAlumnoMB.alumno.apellidoAlumno}" style="width: 300px;"/>
                         <p:watermark for="apellido" value="Ingresar Apellido"/>
 
-                        <p:outputLabel for="celular" value="Celular"/>
+                        <p:outputLabel for="celular" value="Teléfono"/>
                         <p:inputText id="celular" value="#{editarAlumnoMB.alumno.telefonoAlumno}">
-                            <f:validator validatorId="celularValidator" />
                         </p:inputText>
                         <p:watermark for="celular" value="Ingresar Celular"/>
 
                         <p:outputLabel for="direccion" value="Dirección"/>
-                        <p:inputText id="direccion" value="#{editarAlumnoMB.alumno.direccionAlumno}"/>
+                        <p:inputText id="direccion" value="#{editarAlumnoMB.alumno.direccionAlumno}"  style="width: 300px;"/>
                         <p:watermark for="direccion" value="Ingresar Dirección"/>
 
+                        <p:outputLabel for="region" value="Región"/>
+                        <p:selectOneMenu id="region" value="#{editarAlumnoMB.regionElegida}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue=""/>
+                            <f:selectItems value="#{editarAlumnoMB.regiones}" var="region" itemLabel="#{region.regionNombre}" itemValue="#{region.regionId}"/>
+                            <p:ajax listener="#{editarAlumnoMB.buscaComunas()}" update="comuna" />
+                        </p:selectOneMenu>
+                        <br/>                       
+
+                        <p:outputLabel for="comuna" value="Comuna" />
+                        <p:selectOneMenu id="comuna" value="#{editarAlumnoMB.comuna}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue=""/>
+                            <f:selectItems value="#{editarAlumnoMB.comunas}" var="comuna" itemLabel="#{comuna.comunaNombre}" itemValue="#{comuna.comunaId}"/>
+                        </p:selectOneMenu>
+                        <br/>
                     </h:panelGrid>
 
                     <h1>Planes alumno:</h1><br/>
@@ -83,9 +96,9 @@
                                     <!--id="eliminar_boton_asd_#{plan.planEstudio.codigo}_#{plan_version.version}"-->
                                     <!--#{planEstudioMB.getIdPlanActivo(editarAlumnoMB.rutAlumno)} - #{planEstudioMB.getVersionPlanActivo(editarAlumnoMB.rutAlumno)}-->
                                     <c:if test="#{planEstudioMB.getIdPlanActivo(editarAlumnoMB.rutAlumno) != plan.planId or planEstudioMB.getVersionPlanActivo(editarAlumnoMB.rutAlumno) != plan.versionPlan}">
-                                        <p:commandButton  value="Activar" actionListener="#{editarAlumnoMB.setPlanActivoAlumnoSecre(editarAlumnoMB.rutAlumno, plan.planId, plan.versionPlan, plan.planEstudio.codigo, plan.planEstudio.carreraId.nombre)}"  update="growl @form" icon="ui-icon-star"/>
+                                        <p:commandButton  value="Activar" actionListener="#{editarAlumnoMB.setPlanActivoAlumno(editarAlumnoMB.rutAlumno, plan.planId, plan.versionPlan, plan.planEstudio.codigo, plan.planEstudio.carreraId.nombre)}"  update="growl @form" icon="ui-icon-star"/>
                                     </c:if>
-                                    <p:commandButton value="Eliminar" actionListener="#{editarAlumnoMB.eliminarPlanSecre(editarAlumnoMB.rutAlumno, plan.planId, plan.versionPlan)}"  update="growl @form" icon="ui-icon-trash"/>
+                                    <p:commandButton value="Eliminar" actionListener="#{editarAlumnoMB.eliminarPlan(editarAlumnoMB.rutAlumno, plan.planId, plan.versionPlan)}"  update="growl @form" icon="ui-icon-trash"/>
                                 </td>
                             </tr>
                             <!--</p:panel>-->
@@ -98,8 +111,8 @@
                         <table border="0">
                             <c:forEach items="#{planEstudioMB.getAsociacionPlanesEstudio(editarAlumnoMB.rutAlumno)}" var="asociacion">
                                 <tr>
-                                    <td>#{asociacion.planEstudio.codigo} #{asociacion.planEstudio.carreraId.nombre} (Versión #{asociacion.versionPlan})</td>
-                                    <td><p:commandButton value="Agregar Plan" icon="ui-icon-trash" actionListener="#{editarAlumnoMB.agregarPlanAlumnoSecre(asociacion.planId, asociacion.versionPlan)}"/></td>
+                                    <td>#{asociacion.planEstudio.codigo} #{planEstudioMB.getAnioPlan(asociacion.planId, asociacion.versionPlan)}.#{asociacion.versionPlan} #{asociacion.planEstudio.carreraId.nombre}</td>
+                                    <td><p:commandButton value="Agregar Plan" icon="ui-icon-trash" actionListener="#{editarAlumnoMB.agregarPlanAlumno(asociacion.planId, asociacion.versionPlan)}"/></td>
                                 </tr>
                             </c:forEach>
                         </table>
@@ -108,7 +121,8 @@
                         <strong>No existen carreras disponibles para seleccionar</strong>
                     </c:if>
                     <br/>
-                    <p:commandButton id="bt1" value="Guardar" actionListener="#{editarAlumnoMB.editAlumno()}" update="growl @form"/>
+                    <p:commandButton id="bt1" value="Guardar" actionListener="#{editarAlumnoMB.editAlumno()}" update="growl"/>
+
                     <p:defaultCommand target="bt1" />
                     <br/>
 

@@ -56,6 +56,7 @@
                                                
                         <h:inputHidden value="#{verProfesorMB.rutProfeEdit}"/>
                     </h:panelGrid>
+
                     <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="/2.0/secretaria/profesores/profesor.xhtml?prof=#{verProfesorMB.profesor.rutProfesor}" value="Volver a 'Ver Profesor'"/>
                     <p:commandButton id="bt1" value="Editar" actionListener="#{verProfesorMB.editProfesorMaxGuias()}" update="growl"/>
                     <p:defaultCommand target="bt1" />

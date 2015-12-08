@@ -26,7 +26,7 @@
                 <h1>Datos Alumno</h1>
                 <h:panelGrid columns="2" cellpadding="4">
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" for="nombre" value="Nombre:"/>
-                    <h:outputText id="nombre" style="font-weight: bold" value="#{verAlumnoMB.alumno.nombreAlumno} #{verAlumnoMB.alumno.apellidoAlumno}"/>
+                    <h:outputText id="nombre" style="font-weight: bold" value="#{verAlumnoMB.alumno.usuario.nombreUsuario} #{verAlumnoMB.alumno.usuario.apellidoUsuario}"/>
 
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Rut:"/>
                     <h:outputText value="#{verAlumnoMB.alumno.rutAlumnoFormateado}"/>
@@ -36,16 +36,16 @@
                     <h:outputText rendered="#{verAlumnoMB.alumno.jornadaParcial eq 1}" value="Vespertino"/>
 
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" value="E-Mail:"/>
-                    <h:outputText value="#{verAlumnoMB.alumno.mailAlumno}"/>
+                    <h:outputText value="#{verAlumnoMB.alumno.usuario.mailUsuario}"/>
 
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Fono:"/>
-                    <h:outputText value="#{verAlumnoMB.alumno.telefonoAlumno}"/>
+                    <h:outputText value="#{verAlumnoMB.alumno.usuario.telefonoUsuario}"/>
 
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Dirección:"/>
-                    <h:outputText value="#{verAlumnoMB.alumno.direccionAlumno}"/>
+                    <h:outputText value="#{verAlumnoMB.alumno.usuario.direccionUsuario}"/>
 
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Plan Activo:"/>
-                    <h:outputText value=" #{verAlumnoMB.getAnioPlan(verAlumnoMB.alumno.idPlanActivo, verAlumnoMB.alumno.versionPlanActivo)}"/>
+                        <h:outputText value=" #{verAlumnoMB.getAnioPlan(verAlumnoMB.alumno.idPlanActivo, verAlumnoMB.alumno.versionPlanActivo)}"/>
                 </h:panelGrid>
             </p:panel>
 
@@ -56,9 +56,12 @@
                     <h:panelGroup id="botonAgregarProp" layout="block" >
                         <p:button style="width:140px;" disabled="#{empty verAlumnoMB.alumno.idPlanActivo}" href="/2.0/secretaria/propuestas/agregar.xhtml?alum=#{verAlumnoMB.alumno.rutAlumno}" value="Agregar Propuesta"/>
                     </h:panelGroup>
+                    <h:panelGroup id="comprobante" layout="block">
                     <p:button value="Descargar Comprobante de pago" style="width:150px" href="/DocComprobante?id=#{verAlumnoMB.rutAlumno}"/>
+                    </h:panelGroup>
+                    <h:panelGroup id="genero" layout="block">
                     <p:button value="Descargar Solicitud de genero" style="width:150px" href="/DocGenero?id=#{verAlumnoMB.rutAlumno}"/>
-                    
+                    </h:panelGroup>
                     <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Volver a Alumnos"/>
                 </h:panelGrid>
                 <p:tooltip id="tooltipAgregarProp" rendered="#{empty verAlumnoMB.alumno.idPlanActivo}"
@@ -71,22 +74,22 @@
             <!-- Mensaje al eliminar hitos-->
             <p:growl id="growl" showDetail="true" sticky="true" autoUpdate="true" />
 
-            <p:dataTable id="propTable" var="prop" value="#{verAlumnoMB.propDatos}" emptyMessage="No se encontraron Propuestas">
+            <p:dataTable id="propTable" var="prop" value="#{verAlumnoMB.alumno.propuestaList}" emptyMessage="No se encontraron Propuestas">
                 <f:facet name="header">
                     Propuestas
                 </f:facet>
                 <p:column headerText="Título">
                     <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/propuestas/propuesta.xhtml?prop=#{prop.idPropuesta}">
-                        <h:outputText value="#{prop.nombreCorto}"/>
+                        <h:outputText value="#{prop.nombrePropuesta}"/>
                     </a>
                 </p:column>
                 <p:column headerText="Guía">
-                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/profesores/profesor.xhtml?prof=#{prop.guia.rutProfesor}">
-                        <h:outputText value="#{prop.guia.nombreProfesor} #{prop.guia.apellidoProfesor}"/>
+                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/profesores/profesor.xhtml?prof=#{prop.profesorGuia.usuario.rutUsuario}">
+                        <h:outputText value="#{prop.profesorGuia.usuario.nombreUsuario} #{prop.profesorGuia.usuario.apellidoUsuario}"/>
                     </a>
                 </p:column>
                 <p:column headerText="Plan">
-                    <h:outputText value="#{verAlumnoMB.getAnioPlan(prop.propuesta.idPlan, prop.propuesta.versionPlan)}" />
+                    <h:outputText value="#{verAlumnoMB.getAnioPlan(prop.idPlan, prop.versionPlan)}" />
                 </p:column>
             </p:dataTable>
 
@@ -96,14 +99,14 @@
                 <f:facet name="header">
                     Temas
                 </f:facet>
-                <p:column headerText="Título">
+                <p:column headerText="Nombre">
                     <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/temas/tema.xhtml?tema=#{tema.idTema}">
                         <h:outputText value="#{tema.nombreCorto}"/>
                     </a>
                 </p:column>
                 <p:column headerText="Guía">
-                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/profesores/profesor.xhtml?prof=#{tema.guia.rutProfesor}">
-                        <h:outputText value="#{tema.guia.nombreProfesor} #{tema.guia.apellidoProfesor}"/>
+                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/profesores/profesor.xhtml?prof=#{tema.guia.usuario.rutUsuario}">
+                        <h:outputText value="#{tema.guia.usuario.nombreUsuario} #{tema.guia.usuario.apellidoUsuario}"/>
                     </a>
                 </p:column>
                 <p:column headerText="Estado">

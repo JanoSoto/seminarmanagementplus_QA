@@ -38,7 +38,7 @@
                         <br/>
                         
                         <p:outputLabel for="alumnoP2" style="color: #0052cc;font-weight: bold;" value="Carrera" />
-                        <h:outputText id="alumnoP2" value="#{verPropuestaMB.propuesta.rutAlumno.planActivo.codigo} #{verPropuestaMB.propuesta.rutAlumno.planActivo.carreraId.nombre} #{verPropuestaMB.propuesta.rutAlumno.versionPlanActivo}"/>
+                        <h:outputText id="alumnoP2" value="#{verPropuestaMB.getNombrePlan(verPropuestaMB.propuesta.planActivo.id, verPropuestaMB.propuesta.rutAlumno.versionPlanActivo)}"/>
                         <br/>
 
                         <p:outputLabel for="profP" style="color: #0052cc;font-weight: bold;" value="Guía" />
@@ -54,7 +54,7 @@
                         <p:watermark for="nombreT" value="Ingresar Nombre"/>
 
                         <p:outputLabel for="calendT" value="Fecha Tema *" />
-                        <p:calendar id="calendT" value="#{agregarTemaMB.date}" mode="popup"/>
+                        <p:calendar id="calendT" value="#{agregarTemaMB.date}" mode="popup" />
                         <p:watermark for="calendT" value="Seleccionar Fecha"/>
 
                         <p:outputLabel for="semestreT" value="Semestre Tema *"  />

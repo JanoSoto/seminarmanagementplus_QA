@@ -112,11 +112,10 @@
                 </p:column>
 
                 <p:column headerText="Total" sortBy="#{profesor.temasVigentes}">
-                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/profesores/profesor.xhtml?prof=#{profesor.profesor.rutProfesor}">
+                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/profesores/profesor.xhtml?prof=#{prof.profesor.rutProfesor}">
                         <h:outputText value="#{profesor.temasVigentes}" />
                     </a>
                 </p:column>
-                
 
                 <p:columnGroup type="footer">
                     <p:row>

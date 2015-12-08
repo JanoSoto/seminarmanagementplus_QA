@@ -27,7 +27,7 @@
                     <h1>Agregar Calificaciones</h1>
                     <p:growl id="growl" showDetail="true" sticky="true" />
                     #{calificacionTema2MB.setIdTema(verTemaMB.idTema)}
-                        
+                    
                     <h:panelGrid columns="4" cellpadding="4">
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" for="nombre" value="Título"/>
                         <h:outputText id="nombre" value="#{verTemaMB.tema.nombreTema}"/>
@@ -54,8 +54,6 @@
                         <p:inputMask id="notaProfGPInf" value="#{calificacionTema2MB.notaProfeGuiaInf}" mask="9.9" style="width: 50px"/>
                         <p:inputMask id="notaProfGPDef" value="#{calificacionTema2MB.notaProfeGuiaDef}" mask="9.9" style="width: 50px"/>
 
-
-
                         <p:outputLabel for="notaProfC1Inf" value="Profesor Corrector 1 *" />
                         <h:outputText style="color: #0052cc;" id="profeC1" value="#{verTemaMB.corrector1.nombreProfesor} #{verTemaMB.corrector1.apellidoProfesor}"/>
                         <p:inputMask id="notaProfC1Inf" value="#{calificacionTema2MB.notaProfe1Inf}" mask="9.9" style="width: 50px"/>
@@ -75,7 +73,6 @@
                         <p:calendar id="calendP2" value="#{calificacionTema2MB.date2}" mode="popup"/>
                         <p:watermark for="calendP2" value="Seleccionar Fecha"/>
                         
-
                         <h:inputHidden value="#{calificacionTema2MB.idTema}"/>
 
                     </h:panelGrid>

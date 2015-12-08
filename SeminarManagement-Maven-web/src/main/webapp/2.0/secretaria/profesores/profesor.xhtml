@@ -7,21 +7,21 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
-    
+
     <ui:define name="metadata">
         #{accordionPanelMB.setIndex("0")}
         <f:metadata>
             <f:viewParam name="prof" value="#{verProfesorMB.rutProfesor}"/>
         </f:metadata>
     </ui:define>
-    
+
     <ui:define name="title"><title>Ver Profesor | Seminar Management</title></ui:define>
 
     <ui:define name="content">
-        
+
         <c:if test="#{not empty param.prof}">
             #{verProfesorMB.buscarProfesor()}
-            
+
             <p:layoutUnit position="west" size="430" style="border: none;">
 
                 <p:panel style="border:none;">
@@ -40,11 +40,11 @@
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Jerarquía o categoría:"/>
                         <h:outputText rendered="#{empty verProfesorMB.profesor.jerarquiaCategoria}" value="Sin especificar"/>
                         <h:outputText rendered="#{not empty verProfesorMB.profesor.jerarquiaCategoria}" value="#{verProfesorMB.profesor.jerarquiaCategoria}"/>
-                        
+
                         <p:outputLabel rendered="#{verProfesorMB.profesor.contrato eq 0}" style="color: #0052cc;font-weight: bold;" value="Puede guiar alumnos: "/>
                         <h:outputText rendered="#{verProfesorMB.profesor.tipoProfesor eq 0 and verProfesorMB.profesor.contrato eq 0}" value="Sí"/>
                         <h:outputText rendered="#{verProfesorMB.profesor.tipoProfesor eq 1 and verProfesorMB.profesor.contrato eq 0}" value="No"/>
-                        
+
                         <p:outputLabel rendered="#{verProfesorMB.profesor.tipoProfesor eq 0 and verProfesorMB.profesor.contrato eq 0 and verProfesorMB.profesor.maximoGuias != null}" style="color: #0052cc;font-weight: bold;" value="Cantidad máxima de guias: "/>
                         <h:outputText rendered="#{verProfesorMB.profesor.tipoProfesor eq 0 and verProfesorMB.profesor.contrato eq 0 and verProfesorMB.profesor.maximoGuias != null}" value="#{verProfesorMB.profesor.maximoGuias}"/>
 
@@ -55,29 +55,28 @@
                         <h:outputText value="#{verProfesorMB.profesor.telefonoProfesor}"/>
                     </h:panelGrid>
                 </p:panel>
-                
+
                 <p:panel style="border:none;">
                     <h1>Acciones</h1>
                     <h:panelGrid columns="1" cellpadding="4">
                         <p:button style="width:140px;" value="Editar Datos" icon="ui-icon-pencil" iconPos="right" href="/2.0/secretaria/profesores/editar.xhtml?prof=#{verProfesorMB.profesor.rutProfesor}"/>
                         <p:button style="width:140px;" rendered="#{verProfesorMB.profesor.contrato eq 0}" icon="ui-icon-pencil" iconPos="right" value="Editar Autorizaciones" href="/2.0/secretaria/profesores/editarGuias.xhtml?prof=#{verProfesorMB.profesor.rutProfesor}" />
-                        
                         <p:button style="width:140px;" href="/2.0/secretaria/profesores/propuestas.xhtml?prof=#{verProfesorMB.profesor.rutProfesor}" value="Ver Propuestas"/>
-                        
                         <p:button style="width:140px;" href="/2.0/secretaria/profesores/temas.xhtml?prof=#{verProfesorMB.profesor.rutProfesor}" value="Ver Temas"/>
                         <p:button style="width:140px;" href="/Profesor?id=#{verProfesorMB.profesor.rutProfesor}" value="Descargar Informe"/>
+
                         <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Volver a Profesores"/>
-                        
+
                     </h:panelGrid>
                 </p:panel>
             </p:layoutUnit>
-            
+
             <p:layoutUnit position="center" style="border:none;">
                 <p:dataTable id="guiasTable" var="tema" value="#{verProfesorMB.temaDatos}" emptyMessage="No se encontraron Temas">
                     <f:facet name="header">
                         Temas Vigentes #{semestreActual.semestre}
                     </f:facet>
-                    <p:column headerText="Nombre" width="400px;">
+                    <p:column headerText="Título" width="400px;">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/temas/tema.xhtml?tema=#{tema.idTema}">
                             <h:outputText value="#{tema.nombreCorto}"/>
                         </a>
@@ -93,7 +92,7 @@
                     <f:facet name="header">
                         Temas Prorrogados #{semestreActual.semestre}
                     </f:facet>
-                    <p:column headerText="Nombre" width="400px;">
+                    <p:column headerText="Título" width="400px;">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/temas/tema.xhtml?tema=#{tema.idTema}">
                             <h:outputText value="#{tema.nombreCorto}"/>
                         </a>
@@ -108,7 +107,7 @@
                     <f:facet name="header">
                         Participación Comisión Correctora #{semestreActual.semestre}
                     </f:facet>
-                    <p:column headerText="Nombre" width="400px;">
+                    <p:column headerText="Título" width="400px;">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/temas/tema.xhtml?tema=#{tema.idTema}">
                             <h:outputText value="#{tema.nombreCorto}"/>
                         </a>
@@ -123,7 +122,7 @@
                     <f:facet name="header">
                         Participación Comisión Correctora #{semestreActual.semestreAnterior}
                     </f:facet>
-                    <p:column headerText="Nombre" width="400px;">
+                    <p:column headerText="Título" width="400px;">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/temas/tema.xhtml?tema=#{tema.idTema}">
                             <h:outputText value="#{tema.nombreCorto}"/>
                         </a>
@@ -138,7 +137,7 @@
                     <f:facet name="header">
                         Participación Comisión Revisora #{semestreActual.semestre}
                     </f:facet>
-                    <p:column headerText="Nombre" width="400px;">
+                    <p:column headerText="Título" width="400px;">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/propuestas/propuesta.xhtml?prop=#{propuesta.idPropuesta}">
                             <h:outputText value="#{propuesta.nombreCorto}"/>
                         </a>
@@ -153,7 +152,7 @@
                     <f:facet name="header">
                         Participación Comisión Revisora #{semestreActual.semestreAnterior}
                     </f:facet>
-                    <p:column headerText="Nombre" width="400px;">
+                    <p:column headerText="Título" width="400px;">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/propuestas/propuesta.xhtml?prop=#{propuesta.idPropuesta}">
                             <h:outputText value="#{propuesta.nombreCorto}"/>
                         </a>
@@ -166,13 +165,13 @@
                 </p:dataTable>
             </p:layoutUnit>
         </c:if>
-        
+
         <c:if test="#{empty param.prof}">
             <p:layoutUnit position="center" style="border:none;">
                 Ha ocurrido un error al ingresar a la página. Intente ingresar nuevamente.
             </p:layoutUnit>
         </c:if>
-        
+
     </ui:define>
 
 </ui:composition>

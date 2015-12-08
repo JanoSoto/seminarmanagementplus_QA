@@ -26,7 +26,13 @@
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" for="nombre" value="Título:"/>
                     <h:outputText id="nombre" style="font-weight: bold;padding-left: 1em;" value="#{verTemaMB.tema.nombreTema}"/>
                     <br/>
-
+                    
+                    <!--<p:outputLabel style="color: #0052cc;font-weight: bold;" value="Título propuesta:"/>-->
+<!--                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/propuestas/propuesta.xhtml?prop=#{verTemaMB.buscarIdPropuestaDelTema(verTemaMB.idTema)}">
+                        <h:outputText id="nombrePropuesta" style="font-weight: bold;padding-left: 1em;" value="#{verTemaMB.buscarPropuestaDelTema(verTemaMB.idTema)}"/>
+                    </a>
+                    <br/>-->
+                    
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Alumno:"/>
                     <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/alumnos/alumno.xhtml?alum=#{verTemaMB.tema.idRevisora.idPropuesta.rutAlumno.rutAlumno}">
                         <h:outputText style="padding-left: 1em;" value="#{verTemaMB.tema.idRevisora.idPropuesta.rutAlumno.nombreAlumno} #{verTemaMB.tema.idRevisora.idPropuesta.rutAlumno.apellidoAlumno}"/>
@@ -94,6 +100,7 @@
                                       disabled="#{empty verTemaMB.tema.idCorrectora.fechaCorreccion or empty verTemaMB.tema.idCorrectora.fechaCorreccion2
                                                   or empty verTemaMB.tema.idCorrectora.fechaEntCorreccion or empty verTemaMB.tema.idCorrectora.fechaEntCorreccion2}"/>
                         </h:panelGroup>
+                        <p:button style="width:140px;" rendered="#{verTemaMB.tema.estadoTema eq 7 || verTemaMB.tema.estadoTema eq 1}" href="/2.0/secretaria/temas/modificarCalificaciones.xhtml?tema=#{verTemaMB.tema.idTema}" value="Modificar Calificaciones"/>
                         <p:button style="width:140px;" rendered="#{verTemaMB.tema.estadoTema eq 0}" href="/2.0/secretaria/temas/caducarrenuncia.xhtml?tema=#{verTemaMB.tema.idTema}" value="Renunciar"/>
                         <p:button style="width:140px;" rendered="#{empty verTemaMB.tema.idCorrectora and verTemaMB.tema.estadoTema eq 0}" href="/2.0/secretaria/temas/caducar.xhtml?tema=#{verTemaMB.tema.idTema}" value="Caducar"/>
                         <p:button style="width:140px;" href="/2.0/secretaria/temas/editarTema.xhtml?tema=#{verTemaMB.tema.idTema}" value="Editar Tema"/>
@@ -105,7 +112,7 @@
                                 <f:param name="id" value="#{verTemaMB.idTema}" />
                             </h:link>
                         </h:form>
-                        <p:button value="Descargar Doc. Antecedentes" 
+                         <p:button value="Descargar Doc. Antecedentes" 
                                   style="width:150px" 
                                   href="/DocAntecedentes?id=#{verTemaMB.idTema}"/>
                         <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Volver a Temas"/>
@@ -114,7 +121,6 @@
                 <p:tooltip id="ttBotonCalificar" rendered="#{empty verTemaMB.tema.idCorrectora.fechaCorreccion or empty verTemaMB.tema.idCorrectora.fechaCorreccion2
                                                   or empty verTemaMB.tema.idCorrectora.fechaEntCorreccion or empty verTemaMB.tema.idCorrectora.fechaEntCorreccion2}"
                                    for="botonCalificar" value="Debe ingresar las fechas de correción antes de las calificaciones"/>
-                
                 <p:dialog modal="true" appendToBody="true" header="Confirmación" widgetVar="confirmation" width="350" closeOnEscape="true" closable="true" draggable="false" resizable="false" >
                     <strong>¿Está seguro? Esta acción generará los siguientes cambios dentro del sistema.</strong><br/>
                     <ul>

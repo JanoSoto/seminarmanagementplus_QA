@@ -45,7 +45,6 @@
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Profesor Corrector 1 "/>
                         <h:outputText style="font-weight: normal;" value="#{comisionCorrectora2MB.corrector1.nombreProfesor} #{comisionCorrectora2MB.corrector1.apellidoProfesor}"/>
                         <br/>
-                        
                    
                         <p:outputLabel for="calendP" value="Fecha de entrega al profesor " />
                         <p:calendar id="calendP" value="#{comisionCorrectora2MB.date}" mode="popup"/>
@@ -58,23 +57,19 @@
                         
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Profesor Corrector 2 "/>
                         <h:outputText style="font-weight: normal;" value="#{comisionCorrectora2MB.corrector2.nombreProfesor} #{comisionCorrectora2MB.corrector2.apellidoProfesor}"/>
-                        <br/>
-                        
+                        <br/>           
                         
                         <p:outputLabel for="calendP3" value="Fecha de entrega al profesor " />
                         <p:calendar id="calendP3" value="#{comisionCorrectora2MB.date3}" mode="popup"/>
                         <p:watermark for="calendP3" value="Ingresar Fecha"/>
                         
-                        
                         <p:outputLabel for="calendP4" value="Fecha de devolución con correciones del profesor " />
                         <p:calendar id="calendP4" value="#{comisionCorrectora2MB.date4}" mode="popup"/>
                         <p:watermark for="calendP4" value="Ingresar Fecha"/>
 
-
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Semestre Revisión "/>
                         <h:outputText style="font-weight: normal;" value="#{comisionCorrectora2MB.semestreCorr}"/>
                         <br/>
-                        
 
                         <h:inputHidden value="#{comisionCorrectora2MB.idTema}"/>
 

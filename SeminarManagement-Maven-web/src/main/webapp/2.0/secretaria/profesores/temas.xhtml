@@ -36,6 +36,7 @@
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Temas en total:"/>
                         <h:outputText value="#{verProfesorMB.total}"/>
 
+                     
                     </h:panelGrid>
                 </p:panel>
 
@@ -51,24 +52,24 @@
             </p:layoutUnit>
 
             <p:layoutUnit position="center" style="border:none;">
-                <p:dataTable id="guiasTable" var="tema" value="#{verProfesorMB.temaDatos}" emptyMessage="No se encontraron Temas">
+                <p:dataTable id="guiasTable" var="tema" value="#{verProfesorMB.temaDatosTodosLosSemestres}" emptyMessage="No se encontraron Temas">
                     <f:facet name="header">
                         Listado histórico de temas
                     </f:facet>
-                    <p:column headerText="Título">
+                    <p:column headerText="Título" sortBy="#{tema.nombreCorto}">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/temas/tema.xhtml?tema=#{tema.idTema}">
                             <h:outputText value="#{tema.nombreCorto}"/>
                         </a>
                     </p:column>
-                    <p:column headerText="Alumno">
+                    <p:column headerText="Alumno" sortBy="#{tema.alumno.nombreAlumno} #{tema.alumno.apellidoAlumno}">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/alumnos/alumno.xhtml?alum=#{tema.alumno.rutAlumno}">
                             <h:outputText value="#{tema.alumno.nombreAlumno} #{tema.alumno.apellidoAlumno}"/>
                         </a>
                     </p:column>
-                    <p:column headerText="Estado">
+                    <p:column headerText="Estado" sortBy="#{tema.estadoTema}">
                         <h:outputText value="#{tema.estadoTema}"/>
                     </p:column>
-                    <p:column headerText="Semestre Inicio">
+                    <p:column headerText="Semestre Inicio" sortBy="#{tema.semestreTema}">
                         <h:outputText value="#{tema.semestreTema}"/>
                     </p:column>
                 </p:dataTable>
