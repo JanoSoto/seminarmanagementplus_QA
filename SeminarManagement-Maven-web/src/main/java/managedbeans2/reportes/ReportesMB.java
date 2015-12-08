@@ -143,7 +143,8 @@ public class ReportesMB implements Serializable {
         if (semestre == null)
             return;
         
-        propuestas_totales = semestre.getPropuestaList();
+        //propuestas_totales = semestre.getPropuestaList();
+        propuestas_totales = propuestaFacade.findAll();
         List<Propuesta> propASacar = new ArrayList<>();
         
         for (Propuesta propuesta : propuestas_totales) {
@@ -154,9 +155,6 @@ public class ReportesMB implements Serializable {
         
         propuestas_totales = propASacar;
         
-        //for (Propuesta propuesta : propuestas) {
-        //    revisoras.add(propuesta.getIdRevisora());
-        //}
     }
     
     
