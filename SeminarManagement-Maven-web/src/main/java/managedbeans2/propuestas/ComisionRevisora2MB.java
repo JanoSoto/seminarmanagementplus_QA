@@ -14,24 +14,24 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import sessionbeans.AlumnoFacadeLocal;
-import sessionbeans.ComisionRevisoraFacadeLocal;
-import sessionbeans.ProfeRevisionFacadeLocal;
-import sessionbeans.ProfesorFacadeLocal;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
+import managedbeans.AuthMB;
+import sessionbeans.AlumnoFacadeLocal;
+import sessionbeans.ComisionRevisoraFacadeLocal;
+import sessionbeans.HistorialFacadeLocal;
+import sessionbeans.ProfeRevisionFacadeLocal;
+import sessionbeans.ProfesorFacadeLocal;
+import sessionbeans.PropuestaFacadeLocal;
 import sessionbeans.SemestreActualFacadeLocal;
 import sessionbeans.SemestreFacadeLocal;
-import javax.inject.Named;
-import javax.faces.bean.ManagedProperty;
-import managedbeans.AuthMB;
-import sessionbeans.HistorialFacadeLocal;
-import sessionbeans.PropuestaFacadeLocal;
 
 /**
  *
@@ -76,7 +76,6 @@ public class ComisionRevisora2MB implements Serializable {
     @PostConstruct
     public void init() {
         //Para inicializar el managed property, si no no se puede acceder a esos datos
-
         FacesContext context = FacesContext.getCurrentInstance();
 
         //Seteamos el semestre a semestre actual
@@ -474,7 +473,6 @@ public class ComisionRevisora2MB implements Serializable {
         FacesContext context = FacesContext.getCurrentInstance();
         Map<String, String> params = context.getExternalContext().getRequestParameterMap();
         String propuestaId = params.get("prop");
-
         if (date != null && date2 != null) {
             if (date.compareTo(date2) > 0) {
                 context.addMessage(null, new FacesMessage("Error", "Fecha de entrega al profesor revisor 1 no puede ser menor a su fecha de devolución con correcciones"));
