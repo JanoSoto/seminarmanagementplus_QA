@@ -251,6 +251,9 @@ public class VerUsuarioMB implements Serializable{
         this.comuna = usuario.getComuna().getComunaId();
         this.buscaComunas();
         this.apellidoUsuario = usuario.getApellidoUsuario();
+        this.direccionUsuario = usuario.getDireccionUsuario();
+        this.mailUsuario = usuario.getMailUsuario();
+        this.telefonoUsuario = usuario.getTelefonoUsuario();
         this.comuna = usuario.getComuna().getComunaId();
         this.uid = uid.toUpperCase();
         this.estaEditando = true;

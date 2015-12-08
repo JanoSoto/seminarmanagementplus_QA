@@ -83,6 +83,8 @@ public class ProfesorMB implements Serializable {
     public String create() {
         try {
             FacesContext context = FacesContext.getCurrentInstance();
+            profesor.setRutProfesor(profesor.getRutProfesor().replace(".", ""));
+            profesor.setRutProfesor(profesor.getRutProfesor().replace("-", ""));
             List<Profesor> profesoresIngresados = profesorFacade.findByRut(profesor.getRutProfesor());
             List<Alumno> alumnosIngresados = alumnoFacade.findByRut(profesor.getRutProfesor());
             List<Usuario> usuariosIngresados = usuarioFacade.findByRut(profesor.getRutProfesor());

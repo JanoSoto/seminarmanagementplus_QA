@@ -229,6 +229,8 @@ public class AlumnoMB implements Serializable {
     public String create() {
         try {
             FacesContext context = FacesContext.getCurrentInstance();
+            alumno.setRutAlumno(alumno.getRutAlumno().replace(".", ""));
+            alumno.setRutAlumno(alumno.getRutAlumno().replace("-", ""));
             List<Alumno> alumnosIngresados = alumnoFacade.findByRut(alumno.getRutAlumno());
             List<Profesor> profesoresIngresados = profesorFacade.findByRut(alumno.getRutAlumno());
             List<Usuario> usuariosIngresados = usuarioFacade.findByRut(alumno.getRutAlumno());

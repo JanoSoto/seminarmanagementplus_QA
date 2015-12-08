@@ -24,7 +24,7 @@
             <h:form style="font-weight: bold;">
                 <p:panel style="border:none;">
                     <p:growl id="growl" showDetail="true" sticky="true"/>
-                    <h:panelGrid columns="3" cellpadding="4">
+                    <h:panelGrid columns="6" cellpadding="4">
 
                         <c:if test="#{empty param.uid}">
                             <p:outputLabel for="rut" value="Rut"/>
@@ -58,6 +58,14 @@
                         <p:inputText id="apellido" required="true" value="#{verUsuarioMB.apellidoUsuario}"/>
                         <p:watermark for="apellido" value="Ingresar Apellido"/>
                         
+                        <p:outputLabel for="mail" value="Email"/>
+                        <p:inputText id="mail" value="#{verUsuarioMB.mailUsuario}"/>
+                        <p:watermark for="mail" value="Ingresar Email"/>
+                        
+                        <p:outputLabel for="telefono" value="Teléfono"/>
+                        <p:inputText id="telefono" value="#{verUsuarioMB.telefonoUsuario}"/>
+                        <p:watermark for="telefono" value="Ingresar Teléfono"/>
+                        
                         <p:outputLabel for="region" value="Región"/>
                         <p:selectOneMenu id="region" value="#{verUsuarioMB.regionElegida}">
                             <f:selectItem itemLabel="Seleccionar" itemValue=""/>
@@ -73,6 +81,10 @@
                         </p:selectOneMenu>
                         <br/>
 
+                        <p:outputLabel for="direccion" value="Dirección"/>
+                        <p:inputText id="direccion" value="#{verUsuarioMB.direccionUsuario}"/>
+                        <p:watermark for="direccion" value="Ingresar direccion"/>
+                        
                         <p:outputLabel for="tipo" value="Tipo"/>
                         <p:pickList id="tipo" value="#{verUsuarioMB.tiposDualList}" var="tipos" itemValue="#{tipos}" itemLabel="#{tipos}"></p:pickList>
                         <br/>
