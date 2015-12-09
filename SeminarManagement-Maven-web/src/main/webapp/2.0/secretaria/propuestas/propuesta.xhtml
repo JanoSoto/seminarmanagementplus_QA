@@ -127,9 +127,9 @@
                         </ul>
                         <hr/>
 
-                        <p:commandButton value="Sí" oncomplete="confirmation.hide()"
+                        <p:commandButton value="Sí" oncomplete="PF('confirmation').hide()"
                                          actionListener="#{eliminarMB.removeByPropuesta(verPropuestaMB.idPropuesta)}" process="@this" onsuccess="alert('Datos Eliminados!')" update="growl"/>
-                        <p:commandButton value="No" onclick="confirmation.hide()" type="button" />
+                        <p:commandButton value="No" onclick="PF('confirmation').hide()" type="button" />
 
                     </p:dialog>
 
