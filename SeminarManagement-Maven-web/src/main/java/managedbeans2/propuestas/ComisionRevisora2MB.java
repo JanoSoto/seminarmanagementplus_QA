@@ -1001,11 +1001,11 @@ public class ComisionRevisora2MB implements Serializable {
             return false;
 
         } else {
-            if (c > d) {
+            if (c > d && a==b) {
                 context.addMessage(null, new FacesMessage("Mes de la fecha", "La fecha debe ser mayor o igual a " + fecha));
                 return false;
             } else {
-                if (e > f && c >= d) {
+                if (e > f && c >= d && a==b) {
                     context.addMessage(null, new FacesMessage("Dia de la fecha", "La fecha debe ser mayor o igual a " + fecha));
                     return false;
                 }
