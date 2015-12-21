@@ -548,7 +548,7 @@ public class ComisionRevisora2MB implements Serializable {
                 context.addMessage(null, new FacesMessage("Profesor Revisor", "Los Profesores revisores deben ser distintos"));
                 return;
             }
-        } else if ( tipoRevision == 1 ){ // seminario
+        } else if ( tipoRevision == 1 || tipoRevision == 3 ){ // seminario o magister
         //Se valida que se halla seleccionado profesor1
             if (rutProfeRev1Sem.equals("-")) {
                 context.addMessage(null, new FacesMessage("Profesor Revisor 1", "Debe seleccionar Profesor"));
@@ -728,7 +728,7 @@ public class ComisionRevisora2MB implements Serializable {
             profesorFacade.edit(profRev1);
             profRev2.add(nuevoProfeRevision2);
             profesorFacade.edit(profRev2);
-        } else if ( tipoRevision == 1 ){
+        } else if ( tipoRevision == 1 || tipoRevision == 3 ){
             //Profes
             Profesor profRev1 = profesorFacade.findByRut(rutProfeRev1Sem).get(0);
             Profesor profRev2 = profesorFacade.findByRut(rutProfeRev2Sem).get(0);

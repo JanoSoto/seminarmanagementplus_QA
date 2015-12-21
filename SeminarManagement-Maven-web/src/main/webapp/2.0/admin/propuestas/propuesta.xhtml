@@ -77,6 +77,7 @@
                         <p:button style="width:150px;" rendered="#{ (not empty verPropuestaMB.propuesta.idRevisora) and (verPropuestaMB.propuesta.idRevisora.tipoRevision eq 0)}" href="/2.0/admin/propuestas/editarComRev.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Agregar/Editar Fechas Comisión"/>
                         <p:button style="width:150px;" rendered="#{ (not empty verPropuestaMB.propuesta.idRevisora) and (verPropuestaMB.propuesta.idRevisora.tipoRevision eq 2)}" href="/2.0/admin/propuestas/editarComRevFechasConsejo.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Agregar/Editar Fechas"/>
                         <p:button style="width:150px;" rendered="#{ (not empty verPropuestaMB.propuesta.idRevisora) and (verPropuestaMB.propuesta.idRevisora.tipoRevision eq 1)}" href="/2.0/admin/propuestas/editarComRevFechasSeminario.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Agregar/Editar Fechas"/>
+                        <p:button style="width:150px;" rendered="#{ (not empty verPropuestaMB.propuesta.idRevisora) and (verPropuestaMB.propuesta.idRevisora.tipoRevision eq 3)}" href="/2.0/admin/propuestas/editarComRevFechasSeminario.xhtml?prop=#{verPropuestaMB.propuesta.idPropuesta}" value="Agregar/Editar Fechas"/>
                         <h:panelGroup rendered="#{empty verPropuestaMB.propuesta.idRevisora.idTema
                                                   and not empty verPropuestaMB.propuesta.idRevisora}" id="botonAgregarTema" layout="block" >
                             <p:button style="width:150px;"
@@ -193,7 +194,7 @@
                 </p:column>
             </p:dataTable>
             
-            <p:dataTable rendered="#{verPropuestaMB.propuesta.idRevisora.tipoRevision eq 1}" value="#{verPropuestaMB.propuesta.idRevisora}" var="com">
+            <p:dataTable rendered="#{verPropuestaMB.propuesta.idRevisora.tipoRevision eq 1 || verPropuestaMB.propuesta.idRevisora.tipoRevision eq 3}" value="#{verPropuestaMB.propuesta.idRevisora}" var="com">
                 <p:column >
                     <h:outputText value="Fecha de entrega en secretaría : #{com.fechaPublicacionConsejo}"></h:outputText>
                 </p:column>
