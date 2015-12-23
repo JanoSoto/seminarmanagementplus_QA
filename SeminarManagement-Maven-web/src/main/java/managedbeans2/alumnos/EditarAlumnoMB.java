@@ -89,9 +89,11 @@ public class EditarAlumnoMB implements Serializable {
                 return;
             }
             alumno = alumnoFacade.findByRut(rutAlumno).get(0);
-            regionElegida = alumno.getUsuario().getComuna().getComunaProvinciaId().getProvinciaRegionId().getRegionId();
-            comuna = alumno.getUsuario().getComuna().getComunaId();
-            this.buscaComunas();
+            if(alumno.getUsuario().getComuna() != null){
+                regionElegida = alumno.getUsuario().getComuna().getComunaProvinciaId().getProvinciaRegionId().getRegionId();
+                comuna = alumno.getUsuario().getComuna().getComunaId();
+                this.buscaComunas();
+            }
         }
     }
 
@@ -193,7 +195,8 @@ public class EditarAlumnoMB implements Serializable {
             a.setAsociacionPlanEstudioAlumno(asociacion_final);
             alumnoEdit.setAsociacionPlanEstudioAlumno(asociacion_final);
         }
-        alumnoEdit.getUsuario().setComuna(new Comuna(comuna));
+        if(comuna != null)
+            alumnoEdit.getUsuario().setComuna(new Comuna(comuna));
         usuarioFacade.edit(alumnoEdit.getUsuario());
         alumnoFacade.edit(alumnoEdit);
 
