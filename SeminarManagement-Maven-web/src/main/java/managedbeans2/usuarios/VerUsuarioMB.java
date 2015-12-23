@@ -247,14 +247,15 @@ public class VerUsuarioMB implements Serializable{
         this.estaEditando = true;
         this.username = usuario.getRutUsuario();
         this.nombreUsuario = usuario.getNombreUsuario();
-        this.regionElegida = usuario.getComuna().getComunaProvinciaId().getProvinciaRegionId().getRegionId();
-        this.comuna = usuario.getComuna().getComunaId();
-        this.buscaComunas();
+        if(usuario.getComuna() != null){
+            this.regionElegida = usuario.getComuna().getComunaProvinciaId().getProvinciaRegionId().getRegionId();
+            this.comuna = usuario.getComuna().getComunaId();
+            this.buscaComunas();
+        }
         this.apellidoUsuario = usuario.getApellidoUsuario();
         this.direccionUsuario = usuario.getDireccionUsuario();
         this.mailUsuario = usuario.getMailUsuario();
         this.telefonoUsuario = usuario.getTelefonoUsuario();
-        this.comuna = usuario.getComuna().getComunaId();
         this.uid = uid.toUpperCase();
         this.estaEditando = true;
         List<Tipousuario> tipos = usuario.getTipos();
@@ -310,7 +311,8 @@ public class VerUsuarioMB implements Serializable{
             tipoFacade.edit(tipo);
             aux.add(tipo);
         }
-        usuario.setComuna(new Comuna(comuna));
+        if(comuna != null)
+            usuario.setComuna(new Comuna(comuna));
         usuario.setTipos(aux);
         usuario.setNombreUsuario(this.nombreUsuario);
         usuario.setApellidoUsuario(this.apellidoUsuario);
@@ -370,7 +372,8 @@ public class VerUsuarioMB implements Serializable{
         //nuevoUsuario.setPassword(sha256(username.substring(0, 5)));
         nuevoUsuario.setApellidoUsuario(apellidoUsuario);
         nuevoUsuario.setTema("usachborde");
-        nuevoUsuario.setComuna(new Comuna(comuna));
+        if(comuna != null)
+            nuevoUsuario.setComuna(new Comuna(comuna));
         nuevoUsuario.setDireccionUsuario(direccionUsuario);
         nuevoUsuario.setMailUsuario(mailUsuario);
         nuevoUsuario.setTelefonoUsuario(telefonoUsuario);

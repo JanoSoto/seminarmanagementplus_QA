@@ -251,8 +251,10 @@ public class UsuarioMB {
         this.estaEditando = true;
         this.username = usuario.getRutUsuario();
         this.nombreUsuario = usuario.getNombreUsuario();
-        this.regionElegida = usuario.getComuna().getComunaProvinciaId().getProvinciaRegionId().getRegionId();
-        this.comuna = usuario.getComuna().getComunaId();
+        if(usuario.getComuna() != null){
+            this.regionElegida = usuario.getComuna().getComunaProvinciaId().getProvinciaRegionId().getRegionId();
+            this.comuna = usuario.getComuna().getComunaId();
+        }
         this.buscaComunas();
         this.apellidoUsuario = usuario.getApellidoUsuario();
         this.comuna = usuario.getComuna().getComunaId();
@@ -371,7 +373,8 @@ public class UsuarioMB {
         //nuevoUsuario.setPassword(sha256(username.substring(0, 5)));
         nuevoUsuario.setApellidoUsuario(apellidoUsuario);
         nuevoUsuario.setTema("usachborde");
-        nuevoUsuario.setComuna(new Comuna(comuna));
+        if(comuna != null)
+            nuevoUsuario.setComuna(new Comuna(comuna));
         nuevoUsuario.setDireccionUsuario(direccionUsuario);
         nuevoUsuario.setMailUsuario(mailUsuario);
         nuevoUsuario.setTelefonoUsuario(telefonoUsuario);

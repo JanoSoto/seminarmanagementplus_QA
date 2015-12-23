@@ -89,9 +89,11 @@ public class VerProfesorMB implements Serializable{
             //Instanciamos para editar al profesor
             profesorEdit = profesor;
             rutProfeEdit = profesor.getRutProfesor();
-            regionElegida = profesor.getUsuario().getComuna().getComunaProvinciaId().getProvinciaRegionId().getRegionId();
-            comuna = profesor.getUsuario().getComuna().getComunaId();
-            this.buscaComunas();
+            if(profesor.getUsuario().getComuna() != null){
+                regionElegida = profesor.getUsuario().getComuna().getComunaProvinciaId().getProvinciaRegionId().getRegionId();
+                comuna = profesor.getUsuario().getComuna().getComunaId();
+                this.buscaComunas();
+            }
             temaDatos = new ArrayList();
             temaDatosTodosLosSemestres = new ArrayList();
             temaDatosProrrogados = new ArrayList();
@@ -358,7 +360,8 @@ public class VerProfesorMB implements Serializable{
         profTemp.setJerarquiaCategoria(profesorEdit.getJerarquiaCategoria());
 
         profesorEdit = profTemp;
-        profTemp.getUsuario().setComuna(new Comuna(comuna));
+        if(comuna != null)
+            profTemp.getUsuario().setComuna(new Comuna(comuna));
         usuarioFacade.edit(profTemp.getUsuario());
         profesorFacade.edit(profTemp);
 
