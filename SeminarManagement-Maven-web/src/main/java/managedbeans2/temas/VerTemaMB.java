@@ -100,6 +100,29 @@ public class VerTemaMB {
         return retorno;
 
     }
+    
+    public Propuesta buscarObjetoPropuestaDelTema(Integer idtema) {
+        Propuesta retorno = null;
+        List<Tema> result = temaFacade.findById(idtema);
+        if (result != null) {
+            //System.out.println("Entro aca porque el resultado no es nulo");
+            tema = result.get(0);
+            List<ComisionRevisora> result1 = revisoraFacade.findByTema(tema);
+            int idpropuesta = result1.get(0).getIdPropuesta().getIdPropuesta();
+            List<Propuesta> resultProp = propuestaFacade.findById(idpropuesta);
+            //setIdProp(resultProp.get(0).getIdPropuesta());
+            //setNombreProp(resultProp.get(0).getNombrePropuesta());
+            //System.out.println(nombreProp);
+            retorno = resultProp.get(0);
+            //System.out.println(retorno);
+            return retorno;
+        }
+        //System.out.println("Entro aca porque el resultado es nulo");
+        FacesContext context = FacesContext.getCurrentInstance();
+        context.addMessage(null, new FacesMessage("Error", "No se ingresó Propuesta"));
+        return retorno;
+
+    }
 
     public void buscarTema() {
         List<Tema> result = temaFacade.findById(idTema);
