@@ -18,8 +18,10 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.inject.Inject;
 import javax.inject.Named;
 import managedbeans.AuthMB;
+import managedbeans.RegionesMB;
 import sessionbeans.AlumnoFacadeLocal;
 import sessionbeans.ComunaFacadeLocal;
 import sessionbeans.HistorialFacadeLocal;
@@ -65,7 +67,9 @@ public class ProfesorMB implements Serializable {
     //Declaramos esto para poder acceder al managed bean de autenticación (para almecenar el usuario en el historial)
     @ManagedProperty(value = "#{authMB}")
     private AuthMB user;
-
+    @Inject
+    RegionesMB regionesMB;
+    
     @PostConstruct
     public void init() {
         //Para inicializar el managed property, si no no se puede acceder a esos datos
@@ -130,7 +134,8 @@ public class ProfesorMB implements Serializable {
             profesor.setApellidoProfesor(profesor.getApellidoProfesor().toUpperCase());
             profesor.setMailProfesor(profesor.getMailProfesor().toUpperCase());
             profesor.getUsuario().setUid(profesor.getUsuario().getUid().toLowerCase());
-            profesor.getUsuario().setComuna(new Comuna(comuna));
+            if(comuna != null)
+                profesor.getUsuario().setComuna(new Comuna(comuna));
 
             //Si es JC, puede guiar siempre, si no, se setea la opción escogida
             if (profesor.getContrato() == 1) {
@@ -242,12 +247,20 @@ public class ProfesorMB implements Serializable {
     public void buscarProfesor(ActionEvent actionEvent){
         try {
             FacesContext context = FacesContext.getCurrentInstance();
-            if (!profesorFacade.findByRut(profesor.getUsuario().getRutUsuario()).isEmpty()) {
+            String buscaRut = profesor.getUsuario().getRutUsuario();
+            buscaRut = buscaRut.replace(".", "");
+            buscaRut = buscaRut.replace("-", "");
+            if (!profesorFacade.findByRut(buscaRut).isEmpty()) {
                 context.addMessage(null, new FacesMessage("ADVERTENCIA: El rut ingresado ya existe y se encuentra registrado como profesor.", ""));
             }
             else{
-                Usuario usuario = usuarioFacade.findByRut(profesor.getUsuario().getRutUsuario()).get(0);
+                Usuario usuario = usuarioFacade.findByRut(buscaRut).get(0);
                 profesor.setUsuario(usuario);
+                if(profesor.getUsuario().getComuna() != null){
+                    regionesMB.setRegionElegida(profesor.getUsuario().getComuna().getComunaProvinciaId().getProvinciaRegionId().getRegionId());
+                    regionesMB.buscaComunas();
+                    comuna = profesor.getUsuario().getComuna().getComunaId();
+                }
             }
         } catch (Exception e) {
         }

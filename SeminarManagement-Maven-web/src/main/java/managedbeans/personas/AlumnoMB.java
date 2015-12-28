@@ -18,8 +18,10 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ActionEvent;
+import javax.inject.Inject;
 import javax.inject.Named;
 import managedbeans.AuthMB;
+import managedbeans.RegionesMB;
 import sessionbeans.AlumnoFacadeLocal;
 import sessionbeans.HistorialFacadeLocal;
 import sessionbeans.PlanestudioFacadeLocal;
@@ -55,6 +57,8 @@ public class AlumnoMB implements Serializable {
     //Declaramos esto para poder acceder al managed bean de autenticación (para almecenar el usuario en el historial)
     @ManagedProperty(value = "#{authMB}")
     private AuthMB user;
+    @Inject
+    RegionesMB regiones;
     private Alumno alumno;
     private Usuario usuario;
 
@@ -247,8 +251,7 @@ public class AlumnoMB implements Serializable {
 //                LOGGER.info("Se ha agregado el alumno " + alumno.getNombreAlumno() + " " + alumno.getApellidoAlumno());
 
                 return prepareCreate();
-            }
-            else if (!usuariosIngresados.isEmpty()) {
+            } else if (!usuariosIngresados.isEmpty()) {
                 System.out.println(usuariosIngresados);
                 alumno.setUsuario(usuariosIngresados.get(0));
                 alumnoFacade.create(alumno);
@@ -262,7 +265,8 @@ public class AlumnoMB implements Serializable {
             alumno.setApellidoAlumno(alumno.getApellidoAlumno().toUpperCase());
             alumno.setMailAlumno(alumno.getMailAlumno().toUpperCase());
             alumno.getUsuario().setUid(alumno.getUsuario().getUid().toLowerCase());
-            alumno.getUsuario().setComuna(new Comuna(comuna));
+            if(comuna != null)
+                alumno.getUsuario().setComuna(new Comuna(comuna));
             usuarioFacade.create(alumno.getUsuario());
             alumnoFacade.create(alumno);
 
@@ -276,20 +280,27 @@ public class AlumnoMB implements Serializable {
         }
     }
 
-    public void buscarAlumno(ActionEvent actionEvent){
+    public void buscarAlumno(ActionEvent actionEvent) {
         try {
             FacesContext context = FacesContext.getCurrentInstance();
-            if (!alumnoFacade.findByRut(alumno.getUsuario().getRutUsuario()).isEmpty()) {
+            String buscaRut = alumno.getUsuario().getRutUsuario();
+            buscaRut = buscaRut.replace(".", "");
+            buscaRut = buscaRut.replace("-", "");
+            if (!alumnoFacade.findByRut(buscaRut).isEmpty()) {
                 context.addMessage(null, new FacesMessage("ADVERTENCIA: El rut ingresado ya existe y se encuentra registrado como alumno.", ""));
-            }
-            else{
-                usuario = usuarioFacade.findByRut(alumno.getUsuario().getRutUsuario()).get(0);
+            } else {
+                usuario = usuarioFacade.findByRut(buscaRut).get(0);
                 alumno.setUsuario(usuario);
+                if(alumno.getUsuario().getComuna() != null){
+                    regiones.setRegionElegida(alumno.getUsuario().getComuna().getComunaProvinciaId().getProvinciaRegionId().getRegionId());
+                    regiones.buscaComunas();
+                    comuna = alumno.getUsuario().getComuna().getComunaId();
+                }
             }
         } catch (Exception e) {
         }
     }
-    
+
     public Alumno getAlumno() {
         return alumno;
     }

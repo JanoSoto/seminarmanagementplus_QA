@@ -50,7 +50,8 @@ public class SemestreMB {
     private SemestreActualFacadeLocal semestreActualFacade;
 
     private String semestre;
-    private Date date;
+    private Date fechacierre;
+
     private Date fechaprecierre;
 
     public String getFechaprecierreString() {
@@ -155,14 +156,15 @@ public class SemestreMB {
     public void setSemestre(String semestre) {
         this.semestre = semestre;
     }
-
-    public Date getDate() {
-        return date;
+    
+    public Date getFechacierre() {
+        return fechacierre;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setFechacierre(Date fechacierre) {
+        this.fechacierre = fechacierre;
     }
+
 
     public String dateToString(Date dateChoosen) {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
@@ -225,9 +227,7 @@ public class SemestreMB {
         }
 
         //Validamos la fecha
-        if (date
-                == null || date.equals(
-                        "")) {
+        if (fechacierre == null || fechacierre.equals("")) {
             context.addMessage(null, new FacesMessage("Fecha", "Debe seleccionar la fecha de término del Semestre"));
             return;
         }
@@ -259,11 +259,11 @@ public class SemestreMB {
         SemestreActual semViejo = semestreActualFacade.findAll().get(0);
         Semestre cerrado = semestreFacade.findById(semViejo.getSemestreActual()).get(0);
         if (cerrado.getFechaPrecierre()!= null){
-            if( fechaCorrecta(cerrado.getFechaPrecierre(),dateToString(date)) == false){
+            if( fechaCorrecta(cerrado.getFechaPrecierre(),dateToString(fechacierre)) == false){
                 return;
             }
         }
-        cerrado.setFechaCierre(dateToString(date));
+        cerrado.setFechaCierre(dateToString(fechacierre));
         semestreFacade.edit(cerrado);
 
         semestreActualFacade.remove(semViejo);
