@@ -48,7 +48,8 @@ public class SemestreMB {
     private SemestreFacadeLocal semestreFacade;
     @EJB
     private SemestreActualFacadeLocal semestreActualFacade;
-
+    private SemestreActual semestreActual;
+    private Semestre semestre_1;  
     private String semestre;
     private Date fechacierre;
 
@@ -83,6 +84,12 @@ public class SemestreMB {
 
     @PostConstruct
     public void init() {
+        List<SemestreActual> sems = semestreActualFacade.findAll();
+        if ( !sems.isEmpty() ){
+            semestreActual = sems.get(0);
+            semestre_1 = semestreFacade.findOneById(semestreActual.getSemestreActual());
+        }
+        
         List<Semestre> semestresTodos = semestreFacade.findAll();
         this.semestresConPrecierre = new ArrayList<>();
         for (int i = 0; i < semestresTodos.size(); i++) {
@@ -276,7 +283,9 @@ public class SemestreMB {
         //Realizamos los cambios a los temas
         String semestre_actual = semViejo.getSemestreActual();
         String proximo_semestre = semestreTemp.getIdSemestre();
-        List<Tema> temas = temaFacade.findAll();
+        //List<Tema> temas = temaFacade.findAll();
+        
+        List<Tema> temas = semestre_1.getTemaList();
         for (int i = 0; i < temas.size(); i++) {
             if (temas.get(i).getEstadoTema() != null) {
                 String semestre_tema = temas.get(i).getIdSemestre().getIdSemestre();
@@ -308,7 +317,8 @@ public class SemestreMB {
         FacesContext context = FacesContext.getCurrentInstance();
         //Validamos que haya semestre actual
         SemestreActual semActual = semestreActualFacade.findAll().get(0);
-        List<Tema> temas = temaFacade.findAll();
+        //List<Tema> temas = temaFacade.findAll();
+        //List<Tema> temas = semestre_1.getTemaList();
         Semestre semestrePretermino = semestreFacade.findById(semActual.getSemestreActual()).get(0);
         //semestrePretermino.setIdSemestre(semActual.getSemestreActual());
         semestrePretermino.setFechaPrecierre(dateToString(fechaprecierre));
