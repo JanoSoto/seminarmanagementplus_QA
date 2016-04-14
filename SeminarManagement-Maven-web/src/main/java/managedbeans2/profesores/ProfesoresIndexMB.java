@@ -83,7 +83,7 @@ public class ProfesoresIndexMB {
             revProp = 0;
             revSem = 0;
             for (int j = 0; j < profRev.size(); j++) {
-                if ( profRev.get(j).getComisionRevisora() != null){
+                if (profRev.get(j).getComisionRevisora() != null){
                     if(profRev.get(j).getComisionRevisora().getIdSemestre()!= null){
                         if(profRev.get(j).getComisionRevisora().getIdSemestre().getIdSemestre()!= null){
                             if (profRev.get(j).getComisionRevisora().getIdSemestre().getIdSemestre().equals(semestreActual)) {
