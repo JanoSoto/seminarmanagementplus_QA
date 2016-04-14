@@ -19,22 +19,22 @@
 
     <ui:define name="content">
             #{verTemaMB.buscarTema()}
-            
+
             <p:layoutUnit position="west" size="430" style="border: none;">
                 <p:panel style="border:none;">
                     <h1>Datos Tema</h1>
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" for="nombre" value="Título:"/>
                     <h:outputText id="nombre" style="font-weight: bold;padding-left: 1em;" value="#{verTemaMB.tema.nombreTema}"/>
                     <br/>
-                    
+
                     <!--<p:outputLabel style="color: #0052cc;font-weight: bold;" value="Título propuesta:"/>-->
-<!--                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/propuestas/propuesta.xhtml?prop=#{verTemaMB.buscarIdPropuestaDelTema(verTemaMB.idTema)}">
+<!--                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/propuestas/propuesta.xhtml?prop=#{verTemaMB.buscarIdPropuestaDelTema(verTemaMB.idTema)}">
                         <h:outputText id="nombrePropuesta" style="font-weight: bold;padding-left: 1em;" value="#{verTemaMB.buscarPropuestaDelTema(verTemaMB.idTema)}"/>
                     </a>
                     <br/>-->
-                    
+
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Alumno:"/>
-                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/alumnos/alumno.xhtml?alum=#{verTemaMB.tema.idRevisora.idPropuesta.rutAlumno.rutAlumno}">
+                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/alumnos/alumno.xhtml?alum=#{verTemaMB.tema.idRevisora.idPropuesta.rutAlumno.rutAlumno}">
                         <h:outputText style="padding-left: 1em;" value="#{verTemaMB.tema.idRevisora.idPropuesta.rutAlumno.nombreAlumno} #{verTemaMB.tema.idRevisora.idPropuesta.rutAlumno.apellidoAlumno}"/>
                     </a>
                     <br/>
@@ -50,70 +50,80 @@
                     <h:outputText rendered="#{verTemaMB.tema.estadoTema eq 7}" style="padding-left: 1em;" value="REPROBADO"/>
                     <h:outputText rendered="#{verTemaMB.tema.estadoTema eq 8}" style="padding-left: 1em;" value="CADUCO POR RENUNCIA"/>
                     <br/>
-                    
+
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Tiene Comisión: "/>
                     <h:outputText rendered="#{empty verTemaMB.tema.idCorrectora}" style="padding-left: 1em;" value="NO"/>
                     <h:outputText rendered="#{not empty verTemaMB.tema.idCorrectora}" style="padding-left: 1em;" value="SÍ"/>
                     <br/>
-                    
+
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Inscripción Tema: "/>
                     <br/>
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" value="- Fecha Inscripción: "/>
                     <h:outputText style="padding-left: 1em;" value="#{verTemaMB.tema.fechaTema}"/>
-                   
+
                     <br/>
-                    
+
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" value="- Semestre de Inicio:"/>
                     <h:outputText style="padding-left: 1em;" value="#{verTemaMB.tema.idSemestre.idSemestre}"/>
                     <br/>
+<<<<<<< HEAD
                     
+                    <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Plan:"/>
+                    <h:outputText style="padding-left: 1em;" value="#{verPropuestaMB.getNombrePlan(verPropuestaMB.propuesta.idPlan, verPropuestaMB.propuesta.versionPlan)}"/>
+=======
+
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Plan Activo:"/>
                     <h:outputText style="padding-left: 1em;" value="#{verAlumnoMB.getAnioPlan(verTemaMB.alumno.idPlanActivo, verTemaMB.alumno.versionPlanActivo)}"/>
+>>>>>>> 8a0e59e4fa4312fb9861d7160abc439fa98f906e
                     <br/>
-                    
+
                     <p:outputLabel rendered="#{verTemaMB.tema.estadoTema eq 1}" style="color: #0052cc;font-weight: bold;" value="Término Tema: "/>
                     <br/>
-                    
+
                     <p:outputLabel rendered="#{verTemaMB.tema.estadoTema eq 1}" style="color: #0052cc;font-weight: bold;" value="- Fecha Examen Real: "/>
                     <h:outputText rendered="#{verTemaMB.tema.estadoTema eq 1}" style="padding-left: 1em;" value="#{verTemaMB.tema.fechaRealTema}"/>
                     <br/>
-                    
+
                     <p:outputLabel rendered="#{verTemaMB.tema.estadoTema eq 1}" style="color: #0052cc;font-weight: bold;" value="- Fecha Examen SIAC: "/>
                     <h:outputText rendered="#{verTemaMB.tema.estadoTema eq 1}" style="padding-left: 1em;" value="#{verTemaMB.tema.fechaSiacTema}"/>
-                    <br/>    
+                    <br/>
                     <p:outputLabel rendered="#{verTemaMB.tema.estadoTema eq 1}" style="color: #0052cc;font-weight: bold;" value="- Semestre Término: "/>
                     <h:outputText rendered="#{verTemaMB.tema.estadoTema eq 1}" style="padding-left: 1em;" value="#{verTemaMB.tema.semestreTermino}"/>
 
 
                 </p:panel>
-                
+
                 <p:panel style="border:none;">
                     <h1>Acciones</h1>
                     <h:panelGrid columns="1" cellpadding="2">
-                        <p:button style="width:140px;" rendered="#{empty verTemaMB.tema.idCorrectora and verTemaMB.tema.estadoTema eq 6}" href="/2.0/admin/temas/agregarcomcorr.xhtml?tema=#{verTemaMB.tema.idTema}" value="Agregar Comisión Correctora"/>
-                        <p:button style="width:140px;" href="/2.0/admin/propuestas/propuesta.xhtml?prop=#{verTemaMB.buscarIdPropuestaDelTema(verTemaMB.idTema)}" value="Ver Propuesta"/>
-                        <p:button style="width:140px;" rendered="#{not empty verTemaMB.tema.idCorrectora}" href="/2.0/admin/temas/editarComCorr.xhtml?prop=#{verTemaMB.tema.idTema}" value="Agregar/Editar Fechas Comisión"/>
-                        <p:button style="width:140px;" rendered="#{empty verTemaMB.tema.idCorrectora and verTemaMB.tema.estadoTema eq 0}" href="/2.0/admin/temas/informe.xhtml?tema=#{verTemaMB.tema.idTema}" value="Agregar Informe de Avance"/>
-                        <p:button style="width:140px;" rendered="#{empty verTemaMB.tema.idCorrectora and verTemaMB.tema.estadoTema eq 0}" href="/2.0/admin/temas/borrador.xhtml?tema=#{verTemaMB.tema.idTema}" value="Agregar Borrador Final"/>
+                        <p:button style="width:140px;" rendered="#{empty verTemaMB.tema.idCorrectora and verTemaMB.tema.estadoTema eq 6}" href="/2.0/secretaria/temas/agregarcomcorr.xhtml?tema=#{verTemaMB.tema.idTema}" value="Agregar Comisión Correctora"/>
+                        <p:button style="width:140px;" href="/2.0/secretaria/propuestas/propuesta.xhtml?prop=#{verTemaMB.buscarIdPropuestaDelTema(verTemaMB.idTema)}" value="Ver Propuesta"/>
+                        <p:button style="width:140px;" rendered="#{not empty verTemaMB.tema.idCorrectora}" href="/2.0/secretaria/temas/editarComCorr.xhtml?prop=#{verTemaMB.tema.idTema}" value="Agregar/Editar Fechas Comisión"/>
+                        <p:button style="width:140px;" rendered="#{empty verTemaMB.tema.idCorrectora and verTemaMB.tema.estadoTema eq 0}" href="/2.0/secretaria/temas/informe.xhtml?tema=#{verTemaMB.tema.idTema}" value="Agregar Informe de Avance"/>
+                        <p:button style="width:140px;" rendered="#{empty verTemaMB.tema.idCorrectora and verTemaMB.tema.estadoTema eq 0}" href="/2.0/secretaria/temas/borrador.xhtml?tema=#{verTemaMB.tema.idTema}" value="Agregar Borrador Final"/>
                         <h:panelGroup rendered="#{verTemaMB.tema.estadoTema eq 4}" id="botonCalificar" layout="block" >
-                            <p:button style="width:140px;" rendered="#{verTemaMB.tema.estadoTema eq 4}" href="/2.0/admin/temas/calificar.xhtml?tema=#{verTemaMB.tema.idTema}" value="Agregar Calificaciones"
+                            <p:button style="width:140px;" rendered="#{verTemaMB.tema.estadoTema eq 4}" href="/2.0/secretaria/temas/calificar.xhtml?tema=#{verTemaMB.tema.idTema}" value="Agregar Calificaciones"
                                       disabled="#{empty verTemaMB.tema.idCorrectora.fechaCorreccion or empty verTemaMB.tema.idCorrectora.fechaCorreccion2
                                                   or empty verTemaMB.tema.idCorrectora.fechaEntCorreccion or empty verTemaMB.tema.idCorrectora.fechaEntCorreccion2}"/>
                         </h:panelGroup>
-                        <p:button style="width:140px;" rendered="#{verTemaMB.tema.estadoTema eq 7 || verTemaMB.tema.estadoTema eq 1}" href="/2.0/admin/temas/modificarCalificaciones.xhtml?tema=#{verTemaMB.tema.idTema}" value="Modificar Calificaciones"/>
-                        <p:button style="width:140px;" rendered="#{verTemaMB.tema.estadoTema eq 0}" href="/2.0/admin/temas/caducarrenuncia.xhtml?tema=#{verTemaMB.tema.idTema}" value="Renunciar"/>
-                        <p:button style="width:140px;" rendered="#{empty verTemaMB.tema.idCorrectora and verTemaMB.tema.estadoTema eq 0}" href="/2.0/admin/temas/caducar.xhtml?tema=#{verTemaMB.tema.idTema}" value="Caducar"/>
-                        <p:button style="width:140px;" href="/2.0/admin/temas/editarTema.xhtml?tema=#{verTemaMB.tema.idTema}" value="Editar Tema"/>
+                        <p:button style="width:140px;" rendered="#{verTemaMB.tema.estadoTema eq 7 || verTemaMB.tema.estadoTema eq 1}" href="/2.0/secretaria/temas/modificarCalificaciones.xhtml?tema=#{verTemaMB.tema.idTema}" value="Modificar Calificaciones"/>
+                        <p:button style="width:140px;" rendered="#{verTemaMB.tema.estadoTema eq 0}" href="/2.0/secretaria/temas/caducarrenuncia.xhtml?tema=#{verTemaMB.tema.idTema}" value="Renunciar"/>
+                        <p:button style="width:140px;" rendered="#{empty verTemaMB.tema.idCorrectora and verTemaMB.tema.estadoTema eq 0}" href="/2.0/secretaria/temas/caducar.xhtml?tema=#{verTemaMB.tema.idTema}" value="Caducar"/>
+                        <p:button style="width:140px;" href="/2.0/secretaria/temas/editarTema.xhtml?tema=#{verTemaMB.tema.idTema}" value="Editar Tema"/>
+<<<<<<< HEAD
+                        <p:commandButton style="width:140px;" value="Eliminar Tema" onclick="confirmation.show()" type="button"/>
+=======
                         <p:commandButton style="width:140px;" rendered="#{verTemaMB.tema.estadoTema eq 3 || verTemaMB.tema.estadoTema eq 8}" value="Descaducar Tema" onclick="PF('confirmationCaducar').show()" type="button"/>
                         <p:commandButton style="width:140px;" value="Eliminar Tema" onclick="PF('confirmation').show()" type="button"/>
+>>>>>>> 8a0e59e4fa4312fb9861d7160abc439fa98f906e
                         <h:form id="form66" style="width: 140px" >
                             <h:link value="" style="width: 137px" outcome="plantilla" target="_blank" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
                                 <span class="ui-button-text ui-c">Descargar Plantilla PDF</span>
                                 <f:param name="id" value="#{verTemaMB.idTema}" />
                             </h:link>
                         </h:form>
-                         <p:button value="Descargar Doc. Antecedentes" 
-                                  style="width:150px" 
+                         <p:button value="Descargar Doc. Antecedentes"
+                                  style="width:150px"
                                   href="/DocAntecedentes?id=#{verTemaMB.idTema}"/>
                         <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Volver a Temas"/>
                     </h:panelGrid>
@@ -135,7 +145,11 @@
                                      actionListener="#{eliminarMB.removeByTema(verTemaMB.idTema)}" process="@this" onsuccess="alert('Datos eliminados correctamente!')"/>
                     <p:commandButton value="No" onclick="PF('confirmation').hide()" type="button" />
                 </p:dialog>
+<<<<<<< HEAD
                 <p:dialog modal="true" appendTo="@(body)" header="Confirmación" widgetVar="confirmationCaducar" width="350" closeOnEscape="true" closable="true" draggable="false" resizable="false" >
+=======
+                <p:dialog modal="true" appendToBody="@(body)" header="Confirmación" widgetVar="confirmationCaducar" width="350" closeOnEscape="true" closable="true" draggable="false" resizable="false" >
+>>>>>>> 8a0e59e4fa4312fb9861d7160abc439fa98f906e
                     <strong>¿Está seguro? Esta acción generará los siguientes cambios dentro del sistema.</strong><br/>
                     <ul>
                         <li>El tema pasará a estar en estado<strong>Vigente</strong>.</li>
@@ -146,14 +160,14 @@
                     <p:commandButton value="No" onclick="PF('confirmationCaducar').hide()" type="button" />
                 </p:dialog>
             </p:layoutUnit>
-            
+
             <p:layoutUnit position="center" size="430" style="border: none;">
                 <p:dataTable id="guiaTable" var="guia" value="#{verTemaMB.tema.idRevisora.idPropuesta.profePropuestaList}" emptyMessage="No se encontró Comisión">
                     <f:facet name="header">
                         Guías
                     </f:facet>
                     <p:column headerText="Nombre">
-                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/profesores/profesor.xhtml?prof=#{guia.profesor.rutProfesor}">
+                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/profesores/profesor.xhtml?prof=#{guia.profesor.rutProfesor}">
                             <h:outputText value="#{guia.profesor.nombreProfesor} #{guia.profesor.apellidoProfesor}"/>
                         </a>
                     </p:column>
@@ -174,7 +188,7 @@
                         Comisión Correctora y Calificadora
                     </f:facet>
                     <p:column headerText="Nombre">
-                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/profesores/profesor.xhtml?prof=#{comCorr.profesor.rutProfesor}">
+                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/profesores/profesor.xhtml?prof=#{comCorr.profesor.rutProfesor}">
                             <h:outputText value="#{comCorr.profesor.nombreProfesor} #{comCorr.profesor.apellidoProfesor}"/>
                         </a>
                     </p:column>
@@ -185,47 +199,47 @@
                         <h:outputText value="#{comCorr.notaCorreccionDefensa}"/>
                     </p:column>
                 </p:dataTable>
-                
-               
+
+
                 <p:dataTable id="comRevTable3" var="comCorr3" rows="1" value="#{verTemaMB.tema.idCorrectora.profeCorreccionList}" emptyMessage="La comision no tiene profesor 1">
                     <f:facet name="header">
                         Fechas Profesores
                     </f:facet>
                     <p:column headerText=" Fechas Profesor  #{verTemaMB.corrector1.nombreProfesor } #{verTemaMB.corrector1.apellidoProfesor}">
-                        
+
                         <h:outputText value="Fecha de entrega al profesor :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                       &nbsp;&nbsp;&nbsp;&nbsp;#{comCorr3.comisionCorrectora.fechaCorreccion }"/>
                             <br/>
                             <h:outputText  value="Fecha de devolución con correciones del profesor :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #{comCorr3.comisionCorrectora.fechaEntCorreccion}" />
-                        
+
                     </p:column>
-                    
+
                 </p:dataTable>
-                
+
                 <p:dataTable id="comRevTable4" var="comCorr4" rows="1" value="#{verTemaMB.tema.idCorrectora.profeCorreccionList}" emptyMessage="La comisión no tiene profesor 2">
-                    
+
                     <p:column headerText=" Fechas Profesor  #{verTemaMB.corrector2.nombreProfesor} #{verTemaMB.corrector2.apellidoProfesor}">
-                        
+
                         <h:outputText value="Fecha de entrega al profesor :  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                                       &nbsp;&nbsp;&nbsp;&nbsp;#{comCorr4.comisionCorrectora.fechaCorreccion2 }"/>
                             <br/>
                             <h:outputText  value="Fecha de devolución con correciones del profesor :&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; #{comCorr4.comisionCorrectora.fechaEntCorreccion2}" />
-                        
+
                     </p:column>
-                    
+
                 </p:dataTable>
             </p:layoutUnit>
-        
+
         <c:if test="#{empty param.tema}">
             <p:layoutUnit position="center" style="border:none;">
                 Ha ocurrido un error al ingresar a la página. Intente ingresar nuevamente.
             </p:layoutUnit>
         </c:if>
-        
+
     </ui:define>
 
 </ui:composition>
