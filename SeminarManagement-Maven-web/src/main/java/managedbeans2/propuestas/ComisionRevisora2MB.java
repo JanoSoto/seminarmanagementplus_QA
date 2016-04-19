@@ -111,13 +111,19 @@ public class ComisionRevisora2MB implements Serializable {
             revSem = 0;
             //Extraemos la cantidad de propuestas revisadas este semestre por el profesor
             for (int j = 0; j < profRev.size(); j++) {
-                if (profRev.get(j).getComisionRevisora().getIdSemestre().getIdSemestre().equals(semestreRev)) {
-                    revisorTemp++;
-                    if (profRev.get(j).getComisionRevisora().getTipoRevision() == 0) {
-                        revProp++;
-                    }
-                    if (profRev.get(j).getComisionRevisora().getTipoRevision() == 1) {
-                        revSem++;
+                if (profRev.get(j).getComisionRevisora() != null){
+                    if(profRev.get(j).getComisionRevisora().getIdSemestre()!= null){
+                        if(profRev.get(j).getComisionRevisora().getIdSemestre().getIdSemestre()!= null){
+                            if (profRev.get(j).getComisionRevisora().getIdSemestre().getIdSemestre().equals(semestreRev)) {
+                                revisorTemp++;
+                                if (profRev.get(j).getComisionRevisora().getTipoRevision() == 0) {
+                                    revProp++;
+                                }
+                                if (profRev.get(j).getComisionRevisora().getTipoRevision() == 1) {
+                                    revSem++;
+                                }
+                            }
+                        }
                     }
                 }
             }
