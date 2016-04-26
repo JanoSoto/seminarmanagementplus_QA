@@ -155,11 +155,21 @@ public class ProfesoresIndexMB {
             List<ProfeCorreccion> profCorr;
             profCorr = profes.get(i).getProfeCorreccionList();
             corrTemp = 0;
-            for (int j = 0; j < profCorr.size(); j++) {
-//                if (profCorr.get(j).getComisionCorrectora().getIdSemestre().getIdSemestre().equals(semestreActual)) {
-                if (profCorr.get(j).getComisionCorrectora().getIdTema().getIdSemestre().getIdSemestre().equals(semestreActual)) {
-                    corrTemp++;
-                }
+            if(profCorr!=null){
+                for (int j = 0; j < profCorr.size(); j++) {
+//                  if (profCorr.get(j).getComisionCorrectora().getIdSemestre().getIdSemestre().equals(semestreActual)) {
+                    if(profCorr.get(j).getComisionCorrectora()!=null){
+                        if(profCorr.get(j).getComisionCorrectora().getIdTema()!= null){
+                            if(profCorr.get(j).getComisionCorrectora().getIdTema().getIdSemestre()!=null){
+                                if(profCorr.get(j).getComisionCorrectora().getIdTema().getIdSemestre().getIdSemestre()!=null){
+                                    if (profCorr.get(j).getComisionCorrectora().getIdTema().getIdSemestre().getIdSemestre().equals(semestreActual)) {
+                                        corrTemp++;
+                                    }
+                                }
+                            }
+                        }
+                    }
+              }
             }
             profeDatosTemp.setCorrSemActual(corrTemp);
             profeDatosTemp.setProfesor(profesores.get(i));

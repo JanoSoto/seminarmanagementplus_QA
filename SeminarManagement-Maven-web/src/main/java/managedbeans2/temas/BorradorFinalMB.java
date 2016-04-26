@@ -100,10 +100,7 @@ public class BorradorFinalMB {
         tema.setFechaBorrador(dateToString(date));
         if (sem.getFechaPrecierre() == null) {
             tema.setSemestreTermino(semActual.getSemestreActual());
-            System.out.println("entro aca !!!");
-        }
-        
-        else {
+        }else{
             if (fechaCorrecta(sem.getFechaPrecierre(), tema.getFechaBorrador())){
                 tema.setSemestreTermino(semestreSiguiente(semActual.getSemestreActual()));
             }

@@ -68,6 +68,27 @@ ALTER SEQUENCE alumno_id_alumno_seq OWNED BY alumno.id_alumno;
 -- Name: asignatura; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
+INSERT INTO alumno VALUES (22, NULL, NULL, '145010330');
+INSERT INTO alumno VALUES (23, NULL, NULL, '138328449');
+INSERT INTO alumno VALUES (24, NULL, NULL, '130461786');
+INSERT INTO alumno VALUES (26, NULL, NULL, '156203181');
+INSERT INTO alumno VALUES (31, NULL, NULL, '70658828');
+INSERT INTO alumno VALUES (34, NULL, NULL, '144409558');
+INSERT INTO alumno VALUES (27, 3, 2, '175657436');
+INSERT INTO alumno VALUES (17, 3, 2, '179043939');
+INSERT INTO alumno VALUES (18, 3, 1, '163601311');
+INSERT INTO alumno VALUES (21, 3, 2, '169410313');
+INSERT INTO alumno VALUES (28, 3, 2, '17490314K');
+INSERT INTO alumno VALUES (29, 6, 1, '173865090');
+INSERT INTO alumno VALUES (25, 3, 1, '164115267');
+INSERT INTO alumno VALUES (20, 1, 3, '158407337');
+INSERT INTO alumno VALUES (30, 4, 1, '156232890');
+INSERT INTO alumno VALUES (32, 4, 1, '161943177');
+INSERT INTO alumno VALUES (33, 1, 1, '136725092');
+
+
+
+
 CREATE TABLE asignatura (
     id bigint NOT NULL,
     codigo character varying(255),
@@ -268,6 +289,19 @@ ALTER TABLE public.comision_revisora_id_revisora_seq OWNER TO postgres;
 
 ALTER SEQUENCE comision_revisora_id_revisora_seq OWNED BY comision_revisora.id_revisora;
 
+
+--
+-- Name: comuna; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE comuna (
+    comuna_id integer DEFAULT 0 NOT NULL,
+    comuna_nombre character varying(20),
+    comuna_provincia_id integer
+);
+
+
+ALTER TABLE public.comuna OWNER TO postgres;
 
 --
 -- Name: coordinacion; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
@@ -675,6 +709,31 @@ ALTER SEQUENCE propuesta_id_propuesta_seq OWNED BY propuesta.id_propuesta;
 
 
 --
+-- Name: provincia; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE provincia (
+    provincia_id integer DEFAULT 0 NOT NULL,
+    provincia_nombre character varying(23),
+    provincia_region_id integer
+);
+
+
+ALTER TABLE public.provincia OWNER TO postgres;
+
+--
+-- Name: region; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE region (
+    region_id integer DEFAULT 0 NOT NULL,
+    region_nombre character varying(50)
+);
+
+
+ALTER TABLE public.region OWNER TO postgres;
+
+--
 -- Name: seccion; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -831,7 +890,8 @@ CREATE TABLE usuario (
     nombre_usuario character varying(255),
     telefono_usuario character varying(255),
     tema_usuario character varying(255),
-    uid character varying(255)
+    uid character varying(255),
+    comuna integer
 );
 
 
@@ -922,10 +982,10 @@ CREATE TABLE versionplan (
     anio integer,
     version integer,
     planestudio_id bigint,
+    resolucion integer,
     anio_resolucion integer,
-    correlativo integer,
     planificado boolean,
-    resolucion integer
+    correlativo integer
 );
 
 
@@ -1002,7 +1062,7 @@ COPY alumno (id_alumno, id_plan_activo, version_plan_activo, rut_usuario) FROM s
 1	3	2	176767901
 2	1	1	178608975
 9	\N	\N	70629054
-10	\N	\N	176785969
+16	\N	\N	170493125
 \.
 
 
@@ -1010,7 +1070,7 @@ COPY alumno (id_alumno, id_plan_activo, version_plan_activo, rut_usuario) FROM s
 -- Name: alumno_id_alumno_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('alumno_id_alumno_seq', 10, true);
+SELECT pg_catalog.setval('alumno_id_alumno_seq', 16, true);
 
 
 --
@@ -1133,6 +1193,360 @@ COPY comision_revisora (id_revisora, fecha_entrega_revision, fecha_entrega_revis
 --
 
 SELECT pg_catalog.setval('comision_revisora_id_revisora_seq', 2, true);
+
+
+--
+-- Data for Name: comuna; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY comuna (comuna_id, comuna_nombre, comuna_provincia_id) FROM stdin;
+1101	Iquique	11
+1107	Alto Hospicio	11
+1401	Pozo Almonte	14
+1402	Camiña	14
+1403	Colchane	14
+1404	Huara	14
+1405	Pica	14
+2101	Antofagasta	21
+2102	Mejillones	21
+2103	Sierra Gorda	21
+2104	Taltal	21
+2201	Calama	22
+2202	Ollagüe	22
+2203	San Pedro de Atacama	22
+2301	Tocopilla	23
+2302	María Elena	23
+3101	Copiapó	31
+3102	Caldera	31
+3103	Tierra Amarilla	31
+3201	Chañaral	32
+3202	Diego de Almagro	32
+3301	Vallenar	33
+3302	Alto del Carmen	33
+3303	Freirina	33
+3304	Huasco	33
+4101	La Serena	41
+4102	Coquimbo	41
+4103	Andacollo	41
+4104	La Higuera	41
+4105	Paihuano	41
+4106	Vicuña	41
+4201	Illapel	42
+4202	Canela	42
+4203	Los Vilos	42
+4204	Salamanca	42
+4301	Ovalle	43
+4302	Combarbalá	43
+4303	Monte Patria	43
+4304	Punitaqui	43
+4305	Río Hurtado	43
+5101	Valparaíso	51
+5102	Casablanca	51
+5103	Concón	51
+5104	Juan Fernández	51
+5105	Puchuncaví	51
+5107	Quintero	51
+5109	Viña del Mar	51
+5201	Isla de Pascua	52
+5301	Los Andes	53
+5302	Calle Larga	53
+5303	Rinconada	53
+5304	San Esteban	53
+5401	La Ligua	54
+5402	Cabildo	54
+5403	Papudo	54
+5404	Petorca	54
+5405	Zapallar	54
+5501	Quillota	55
+5502	La Calera	55
+5503	Hijuelas	55
+5504	La Cruz	55
+5506	Nogales	55
+5601	San Antonio	56
+5602	Algarrobo	56
+5603	Cartagena	56
+5604	El Quisco	56
+5605	El Tabo	56
+5606	Santo Domingo	56
+5701	San Felipe	57
+5702	Catemu	57
+5703	Llay Llay	57
+5704	Panquehue	57
+5705	Putaendo	57
+5706	Santa María	57
+5801	Quilpué	58
+5802	Limache	58
+5803	Olmué	58
+5804	Villa Alemana	58
+6101	Rancagua	61
+6102	Codegua	61
+6103	Coinco	61
+6104	Coltauco	61
+6105	Doñihue	61
+6106	Graneros	61
+6107	Las Cabras	61
+6108	Machalí	61
+6109	Malloa	61
+6110	Mostazal	61
+6111	Olivar	61
+6112	Peumo	61
+6113	Pichidegua	61
+6114	Quinta de Tilcoco	61
+6115	Rengo	61
+6116	Requínoa	61
+6117	San Vicente	61
+6201	Pichilemu	62
+6202	La Estrella	62
+6203	Litueche	62
+6204	Marchihue	62
+6205	Navidad	62
+6206	Paredones	62
+6301	San Fernando	63
+6302	Chépica	63
+6303	Chimbarongo	63
+6304	Lolol	63
+6305	Nancagua	63
+6306	Palmilla	63
+6307	Peralillo	63
+6308	Placilla	63
+6309	Pumanque	63
+6310	Santa Cruz	63
+7101	Talca	71
+7102	Constitución	71
+7103	Curepto	71
+7104	Empedrado	71
+7105	Maule	71
+7106	Pelarco	71
+7107	Pencahue	71
+7108	Río Claro	71
+7109	San Clemente	71
+7110	San Rafael	71
+7201	Cauquenes	72
+7202	Chanco	72
+7203	Pelluhue	72
+7301	Curicó	73
+7302	Hualañé	73
+7303	Licantén	73
+7304	Molina	73
+7305	Rauco	73
+7306	Romeral	73
+7307	Sagrada Familia	73
+7308	Teno	73
+7309	Vichuquén	73
+7401	Linares	74
+7402	Colbún	74
+7403	Longaví	74
+7404	Parral	74
+7405	Retiro	74
+7406	San Javier	74
+7407	Villa Alegre	74
+7408	Yerbas Buenas	74
+8101	Concepción	81
+8102	Coronel	81
+8103	Chiguayante	81
+8104	Florida	81
+8105	Hualqui	81
+8106	Lota	81
+8107	Penco	81
+8108	San Pedro de la Paz	81
+8109	Santa Juana	81
+8110	Talcahuano	81
+8111	Tomé	81
+8112	Hualpén	81
+8201	Lebu	82
+8202	Arauco	82
+8203	Cañete	82
+8204	Contulmo	82
+8205	Curanilahue	82
+8206	Los Álamos	82
+8207	Tirúa	82
+8301	Los Ángeles	83
+8302	Antuco	83
+8303	Cabrero	83
+8304	Laja	83
+8305	Mulchén	83
+8306	Nacimiento	83
+8307	Negrete	83
+8308	Quilaco	83
+8309	Quilleco	83
+8310	San Rosendo	83
+8311	Santa Bárbara	83
+8312	Tucapel	83
+8313	Yumbel	83
+8314	Alto Biobío	83
+8401	Chillán	84
+8402	Bulnes	84
+8403	Cobquecura	84
+8404	Coelemu	84
+8405	Coihueco	84
+8406	Chillán Viejo	84
+8407	El Carmen	84
+8408	Ninhue	84
+8409	Ñiquén	84
+8410	Pemuco	84
+8411	Pinto	84
+8412	Portezuelo	84
+8413	Quillón	84
+8414	Quirihue	84
+8415	Ránquil	84
+8416	San Carlos	84
+8417	San Fabián	84
+8418	San Ignacio	84
+8419	San Nicolás	84
+8420	Treguaco	84
+8421	Yungay	84
+9101	Temuco	91
+9102	Carahue	91
+9103	Cunco	91
+9104	Curarrehue	91
+9105	Freire	91
+9106	Galvarino	91
+9107	Gorbea	91
+9108	Lautaro	91
+9109	Loncoche	91
+9110	Melipeuco	91
+9111	Nueva Imperial	91
+9112	Padre las Casas	91
+9113	Perquenco	91
+9114	Pitrufquén	91
+9115	Pucón	91
+9116	Saavedra	91
+9117	Teodoro Schmidt	91
+9118	Toltén	91
+9119	Vilcún	91
+9120	Villarrica	91
+9121	Cholchol	91
+9201	Angol	92
+9202	Collipulli	92
+9203	Curacautín	92
+9204	Ercilla	92
+9205	Lonquimay	92
+9206	Los Sauces	92
+9207	Lumaco	92
+9208	Purén	92
+9209	Renaico	92
+9210	Traiguén	92
+9211	Victoria	92
+10101	Puerto Montt	101
+10102	Calbuco	101
+10103	Cochamó	101
+10104	Fresia	101
+10105	Frutillar	101
+10106	Los Muermos	101
+10107	Llanquihue	101
+10108	Maullín	101
+10109	Puerto Varas	101
+10201	Castro	102
+10202	Ancud	102
+10203	Chonchi	102
+10204	Curaco de Vélez	102
+10205	Dalcahue	102
+10206	Puqueldón	102
+10207	Queilén	102
+10208	Quellón	102
+10209	Quemchi	102
+10210	Quinchao	102
+10301	Osorno	103
+10302	Puerto Octay	103
+10303	Purranque	103
+10304	Puyehue	103
+10305	Río Negro	103
+10306	San Juan de la Costa	103
+10307	San Pablo	103
+10401	Chaitén	104
+10402	Futaleufú	104
+10403	Hualaihué	104
+10404	Palena	104
+11101	Coyhaique	111
+11102	Lago Verde	111
+11201	Aysén	112
+11202	Cisnes	112
+11203	Guaitecas	112
+11301	Cochrane	113
+11302	O'Higgins	113
+11303	Tortel	113
+11401	Chile Chico	114
+11402	Río Ibáñez	114
+12101	Punta Arenas	121
+12102	Laguna Blanca	121
+12103	Río Verde	121
+12104	San Gregorio	121
+12201	Cabo de Hornos	122
+12202	Antártica	122
+12301	Porvenir	123
+12302	Primavera	123
+12303	Timaukel	123
+12401	Natales	124
+12402	Torres del Paine	124
+13101	Santiago	131
+13102	Cerrillos	131
+13103	Cerro Navia	131
+13104	Conchalí	131
+13105	El Bosque	131
+13106	Estación Central	131
+13107	Huechuraba	131
+13108	Independencia	131
+13109	La Cisterna	131
+13110	La Florida	131
+13111	La Granja	131
+13112	La Pintana	131
+13113	La Reina	131
+13114	Las Condes	131
+13115	Lo Barnechea	131
+13116	Lo Espejo	131
+13117	Lo Prado	131
+13118	Macul	131
+13119	Maipú	131
+13120	Ñuñoa	131
+13121	Pedro Aguirre Cerda	131
+13122	Peñalolén	131
+13123	Providencia	131
+13124	Pudahuel	131
+13125	Quilicura	131
+13126	Quinta Normal	131
+13127	Recoleta	131
+13128	Renca	131
+13129	San Joaquín	131
+13130	San Miguel	131
+13131	San Ramón	131
+13132	Vitacura	131
+13201	Puente Alto	132
+13202	Pirque	132
+13203	San José de Maipo	132
+13301	Colina	133
+13302	Lampa	133
+13303	Tiltil	133
+13401	San Bernardo	134
+13402	Buin	134
+13403	Calera de Tango	134
+13404	Paine	134
+13501	Melipilla	135
+13502	Alhué	135
+13503	Curacaví	135
+13504	María Pinto	135
+13505	San Pedro	135
+13601	Talagante	136
+13602	El Monte	136
+13603	Isla de Maipo	136
+13604	Padre Hurtado	136
+13605	Peñaflor	136
+14101	Valdivia	141
+14102	Corral	141
+14103	Lanco	141
+14104	Los Lagos	141
+14105	Máfil	141
+14106	Mariquina	141
+14107	Paillaco	141
+14108	Panguipulli	141
+14201	La Unión	142
+14202	Futrono	142
+14203	Lago Ranco	142
+14204	Río Bueno	142
+15101	Arica	151
+15102	Camarones	151
+15201	Putre	152
+15202	General Lagos	152
+\.
 
 
 --
@@ -1327,10 +1741,6 @@ COPY planestudio (id, codigo, jornada, carrera_id) FROM stdin;
 8	1983	1	2
 9	1053	0	1
 10	1063	0	2
-101	666	0	1
-251	333	0	1
-256	333	0	1
-301	666	0	1
 \.
 
 
@@ -1347,8 +1757,6 @@ COPY profe_correccion (nota_correccion_defensa, nota_correccion_informe, rol_cor
 --
 
 COPY profe_propuesta (fecha_revision, nota_guia_defensa, nota_guia_informe, rol_guia, rut_profesor, id_propuesta) FROM stdin;
-\N	\N	\N	0	181181486	1
-\N	\N	\N	1	70629054	1
 \.
 
 
@@ -1373,8 +1781,8 @@ COPY profesor (id_profesor, contrato, jerarquia_categoria, maximo_guias, tipo_pr
 9	0	TITULAR	0	1	178608975
 10	1	ASOCIADO	7	0	181181486
 13	1	TITULAR	7	0	70629054
-15	0	TITULAR	0	1	176785969
 16	1	ASISTENTE	7	0	120188615
+18	0	AYUD. PROF.	0	1	170493125
 \.
 
 
@@ -1382,7 +1790,7 @@ COPY profesor (id_profesor, contrato, jerarquia_categoria, maximo_guias, tipo_pr
 -- Name: profesor_id_profesor_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('profesor_id_profesor_seq', 16, true);
+SELECT pg_catalog.setval('profesor_id_profesor_seq', 18, true);
 
 
 --
@@ -1390,7 +1798,6 @@ SELECT pg_catalog.setval('profesor_id_profesor_seq', 16, true);
 --
 
 COPY propuesta (id_propuesta, fecha_propuesta, id_plan, magister, nombre_propuesta, pet, version_plan, id_revisora, id_semestre, rut_alumno) FROM stdin;
-1	20/08/2015	1	f	PROPUESTA TEST	f	1	\N	2/2017	178608975
 \.
 
 
@@ -1398,7 +1805,92 @@ COPY propuesta (id_propuesta, fecha_propuesta, id_plan, magister, nombre_propues
 -- Name: propuesta_id_propuesta_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('propuesta_id_propuesta_seq', 1, true);
+SELECT pg_catalog.setval('propuesta_id_propuesta_seq', 1, false);
+
+
+--
+-- Data for Name: provincia; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY provincia (provincia_id, provincia_nombre, provincia_region_id) FROM stdin;
+11	Iquique	1
+14	Tamarugal	1
+21	Antofagasta	2
+22	El Loa	2
+23	Tocopilla	2
+31	Copiapó	3
+32	Chañaral	3
+33	Huasco	3
+41	Elqui	4
+42	Choapa	4
+43	Limarí	4
+51	Valparaíso	5
+52	Isla de Pascua	5
+53	Los Andes	5
+54	Petorca	5
+55	Quillota	5
+56	San Antonio	5
+57	San Felipe de Aconcagua	5
+58	Marga Marga	5
+61	Cachapoal	6
+62	Cardenal Caro	6
+63	Colchagua	6
+71	Talca	7
+72	Cauquenes	7
+73	Curicó	7
+74	Linares	7
+81	Concepción	8
+82	Arauco	8
+83	Biobío	8
+84	Ñuble	8
+91	Cautín	9
+92	Malleco	9
+101	Llanquihue	10
+102	Chiloé	10
+103	Osorno	10
+104	Palena	10
+111	Coihaique	11
+112	Aisén	11
+113	Capitán Prat	11
+114	General Carrera	11
+121	Magallanes	12
+122	Antártica Chilena	12
+123	Tierra del Fuego	12
+124	Última Esperanza	12
+131	Santiago	13
+132	Cordillera	13
+133	Chacabuco	13
+134	Maipo	13
+135	Melipilla	13
+136	Talagante	13
+141	Valdivia	14
+142	Ranco	14
+151	Arica	15
+152	Parinacota	15
+\.
+
+
+--
+-- Data for Name: region; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY region (region_id, region_nombre) FROM stdin;
+1	Tarapacá
+2	Antofagasta
+3	Atacama
+4	Coquimbo
+5	Valparaíso
+15	Arica y Parinacota
+6	Libertador Gral. Bernardo O’Higgins
+7	Maule
+8	Biobío
+9	La Araucanía
+10	Los Lagos
+11	Aisén del Gral. Carlos Ibáñez del Campo
+12	Magallanes y de la Antártica Chilena
+13	Metropolitana de Santiago
+14	Los Ríos
+\.
 
 
 --
@@ -1446,7 +1938,7 @@ COPY semestre_actual (semestre_actual) FROM stdin;
 --
 
 COPY sequence (seq_name, seq_count) FROM stdin;
-SEQ_GEN	400
+SEQ_GEN	100
 \.
 
 
@@ -1528,17 +2020,45 @@ COPY tipousuario (id_tipo, nombre_tipo, pass) FROM stdin;
 -- Data for Name: usuario; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY usuario (rut_usuario, activo, apellido_usuario, direccion_usuario, mail_usuario, nombre_usuario, telefono_usuario, tema_usuario, uid) FROM stdin;
-179594404	t	Ruiz-Tagle	\N	\N	Benjamin	\N	\N	bruiztagle
-118403096	t	Aguirre	\N	\N	Pamela	\N	\N	paguirre
-176767901	t	FLORES	\N	\N	MATIAS	\N	\N	nflores
-70629054	\N	VELASTÍN			SERGIO 		\N	svelastin
-181181486	\N	PEREZ	\N		CARLOS	\N	afterdark	cperezr
-176785969	\N	BELLO	\N		FELIPE 	\N	\N	fbello
-120188615	\N	BONACIC	\N	\N	CAROLINA	\N	\N	cbonacic
-178608975	t	CELEDÓN	\N		LUIS	32165487	\N	lceledon
-178338889	t	Cárcamo	\N	\N	Miguel	\N	redmond	mcarcamo
-\.
+INSERT INTO usuario VALUES ('96742975', NULL, 'JARA VALENCIA', '', 'jljara@usach.cl', 'JOSÃ‰ LUIS', '', 'usachborde', 'jljara', NULL);
+INSERT INTO usuario VALUES ('175658173', NULL, 'BENUSSI PAREDES', '', 'giovanni.benussi@usach.cl', 'GIOVANNI PAOLO', '', 'usachborde', 'gbenussi', NULL);
+INSERT INTO usuario VALUES ('118403096', NULL, 'AGUIRRE GUZMÃN', '', '', 'PAMELA ANDREA', '', 'usachborde', 'paguirre', NULL);
+INSERT INTO usuario VALUES ('179043939', NULL, 'ABURTO VIVIANS', '', 'DANILO@REQUIES.CL', 'DANILO DANIEL', '', NULL, 'daburto', NULL);
+INSERT INTO usuario VALUES ('163601311', NULL, 'ACOSTA JURADO', '', 'CRISTOBAL.ACOSTA@USACH.CL', 'CRISTÃ“BAL ', '', NULL, 'cacosta', NULL);
+INSERT INTO usuario VALUES ('228947512', NULL, 'ACOSTA BARBOSA', '', '', 'KARINA', '', NULL, 'kacosta', NULL);
+INSERT INTO usuario VALUES ('69476376', NULL, 'ACUÃ‘A LEIVA', '', '', 'GONZALO', '', NULL, 'gacuna', NULL);
+INSERT INTO usuario VALUES ('158407337', NULL, 'ALLENDE REIHER', '', '', 'JOSÃ‰ LUIS', '', NULL, 'jallende', NULL);
+INSERT INTO usuario VALUES ('65776545', NULL, 'ANTILLANCA ESPINA', '', '', 'HÃ‰CTOR ', '', NULL, 'hantilla', NULL);
+INSERT INTO usuario VALUES ('169410313', NULL, 'ARISMENDI FERRADA', '', '', 'ANDRÃ‰S CRISTIAN', '', NULL, 'aarismendi', NULL);
+INSERT INTO usuario VALUES ('145010330', NULL, 'BADILLA HERNÃNDEZ', '', '', 'CRISTIÃN', '', NULL, 'cbadilla', NULL);
+INSERT INTO usuario VALUES ('10478450K', NULL, 'CERDA NEUMANN', '', 'GCERDA@UCINF.CL', 'GERARDO ESTEBAN ', '', NULL, 'gcerda', NULL);
+INSERT INTO usuario VALUES ('80796609', NULL, 'CHACÃ“N PACHECO', '', 'MAX.CHACON@USACH.CL', 'MAX', '', NULL, 'mchacon', NULL);
+INSERT INTO usuario VALUES ('138328449', NULL, 'CHAMORRO AHUMADA', '', '', 'MARÃA CAROLINA', '', NULL, 'mchamorro', NULL);
+INSERT INTO usuario VALUES ('122660133', NULL, 'MUÃ‘OZ MORENO', '', '', 'MARGOT', '', 'usachborde', 'memunoz', NULL);
+INSERT INTO usuario VALUES ('128795049', NULL, 'SILVA TRAILLANCA', '', 'ximena.silva@usach.cl', 'XIMENA SOLEDAD', '', 'usachborde', 'xsilva', NULL);
+INSERT INTO usuario VALUES ('138396479', NULL, 'SILVA LUQUE', '', 'guacolda.silva@usach.cl', 'GUACOLDA DEL CARMEN', '', 'usachborde', 'gsilval', NULL);
+INSERT INTO usuario VALUES ('178338889', true, 'CÃ¡rcamo', NULL, NULL, 'Miguel', NULL, 'smoothness', 'mcarcamo', 13101);
+INSERT INTO usuario VALUES ('130461786', NULL, 'ZUCCAR PARRINI', '', 'IRENE.ZUCCAR@USACH.CL', 'IRENE ', '', NULL, 'izuccar', NULL);
+INSERT INTO usuario VALUES ('164115267', NULL, 'VÃSQUEZ FERNÃNDEZ', '', '', 'RODRIGO DE JESÃšS ', '', NULL, 'rvasquez', NULL);
+INSERT INTO usuario VALUES ('156203181', NULL, 'SOTO MUÃ‘OZ', '', '', 'LEONARDO HUMBERTO ', '', NULL, 'lhsoto', NULL);
+INSERT INTO usuario VALUES ('175657436', NULL, 'FLORES SÃNCHEZ', '', '', 'VICTOR MANUEL', '', NULL, 'vflores', NULL);
+INSERT INTO usuario VALUES ('17490314K', NULL, 'FUENZALIDA NAVARRETE', '', '', 'GARY IGNACIO', '', NULL, 'gfuenzalida', NULL);
+INSERT INTO usuario VALUES ('173865090', NULL, 'HERNÃNDEZ SÃNCHEZ', '', '', 'MARCIAL NATALINO', '', NULL, 'mnhernandez', NULL);
+INSERT INTO usuario VALUES ('156232890', NULL, 'ITURBE ARAYA', '', 'JUAN.ITURBE@USACH.CL', 'JUAN', '', NULL, 'jiturbe', NULL);
+INSERT INTO usuario VALUES ('70658828', NULL, 'JERARDINO WIESENBORN', '', 'BRUNO.JERARDINO@USACH.CL', 'BRUNO ', '', NULL, 'bjerardino', NULL);
+INSERT INTO usuario VALUES ('161943177', NULL, 'JIMÃ‰NEZ FUENTES', '', '', 'FRANCIA PAZ', '', NULL, 'fjimenez', NULL);
+INSERT INTO usuario VALUES ('136725092', NULL, 'KOHLER	CASASEMPERE', '', '', 'JACQUELINE', '', NULL, 'jkohler', NULL);
+INSERT INTO usuario VALUES ('144409558', NULL, 'RAMÃREZ SANTIBAÃ‘EZ', '', '', 'CONSUELO', '', NULL, 'cramirezs', NULL);
+INSERT INTO usuario VALUES ('95794912', NULL, 'RANNOU FUENTES', '', '', 'FERNANDO ', '', NULL, 'frannou', NULL);
+INSERT INTO usuario VALUES ('87365867', NULL, 'CALGAGNO BASTIDAS', '', '', 'JAIME', '', NULL, 'jcalgano', NULL);
+INSERT INTO usuario VALUES ('90070819', NULL, 'CONTRERAS SEPÃšLVEDA', '', '', 'RICARDO', '', NULL, 'rcontreras', NULL);
+INSERT INTO usuario VALUES ('80004125', NULL, 'CORBINAUD PÃ‰REZ', '', '', 'RICARDO OSVALDO', '', NULL, 'rcorbinaud', NULL);
+INSERT INTO usuario VALUES ('71531589', NULL, 'MARÃN CAIHUAN', '', '', 'MAURICIO', '', NULL, 'mmarin', NULL);
+INSERT INTO usuario VALUES ('106025347', NULL, 'PONCE ARIAS', '', '', 'HÃ‰CTOR', '', NULL, 'hponce', NULL);
+INSERT INTO usuario VALUES ('100234637', NULL, 'RONCATTI GUZMÃN', '', '', 'CAROLINA', '', NULL, 'croncatti', NULL);
+INSERT INTO usuario VALUES ('72595963', NULL, 'RUIZ BRAND', '', '', 'MARÃA EUGENIA', '', NULL, 'mruiz', NULL);
+INSERT INTO usuario VALUES ('83978872', NULL, 'SOLAR FUENTES', '', '', 'MAURICIO', '', NULL, 'msolarf', NULL);
+
 
 
 --
@@ -1585,12 +2105,25 @@ COPY usuarioevento (id, clave, nombre, rol) FROM stdin;
 -- Data for Name: versionplan; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY versionplan (id, anio, version, planestudio_id, anio_resolucion, correlativo, planificado, resolucion) FROM stdin;
-257	2015	1	256	2015	1	f	1
-258	2015	2	256	0	2	f	0
-302	2015	1	301	2015	3	f	1
-303	2015	2	301	2022	4	f	55
-351	2015	3	301	2025	5	f	44
+COPY versionplan (id, anio, version, planestudio_id, resolucion, anio_resolucion, planificado, correlativo) FROM stdin;
+18	1980	1	10	18	2015	f	201
+1	2012	3	1	1	2015	f	201
+2	2003	1	2	2	2015	f	201
+3	2001	2	3	3	2015	f	201
+4	1990	2	4	4	2015	f	201
+5	2012	3	5	5	2015	f	201
+6	2002	1	6	6	2015	f	201
+7	1990	2	7	7	2015	f	201
+8	1990	1	8	8	2015	f	201
+9	2012	1	1	9	2015	f	201
+10	2012	2	1	10	2015	f	201
+11	1990	1	2	11	2015	f	201
+12	2001	1	3	12	2015	f	201
+13	1990	1	4	13	2015	f	201
+14	2012	1	5	14	2015	f	201
+15	2012	2	5	15	2015	f	201
+16	1990	1	7	16	2015	f	201
+17	1980	1	9	17	2015	f	201
 \.
 
 
@@ -1672,6 +2205,14 @@ ALTER TABLE ONLY comision_correctora
 
 ALTER TABLE ONLY comision_revisora
     ADD CONSTRAINT comision_revisora_pkey PRIMARY KEY (id_revisora);
+
+
+--
+-- Name: comuna_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY comuna
+    ADD CONSTRAINT comuna_pkey PRIMARY KEY (comuna_id);
 
 
 --
@@ -1827,6 +2368,22 @@ ALTER TABLE ONLY propuesta
 
 
 --
+-- Name: provincia_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY provincia
+    ADD CONSTRAINT provincia_pkey PRIMARY KEY (provincia_id);
+
+
+--
+-- Name: region_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY region
+    ADD CONSTRAINT region_pkey PRIMARY KEY (region_id);
+
+
+--
 -- Name: seccion_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1939,6 +2496,20 @@ ALTER TABLE ONLY versionplan
 
 
 --
+-- Name: COMUNA_PROVINCIA_ID; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX "COMUNA_PROVINCIA_ID" ON comuna USING btree (comuna_provincia_id);
+
+
+--
+-- Name: PROVINCIA_REGION_ID; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX "PROVINCIA_REGION_ID" ON provincia USING btree (provincia_region_id);
+
+
+--
 -- Name: comision_correctora_pk; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1950,6 +2521,13 @@ CREATE UNIQUE INDEX comision_correctora_pk ON comision_correctora USING btree (i
 --
 
 CREATE UNIQUE INDEX comision_revisora_pk ON comision_revisora USING btree (id_revisora);
+
+
+--
+-- Name: fki_comuna; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX fki_comuna ON usuario USING btree (comuna);
 
 
 --
@@ -2132,6 +2710,22 @@ CREATE UNIQUE INDEX tema_pk ON tema USING btree (id_tema);
 --
 
 CREATE UNIQUE INDEX usuario_pk ON usuario USING btree (rut_usuario);
+
+
+--
+-- Name: comuna; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY usuario
+    ADD CONSTRAINT comuna FOREIGN KEY (comuna) REFERENCES comuna(comuna_id);
+
+
+--
+-- Name: comuna_COMUNA_PROVINCIA_ID_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY comuna
+    ADD CONSTRAINT "comuna_COMUNA_PROVINCIA_ID_fkey" FOREIGN KEY (comuna_provincia_id) REFERENCES provincia(provincia_id);
 
 
 --
@@ -2516,6 +3110,14 @@ ALTER TABLE ONLY versionplan
 
 ALTER TABLE ONLY planes_alumno
     ADD CONSTRAINT planes_alumno_plan_id_fkey FOREIGN KEY (plan_id) REFERENCES planestudio(id);
+
+
+--
+-- Name: provincia_PROVINCIA_REGION_ID_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY provincia
+    ADD CONSTRAINT "provincia_PROVINCIA_REGION_ID_fkey" FOREIGN KEY (provincia_region_id) REFERENCES region(region_id);
 
 
 --
