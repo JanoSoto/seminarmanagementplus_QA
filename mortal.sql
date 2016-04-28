@@ -1801,54 +1801,16 @@ INSERT INTO planestudio VALUES (10, 1063, 0, 2);
 -- Data for Name: profe_correccion; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO profe_correccion VALUES (7, 7, 0, '65776545', 3);
-INSERT INTO profe_correccion VALUES (7, 7, 1, '87365867', 3);
-INSERT INTO profe_correccion VALUES (1, 1, 0, '69476376', 5);
-INSERT INTO profe_correccion VALUES (1, 1, 1, '228947512', 5);
-INSERT INTO profe_correccion VALUES (7, 7, 0, '87365867', 4);
-INSERT INTO profe_correccion VALUES (7, 7, 1, '228947512', 4);
-INSERT INTO profe_correccion VALUES (7, 7, 0, '69476376', 6);
-INSERT INTO profe_correccion VALUES (7, 7, 1, '95794912', 6);
-INSERT INTO profe_correccion VALUES (4, 4, 0, '145010330', 7);
-INSERT INTO profe_correccion VALUES (4, 4, 1, '72595963', 7);
-INSERT INTO profe_correccion VALUES (7, 7, 0, '69476376', 8);
-INSERT INTO profe_correccion VALUES (7, 7, 1, '228947512', 8);
-INSERT INTO profe_correccion VALUES (7, 7, 0, '69476376', 9);
-INSERT INTO profe_correccion VALUES (7, 7, 1, '95794912', 9);
 
 
 --
 -- Data for Name: profe_propuesta; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO profe_propuesta VALUES (NULL, NULL, NULL, 0, '95794912', 1);
-INSERT INTO profe_propuesta VALUES (NULL, NULL, NULL, 0, '95794912', 2);
-INSERT INTO profe_propuesta VALUES (NULL, NULL, NULL, 0, '80796609', 6);
-INSERT INTO profe_propuesta VALUES (NULL, 7, 7, 0, '80796609', 8);
-INSERT INTO profe_propuesta VALUES (NULL, 1, 1, 0, '65776545', 5);
-INSERT INTO profe_propuesta VALUES (NULL, 7, 7, 0, '80796609', 9);
-INSERT INTO profe_propuesta VALUES (NULL, 7, 7, 0, '71531589', 7);
-INSERT INTO profe_propuesta VALUES (NULL, 4, 4, 0, '80796609', 4);
-INSERT INTO profe_propuesta VALUES (NULL, 7, 7, 0, '95794912', 10);
-INSERT INTO profe_propuesta VALUES (NULL, 7, 7, 0, '80796609', 3);
-
 
 --
 -- Data for Name: profe_revision; Type: TABLE DATA; Schema: public; Owner: postgres
 --
-
-INSERT INTO profe_revision VALUES (NULL, 0, '95794912', 1);
-INSERT INTO profe_revision VALUES (NULL, 1, '155898712', 1);
-INSERT INTO profe_revision VALUES (NULL, 0, '155898712', 2);
-INSERT INTO profe_revision VALUES (NULL, 1, '80796609', 2);
-INSERT INTO profe_revision VALUES (NULL, 0, '69476376', 4);
-INSERT INTO profe_revision VALUES (NULL, 1, '65776545', 4);
-INSERT INTO profe_revision VALUES (NULL, 0, '95794912', 5);
-INSERT INTO profe_revision VALUES (NULL, 1, '71531589', 5);
-INSERT INTO profe_revision VALUES (NULL, 0, '228947512', 6);
-INSERT INTO profe_revision VALUES (NULL, 1, '70658828', 6);
-INSERT INTO profe_revision VALUES (NULL, 0, '69476376', 8);
-INSERT INTO profe_revision VALUES (NULL, 1, '71531589', 8);
 
 
 --
@@ -1884,16 +1846,6 @@ INSERT INTO profesor VALUES (56, 0, NULL, 0, 1, '130461786');
 -- Data for Name: propuesta; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO propuesta VALUES (1, '08/04/2016', 3, false, 'PROPUESTA CASO CADUCO', false, 2, 3, '1/2014', '175657436');
-INSERT INTO propuesta VALUES (2, '20/04/2016', 3, false, 'CASO RENUNCIA', false, 2, 4, '1/2014', '179043939');
-INSERT INTO propuesta VALUES (3, '28/04/2016', 3, false, 'PROPUESTA CASO PRORROGA', false, 1, 5, '1/2014', '163601311');
-INSERT INTO propuesta VALUES (4, '18/05/2016', 3, false, 'PROPUESTA CASO ENTREGA BORRADOR FINAL', false, 2, 6, '1/2014', '169410313');
-INSERT INTO propuesta VALUES (5, '28/04/2016', 3, false, 'PROPUESTA CASO REPRUEBA', true, 2, 7, '1/2014', '17490314K');
-INSERT INTO propuesta VALUES (6, '24/05/2016', 6, false, 'PROPUESTA CASO VIGENTE', false, 1, 8, '1/2014', '173865090');
-INSERT INTO propuesta VALUES (7, '28/04/2016', 3, false, 'PROPUESTE CARRERA 1863 2001.1', false, 1, 9, '1/2014', '158407337');
-INSERT INTO propuesta VALUES (8, '29/06/2016', 4, false, 'PROPUESTA DE TITULADO', false, 1, 10, '1/2014', '156232890');
-INSERT INTO propuesta VALUES (9, '30/05/2016', 4, false, 'PROPUESTA PROCESO DE EXAMEN', false, 1, 11, '1/2014', '161943177');
-INSERT INTO propuesta VALUES (10, '04/05/2016', 1, false, 'PROPUESTA VIGENTE PARA PRORROGAR', false, 1, 12, '1/2014', '136725092');
 
 
 --
@@ -1990,14 +1942,13 @@ COPY seccion (id, codigo, coordinacion_id) FROM stdin;
 --
 
 INSERT INTO semestre VALUES ('2/2014', NULL, NULL);
-INSERT INTO semestre VALUES ('1/2014', '30/08/2016', '21/04/2016');
 
 
 --
 -- Data for Name: semestre_actual; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO semestre_actual VALUES ('2/2014');
+INSERT INTO semestre_actual VALUES ('1/2014');
 
 
 --
@@ -2036,18 +1987,6 @@ INSERT INTO subtipo VALUES (20, 'Taller', 2);
 --
 -- Data for Name: tema; Type: TABLE DATA; Schema: public; Owner: postgres
 --
-
-INSERT INTO tema VALUES (8, NULL, NULL, NULL, NULL, '29/04/2016', NULL, '29/04/2016', 'TEMA CASO RENUNCIA', NULL, NULL, NULL, 4, '1/2014');
-INSERT INTO tema VALUES (1, '22/07/2016', NULL, NULL, '01/08/2016', NULL, '01/08/2016', '20/07/2016', 'TEMA TITULADO', false, '1/2014', 3, 10, '1/2014');
-INSERT INTO tema VALUES (7, '20/07/2016', NULL, NULL, '28/07/2016', NULL, '28/07/2016', '31/05/2016', 'TEMA CASO REPRUEBA', false, '1/2014', 5, 7, '1/2014');
-INSERT INTO tema VALUES (3, NULL, NULL, NULL, NULL, NULL, NULL, '07/06/2016', 'TEMA CASO VIGENTE', NULL, NULL, NULL, 8, '1/2014');
-INSERT INTO tema VALUES (1, '04/06/2016', NULL, NULL, '01/09/2016', NULL, '01/09/2016', '03/06/2016', 'TEMA PROCESO DE EXAMEN', false, '2/2014', 4, 11, '1/2014');
-INSERT INTO tema VALUES (1, '16/06/2016', NULL, NULL, '17/09/2016', NULL, '26/04/2016', '09/05/2016', 'TEMA CARRERA 1863 2001.1', false, '2/2014', 6, 9, '1/2014');
-INSERT INTO tema VALUES (1, '29/06/2016', NULL, NULL, '23/09/2016', NULL, '05/04/2016', '02/06/2016', 'TEMA CASO ENTREGA BORRADOR FINAL', false, '2/2014', 7, 6, '1/2014');
-INSERT INTO tema VALUES (1, '05/08/2016', NULL, '02/07/2016', '26/08/2016', NULL, '25/08/2016', '01/07/2016', 'TEMA VIGENTE PARA PRORROGAR', false, '2/2014', 8, 12, '1/2014');
-INSERT INTO tema VALUES (1, '18/05/2016', NULL, '08/06/2016', '13/07/2016', NULL, '30/06/2016', '17/05/2016', 'TEMA CASO PRORROGA', false, '2/2014', 9, 5, '1/2014');
-INSERT INTO tema VALUES (6, '28/04/2016', '29/04/2016', NULL, NULL, NULL, NULL, '23/04/2016', 'TEMA CASO CADUCO', false, '2/2014', NULL, 3, '1/2014');
-
 
 --
 -- Data for Name: tipo; Type: TABLE DATA; Schema: public; Owner: postgres
