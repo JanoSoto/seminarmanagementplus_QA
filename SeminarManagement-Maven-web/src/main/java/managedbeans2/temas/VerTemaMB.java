@@ -61,8 +61,8 @@ public class VerTemaMB {
         if (result != null) {
             //System.out.println("Entro aca porque el resultado no es nulo");
             tema = result.get(0);
-            //List<ComisionRevisora> result1 = revisoraFacade.findByTema(tema);
-            int idpropuesta = tema.getIdRevisora().getIdRevisora();
+            List<ComisionRevisora> result1 = revisoraFacade.findByTema(tema);
+            int idpropuesta = result1.get(0).getIdPropuesta().getIdPropuesta();
             List<Propuesta> resultProp = propuestaFacade.findById(idpropuesta);
             //setIdProp(resultProp.get(0).getIdPropuesta());
             //setNombreProp(resultProp.get(0).getNombrePropuesta());
