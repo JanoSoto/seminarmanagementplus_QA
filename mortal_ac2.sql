@@ -231,7 +231,7 @@ ALTER SEQUENCE comision_correctora_id_correctora_seq OWNED BY comision_corrector
 -- Name: comision_correctora_id_correctora_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('comision_correctora_id_correctora_seq', 9, true);
+SELECT pg_catalog.setval('comision_correctora_id_correctora_seq', 12, true);
 
 
 --
@@ -280,7 +280,7 @@ ALTER SEQUENCE comision_revisora_id_revisora_seq OWNED BY comision_revisora.id_r
 -- Name: comision_revisora_id_revisora_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('comision_revisora_id_revisora_seq', 12, true);
+SELECT pg_catalog.setval('comision_revisora_id_revisora_seq', 26, true);
 
 
 --
@@ -453,7 +453,7 @@ ALTER SEQUENCE historial_id_historial_seq OWNED BY historial.id_historial;
 -- Name: historial_id_historial_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('historial_id_historial_seq', 2, true);
+SELECT pg_catalog.setval('historial_id_historial_seq', 5, true);
 
 
 --
@@ -548,7 +548,7 @@ ALTER SEQUENCE logs_logs_id_seq OWNED BY logs.logs_id;
 -- Name: logs_logs_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('logs_logs_id_seq', 275, true);
+SELECT pg_catalog.setval('logs_logs_id_seq', 320, true);
 
 
 --
@@ -726,7 +726,7 @@ ALTER SEQUENCE propuesta_id_propuesta_seq OWNED BY propuesta.id_propuesta;
 -- Name: propuesta_id_propuesta_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('propuesta_id_propuesta_seq', 10, true);
+SELECT pg_catalog.setval('propuesta_id_propuesta_seq', 24, true);
 
 
 --
@@ -848,8 +848,8 @@ ALTER TABLE public.tema OWNER TO postgres;
 CREATE SEQUENCE tema_id_tema_seq
     START WITH 1
     INCREMENT BY 1
-    NO MINVALUE
     NO MAXVALUE
+    NO MINVALUE
     CACHE 1;
 
 
@@ -860,6 +860,13 @@ ALTER TABLE public.tema_id_tema_seq OWNER TO postgres;
 --
 
 ALTER SEQUENCE tema_id_tema_seq OWNED BY tema.id_tema;
+
+
+--
+-- Name: tema_id_tema_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('tema_id_tema_seq', 15, true);
 
 
 --
@@ -1080,12 +1087,9 @@ ALTER TABLE ONLY usuario_tipo ALTER COLUMN id_usuario_tipo SET DEFAULT nextval('
 -- Data for Name: alumno; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO alumno VALUES (22, NULL, NULL, '145010330');
 INSERT INTO alumno VALUES (23, NULL, NULL, '138328449');
 INSERT INTO alumno VALUES (24, NULL, NULL, '130461786');
 INSERT INTO alumno VALUES (26, NULL, NULL, '156203181');
-INSERT INTO alumno VALUES (31, NULL, NULL, '70658828');
-INSERT INTO alumno VALUES (34, NULL, NULL, '144409558');
 INSERT INTO alumno VALUES (27, 3, 2, '175657436');
 INSERT INTO alumno VALUES (17, 3, 2, '179043939');
 INSERT INTO alumno VALUES (18, 3, 1, '163601311');
@@ -1097,30 +1101,27 @@ INSERT INTO alumno VALUES (20, 1, 3, '158407337');
 INSERT INTO alumno VALUES (30, 4, 1, '156232890');
 INSERT INTO alumno VALUES (32, 4, 1, '161943177');
 INSERT INTO alumno VALUES (33, 1, 1, '136725092');
+INSERT INTO alumno VALUES (22, 5, 3, '145010330');
+INSERT INTO alumno VALUES (34, 1, 3, '144409558');
+INSERT INTO alumno VALUES (31, NULL, NULL, '70658828');
 
 
 --
 -- Data for Name: asignatura; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY asignatura (id, codigo, ejercicios, laboratorio, nivel, nombre, teoria, versionplan_id, alias) FROM stdin;
-\.
 
 
 --
 -- Data for Name: asignatura_asignatura; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY asignatura_asignatura (asignatura_id, prerequisitos_id) FROM stdin;
-\.
 
 
 --
 -- Data for Name: asignatura_profesor; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY asignatura_profesor (asignaturas_id, profesores_rut_profesor) FROM stdin;
-\.
 
 
 --
@@ -1173,26 +1174,40 @@ INSERT INTO categoriaaevento VALUES (5, 'Unidad Universitaria');
 -- Data for Name: checklist; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY checklist (id, aceptado, encuesta_id, asignatura_id) FROM stdin;
-\.
 
 
 --
 -- Data for Name: checklisteventos; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY checklisteventos (idchecklist, adm_expositor, agenda_institucional, avisar_cancelacion, confimacion_inscritos, cupos, diinf_medios, evento_facebook, evento_twitter, facebook, linkedin, lugar, noticia_web_diinf, publicar_calendario, publicar_web, publico_objetivo, publico_usach, radio_usach, redes_usach, twitter, url_corta) FROM stdin;
-\.
 
 
 --
 -- Data for Name: comision_correctora; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO comision_correctora VALUES (10, '06/08/2014', '14/08/2014', '15/08/2014', '15/08/2014', '2/2014', 11);
+INSERT INTO comision_correctora VALUES (11, '30/05/2014', '31/05/2014', NULL, NULL, '2/2014', 4);
+INSERT INTO comision_correctora VALUES (12, '06/06/2014', '06/06/2014', '07/06/2014', '07/06/2014', '2/2014', 5);
+
+
 --
 -- Data for Name: comision_revisora; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO comision_revisora VALUES (22, NULL, NULL, '29/01/2014', NULL, NULL, '30/01/2014', 2, 17, '1/2014', 2);
+INSERT INTO comision_revisora VALUES (14, NULL, NULL, '30/01/2014', NULL, NULL, NULL, 1, 20, '1/2014', 3);
+INSERT INTO comision_revisora VALUES (15, NULL, NULL, '29/01/2014', NULL, NULL, '31/01/2014', 2, 19, '1/2014', 4);
+INSERT INTO comision_revisora VALUES (16, NULL, NULL, '29/01/2014', NULL, NULL, NULL, 1, 18, '1/2014', 5);
+INSERT INTO comision_revisora VALUES (18, NULL, NULL, '22/01/2014', NULL, NULL, '30/01/2014', 2, 13, '1/2014', 7);
+INSERT INTO comision_revisora VALUES (19, NULL, NULL, '30/01/2014', NULL, NULL, NULL, 1, 14, '1/2014', 8);
+INSERT INTO comision_revisora VALUES (20, NULL, NULL, '28/01/2014', NULL, NULL, '30/01/2014', 2, 15, '1/2014', 9);
+INSERT INTO comision_revisora VALUES (21, NULL, NULL, '30/01/2014', NULL, NULL, NULL, 1, 16, '1/2014', 10);
+INSERT INTO comision_revisora VALUES (17, NULL, NULL, '30/01/2014', NULL, NULL, NULL, 1, 12, '1/2014', 11);
+INSERT INTO comision_revisora VALUES (23, NULL, NULL, '22/01/2014', NULL, NULL, '24/01/2014', 2, 21, '1/2014', 12);
+INSERT INTO comision_revisora VALUES (24, NULL, NULL, '06/05/2014', NULL, NULL, '16/05/2014', 2, 22, '1/2014', 13);
+INSERT INTO comision_revisora VALUES (25, NULL, NULL, '12/06/2014', NULL, NULL, '13/06/2014', 2, 23, '1/2014', 14);
+INSERT INTO comision_revisora VALUES (26, NULL, NULL, '01/07/2014', NULL, NULL, '02/07/2014', 2, 24, '1/2014', 15);
 
 
 --
@@ -1551,40 +1566,30 @@ INSERT INTO comuna VALUES (15202, 'General Lagos', 152);
 -- Data for Name: coordinacion; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY coordinacion (id, anio, cantalumnosestimado, cantalumnosreal, semestre, asignatura_id, alias) FROM stdin;
-\.
 
 
 --
 -- Data for Name: encuesta; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY encuesta (id, anio, comentario, semestre, profesor_rut_profesor) FROM stdin;
-\.
 
 
 --
 -- Data for Name: evento; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY evento (idevento, rsu, codigo, comuna, cuposdepartamento, cuposinvitados, entidadreceptora, estado, fechahora, financiamiento, imagen, institucionorigen, invitadoapellido, invitadocargo, invitadocomentarios, invitadocorreo, invitadonombre, lugar, nombreproyecto, origensolicitud, proyectovinculado, publicoobjetivo, region, resumen, sala, titulo, unidadacademicamayor, unidadacademicamenor, idsubtipo_idsubtipo, idchecklist_idchecklist) FROM stdin;
-\.
 
 
 --
 -- Data for Name: evento_asociado; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY evento_asociado (id, idasociado_idasociado, idevento_idevento) FROM stdin;
-\.
 
 
 --
 -- Data for Name: evento_expositor; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY evento_expositor (id, idevento_idevento, idexpositor_idexpositor) FROM stdin;
-\.
 
 
 --
@@ -1603,30 +1608,27 @@ INSERT INTO expositor VALUES (52, 'Bonacic', 'carolina.bonacic@usach.cl', 'Ph. D
 
 INSERT INTO historial VALUES (1, 'Informe de Avance: El estado del tema cambió de ''Vigente'' a ''Prorrogado''', '08/06/2016', '5', 1);
 INSERT INTO historial VALUES (2, 'Informe de Avance: El estado del tema cambió de ''Vigente'' a ''Prorrogado''', '02/07/2016', '12', 1);
+INSERT INTO historial VALUES (3, 'Informe de Avance: El estado del tema cambió de ''Vigente'' a ''Prorrogado''', '29/05/2014', '6', 1);
+INSERT INTO historial VALUES (4, 'Informe de Avance: El estado del tema cambió de ''Vigente'' a ''Prorrogado''', '02/06/2014', '10', 1);
+INSERT INTO historial VALUES (5, 'Informe de Avance: El estado del tema cambió de ''Vigente'' a ''Prorrogado''', '19/06/2014', '3', 1);
 
 
 --
 -- Data for Name: horario; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY horario (id, bloque, tipo, profesor_rut_profesor, seccion_id) FROM stdin;
-\.
 
 
 --
 -- Data for Name: inscripcion; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY inscripcion (idinscripcion, apellido, carrera, email, nombre, ocupacion, spam, idevento_idevento) FROM stdin;
-\.
 
 
 --
 -- Data for Name: inscripcionspam; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY inscripcionspam (idinscripcion, apellido, carrera, email, evento, nombre, ocupacion, spam) FROM stdin;
-\.
 
 
 --
@@ -1732,6 +1734,51 @@ INSERT INTO logs VALUES (272, '2016-04-21 19:02:30.3678', 'INFO', 'managedbeans2
 INSERT INTO logs VALUES (273, '2016-04-21 19:03:21.679571', 'INFO', 'managedbeans2.temas.ComisionCorrectora2MB', 'Comisión ingresada al sistema, el estado del tema seleccionado se modificó a En proceso de examen', '');
 INSERT INTO logs VALUES (274, '2016-04-21 19:03:55.7544', 'INFO', 'managedbeans2.temas.CalificacionTema2MB', 'Promedio: 7.0 Se agregaron las notas y el estado del tema seleccionado se modificó a Titulado', '');
 INSERT INTO logs VALUES (275, '2016-04-26 18:04:26.527381', 'INFO', 'managedbeans2.temas.BorradorFinalMB', 'El estado del tema seleccionado se modificó a Vigente con borrador final', '');
+INSERT INTO logs VALUES (276, '2016-05-02 10:58:28.049013', 'INFO', 'managedbeans2.propuestas.ComisionRevisora2MB', 'La comision revisora de la propuesta PRUEBA PARA GIOVANNI ha sido modificada en el sistema', 'mcarcamo');
+INSERT INTO logs VALUES (277, '2016-05-02 10:58:52.508717', 'INFO', 'managedbeans2.temas.AgregarTemaMB', 'El tema TEMA PRUEBA PARA GIOVANNI ha sido ingresado al sistema', '');
+INSERT INTO logs VALUES (278, '2016-05-03 19:41:25.366222', 'INFO', 'managedbeans2.EliminarMB', 'El tema TEMA PRUEBA PARA GIOVANNI ha sido eliminado del sistema', 'mcarcamo');
+INSERT INTO logs VALUES (279, '2016-05-03 19:41:25.46873', 'INFO', 'managedbeans2.EliminarMB', 'La comisión revisora de la Propuesta: PRUEBA PARA GIOVANNI ha sido eliminada del sistema', 'mcarcamo');
+INSERT INTO logs VALUES (280, '2016-05-03 19:41:25.514346', 'INFO', 'managedbeans2.EliminarMB', 'La propuesta: PRUEBA PARA GIOVANNI ha sido eliminada del sistema', 'mcarcamo');
+INSERT INTO logs VALUES (281, '2016-05-03 20:03:08.437734', 'INFO', 'managedbeans2.propuestas.ComisionRevisora2MB', 'La comision revisora de la propuesta PROPUESTA VIGENTE PARA PRORROGAR ha sido modificada en el sistema', '');
+INSERT INTO logs VALUES (282, '2016-05-03 20:14:16.416168', 'INFO', 'managedbeans2.propuestas.ComisionRevisora2MB', 'La comision revisora de la propuesta PROPUESTA TITULADO ha sido modificada en el sistema', '');
+INSERT INTO logs VALUES (283, '2016-05-03 20:16:46.053544', 'INFO', 'managedbeans2.propuestas.ComisionRevisora2MB', 'La comision revisora de la propuesta PROPUESTA CASO REPRUEBA ha sido modificada en el sistema', '');
+INSERT INTO logs VALUES (284, '2016-05-03 20:18:57.78788', 'INFO', 'managedbeans2.propuestas.ComisionRevisora2MB', 'La comision revisora de la propuesta PROPUESTA CASO RENUNCIA ha sido modificada en el sistema', 'mcarcamo');
+INSERT INTO logs VALUES (285, '2016-05-03 20:21:39.846967', 'INFO', 'managedbeans2.propuestas.ComisionRevisora2MB', 'La comision revisora de la propuesta PROPUESTA CASO PRORROGA ha sido modificada en el sistema', 'mcarcamo');
+INSERT INTO logs VALUES (286, '2016-05-03 20:25:28.754366', 'INFO', 'managedbeans2.temas.AgregarTemaMB', 'El tema TEMA CARRERA 1363 2012.3 ha sido ingresado al sistema', 'mcarcamo');
+INSERT INTO logs VALUES (287, '2016-05-03 20:28:40.886401', 'INFO', 'managedbeans2.temas.AgregarTemaMB', 'El tema TEMA VIGENTE PARA PRORROGAR ha sido ingresado al sistema', '');
+INSERT INTO logs VALUES (288, '2016-05-03 20:33:17.133565', 'INFO', 'managedbeans2.temas.AgregarTemaMB', 'El tema TEMA PROCESO DE EXAMEN ha sido ingresado al sistema', '');
+INSERT INTO logs VALUES (289, '2016-05-03 20:37:23.489498', 'INFO', 'managedbeans2.temas.AgregarTemaMB', 'El tema TEMA TITULADO ha sido ingresado al sistema', 'mcarcamo');
+INSERT INTO logs VALUES (290, '2016-05-03 20:38:01.405221', 'INFO', 'managedbeans2.temas.AgregarTemaMB', 'El tema TEMA CASO REPRUEBA ha sido ingresado al sistema', '');
+INSERT INTO logs VALUES (291, '2016-05-03 20:39:48.722619', 'INFO', 'managedbeans2.temas.AgregarTemaMB', 'El tema TEMA CASO CADUCO ha sido ingresado al sistema', '');
+INSERT INTO logs VALUES (292, '2016-05-03 20:40:39.929522', 'INFO', 'managedbeans2.temas.AgregarTemaMB', 'El tema TEMA CASO RENUNCIA ha sido ingresado al sistema', 'mcarcamo');
+INSERT INTO logs VALUES (293, '2016-05-03 20:41:05.862337', 'INFO', 'managedbeans2.temas.AgregarTemaMB', 'El tema TEMA CASO VIGENTE ha sido ingresado al sistema', 'mcarcamo');
+INSERT INTO logs VALUES (294, '2016-05-03 20:41:36.299096', 'INFO', 'managedbeans2.temas.AgregarTemaMB', 'El tema TEMA CASO PRORROGA ha sido ingresado al sistema', 'mcarcamo');
+INSERT INTO logs VALUES (295, '2016-05-03 20:42:28.24841', 'INFO', 'managedbeans2.temas.AvanceYCaducarMB', 'Tema modificado, El estado del tema TEMA CASO REPRUEBA se modificó a Prorrogado', 'mcarcamo');
+INSERT INTO logs VALUES (296, '2016-05-03 20:42:47.561034', 'INFO', 'managedbeans2.EliminarMB', 'El tema TEMA CASO REPRUEBA ha sido eliminado del sistema', '');
+INSERT INTO logs VALUES (297, '2016-05-03 20:43:16.26232', 'INFO', 'managedbeans2.temas.AgregarTemaMB', 'El tema TEMA CASO REPRUEBA ha sido ingresado al sistema', 'mcarcamo');
+INSERT INTO logs VALUES (298, '2016-05-03 20:43:50.059951', 'INFO', 'managedbeans2.temas.BorradorFinalMB', 'El estado del tema seleccionado se modificó a Vigente con borrador final', 'mcarcamo');
+INSERT INTO logs VALUES (299, '2016-05-03 20:44:35.172382', 'INFO', 'managedbeans2.temas.AvanceYCaducarMB', 'El estado del tema seleccionado se modificó a Caduco', 'mcarcamo');
+INSERT INTO logs VALUES (300, '2016-05-03 20:44:54.343663', 'INFO', 'managedbeans2.temas.AvanceYCaducarMB', 'El estado del tema seleccionado se modificó a Caduco por renuncia', 'mcarcamo');
+INSERT INTO logs VALUES (301, '2016-05-03 20:46:00.241288', 'INFO', 'managedbeans2.temas.ComisionCorrectora2MB', 'Comisión ingresada al sistema, el estado del tema seleccionado se modificó a En proceso de examen', 'mcarcamo');
+INSERT INTO logs VALUES (302, '2016-05-03 20:46:36.397611', 'INFO', 'managedbeans2.temas.ComisionCorrectora2MB', 'La comision correctora del tema TEMA CASO REPRUEBA ha sido modificada en el sistema', 'mcarcamo');
+INSERT INTO logs VALUES (303, '2016-05-03 20:48:36.10107', 'INFO', 'managedbeans2.temas.ComisionCorrectora2MB', 'La comision correctora del tema TEMA CASO REPRUEBA ha sido modificada en el sistema', 'mcarcamo');
+INSERT INTO logs VALUES (304, '2016-05-03 20:49:11.005493', 'INFO', 'managedbeans2.temas.CalificacionTema2MB', 'Promedio: 1.0 Se agregaron las notas y el estado del tema seleccionado se modificó a Reprobado', 'mcarcamo');
+INSERT INTO logs VALUES (305, '2016-05-03 20:50:10.515092', 'INFO', 'managedbeans2.temas.AvanceYCaducarMB', 'Tema modificado, El estado del tema TEMA CASO PRORROGA se modificó a Prorrogado', 'mcarcamo');
+INSERT INTO logs VALUES (306, '2016-05-03 20:51:56.411726', 'INFO', 'managedbeans2.temas.BorradorFinalMB', 'El estado del tema seleccionado se modificó a Vigente con borrador final', 'mcarcamo');
+INSERT INTO logs VALUES (307, '2016-05-03 20:53:18.062977', 'INFO', 'managedbeans2.temas.ComisionCorrectora2MB', 'Comisión ingresada al sistema, el estado del tema seleccionado se modificó a En proceso de examen', 'mcarcamo');
+INSERT INTO logs VALUES (308, '2016-05-03 20:54:15.937359', 'INFO', 'managedbeans2.temas.BorradorFinalMB', 'El estado del tema seleccionado se modificó a Vigente con borrador final', 'mcarcamo');
+INSERT INTO logs VALUES (309, '2016-05-03 20:55:19.282322', 'INFO', 'managedbeans2.temas.ComisionCorrectora2MB', 'Comisión ingresada al sistema, el estado del tema seleccionado se modificó a En proceso de examen', '');
+INSERT INTO logs VALUES (310, '2016-05-03 20:55:50.698253', 'INFO', 'managedbeans2.temas.CalificacionTema2MB', 'Promedio: 7.0 Se agregaron las notas y el estado del tema seleccionado se modificó a Titulado', 'mcarcamo');
+INSERT INTO logs VALUES (311, '2016-05-03 20:58:15.481481', 'INFO', 'managedbeans2.temas.AgregarTemaMB', 'El tema TEMA CASO ENTREGA BORRADOR FINAL ha sido ingresado al sistema', 'mcarcamo');
+INSERT INTO logs VALUES (312, '2016-05-03 20:59:52.14264', 'INFO', 'managedbeans2.temas.BorradorFinalMB', 'El estado del tema seleccionado se modificó a Vigente con borrador final', 'mcarcamo');
+INSERT INTO logs VALUES (313, '2016-05-05 19:34:47.766746', 'INFO', 'managedbeans2.temas.AgregarTemaMB', 'El tema TEMA CASO INSCRIBE AL FINAL DEL SEMESTRE ha sido ingresado al sistema', 'mcarcamo');
+INSERT INTO logs VALUES (314, '2016-05-05 19:35:14.448088', 'INFO', 'managedbeans2.SemestreMB', 'Se ha precerrado el semestre, borradores finales entregados luego de esta fecha pasarán a ser del próximo semestre', 'mcarcamo');
+INSERT INTO logs VALUES (315, '2016-05-05 19:38:58.80977', 'INFO', 'managedbeans2.temas.BorradorFinalMB', 'El estado del tema seleccionado se modificó a Vigente con borrador final', '');
+INSERT INTO logs VALUES (316, '2016-05-05 19:40:37.526107', 'INFO', 'managedbeans2.temas.AvanceYCaducarMB', 'Tema modificado, El estado del tema TEMA VIGENTE PARA PRORROGAR se modificó a Prorrogado', 'mcarcamo');
+INSERT INTO logs VALUES (317, '2016-05-05 19:43:15.533288', 'INFO', 'managedbeans2.temas.AgregarTemaMB', 'El tema TEMA CASO TRAMITA ESTADO 2 SEMESTRE INICIO N ha sido ingresado al sistema', 'mcarcamo');
+INSERT INTO logs VALUES (318, '2016-05-05 19:46:57.237355', 'INFO', 'managedbeans2.temas.AgregarTemaMB', 'El tema TEMA CASO TRAMITA ESTADO 2 INICIO TEMA N+1 ha sido ingresado al sistema', 'mcarcamo');
+INSERT INTO logs VALUES (319, '2016-05-05 20:14:09.250622', 'INFO', 'managedbeans2.SemestreMB', 'Se ha precerrado el semestre, borradores finales entregados luego de esta fecha pasarán a ser del próximo semestre', '');
+INSERT INTO logs VALUES (320, '2016-05-05 20:23:04.779583', 'INFO', 'managedbeans2.SemestreMB', 'Estados y semestre modificados, el semestre actual es: 2/2014', 'mcarcamo');
 
 
 --
@@ -1747,7 +1794,6 @@ INSERT INTO paramsemestreano VALUES (1, 2015, 1);
 
 INSERT INTO planes_alumno VALUES ('176767901', 3, true, 2);
 INSERT INTO planes_alumno VALUES ('178608975', 1, true, 1);
-INSERT INTO planes_alumno VALUES ('176785969', 1, true, 3);
 INSERT INTO planes_alumno VALUES ('175657436', 3, true, 2);
 INSERT INTO planes_alumno VALUES ('179043939', 3, true, 2);
 INSERT INTO planes_alumno VALUES ('163601311', 3, true, 1);
@@ -1756,10 +1802,10 @@ INSERT INTO planes_alumno VALUES ('17490314K', 3, true, 2);
 INSERT INTO planes_alumno VALUES ('173865090', 6, true, 1);
 INSERT INTO planes_alumno VALUES ('164115267', 3, true, 1);
 INSERT INTO planes_alumno VALUES ('158407337', 3, true, 1);
-INSERT INTO planes_alumno VALUES ('158407337', 1, true, 3);
 INSERT INTO planes_alumno VALUES ('156232890', 4, true, 1);
 INSERT INTO planes_alumno VALUES ('161943177', 4, true, 1);
 INSERT INTO planes_alumno VALUES ('136725092', 1, true, 1);
+INSERT INTO planes_alumno VALUES ('145010330', 5, true, 3);
 
 
 --
@@ -1782,16 +1828,47 @@ INSERT INTO planestudio VALUES (10, 1063, 0, 2);
 -- Data for Name: profe_correccion; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO profe_correccion VALUES (1, 1, 0, '69476376', 10);
+INSERT INTO profe_correccion VALUES (1, 1, 1, '80796609', 10);
+INSERT INTO profe_correccion VALUES (NULL, NULL, 0, '69476376', 11);
+INSERT INTO profe_correccion VALUES (NULL, NULL, 1, '95794912', 11);
+INSERT INTO profe_correccion VALUES (7, 7, 0, '69476376', 12);
+INSERT INTO profe_correccion VALUES (7, 7, 1, '71531589', 12);
 
 
 --
 -- Data for Name: profe_propuesta; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO profe_propuesta VALUES (NULL, NULL, NULL, 0, '95794912', 13);
+INSERT INTO profe_propuesta VALUES (NULL, NULL, NULL, 0, '95794912', 14);
+INSERT INTO profe_propuesta VALUES (NULL, NULL, NULL, 0, '80796609', 15);
+INSERT INTO profe_propuesta VALUES (NULL, NULL, NULL, 0, '80796609', 16);
+INSERT INTO profe_propuesta VALUES (NULL, NULL, NULL, 0, '71531589', 17);
+INSERT INTO profe_propuesta VALUES (NULL, NULL, NULL, 0, '80796609', 19);
+INSERT INTO profe_propuesta VALUES (NULL, NULL, NULL, 0, '95794912', 20);
+INSERT INTO profe_propuesta VALUES (NULL, 1, 1, 0, '65776545', 12);
+INSERT INTO profe_propuesta VALUES (NULL, 7, 7, 0, '80796609', 18);
+INSERT INTO profe_propuesta VALUES (NULL, NULL, NULL, 0, '69476376', 21);
+INSERT INTO profe_propuesta VALUES (NULL, NULL, NULL, 0, '71531589', 22);
+INSERT INTO profe_propuesta VALUES (NULL, NULL, NULL, 0, '69476376', 23);
+INSERT INTO profe_propuesta VALUES (NULL, NULL, NULL, 0, '69476376', 24);
+
 
 --
 -- Data for Name: profe_revision; Type: TABLE DATA; Schema: public; Owner: postgres
 --
+
+INSERT INTO profe_revision VALUES (NULL, 0, '69476376', 14);
+INSERT INTO profe_revision VALUES (NULL, 1, '80796609', 14);
+INSERT INTO profe_revision VALUES (NULL, 0, '65776545', 16);
+INSERT INTO profe_revision VALUES (NULL, 1, '71531589', 16);
+INSERT INTO profe_revision VALUES (NULL, 0, '69476376', 17);
+INSERT INTO profe_revision VALUES (NULL, 1, '71531589', 17);
+INSERT INTO profe_revision VALUES (NULL, 0, '69476376', 19);
+INSERT INTO profe_revision VALUES (NULL, 1, '80796609', 19);
+INSERT INTO profe_revision VALUES (NULL, 0, '71531589', 21);
+INSERT INTO profe_revision VALUES (NULL, 1, '95794912', 21);
 
 
 --
@@ -1827,6 +1904,19 @@ INSERT INTO profesor VALUES (56, 0, NULL, 0, 1, '130461786');
 -- Data for Name: propuesta; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO propuesta VALUES (20, '16/01/2014', 1, false, 'PROPUESTA VIGENTE PARA PRORROGAR', false, 1, 14, '1/2014', '136725092');
+INSERT INTO propuesta VALUES (19, '10/01/2014', 4, false, 'PROPUESTA PROCESO DE EXAMEN', false, 1, 15, '1/2014', '161943177');
+INSERT INTO propuesta VALUES (18, '09/01/2014', 4, false, 'PROPUESTA TITULADO', false, 1, 16, '1/2014', '156232890');
+INSERT INTO propuesta VALUES (12, '01/01/2014', 3, false, 'PROPUESTA CASO REPRUEBA', false, 2, 17, '1/2014', '17490314K');
+INSERT INTO propuesta VALUES (13, '02/01/2014', 3, false, 'PROPUESTA CASO CADUCO', false, 2, 18, '1/2014', '175657436');
+INSERT INTO propuesta VALUES (14, '02/01/2014', 3, false, 'PROPUESTA CASO RENUNCIA', false, 2, 19, '1/2014', '179043939');
+INSERT INTO propuesta VALUES (15, '03/01/2014', 6, false, 'PROPUESTA CASO VIGENTE', false, 1, 20, '1/2014', '173865090');
+INSERT INTO propuesta VALUES (16, '04/01/2014', 3, false, 'PROPUESTA CASO PRORROGA', false, 1, 21, '1/2014', '163601311');
+INSERT INTO propuesta VALUES (17, '08/01/2014', 1, false, 'PROPUESTA CARRERA 1363 2012.3', false, 3, 22, '1/2014', '158407337');
+INSERT INTO propuesta VALUES (21, '15/01/2014', 3, false, 'PROPUESTA CASO ENTREGA BORRADOR FINAL', false, 2, 23, '1/2014', '169410313');
+INSERT INTO propuesta VALUES (22, '05/05/2014', 1, false, 'PROPUESTA CASO INSCRIBE AL FINAL DEL SEMESTRE', false, 3, 24, '1/2014', '144409558');
+INSERT INTO propuesta VALUES (23, '11/06/2014', 5, false, 'PROPUESTA CASO TRAMITA ESTADO 2 SEMESTRE INICIO N', false, 3, 25, '1/2014', '145010330');
+INSERT INTO propuesta VALUES (24, '12/06/2014', 3, false, 'PROPUESTA CASO TRAMITA ESTADO 2 INICIO TEMA N+1', false, 1, 26, '1/2014', '164115267');
 
 
 --
@@ -1914,8 +2004,6 @@ INSERT INTO region VALUES (14, 'Los Ríos');
 -- Data for Name: seccion; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY seccion (id, codigo, coordinacion_id) FROM stdin;
-\.
 
 
 --
@@ -1923,13 +2011,14 @@ COPY seccion (id, codigo, coordinacion_id) FROM stdin;
 --
 
 INSERT INTO semestre VALUES ('2/2014', NULL, NULL);
+INSERT INTO semestre VALUES ('1/2014', '05/07/2014', '05/06/2014');
 
 
 --
 -- Data for Name: semestre_actual; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO semestre_actual VALUES ('1/2014');
+INSERT INTO semestre_actual VALUES ('2/2014');
 
 
 --
@@ -1969,12 +2058,25 @@ INSERT INTO subtipo VALUES (20, 'Taller', 2);
 -- Data for Name: tema; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+INSERT INTO tema VALUES (7, 3, NULL, '16/04/2014', NULL, NULL, NULL, NULL, '18/03/2014', 'TEMA CASO CADUCO', NULL, NULL, NULL, 18, '1/2014');
+INSERT INTO tema VALUES (8, 8, NULL, NULL, NULL, NULL, '16/04/2014', NULL, '19/03/2014', 'TEMA CASO RENUNCIA', NULL, NULL, NULL, 19, '1/2014');
+INSERT INTO tema VALUES (11, 7, '18/06/2014', NULL, NULL, '10/09/2014', NULL, '13/09/2014', '26/03/2014', 'TEMA CASO REPRUEBA', false, '1/2014', 10, 17, '1/2014');
+INSERT INTO tema VALUES (4, 4, '30/05/2014', NULL, NULL, NULL, NULL, NULL, '12/03/2014', 'TEMA PROCESO DE EXAMEN', false, '1/2014', 11, 15, '1/2014');
+INSERT INTO tema VALUES (5, 1, '06/06/2014', NULL, NULL, '10/07/2014', NULL, '24/07/2014', '13/03/2014', 'TEMA TITULADO', false, '1/2014', 12, 16, '1/2014');
+INSERT INTO tema VALUES (12, 6, '01/07/2014', NULL, NULL, NULL, NULL, NULL, '13/03/2014', 'TEMA CASO ENTREGA BORRADOR FINAL', false, '1/2014', NULL, 23, '1/2014');
+INSERT INTO tema VALUES (13, 0, NULL, NULL, NULL, NULL, NULL, NULL, '20/05/2014', 'TEMA CASO INSCRIBE AL FINAL DEL SEMESTRE', NULL, NULL, NULL, 24, '2/2014');
+INSERT INTO tema VALUES (2, 6, '18/06/2014', NULL, NULL, NULL, NULL, NULL, '04/03/2014', 'TEMA CARRERA 1363 2012.3', false, '2/2014', NULL, 22, '1/2014');
+INSERT INTO tema VALUES (15, 0, NULL, NULL, NULL, NULL, NULL, NULL, '04/07/2014', 'TEMA CASO TRAMITA ESTADO 2 INICIO TEMA N+1', NULL, NULL, NULL, 26, '2/2014');
+INSERT INTO tema VALUES (9, 3, NULL, NULL, NULL, NULL, NULL, NULL, '12/03/2014', 'TEMA CASO VIGENTE', NULL, NULL, NULL, 20, '1/2014');
+INSERT INTO tema VALUES (10, 0, NULL, NULL, '02/06/2014', NULL, NULL, NULL, '20/03/2014', 'TEMA CASO PRORROGA', NULL, NULL, NULL, 21, '1/2014');
+INSERT INTO tema VALUES (3, 0, NULL, NULL, '19/06/2014', NULL, NULL, NULL, '05/03/2014', 'TEMA VIGENTE PARA PRORROGAR', NULL, NULL, NULL, 14, '1/2014');
+INSERT INTO tema VALUES (14, 3, NULL, NULL, NULL, NULL, NULL, NULL, '14/06/2014', 'TEMA CASO TRAMITA ESTADO 2 SEMESTRE INICIO N', NULL, NULL, NULL, 25, '1/2014');
+
+
 --
 -- Data for Name: tipo; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY tipo (nombre_tipo) FROM stdin;
-\.
 
 
 --
@@ -2042,15 +2144,6 @@ INSERT INTO usuario VALUES ('83978872', NULL, 'SOLAR FUENTES', '', '', 'MAURICIO
 -- Data for Name: usuario_tipo; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY usuario_tipo (id_usuario_tipo, nombre_tipo, username) FROM stdin;
-\.
-
-
---
--- Name: usuario_tipo_id_usuario_tipo_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('usuario_tipo_id_usuario_tipo_seq', 1, false);
 
 
 --
