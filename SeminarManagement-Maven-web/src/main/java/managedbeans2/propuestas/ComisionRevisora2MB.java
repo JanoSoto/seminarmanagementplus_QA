@@ -529,6 +529,8 @@ public class ComisionRevisora2MB implements Serializable {
             //}
         } else if (tipoRevision == 0) { //secretaría
             //Se valida que se halla seleccionado profesor1
+            System.out.println(rutProfeRev1);
+            System.out.println(rutProfeRev1Sem);
             if (rutProfeRev1.equals("-")) {
                 context.addMessage(null, new FacesMessage("Profesor Revisor 1", "Debe seleccionar Profesor"));
                 return;
