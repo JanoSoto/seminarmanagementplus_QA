@@ -530,7 +530,8 @@ public class ComisionRevisora2MB implements Serializable {
         } else if (tipoRevision == 0) { //secretaría
             //Se valida que se halla seleccionado profesor1
             System.out.println("RUT1:"+rutProfeRev1);
-            System.out.println("RUT2:"+rutProfeRev1Sem);
+            System.out.println("RUT3:"+rutProfeRev1Sem);
+            System.out.println("RUT4:"+rutProfeRev2Sem);
             System.out.println("D1:"+date);
             System.out.println("D2:"+date2);
             //if (rutProfeRev1.equals("-")) {
