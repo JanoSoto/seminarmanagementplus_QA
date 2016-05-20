@@ -10,12 +10,19 @@ $(document).ready(function() {
 
 function showPanel(){
     var $element = $("select[name='formulario:tipo1_input'] option:selected").val();
-    if ( $element === '1') { //seminario
+    if ( $element === '2' ){ // consejo
+        //console.log("2");
+        $( '#formulario\\:panelConsejo' ).show();
+        $( '#formulario\\:panelSeminario' ).hide();
+        $( '#formulario\\:panelSecretaria' ).hide();
+    } else if ( $element === '1') { //seminario
         //console.log("1");
+        $( '#formulario\\:panelConsejo' ).hide();
         $( '#formulario\\:panelSeminario' ).show();
         $( '#formulario\\:panelSecretaria' ).hide();
     } else if ( $element === '0' ) { //secretaria
         //console.log("0");
+        $( '#formulario\\:panelConsejo' ).hide();
         $( '#formulario\\:panelSeminario' ).hide();
         $( '#formulario\\:panelSecretaria' ).show();
     } else {
