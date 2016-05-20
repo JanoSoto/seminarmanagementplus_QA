@@ -529,22 +529,16 @@ public class ComisionRevisora2MB implements Serializable {
             //}
         } else if (tipoRevision == 0) { //secretaría
             //Se valida que se halla seleccionado profesor1
-            System.out.println("RUT1:"+rutProfeRev1);
-            System.out.println("RUT1:"+rutProfeRev2);
-            System.out.println("RUT3:"+rutProfeRev1Sem);
-            System.out.println("RUT4:"+rutProfeRev2Sem);
-            System.out.println("D1:"+date);
-            System.out.println("D2:"+date2);
-            //if (rutProfeRev1.equals("-")) {
-            //    context.addMessage(null, new FacesMessage("Profesor Revisor 1", "Debe seleccionar Profesor"));
-            //    return;
-            //}
+            if (rutProfeRev1.equals("-")) {
+                context.addMessage(null, new FacesMessage("Profesor Revisor 1", "Debe seleccionar Profesor"));
+                return;
+            }
 
             //Se valida que se halla seleccionado Profesor2
-            /*if (rutProfeRev2.equals("-")) {
+            if (rutProfeRev2.equals("-")) {
                 context.addMessage(null, new FacesMessage("Profesor Revisor 2", "Debe seleccionar Profesor"));
                 return;
-            }*/
+            }
             //Se valida que se hallan seleccionado profesores revisores distintos al guia
             for (int i = 0; i < propuesta.getProfePropuestaList().size(); i++) {
                 if (propuesta.getProfePropuestaList().get(i).getRolGuia() == 0) {
