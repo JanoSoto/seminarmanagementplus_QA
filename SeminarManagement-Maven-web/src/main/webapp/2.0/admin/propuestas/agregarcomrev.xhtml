@@ -61,8 +61,30 @@
                         </p:selectOneMenu>
                     </h:panelGrid>
                     
-                    <h:panelGrid id="panelSecretaria" columns="3" cellpadding="4" style="display: none;">
+                    
+                    <h:panelGrid id="panelSeminario" columns="3" cellpadding="4" style="display: none;">
+                        <c:if test = "${tipo1 == 1}">
+                            <p:outputLabel  id="profeR1label" for="profeR1" value="Profesor Revisor 1 *"><p:spacer width="212" height="10" /></p:outputLabel>
+                        <p:selectOneMenu  id="profeR1" value="#{comisionRevisora2MB.rutProfeRev1Sem}" filter="true" filterMatchMode="contains" style="width:350px">
+                            <f:selectItem itemLabel="Seleccionar Profesor" itemValue="-"/>
+                            <f:selectItems value="#{comisionRevisora2MB.profeDatos}" var="prof" itemLabel="#{prof.profesor.rutProfesor} - #{prof.profesor.nombreProfesor} #{prof.profesor.apellidoProfesor} (#{prof.revSemActual})" itemValue="#{prof.profesor.rutProfesor}"/>  
+                        </p:selectOneMenu>
+                        <br/>
                         
+                        <p:outputLabel for="profeR2" value="Profesor Revisor 2 *" />
+                        <p:selectOneMenu id="profeR2" value="#{comisionRevisora2MB.rutProfeRev2Sem}" filter="true" filterMatchMode="contains" style="width:350px">
+                            <f:selectItem itemLabel="Seleccionar Profesor" itemValue="-"/>
+                            <f:selectItems value="#{comisionRevisora2MB.profeDatos}" var="prof" itemLabel="#{prof.profesor.rutProfesor} - #{prof.profesor.nombreProfesor} #{prof.profesor.apellidoProfesor} (#{prof.revSemActual})" itemValue="#{prof.profesor.rutProfesor}"/>
+                        </p:selectOneMenu>
+                        <br/>
+                        
+                        <p:outputLabel for="fechaEntrega" value="Fecha entrega en secretaría"></p:outputLabel>
+                        <p:calendar id="fechaEntrega" value="#{comisionRevisora2MB.fechaSeminario}" mode="popup"/>
+                        <p:watermark for="fechaEntrega" value="Ingresar Fecha"/>
+                        
+                        </c:if>
+                
+                        <c:if test = "${tipo1 == 0}">
                         <p:outputLabel  id="profeR1Plabel" for="profeR1P" value="Profesor Revisor 1 *"><p:spacer width="212" height="10" /></p:outputLabel>
                         <p:selectOneMenu id="profeR1P" value="#{comisionRevisora2MB.rutProfeRev1Sem}" filter="true" filterMatchMode="contains" style="width:350px">
                             <f:selectItem itemLabel="Seleccionar Profesor" itemValue="-"/>
@@ -94,28 +116,8 @@
                         <p:outputLabel for="calendP4" value="Fecha de devolución con correcciones del profesor " />
                         <p:calendar id="calendP4" value="#{comisionRevisora2MB.date4}" mode="popup"/>
                         <p:watermark for="calendP4" value="Ingresar Fecha"/>
-
-                    </h:panelGrid>
-                    
-                    <h:panelGrid id="panelSeminario" columns="3" cellpadding="4" style="display: none;">
                         
-                        <p:outputLabel  id="profeR1label" for="profeR1" value="Profesor Revisor 1 *"><p:spacer width="212" height="10" /></p:outputLabel>
-                        <p:selectOneMenu  id="profeR1" value="#{comisionRevisora2MB.rutProfeRev1Sem}" filter="true" filterMatchMode="contains" style="width:350px">
-                            <f:selectItem itemLabel="Seleccionar Profesor" itemValue="-"/>
-                            <f:selectItems value="#{comisionRevisora2MB.profeDatos}" var="prof" itemLabel="#{prof.profesor.rutProfesor} - #{prof.profesor.nombreProfesor} #{prof.profesor.apellidoProfesor} (#{prof.revSemActual})" itemValue="#{prof.profesor.rutProfesor}"/>  
-                        </p:selectOneMenu>
-                        <br/>
-                        
-                        <p:outputLabel for="profeR2" value="Profesor Revisor 2 *" />
-                        <p:selectOneMenu id="profeR2" value="#{comisionRevisora2MB.rutProfeRev2Sem}" filter="true" filterMatchMode="contains" style="width:350px">
-                            <f:selectItem itemLabel="Seleccionar Profesor" itemValue="-"/>
-                            <f:selectItems value="#{comisionRevisora2MB.profeDatos}" var="prof" itemLabel="#{prof.profesor.rutProfesor} - #{prof.profesor.nombreProfesor} #{prof.profesor.apellidoProfesor} (#{prof.revSemActual})" itemValue="#{prof.profesor.rutProfesor}"/>
-                        </p:selectOneMenu>
-                        <br/>
-                        
-                        <p:outputLabel for="fechaEntrega" value="Fecha entrega en secretaría"></p:outputLabel>
-                        <p:calendar id="fechaEntrega" value="#{comisionRevisora2MB.fechaSeminario}" mode="popup"/>
-                        <p:watermark for="fechaEntrega" value="Ingresar Fecha"/>
+                        </c:if>
 
                     </h:panelGrid>
                     
