@@ -1038,8 +1038,6 @@ ALTER TABLE ONLY usuario_tipo ALTER COLUMN id_usuario_tipo SET DEFAULT nextval('
 --
 
 COPY alumno (id_alumno, id_plan_activo, version_plan_activo, rut_usuario) FROM stdin;
-23	\N	\N	138328449
-24	\N	\N	130461786
 26	\N	\N	156203181
 27	3	2	175657436
 17	3	2	179043939
@@ -1061,6 +1059,8 @@ COPY alumno (id_alumno, id_plan_activo, version_plan_activo, rut_usuario) FROM s
 38	3	2	177410179
 37	5	3	175863419
 39	2	1	160707186
+23	1	3	138328449
+24	1	1	130461786
 \.
 
 
@@ -1880,6 +1880,8 @@ COPY planes_alumno (alumno_id, plan_id, activo, version_plan) FROM stdin;
 177410179	3	t	2
 175863419	5	t	3
 160707186	2	t	1
+138328449	1	t	3
+130461786	1	t	1
 \.
 
 
@@ -2144,7 +2146,7 @@ COPY seccion (id, codigo, coordinacion_id) FROM stdin;
 
 COPY semestre (id_semestre, fecha_cierre, fecha_precierre) FROM stdin;
 1/2014	\N	\N
-2/2014	\N	01/01/2015
+2/2014	\N	03/01/2015
 \.
 
 
