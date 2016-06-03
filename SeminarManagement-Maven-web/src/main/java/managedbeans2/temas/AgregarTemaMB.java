@@ -198,7 +198,10 @@ public class AgregarTemaMB{
         temaFacade.create(tema);
         
         //Agregamos el tema a lista de temas del semestre
+        Semestre semestre_prop = semestreFacade.findOneById(semestreTema);
         semTemp.add(tema);
+        semTemp.setFechaPrecierre(semestre_prop.getFechaPrecierre());
+        semTemp.setFechaCierre(semestre_prop.getFechaCierre());
         semestreFacade.edit(semTemp);
         
         //Le asignamos el tema a la comisión revisora

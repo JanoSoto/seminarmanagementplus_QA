@@ -730,7 +730,10 @@ public class ComisionRevisora2MB implements Serializable {
         comisionRevisoraFacade.create(nuevaComision);
 
         //Agregamos la comision a la lista de comisiones del semestre
+        Semestre semestre_prop = semestreFacade.findOneById(semestreRev);
         semestreRevision.add(nuevaComision);
+        semestreRevision.setFechaPrecierre(semestre_prop.getFechaPrecierre());
+        semestreRevision.setFechaCierre(semestre_prop.getFechaCierre());
         semestreFacade.edit(semestreRevision);
 
         if ( tipoRevision == 0 ) {

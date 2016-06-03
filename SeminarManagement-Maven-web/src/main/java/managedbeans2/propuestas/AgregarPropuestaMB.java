@@ -173,9 +173,11 @@ public class AgregarPropuestaMB {
         //Accedemos a la tabla semestre, e ingresamos semestre actual si no ha sido ingresado
         Semestre semestrePropuesta = new Semestre(semestreProp);
         List<Semestre> semestres = semestreFacade.findAll();
-        if (!semestres.contains(semestrePropuesta))
-            semestreFacade.create(semestrePropuesta);
         
+        if (!semestres.contains(semestrePropuesta)){
+            semestreFacade.create(semestrePropuesta);
+            System.out.println("Caigo acá JAJA 1");
+        }
         //Seteamos la nueva comision y la creamos
         nuevaPropuesta = new Propuesta();
         nuevaPropuesta.setNombrePropuesta(nombrePropuesta.toUpperCase());
@@ -196,8 +198,13 @@ public class AgregarPropuestaMB {
         propuestaFacade.create(nuevaPropuesta);
         
         //Agregamos la comision a la lista de comisiones del semestre
+        Semestre semestre_prop = semestreFacade.findOneById(semestreProp);
         semestrePropuesta.add(nuevaPropuesta);
-        semestreFacade.edit(semestrePropuesta);
+        semestrePropuesta.setFechaPrecierre(semestre_prop.getFechaPrecierre());
+        semestrePropuesta.setFechaCierre(semestre_prop.getFechaCierre());
+
+        semestreFacade.edit(semestrePropuesta); //esta linea borra los datos del semestre
+ 
         
         //Profes
         //Inicializamos las guias de los profesores
