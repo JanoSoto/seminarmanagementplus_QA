@@ -48,7 +48,7 @@
                         <p:watermark for="nombreT" value="Ingresar Nombre"/>
 
                         <p:outputLabel for="calendT" value="Fecha Inscripción *" />
-                        <p:calendar id="calendT" value="#{verTemaMB.fechaEdit}" mode="popup"/>
+                        <p:calendar id="calendT" value="#{verTemaMB.fechaEdit}" mode="popup" locale="es"/>
                         <p:watermark for="calendT" value="Seleccionar Fecha"/>
                         
                         <p:outputLabel for="semestreT2" value="Semestre Inicio Tema *"  />
@@ -56,12 +56,12 @@
                         <p:watermark  for="semestreT2" value="Ingresar Semestre"/>
                         
                         <p:outputLabel  for="calendT4" value="Fecha Examen Real *" />
-                        <p:calendar  disabled="#{verTemaMB.tema.estadoTemaBoolean}" id="calendT4" value="#{verTemaMB.fechaEdit2}" mode="popup"/>
+                        <p:calendar  disabled="#{verTemaMB.tema.estadoTemaBoolean}" id="calendT4" value="#{verTemaMB.fechaEdit2}" mode="popup" locale="es"/>
                         <p:watermark  for="calendT4" value="Seleccionar Fecha"/>
                       
                         
                         <p:outputLabel for="calendT3" value="Fecha Examen Siac *" />
-                        <p:calendar disabled="#{verTemaMB.tema.estadoTemaBoolean}" id="calendT3" value="#{verTemaMB.fechaEdit3}" mode="popup"/>
+                        <p:calendar disabled="#{verTemaMB.tema.estadoTemaBoolean}" id="calendT3" value="#{verTemaMB.fechaEdit3}" mode="popup" locale="es"/>
                         <p:watermark for="calendT3" value="Seleccionar Fecha"/>
 
                         <p:outputLabel for="semestreT" value="Semestre Tema Siac *"  />

@@ -80,7 +80,7 @@
                         <br/>
                         
                         <p:outputLabel for="fechaEntrega" value="Fecha entrega en secretaría"></p:outputLabel>
-                        <p:calendar id="fechaEntrega" value="#{comisionRevisora2MB.fechaSeminario}" mode="popup"/>
+                        <p:calendar id="fechaEntrega" value="#{comisionRevisora2MB.fechaSeminario}" mode="popup" locale="es"/>
                         <p:watermark for="fechaEntrega" value="Ingresar Fecha"/>
 
                     </h:panelGrid>
@@ -95,12 +95,12 @@
                         <br/>
                         
                         <p:outputLabel for="calendP" value="Fecha de entrega al profesor " />
-                        <p:calendar id="calendP" value="#{comisionRevisora2MB.date}" mode="popup"/>
+                        <p:calendar id="calendP" value="#{comisionRevisora2MB.date}" mode="popup" locale="es"/>
                         <p:watermark for="calendP" value="Ingresar Fecha"/>
                         
                         
                         <p:outputLabel for="calendP2" value="Fecha de devolución con correciones del profesor " />
-                        <p:calendar id="calendP2" value="#{comisionRevisora2MB.date2}" mode="popup"/>
+                        <p:calendar id="calendP2" value="#{comisionRevisora2MB.date2}" mode="popup" locale="es"/>
                         <p:watermark for="calendP2" value="Ingresar Fecha"/>
                         
                         <p:outputLabel for="profeR2P" value="Profesor Revisor 2 *" />
@@ -111,12 +111,12 @@
                         <br/>
                         
                         <p:outputLabel for="calendP3" value="Fecha de entrega al profesor " />
-                        <p:calendar id="calendP3" value="#{comisionRevisora2MB.date3}" mode="popup" />
+                        <p:calendar id="calendP3" value="#{comisionRevisora2MB.date3}" mode="popup" locale="es"/>
                         <p:watermark for="calendP3" value="Ingresar Fecha"/>
                         
                         
                         <p:outputLabel for="calendP4" value="Fecha de devolución con correciones del profesor " />
-                        <p:calendar id="calendP4" value="#{comisionRevisora2MB.date4}" mode="popup"/>
+                        <p:calendar id="calendP4" value="#{comisionRevisora2MB.date4}" mode="popup" locale="es"/>
                         <p:watermark for="calendP4" value="Ingresar Fecha"/>
 
                     </h:panelGrid>
@@ -138,18 +138,18 @@
                         <br/>
                         
                         <p:outputLabel for="fechaEntregaS" value="Fecha entrega en secretaría"></p:outputLabel>
-                        <p:calendar id="fechaEntregaS" value="#{comisionRevisora2MB.fechaSeminario}" mode="popup"/>
+                        <p:calendar id="fechaEntregaS" value="#{comisionRevisora2MB.fechaSeminario}" mode="popup" locale="es"/>
                         <p:watermark for="fechaEntregaS" value="Ingresar Fecha"/>
 
                     </h:panelGrid>
                     
                     <h:panelGrid id="panelConsejo" columns="3" cellpadding="4" style="display: none;">
                         <p:outputLabel for="calConsejoInicio" value="Fecha publicación"><p:spacer width="228" height="10" /></p:outputLabel>
-                        <p:calendar id="calConsejoInicio" value="#{comisionRevisora2MB.publicacionConsejo}" mode="popup"/>
+                        <p:calendar id="calConsejoInicio" value="#{comisionRevisora2MB.publicacionConsejo}" mode="popup" locale="es"/>
                         <p:watermark for="calConsejoInicio" value="Ingresar Fecha"/>
                         
                         <p:outputLabel for="calConsejoFin" value="Fecha término publicación" />
-                        <p:calendar id="calConsejoFin" value="#{comisionRevisora2MB.terminoPublicacionConsejo}" mode="popup"/>
+                        <p:calendar id="calConsejoFin" value="#{comisionRevisora2MB.terminoPublicacionConsejo}" mode="popup" locale="es"/>
                         <p:watermark for="calConsejoFin" value="Ingresar Fecha"/>
                     </h:panelGrid>
                     
