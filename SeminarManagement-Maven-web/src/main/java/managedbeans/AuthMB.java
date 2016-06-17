@@ -1,5 +1,6 @@
 package managedbeans;
 
+import com.sun.jmx.snmp.ThreadContext;
 import entities.Tipousuario;
 import entities.Usuario;
 import java.io.IOException;
@@ -209,7 +210,8 @@ public class AuthMB implements Serializable {
             */
             externalContext.getSessionMap().put("user", username);
             
-            MDC.put(USERKEY, username);
+            //MDC.put(USERKEY, username);
+            ThreadContext.push(USERKEY, username);
         } catch (IOException e) {
             //Logger.getLogger(AuthMB.class.getName()).log(Level.SEVERE, null, e);
             context.addMessage(null, new FacesMessage("Ingreso Erróneo", "Los datos ingresados no son correctos."));
@@ -258,7 +260,7 @@ public class AuthMB implements Serializable {
         apellido = null;
         password = null;
         tipo = null;
-        MDC.remove(USERKEY);
+        //MDC.remove(USERKEY);
         externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/login.xhtml");
 
     }

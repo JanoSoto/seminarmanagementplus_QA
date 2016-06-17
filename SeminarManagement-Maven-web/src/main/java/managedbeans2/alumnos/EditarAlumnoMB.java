@@ -349,6 +349,7 @@ public class EditarAlumnoMB implements Serializable {
         alumnoEdit.setVersionPlanActivo(version_plan);
         alumnoFacade.edit(alumnoEdit);
         context.addMessage(null, new FacesMessage("Se ha dejado el plan " + codigo + " " + nombre + ", version " + version_plan + ", como activo."));
+        LOGGER.info("Se ha dejado el plan " + codigo + " " + nombre + ", version " + version_plan + " como activo del alumno "  + alumnoEdit.getNombreAlumno() + " " + alumnoEdit.getApellidoAlumno());
         ExternalContext contexto = FacesContext.getCurrentInstance().getExternalContext();
         contexto.redirect(contexto.getRequestContextPath() + "/2.0/admin/alumnos/editar.xhtml?alum=" + alumnoEdit.getRutAlumno() + "&mensaje=Se ha dejado el plan " + codigo + " " + nombre + ", version " + version_plan + ", como activo.");
     }
@@ -360,6 +361,7 @@ public class EditarAlumnoMB implements Serializable {
         alumnoEdit.setIdPlanActivo(codigo_plan);
         alumnoEdit.setVersionPlanActivo(version_plan);
         alumnoFacade.edit(alumnoEdit);
+        LOGGER.info("Se ha dejado el plan " + codigo + " " + nombre + ", version " + version_plan + " como activo del alumno "  + alumnoEdit.getNombreAlumno() + " " + alumnoEdit.getApellidoAlumno());
         context.addMessage(null, new FacesMessage("Se ha dejado el plan " + codigo + " " + nombre + ", version " + version_plan + ", como activo."));
         ExternalContext contexto = FacesContext.getCurrentInstance().getExternalContext();
         contexto.redirect(contexto.getRequestContextPath() + "/2.0/secretaria/alumnos/editar.xhtml?alum=" + alumnoEdit.getRutAlumno() + "&mensaje=Se ha dejado el plan " + codigo + " " + nombre + ", version " + version_plan + ", como activo.");
@@ -399,6 +401,8 @@ public class EditarAlumnoMB implements Serializable {
         ExternalContext contexto = FacesContext.getCurrentInstance().getExternalContext();
         contexto.redirect(contexto.getRequestContextPath() + "/2.0/admin/alumnos/editar.xhtml?alum=" + alumnoEdit.getRutAlumno());
         context.addMessage(null, new FacesMessage("Plan " + codigo_plan + " eliminado correctamente."));
+        LOGGER.info("Se ha eliminado el plan "+ codigo_plan+ " del alumno "   + alumnoEdit.getNombreAlumno() + " " + alumnoEdit.getApellidoAlumno());
+
     }
 
     public void eliminarPlanSecre(String rutAlumno, Integer codigo_plan, Integer version_plan) throws IOException {
@@ -435,6 +439,8 @@ public class EditarAlumnoMB implements Serializable {
         ExternalContext contexto = FacesContext.getCurrentInstance().getExternalContext();
         contexto.redirect(contexto.getRequestContextPath() + "/2.0/secretaria/alumnos/editar.xhtml?alum=" + alumnoEdit.getRutAlumno());
         context.addMessage(null, new FacesMessage("Plan " + codigo_plan + " eliminado correctamente."));
+        LOGGER.info("Se ha eliminado el plan "+ codigo_plan+ " del alumno "   + alumnoEdit.getNombreAlumno() + " " + alumnoEdit.getApellidoAlumno());
+
     }
 
     public String jornadaToString(Integer jornada) {

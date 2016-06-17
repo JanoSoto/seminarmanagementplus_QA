@@ -399,7 +399,7 @@ public class VerUsuarioMB implements Serializable{
         nuevoUsuario.setTipos(aux);
 //        nuevoUsuario.setTipos(tiposDualList.getTarget());
         context.addMessage(null, new FacesMessage("Usuario " + this.uid + " creado correctamente."));
-        //LOGGER.info("Se ha editado al usuario " + nombreUsuario + " " + apellidoUsuario);
+        LOGGER.info("Se ha agregado al usuario " + nombreUsuario + " " + apellidoUsuario);
         usuarioFacade.edit(nuevoUsuario);
 
         //Vaciamos el formulario

@@ -309,8 +309,7 @@ public class SemestreMB {
 
         context.addMessage(
                 null, new FacesMessage("Estados y semestre modificados"));
-        LOGGER.info(
-                "Estados y semestre modificados, el semestre actual es: " + semActual.getSemestreActual());
+        LOGGER.info("Estados y semestre modificados, el semestre actual es: " + semActual.getSemestreActual());
     }
     
     public void preterminarSemestreActual() {
