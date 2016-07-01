@@ -35,7 +35,7 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import sessionbeans.HistorialFacadeLocal;
 import sessionbeans.UsuarioFacadeLocal;
-import org.apache.log4j.MDC;
+//import org.apache.log4j.MDC;
 import org.primefaces.json.JSONException;
 import org.primefaces.json.JSONObject;
 
@@ -57,7 +57,7 @@ public class AuthMB implements Serializable {
 
     private String username = null, password = null, nombre = null, apellido = null, tipo = null;
 
-    private static final String USERKEY = "user";
+    //private static final String USERKEY = "user";
     private String originalURL;
 
     @PostConstruct
@@ -208,10 +208,10 @@ public class AuthMB implements Serializable {
             apellido = user.getApellidoUsuario();
             tipo = user.getUsuarioTipoList().get(0).getNombreTipo().getNombreTipo();
             */
-            externalContext.getSessionMap().put("user", username);
+            //externalContext.getSessionMap().put("user", username);
             
             //MDC.put(USERKEY, username);
-            ThreadContext.push(USERKEY, username);
+            //ThreadContext.push(USERKEY, username);
         } catch (IOException e) {
             //Logger.getLogger(AuthMB.class.getName()).log(Level.SEVERE, null, e);
             context.addMessage(null, new FacesMessage("Ingreso Erróneo", "Los datos ingresados no son correctos."));
