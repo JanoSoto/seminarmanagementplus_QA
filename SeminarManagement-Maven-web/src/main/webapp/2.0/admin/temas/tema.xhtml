@@ -68,7 +68,7 @@
                     <br/>
                     
                     <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Plan Activo:"/>
-                    <h:outputText style="padding-left: 1em;" value="#{verAlumnoMB.getAnioPlan(verTemaMB.alumno.idPlanActivo, verTemaMB.alumno.versionPlanActivo)}"/>
+                    <h:outputText style="padding-left: 1em;" value="#{verAlumnoMB.getAnioPlan(verTemaMB.buscarObjetoPropuestaDelTema(verTemaMB.idTema).idPlan, verTemaMB.buscarObjetoPropuestaDelTema(verTemaMB.idTema).versionPlan)}"/>
                     <br/>
                     
                     <p:outputLabel rendered="#{verTemaMB.tema.estadoTema eq 1}" style="color: #0052cc;font-weight: bold;" value="Término Tema: "/>
