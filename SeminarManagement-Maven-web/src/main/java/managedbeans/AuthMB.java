@@ -126,7 +126,7 @@ public class AuthMB implements Serializable {
         try {
 
             HttpClient httpclient = new DefaultHttpClient();
-            HttpPost httppost = new HttpPost("http://inicio.diinf.usach.cl/webservice.php");
+            HttpPost httppost = new HttpPost("https://inicio.diinf.usach.cl/webservice.php");
 
             // Add your data
             List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(2);
