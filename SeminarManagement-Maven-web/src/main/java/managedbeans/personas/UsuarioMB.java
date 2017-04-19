@@ -370,7 +370,6 @@ public class UsuarioMB {
         this.uid = this.uid.toLowerCase();
         nuevoUsuario.setUid(this.uid);
         nuevoUsuario.setNombreUsuario(nombreUsuario);
-        //nuevoUsuario.setPassword(sha256(username.substring(0, 5)));
         nuevoUsuario.setApellidoUsuario(apellidoUsuario);
         nuevoUsuario.setTema("usachborde");
         if(comuna != null)

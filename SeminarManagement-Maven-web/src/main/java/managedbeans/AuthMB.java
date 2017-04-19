@@ -5,6 +5,7 @@ import entities.Usuario;
 import java.io.IOException;
 import java.io.Serializable;
 import java.security.NoSuchAlgorithmException;
+import java.security.Principal;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,6 +19,8 @@ import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
+import javax.faces.bean.ManagedProperty;
+import javax.servlet.RequestDispatcher;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -50,6 +53,10 @@ public class AuthMB implements Serializable {
     private HistorialFacadeLocal historialFacade;
     @EJB
     private UsuarioFacadeLocal usuarioFacade;
+    private boolean isLoggedIn;
+    private String originalURL;
+
+    private String username=null, password=null, nombre=null, apellido=null, tipo=null;
     
     private List<Tipousuario> roles;
 
@@ -57,6 +64,9 @@ public class AuthMB implements Serializable {
     private String username = null, password = null, nombre = null, apellido = null, tipo = null;
 
     private static final String USERKEY = "user";
+
+    private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(AuthMB.class);
+    
     private String originalURL;
 
     @PostConstruct
@@ -65,7 +75,8 @@ public class AuthMB implements Serializable {
         originalURL = (String) externalContext.getRequestMap().get(RequestDispatcher.FORWARD_REQUEST_URI);
 
         if (originalURL == null) {
-            originalURL = externalContext.getRequestContextPath() + "/index.xhtml";
+            originalURL = externalContext.getRequestContextPath() + "/2.0/index.xhtml";
+            //System.out.println(originalURL);
         } else {
             String originalQuery = (String) externalContext.getRequestMap().get(RequestDispatcher.FORWARD_QUERY_STRING);
 
@@ -73,7 +84,6 @@ public class AuthMB implements Serializable {
                 originalURL += "?" + originalQuery;
             }
         }
-
     }
 
     //Si el usuario ya inició sesión, e ingresa a la página de login
@@ -102,8 +112,8 @@ public class AuthMB implements Serializable {
             }
         }
     }
-
-    public String MD5(String md5) {
+    
+    public void login() throws IOException, ServletException{
         try {
             java.security.MessageDigest md = java.security.MessageDigest.getInstance("MD5");
             byte[] array = md.digest(md5.getBytes());
@@ -154,62 +164,18 @@ public class AuthMB implements Serializable {
 
             //MessageDigest md = MessageDigest.getInstance("SHA-256");
             //md.update(password.getBytes("UTF-8"));
-            
-            request.login(username, jsonObject.getString("pass_ok"));
-            if(valido_response == true && usuarioFacade.findByUid(username)!= null){
-                Usuario usuario = usuarioFacade.findByUid(username);
-                setRoles(usuario.getRoles());
-                //List <Tipousuario> aux = new ArrayList();
-               // List<Map<Tipousuario, Integer>> aux = new ArrayList<>();
-                Map<Integer, Tipousuario> auxMap = new HashMap<>();
-                List<Integer> numeros= new ArrayList<>();
-                for (Tipousuario role : roles) {
-                    switch (role.getNombreTipo()) {
-                        case "ADMINISTRADOR":
-                            //aux.add(roles.get(i));
-                            auxMap.put(10, role);
-                            numeros.add(10);
-                            break;
-                        case "PROFESOR":
-                            //aux.add(roles.get(i));
-                            auxMap.put(5, role);
-                            numeros.add(5);
-                            break;
-                        case "SECRETARIA":
-                            //aux.add(roles.get(i));
-                            auxMap.put(1, role);
-                            numeros.add(1);
-                            break;
-                    }
-                }
-                int numeromax = Collections.max(numeros);
-                //tipo = aux.get(0).getNombreTipo();
-                tipo = auxMap.get(numeromax).getNombreTipo();
-                
-                switch (tipo) {
-                    case "ADMINISTRADOR":
-                        externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/admin/index.xhtml");
-                        break;
-                    case "PROFESOR":
-                        externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/profesor/index.xhtml");
-                        break;
-                    case "SECRETARIA":
-                        externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/secretaria/index.xhtml");
-                        break;
-                }
-            }else{
-                context.addMessage(null, new FacesMessage("Ingreso Erróneo", "Los datos ingresados no pertenecen a la base de datos."));
-                externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/login.xhtml");
-                //externalContext.redirect(externalContext.getRequestContextPath());
-            }
-            /*Usuario user = usuarioFacade.findByUsername(username).get(0); //Extraigo el user de la db           
+            request.login(username, password);
+            //System.out.println(username);
+            Usuario user = usuarioFacade.findByUsername(username).get(0); //Extraigo el user de la db           
             nombre = user.getNombreUsuario();
             apellido = user.getApellidoUsuario();
             tipo = user.getUsuarioTipoList().get(0).getNombreTipo().getNombreTipo();
-            */
-            externalContext.getSessionMap().put("user", username);
-            
-            MDC.put(USERKEY, username);
+            externalContext.getSessionMap().put("user", user);
+            if(tipo.equals("ADMINISTRADOR"))
+                externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/admin/index.xhtml");
+            if(tipo.equals("SECRETARIA"))
+                externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/secretaria/index.xhtml");
+            LOGGER.info("El usuario "+username+"ha iniciado sesión");
         } catch (IOException e) {
             //Logger.getLogger(AuthMB.class.getName()).log(Level.SEVERE, null, e);
             context.addMessage(null, new FacesMessage("Ingreso Erróneo", "Los datos ingresados no son correctos."));
@@ -251,6 +217,7 @@ public class AuthMB implements Serializable {
     }
 
     public void logout() throws IOException {
+        String usuario = getLoggedInUser().getName();
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         externalContext.invalidateSession();
         username=null;
@@ -258,8 +225,43 @@ public class AuthMB implements Serializable {
         apellido = null;
         password = null;
         tipo = null;
-        MDC.remove(USERKEY);
+        LOGGER.info("El usuario "+usuario+" ha cerrado sesión");
         externalContext.redirect(externalContext.getRequestContextPath() + "/2.0/login.xhtml");
+
+    }
+    
+    private Principal getLoggedInUser() {
+        HttpServletRequest request
+                = (HttpServletRequest) FacesContext.getCurrentInstance().
+                getExternalContext().getRequest();
+        return request.getUserPrincipal();
+    }
+    
+    public void isUserNotLogin() {
+        Principal loginUser = getLoggedInUser();
+        if (loginUser == null) {
+            setIsLoggedIn(true);
+
+        } else {
+
+            setIsLoggedIn(false);
+        }
+
+    }
+    
+    public boolean getIsLoggedIn() {
+        return this.isLoggedIn;
+    }
+
+    public void setIsLoggedIn(boolean isloggedIn) {
+        this.isLoggedIn = isloggedIn;
+    }
+
+    public void getLoginUserName() {
+        Principal loginUser = getLoggedInUser();
+        if (loginUser != null) {
+            setUsername(loginUser.getName());
+        }
 
     }
 
