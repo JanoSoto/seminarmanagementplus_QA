@@ -12,7 +12,7 @@ import java.io.Serializable;
  */
 public class AlumnoDatos implements Serializable {
     private static final long serialVersionUID = 1L;
-    private String rutAlumno,nombreAlumno,apellidoAlumno,nombreTema,profesorGuia,matriculaAlumno,mailAlumno,telefonoAlumno,jornadaAlumno,petAlumno,carreraAlumno,profCoGuia;
+    private String rutAlumno,nombreAlumno,apellidoAlumno,nombreTema,profesorGuia,matriculaAlumno,mailAlumno,telefonoAlumno,jornadaAlumno,carreraAlumno,profCoGuia;
 
     public AlumnoDatos(){
     }
@@ -26,7 +26,7 @@ public class AlumnoDatos implements Serializable {
         this.matriculaAlumno = matriculaAlumno;
     }
     
-    public AlumnoDatos (String rutAlumno, String nombreAlumno, String apellidoAlumno, String nombreTema, String profesorGuia, String matriculaAlumno, String mailAlumno, String telefonoAlumno, String petAlumno, String jornadaAlumno, String carreraAlumno) {
+    public AlumnoDatos (String rutAlumno, String nombreAlumno, String apellidoAlumno, String nombreTema, String profesorGuia, String matriculaAlumno, String mailAlumno, String telefonoAlumno, String jornadaAlumno, String carreraAlumno) {
         this.rutAlumno = rutAlumno;
             this.nombreAlumno = nombreAlumno;
             this.nombreTema = nombreTema;
@@ -34,7 +34,6 @@ public class AlumnoDatos implements Serializable {
             this.matriculaAlumno = matriculaAlumno;
             this.mailAlumno = mailAlumno;
             this.telefonoAlumno = telefonoAlumno;
-            this.petAlumno = petAlumno;
             this.jornadaAlumno = jornadaAlumno;
             this.carreraAlumno = carreraAlumno;
     }
@@ -109,14 +108,6 @@ public class AlumnoDatos implements Serializable {
 
     public void setTelefonoAlumno(String telefonoAlumno) {
         this.telefonoAlumno = telefonoAlumno;
-    }
-
-    public String getPetAlumno() {
-        return petAlumno;
-    }
-
-    public void setPetAlumno(String petAlumno) {
-        this.petAlumno = petAlumno;
     }
 
     public String getJornadaAlumno() {

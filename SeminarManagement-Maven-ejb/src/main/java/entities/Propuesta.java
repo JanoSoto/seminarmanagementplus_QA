@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
+import Util.Util;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,13 +33,17 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Propuesta.findByNombrePropuesta", query = "SELECT p FROM Propuesta p WHERE p.nombrePropuesta = :nombrePropuesta"),
     @NamedQuery(name = "Propuesta.findByFechaPropuesta", query = "SELECT p FROM Propuesta p WHERE p.fechaPropuesta = :fechaPropuesta"),
     @NamedQuery(name = "Propuesta.findByIdPropuesta", query = "SELECT p FROM Propuesta p WHERE p.idPropuesta = :idPropuesta"),
+    @NamedQuery(name = "Propuesta.findByPet", query = "SELECT p FROM Propuesta p WHERE p.pet = :pet"),
     @NamedQuery(name = "Propuesta.findByIdSemestre", query = "SELECT p FROM Propuesta p WHERE p.idSemestre = :idSemestre"),
-    @NamedQuery(name = "Propuesta.findPropuesta", query = "SELECT p FROM Propuesta p WHERE p.nombrePropuesta LIKE :nombrePropuesta")})
+    @NamedQuery(name = "Propuesta.findPropuesta", query = "SELECT p FROM Propuesta p WHERE p.nombrePropuesta LIKE :nombrePropuesta"),
+    @NamedQuery(name = "Propuesta.findOneById", query = "SELECT p FROM Propuesta p WHERE p.idPropuesta = :id")})
 public class Propuesta implements Serializable {
     private static final long serialVersionUID = 1L;
     @Size(max = 400)
     @Column(name = "nombre_propuesta")
     private String nombrePropuesta;
+    @Column(name = "pet")
+    private Boolean pet;
     @Size(max = 15)
     @Column(name = "fecha_propuesta")
     private String fechaPropuesta;
@@ -60,13 +60,35 @@ public class Propuesta implements Serializable {
     @JoinColumn(name = "id_revisora", referencedColumnName = "id_revisora")
     @ManyToOne
     private ComisionRevisora idRevisora;
-    @JoinColumn(name = "rut_alumno", referencedColumnName = "rut_alumno")
+    @JoinColumn(name = "rut_alumno", referencedColumnName = "rut_usuario")
     @ManyToOne(optional = false)
     private Alumno rutAlumno;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPropuesta")
     private List<ComisionRevisora> comisionRevisoraList;
     @Column(name = "magister")
     private Boolean magister;
+    
+    @Column(name = "id_plan")
+    private Integer idPlan;
+    
+    @Column(name = "version_plan")
+    private Integer versionPlan;
+
+    public Integer getIdPlan() {
+        return idPlan;
+    }
+
+    public void setIdPlan(Integer idPlan) {
+        this.idPlan = idPlan;
+    }
+
+    public Integer getVersionPlan() {
+        return versionPlan;
+    }
+
+    public void setVersionPlan(Integer versionPlan) {
+        this.versionPlan = versionPlan;
+    }
 
     public Propuesta() {
         profePropuestaList = new ArrayList();
@@ -87,6 +109,15 @@ public class Propuesta implements Serializable {
         comisionRevisoraList.add(object);
     }
 
+    public Boolean getPet() {
+        return pet;
+    }
+
+    public void setPet(Boolean pet) {
+        this.pet = pet;
+    }
+
+    
     public String getNombrePropuesta() {
         return nombrePropuesta;
     }
@@ -161,6 +192,60 @@ public class Propuesta implements Serializable {
         this.comisionRevisoraList = comisionRevisoraList;
     }
 
+    public Profesor getProfesorGuia(){
+        Profesor guia = null;
+        List<ProfePropuesta> listaProf =  getProfePropuestaList();
+        listaProf.size();
+        for (ProfePropuesta profeProp : listaProf) {
+            if ( profeProp.getRolGuia() == 0){
+                guia = profeProp.getProfesor();
+                break;
+            }
+        }
+        return guia;
+    }
+    
+    public Profesor getProfesorCoGuia(){
+        Profesor coGuia = null;
+        List<ProfePropuesta> listaProf =  getProfePropuestaList();
+        listaProf.size();
+        for (ProfePropuesta profeProp : listaProf) {
+            if ( profeProp.getRolGuia() == 1){
+                coGuia = profeProp.getProfesor();
+                break;
+            }
+        }
+        return coGuia;
+    }
+    
+    public Profesor getProfesorRevisor1(){
+        Profesor revisor = null;
+        ComisionRevisora cr = getIdRevisora();
+        if ( cr != null ) {
+            for (ProfeRevision profeRev : cr.getProfeRevisionList()) {
+                if ( profeRev.getRolRevision() == 0 ){
+                    revisor = profeRev.getProfesor();
+                    break;
+                }
+            }
+        }
+        return revisor;
+    }
+    
+    public Profesor getProfesorRevisor2(){
+        Profesor revisor = null;
+        ComisionRevisora cr = getIdRevisora();
+        if ( cr != null ) {
+            for (ProfeRevision profeRev : cr.getProfeRevisionList()) {
+                if ( profeRev.getRolRevision() == 1 ){
+                    revisor = profeRev.getProfesor();
+                    break;
+                }
+            }
+        }
+        return revisor;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -180,10 +265,25 @@ public class Propuesta implements Serializable {
         }
         return true;
     }
-
+    
     @Override
     public String toString() {
         return "entities.Propuesta[ idPropuesta=" + idPropuesta + " ]";
+    }
+    
+    public PlanEstudio getPlanActivo() {
+        Integer id_plan = idPlan;
+        
+        List<PlanEstudio> planesasd = rutAlumno.getPlanes();
+        
+        for (int i = 0; i < planesasd.size(); i++) {
+            
+            if(planesasd.get(i).getId() == Long.parseLong(id_plan+"")){
+                
+                return planesasd.get(i);
+            }
+        }
+        return null;
     }
     
 }

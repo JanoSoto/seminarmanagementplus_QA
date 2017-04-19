@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package managedbeans2;
 
 import entities.Alumno;
@@ -18,8 +13,6 @@ import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
@@ -80,7 +73,6 @@ public class ConsolidadoCSV {
         
         List<String> lines = new ArrayList();
         
- 
 	   //Lee el CSV y almacena cada linea en la variable lines
         try {
             br = new BufferedReader(new InputStreamReader(new FileInputStream(csvFile), "UTF-8"));
@@ -169,13 +161,14 @@ public class ConsolidadoCSV {
             }
             else
                 alumTemp.setTelefonoAlumno("");
-            if(fila.get(5).equals("DIURNO"))
-                alumTemp.setJornada(0);
-            if(fila.get(5).equals("VESPERTINO"))
-                alumTemp.setJornada(1);
-            if(fila.get(5).equals("PET"))
-                alumTemp.setJornada(2);
             
+//            if(fila.get(5).equals("DIURNO"))
+//                alumTemp.setJornada(0);
+//            if(fila.get(5).equals("VESPERTINO"))
+//                alumTemp.setJornada(1);
+//            if(fila.get(5).equals("PET"))
+//                alumTemp.setJornada(2);
+
             if(!alumnos.contains(alumTemp)){
                 alumnos.add(alumTemp);
                 if(!alumnoFacade.findAll().contains(alumTemp)){

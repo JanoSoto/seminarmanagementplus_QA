@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package managedbeans;
 
 import entities.Historial;
@@ -21,6 +17,7 @@ import sessionbeans.HistorialFacadeLocal;
 import sessionbeans.SemestreActualFacadeLocal;
 import sessionbeans.SemestreFacadeLocal;
 import sessionbeans.TemaFacadeLocal;
+import util.SMUtil;
 
 /**
  *
@@ -38,7 +35,7 @@ public class SemestreActualMB {
     @EJB
     private SemestreActualFacadeLocal semestreActualFacade;
     
-    private String semestre;
+    private String semestre,semestreAnterior;
     private Date date;
 
     
@@ -51,9 +48,21 @@ public class SemestreActualMB {
         if(semestreActualFacade.findAll().isEmpty()){
             semestre = "";
         }
-        else
+        else{
             semestre = semestreActualFacade.findAll().get(0).getSemestreActual();
+            semestreAnterior = SMUtil.semestreAnterior(semestre);
+        }
     }
+
+    public String getSemestreAnterior() {
+        return semestreAnterior;
+    }
+
+    public void setSemestreAnterior(String semestreAnterior) {
+        this.semestreAnterior = semestreAnterior;
+    }
+    
+    
 
     public String getSemestre() {
         return semestre;

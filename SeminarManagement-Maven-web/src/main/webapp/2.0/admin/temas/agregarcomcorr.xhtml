@@ -29,19 +29,23 @@
                     #{comisionCorrectora2MB.setIdTema(verTemaMB.idTema)}
                     <h:panelGrid columns="3" cellpadding="4">
 
-                        <p:outputLabel style="color: #0052cc;font-weight: bold;" for="nombre" value="Nombre: "/>
+                        <p:outputLabel style="color: #0052cc;font-weight: bold;" for="nombre" value="Título"/>
                         <h:outputText id="nombre" value="#{verTemaMB.tema.nombreTema}"/>
                         <br/>
 
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Alumno"/>
                         <h:outputText style="font-weight: normal;" value="#{verTemaMB.tema.idRevisora.idPropuesta.rutAlumno.nombreAlumno} #{verTemaMB.tema.idRevisora.idPropuesta.rutAlumno.apellidoAlumno}"/>
                         <br/>
+                        
+                        <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Fecha tema"/>
+                        <h:outputText style="font-weight: normal;" value="#{verTemaMB.tema.fechaTema}"/>
+                        <br/>
 
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Profesor Guía"/>
                         <h:outputText style="font-weight: normal;" value="#{verTemaMB.guia.nombreProfesor} #{verTemaMB.guia.apellidoProfesor}"/>
                         <br/>
 
-                        <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Semestre Tema"/>
+                        <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Semestre Inicio"/>
                         <h:outputText style="font-weight: normal;" value="#{verTemaMB.tema.idSemestre.idSemestre}"/>
                         <br/>
 
@@ -51,6 +55,14 @@
                             <f:selectItems value="#{comisionCorrectora2MB.profeDatos}" var="prof" itemLabel="#{prof.profesor.rutProfesor} - #{prof.profesor.nombreProfesor} #{prof.profesor.apellidoProfesor} (#{prof.corrSemActual})" itemValue="#{prof.profesor.rutProfesor}"/>  
                         </p:selectOneMenu>
                         <br/>
+                        
+                        <p:outputLabel for="calendP" value="Fecha de entrega al profesor" />
+                        <p:calendar id="calendP" value="#{comisionCorrectora2MB.date}" mode="popup"/>
+                        <p:watermark for="calendP" value="Seleccionar Fecha"/>
+
+                        <p:outputLabel for="calendP2" value="Fecha de devolución con correciones del profesor" />
+                        <p:calendar id="calendP2" value="#{comisionCorrectora2MB.date2}" mode="popup"/>
+                        <p:watermark for="calendP2" value="Seleccionar Fecha"/>
 
                         <p:outputLabel for="profeR2P" value="Profesor Corrector 2 *"/>
                         <p:selectOneMenu id="profeR2P" value="#{comisionCorrectora2MB.profesor2}" filter="true" filterMatchMode="contains">
@@ -59,12 +71,16 @@
                         </p:selectOneMenu>
                         <br/>
 
-                        <p:outputLabel for="calendP" value="Fecha *" />
-                        <p:calendar id="calendP" value="#{comisionCorrectora2MB.date}" mode="popup"/>
-                        <p:watermark for="calendP" value="Seleccionar Fecha"/>
+                        <p:outputLabel for="calendP3" value="Fecha de entrega al profesor" />
+                        <p:calendar id="calendP3" value="#{comisionCorrectora2MB.date3}" mode="popup"/>
+                        <p:watermark for="calendP3" value="Seleccionar Fecha"/>
 
-
-                        <p:outputLabel for="semestreP" value="Semestre *"  />
+                        <p:outputLabel for="calendP4" value="Fecha de devolución con correciones del profesor" />
+                        <p:calendar id="calendP4" value="#{comisionCorrectora2MB.date4}" mode="popup"/>
+                        <p:watermark for="calendP4" value="Seleccionar Fecha"/>
+                        
+                        
+                        <p:outputLabel for="semestreP" value="Semestre Titulación *"  />
                         <p:inputMask id="semestreP" value="#{comisionCorrectora2MB.semestreCorr}" mask="9/9999"/>
                         <p:watermark for="semestreP" value="Ingresar Semestre"/>
 

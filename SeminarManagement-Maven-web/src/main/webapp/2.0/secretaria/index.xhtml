@@ -6,26 +6,45 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui">
-    
+
     <ui:define name="metadata">
     </ui:define>
-    
+
     <ui:define name="title"><title>Inicio| Seminar Management</title></ui:define>
 
     <ui:define name="content">
         <p:layoutUnit position="center" style="border:none;">
-        <h1>Bienvenido #{authMB.loggedUser} a Seminar Management!</h1>
-        
-        <p>Con esta herramienta, usted será capaz de gestionar de manera eficiente todos los procesos y eventos por los que debe pasar un tema de titulación.</p>
-        <p>En cada opción escogida, usted verá una descripción de lo que está realizando, y de cómo debe proceder.</p>
-        <p>La aplicación se encuentro en fase <b>beta</b>, por lo que debe tener en consideración que pueden ocurrir ciertos fallos.</p><br/>
-        <p>Si tiene cualquier sugerencia, problema o duda, por favor comunicarse con el equipo de desarrollo, o con Pamela Aguire a su correo: <i>pamela.aguirre@usach.cl</i></p>
-        <br/>
-        <p>Esperamos que <b><k>Seminar Management</k></b> facilite su labor diaria.</p>
-        <br/>
-        <p><u>Equipo de Desarrollo</u></p>
-        <p>David Hans &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Correo: <i>david.hans@usach.cl</i></p>
-        <p>Eduardo Lagos &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Correo: <i>eduardo.lagos@usach.cl</i></p>
+            <h1>Bienvenido #{authMB.loggedUser} a Seminar Management!</h1>
+
+            <p>Con esta herramienta, usted será capaz de gestionar de manera eficiente todos los procesos y eventos por los que debe pasar un tema de titulación.</p>
+            <p>En cada opción escogida, usted verá una descripción de lo que está realizando, y de cómo debe proceder.</p>
+            <p>La aplicación se encuentro en fase <b>beta</b>, por lo que debe tener en consideración que pueden ocurrir ciertos fallos.</p><br/>
+            <p>Si tiene cualquier sugerencia, problema o duda, por favor comunicarse con el equipo de desarrollo, o con Pamela Aguire a su correo: <i>pamela.aguirre@usach.cl</i></p>
+            <br/>
+            <p>Esperamos que <b><k>Seminar Management</k></b> facilite su labor diaria.</p>
+            <br/>
+            <p><u>Equipo de Desarrollo V 2.0</u></p>
+            <p:panelGrid columns="2" styleClass="team" >            
+                <h:outputText value="Giovanni Benussi" /> 
+                Correo: <i><a href="mailto:giovanni.benussi@usach.cl">giovanni.benussi@usach.cl</a></i>
+                <h:outputText value="Miguel Cárcamo" /> 
+                Correo: <i><a href="mailto:miguel.carcamo@usach.cl">miguel.carcamo@usach.cl</a></i>
+                <h:outputText value="Luis Celedón" /> 
+                Correo: <i><a href="mailto:luis.celedon@usach.cl">luis.celedon@usach.cl</a></i>
+                <h:outputText value="Celso Gutiérrez" /> 
+                Correo: <i><a href="mailto:celso.gutierrez@usach.cl">celso.gutierrez@usach.cl</a></i>
+                <h:outputText value="Matías Flores" />
+                Correo: <i><a href="mailto:celso.gutierrez@usach.cl">matias.flores@usach.cl</a></i>
+                <h:outputText value="Paola Ulloa" /> 
+                Correo: <i><a href="mailto:celso.gutierrez@usach.cl">paola.ulloa@usach.cl</a></i>
+            </p:panelGrid>
+            <p><u>Equipo de Desarrollo V 1.0</u></p>
+            <p:panelGrid columns="2" styleClass="team" >            
+                <h:outputText value="David Hans" /> 
+                Correo: <i><a href="mailto:david.hans@usach.cl">david.hans@usach.cl</a></i>
+                <h:outputText value="Eduardo Lagos" /> 
+                Correo: <i><a href="mailto:eduardo.lagos@usach.cl">eduardo.lagos@usach.cl</a></i>
+            </p:panelGrid>
         </p:layoutUnit>
     </ui:define>
 

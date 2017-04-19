@@ -21,6 +21,7 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
 import managedbeans.AuthMB;
+import static managedbeans2.propuestas.ComisionRevisora2MB.fechaCorrecta;
 import sessionbeans.AlumnoFacadeLocal;
 import sessionbeans.ComisionRevisoraFacadeLocal;
 import sessionbeans.HistorialFacadeLocal;
@@ -66,7 +67,6 @@ public class AgregarTemaMB{
     @PostConstruct
     public void init() {
         //Para inicializar el managed property, si no no se puede acceder a esos datos
-        System.out.println(user.toString());
         
         FacesContext context = FacesContext.getCurrentInstance();
         
@@ -131,6 +131,28 @@ public class AgregarTemaMB{
             return;
         }
         
+        if( comRev.getTipoRevision() == 0){
+            if( fechaCorrecta(comRev.getFechaEntregaRevision(),dateToString(date)) == false){
+                return;
+            }
+
+            if( fechaCorrecta(comRev.getFechaEntregaRevision2(),dateToString(date)) == false){
+                return;
+            }
+        }
+        
+        if (comRev.getTipoRevision() == 1){
+            if (fechaCorrecta(comRev.getFechaPublicacionConsejo(), dateToString(date)) == false){
+                return;
+            }
+            
+        }
+        
+        if (comRev.getTipoRevision() == 2){
+            if (fechaCorrecta(comRev.getFechaTerminoPublicacionConsejo(), dateToString(date)) == false) {
+                return;
+            }
+        }
         
         //Obtenemos el profesor guía
         for(int i=0;i<comRev.getIdPropuesta().getProfePropuestaList().size();i++)

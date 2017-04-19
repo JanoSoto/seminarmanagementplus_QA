@@ -18,7 +18,6 @@
     <ui:define name="title"><title>Editar Tema | Seminar Management</title></ui:define>
 
     <ui:define name="content">
-        
         <c:if test="#{not empty param.tema}">
             #{verTemaMB.buscarTema()}
         </c:if>
@@ -44,16 +43,29 @@
                         <p:outputLabel for="profT" style="color: #0052cc;font-weight: bold;" value="Profesor Guía" />
                         <h:outputText id="profT" style="font-weight: normal;" value="#{verTemaMB.guia.nombreProfesor} #{verTemaMB.guia.apellidoProfesor}"/>
                         <br/>
-                        <p:outputLabel for="nombreT" value="Nombre Tema *"/>
+                        <p:outputLabel for="nombreT" value="Título Tema *"/>
                         <p:inputTextarea id="nombreT" value="#{verTemaMB.nombreTemaEdit}" cols="42" maxlength="200"/>
                         <p:watermark for="nombreT" value="Ingresar Nombre"/>
 
-                        <p:outputLabel for="calendT" value="Fecha Tema *" />
+                        <p:outputLabel for="calendT" value="Fecha Inscripción *" />
                         <p:calendar id="calendT" value="#{verTemaMB.fechaEdit}" mode="popup"/>
                         <p:watermark for="calendT" value="Seleccionar Fecha"/>
+                        
+                        <p:outputLabel for="semestreT2" value="Semestre Inicio Tema *"  />
+                        <p:inputMask  id="semestreT2" value="#{verTemaMB.semestreEdit}" mask="9/9999"/>
+                        <p:watermark  for="semestreT2" value="Ingresar Semestre"/>
+                        
+                        <p:outputLabel  for="calendT4" value="Fecha Examen Real *" />
+                        <p:calendar  disabled="#{verTemaMB.tema.estadoTemaBoolean}" id="calendT4" value="#{verTemaMB.fechaEdit2}" mode="popup"/>
+                        <p:watermark  for="calendT4" value="Seleccionar Fecha"/>
+                      
+                        
+                        <p:outputLabel for="calendT3" value="Fecha Examen Siac *" />
+                        <p:calendar disabled="#{verTemaMB.tema.estadoTemaBoolean}" id="calendT3" value="#{verTemaMB.fechaEdit3}" mode="popup"/>
+                        <p:watermark for="calendT3" value="Seleccionar Fecha"/>
 
-                        <p:outputLabel for="semestreT" value="Semestre Tema *"  />
-                        <p:inputMask id="semestreT" value="#{verTemaMB.semestreEdit}" mask="9/9999"/>
+                        <p:outputLabel for="semestreT" value="Semestre Tema Siac *"  />
+                        <p:inputMask  disabled="#{verTemaMB.tema.estadoTemaBoolean}" id="semestreT" value="#{verTemaMB.semestreTerminoEdit}" mask="9/9999"/>
                         <p:watermark for="semestreT" value="Ingresar Semestre"/>
                         
                         <h:inputHidden value="#{verTemaMB.idTemaEdit}"/>

@@ -2,12 +2,14 @@ package managedbeans2.profesores;
 
 import clases.TemaDatos;
 import entities.Alumno;
+import entities.Profesor;
 import java.io.BufferedReader;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import managedbeans2.SemestreMB;
 import managedbeans2.propuestas.PlantillaPropuesta;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -57,19 +59,20 @@ public class ExcelTest {
      */
     @Test(expected = NullPointerException.class)
     public void testProcessRequestNullParam() throws Exception {
-        System.out.println("processRequest");
+        
         HttpServletRequest request = null;
         HttpServletResponse response = null;
         Excel instance = new Excel();
         instance.processRequest(request, response);
     }
 
-    @Test
+    /*@Test
     public void testProcessRequestCorrectCsvGeneration() throws Exception {
-        System.out.println("processRequest");
+        
         
         excelServlet = new Excel();
         excelServlet.profesorMB = mock(VerProfesorMB.class);
+        excelServlet.semestreMB = mock(SemestreMB.class);
         
         request = new MockHttpServletRequest();
         response = new MockHttpServletResponse();
@@ -89,7 +92,6 @@ public class ExcelTest {
         
         t1.setAlumno(a1);
         
-        
         TemaDatos t2 = new TemaDatos();
         t2.setNombreCorto("Tema no interesante");
         t2.setEstadoTema("NOVIGENTE");
@@ -105,15 +107,24 @@ public class ExcelTest {
         temas.add(t1);
         temas.add(t2);
         
+        Profesor p = new Profesor();
+        p.setApellidoProfesor("Aguirre");
+        
         when(excelServlet.profesorMB.getTemaDatos()).thenReturn(temas);
+        when(excelServlet.semestreMB.getSemestre()).thenReturn("1-2015");
+        when(excelServlet.profesorMB.getProfesor()).thenReturn(p);
         excelServlet.profesorMB.setRutProfeEdit("19");
+        
         request.addParameter("prof", "19");
         
         excelServlet.processRequest(request, response);
         
         // verifica csv
         assertEquals("application/vnd.ms-excel", response.getContentType());
-        
+        assertTrue(
+                response.getHeader("Content-Disposition")
+                        .contains("filename=\"Aguirre vigentes 1-2015.csv\""));
+
         String str = response.getContentAsString();
         assertTrue( str.contains("Nombre\tAlumno\tEstado\tSemestre"));
         assertTrue( str.contains("Tema muy interesante\tJuan Perez\tVIGENTE\t1/2015"));
@@ -126,7 +137,7 @@ public class ExcelTest {
      */
     @Test
     public void testGetServletInfo() {
-        System.out.println("getServletInfo");
+      
         Excel instance = new Excel();
         String expResult = "Retorna un archivo csv con la información de los temas vigentes para un profesor";
         String result = instance.getServletInfo();

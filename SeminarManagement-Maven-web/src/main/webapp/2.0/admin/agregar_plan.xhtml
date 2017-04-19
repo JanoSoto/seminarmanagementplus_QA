@@ -1,0 +1,108 @@
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template2.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="metadata">
+    </ui:define>
+    
+    <ui:define name="title"><title>Agregar Plan | Seminar Management</title></ui:define>
+
+    <ui:define name="content">
+        <p:layoutUnit position="west" size="180" style="border: none;">
+            <p:panel style="border:none;">
+                <h1>Acciones</h1>
+                <h:panelGrid columns="1" cellpadding="4">
+                    <!--<p:button href="/2.0/admin/alumnos/agregar.xhtml" value="Agregar Alumno"/>-->
+                    <p:button style="width:140px;" value="Ver Planes" icon="fa fa-code-fork" iconPos="right" href="planes.xhtml"/>
+                    <p:button style="width:140px;" value="Carreras" icon="fa fa-flag" iconPos="right" href="list_carrera.xhtml"/>
+                </h:panelGrid>
+            </p:panel>
+        </p:layoutUnit>
+
+        <p:layoutUnit position="center" style="border:none;">
+            <p:growl id="message" showDetail="true" />
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-4 col-md-offset-4">
+                        <h:form enctype='multipart/form-data'>                            
+                            <h1>Crear plan</h1><br/>
+                            <h:outputLabel>Seleccionar Carrera:</h:outputLabel>
+                            <p:selectOneMenu id="carrera" value="#{cargarPlanDeEstudios.carreraSelected}" style="width: 100%" immediate="true" required="true" requiredMessage="Debe seleccionar una Carrera">
+                                <f:selectItem itemLabel="Carrera" noSelectionOption="true" />
+                                <f:selectItems value="#{asignacionHoraria.carreraFacade.findAll()}" var="carrera" itemValue="#{carrera.id}" itemLabel="#{carrera.nombre}" />
+                                <p:ajax process="@this" update="planes, nuevo-plan" /> <!---->
+                            </p:selectOneMenu>
+                            <hr/>
+                            <p:selectOneButton id="opcion" value="#{cargarPlanDeEstudios.opcion}" immediate="true">
+                                <f:selectItem itemLabel="Agregar Versión" itemValue="false" />
+                                <f:selectItem itemLabel="Agregar nuevo Plan" itemValue="true" itemDisabled="#{cargarPlanDeEstudios.agregaPlan()}"/>
+                                <p:ajax process="@this" update="nuevo-plan, planes" />
+                            </p:selectOneButton>
+                            <hr/>
+                            <c:if test="#{cargarPlanDeEstudios.opcion}">
+                                <p:panel id="nuevo-plan" styleClass="panel-no-border">
+                                    <div class="hidden">
+                                        <p:selectOneMenu id="planes" value="#{cargarPlanDeEstudios.idPlan}" style="width: 100%" immediate="true" rendered="false">
+                                        </p:selectOneMenu>
+                                    </div>
+                                    <h:outputLabel value="Código Plan"/>
+                                    <br/>
+                                    <p:inputText value="#{cargarPlanDeEstudios.codigo}" required="#{cargarPlanDeEstudios.agregaPlan()}" requiredMessage="Debe indicar el código del nuevo plan" disabled="#{cargarPlanDeEstudios.agregaPlan()}" />
+                                    <br/>
+                                    <br/>
+                                    <h:outputLabel value="Año Plan"/>
+                                    <br/>
+                                    <p:spinner styleClass="no-margin" value="#{cargarPlanDeEstudios.anioPlan}" required="#{cargarPlanDeEstudios.agregaPlan()}" requiredMessage="Debe ingresar el año" disabled="#{cargarPlanDeEstudios.agregaPlan()}" min="1900" max="2100"/>
+                                    <br/>
+                                    <br/>
+                                    <h:outputLabel value="Jornada"/>
+                                    <p:selectOneRadio value="#{cargarPlanDeEstudios.jornada}" required="#{cargarPlanDeEstudios.agregaPlan()}" requiredMessage="Debe indicar la jornada" disabled="#{cargarPlanDeEstudios.agregaPlan()}">
+                                        <f:selectItem itemLabel="Diurno" itemValue="Diurno"/>
+                                        <f:selectItem itemLabel="Vespertino" itemValue="Vespertino"/>
+                                    </p:selectOneRadio>
+                                </p:panel>
+                                <hr/>
+                            </c:if>
+                            <c:if test="#{not cargarPlanDeEstudios.opcion}">
+                                <p:panel styleClass="panel-no-border" id="nuevo-plan">
+                                    <h:outputLabel style="white-space: normal;">Seleccionar Plan de Estudio:</h:outputLabel>
+                                    <p:selectOneMenu id="planes" value="#{cargarPlanDeEstudios.idPlan}" style="width: 100%" immediate="true" required="#{not cargarPlanDeEstudios.opcion}" requiredMessage="Debe seleccionar un Plan de Estudios">
+                                        <f:selectItem itemLabel="Plan" itemValue="#{cargarPlanDeEstudios.nuevoPlan}" />
+                                        <f:selectItems value="#{asignaturaController.getAllPlanesDeEstudio(cargarPlanDeEstudios.carreraSelected)}" var="plan" itemLabel="#{asignaturaController.getDatosPlan(plan)}" itemValue="#{plan.id}"/>
+                                        <p:ajax process="@this" update="nuevo-plan, opcion"/>
+                                    </p:selectOneMenu>
+                                </p:panel>
+                            </c:if>
+                            <p:panel styleClass="panel-no-border">                                
+                                <h:outputLabel value="Número resolución"/>
+                                <br/>
+                                <p:inputText value="#{cargarPlanDeEstudios.resolucion}" required="#{cargarPlanDeEstudios.agregaPlan()}" requiredMessage="Debe ingresar el número de la resolución"/>
+                                <br/>
+                                <br/>
+                                <h:outputLabel value="Año resolución"/>
+                                <br/>
+                                <p:spinner styleClass="no-margin" value="#{cargarPlanDeEstudios.anio_resolucion}" required="#{cargarPlanDeEstudios.agregaPlan()}" requiredMessage="Debe ingresar el año de la resolución" min="1900" max="2100"/>
+                                <br/>
+                                <br/>
+                            </p:panel>
+                            <p:commandButton value="Agregar" action="#{cargarPlanDeEstudios.agregarPlanDeEstudios()}" update="message">
+                                <p:confirm header="Confirmación" message="Es necesario que confirme la información que está a punto de ingresar, ya que una vez que seleccione agregar la información que se muestra a continuación no podrá ser modificada." icon="ui-icon-alert" />
+                            </p:commandButton>
+                            <hr/>
+                            <p:confirmDialog id="confirmar" global="true" showEffect="fade" hideEffect="fade" width="300">                                                                                    
+                                <p:commandButton value="Agregar" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                                <p:commandButton value="Cancelar" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                            </p:confirmDialog>
+                        </h:form>
+                    </div>
+                </div>
+
+            </div>
+        </p:layoutUnit>
+    </ui:define>
+</ui:composition>

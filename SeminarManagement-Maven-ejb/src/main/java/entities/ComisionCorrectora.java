@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -35,25 +30,47 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "ComisionCorrectora.findAll", query = "SELECT c FROM ComisionCorrectora c"),
     @NamedQuery(name = "ComisionCorrectora.findByFechaCorreccion", query = "SELECT c FROM ComisionCorrectora c WHERE c.fechaCorreccion = :fechaCorreccion"),
-    @NamedQuery(name = "ComisionCorrectora.findByIdCorrectora", query = "SELECT c FROM ComisionCorrectora c WHERE c.idCorrectora = :idCorrectora")})
+    @NamedQuery(name = "ComisionCorrectora.findByFechaEntregaCorreccion", query = "SELECT c FROM ComisionCorrectora c WHERE c.fechaEntCorreccion = :fechaEntCorreccion"),
+    @NamedQuery(name = "ComisionCorrectora.findByFechaCorreccion2", query = "SELECT c FROM ComisionCorrectora c WHERE c.fechaCorreccion2 = :fechaCorreccion2"),
+    @NamedQuery(name = "ComisionCorrectora.findByFechaEntregaCorreccion2", query = "SELECT c FROM ComisionCorrectora c WHERE c.fechaEntCorreccion2 = :fechaEntCorreccion2"),
+    @NamedQuery(name = "ComisionCorrectora.findByIdCorrectora", query = "SELECT c FROM ComisionCorrectora c WHERE c.idCorrectora = :idCorrectora"),
+    @NamedQuery(name = "ComisionCorrectora.findBySemestre", query = "SELECT c FROM ComisionCorrectora c WHERE c.idSemestre.idSemestre = :semestre")})
 public class ComisionCorrectora implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     @Size(max = 15)
     @Column(name = "fecha_correccion")
     private String fechaCorreccion;
+    
+    @Size(max = 15)
+    @Column(name = "fecha_entrega_correccion")
+    private String fechaEntCorreccion;
+    
+    @Size(max = 15)
+    @Column(name = "fecha_correccion2")
+    private String fechaCorreccion2;
+    
+    @Size(max = 15)
+    @Column(name = "fecha_entrega_correccion2")
+    private String fechaEntCorreccion2;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_correctora")
     private Integer idCorrectora;
+    
     @JoinColumn(name = "id_tema", referencedColumnName = "id_tema")
     @ManyToOne(optional = false)
     private Tema idTema;
+    
     @JoinColumn(name = "id_semestre", referencedColumnName = "id_semestre")
     @ManyToOne(optional = false)
     private Semestre idSemestre;
+    
     @OneToMany(mappedBy = "idCorrectora")
     private List<Tema> temaList;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "comisionCorrectora")
     private List<ProfeCorreccion> profeCorreccionList;
 
@@ -78,6 +95,14 @@ public class ComisionCorrectora implements Serializable {
 
     public String getFechaCorreccion() {
         return fechaCorreccion;
+    }
+
+    public String getFechaEntCorreccion() {
+        return fechaEntCorreccion;
+    }
+
+    public void setFechaEntCorreccion(String fechaEntCorreccion) {
+        this.fechaEntCorreccion = fechaEntCorreccion;
     }
 
     public void setFechaCorreccion(String fechaCorreccion) {
@@ -125,7 +150,33 @@ public class ComisionCorrectora implements Serializable {
     public void setProfeCorreccionList(List<ProfeCorreccion> profeCorreccionList) {
         this.profeCorreccionList = profeCorreccionList;
     }
+    
+    public Profesor getCorrector1(){
+        Profesor corr1 = null;
+        List<ProfeCorreccion> profesores;
+        profesores = getProfeCorreccionList();
+        profesores.size();
+        for (ProfeCorreccion p : profesores) {
+            if ( p.getRolCorreccion() == 0 ){
+                corr1 = p.getProfesor();
+            }
+        }
+        return corr1;
+    }
 
+    public Profesor getCorrector2(){
+        Profesor corr2 = null;
+        List<ProfeCorreccion> profesores;
+        profesores = getProfeCorreccionList();
+        profesores.size();
+        for (ProfeCorreccion p : profesores) {
+            if ( p.getRolCorreccion() == 1 ){
+                corr2 = p.getProfesor();
+            }
+        }
+        return corr2;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -145,6 +196,24 @@ public class ComisionCorrectora implements Serializable {
         }
         return true;
     }
+
+    public String getFechaCorreccion2() {
+        return fechaCorreccion2;
+    }
+
+    public void setFechaCorreccion2(String fechaCorreccion2) {
+        this.fechaCorreccion2 = fechaCorreccion2;
+    }
+
+    public String getFechaEntCorreccion2() {
+        return fechaEntCorreccion2;
+    }
+
+    public void setFechaEntCorreccion2(String fechaEntCorreccion2) {
+        this.fechaEntCorreccion2 = fechaEntCorreccion2;
+    }
+    
+    
 
     @Override
     public String toString() {

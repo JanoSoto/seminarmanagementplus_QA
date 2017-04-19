@@ -41,19 +41,26 @@
                         <h:outputText id="alumnoP" value="#{verPropuestaMB.propuesta.rutAlumno.nombreAlumno} #{verPropuestaMB.propuesta.rutAlumno.apellidoAlumno} - #{verPropuestaMB.propuesta.rutAlumno.rutAlumno} "/>
                         <br/>
                         
+                        <p:outputLabel for="pet" value="PET"/>
+                        <p:selectOneMenu id="pet" value="#{verPropuestaMB.pet}">
+                                    <f:selectItem itemLabel="No es PET" itemValue="false" />
+                                    <f:selectItem itemLabel="Es PET" itemValue="true"/>
+                                </p:selectOneMenu>
+                                <br/>
+
                         <p:outputLabel  for="profP" style="color: #0052cc;font-weight: bold;" value="Profesor Guía" />
                         <h:outputText id="profP" value="#{verPropuestaMB.guia.nombreProfesor} #{verPropuestaMB.guia.apellidoProfesor}"/>
                         <br/>
 
-                        <p:outputLabel for="nombreP" value="Nombre Propuesta"/>
+                        <p:outputLabel for="nombreP" value="Título Propuesta"/>
                         <p:inputTextarea id="nombreP" value="#{verPropuestaMB.nombrePropEdit}" cols="42" maxlength="200"/>
                         <p:watermark for="nombreP" value="Ingresar Nombre"/>
 
-                        <p:outputLabel for="calendP" value="Fecha Propuesta *" />
+                        <p:outputLabel for="calendP" value="Fecha Propuesta " />
                         <p:calendar id="calendP" value="#{verPropuestaMB.fechaPropEdit}" mode="popup"/>
                         <p:watermark for="calendP" value="Seleccionar Fecha"/>
 
-                        <p:outputLabel for="semestreP" value="Semestre Propuesta *"  />
+                        <p:outputLabel for="semestreP" value="Semestre Propuesta "  />
                         <p:inputMask id="semestreP" value="#{verPropuestaMB.semestrePropEdit}" mask="9/9999"/>
                         <p:watermark for="semestreP" value="Ingresar Semestre"/>
                         

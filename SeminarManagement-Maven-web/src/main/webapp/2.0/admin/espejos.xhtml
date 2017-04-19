@@ -1,0 +1,61 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template2.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="metadata">
+    </ui:define>
+
+    <ui:define name="title"><title>Inicio | Seminar Management</title></ui:define>
+
+    <ui:define name="content">
+
+        <p:layoutUnit position="center" style="border:none;">
+            <h:form id="form">
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <p:panel styleClass="col-md-8 ">
+                        <h4>Ingresar alias para los espejos:</h4>
+                        <p:inputText id="alias" style="width: 300px" value="#{espejosController.alias}" requiredMessage="Debe ingresarse un alias." required="true"/>
+                        <br/>
+                    </p:panel>
+                </div>
+                <div class="row">
+                    <div class="col-md-2"></div>
+                    <p:panel styleClass="col-xs-4" style="min-height: 300px">
+                        <h4>Ingeniería Civil Infromática:</h4><br/>
+                        <ui:repeat value="#{espejosController.versionesCivil}" var="civil" >
+                            <h:outputLabel value="#{civil.planEstudio.codigo}-#{civil.anio}.#{civil.version} (#{cargarPlanDeEstudios.getJornada(civil.planEstudio.jornada)}): " /><br/>
+                            <p:selectOneMenu style="width: 300px" value="#{espejosController.asignaturasSeleccionadas[civil.correlativo]}" filter="true" filterMatchMode="contains" immediate="true">
+                                <f:selectItem itemLabel="ninguno" itemValue="#{0}" />
+                                <f:selectItems value="#{espejosController.asignaturasByPlan(civil.id)}" var="asignatura" itemLabel="#{asignatura.nombre}" itemValue="#{asignatura.id}" />
+                            </p:selectOneMenu>
+                            <br/>
+                            <br/>
+                        </ui:repeat>
+                    </p:panel>
+                    <p:panel styleClass="col-xs-4" style="min-height: 300px">
+                        <h4>Ingeniería en Ejecución Infromática:</h4><br/>
+                        <ui:repeat value="#{espejosController.versionesEjecucion}" var="civil" >
+                            <h:outputLabel value="#{civil.planEstudio.codigo}-#{civil.anio}.#{civil.version} (#{cargarPlanDeEstudios.getJornada(civil.planEstudio.jornada)}): " /><br/>
+                            <p:selectOneMenu style="width: 300px" value="#{espejosController.asignaturasSeleccionadas[civil.correlativo]}" filter="true" filterMatchMode="contains" immediate="true">
+                                <f:selectItem itemLabel="ninguno" itemValue="#{0}" />
+                                <f:selectItems value="#{espejosController.asignaturasByPlan(civil.id)}" var="asignatura" itemLabel="#{asignatura.nombre}" itemValue="#{asignatura.id}" />
+                            </p:selectOneMenu>
+                            <br/>
+                            <br/>
+                        </ui:repeat>
+                    </p:panel>
+                </div>
+                <div class="col-md-2"></div>
+                <div>
+                    <p:commandButton styleClass="btn btn-default" value="Seleccionar Espejos" actionListener="#{espejosController.setEspejos()}" update=":growl" ajax="false"/>
+                </div>
+            </h:form>
+        </p:layoutUnit>
+    </ui:define>
+</ui:composition>

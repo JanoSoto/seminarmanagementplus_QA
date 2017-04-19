@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template2.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:define name="metadata">
+        #{accordionPanelMB.setIndex("4")}
+        <f:metadata>
+            <f:viewParam name="prof" value="#{verProfesorMB.rutProfesor}"/>
+        </f:metadata>
+    </ui:define>
+    <ui:define name="title"><title>Reportes | Seminar Management</title></ui:define>
+    <ui:define name="content">
+        #{reportesMB.findTemasSemestreVigente()}
+        <p:layoutUnit rendered="false" position="west" size="180" style="border: none;">
+            <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Volver a Reportes"/>
+        </p:layoutUnit>
+        <p:layoutUnit position="center" style="border:none;">
+            <h:form>
+                <p:dataTable id="tablaSem" var="tema" value="#{reportesMB.temasVigentes}" filteredValue="" filterDelay="100" paginator="false"
+                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+                             {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,30,40,50"
+                             emptyMessage="No se encontraron Temas" rowIndexVar="rowIndex">
+                    <f:facet name="header">  
+                        Listado de memorias vigentes #{semestreActual.semestre}
+                    </f:facet>
+                    <p:column headerText="N°" filterBy="" filterMatchMode="contains" sortBy="">
+                        <h:outputText value="#{rowIndex+1}" />
+                    </p:column>
+                    <p:column headerText="Alumno" filterBy="#{tema.idRevisora.idPropuesta.rutAlumno.nombreAlumno} #{tema.idRevisora.idPropuesta.rutAlumno.apellidoAlumno}" filterMatchMode="contains" sortBy="#{tema.idRevisora.idPropuesta.rutAlumno.nombreAlumno}">
+                        <h:outputText value="#{tema.idRevisora.idPropuesta.rutAlumno.nombreAlumno} #{tema.idRevisora.idPropuesta.rutAlumno.apellidoAlumno}" />
+                    </p:column>
+                    <p:column headerText="Plan" filterBy="#{tema.idRevisora.idPropuesta.rutAlumno.planActivo.codigo}" filterMatchMode="contains" sortBy="#{tema.idRevisora.idPropuesta.rutAlumno.planActivo.codigo}">
+                        <h:outputText value="#{tema.idRevisora.idPropuesta.rutAlumno.planActivo.codigo}" />
+                    </p:column>
+                    <p:column headerText="Carrera" filterBy="#{tema.idRevisora.idPropuesta.rutAlumno.planActivo.carrera.nombre}" filterMatchMode="contains" sortBy="#{tema.idRevisora.idPropuesta.rutAlumno.planActivo.carrera.nombre}">
+                        <h:outputText value="#{tema.idRevisora.idPropuesta.rutAlumno.planActivo.carrera.nombre}" />
+                    </p:column>
+                    <p:column headerText="Jornada" filterBy="#{tema.idRevisora.idPropuesta.rutAlumno.planActivo.jornadaAsString}" filterMatchMode="contains" sortBy="#{tema.idRevisora.idPropuesta.rutAlumno.planActivo.jornadaAsString}">
+                        <h:outputText value="#{tema.idRevisora.idPropuesta.rutAlumno.planActivo.jornadaAsString}" />
+                    </p:column>
+                    <p:column headerText="Profesor Guía" filterBy="#{tema.idRevisora.guia.nombreProfesor} #{tema.idRevisora.guia.apellidoProfesor}" filterMatchMode="contains" sortBy="#{tema.idRevisora.guia.nombreProfesor} #{tema.idRevisora.guia.apellidoProfesor}">
+                        <h:outputText value="#{tema.idRevisora.guia.nombreProfesor} #{tema.idRevisora.guia.apellidoProfesor}" />
+                    </p:column>
+                    <p:column headerText="Título Tema" filterBy="#{tema.nombreTema}" filterMatchMode="contains" sortBy="#{tema.nombreTema}">
+                        <h:outputText value="#{tema.nombreTema}" />
+                    </p:column>
+                    <p:column headerText="Estado Tema" filterBy="#{tema.nombreTema}" filterMatchMode="contains" sortBy="#{tema.nombreTema}">
+                        <h:outputText rendered="#{tema.estadoTema eq 0}" style="padding-left: 1em;" value="VIGENTE"/>
+                        <h:outputText rendered="#{tema.estadoTema eq 2}" style="padding-left: 1em;" value="PRORROGADO"/>
+                        <h:outputText rendered="#{tema.estadoTema eq 6}" style="padding-left: 1em;" value="VIGENTE, CON BORRADOR FINAL"/>
+                    </p:column>
+                </p:dataTable>
+                <br/>
+                <p:button style="border: none;" href="/ReporteBorradores" value="Descargar excel" disabled="true"/>
+                <br/>
+                <br/>
+                <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Volver a Reportes"/>
+                
+            </h:form>
+        </p:layoutUnit>
+    </ui:define>
+
+</ui:composition>

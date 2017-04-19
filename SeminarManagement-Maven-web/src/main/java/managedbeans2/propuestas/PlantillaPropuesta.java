@@ -4,6 +4,7 @@ import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 import entities.Alumno;
+import entities.PlanEstudio;
 import entities.Profesor;
 import entities.Propuesta;
 import java.io.ByteArrayOutputStream;
@@ -12,6 +13,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import javax.inject.Inject;
 import javax.servlet.ServletException;
@@ -20,6 +22,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import util.SMUtil;
 
 /**
  *
@@ -61,24 +64,21 @@ public class PlantillaPropuesta extends HttpServlet {
             Alumno alumno = propuestaMB.getAlumno();
             
             InputStream resourceUrl = getServletContext().getResourceAsStream(TEMPLATE_LOCATION);
-            System.out.println(resourceUrl);
+
             baosPDF = new ByteArrayOutputStream();
             PdfReader pdfTemplate = new PdfReader(resourceUrl);
             PdfStamper stamper = new PdfStamper(pdfTemplate, baosPDF);
             stamper.setFormFlattening(true);
             
             StringBuilder str = new StringBuilder();
-            str.append("PROPUESTA DE TEMA DE INGENIERIA ");
-            if (alumno.getCarreraAlumno() != null){
-                if (alumno.getCarreraAlumno() == 0){
-                    str.append("CIVIL EN INFORMATICA - ");
-                } else if (alumno.getCarreraAlumno() == 1) {
-                    str.append("DE EJECUCION EN COMPUTACION E INFORMATICA - ");
-                } else {
-                    str.append("                                             - ");
-                }
-            } else {
-                str.append("                                                     - ");
+            str.append("PROPUESTA DE TEMA DE ");
+
+            if (prop.getPlanActivo() != null){
+                str.append(prop.getPlanActivo().getCarreraId().getNombre()).append(" ");
+                str.append("(").append(prop.getPlanActivo().getCodigo()).append(" ");
+                str.append(propuestaMB.getAnioPlan(prop.getIdPlan(), prop.getVersionPlan()));
+                str.append(".").append(prop.getVersionPlan()).append(")");
+                str.append(" - ");
             }
             
             if (prop.getIdSemestre() != null){
@@ -88,56 +88,37 @@ public class PlantillaPropuesta extends HttpServlet {
             }
             stamper.getAcroFields().setField("doc_title", str.toString());
             stamper.getAcroFields().setField("title", prop.getNombrePropuesta());
-            
-            str = new StringBuilder();
-            str.append(alumno.getNombreAlumno()).append(" ").append(alumno.getApellidoAlumno());
-            stamper.getAcroFields().setField("student_name", str.toString());
+
+            stamper.getAcroFields().setField("student_name", SMUtil.reducirNombre(alumno.getNombreAlumno(), alumno.getApellidoAlumno(), 30));
             
             Profesor guia = propuestaMB.getGuia();
             str = new StringBuilder("");
             if (guia != null){
-                str.append(guia.getNombreProfesor()).append(" ")
-                        .append(guia.getApellidoProfesor());
+                str.append(SMUtil.reducirNombre( guia.getNombreProfesor(), guia.getApellidoProfesor(), 30));
             }
             stamper.getAcroFields().setField("guide_proffesor", str.toString());
             
             Profesor coguia = propuestaMB.getCoguia();
             str = new StringBuilder("");
             if (coguia != null){
-                str.append(coguia.getNombreProfesor()).append(" ")
-                        .append(coguia.getApellidoProfesor());
+                str.append(SMUtil.reducirNombre( coguia.getNombreProfesor(), coguia.getApellidoProfesor(), 30));
             }
             stamper.getAcroFields().setField("co_guide_proffesor", str.toString());
 
             Profesor profComision1 = propuestaMB.getRevisor1();
             str = new StringBuilder("");
             if (profComision1 != null){
-                str.append(profComision1.getNombreProfesor()).append(" ")
-                        .append(profComision1.getApellidoProfesor());
+                str.append(SMUtil.reducirNombre( profComision1.getNombreProfesor(), profComision1.getApellidoProfesor(), 20));
             }
             stamper.getAcroFields().setField("commission_proffesor_1", str.toString());
             
             Profesor profComision2 = propuestaMB.getRevisor2();
             str = new StringBuilder();
             if (profComision2 != null){
-                str.append(profComision2.getNombreProfesor())
-                        .append(" ").append(profComision2.getApellidoProfesor());
+                str.append(SMUtil.reducirNombre( profComision2.getNombreProfesor(), profComision2.getApellidoProfesor(), 20));
             }       
-            stamper.getAcroFields().setField("commission_proffesor_2", str.toString());
-            
-            //formatear el rut
-            str = new StringBuilder(alumno.getRutAlumno());
-            if (str.length() > 1){
-                str.insert(str.length()-1, "-");
-                if (str.length() > 5){
-                    str.insert(str.length()-5, ".");
-                    if (str.length() > 9){
-                        str.insert(str.length()-9, ".");
-                    }
-                }
-            }
-            
-            stamper.getAcroFields().setField("student_rut", str.toString());
+            stamper.getAcroFields().setField("commission_proffesor_2", str.toString());           
+            stamper.getAcroFields().setField("student_rut", SMUtil.formatearRut(alumno.getRutAlumno()));
             stamper.getAcroFields().setField("student_phone", alumno.getTelefonoAlumno());
             stamper.getAcroFields().setField("student_email", alumno.getMailAlumno());
             stamper.getAcroFields().setField("student_address", alumno.getDireccionAlumno());
@@ -179,7 +160,7 @@ public class PlantillaPropuesta extends HttpServlet {
             sos.flush();
             
         } catch (NumberFormatException | NullPointerException | DocumentException | IOException dex) {
-            System.out.println(dex);
+            
             //LOGGER.error(dex);
             response.setContentType("text/html");
             PrintWriter writer = response.getWriter();
@@ -230,5 +211,4 @@ public class PlantillaPropuesta extends HttpServlet {
     public String getServletInfo() {
         return "Retorna un archivo PDF desplegado en el navegador que contiene la información una propuesta de trabajo de título";
     }// </editor-fold>
-
 }

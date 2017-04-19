@@ -1,22 +1,17 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package managedbeans2.temas;
 
 import clases.TemaDatos;
 import entities.ProfePropuesta;
+import entities.Propuesta;
 import entities.Tema;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.model.SelectItem;
+import sessionbeans.PropuestaFacadeLocal;
 import sessionbeans.TemaFacadeLocal;
 
 /**
@@ -29,12 +24,20 @@ public class TemasIndexMB {
 
     @EJB
     private TemaFacadeLocal temaFacade;
+    
+    @EJB
+    private PropuestaFacadeLocal propuestaFacade;
 
     private List<Tema> temas;
     private List<TemaDatos> temaDatos, temaDatosFiltrados;
     private SelectItem[] estados;
     private List<String> estadosTemas;
     private ArrayList<SelectItem> semestres;
+    private Integer cantidad_de_temas_vigentes;
+    private Integer cantidad_de_temas_vigentes_diurnos;
+    private Integer cantidad_de_temas_vigentes_vespertinos;
+    private Integer cantidad_de_temas_prorrogados;
+    private Integer cantidad_de_temas_en_proceso;
 
     /**
      * Creates a new instance of TemasIndexMB
@@ -42,8 +45,34 @@ public class TemasIndexMB {
     public TemasIndexMB() {
     }
 
+    public Integer getCantidadDeTemasVigentes() {
+        return cantidad_de_temas_vigentes;
+    }
+
+    public Integer getCantidadDeTemasProrrogados() {
+        return cantidad_de_temas_prorrogados;
+    }
+
+    public Integer getCantidadDeTemasEnProceso() {
+        return cantidad_de_temas_en_proceso;
+    }
+
+    public Integer getCantidadDeTemasVigentesDiurnos() {
+        return cantidad_de_temas_vigentes_diurnos;
+    }
+
+    public Integer getCantidadDeTemasVigentesVespertinos() {
+        return cantidad_de_temas_vigentes_vespertinos;
+    }
+
     @PostConstruct
     public void init() {
+        cantidad_de_temas_vigentes = 0;
+        cantidad_de_temas_prorrogados = 0;
+        cantidad_de_temas_en_proceso = 0;
+        cantidad_de_temas_vigentes_diurnos = 0;
+        cantidad_de_temas_vigentes_vespertinos = 0;
+
         semestres = new ArrayList<>();
         temaDatos = new ArrayList();
         temas = temaFacade.findAll();
@@ -80,28 +109,51 @@ public class TemasIndexMB {
                 Integer estadoTema = temas.get(i).getEstadoTema();
                 if (estadoTema == 0) {
                     temaDTemp.setEstadoTema("VIGENTE");
+                    cantidad_de_temas_vigentes++;
+                    List<Propuesta> propuesta;
+                    propuesta = propuestaFacade.findById(temas.get(i).getIdRevisora().getIdPropuesta().getIdPropuesta());
+                    if ( !propuesta.get(0).getRutAlumno().getPlanes().isEmpty() ){
+                        Integer jornada = propuesta.get(0).getRutAlumno().getPlanes().get(0).getJornada();
+                        if (jornada == 1) {
+                            cantidad_de_temas_vigentes_diurnos++;
+                        } else {
+                            cantidad_de_temas_vigentes_vespertinos++;
+                        }
+                    }
                 }
                 if (estadoTema == 1) {
                     temaDTemp.setEstadoTema("TITULADO");
                 }
                 if (estadoTema == 2) {
                     temaDTemp.setEstadoTema("PRORROGADO");
+                    cantidad_de_temas_prorrogados++;
                 }
                 if (estadoTema == 3) {
                     temaDTemp.setEstadoTema("CADUCO");
                 }
                 if (estadoTema == 4) {
                     temaDTemp.setEstadoTema("EN PROCESO DE EXAMEN");
+                    cantidad_de_temas_en_proceso++;
                 }
                 if (estadoTema == 6) {
                     temaDTemp.setEstadoTema("VIGENTE, CON BORRADOR FINAL");
                 }
+                
+                if (estadoTema == 7){
+                    temaDTemp.setEstadoTema("REPROBADO");
+                }
+                
+                if (estadoTema == 8){
+                    temaDTemp.setEstadoTema("CADUCO POR RENUNCIA");
+                }
+                
+                
             }
             temaDatos.add(temaDTemp);
         }
 
         //Inicializamos filtros de estados
-        estados = new SelectItem[7];
+        estados = new SelectItem[9];
         estados[0] = new SelectItem("");
         estados[1] = new SelectItem("VIGENTE");
         estados[2] = new SelectItem("TITULADO");
@@ -109,7 +161,9 @@ public class TemasIndexMB {
         estados[4] = new SelectItem("CADUCO");
         estados[5] = new SelectItem("EN PROCESO DE EXAMEN");
         estados[6] = new SelectItem("VIGENTE, CON BORRADOR FINAL");
-        semestres.add(0, new SelectItem("","Todos"));
+        estados[7] = new SelectItem("REPROBADO");
+        estados[8] = new SelectItem("CADUCO POR RENUNCIA");
+        semestres.add(0, new SelectItem("", "Todos"));
     }
 
     public SelectItem[] getEstadosOptions() {

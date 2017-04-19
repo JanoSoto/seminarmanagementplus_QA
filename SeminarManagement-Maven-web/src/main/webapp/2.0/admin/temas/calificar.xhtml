@@ -28,12 +28,12 @@
                     <p:growl id="growl" showDetail="true" sticky="true" />
                     #{calificacionTema2MB.setIdTema(verTemaMB.idTema)}
                     
-                    <h:panelGrid columns="2" cellpadding="4">
-                        <p:outputLabel style="color: #0052cc;font-weight: bold;" for="nombre" value="Nombre"/>
-                        <h:outputText id="nombre" value="#{verTemaMB.tema.nombreTema}"/>
-                    </h:panelGrid>
-                        
                     <h:panelGrid columns="4" cellpadding="4">
+                        <p:outputLabel style="color: #0052cc;font-weight: bold;" for="nombre" value="Título"/>
+                        <h:outputText id="nombre" value="#{verTemaMB.tema.nombreTema}"/>
+                        <p:outputLabel value=""/>
+                        <p:outputLabel value=""/>
+                        
                         <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Alumno"/>
                         <h:outputText style="font-weight: normal;" value="#{verTemaMB.tema.idRevisora.idPropuesta.rutAlumno.nombreAlumno} #{verTemaMB.tema.idRevisora.idPropuesta.rutAlumno.apellidoAlumno}"/>
                         <p:outputLabel value=""/>
@@ -51,25 +51,28 @@
 
                         <p:outputLabel for="notaProfGPInf" value="Profesor Guía *" />
                         <h:outputText style="color: #0052cc;" id="profeGP" value="#{verTemaMB.guia.nombreProfesor} #{verTemaMB.guia.apellidoProfesor}"/>
-                        <p:inputMask id="notaProfGPInf" value="#{calificacionTema2MB.notaProfeGuiaInf}" mask="9.9" style="width: 28px"/>
-                        <p:inputMask id="notaProfGPDef" value="#{calificacionTema2MB.notaProfeGuiaDef}" mask="9.9" style="width: 28px"/>
-
-
+                        <p:inputMask id="notaProfGPInf" value="#{calificacionTema2MB.notaProfeGuiaInf}" mask="9.9" style="width: 50px"/>
+                        <p:inputMask id="notaProfGPDef" value="#{calificacionTema2MB.notaProfeGuiaDef}" mask="9.9" style="width: 50px"/>
 
                         <p:outputLabel for="notaProfC1Inf" value="Profesor Corrector 1 *" />
                         <h:outputText style="color: #0052cc;" id="profeC1" value="#{verTemaMB.corrector1.nombreProfesor} #{verTemaMB.corrector1.apellidoProfesor}"/>
-                        <p:inputMask id="notaProfC1Inf" value="#{calificacionTema2MB.notaProfe1Inf}" mask="9.9" style="width: 28px"/>
-                        <p:inputMask id="notaProfC1Def" value="#{calificacionTema2MB.notaProfe1Def}" mask="9.9" style="width: 28px"/>
+                        <p:inputMask id="notaProfC1Inf" value="#{calificacionTema2MB.notaProfe1Inf}" mask="9.9" style="width: 50px"/>
+                        <p:inputMask id="notaProfC1Def" value="#{calificacionTema2MB.notaProfe1Def}" mask="9.9" style="width: 50px"/>
 
                         <p:outputLabel for="notaProfC2Inf" value="Profesor Corrector 2 *" />
                         <h:outputText style="color: #0052cc;" id="profeC2" value="#{verTemaMB.corrector2.nombreProfesor} #{verTemaMB.corrector2.apellidoProfesor}"/>
-                        <p:inputMask id="notaProfC2Inf" value="#{calificacionTema2MB.notaProfe2Inf}" mask="9.9" style="width: 28px"/>
-                        <p:inputMask id="notaProfC2Def" value="#{calificacionTema2MB.notaProfe2Def}" mask="9.9" style="width: 28px"/>
+                        <p:inputMask id="notaProfC2Inf" value="#{calificacionTema2MB.notaProfe2Inf}" mask="9.9" style="width: 50px"/>
+                        <p:inputMask id="notaProfC2Def" value="#{calificacionTema2MB.notaProfe2Def}" mask="9.9" style="width: 50px"/>
 
-                        <p:outputLabel for="calendP" value="Fecha Calificación *" />
+                        <p:outputLabel for="calendP" value="Fecha Calificación Real*" />
                         <p:calendar id="calendP" value="#{calificacionTema2MB.date}" mode="popup"/>
                         <p:watermark for="calendP" value="Seleccionar Fecha"/>
-
+                        
+                        <br/>
+                        <p:outputLabel for="calendP2" value="Fecha Calificación Siac*" />
+                        <p:calendar id="calendP2" value="#{calificacionTema2MB.date2}" mode="popup"/>
+                        <p:watermark for="calendP2" value="Seleccionar Fecha"/>
+                        
                         <h:inputHidden value="#{calificacionTema2MB.idTema}"/>
 
                     </h:panelGrid>

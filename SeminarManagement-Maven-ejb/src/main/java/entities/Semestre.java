@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -31,7 +26,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Semestre.findAll", query = "SELECT s FROM Semestre s"),
-    @NamedQuery(name = "Semestre.findByIdSemestre", query = "SELECT s FROM Semestre s WHERE s.idSemestre = :idSemestre")})
+    @NamedQuery(name = "Semestre.findByIdSemestre", query = "SELECT s FROM Semestre s WHERE s.idSemestre = :idSemestre"),
+    @NamedQuery(name = "Semestre.findOneById", query = "SELECT s FROM Semestre s WHERE s.idSemestre = :semestre")
+    })
 public class Semestre implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
@@ -40,6 +37,11 @@ public class Semestre implements Serializable {
     @Size(min = 1, max = 15)
     @Column(name = "id_semestre")
     private String idSemestre;
+    @Column(name = "fecha_precierre")
+    private String fechaPrecierre;
+
+    @Column(name = "fecha_cierre")
+    private String fechaCierre;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSemestre")
     private List<ComisionCorrectora> comisionCorrectoraList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSemestre")
@@ -82,6 +84,22 @@ public class Semestre implements Serializable {
 
     public String getIdSemestre() {
         return idSemestre;
+    }
+    
+    public String getFechaPrecierre() {
+        return fechaPrecierre;
+    }
+
+    public void setFechaPrecierre(String fechaPrecierre) {
+        this.fechaPrecierre = fechaPrecierre;
+    }
+
+    public String getFechaCierre() {
+        return fechaCierre;
+    }
+
+    public void setFechaCierre(String fechaCierre) {
+        this.fechaCierre = fechaCierre;
     }
 
     public void setIdSemestre(String idSemestre) {

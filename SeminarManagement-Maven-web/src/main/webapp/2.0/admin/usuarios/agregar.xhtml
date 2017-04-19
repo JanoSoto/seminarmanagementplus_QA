@@ -7,52 +7,101 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
-    
+
     <ui:define name="metadata">
-        #{accordionPanelMB.setIndex("1")}
+        #{accordionPanelMB.setIndex("5")}
     </ui:define>
-    
+
     <ui:define name="title"><title>Agregar Usuario | Seminar Management</title></ui:define>
 
     <ui:define name="content">
 
-        
         <p:layoutUnit position="center" style="border:none;">
+            <c:if test="#{not empty param.uid}">
+                #{usuarioMB.cargarUsuario(param.uid)}
+            </c:if>
             <h1>Agregar Usuario</h1>
             <h:form style="font-weight: bold;">
-            <p:panel style="border:none;">
-                <p:growl id="growl" showDetail="true" sticky="true"/>
-                <h:panelGrid columns="3" cellpadding="4">
-                    
-                    <p:outputLabel for="rut" value="Username (Rut)"/>
-                    <p:inputText id="rut" required="true" value="#{usuarioMB.username}">
-                        <!--<f:validator validatorId="rutValidator"/>-->
-                    </p:inputText>
-                    <p:watermark for="rut" value="Ingrese Rut"/>
-                    
-                    <p:outputLabel for="nombre" value="Nombre/s"/>
-                    <p:inputText id="nombre" required="true" value="#{usuarioMB.nombreUsuario}"/>
-                    <p:watermark for="nombre" value="Ingresar Nombre"/>
-                    
-                    <p:outputLabel for="apellido" value="Apellido/s"/>
-                    <p:inputText id="apellido" required="true" value="#{usuarioMB.apellidoUsuario}"/>
-                    <p:watermark for="apellido" value="Ingresar Apellido"/>
-                    
-                    <p:outputLabel for="tipo" value="Tipo"/>
-                    <p:selectOneMenu id="tipo" required="true" value="#{usuarioMB.tipoUsuario}">
-                        <f:selectItem itemLabel="Seleccionar" noSelectionOption="true" />
-                        <f:selectItem itemLabel="SECRETARIA" itemValue="SECRETARIA"/>
-                        <f:selectItem itemLabel="ADMINISTRADOR" itemValue="ADMINISTRADOR"/>
-                    </p:selectOneMenu>
-                    <br/>
-                </h:panelGrid>
-                <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Atrás"/>
-                <p:commandButton id="bt1" value="Ingresar" actionListener="#{usuarioMB.agregarNuevoUsuario()}" update="growl @form"/>
-                <p:defaultCommand target="bt1" />
-            </p:panel>
-        </h:form>
+                <p:panel style="border:none;">
+                    <p:growl id="growl" showDetail="true" sticky="true"/>
+                    <h:panelGrid columns="6" cellpadding="2">
+
+                        <c:if test="#{empty param.uid}">
+                            <p:outputLabel for="rut" value="Rut"/>
+                            <p:inputText id="rut" required="true" value="#{usuarioMB.username}" disabled="#{not empty param.uid}">
+                                <f:validator validatorId="rutValidator"/>
+                            </p:inputText>
+                            <br/>
+                        </c:if>
+                        <c:if test="#{not empty param.uid}">
+                            <p:outputLabel for="rut" value="Rut"/>
+                            <p:inputText required="true" value="#{usuarioMB.username}" disabled="#{not empty param.uid}"/>
+                            <h:inputHidden id="rut" value="#{usuarioMB.username}" />
+                        </c:if>
+
+                        <c:if test="#{empty param.uid}">
+                            <p:outputLabel for="uid" value="uid"/>
+                            <p:inputText id="uid" required="true" value="#{usuarioMB.uid}" disabled="#{not empty param.uid}"/>
+                            <br/>
+                        </c:if>
+                        <c:if test="#{not empty param.uid}">
+                            <p:outputLabel for="uid" value="uid"/>
+                            <p:inputText required="true" value="#{usuarioMB.uid}" disabled="#{not empty param.uid}"/>
+                            <h:inputHidden id="uid" value="#{usuarioMB.uid}" />
+                        </c:if>
+
+                        <p:outputLabel for="nombre" value="Nombre/s"/>
+                        <p:inputText id="nombre" required="true" value="#{usuarioMB.nombreUsuario}"/>
+                        <p:watermark for="nombre" value="Ingresar Nombre"/>
+
+                        <p:outputLabel for="apellido" value="Apellido/s"/>
+                        <p:inputText id="apellido" required="true" value="#{usuarioMB.apellidoUsuario}"/>
+                        <p:watermark for="apellido" value="Ingresar Apellido"/>
+                        
+                        <p:outputLabel for="correo" value="Email"/>
+                        <p:inputText id="correo" value="#{usuarioMB.mailUsuario}"/>
+                        <p:watermark for="correo" value="Ingresar Email"/>
+
+                        <p:outputLabel for="telefono" value="Teléfono"/>
+                        <p:inputText id="telefono" value="#{usuarioMB.telefonoUsuario}"/>
+                        <p:watermark for="telefono" value="Ingresar Teléfono"/>
+                        
+                        <p:outputLabel for="region" value="Región"/>
+                        <p:selectOneMenu id="region" value="#{regionesMB.regionElegida}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue=""/>
+                            <f:selectItems value="#{regionesMB.regiones}" var="region" itemLabel="#{region.regionNombre}" itemValue="#{region.regionId}"/>
+                            <p:ajax listener="#{regionesMB.buscaComunas()}" update="comuna" />
+                        </p:selectOneMenu>
+                        <br/>                       
+
+                        <p:outputLabel for="comuna" value="Comuna" />
+                        <p:selectOneMenu id="comuna" value="#{usuarioMB.comuna}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue=""/>
+                            <f:selectItems value="#{regionesMB.comunas}" var="comuna" itemLabel="#{comuna.comunaNombre}" itemValue="#{comuna.comunaId}"/>
+                        </p:selectOneMenu>
+                        <br/>
+                        
+                        <p:outputLabel for="direccion" value="Dirección"/>
+                        <p:inputText id="direccion" value="#{usuarioMB.direccionUsuario}"/>
+                        <p:watermark for="direccion" value="Ingresar Dirección"/>
+                        
+                        <p:outputLabel/>
+                        <p:outputLabel/>
+                        <p:outputLabel/>
+                        
+                        <p:outputLabel for="tipo" value="Tipo"/>
+                        <p:pickList id="tipo" value="#{usuarioMB.tiposDualList}" var="tipos" itemValue="#{tipos}" itemLabel="#{tipos}"></p:pickList>
+                        <br/>
+                    </h:panelGrid>
+                    <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Atrás"/>
+
+                    <p:commandButton id="bt1" value="Ingresar" actionListener="#{usuarioMB.agregarNuevoUsuario()}" update="growl"/>
+
+                    <p:defaultCommand target="bt1" />
+                </p:panel>
+            </h:form>
         </p:layoutUnit>
-        
+
     </ui:define>
 
 </ui:composition>

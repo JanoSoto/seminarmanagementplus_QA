@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template2.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:define name="metadata">
+        #{accordionPanelMB.setIndex("4")}
+        <f:metadata>
+            <f:viewParam name="prof" value="#{verProfesorMB.rutProfesor}"/>
+        </f:metadata>
+    </ui:define>
+    <ui:define name="title"><title>Reportes | Seminar Management</title></ui:define>
+    <ui:define name="content">
+        #{reportesMB.findTemasMemoristas()}
+        <p:layoutUnit rendered="false" position="west" size="180" style="border: none;">
+            <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Volver a Reportes"/>
+        </p:layoutUnit>
+        <p:layoutUnit position="center" style="border:none;">
+            <h:form>
+                <table class="ui-panelgrid ui-widget" role="grid" style="margin: 0 auto;">
+                    <thead class="ui-panelgrid-header">
+                        <tr class="ui-widget-header" role="row">
+                            <td role="columnheader" colspan="#{reportesMB.planesToDisplay.size()+3}" class="ui-datatable-header ui-widget-header">
+                                Cantidad de Memoristas Vigentes (#{reportesMB.semestreActual.semestreActual})
+                            </td>
+                        </tr>
+                        <tr class="ui-widget-header" role="row">
+                            <td role="columnheader" rowspan="2" class="ui-datatable-header ui-widget-header">Tipo Contrato</td>
+                            <td role="columnheader" rowspan="2" class="ui-datatable-header ui-widget-header">Profesor</td>
+                            <c:if test="#{reportesMB.planesToDisplay.size() > 0}">
+                                <td role="columnheader" colspan="#{reportesMB.planesToDisplay.size()}" class="ui-datatable-header ui-widget-header">Plan</td>
+                            </c:if>
+                            <td role="columnheader" rowspan="2" class="ui-datatable-header ui-widget-header">Grand Total</td>
+                        </tr>
+                        <tr class="ui-widget-header" role="row">
+                            <ui:repeat var="plan" value="#{reportesMB.planesToDisplay}" varStatus="status">
+                                <td role="columnheader" class="ui-datatable-header ui-widget-header ">#{plan}</td>
+                            </ui:repeat>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <ui:repeat var="profe" value="#{reportesMB.profesoresJCDatos}" varStatus="status">
+                            <tr>
+                                <td role="gridcell">#{status.first ? 'JC' : '' }</td>
+                                <td class="order-table-even-row">#{profe.nombre}</td>
+                                <ui:repeat var="cant" value="#{profe.cantAlumnosPorPlan}">
+                                    <td style="text-align: right">#{cant}</td>
+                                </ui:repeat>
+                            </tr>
+                        </ui:repeat>
+                        <tr class="ui-widget-header">
+                            <td colspan="2">JC Total</td>
+                            <ui:repeat var="cant" value="#{reportesMB.totalesJCToDisplay}">
+                                <td style="text-align: right">#{cant}</td>
+                            </ui:repeat>
+                        </tr>
+
+                        <ui:repeat var="profe" value="#{reportesMB.profesoresPHDatos}" varStatus="status">
+                            <tr>
+                                <td>#{status.first ? 'PPH' : '' }</td>
+                                <td>#{profe.nombre}</td>
+                                <ui:repeat var="cant" value="#{profe.cantAlumnosPorPlan}">
+                                    <td style="text-align: right">#{cant}</td>
+                                </ui:repeat>
+                            </tr>
+                        </ui:repeat>
+                        <tr class="ui-widget-header">
+                            <td colspan="2">PPH Total</td>
+                            <ui:repeat var="cant" value="#{reportesMB.totalesPHToDisplay}">
+                                <td style="text-align: right">#{cant}</td>
+                            </ui:repeat>
+                        </tr>
+                        <tr class="ui-widget-header">
+                            <td colspan="2">Grand Total</td>
+                            <ui:repeat var="cant" value="#{reportesMB.totalesToDisplay}">
+                                <td style="text-align: right">#{cant}</td>
+                            </ui:repeat>
+                        </tr>
+                    </tbody>
+                </table>
+                <br/>
+                <p:button style="border: none;" href="/ReporteMemoristas" value="Descargar excel"/>
+                <br/>
+                <br/>
+                <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Volver a Reportes"/>
+            </h:form>
+        </p:layoutUnit>
+    </ui:define>
+
+</ui:composition>
+

@@ -7,83 +7,120 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
-    
+
     <ui:define name="metadata">
         #{accordionPanelMB.setIndex("0")}
     </ui:define>
-    
+
     <ui:define name="title"><title>Agregar Profesor | Seminar Management</title></ui:define>
 
     <ui:define name="content">
-        
+
         <p:layoutUnit position="west" size="180" style="border: none;">
-            <p:panel style="border:none;">
-                <h:panelGrid columns="1" cellpadding="4">
-                    <form method="GET" action="/SeminarManagement-Maven-web/2.0/secretaria/profesores/buscar.xhtml">
-                        <input type="text" placeholder="Búsqueda" value="#{buscarMB.query}" name="q"/>
-                        <button type="submit" value="search">Buscar Profesor</button>
-                    </form>
-                </h:panelGrid>
-            </p:panel>
+
         </p:layoutUnit>
-        
+
         <p:layoutUnit position="center" style="border:none;">
-            <h:form style="font-weight: bold;">
+            <h:form style="font-weight: bold;" id="addForm">
                 <p:panel style="border: none;">
                     <h1>Agregar Profesor</h1>
                     <p:growl id="growl" showDetail="true" sticky="true" />
                     <h:panelGrid columns="6" cellpadding="4">
 
+
                         <p:outputLabel for="rut" value="Rut"/>
-                        <p:inputText id="rut" required="true" value="#{profesorMB.rutProfesor}">
+                        <p:inputText id="rut" required="true" value="#{profesorMB.profesor.usuario.rutUsuario}">
                             <f:validator validatorId="rutValidator"/>
+                            <p:ajax event="blur" listener="#{profesorMB.buscarProfesor(actionEvent)}" update="addForm"/>
                         </p:inputText>
                         <p:watermark for="rut" value="Ingresar Rut"/>
 
+                        <p:outputLabel for="uid" value="Nombre de Usuario (LDAP)"/>
+                        <p:inputText id="uid" required="true" value="#{profesorMB.profesor.usuario.uid}"/>
+                        <p:watermark for="uid" value="Nombre de usuario"/>
+
                         <p:outputLabel for="nombre" value="Nombre/s"/>
-                        <p:inputText id="nombre" required="true" value="#{profesorMB.nombreProfesor}"/>
+                        <p:inputText id="nombre" required="true" value="#{profesorMB.profesor.usuario.nombreUsuario}"/>
                         <p:watermark for="nombre" value="Ingresar Nombre"/>
 
                         <p:outputLabel for="apellido" value="Apellido/s"/>
-                        <p:inputText id="apellido" required="true" value="#{profesorMB.apellidoProfesor}"/>
+                        <p:inputText id="apellido" required="true" value="#{profesorMB.profesor.usuario.apellidoUsuario}"/>
                         <p:watermark for="apellido" value="Ingresar Apellido"/>
 
                         <p:outputLabel for="mail" value="E-Mail"/>
-                        <p:inputText id="mail" value="#{profesorMB.mailProfesor}">
-                            <f:validator validatorId="emailValidator"/>
+                        <p:inputText id="mail" value="#{profesorMB.profesor.usuario.mailUsuario}">
+                            <f:validator validatorId="emailValidator" />
                         </p:inputText>
                         <p:watermark for="mail" value="Ingresar E-Mail"/>
 
                         <p:outputLabel for="celular" value="Celular"/>
-                        <p:inputText id="celular" value="#{profesorMB.celularProfesor}">
-                            <f:validator validatorId="celularValidator" />
+                        <p:inputText id="celular" value="#{profesorMB.profesor.usuario.telefonoUsuario}">
                         </p:inputText>
                         <p:watermark for="celular" value="Ingresar Celular"/>
 
-                        <p:outputLabel for="contrato" value="Tipo contrato" />
-                        <p:selectOneMenu id="contrato" required="true" value="#{profesorMB.contratoProfesor}">
+                        <p:outputLabel for="region" value="Región"/>
+                        <p:selectOneMenu id="region" value="#{regionesMB.regionElegida}">
                             <f:selectItem itemLabel="Seleccionar" itemValue=""/>
-                            <f:selectItem itemLabel="Por hora" itemValue="0" />
+                            <f:selectItems value="#{regionesMB.regiones}" var="region" itemLabel="#{region.regionNombre}" itemValue="#{region.regionId}"/>
+                            <p:ajax listener="#{regionesMB.buscaComunas()}" update="comuna" />
+                        </p:selectOneMenu>
+                        <br/>                       
+
+                        <p:outputLabel for="comuna" value="Comuna" />
+                        <p:selectOneMenu id="comuna" value="#{profesorMB.comuna}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue=""/>
+                            <f:selectItems value="#{regionesMB.comunas}" var="comuna" itemLabel="#{comuna.comunaNombre}" itemValue="#{comuna.comunaId}"/>
+                        </p:selectOneMenu>
+                        <br/>
+                        
+                        <p:outputLabel for="direccion" value="Dirección"/>
+                        <p:inputText id="direccion" value="#{profesorMB.profesor.usuario.direccionUsuario}"/>
+                        <p:watermark for="direccion" value="Ingresar Dirección"/>
+
+                        <p:outputLabel/>
+                        <p:outputLabel/>
+                        <p:outputLabel/>
+
+                        <p:outputLabel for="contrato" value="Vínculo DIINF" />
+                        <p:selectOneMenu id="contrato" required="true" value="#{profesorMB.profesor.contrato}">
+                            <f:selectItem itemLabel="Seleccionar" itemValue=""/>
+                            <f:selectItem itemLabel="Externo" itemValue="0" />
                             <f:selectItem itemLabel="JC" itemValue="1" />
                         </p:selectOneMenu>
                         <br/>
 
-                        <p:outputLabel for="guia" value="¿Puede ser guía?" />
-                        <p:selectOneMenu id="guia" required="true" value="#{profesorMB.isProfGuia}">
-                            <f:selectItem itemLabel="Seleccionar" itemValue=""/>
-                            <f:selectItem itemLabel="Si" itemValue="0" />
-                            <f:selectItem itemLabel="No" itemValue="1" />
+                        <p:outputLabel for="jeraquia" value="Jerarquía o Categoría" />
+                        <p:selectOneMenu id="jeraquia" required="false" value="#{profesorMB.profesor.jerarquiaCategoria}" >
+                            <f:selectItem itemLabel="Sin especificar" itemValue=""/>
+                            <f:selectItem itemLabel="TITULAR" itemValue="TITULAR" />
+                            <f:selectItem itemLabel="ASOCIADO" itemValue="ASOCIADO" />
+                            <f:selectItem itemLabel="ASISTENTE" itemValue="ASISTENTE" />
+                            <f:selectItem itemLabel="INSTRUCTOR" itemValue="INSTRUCTOR" />
+                            <f:selectItem itemLabel="AYUD. PROF." itemValue="AYUD. PROF." />
+                            <f:selectItem itemLabel="ADJ. CAT. I" itemValue="ADJ. CAT. I" />
+                            <f:selectItem itemLabel="ADJ. CAT. II" itemValue="ADJ. CAT. II" />
+                            <f:selectItem itemLabel="INST. CAT. I" itemValue="INST. CAT. I" />
+                            <f:selectItem itemLabel="INST. CAT. II" itemValue="INST. CAT. II" />
+                            <f:selectItem itemLabel="AYUDANTE" itemValue="AYUDANTE" />
                         </p:selectOneMenu>
                         <br/>
-
+                        <!-- <p:outputLabel for="guia" value="¿Puede ser guía?"/>
+                         <p:selectOneMenu id="guia" required="true"  value="{profesorMB.isProfGuia}">
+                             <f:selectItem itemLabel="Seleccionar" itemValue=""/> 
+                             <f:selectItem itemLabel="Si" itemValue="0" /> 
+                             <f:selectItem itemLabel="No" itemValue="1" />
+                         </p:selectOneMenu> -->
+                        <br/>
                     </h:panelGrid>
-
-                    <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="./index.xhtml" value="Volver a Profesores"/>
-                    <p:commandButton id="bt1" value="Ingresar" actionListener="#{profesorMB.addProfesor()}" update="growl @form"/>
-                    <p:defaultCommand target="bt1" />
+                    <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Volver a Profesores"/>
+                    <!--<p:commandButton id="bt1" value="Ingresar" actionListener="{profesorMB.addProfesor()}" update="growl @form"/>
+                    <p:defaultCommand target="bt1" />-->
+                    <h:commandLink id="agregar" action="#{profesorMB.create()}" styleClass="btn ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                        <span class="ui-button-text ui-c">Ingresar</span>
+                    </h:commandLink>
+                    <p:defaultCommand target="agregar" />
                 </p:panel>
             </h:form>
         </p:layoutUnit>
     </ui:define>
-
 </ui:composition>

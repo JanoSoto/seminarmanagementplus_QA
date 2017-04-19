@@ -15,21 +15,15 @@
     <ui:define name="title"><title>Profesores | Seminar Management</title></ui:define>
 
     <ui:define name="content">
-
-        <p:layoutUnit position="west" size="180" style="border: none;">
-            <p:panel style="border:none;">
-                <h:panelGrid columns="1" cellpadding="4">
-                    <form method="GET" action="/SeminarManagement-Maven-web/2.0/admin/profesores/buscar.xhtml">
-                        <input type="text" placeholder="Búsqueda" value="#{buscarMB.query}" name="q"/>
-                        <button type="submit" value="search">Buscar Profesor</button>
-                    </form>
-                    <p:button href="/2.0/admin/profesores/agregar.xhtml" value="Agregar Profesor"/>
-                </h:panelGrid>
-            </p:panel>
-        </p:layoutUnit>
-
-        <p:layoutUnit position="center" style="border:none;">
-            <h:form>
+        <h:form>
+            <p:layoutUnit position="west" size="180" style="border: none;">
+                <p:panel style="border:none;">
+                    <h:commandLink action="#{profesorMB.prepareCreate()}" styleClass="btn ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                        <span class="ui-button-text ui-c">Agregar Profesor</span>
+                    </h:commandLink>
+                </p:panel>
+            </p:layoutUnit>
+            <p:layoutUnit position="center" style="border:none;">
                 <p:dataTable id="profTable" var="prof" value="#{profesoresIndexMB.profeDatos}" filteredValue="#{profesoresIndexMB.profesoresFiltrados}" filterDelay="100" paginator="true"
                              rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
                              {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,30,40,50"
@@ -44,16 +38,14 @@
                     </p:column>
                     <p:column headerText="Rut" filterMatchMode="contains" filterBy="#{prof.rutProfConGuion}" sortBy="#{prof.rutProfConGuion}">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/profesores/profesor.xhtml?prof=#{prof.profesor.rutProfesor}">
-                            <h:outputText value="#{prof.rutFormateado}" />
+                            <h:outputText value="#{prof.rutFormateado}" style="float: right;"/>
                         </a>
                     </p:column>
-                    <p:column headerText="Contrato" filterMatchMode="contains"  filterBy="#{prof.contrato}" sortBy="#{prof.contrato}">
+                    <p:column headerText="Vínculo DIINF" filterMatchMode="contains"  filterBy="#{prof.contrato}" sortBy="#{prof.contrato}">
                         <h:outputText value="#{prof.contrato}" />
                     </p:column>
                     <p:column headerText="Temas vigentes" filterMatchMode="exact"  filterBy="#{prof.temasVigentes}" sortBy="#{prof.temasVigentes}">
-                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/admin/profesores/profesor.xhtml?prof=#{prof.profesor.rutProfesor}">
-                            <h:outputText value="#{prof.temasVigentes}" />
-                        </a>
+                        <h:outputText value="#{prof.temasVigentes}" />
                     </p:column>
                     <p:column headerText="Revisiones asignadas" filterMatchMode="exact"  filterBy="#{prof.revSemActual}" sortBy="#{prof.revSemActual}">
                         <h:outputText value="#{prof.revSemActual}" />
@@ -62,8 +54,8 @@
                         <h:outputText value="#{prof.corrSemActual}" />
                     </p:column>
                 </p:dataTable>
-            </h:form>
-        </p:layoutUnit>
+            </p:layoutUnit>
+        </h:form>
     </ui:define>
 
 </ui:composition>

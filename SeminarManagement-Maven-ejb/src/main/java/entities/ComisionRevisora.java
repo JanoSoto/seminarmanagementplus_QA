@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -35,32 +30,63 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "ComisionRevisora.findAll", query = "SELECT c FROM ComisionRevisora c"),
     @NamedQuery(name = "ComisionRevisora.findByFechaRevision", query = "SELECT c FROM ComisionRevisora c WHERE c.fechaRevision = :fechaRevision"),
+    @NamedQuery(name = "ComisionRevisora.findByFechaEntregaRevision", query = "SELECT c FROM ComisionRevisora c WHERE c.fechaEntregaRevision = :fechaEntregaRevision"),
+    @NamedQuery(name = "ComisionRevisora.findByFechaRevision2", query = "SELECT c FROM ComisionRevisora c WHERE c.fechaRevision2 = :fechaRevision2"),
+    @NamedQuery(name = "ComisionRevisora.findByFechaEntregaRevision2", query = "SELECT c FROM ComisionRevisora c WHERE c.fechaEntregaRevision2 = :fechaEntregaRevision2"),
     @NamedQuery(name = "ComisionRevisora.findByTipoRevision", query = "SELECT c FROM ComisionRevisora c WHERE c.tipoRevision = :tipoRevision"),
-    @NamedQuery(name = "ComisionRevisora.findByIdRevisora", query = "SELECT c FROM ComisionRevisora c WHERE c.idRevisora = :idRevisora")})
+    @NamedQuery(name = "ComisionRevisora.findByIdRevisora", query = "SELECT c FROM ComisionRevisora c WHERE c.idRevisora = :idRevisora"),
+    @NamedQuery(name = "ComisionRevisora.findBySemestre", query = "SELECT c FROM ComisionRevisora c WHERE c.idSemestre.idSemestre = :semestre"),
+    @NamedQuery(name = "ComisionRevisora.findByTema", query = "SELECT c FROM ComisionRevisora c WHERE c.idTema = :tema")})
 public class ComisionRevisora implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Size(max = 15)
-    @Column(name = "fecha_revision")
-    private String fechaRevision;
-    @Column(name = "tipo_revision")
-    private Integer tipoRevision;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "id_revisora")
     private Integer idRevisora;
+    
+    @Size(max = 15)
+    @Column(name = "fecha_revision")
+    private String fechaRevision;
+    
+    @Size(max = 15)
+    @Column(name = "fecha_entrega_revision")
+    private String fechaEntregaRevision;
+    
+    @Size(max = 15)
+    @Column(name = "fecha_revision2")
+    private String fechaRevision2;
+    
+    @Size(max = 15)
+    @Column(name = "fecha_entrega_revision2")
+    private String fechaEntregaRevision2;
+    
+    @Column(name = "tipo_revision")
+    private Integer tipoRevision;
+    
+    @Column(name = "fecha_publicacion_consejo")
+    private String fechaPublicacionConsejo;
+    
+    @Column(name = "fecha_termino_publicacion_consejo")
+    private String fechaTerminoPublicacionConsejo;
+    
     @OneToMany(mappedBy = "idRevisora")
     private List<Propuesta> propuestaList;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "comisionRevisora")
     private List<ProfeRevision> profeRevisionList;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRevisora")
     private List<Tema> temaList;
+    
     @JoinColumn(name = "id_tema", referencedColumnName = "id_tema")
     @ManyToOne
     private Tema idTema;
+    
     @JoinColumn(name = "id_semestre", referencedColumnName = "id_semestre")
     @ManyToOne(optional = false)
     private Semestre idSemestre;
+    
     @JoinColumn(name = "id_propuesta", referencedColumnName = "id_propuesta")
     @ManyToOne(optional = false)
     private Propuesta idPropuesta;
@@ -76,6 +102,42 @@ public class ComisionRevisora implements Serializable {
         profeRevisionList = new ArrayList();
         temaList = new ArrayList();
         this.idRevisora = idRevisora;
+    }
+    
+    public Profesor getGuia(){
+        List <ProfePropuesta> profesores = this.idPropuesta.getProfePropuestaList();
+        profesores.size();
+        Profesor guia = null;
+        for (ProfePropuesta pp : profesores) {
+            if (pp.getRolGuia() == 0){
+                guia = pp.getProfesor();
+            }
+        }
+        return guia;
+    }
+    
+    public Profesor getRevisor1(){
+        List <ProfeRevision> profesores = getProfeRevisionList();
+        profesores.size();
+        Profesor revisor1 = null;
+        for (ProfeRevision pr : profesores) {
+            if (pr.getRolRevision() == 0){
+                revisor1 = pr.getProfesor();
+            }
+        }
+        return revisor1;
+    }
+    
+    public Profesor getRevisor2(){
+        List <ProfeRevision> profesores = getProfeRevisionList();
+        profesores.size();
+        Profesor revisor2 = null;
+        for (ProfeRevision pr : profesores) {
+            if (pr.getRolRevision() == 1){
+                revisor2 = pr.getProfesor();
+            }
+        }
+        return revisor2;
     }
     
     public void add(Propuesta object){
@@ -110,6 +172,16 @@ public class ComisionRevisora implements Serializable {
         return idRevisora;
     }
 
+    public String getFechaEntregaRevision() {
+        return fechaEntregaRevision;
+    }
+
+    public void setFechaEntregaRevision(String fechaEntregaRevision) {
+        this.fechaEntregaRevision = fechaEntregaRevision;
+    }
+    
+    
+
     public void setIdRevisora(Integer idRevisora) {
         this.idRevisora = idRevisora;
     }
@@ -132,6 +204,23 @@ public class ComisionRevisora implements Serializable {
         this.profeRevisionList = profeRevisionList;
     }
 
+    public String getFechaRevision2() {
+        return fechaRevision2;
+    }
+
+    public void setFechaRevision2(String fechaRevision2) {
+        this.fechaRevision2 = fechaRevision2;
+    }
+
+    public String getFechaEntregaRevision2() {
+        return fechaEntregaRevision2;
+    }
+
+    public void setFechaEntregaRevision2(String fechaEntregaRevision2) {
+        this.fechaEntregaRevision2 = fechaEntregaRevision2;
+    }
+
+    
     @XmlTransient
     public List<Tema> getTemaList() {
         return temaList;
@@ -165,6 +254,22 @@ public class ComisionRevisora implements Serializable {
         this.idPropuesta = idPropuesta;
     }
 
+    public String getFechaPublicacionConsejo() {
+        return fechaPublicacionConsejo;
+    }
+
+    public void setFechaPublicacionConsejo(String fechaPublicacionConsejo) {
+        this.fechaPublicacionConsejo = fechaPublicacionConsejo;
+    }
+
+    public String getFechaTerminoPublicacionConsejo() {
+        return fechaTerminoPublicacionConsejo;
+    }
+
+    public void setFechaTerminoPublicacionConsejo(String fechaTerminoPublicacionConsejo) {
+        this.fechaTerminoPublicacionConsejo = fechaTerminoPublicacionConsejo;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

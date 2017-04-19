@@ -1,11 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package managedbeans2.propuestas;
 
 import entities.Alumno;
-import entities.Historial;
 import entities.ProfePropuesta;
 import entities.Profesor;
 import entities.Propuesta;
@@ -14,12 +9,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.enterprise.context.RequestScoped;
-import javax.enterprise.context.SessionScoped;
 import javax.faces.application.FacesMessage;
-import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import javax.inject.Named;
@@ -56,6 +50,7 @@ public class AgregarPropuestaMB {
     
     private String nombrePropuesta,rutAlumnoPropuesta, rutProfGuia, rutProfcoGuia, fecha, semestreProp;
     private Date date;
+    private Integer pet;
     private List<Profesor> profesores,profesoresGuias;
     private boolean magister;
     private static final org.apache.log4j.Logger LOGGER = org.apache.log4j.Logger.getLogger(AgregarPropuestaMB.class);
@@ -66,7 +61,7 @@ public class AgregarPropuestaMB {
     @PostConstruct
     public void init() {
         //Para inicializar el managed property, si no no se puede acceder a esos datos
-        //System.out.println(user.toString());
+        
         
         FacesContext context = FacesContext.getCurrentInstance();
         
@@ -87,7 +82,6 @@ public class AgregarPropuestaMB {
     }
     /*
     public void profGChosen() {
-        System.out.println("dentro de profGChosen");
         for (int i=0; i<profesores.size(); i++){
             
             if(profesores.get(i).getRutProfesor().equals(rutProfGuia))
@@ -107,6 +101,8 @@ public class AgregarPropuestaMB {
             return;
         }
         
+       
+        
         if(nombrePropuesta == null) {
             context.addMessage(null, new FacesMessage("Nombre Propuesta","Debe ingresar nombre propuesta"));
             return;
@@ -114,6 +110,11 @@ public class AgregarPropuestaMB {
         
         if(semestreProp == null || semestreProp.equals("")) {
             context.addMessage(null, new FacesMessage("Semestre Propuesta","Debe ingresar semestre propuesta"));
+            return;
+        }
+        
+        if (pet != 0 && pet != 1){
+            context.addMessage(null, new FacesMessage("Semestre Propuesta","Debe ingresar si es PET o no la propuesta"));
             return;
         }
         
@@ -125,11 +126,13 @@ public class AgregarPropuestaMB {
         }
         
         //Se valida que no exista otra propuesta con el mismo nombre
-        List<Propuesta> propuestas = propuestaFacade.findByName(nombrePropuesta);
-        if(!propuestas.isEmpty()) {
+        
+        List<Propuesta> propuestas = propuestaFacade.findPropuesta(nombrePropuesta);
+        if(!propuestas.isEmpty() ) {
             context.addMessage(null, new FacesMessage("Nombre Propuesta","Ya existe una propuesta con ese nombre"));
             return;
         }
+        
         
         //Validamos errores de semestre
         if (Integer.valueOf(semestreProp.substring(2, 6)) <= 1972) {
@@ -180,6 +183,16 @@ public class AgregarPropuestaMB {
         nuevaPropuesta.setRutAlumno(alumnoPropuesta);
         nuevaPropuesta.setIdSemestre(semestrePropuesta);
         nuevaPropuesta.setMagister(magister);
+        nuevaPropuesta.setIdPlan(alumnoPropuesta.getIdPlanActivo());
+        nuevaPropuesta.setVersionPlan(alumnoPropuesta.getVersionPlanActivo());
+        if (pet == 0){
+            nuevaPropuesta.setPet(false);
+        }
+        if (pet == 1){
+            nuevaPropuesta.setPet(true);
+        }
+       
+        
         propuestaFacade.create(nuevaPropuesta);
         
         //Agregamos la comision a la lista de comisiones del semestre
@@ -245,7 +258,7 @@ public class AgregarPropuestaMB {
         */
         //Mensaje de confirmación 
         context.addMessage(null, new FacesMessage("Propuesta",nombrePropuesta+", ingresada al sistema"));
-        LOGGER.info("La propuesta "+nombrePropuesta+" ha sido ingresada al sistema");
+        //LOGGER.info("La propuesta "+nombrePropuesta+" ha sido ingresada al sistema");
     }
     
     //Declaramos esto para poder acceder al managed bean de autenticación (para almecenar el usuario en el historial)
@@ -345,5 +358,15 @@ public class AgregarPropuestaMB {
     public void setMagister(boolean magister) {
         this.magister = magister;
     }
+
+    public Integer getPet() {
+        return pet;
+    }
+
+    public void setPet(Integer pet) {
+        this.pet = pet;
+    }
+
+
     
 }

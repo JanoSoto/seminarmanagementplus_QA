@@ -23,6 +23,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 import managedbeans.AuthMB;
+import static managedbeans2.propuestas.ComisionRevisora2MB.fechaCorrecta;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.io.IOUtils;
 import org.primefaces.event.FileUploadEvent;
@@ -85,9 +86,17 @@ public class AvanceYCaducarMB {
             return;
         }
         tema = temaFacade.findById(idTema).get(0);
+
+        if( fechaCorrecta(tema.getFechaTema(),dateToString(date)) == false){
+            return;
+        }
+        
         //Seteamos estado "Prolongado"
         tema.setEstadoTema(2);
+        tema.setFechaInformeAvance(dateToString(date));
         temaFacade.edit(tema);
+        
+        
 
         //Mensaje de confirmación
         context.addMessage(null, new FacesMessage("Tema modificado", "El estado del tema seleccionado se modificó a 'Prorrogado'"));
@@ -106,7 +115,7 @@ public class AvanceYCaducarMB {
     public void caducarTema(){
         FacesContext context = FacesContext.getCurrentInstance();
         
-        //Se valida que se halla seleccionado Tema
+        //Se valida que se haya seleccionado Tema
         if((idTema==null)||(idTema==-1)){
             context.addMessage(null, new FacesMessage("Tema","No se ingresó un tema"));
             return;
@@ -119,7 +128,12 @@ public class AvanceYCaducarMB {
         
         tema = temaFacade.findById(idTema).get(0);
         //Seteamos estado "Prolongado"
+
+        if( fechaCorrecta(tema.getFechaTema(),dateToString(date)) == false){
+            return;
+        }
         tema.setEstadoTema(3);
+        tema.setFechaCaducado(dateToString(date));
         temaFacade.edit(tema);
         
         /*
@@ -152,8 +166,66 @@ public class AvanceYCaducarMB {
         */
         //Mensaje de confirmación
         context.addMessage(null, new FacesMessage("Tema modificado", "El estado del tema seleccionado se modificó a 'Caduco'"));
-        LOGGER.info("El estado del tema seleccionado se modificó a 'Caduco'");
+        LOGGER.info("El estado del tema seleccionado se modificó a Caduco");
     }
+    
+    public void caducarRenunciaTema(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        
+        //Se valida que se haya seleccionado Tema
+        if((idTema==null)||(idTema==-1)){
+            context.addMessage(null, new FacesMessage("Tema","No se ingresó un tema"));
+            return;
+        }
+        
+        if(date==null || date.equals("")){
+            context.addMessage(null, new FacesMessage("Fecha","Debe seleccionar la fecha de entrega de la renuncia"));
+            return;
+        }
+        
+        tema = temaFacade.findById(idTema).get(0);
+        //Seteamos estado "Caducado por renuncia"
+
+        if( fechaCorrecta(tema.getFechaTema(),dateToString(date)) == false){
+            return;
+        }
+        tema.setEstadoTema(8);
+        tema.setFechaRenuncia(dateToString(date));
+        temaFacade.edit(tema);
+        
+        /*  
+        //Añadimos al historial del alumno
+        Date temp = new Date();
+        String dateHist = dateToString(temp);
+        Historial histTemaAlum = new Historial();
+        histTemaAlum.setDescripcion("Alumno entregó Informe de Avance. Lo ingresó el usuario "+user.getFullNameUser());
+        histTemaAlum.setFechaHistorial(dateHist);
+        histTemaAlum.setTipoHistorial(2);
+        histTemaAlum.setIdEntidad(tema.getIdRevisora().getIdPropuesta().getRutAlumno().getRutAlumno());
+        historialFacade.create(histTemaAlum);
+        
+        //Añadimos al historial del usuario que ingresó el borrador
+        Historial histBorradorUser = new Historial();
+        histBorradorUser.setDescripcion("Ingresó Informe de Avance del alumno "+tema.getIdRevisora().getIdPropuesta().getRutAlumno().getNombreAlumno()+" "+tema.getIdRevisora().getIdPropuesta().getRutAlumno().getApellidoAlumno());
+        histBorradorUser.setFechaHistorial(dateHist);
+        histBorradorUser.setTipoHistorial(3);
+        histBorradorUser.setIdEntidad(user.getUsername());
+        historialFacade.create(histBorradorUser);
+        
+        //Agregamos el historial de cambio de estado
+        Historial historial = new Historial();
+        //String fecha = dateToString(date);
+        historial.setDescripcion("Renuncia: El estado del tema cambió de 'Vigente' a 'Caduco'");
+        historial.setFechaHistorial(dateHist);
+        historial.setIdEntidad(String.valueOf(idTema));
+        historial.setTipoHistorial(1);
+        historialFacade.create(historial);
+        */
+        //Mensaje de confirmación
+        context.addMessage(null, new FacesMessage("Tema modificado", "El estado del tema seleccionado se modificó a 'Caduco por renuncia'"));
+        LOGGER.info("El estado del tema seleccionado se modificó a Caduco por renuncia");
+    }
+    
     
     //Declaramos esto para poder acceder al managed bean de autenticación (para almecenar el usuario en el historial)
     @ManagedProperty(value="#{authMB}")

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package managedbeans2.profesores;
 
 import clases.PropuestaDatos;
@@ -113,12 +108,11 @@ public class VerProfesorMBTest {
        propuesta.setProfePropuestaList(null);
        Alumno alumno = new Alumno();
        alumno.setApellidoAlumno("apellido");
-       alumno.setCarreraAlumno(1);
+       //alumno.setCarreraAlumno(1);
        alumno.setDireccionAlumno("direccion");
-       alumno.setJornada(1);
+       //alumno.setJornada(1);
        alumno.setMailAlumno("mail");
        alumno.setNombreAlumno("nombre");
-       alumno.setPet(false);
        alumno.setPropuestaList(null);
        alumno.setRutAlumno("rut");
        alumno.setTelefonoAlumno("telefono");
@@ -149,7 +143,7 @@ public class VerProfesorMBTest {
         
         when(querys.getResultList()).thenReturn(temaList);
         
-        //System.out.println(temaList.get(0).getEstadoTema());
+        
        
         assertEquals(temaListTest, temaList);
        
@@ -213,7 +207,7 @@ public class VerProfesorMBTest {
         Query querys2 = entityManager.createNamedQuery("SELECT t FROM Profesor t WHERE t.maxGuias = :maxGuias");
         
         when(querys2.getResultList()).thenReturn(profeList);
-        //System.out.println(temaList.get(0).getEstadoTema());
+        
        
         assertEquals(profeListTest, profeList);
        

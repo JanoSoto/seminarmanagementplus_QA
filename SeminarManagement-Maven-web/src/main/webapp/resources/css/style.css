@@ -71,3 +71,15 @@ button.navActive {
 .ui-watermark {
     color: #0052cc !important;
 }
+
+.team tr, .team td {
+    border: none;
+}
+
+.ui-datatable-tablewrapper {
+  overflow-x: auto;
+}
+
+.tabla-reporte-propuestas td,.tabla-reporte-propuestas span {
+    font-size: 13px;
+}

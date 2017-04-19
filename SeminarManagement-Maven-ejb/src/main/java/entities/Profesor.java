@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -22,6 +17,10 @@ import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 import Util.Util;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
 
 /**
  *
@@ -33,44 +32,47 @@ import Util.Util;
 @NamedQueries({
     @NamedQuery(name = "Profesor.findAll", query = "SELECT p FROM Profesor p"),
     @NamedQuery(name = "Profesor.findByContrato", query = "SELECT p FROM Profesor p WHERE p.contrato = :contrato"),
-    @NamedQuery(name = "Profesor.findByNombreProfesor", query = "SELECT p FROM Profesor p WHERE p.nombreProfesor = :nombreProfesor"),
-    @NamedQuery(name = "Profesor.findByApellidoProfesor", query = "SELECT p FROM Profesor p WHERE p.apellidoProfesor = :apellidoProfesor"),
-    @NamedQuery(name = "Profesor.findByMailProfesor", query = "SELECT p FROM Profesor p WHERE p.mailProfesor = :mailProfesor"),
-    @NamedQuery(name = "Profesor.findByTelefonoProfesor", query = "SELECT p FROM Profesor p WHERE p.telefonoProfesor = :telefonoProfesor"),
+    @NamedQuery(name = "Profesor.findByNombreProfesor", query = "SELECT p FROM Profesor p WHERE p.usuario.nombreUsuario = :nombreProfesor"),
+    @NamedQuery(name = "Profesor.findByApellidoProfesor", query = "SELECT p FROM Profesor p WHERE p.usuario.apellidoUsuario = :apellidoProfesor"),
+    @NamedQuery(name = "Profesor.findByMailProfesor", query = "SELECT p FROM Profesor p WHERE p.usuario.mailUsuario = :mailProfesor"),
+    @NamedQuery(name = "Profesor.findByTelefonoProfesor", query = "SELECT p FROM Profesor p WHERE p.usuario.telefonoUsuario = :telefonoProfesor"),
     @NamedQuery(name = "Profesor.findByTipoProfesor", query = "SELECT p FROM Profesor p WHERE p.tipoProfesor = :tipoProfesor"),
     @NamedQuery(name = "Profesor.findByMaximoGuias", query = "SELECT p FROM Profesor p WHERE p.maximoGuias = :maximoGuias"),
-    @NamedQuery(name = "Profesor.findByRutProfesor", query = "SELECT p FROM Profesor p WHERE p.rutProfesor = :rutProfesor"),
-    @NamedQuery(name = "Profesor.findProfesor", query = "SELECT p FROM Profesor p WHERE p.nombreProfesor LIKE :nombreProfesor OR p.apellidoProfesor LIKE :apellidoProfesor OR p.rutProfesor LIKE :rutProfesor")})
+    @NamedQuery(name = "Profesor.findByRutProfesor", query = "SELECT p FROM Profesor p WHERE p.usuario.rutUsuario = :rutProfesor"),
+    @NamedQuery(name = "Profesor.findProfesor", query = "SELECT p FROM Profesor p WHERE p.usuario.nombreUsuario LIKE :nombreProfesor OR p.usuario.apellidoUsuario LIKE :apellidoProfesor OR p.usuario.rutUsuario LIKE :rutProfesor")})
 public class Profesor implements Serializable {
     private static final long serialVersionUID = 1L;
-    @Column(name = "contrato")
-    private Integer contrato;
-    @Size(max = 50)
-    @Column(name = "nombre_profesor")
-    private String nombreProfesor;
-    @Size(max = 50)
-    @Column(name = "apellido_profesor")
-    private String apellidoProfesor;
-    @Size(max = 100)
-    @Column(name = "mail_profesor")
-    private String mailProfesor;
-    @Size(max = 20)
-    @Column(name = "telefono_profesor")
-    private String telefonoProfesor;
-    @Column(name = "tipo_profesor")
-    private Integer tipoProfesor;
-    @Column(name = "maximo_guias")
-    private Integer maximoGuias;
+
     @Id
     @Basic(optional = false)
-    @NotNull
-    @Size(min = 1, max = 20)
-    @Column(name = "rut_profesor")
-    private String rutProfesor;
+    //@NotNull
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id_profesor")
+    private Integer idProfesor;
+    
+    @Column(name = "contrato")
+    private Integer contrato;
+        
+    @Column(name = "tipo_profesor")
+    private Integer tipoProfesor;
+    
+    @Column(name = "maximo_guias")
+    private Integer maximoGuias;
+    
+    @Size(max = 30)
+    @Column(name = "jerarquia_categoria")
+    private String jerarquiaCategoria;
+    
+    @JoinColumn(name = "rut_usuario", referencedColumnName = "rut_usuario", updatable = false)
+    @OneToOne(optional = false)
+    private Usuario usuario;
+        
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "profesor")
     private List<ProfePropuesta> profePropuestaList;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "profesor")
     private List<ProfeRevision> profeRevisionList;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "profesor")
     private List<ProfeCorreccion> profeCorreccionList;
 
@@ -78,13 +80,14 @@ public class Profesor implements Serializable {
         profePropuestaList = new ArrayList();
         profeRevisionList = new ArrayList();
         profeCorreccionList = new ArrayList();
+        usuario = new Usuario();
     }
 
-    public Profesor(String rutProfesor) {
+    public Profesor(String rutUsuario) {
         profePropuestaList = new ArrayList();
         profeRevisionList = new ArrayList();
         profeCorreccionList = new ArrayList();
-        this.rutProfesor = rutProfesor;
+        this.usuario = new Usuario(rutUsuario);
     }
     
     public void add(ProfePropuesta object){
@@ -99,44 +102,20 @@ public class Profesor implements Serializable {
         profeCorreccionList.add(object);
     }
 
+    public Integer getIdProfesor() {
+        return idProfesor;
+    }
+
+    public void setIdProfesor(Integer idProfesor) {
+        this.idProfesor = idProfesor;
+    }
+
     public Integer getContrato() {
         return contrato;
     }
 
     public void setContrato(Integer contrato) {
         this.contrato = contrato;
-    }
-
-    public String getNombreProfesor() {
-        return nombreProfesor;
-    }
-
-    public void setNombreProfesor(String nombreProfesor) {
-        this.nombreProfesor = nombreProfesor;
-    }
-
-    public String getApellidoProfesor() {
-        return apellidoProfesor;
-    }
-
-    public void setApellidoProfesor(String apellidoProfesor) {
-        this.apellidoProfesor = apellidoProfesor;
-    }
-
-    public String getMailProfesor() {
-        return mailProfesor;
-    }
-
-    public void setMailProfesor(String mailProfesor) {
-        this.mailProfesor = mailProfesor;
-    }
-
-    public String getTelefonoProfesor() {
-        return telefonoProfesor;
-    }
-
-    public void setTelefonoProfesor(String telefonoProfesor) {
-        this.telefonoProfesor = telefonoProfesor;
     }
 
     public Integer getTipoProfesor() {
@@ -155,16 +134,16 @@ public class Profesor implements Serializable {
         this.maximoGuias = maximoGuias;
     }
 
-    public String getRutProfesor() {
-        return rutProfesor;
-    }
-    
     public String getRutFormateadoProfesor() {
-        return Util.formatearRut(rutProfesor);
+        return Util.formatearRut(usuario.getRutUsuario());
     }
 
-    public void setRutProfesor(String rutProfesor) {
-        this.rutProfesor = rutProfesor;
+    public String getJerarquiaCategoria() {
+        return jerarquiaCategoria;
+    }
+
+    public void setJerarquiaCategoria(String jerarquiaCategoria) {
+        this.jerarquiaCategoria = jerarquiaCategoria;
     }
 
     @XmlTransient
@@ -194,10 +173,66 @@ public class Profesor implements Serializable {
         this.profeCorreccionList = profeCorreccionList;
     }
 
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public String getMailProfesor() {
+        return usuario.getMailUsuario();
+    }
+
+    public void setMailProfesor(String mailProfesor) {
+        this.usuario.setMailUsuario(mailProfesor);
+    }
+
+    public String getTelefonoProfesor() {
+        return usuario.getTelefonoUsuario();
+    }
+
+    public void setTelefonoProfesor(String telefonoProfesor) {
+        this.usuario.setTelefonoUsuario(telefonoProfesor);
+    }
+
+    public String getDireccionProfesor() {
+        return usuario.getDireccionUsuario();
+    }
+
+    public void setDireccionProfesor(String direccionProfesor) {
+        this.usuario.setDireccionUsuario(direccionProfesor);
+    }
+
+    public String getRutProfesor() {
+        return usuario.getRutUsuario();
+    }
+
+    public void setRutProfesor(String rutProfesor) {
+        this.usuario.setRutUsuario(rutProfesor);
+    }
+
+    public String getNombreProfesor() {
+        return usuario.getNombreUsuario();
+    }
+
+    public void setNombreProfesor(String nombreProfesor) {
+        this.getUsuario().setNombreUsuario(nombreProfesor);
+    }
+
+    public String getApellidoProfesor() {
+        return usuario.getApellidoUsuario();
+    }
+
+    public void setApellidoProfesor(String apellidoProfesor) {
+        this.usuario.setApellidoUsuario(apellidoProfesor);
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (rutProfesor != null ? rutProfesor.hashCode() : 0);
+        hash += (usuario.getRutUsuario() != null ? usuario.getRutUsuario().hashCode() : 0);
         return hash;
     }
 
@@ -208,7 +243,7 @@ public class Profesor implements Serializable {
             return false;
         }
         Profesor other = (Profesor) object;
-        if ((this.rutProfesor == null && other.rutProfesor != null) || (this.rutProfesor != null && !this.rutProfesor.equals(other.rutProfesor))) {
+        if ((this.usuario.getRutUsuario() == null && other.usuario.getRutUsuario() != null) || (this.usuario.getRutUsuario() != null && !this.usuario.getRutUsuario().equals(other.usuario.getRutUsuario()))) {
             return false;
         }
         return true;
@@ -216,7 +251,7 @@ public class Profesor implements Serializable {
 
     @Override
     public String toString() {
-        return "entities.Profesor[ rutProfesor=" + rutProfesor + " ]";
+        return "entities.Profesor[ rutProfesor=" + usuario.getRutUsuario() + " ]";
     }
     
 }

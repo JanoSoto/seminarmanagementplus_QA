@@ -7,38 +7,31 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
-    
+
     <ui:define name="metadata">
         #{accordionPanelMB.setIndex("3")}
     </ui:define>
-    
+
     <ui:define name="title"><title>Temas | Seminar Management</title></ui:define>
 
     <ui:define name="content">
-        
-        <p:layoutUnit position="west" size="180" style="border: none;">
-            <p:panel style="border:none;">
-                <h:panelGrid columns="1" cellpadding="4">
-                    <form method="GET" action="/SeminarManagement-Maven-web/2.0/secretaria/temas/buscar.xhtml">
-                        <input type="text" placeholder="Búsqueda" value="#{buscarMB.query}" name="q"/>
-                        <button type="submit" value="search">Buscar Temas</button>
-                    </form>
-                </h:panelGrid>
-            </p:panel>
-        </p:layoutUnit>
-        
+
+
         <p:layoutUnit position="center" style="border:none;">
             <h:form>
                 <p:dataTable id="propTable" var="tema" value="#{temasIndexMB.temaDatos}" filteredValue="#{temasIndexMB.temaDatosFiltrados}" filterDelay="100" paginator="true"
-                                 rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
-                                 {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,30,40,50"
-                                 emptyMessage="No se encontraron Temas">
-                    <p:column headerText="Nombre Tema" filterBy="#{tema.nombreCorto}" filterMatchMode="contains" sortBy="#{tema.nombreCorto}">
+                             rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+                             {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,30,40,50"
+                             emptyMessage="No se encontraron Temas">
+                    <f:facet name="header">  
+                        Listado de temas de Trabajo de Titulación
+                    </f:facet>
+                    <p:column headerText="Título Tema" filterBy="#{tema.nombreCorto}" filterMatchMode="contains" sortBy="#{tema.nombreCorto}">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/temas/tema.xhtml?tema=#{tema.idTema}">
                             <h:outputText value="#{tema.nombreCorto}" />
                         </a>
                     </p:column>
-                    <p:column filterBy="#{tema.estadoTema}" filterMatchMode="exact" filterOptions="#{temasIndexMB.estados}">
+                    <p:column filterBy="#{tema.estadoTema}" sortBy="#{tema.estadoTema}" filterMatchMode="exact" filterOptions="#{temasIndexMB.estados}" >
                         <f:facet name="header">
                             <h:outputLabel value="Estado" />
                         </f:facet>
@@ -56,10 +49,15 @@
                             <h:outputText value="#{tema.guia.nombreProfesor} #{tema.guia.apellidoProfesor}" />
                         </a>
                     </p:column>
+                    <p:column headerText="Semestre Inicio Tema" filterBy="#{tema.semestreTema}" filterMatchMode="contains" sortBy="#{tema.semestreTema}" filterOptions="#{temasIndexMB.semestres}">
+                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/temas/tema.xhtml?tema=#{tema.idTema}">
+                            <h:outputText value="#{tema.semestreTema}"/>
+                        </a>
+                    </p:column>
                 </p:dataTable>
             </h:form>
         </p:layoutUnit>
-        
+
     </ui:define>
 
 </ui:composition>

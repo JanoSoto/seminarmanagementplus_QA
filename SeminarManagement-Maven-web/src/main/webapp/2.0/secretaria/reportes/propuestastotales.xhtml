@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template2.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+    <ui:define name="metadata">
+        #{accordionPanelMB.setIndex("4")}
+        <f:metadata>
+            <f:viewParam name="prof" value="#{verProfesorMB.rutProfesor}"/>
+        </f:metadata>
+    </ui:define>
+    <ui:define name="title"><title>Reportes | Seminar Management</title></ui:define>
+    <ui:define name="content">
+        #{reportesMB.findPropuestasTotalesSemestre()}
+        <p:layoutUnit rendered="false" position="west" size="180" style="border: none;">
+            <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Volver a Reportes"/>
+        </p:layoutUnit>
+        <p:layoutUnit position="center" style="border:none;">
+            <h:form>
+                <p:dataTable id="tablaSem" var="prop" value="#{reportesMB.propuestas_totales}" filteredValue="" filterDelay="100" paginator="false"
+                              paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+                             {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,30,40,50"
+                             emptyMessage="No se encontraron Propuestas" rowIndexVar="rowIndex" styleClass="tabla-reporte-propuestas">
+                    <f:facet name="header">  
+                        Seguimiento Revisión Propuestas #{semestreActual.semestre}
+                    </f:facet>
+                    <p:column headerText="N°" filterBy="" filterMatchMode="contains" sortBy="">
+                        <h:outputText value="#{rowIndex+1}" />
+                    </p:column>
+                    <p:column headerText="Alumno" filterBy="#{prop.rutAlumno.nombreAlumno} #{prop.rutAlumno.apellidoAlumno}" filterMatchMode="contains"
+                              sortBy="#{prop.rutAlumno.nombreAlumno} #{prop.rutAlumno.apellidoAlumno}">
+                        <h:outputText value="#{prop.rutAlumno.nombreAlumno} #{prop.rutAlumno.apellidoAlumno}" />
+                    </p:column>
+                    <p:column headerText="Carrera" filterBy="#{prop.planActivo.codigo}" filterMatchMode="contains"
+                              sortBy="#{prop.planActivo.codigo}">
+                        <h:outputText value="#{prop.planActivo.codigo}" />
+                    </p:column>
+                    <p:column headerText="Título Propuesta" filterBy="#{prop.nombrePropuesta}" filterMatchMode="contains"
+                              sortBy="#{prop.nombrePropuesta}">
+                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/propuestas/propuesta.xhtml?prop=#{prop.idPropuesta}">
+                            <h:outputText value="#{prop.nombrePropuesta}" />
+                        </a>
+                    </p:column>
+                    <p:column headerText="Fecha&#10;Entrega" style="white-space:pre-line;" filterBy="#{prop.fechaPropuesta}" filterMatchMode="contains"
+                              sortBy="#{prop.fechaPropuesta}">
+                        <h:outputText value="#{prop.fechaPropuesta}" />
+                    </p:column>
+                    <p:column headerText="Profesor Guía" filterBy="#{prop.profesorGuia.nombreProfesor} #{prop.profesorGuia.apellidoProfesor}" filterMatchMode="contains"
+                              sortBy="#{prop.profesorGuia.nombreProfesor} #{prop.profesorGuia.apellidoProfesor}">
+                        <h:outputText value="#{prop.profesorGuia.nombreProfesor} #{prop.profesorGuia.apellidoProfesor}" />
+                    </p:column>
+                    <p:column headerText="Dio origen a tema" filterBy="#{prop.idRevisora.idTema.nombreTema}" filterMatchMode="contains"
+                              sortBy="#{prop.idRevisora.idTema.nombreTema}">
+                        <h:outputText value="#{prop.idRevisora.idTema.nombreTema}" />
+                    </p:column>
+                    <p:column headerText="Semestre inicio" filterBy="#{prop.idSemestre.idSemestre}" filterMatchMode="contains"
+                              sortBy="#{prop.idSemestre.idSemestre}">
+                        <h:outputText value="#{prop.idSemestre.idSemestre}" />
+                    </p:column>                 
+                </p:dataTable>
+                <br/>
+                <p:button style="border: none;" href="/ReportePropuestas" value="Descargar excel" disabled="true"/>
+                <br/>
+                <br/>
+                <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="index.xhtml" value="Volver a Reportes"/>
+                
+            </h:form>
+        </p:layoutUnit>
+    </ui:define>
+
+</ui:composition>

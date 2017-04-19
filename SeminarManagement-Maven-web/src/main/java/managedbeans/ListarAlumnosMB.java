@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package managedbeans;
 
 import entities.Alumno;
@@ -29,9 +25,6 @@ public class ListarAlumnosMB implements Serializable{
     private String temaAlum,profGuia,rutAlum,nombreAlum,apellidoAlum,matriculaAlum,petAlum,mailAlum,jornadaAlum, telefonoAlum, carreraAlum,profCoGuia;
     private AlumnoDatos alumnoDatoTemp;
 
-    /**
-     * Creates a new instance of listarAlumnosMB
-     */
     public ListarAlumnosMB() {
     }
     
@@ -114,18 +107,23 @@ public class ListarAlumnosMB implements Serializable{
                 alumnoDatoTemp.setTelefonoAlumno("No tiene teléfono registrado");
             else
                 alumnoDatoTemp.setTelefonoAlumno(alum.get(i).getTelefonoAlumno());
-            if (alum.get(i).getPet() == true)
-                alumnoDatoTemp.setPetAlumno("Es PET");
-            else
-                alumnoDatoTemp.setPetAlumno("No es PET");
-            if (alum.get(i).getJornada() == 0)
-                alumnoDatoTemp.setJornadaAlumno("Diurno");
-            else
-                alumnoDatoTemp.setJornadaAlumno("Vespertino");
-            if (alum.get(i).getCarreraAlumno() == 0)
-                alumnoDatoTemp.setCarreraAlumno("Civil Informática");
-            else
-                alumnoDatoTemp.setCarreraAlumno("Ejecución Informática");
+            if(!alum.get(i).getPlanes().isEmpty()){
+                if(alum.get(i).getPlanes().get(0).getJornada() == 0){
+                    alumnoDatoTemp.setJornadaAlumno("Diurno");
+                }
+                else{
+                    alumnoDatoTemp.setJornadaAlumno("Vespertino");
+                }
+            }
+            if(!alum.get(i).getPlanes().isEmpty()){
+                if(alum.get(i).getPlanes().get(0).getCarreraId().getNombre().contains("CIVIL")){
+                    alumnoDatoTemp.setCarreraAlumno("Civil Informática");                
+                }
+                else{
+                    alumnoDatoTemp.setCarreraAlumno("Ejecución Informática");
+                }
+            
+            }
             //alumnoDatoTemp=  new AlumnoDatos(rutAlum, nombreAlum, apellidoAlum, temaAlum, profGuia, matriculaAlum, mailAlum, telefonoAlum, petAlum, jornadaAlum, carreraAlum);
             alumnos.add(alumnoDatoTemp);
         }

@@ -16,16 +16,7 @@
 
     <ui:define name="content">
         
-        <p:layoutUnit position="west" size="180" style="border: none;">
-            <p:panel style="border:none;">
-                <h:panelGrid columns="1" cellpadding="4">
-                    <form method="GET" action="/SeminarManagement-Maven-web/2.0/secretaria/propuestas/buscar.xhtml">
-                        <input type="text" placeholder="Búsqueda" value="#{buscarMB.query}" name="q"/>
-                        <button type="submit" value="search">Buscar Propuestas</button>
-                    </form>
-                </h:panelGrid>
-            </p:panel>
-        </p:layoutUnit>
+
         
         <p:layoutUnit position="center" style="border:none;">
             <h:form>
@@ -33,7 +24,10 @@
                              rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
                              {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,30,40,50"
                              emptyMessage="No se encontraron Propuestas">
-                    <p:column headerText="Nombre Propuesta" filterBy="#{prop.nombreCorto}" filterMatchMode="contains" sortBy="#{prop.nombreCorto}">
+                    <f:facet name="header">  
+                        Listado de Propuestas presentadas al #{semestreActual.semestre}
+                    </f:facet>
+                    <p:column headerText="Título Propuesta" filterBy="#{prop.nombreCorto}" filterMatchMode="contains" sortBy="#{prop.nombreCorto}">
                         <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/propuestas/propuesta.xhtml?prop=#{prop.idPropuesta}">
                             <h:outputText value="#{prop.nombreCorto}" />
                         </a>

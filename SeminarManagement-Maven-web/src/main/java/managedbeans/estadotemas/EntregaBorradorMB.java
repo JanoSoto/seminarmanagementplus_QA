@@ -66,8 +66,7 @@ public class EntregaBorradorMB {
     @PostConstruct
     public void init(){
         //Para inicializar el managed property, si no no se puede acceder a esos datos
-        System.out.println(user.toString());
-        
+         
         //Buscamos todos los alumnos con tema vigente
         alumnos = alumnoFacade.findAll();
         List<Alumno> listaAlumTemp = new ArrayList();

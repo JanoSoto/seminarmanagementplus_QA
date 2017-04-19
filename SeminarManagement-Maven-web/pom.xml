@@ -4,12 +4,12 @@
     <parent>
         <artifactId>SeminarManagement-Maven</artifactId>
         <groupId>com.mycompany</groupId>
-        <version>1.0</version>
+        <version>3.4.0</version>
     </parent>
 
     <groupId>com.mycompany</groupId>
     <artifactId>SeminarManagement-Maven-web</artifactId>
-    <version>1.0</version>
+    <version>3.4.0</version>
     <packaging>war</packaging>
 
     <name>SeminarManagement-Maven-web</name>
@@ -24,14 +24,22 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>SeminarManagement-Maven-ejb</artifactId>
-            <version>1.0</version>
+            <version>3.4.0</version>
             <type>ejb</type>
             <scope>provided</scope>
         </dependency>
         <dependency>
+            <groupId>net.bootsfaces</groupId>
+            <artifactId>bootsfaces</artifactId>
+            <version>0.6.6</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
             <groupId>org.primefaces</groupId>
             <artifactId>primefaces</artifactId>
-            <version>3.5</version>
+            <version>5.2</version>
+            <scope>compile</scope>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>commons-fileupload</groupId>
@@ -43,10 +51,42 @@
             <artifactId>commons-io</artifactId>
             <version>2.4</version>
         </dependency>
+        <dependency>  
+            <groupId>org.primefaces.themes</groupId>  
+            <artifactId>all-themes</artifactId>  
+            <version>1.0.10</version>  
+        </dependency>  
         <dependency>
             <groupId>org.primefaces.themes</groupId>
             <artifactId>usachborde</artifactId>
             <version>1.0-SNAPSHOT</version>
+            <!--
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/webapp/resources/jar/usachborde.jar</systemPath>
+            -->
+        </dependency>
+        <dependency>
+            <groupId>com.googlecode.json-simple</groupId>
+            <artifactId>json-simple</artifactId>
+            <version>1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20080701</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.3.1</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi</artifactId>
+            <version>3.11</version>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
@@ -85,6 +125,34 @@
             <artifactId>junit</artifactId>
             <version>4.12</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-server</artifactId>
+            <version>2.45.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.github.detro.ghostdriver</groupId>
+            <artifactId>phantomjsdriver</artifactId>
+            <version>1.1.0</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.4</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.docx4j</groupId>
+            <artifactId>docx4j</artifactId>
+            <version>3.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>3.9</version>
         </dependency>
     </dependencies>
 
@@ -143,11 +211,11 @@
         </plugins>
     </build>
     <repositories>
-        <repository>
-            <url>http://repository.primefaces.org/</url>
-            <id>PrimeFaces-maven-lib</id>
-            <layout>default</layout>
-            <name>Repository for library PrimeFaces-maven-lib</name>
-        </repository>
+        <repository>  
+            <id>prime-repo</id>  
+            <name>PrimeFaces Maven Repository</name>  
+            <url>http://repository.primefaces.org</url>  
+            <layout>default</layout>  
+        </repository>  
     </repositories>
 </project>

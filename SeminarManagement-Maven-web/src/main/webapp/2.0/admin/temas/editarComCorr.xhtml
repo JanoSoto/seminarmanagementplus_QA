@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template2.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    
+    <ui:define name="metadata">
+        #{accordionPanelMB.setIndex("3")}
+        <f:metadata>
+            <f:viewParam name="prop" value="#{comisionCorrectora2MB.idTema}"/>
+        </f:metadata>
+    </ui:define>
+    
+    <ui:define name="title"><title>Editar Fechas Comisión Correctora | Seminar Management</title></ui:define>
+
+    <ui:define name="content">
+        
+        <c:if test="#{not empty param.prop}">
+            #{comisionCorrectora2MB.buscarTema()}
+        </c:if>
+        <p:layoutUnit position="center" style="border:none;">
+            <h:form style="font-weight: bold;">
+                <p:panel style="border:none;">
+                    <h1>Agregar Fechas Comisión Correctora</h1>
+                    <p:growl id="growl" showDetail="true" sticky="true" />
+                    #{comisionCorrectora2MB.setIdTema(comisionCorrectora2MB.idTema)}
+                    <h:panelGrid columns="3" cellpadding="4">
+
+                        <p:outputLabel style="color: #0052cc;font-weight: bold;" for="nombre" value="Título"/>
+                        <h:outputText id="nombre" value="#{comisionCorrectora2MB.nombreTemaEdit}"/>
+                        <br/>
+
+                        <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Alumno"/>
+                        <h:outputText style="font-weight: normal;" value="#{comisionCorrectora2MB.tema.idRevisora.idPropuesta.rutAlumno.nombreAlumno} #{comisionCorrectora2MB.tema.idRevisora.idPropuesta.rutAlumno.apellidoAlumno}"/>
+                        <br/>
+                        
+                        <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Guía"/>
+                        <h:outputText style="font-weight: normal;" value="#{comisionCorrectora2MB.guia.nombreProfesor} #{comisionCorrectora2MB.guia.apellidoProfesor}"/>
+                        <br/>
+                        
+                        <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Profesor Corrector 1 "/>
+                        <h:outputText style="font-weight: normal;" value="#{comisionCorrectora2MB.corrector1.nombreProfesor} #{comisionCorrectora2MB.corrector1.apellidoProfesor}"/>
+                        <br/>
+                   
+                        <p:outputLabel for="calendP" value="Fecha de entrega al profesor " />
+                        <p:calendar id="calendP" value="#{comisionCorrectora2MB.date}" mode="popup"/>
+                        <p:watermark for="calendP" value="Ingresar Fecha"/>
+                        
+                        
+                        <p:outputLabel for="calendP2" value="Fecha de devolución con correciones del profesor " />
+                        <p:calendar id="calendP2" value="#{comisionCorrectora2MB.date2}" mode="popup"/>
+                        <p:watermark for="calendP2" value="Ingresar Fecha"/>
+                        
+                        <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Profesor Corrector 2 "/>
+                        <h:outputText style="font-weight: normal;" value="#{comisionCorrectora2MB.corrector2.nombreProfesor} #{comisionCorrectora2MB.corrector2.apellidoProfesor}"/>
+                        <br/>           
+                        
+                        <p:outputLabel for="calendP3" value="Fecha de entrega al profesor " />
+                        <p:calendar id="calendP3" value="#{comisionCorrectora2MB.date3}" mode="popup"/>
+                        <p:watermark for="calendP3" value="Ingresar Fecha"/>
+                        
+                        <p:outputLabel for="calendP4" value="Fecha de devolución con correciones del profesor " />
+                        <p:calendar id="calendP4" value="#{comisionCorrectora2MB.date4}" mode="popup"/>
+                        <p:watermark for="calendP4" value="Ingresar Fecha"/>
+
+                        <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Semestre Revisión "/>
+                        <h:outputText style="font-weight: normal;" value="#{comisionCorrectora2MB.semestreCorr}"/>
+                        <br/>
+
+                        <h:inputHidden value="#{comisionCorrectora2MB.idTema}"/>
+
+                    </h:panelGrid>
+
+                    <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="/2.0/admin/temas/tema.xhtml?tema=#{comisionCorrectora2MB.idTema}" value="Volver al tema"/>
+                    <p:commandButton id="bt1" value="Ingresar" actionListener="#{comisionCorrectora2MB.EditarComisionCorrectora()}" update="growl"/>
+                    <p:defaultCommand target="bt1" />
+                </p:panel>
+            </h:form>
+        </p:layoutUnit>
+        <c:if test="#{empty param.prop}">
+            <p:layoutUnit position="center" style="border:none;">
+                Ha ocurrido un error al ingresar a la página. Intente ingresar nuevamente.
+            </p:layoutUnit>
+        </c:if>
+    </ui:define>
+
+</ui:composition>

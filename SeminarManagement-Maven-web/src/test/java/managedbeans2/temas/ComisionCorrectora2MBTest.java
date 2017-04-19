@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package managedbeans2.temas;
 
 import entities.Alumno;
@@ -62,12 +57,11 @@ public class ComisionCorrectora2MBTest {
         
         Alumno a1 = new Alumno();
         a1.setApellidoAlumno("apellido");
-        a1.setCarreraAlumno(1);
+        //a1.setCarreraAlumno(1);
         a1.setDireccionAlumno("direccion");
-        a1.setJornada(1);
+        //a1.setJornada(1);
         a1.setMailAlumno("mail");
         a1.setNombreAlumno("nombre");
-        a1.setPet(false);
         a1.setRutAlumno("rut");
         a1.setTelefonoAlumno("telefono");
         
@@ -218,6 +212,7 @@ public class ComisionCorrectora2MBTest {
         //Comision correctora
         ComisionCorrectora cc1 = new ComisionCorrectora();
         cc1.setFechaCorreccion("fechacorreccion");
+        cc1.setFechaEntCorreccion("fechaEntregaCorrecion");
         cc1.setIdCorrectora(1);
         
         Semestre sm = new Semestre();

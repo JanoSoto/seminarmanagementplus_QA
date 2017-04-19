@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package managedbeans;
 
 import clases.AlumnoDatos;
@@ -76,7 +70,7 @@ public class AlumnoViewMB implements Serializable {
     @PostConstruct
     public void init(){
         //Para inicializar el managed property, si no no se puede acceder a esos datos
-        System.out.println(user.toString());
+        
     }
     
     public AlumnoViewMB() {
@@ -178,11 +172,15 @@ public class AlumnoViewMB implements Serializable {
         Tema temaVigente = null;
         if (!alumno.isEmpty()) {
             alumnoSelected = new AlumnoDatos();
-            if(alumno.get(0).getJornada() == 0)
-                alumnoSelected.setJornadaAlumno("Diurno");
-            else
-                alumnoSelected.setJornadaAlumno("Vespertino");
+            if(!alumno.get(0).getPlanes().isEmpty()){
+                if(alumno.get(0).getPlanes().get(0).getJornada()== 0)
+                    alumnoSelected.setJornadaAlumno("Diurno");
+                else
+                    alumnoSelected.setJornadaAlumno("Vespertino");
 
+            
+            }
+            
             //Seteamos el tema activo que tiene
             //Verificamos que no lista no esté vacía para evitar nullPointerException
             
@@ -205,10 +203,6 @@ public class AlumnoViewMB implements Serializable {
                 alumnoSelected.setNombreTema("No tiene tema activo");
                 alumnoSelected.setProfesorGuia("No tiene tema activo");
             }
-            if(alumno.get(0).getPet() == true)
-                alumnoSelected.setPetAlumno("Es PET");
-            else
-                alumnoSelected.setPetAlumno("No es PET");
             alumnoSelected.setRutAlumno(rutAlum);
             if (!alumno.get(0).getTelefonoAlumno().isEmpty())
                 alumnoSelected.setTelefonoAlumno(alumno.get(0).getTelefonoAlumno());
@@ -220,10 +214,15 @@ public class AlumnoViewMB implements Serializable {
                 alumnoSelected.setMailAlumno(alumno.get(0).getMailAlumno());
             else
                 alumnoSelected.setMailAlumno("No tiene mail registrado");
-            if(alumno.get(0).getCarreraAlumno() == 0)
-                alumnoSelected.setCarreraAlumno("Civil Informática");
-            else
-                alumnoSelected.setCarreraAlumno("Ejecución Informática");
+            
+            if(!alumno.get(0).getPlanes().isEmpty()){
+                if(alumno.get(0).getPlanes().get(0).getCarreraId().getNombre().contains("CIVIL")){
+                    alumnoSelected.setCarreraAlumno("Civil Informática");
+                }
+                else{
+                    alumnoSelected.setCarreraAlumno("Ejecución Informática");
+                }
+            }
             init();
         }
         else
@@ -233,10 +232,6 @@ public class AlumnoViewMB implements Serializable {
     public void loadEditPage() throws IOException {
         try {
             alumnoEdit = new AlumnoDatos();
-            if (alumnoSelected.getPetAlumno() == "Es PET")
-                alumnoEdit.setPetAlumno("1");
-            if (alumnoSelected.getPetAlumno() == "No es PET")
-                alumnoEdit.setPetAlumno("0");
             if(alumnoSelected.getJornadaAlumno() == "Diurno")
                 alumnoEdit.setJornadaAlumno("0");
             if(alumnoSelected.getJornadaAlumno() == "Vespertino")
@@ -267,15 +262,11 @@ public class AlumnoViewMB implements Serializable {
     public void editAlumno() throws IOException {
         try {
             Alumno alumno = new Alumno();
-            alumno.setJornada(Integer.valueOf(alumnoEdit.getJornadaAlumno()));
+            //alumno.setJornada(Integer.valueOf(alumnoEdit.getJornadaAlumno()));
             alumno.setMailAlumno(alumnoEdit.getMailAlumno());
             alumno.setNombreAlumno(alumnoEdit.getNombreAlumno().toUpperCase());
             alumno.setApellidoAlumno(alumnoEdit.getApellidoAlumno().toUpperCase());
-            alumno.setCarreraAlumno(Integer.valueOf(alumnoEdit.getCarreraAlumno()));
-            if(alumnoEdit.getPetAlumno() == "0")
-                alumno.setPet(false);
-            else
-                alumno.setPet(true);
+            //alumno.setCarreraAlumno(Integer.valueOf(alumnoEdit.getCarreraAlumno()));
             alumno.setRutAlumno(alumnoEdit.getRutAlumno());
             alumno.setTelefonoAlumno(alumnoEdit.getTelefonoAlumno());
             alumnoFacade.edit(alumno);

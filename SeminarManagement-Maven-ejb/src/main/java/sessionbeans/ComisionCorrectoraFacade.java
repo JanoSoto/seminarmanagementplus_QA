@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package sessionbeans;
 
 import entities.ComisionCorrectora;
@@ -37,6 +31,13 @@ public class ComisionCorrectoraFacade extends AbstractFacade<ComisionCorrectora>
         query = em.createNamedQuery("ComisionCorrectora.findByIdCorrectora")
                 .setParameter("idCorrectora", idComCorr);
         return query.getResultList();
+    }
+
+    @Override
+    public List<ComisionCorrectora> findBySemestre(String semestre) {
+        Query q = em.createNamedQuery("ComisionCorrectora.findBySemestre")
+                .setParameter("semestre", semestre);
+        return q.getResultList();
     }
     
 }

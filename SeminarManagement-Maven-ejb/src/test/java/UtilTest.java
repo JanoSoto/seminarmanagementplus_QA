@@ -43,7 +43,7 @@ public class UtilTest {
      */
     @Test
     public void testFormatearRut() {
-        System.out.println("formatearRut");
+        
         String rut = "175658173";
         String expResult = "17.565.817-3";
         String result = Util.formatearRut(rut);

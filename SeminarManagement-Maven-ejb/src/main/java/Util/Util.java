@@ -5,6 +5,9 @@
  */
 package Util;
 
+import javax.ejb.EJB;
+import sessionbeans.PlanestudioFacadeLocal;
+
 /**
  *
  * @author giovanni
@@ -26,5 +29,29 @@ public class Util {
             }
         }
         return format;
+    }
+    
+    public static String semestreAnterior(String semestreActual) {
+        String a = semestreActual.substring(0, 1);
+        String b = semestreActual.substring(2, 6);
+        String aux,aux2,semAnt;
+        Integer cont;
+        if ( "2".equals(a)){
+            aux = "1";
+            aux2 = b;
+            semAnt = aux+"/"+aux2;
+        }
+        else{
+            aux = "2";
+            cont = Integer.parseInt(b);
+            cont--;
+            aux2 = String.valueOf(cont);
+            semAnt = aux+"/"+aux2;
+        }
+        return semAnt;
+    }
+    
+    public static String jornadaToString(Integer jornada) {
+        return jornada == 0 ? "Diurno" : "Vespertino";
     }
 }

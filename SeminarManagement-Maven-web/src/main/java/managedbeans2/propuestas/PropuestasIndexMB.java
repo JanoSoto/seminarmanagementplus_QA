@@ -1,14 +1,9 @@
 package managedbeans2.propuestas;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 import clases.PropuestaDatos;
 import entities.ProfePropuesta;
 import entities.Propuesta;
+import entities.Semestre;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -51,24 +46,33 @@ public class PropuestasIndexMB {
             semestreActual = semestreActualFacade.findAll().get(0).getSemestreActual();
         
         propDatos = new ArrayList();
-        propuestas = propuestaFacade.findBySemestre(semestreFacade.findById(semestreActual).get(0));
+        List <Semestre> sems = semestreFacade.findById(semestreActual);
+        Semestre sem;
+        if (!sems.isEmpty()){
+            sem = sems.get(0);
+        } else {
+            return;
+        }
+        propuestas = propuestaFacade.findBySemestre(sem);
         PropuestaDatos propDTemp;
-        for(int i=0;i<propuestas.size();i++){
+        for (Propuesta propuesta : propuestas) {
             propDTemp = new PropuestaDatos();
-            propDTemp.setIdPropuesta(Integer.toString(propuestas.get(i).getIdPropuesta()));
-            propDTemp.setAlumno(propuestas.get(i).getRutAlumno());
-            propDTemp.setNombrePropuesta(propuestas.get(i).getNombrePropuesta());
-            if(propuestas.get(i).getNombrePropuesta().length()>64)
-                propDTemp.setNombreCorto(propuestas.get(i).getNombrePropuesta().substring(0,65)+"...");
-            else
-                propDTemp.setNombreCorto(propuestas.get(i).getNombrePropuesta());
-            List<ProfePropuesta> listaProfes = propuestas.get(i).getProfePropuestaList();
-            for(int j=0;j<listaProfes.size();j++)
-                if(listaProfes.get(j).getRolGuia()==0)
-                    propDTemp.setGuia(listaProfes.get(j).getProfesor());
-                else
-                    propDTemp.setCoGuia(listaProfes.get(j).getProfesor());
-
+            propDTemp.setIdPropuesta(Integer.toString(propuesta.getIdPropuesta()));
+            propDTemp.setAlumno(propuesta.getRutAlumno());
+            propDTemp.setNombrePropuesta(propuesta.getNombrePropuesta());
+            if (propuesta.getNombrePropuesta().length() > 64) {
+                propDTemp.setNombreCorto(propuesta.getNombrePropuesta().substring(0, 65) + "...");
+            } else {
+                propDTemp.setNombreCorto(propuesta.getNombrePropuesta());
+            }
+            List<ProfePropuesta> listaProfes = propuesta.getProfePropuestaList();
+            for (ProfePropuesta listaProfe : listaProfes) {
+                if (listaProfe.getRolGuia() == 0) {
+                    propDTemp.setGuia(listaProfe.getProfesor());
+                } else {
+                    propDTemp.setCoGuia(listaProfe.getProfesor());
+                }
+            }
             propDatos.add(propDTemp);
         }
     }

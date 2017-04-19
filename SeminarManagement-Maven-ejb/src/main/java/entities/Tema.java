@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package entities;
 
 import java.io.Serializable;
@@ -36,17 +31,49 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Tema.findAll", query = "SELECT t FROM Tema t"),
     @NamedQuery(name = "Tema.findByNombreTema", query = "SELECT t FROM Tema t WHERE t.nombreTema = :nombreTema"),
     @NamedQuery(name = "Tema.findByFechaTema", query = "SELECT t FROM Tema t WHERE t.fechaTema = :fechaTema"),
+    @NamedQuery(name = "Tema.findByFechaSiacTema", query = "SELECT t FROM Tema t WHERE t.fechaSiacTema = :fechaSiacTema"),
+    @NamedQuery(name = "Tema.findByFechaRealTema", query = "SELECT t FROM Tema t WHERE t.fechaRealTema = :fechaRealTema"),
     @NamedQuery(name = "Tema.findByEstadoTema", query = "SELECT t FROM Tema t WHERE t.estadoTema = :estadoTema"),
+    @NamedQuery(name = "Tema.findByTerminoSemestre", query = "SELECT t FROM Tema t WHERE t.semestreTermino = :semestreTermino"),
     @NamedQuery(name = "Tema.findByIdTema", query = "SELECT t FROM Tema t WHERE t.idTema = :idTema"),
     @NamedQuery(name = "Tema.findTema", query = "SELECT t FROM Tema t WHERE t.nombreTema LIKE :nombreTema")})
 public class Tema implements Serializable {
+    @Column(name = "precerrado")
+    private Boolean precerrado;
+    @Size(max = 15)
     private static final long serialVersionUID = 1L;
     @Size(max = 400)
     @Column(name = "nombre_tema")
     private String nombreTema;
     @Size(max = 15)
+    
+    @Column(name = "fecha_borrador")
+    private String fechaBorrador;
+    @Size(max = 20)
+    
+    @Column(name = "fecha_renuncia")
+    private String fechaRenuncia;
+    @Size(max = 20)
+    
+    @Column(name = "fecha_caducado")
+    private String fechaCaducado;
+    @Size(max = 20)
+    
+    @Column(name = "fecha_informe_avance")
+    private String fechaInformeAvance;
+    @Size(max = 20)
+    
     @Column(name = "fecha_tema")
     private String fechaTema;
+    @Size(max = 15)
+    @Column(name = "fecha_siac")
+    private String fechaSiacTema;
+    @Size(max = 15)
+    @Column(name = "fecha_real")
+    private String fechaRealTema;
+    @Size(max = 15)
+    @Column(name = "semestre_termino")
+    private String semestreTermino;
     @Column(name = "estado_tema")
     private Integer estadoTema;
     @Id
@@ -103,6 +130,23 @@ public class Tema implements Serializable {
         this.fechaTema = fechaTema;
     }
 
+    public String getFechaSiacTema() {
+        return fechaSiacTema;
+    }
+
+    public void setFechaSiacTema(String fechaSiacTema) {
+        this.fechaSiacTema = fechaSiacTema;
+    }
+
+    public String getFechaRealTema() {
+        return fechaRealTema;
+    }
+
+    public void setFechaRealTema(String fechaRealTema) {
+        this.fechaRealTema = fechaRealTema;
+    }
+
+    
     public Integer getEstadoTema() {
         return estadoTema;
     }
@@ -136,6 +180,15 @@ public class Tema implements Serializable {
         this.idSemestre = idSemestre;
     }
 
+    public String getSemestreTermino() {
+        return semestreTermino;
+    }
+
+    public void setSemestreTermino(String semestreTermino) {
+        this.semestreTermino = semestreTermino;
+    }
+    
+
     public ComisionRevisora getIdRevisora() {
         return idRevisora;
     }
@@ -151,6 +204,39 @@ public class Tema implements Serializable {
     public void setIdCorrectora(ComisionCorrectora idCorrectora) {
         this.idCorrectora = idCorrectora;
     }
+    
+    
+    public String getFechaBorrador() {
+        return fechaBorrador;
+    }
+
+    public void setFechaBorrador(String fechaBorrador) {
+        this.fechaBorrador = fechaBorrador;
+    }
+
+    public String getFechaRenuncia() {
+        return fechaRenuncia;
+    }
+
+    public void setFechaRenuncia(String fechaRenuncia) {
+        this.fechaRenuncia = fechaRenuncia;
+    }
+
+    public String getFechaCaducado() {
+        return fechaCaducado;
+    }
+
+    public void setFechaCaducado(String fechaCaducado) {
+        this.fechaCaducado = fechaCaducado;
+    }
+
+    public String getFechaInformeAvance() {
+        return fechaInformeAvance;
+    }
+
+    public void setFechaInformeAvance(String fechaInformeAvance) {
+        this.fechaInformeAvance = fechaInformeAvance;
+    }
 
     @XmlTransient
     public List<ComisionRevisora> getComisionRevisoraList() {
@@ -159,6 +245,10 @@ public class Tema implements Serializable {
 
     public void setComisionRevisoraList(List<ComisionRevisora> comisionRevisoraList) {
         this.comisionRevisoraList = comisionRevisoraList;
+    }
+    
+    public boolean getEstadoTemaBoolean() {
+        return estadoTema != 1;
     }
 
     @Override
@@ -185,5 +275,13 @@ public class Tema implements Serializable {
     public String toString() {
         return "entities.Tema[ idTema=" + idTema + " ]";
     }
-    
+
+
+    public Boolean getPrecerrado() {
+        return precerrado;
+    }
+
+    public void setPrecerrado(Boolean precerrado) {
+        this.precerrado = precerrado;
+    }    
 }

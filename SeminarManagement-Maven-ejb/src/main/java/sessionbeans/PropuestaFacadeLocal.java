@@ -37,4 +37,6 @@ public interface PropuestaFacadeLocal {
     List<Propuesta> findBySemestre(Semestre idSemestre);
 
     List<Propuesta> findPropuesta(String q);
+    
+    Propuesta findOneById(Integer id);
 }

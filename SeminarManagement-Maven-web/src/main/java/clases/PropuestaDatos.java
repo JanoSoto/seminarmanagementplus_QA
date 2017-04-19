@@ -8,6 +8,8 @@ package clases;
 
 import entities.Alumno;
 import entities.Profesor;
+import entities.Propuesta;
+import entities.Tema;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +21,28 @@ import java.util.List;
 public class PropuestaDatos implements Serializable {
     private static final long serialVersionUID = 1L;
     private String nombrePropuesta,nombreCorto, fecha, rutAlumno, idSemestre,idPropuesta, tieneTema, tieneComRev, tipo, profGuia, profCoGuia,nombreAlumno;
+    private Integer idPlan, versionPlan;
     private Profesor guia,coGuia;
     private Alumno alumno;
-    
+    private String nombrePlan;
+    private Propuesta propuesta;
+
+    public Propuesta getPropuesta() {
+        return propuesta;
+    }
+
+    public void setPropuesta(Propuesta propuesta) {
+        this.propuesta = propuesta;
+    }
+
+    public String getNombrePlan() {
+        return nombrePlan;
+    }
+
+    public void setNombrePlan(String nombrePlan) {
+        this.nombrePlan = nombrePlan;
+    }
+
     public PropuestaDatos () {
     }
 
@@ -145,4 +166,19 @@ public class PropuestaDatos implements Serializable {
         this.idSemestre = idSemestre;
     }
 
+    public Integer getIdPlan() {
+        return idPlan;
+    }
+
+    public void setIdPlan(Integer idPlan) {
+        this.idPlan = idPlan;
+    }
+
+    public Integer getVersionPlan() {
+        return versionPlan;
+    }
+
+    public void setVersionPlan(Integer versionPlan) {
+        this.versionPlan = versionPlan;
+    }
 }

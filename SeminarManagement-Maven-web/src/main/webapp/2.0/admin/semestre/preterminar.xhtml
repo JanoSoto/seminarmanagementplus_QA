@@ -1,0 +1,89 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition template="/WEB-INF/template2.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://java.sun.com/jsp/jstl/core">
+    
+    <ui:define name="metadata">
+        #{accordionPanelMB.setIndex("7")}
+    </ui:define>
+    
+    <ui:define name="title"><title>Pre-cerrar Semestre | Seminar Management</title></ui:define>
+
+    <ui:define name="content">
+        
+      
+            
+            <p:layoutUnit position="west" size="430" style="border: none;">
+                <p:panel style="border:none;">
+                    <h1>Datos Semestre</h1>
+
+                    <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Semestre Actual:"/>
+                    <h:outputText style="font-weight: bold;padding-left: 1em;" value="#{semestreMB.semestre}"/>
+                    <br/>
+                    
+                    <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Propuestas Ingresadas:"/>
+                    <h:outputText style="padding-left: 1em;" value="#{semestreMB.propSemActual}"/>
+                    <br/>
+
+                    <p:outputLabel style="color: #0052cc;font-weight: bold;" value="Temas Vigentes:"/>
+                    <h:outputText  style="padding-left: 1em;" value="#{semestreMB.temasVSemActual}"/>
+                    <br/>
+                </p:panel>
+                
+                <p:panel style="border:none;">
+                    <h1>Acciones</h1>
+                    <h:panelGrid columns="1" cellpadding="2">
+                        <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="/2.0/admin/index.xhtml" value="Volver al Inicio"/>
+                    </h:panelGrid>
+                </p:panel>
+            </p:layoutUnit>
+            
+            <p:layoutUnit position="center" size="430" style="border: none;">
+                <h:form style="font-weight: bold;">
+                    <p:panel style="border:none;">
+                        <h1>Pre-cerrar Semestre</h1>
+                        <p:growl id="growl" showDetail="true" sticky="true" />
+                        <h:panelGrid columns="3" cellpadding="4">
+
+                            <p:outputLabel for="calendP" value="Fecha de pre-cierre del semestre *" />
+                            <p:calendar id="calendP" value="#{semestreMB.fechaprecierre}" mode="popup"/>
+                            <p:watermark for="calendP" value="Seleccionar Fecha"/>
+
+                        </h:panelGrid>
+
+                        <p:button style="background: #FFBABA;border: none;" icon="ui-icon-triangle-1-w" href="../semestre/index.xhtml" value="Atrás"/>
+                        <p:commandButton id="bt1" value="Pre-cerrar" onclick="PF('confirmation').show()" type="button"/>
+                        <p:defaultCommand target="bt1" />
+
+                         <p:dialog header="Confirmación" widgetVar="confirmation" width="350" closeOnEscape="true" closable="true" draggable="false" resizable="false" >
+                            <strong>¿Está seguro? Esta acción generará los siguientes cambios dentro del sistema.</strong><br/>
+                            <ul>
+                                <li>Los borradores finales pasan a pertenecer a este semestre que se pre-cerrará.</li>
+                                <li>Los temas en proceso de examen pasan a pertenecer a este semestre que se pre-cerrará.</li>
+                                <li>Aquellos borradores finales entregados después que se precerró el semestre actual quedarán para el semestre siguiente.</li>
+                                <li>Aquellos temas vigentes con borrador final que cambien a proceso de examen entre el pre-cierre y cierre quedarán para el semestre siguiente.</li>
+                                <li>Aquellos temas vigentes que cambien a prorrogados entre el pre-cierre y cierre quedarán para el semestre siguiente.</li>
+                                
+                            </ul>
+                            <hr/>
+                            
+                            <p:commandButton value="Sí" oncomplete="PF('confirmation').hide()"
+                                             actionListener="#{semestreMB.preterminarSemestreActual()}" update="growl" />
+                            <p:commandButton value="No" onclick="PF('confirmation').hide()" type="button" />
+                           
+                        </p:dialog>
+                    </p:panel>
+                </h:form>
+                
+               
+                
+            </p:layoutUnit>
+        
+    </ui:define>
+
+</ui:composition>

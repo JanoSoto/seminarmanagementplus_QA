@@ -7,50 +7,53 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
-    
+
     <ui:define name="metadata">
         #{accordionPanelMB.setIndex("1")}
     </ui:define>
-    
+
     <ui:define name="title"><title>Alumnos | Seminar Management</title></ui:define>
 
     <ui:define name="content">
-        <p:layoutUnit position="west" size="180" style="border: none;">
-            <p:panel style="border:none;">
-                <h:panelGrid columns="1" cellpadding="4">
-                    <form method="GET" action="/SeminarManagement-Maven-web/2.0/secretaria/alumnos/buscar.xhtml">
-                        <input type="text" placeholder="Búsqueda" value="#{buscarMB.query}" name="q"/>
-                        <button type="submit" value="search">Buscar Alumno</button>
-                    </form>
-                    <p:button href="/2.0/secretaria/alumnos/agregar.xhtml" value="Agregar Alumno"/>
-                </h:panelGrid>
-            </p:panel>
-        </p:layoutUnit>
+        <h:form>
+            <p:layoutUnit position="west" size="180" style="border: none;">
+                <p:panel style="border:none;">
+                    <h:panelGrid columns="1" cellpadding="4">
+                        <!--<p:button href="/2.0/secretaria/alumnos/agregar.xhtml" value="Agregar Alumno"/>-->
+                        <h:commandLink action="#{alumnoMB.prepareCreate()}" styleClass="btn ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only">
+                            <span class="ui-button-text ui-c">Agregar Alumno</span>
+                        </h:commandLink>
+                    </h:panelGrid>
+                </p:panel>
+            </p:layoutUnit>
 
-        <p:layoutUnit position="center" style="border:none;">
-            <h:form>
+            <p:layoutUnit position="center" style="border:none;">
+
                 <p:dataTable id="alumTable" var="alum" value="#{alumnosIndexMB.alumnos}" filteredValue="#{alumnosIndexMB.alumnosFiltrados}" filterDelay="100" paginator="true"
-                         rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
-                         {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,30,40,50"
-                         emptyMessage="No se encontraron alumnos">
-                    <p:column headerText="Nombre" filterMatchMode="contains" filterBy="#{alum.nombreAlumno} #{alum.apellidoAlumno}" sortBy="#{alum.nombreAlumno}"> 
-                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/alumnos/alumno.xhtml?alum=#{alum.rutAlumno}">
-                            <h:outputText value="#{alum.nombreAlumno} #{alum.apellidoAlumno}" />
+                             rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} 
+                             {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" rowsPerPageTemplate="10,20,30,40,50"
+                             emptyMessage="No se encontraron alumnos">
+                    <f:facet name="header">  
+                        Listado de Alumnos Memoristas
+                    </f:facet>
+                    <p:column headerText="Nombre" filterMatchMode="contains" filterBy="#{alum.usuario.nombreUsuario} #{alum.usuario.apellidoUsuario}" sortBy="#{alum.nombreAlumno}"> 
+                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/alumnos/alumno.xhtml?alum=#{alum.usuario.rutUsuario}">
+                            <h:outputText value="#{alum.usuario.nombreUsuario} #{alum.usuario.apellidoUsuario}" />
                         </a>
                     </p:column>
-                    <p:column headerText="Rut" filterMatchMode="contains" filterBy="#{alum.rutAlumno}" sortBy="#{alum.rutAlumno}">
-                    <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/alumnos/alumno.xhtml?alum=#{alum.rutAlumno}">
-                        <h:outputText value="#{alum.rutAlumno}" />
-                    </a>
+                    <p:column headerText="Rut" filterMatchMode="contains" filterBy="#{alum.usuario.rutUsuario}" sortBy="#{alum.usuario.rutUsuario}">
+                        <a class="enlace" href="/SeminarManagement-Maven-web/2.0/secretaria/alumnos/alumno.xhtml?alum=#{alum.usuario.rutUsuario}">
+                            <h:outputText value="#{alum.rutAlumnoFormateado}" style="float: right;"/>
+                        </a>
                     </p:column>
-                    <p:column headerText="Jornada">
-                        <h:outputText rendered="#{alum.jornada eq 0}" value="Diurno"/>
-                        <h:outputText rendered="#{alum.jornada eq 1}" value="Vespertino"/> <!--vespertino-->
+                    <p:column headerText="Carrera">
+                        <h:outputText value="#{verAlumnoMB.getAnioPlan(alum.planActivo.id, alum.versionPlanActivo)}"/>
+                        
                     </p:column>
                 </p:dataTable>
-            </h:form>
-        </p:layoutUnit>
-        
+
+            </p:layoutUnit>
+        </h:form>
     </ui:define>
 
 </ui:composition>

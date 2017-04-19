@@ -1,12 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package managedbeans2.alumnos;
 
-import clases.PropuestaDatos;
-import clases.TemaDatos;
 import entities.Alumno;
 import entities.ComisionRevisora;
 import entities.ProfePropuesta;
@@ -16,25 +9,17 @@ import entities.Propuesta;
 import entities.Semestre;
 import entities.Tema;
 import java.util.List;
-import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
-
 import java.util.ArrayList;
-import java.util.Collection;
 import javax.persistence.EntityManager;
-import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
 import javax.persistence.Query;
-import sessionbeans.ComisionCorrectoraFacade;
 
 
 /**
@@ -68,12 +53,11 @@ public class VerAlumnoMBTest {
     public void testVerDatosMemoristas(){
         Alumno alumno = new Alumno();
         alumno.setApellidoAlumno("apellido");
-        alumno.setCarreraAlumno(1);
+        //alumno.setCarreras((List<CarreraAlumno>) new Carrera());
         alumno.setDireccionAlumno("direccion");
-        alumno.setJornada(1);
+        //alumno.setJornada(1);
         alumno.setMailAlumno("mail");
         alumno.setNombreAlumno("nombre");
-        alumno.setPet(false);
         alumno.setRutAlumno("rut");
         alumno.setTelefonoAlumno("telefono");
         Propuesta propuesta = new Propuesta();
@@ -157,8 +141,7 @@ public class VerAlumnoMBTest {
         
         when(querys.getResultList()).thenReturn(listaAlumno);
         
-        //System.out.println(temaList.get(0).getEstadoTema());
-       
+        
         assertEquals(listaAlumnoTest, listaAlumno);
         
     }

@@ -1,9 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 package sessionbeans;
 
 import entities.ComisionRevisora;
@@ -34,4 +28,7 @@ public interface ComisionRevisoraFacadeLocal {
 
     public List<ComisionRevisora> findById(Integer idRevisora);
     
+    public List<ComisionRevisora> findBySemestre(String semestre);
+    
+    public List<ComisionRevisora> findByTema(Tema id_tema);
 }

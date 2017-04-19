@@ -20,6 +20,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import managedbeans2.SemestreMB;
+import util.SMUtil;
 
 /**
  *
@@ -32,6 +34,8 @@ public class PlantillaTema extends HttpServlet {
     
     @Inject
     VerTemaMB temaMB;
+    @Inject
+    SemestreMB semestreMB;
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -68,47 +72,36 @@ public class PlantillaTema extends HttpServlet {
             stamper.setFormFlattening(true);
             
             StringBuilder str = new StringBuilder();
-            str.append("INFORME DE REVISION DE MEMORIA PARA OPTAR AL TITULO  DE INGENIERO ");
-            if (alumno.getCarreraAlumno() != null){
-                if (alumno.getCarreraAlumno() == 0){
-                    str.append("CIVIL EN INFORMATICA - ");
-                } else if (alumno.getCarreraAlumno() == 1) {
-                    str.append("DE EJECUCION EN COMPUTACION E INFORMATICA - ");
-                } else {
-                    str.append("                                                               - ");
-                }
+            String carrera = tema.getComisionRevisoraList().get(0).getIdPropuesta().getPlanActivo().getCarreraId().getNombre();
+            str.append("INFORME DE REVISIÓN DE MEMORIA PARA OPTAR AL TÍTULO  DE INGENIERO ");
+            if ( carrera.contains("CIVIL") || carrera.contains("civil") ) {
+                str.append("CIVIL EN INFORMÁTICA ");
+            } else if (carrera.contains("EJECUCIÓN") || carrera.contains("ejecución") ){
+                str.append("DE EJECUCIÓN EN COMPUT. E INFORMÁTICA ");
             } else {
-                str.append("                                                                 - ");
+                str.append(" ");
             }
-            if (tema.getIdSemestre() != null){
-                if ( tema.getIdSemestre().getIdSemestre().equals("default") ) {
-                    str.append("        ");
-                } else {
-                    str.append(tema.getIdSemestre().getIdSemestre().replace("/", "° "));
-                }
+            str.append("- ");
+            if ( tema.getSemestreTermino() != null){
+                str.append( tema.getSemestreTermino().replace("/", "° "));
             } else {
                 str.append("       ");
             }
             stamper.getAcroFields().setField("doc_title", str.toString());
             stamper.getAcroFields().setField("title", tema.getNombreTema());
-            
-            str = new StringBuilder();
-            str.append(alumno.getNombreAlumno()).append(" ").append(alumno.getApellidoAlumno());
-            stamper.getAcroFields().setField("student_name", str.toString());
+            stamper.getAcroFields().setField("student_name", SMUtil.reducirNombre(alumno.getNombreAlumno(), alumno.getApellidoAlumno(), 30));
             
             Profesor guia = temaMB.getGuia();
             str = new StringBuilder("");
             if (guia != null){
-                str.append(guia.getNombreProfesor()).append(" ")
-                        .append(guia.getApellidoProfesor());
+                str.append(SMUtil.reducirNombre( guia.getNombreProfesor(), guia.getApellidoProfesor(), 30));
             }
             stamper.getAcroFields().setField("guide_proffesor", str.toString());
             
             Profesor coGuia = temaMB.getCoguia();
             str = new StringBuilder("");
             if ( coGuia != null){
-                str.append(coGuia.getNombreProfesor()).append(" ")
-                        .append(coGuia.getApellidoProfesor());
+                str.append(SMUtil.reducirNombre( coGuia.getNombreProfesor(), coGuia.getApellidoProfesor(), 30));
             }
             stamper.getAcroFields().setField("co_guide_proffesor", str.toString());
             
@@ -116,30 +109,16 @@ public class PlantillaTema extends HttpServlet {
                     corrector2 = temaMB.getCorrector2();
 
             if (corrector1 != null){
-                str = new StringBuilder(corrector1.getNombreProfesor());
-                str.append(" ").append(corrector1.getApellidoProfesor());
+                str = new StringBuilder(SMUtil.reducirNombre( corrector1.getNombreProfesor(), corrector1.getApellidoProfesor(), 20));
                 stamper.getAcroFields().setField("commission_proffesor_1", str.toString());
             }
             
             if ( corrector2 != null ){
-                str = new StringBuilder(corrector2.getNombreProfesor());
-                str.append(" ").append(corrector2.getApellidoProfesor());
+                str = new StringBuilder(SMUtil.reducirNombre( corrector2.getNombreProfesor(), corrector2.getApellidoProfesor(), 20));
                 stamper.getAcroFields().setField("commission_proffesor_2", str.toString());
             }
             
-            //formatear el rut
-            str = new StringBuilder(alumno.getRutAlumno());
-            if (str.length() > 1){
-                str.insert(str.length()-1, "-");
-                if (str.length() > 5){
-                    str.insert(str.length()-5, ".");
-                    if (str.length() > 9){
-                        str.insert(str.length()-9, ".");
-                    }
-                }
-            }
-            
-            stamper.getAcroFields().setField("student_rut", str.toString());
+            stamper.getAcroFields().setField("student_rut", SMUtil.formatearRut(alumno.getRutAlumno()));
             stamper.getAcroFields().setField("student_phone", alumno.getTelefonoAlumno());
             stamper.getAcroFields().setField("student_email", alumno.getMailAlumno());
             stamper.getAcroFields().setField("student_address", alumno.getDireccionAlumno());
@@ -181,7 +160,7 @@ public class PlantillaTema extends HttpServlet {
             sos.flush();
             
         } catch (NumberFormatException | NullPointerException | DocumentException | IOException dex) {
-            System.out.println(dex);
+            
             //LOGGER.error(dex);
             response.setContentType("text/html");
             PrintWriter writer = response.getWriter();
